@@ -1,4 +1,4 @@
-# LFS Book 翻译项目
+# LFS Book 翻译项目 [![Build Status](https://travis-ci.org/LCTT/LFS-BOOK.svg?branch=7.8-systemd-translating)](https://travis-ci.org/LCTT/LFS-BOOK)
 
 当前原文分支：
 
