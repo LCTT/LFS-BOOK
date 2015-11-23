@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-console">
+  <?dbhtml filename="console.html"?>
+
+  <title>Configuring the Linux Console</title>
+
+  <indexterm zone="ch-scripts-console">
+    <primary sortas="d-console">console</primary>
+    <secondary>configuring</secondary>
+  </indexterm>
+
+  <para>This section discusses how to configure the
+  <command>systemd-vconsole-setup</command> system service, which configures
+  the virtual console font and console keymap.</para>
+
+  <para>The <command>systemd-vconsole-setup</command> service reads the
+  <filename>/etc/vconsole.conf</filename> file for configuration
+  information. Decide which keymap and screen font will be used. Various
+  language-specific HOWTOs can also help with this, see <ulink
+  url="http://www.tldp.org/HOWTO/HOWTO-INDEX/other-lang.html"/>.
+  Examine <command>localectl list-keymaps</command> output for a list of
+  valid console keymaps. Look in
+  <filename class="directory">/usr/share/consolefonts</filename>
+  directory for valid screen fonts.</para>
+
+  <para>The <filename>/etc/vconsole.conf</filename> file should contain lines
+  of the form: VARIABLE="value". The following variables are recognized:</para>
+
+  <variablelist>
+
+    <varlistentry>
+      <term>KEYMAP</term>
+      <listitem>
+        <para>This variable specifies the key mapping table for the keyboard. If
+        unset, it defaults to <literal>us</literal>.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>KEYMAP_TOGGLE</term>
+      <listitem>
+        <para>This variable can be used to configure a second toggle keymap and
+        is unset by default.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>FONT</term>
+      <listitem>
+        <para>This variable specifies the font used by the virtual
+        console.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>FONT_MAP</term>
+      <listitem>
+        <para>This variable specifies the console map to be used.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>FONT_UNIMAP</term>
+      <listitem>
+        <para>This variable specifies the unicode font map.</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+
+  <para>An example for a German keyboard and console is given below:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/vconsole.conf &lt;&lt; "EOF"
+<literal>KEYMAP=de-latin1
+FONT=Lat2-Terminus16</literal>
+EOF</userinput></screen>
+
+  <para>You can change KEYMAP value at runtime by using the
+  <command>localectl</command> utility:</para>
+
+<screen role="nodump"><userinput>localectl set-keymap MAP</userinput></screen>
+
+  <note><para>Please note that <command>localectl</command> command can
+  be used  only on a system booted with systemd.</para></note>
+
+  <para>You can also use <command>localectl</command> utility with the
+  corresponding parameters to change X11 keyboard layout, model, variant
+  and options:</para>
+
+<screen role="nodump"><userinput>localectl set-x11-keymap LAYOUT [MODEL] [VARIANT] [OPTIONS]</userinput></screen>
+
+  <para>To list possible values for <command>localectl set-x11-keymap</command>
+  parameters, run <command>localectl</command> with parameters listed below:
+  </para>
+
+  <variablelist>
+
+    <varlistentry>
+      <term>list-x11-keymap-models</term>
+      <listitem>
+        <para>Show known X11 keyboard mapping models.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>list-x11-keymap-layouts</term>
+      <listitem>
+        <para>Show known X11 keyboard mapping layouts.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>list-x11-keymap-variants</term>
+      <listitem>
+        <para>Show known X11 keyboard mapping variants.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>list-x11-keymap-options</term>
+      <listitem>
+        <para>Show known X11 keyboard mapping options.</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+
+  <note><para>Using any of the parameters listed above requires
+  XKeyboard Config package from BLFS.</para></note>
+
+</sect1>

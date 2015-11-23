@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-linux-headers" role="wrap">
+  <?dbhtml filename="linux-headers.html"?>
+
+  <sect1info condition="script">
+    <productname>linux</productname>
+    <productnumber>&linux-version;</productnumber>
+    <address>&linux-url;</address>
+  </sect1info>
+
+  <title>Linux-&linux-version; API Headers</title>
+
+  <indexterm zone="ch-system-linux-headers">
+    <primary sortas="a-Linux">Linux</primary>
+    <secondary>API headers</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Linux API Headers (in linux-&linux-version;.tar.xz) expose the
+    kernel's API for use by Glibc.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&linux-headers-ch6-sbu;</seg>
+        <seg>&linux-headers-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Linux API Headers</title>
+
+    <para>The Linux kernel needs to expose an Application Programming Interface
+    (API) for the system's C library (Glibc in LFS) to use.  This is done
+    by way of sanitizing various C header files that are shipped in the Linux
+    kernel source tarball.</para>
+
+    <para>Make sure there are no stale files and dependencies lying around
+    from previous activity:</para>
+
+<screen><userinput remap="pre">make mrproper</userinput></screen>
+
+    <para>Now extract the user-visible kernel headers from the source.
+    They are placed in an intermediate local directory and copied to the needed
+    location because the extraction process removes any existing files in
+    the target directory.  There are also some hidden files used by
+    the kernel developers and not needed by LFS that are removed from
+    the intermediate directory.</para>
+
+<screen><userinput remap="make">make INSTALL_HDR_PATH=dest headers_install
+find dest/include \( -name .install -o -name ..install.cmd \) -delete
+</userinput><userinput remap="install">cp -rv dest/include/* /usr/include</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-linux-headers" role="content">
+    <title>Contents of Linux API Headers</title>
+
+    <segmentedlist>
+      <segtitle>Installed headers</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>/usr/include/asm/*.h, /usr/include/asm-generic/*.h,
+        /usr/include/drm/*.h, /usr/include/linux/*.h, /usr/include/mtd/*.h,
+        /usr/include/rdma/*.h, /usr/include/scsi/*.h, /usr/include/sound/*.h,
+        /usr/include/video/*.h, and /usr/include/xen/*.h</seg>
+        <seg>/usr/include/asm, /usr/include/asm-generic, /usr/include/drm,
+        /usr/include/linux, /usr/include/mtd, /usr/include/rdma,
+        /usr/include/scsi, /usr/include/sound, /usr/include/video, and /usr/include/xen</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="asm">
+        <term><filename class="headerfile">/usr/include/asm/*.h</filename></term>
+        <listitem>
+          <para>The Linux API ASM Headers</para>
+          <indexterm zone="ch-system-linux-headers asm">
+            <primary sortas="e-/usr/include/asm/*.h">/usr/include/asm/*.h</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="asm-generic">
+        <term><filename class="headerfile">/usr/include/asm-generic/*.h</filename></term>
+        <listitem>
+          <para>The Linux API ASM Generic Headers</para>
+          <indexterm zone="ch-system-linux-headers asm-generic">
+            <primary sortas="e-/usr/include/asm-generic/*.h">/usr/include/asm-generic/*.h</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="drm">
+        <term><filename class="headerfile">/usr/include/drm/*.h</filename></term>
+        <listitem>
+          <para>The Linux API DRM Headers</para>
+          <indexterm zone="ch-system-linux-headers drm">
+            <primary sortas="e-/usr/include/drm/*.h">/usr/include/drm/*.h</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="linux">
+        <term><filename class="headerfile">/usr/include/linux/*.h</filename></term>
+        <listitem>
+          <para>The Linux API Linux Headers</para>
+          <indexterm zone="ch-system-linux-headers linux">
+            <primary sortas="e-/usr/include/linux/*.h">/usr/include/linux/*.h</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mtd">
+        <term><filename class="headerfile">/usr/include/mtd/*.h</filename></term>
+        <listitem>
+          <para>The Linux API MTD Headers</para>
+          <indexterm zone="ch-system-linux-headers mtd">
+            <primary sortas="e-/usr/include/mtd/*.h">/usr/include/mtd/*.h</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="rdma">
+        <term><filename class="headerfile">/usr/include/rdma/*.h</filename></term>
+        <listitem>
+          <para>The Linux API RDMA Headers</para>
+          <indexterm zone="ch-system-linux-headers rdma">
+            <primary sortas="e-/usr/include/rdma/*.h">/usr/include/rdma/*.h</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="scsi">
+        <term><filename class="headerfile">/usr/include/scsi/*.h</filename></term>
+        <listitem>
+          <para>The Linux API SCSI Headers</para>
+          <indexterm zone="ch-system-linux-headers scsi">
+            <primary sortas="e-/usr/include/scsi/*.h">/usr/include/scsi/*.h</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sound">
+        <term><filename class="headerfile">/usr/include/sound/*.h</filename></term>
+        <listitem>
+          <para>The Linux API Sound Headers</para>
+          <indexterm zone="ch-system-linux-headers sound">
+            <primary sortas="e-/usr/include/sound/*.h">/usr/include/sound/*.h</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="video">
+        <term><filename class="headerfile">/usr/include/video/*.h</filename></term>
+        <listitem>
+          <para>The Linux API Video Headers</para>
+          <indexterm zone="ch-system-linux-headers video">
+            <primary sortas="e-/usr/include/video/*.h">/usr/include/video/*.h</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="xen">
+        <term><filename class="headerfile">/usr/include/xen/*.h</filename></term>
+        <listitem>
+          <para>The Linux API Xen Headers</para>
+          <indexterm zone="ch-system-linux-headers xen">
+            <primary sortas="e-/usr/include/xen/*.h">/usr/include/xen/*.h</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

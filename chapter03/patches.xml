@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="materials-patches">
+  <?dbhtml filename="patches.html"?>
+
+  <title>Needed Patches</title>
+
+  <para>In addition to the packages, several patches are also required.
+  These patches correct any mistakes in the packages that should be
+  fixed by the maintainer.  The patches also make small modifications to
+  make the packages easier to work with. The following patches will be
+  needed to build an LFS system:</para>
+
+  <variablelist role="materials">
+
+    <varlistentry>
+      <term>Bash Upstream Fixes Patch - <token>&bash-fixes-patch-size;</token>:</term>
+      <listitem>
+        <para>Download: <ulink url="&patches-root;&bash-fixes-patch;"/></para>
+        <para>MD5 sum: <literal>&bash-fixes-patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Bc Memory Leak Patch - <token>&bc-memory-leak-patch-size;</token>:</term>
+      <listitem>
+        <para>Download: <ulink url="&patches-root;&bc-memory-leak-patch;"/></para>
+        <para>MD5 sum: <literal>&bc-memory-leak-patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Bzip2 Documentation Patch - <token>&bzip2-docs-patch-size;</token>:</term>
+      <listitem>
+        <para>Download: <ulink url="&patches-root;&bzip2-docs-patch;"/></para>
+        <para>MD5 sum: <literal>&bzip2-docs-patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Coreutils Internationalization Fixes Patch - <token>&coreutils-i18n-patch-size;</token>:</term>
+      <listitem>
+        <para>Download: <ulink url="&patches-root;&coreutils-i18n-patch;"/></para>
+        <para>MD5 sum: <literal>&coreutils-i18n-patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Glibc FHS Patch - <token>&glibc-fhs-patch-size;</token>:</term>
+      <listitem>
+        <para>Download: <ulink url="&patches-root;&glibc-fhs-patch;"/></para>
+        <para>MD5 sum: <literal>&glibc-fhs-patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Glibc i386 Patch - <token>&glibc-upstream-patch-size;</token>:</term>
+      <listitem>
+        <para>Download: <ulink url="&patches-root;&glibc-upstream-patch;"/></para>
+        <para>MD5 sum: <literal>&glibc-upstream-patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Kbd Backspace/Delete Fix Patch - <token>&kbd-backspace-patch-size;</token>:</term>
+      <listitem>
+        <para>Download: <ulink url="&patches-root;&kbd-backspace-patch;"/></para>
+        <para>MD5 sum: <literal>&kbd-backspace-patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>MPFR Upstream Fixes Patch - <token>&mpfr-upstream-patch-size;</token>:</term>
+      <listitem>
+        <para>Download: <ulink url="&patches-root;&mpfr-upstream-patch;"/></para>
+        <para>MD5 sum: <literal>&mpfr-upstream-patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Readline Upstream Fixes Patch - <token>&readline-fixes-patch-size;</token>:</term>
+      <listitem>
+        <para>Download: <ulink url="&patches-root;&readline-fixes-patch;"/></para>
+        <para>MD5 sum: <literal>&readline-fixes-patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Systemd Compat Patch - <token>&systemd-compat-patch-size;</token>:</term>
+      <listitem>
+        <para>Download: <ulink url="&patches-root;&systemd-compat-patch;"/></para>
+        <para>MD5 sum: <literal>&systemd-compat-patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+
+  <para>Total size of these patches: about <returnvalue/></para>
+
+  <para>In addition to the above required patches, there exist a number of
+  optional patches created by the LFS community. These optional patches
+  solve minor problems or enable functionality that is not enabled by
+  default. Feel free to peruse the patches database located at
+  <ulink url="&lfs-root;patches/downloads/"/> and acquire any additional
+  patches to suit your system needs.</para>
+
+</sect1>

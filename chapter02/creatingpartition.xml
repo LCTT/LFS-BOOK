@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="space-creatingpartition">
+  <?dbhtml filename="creatingpartition.html"?>
+
+  <title>Creating a New Partition</title>
+
+  <para>Like most other operating systems, LFS is usually installed on a
+  dedicated partition. The recommended approach to building an LFS system
+  is to use an available empty partition or, if you have enough unpartitioned
+  space, to create one.</para>
+
+<!--
+
+  <para>It is possible to install an LFS system (in fact even multiple LFS
+  systems) on a partition already occupied by another
+  operating system and the different systems will co-exist peacefully. The
+  document <ulink url="&hints-root;lfs_next_to_existing_systems.txt"/>
+  contains notes on how to implement this. This document was last updated
+  in 2004. It has not been updated since and it has not been tested with
+  recent versions of this LFS book. The document is more than likely not
+  usable as-is and you will need to account for changes made to the LFS
+  procedures since it was written. This is only recommended for expert LFS
+  users.</para>
+
+-->
+
+  <para>A minimal system requires a partition of around 4 gigabytes (GB).
+  This is enough to store all the source tarballs and compile the packages.
+  However, if the LFS system is intended to be the primary Linux system,
+  additional software will probably be installed which will require additional
+  space. A 10 GB partition is a reasonable size to provide for growth.  The LFS
+  system itself will not take up this much room.  A large portion of this
+  requirement is to provide sufficient free temporary storage. Compiling
+  packages can require a lot of disk space which will be reclaimed after the
+  package is installed.</para>
+
+  <para>Because there is not always enough Random Access Memory (RAM) available
+  for compilation processes, it is a good idea to use a small disk partition as
+  <systemitem class="filesystem">swap</systemitem> space. This is used by the
+  kernel to store seldom-used data and leave more memory available for active
+  processes. The <systemitem class="filesystem">swap</systemitem> partition for
+  an LFS system can be the same as the one used by the host system, in which
+  case it is not necessary to create another one.</para>
+
+  <para>Start a disk partitioning program such as <command>cfdisk</command>
+  or <command>fdisk</command> with a command line option naming the hard
+  disk on which the new partition will be created&mdash;for example
+  <filename class="devicefile">/dev/sda</filename> for the primary Integrated
+  Drive Electronics (IDE) disk. Create a Linux native partition and a
+  <systemitem class="filesystem">swap</systemitem> partition, if needed. Please
+  refer to <filename>cfdisk(8)</filename> or <filename>fdisk(8)</filename> if
+  you do not yet know how to use the programs.</para>
+
+  <note><para>For experienced users, other partitioning schemes are possible.
+  The new LFS system can be on a software <ulink
+  url="&blfs-book;postlfs/raid.html">RAID</ulink> array or an <ulink
+  url="&blfs-book;postlfs/aboutlvm.html">LVM</ulink> logical volume.
+  However, some of these options require an <ulink
+  url="&blfs-book;postlfs/initramfs.html">initramfs</ulink>, which is
+  an advanced topic.  These partitioning methodologies are not recommended for
+  first time LFS users.</para></note>
+
+  <para>Remember the designation of the new partition (e.g., <filename
+  class="devicefile">sda5</filename>). This book will refer to this as
+  the LFS partition. Also remember the designation of the <systemitem
+  class="filesystem">swap</systemitem> partition. These names will be
+  needed later for the <filename>/etc/fstab</filename> file.</para>
+
+  <sect2>
+  <title>Other Partition Issues</title>
+
+  <para>Requests for advice on system partitioning are often posted on the LFS mailing
+  lists.  This is a highly subjective topic.  The default for most distributions
+  is to use the entire drive with the exception of one small swap partition.  This
+  is not optimal for LFS for several reasons.  It reduces flexibility, makes
+  sharing of data across multiple distributions or LFS builds more difficult, makes
+  backups more time consuming, and can waste disk space through inefficient
+  allocation of file system structures.</para>
+
+    <sect3>
+    <title>The Root Partition</title>
+
+    <para>A root LFS partition (not to be confused with the
+    <filename class="directory">/root</filename> directory) of
+    ten gigabytes is a good compromise for most systems.  It provides enough
+    space to build LFS and most of BLFS, but is small enough so that multiple
+    partitions can be easily created for experimentation.</para> </sect3>
+
+    <sect3>
+    <title>The Swap Partition</title>
+
+    <para>Most distributions automatically create a swap partition.  Generally
+    the recommended size of the swap partition is about twice the amount of
+    physical RAM, however this is rarely needed.  If disk space is limited,
+    hold the swap partition to two gigabytes and monitor the amount of disk
+    swapping.</para>
+
+    <para>Swapping is never good.  Generally you can tell if a system is
+    swapping by just listening to disk activity and observing how the system
+    reacts to commands.  The first reaction to swapping should be to check for
+    an unreasonable command such as trying to edit a five gigabyte file.  If
+    swapping becomes a normal occurrence, the best solution is to purchase more
+    RAM for your system.</para> </sect3>
+
+    <sect3>
+    <title>Convenience Partitions</title>
+
+    <para>There are several other partitions that are not required, but should
+    be considered when designing a disk layout.  The following list
+    is not comprehensive, but is meant as a guide.</para>
+
+    <itemizedlist>
+
+      <listitem><para>/boot &ndash; Highly recommended.  Use this partition to
+      store kernels and other booting information.  To minimize potential boot
+      problems with larger disks, make this the first physical partition on
+      your first disk drive.  A partition size of 100 megabytes is quite
+      adequate.</para></listitem>
+
+      <listitem><para>/home &ndash; Highly recommended.  Share your home
+      directory and user customization across multiple distributions or LFS
+      builds.  The size is generally fairly large and depends on available disk
+      space.</para></listitem>
+
+      <listitem><para>/usr &ndash; A separate /usr partition is generally used
+      if providing a server for a thin client or diskless workstation.  It is
+      normally not needed for LFS.  A size of five gigabytes will handle most
+      installations.</para></listitem>
+
+      <listitem><para>/opt &ndash; This directory is most useful for
+      BLFS where multiple installations of large packages like Gnome or KDE can
+      be installed without embedding the files in the /usr hierarchy.  If
+      used, 5 to 10 gigabytes is generally adequate.</para>
+      </listitem>
+
+      <listitem><para>/tmp &ndash; A separate /tmp directory is rare, but
+      useful if configuring a thin client.  This partition, if used, will
+      usually not need to exceed a couple of gigabytes.</para></listitem>
+
+      <listitem><para>/usr/src &ndash; This partition is very
+      useful for providing a location to store BLFS source files and
+      share them across LFS builds.  It can also be used as a location
+      for building BLFS packages.  A reasonably large partition of 30-50
+      gigabytes allows plenty of room.</para></listitem>
+
+    </itemizedlist>
+
+    <para>Any separate partition that you want automatically mounted upon boot
+    needs to be specified in the <filename>/etc/fstab</filename>.  Details
+    about how to specify partitions will be discussed in <xref
+    linkend="ch-bootable-fstab"/>.  </para>
+
+    </sect3>
+  </sect2>
+</sect1>

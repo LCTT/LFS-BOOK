@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-bc" role="wrap">
+  <?dbhtml filename="bc.html"?>
+
+  <sect1info condition="script">
+    <productname>bc</productname>
+    <productnumber>&bc-version;</productnumber>
+    <address>&bc-url;</address>
+  </sect1info>
+
+  <title>Bc-&bc-version;</title>
+
+  <indexterm zone="ch-system-bc">
+    <primary sortas="a-Bc">Bc</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Bc package contains an arbitrary precision numeric processing 
+    language.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&bc-ch6-sbu;</seg>
+        <seg>&bc-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Bc</title>
+
+    <para>First, fix some minor memory leaks in the code:</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&bc-memory-leak-patch;</userinput></screen> 
+
+    <para>Prepare Bc for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr           \
+            --with-readline         \
+            --mandir=/usr/share/man \
+            --infodir=/usr/share/info</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--with-readline</parameter></term>
+        <listitem>
+          <para>This option tells Bc to use the <filename
+          class="libraryfile">readline</filename> library that is already
+          installed on the system rather than using its own readline
+          version.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test bc, run the commands below. There is quite a bit of output,
+    so you may want to redirect it to a file. There are a very small percentage
+    of tests (10 of 12,144) that will indicate a roundoff error at the last
+    digit.</para>
+
+<screen><userinput remap="test">echo "quit" | ./bc/bc -l Test/checklib.b</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-bc" role="content">
+    <title>Contents of Bc</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+
+      <seglistitem>
+        <seg>bc and dc</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="bc">
+        <term><command>bc</command></term>
+        <listitem>
+          <para>is a command line calculator</para>
+          <indexterm zone="ch-system-bc bc">
+            <primary sortas="b-bc">bc</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dc">
+        <term><command>dc</command></term>
+        <listitem>
+          <para>is a reverse-polish command line calculator</para>
+          <indexterm zone="ch-system-bc dc">
+            <primary sortas="b-dc">dc</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

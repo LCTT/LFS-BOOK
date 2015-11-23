@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-texinfo" role="wrap">
+  <?dbhtml filename="texinfo.html"?>
+
+  <sect1info condition="script">
+    <productname>texinfo</productname>
+    <productnumber>&texinfo-version;</productnumber>
+    <address>&texinfo-url;</address>
+  </sect1info>
+
+  <title>Texinfo-&texinfo-version;</title>
+
+  <indexterm zone="ch-system-texinfo">
+    <primary sortas="a-Texinfo">Texinfo</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Texinfo package contains programs for reading, writing, and
+    converting info pages.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&texinfo-ch6-sbu;</seg>
+        <seg>&texinfo-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Texinfo</title>
+
+    <para>Prepare Texinfo for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>Optionally, install the components belonging in a TeX
+    installation:</para>
+    <!-- FIXME: doesn't the TeX installation in BLFS overwrite files there? -->
+
+<screen><userinput remap="install">make TEXMF=/usr/share/texmf install-tex</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the make parameter:</title>
+
+      <varlistentry>
+        <term><parameter>TEXMF=/usr/share/texmf</parameter></term>
+        <listitem>
+          <para>The <envar>TEXMF</envar> makefile variable holds the location
+          of the root of the TeX tree if, for example, a TeX package will be
+          installed later.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>The Info documentation system uses a plain text file to hold its list of
+    menu entries. The file is located at <filename>/usr/share/info/dir</filename>.
+    Unfortunately, due to occasional problems in the Makefiles of various packages,
+    it can sometimes get out of sync with the info pages installed on the system.
+    If the <filename>/usr/share/info/dir</filename> file ever needs to be
+    recreated, the following optional commands will accomplish the task:</para>
+
+<screen role="nodump"><userinput>pushd /usr/share/info
+rm -v dir
+for f in *
+  do install-info $f dir 2&gt;/dev/null
+done
+popd</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-texinfo" role="content">
+    <title>Contents of Texinfo</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>info, infokey, install-info, makeinfo (link to texi2any),
+        pdftexi2dvi, pod2texi, texi2any, texi2dvi, texi2pdf, and texindex</seg>
+        <seg>/usr/share/texinfo</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="info">
+        <term><command>info</command></term>
+        <listitem>
+          <para>Used to read info pages which are similar to man pages, but
+          often go much deeper than just explaining all the available command
+          line options [For example, compare <command>man bison</command> and
+          <command>info bison</command>.]</para>
+          <indexterm zone="ch-system-texinfo info">
+            <primary sortas="b-info">info</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="infokey">
+        <term><command>infokey</command></term>
+        <listitem>
+          <para>Compiles a source file containing Info customizations into a
+          binary format</para>
+          <indexterm zone="ch-system-texinfo infokey">
+            <primary sortas="b-infokey">infokey</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="install-info">
+        <term><command>install-info</command></term>
+        <listitem>
+          <para>Used to install info pages; it updates entries in the
+          <command>info</command> index file</para>
+          <indexterm zone="ch-system-texinfo install-info">
+            <primary sortas="b-install-info">install-info</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="makeinfo">
+        <term><command>makeinfo</command></term>
+        <listitem>
+          <para>Translates the given Texinfo source documents into
+          info pages, plain text, or HTML</para>
+          <indexterm zone="ch-system-texinfo makeinfo">
+            <primary sortas="b-makeinfo">makeinfo</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pdftexi2dvi">
+        <term><command>pdftexi2dvi</command></term>
+        <listitem>
+          <para>Used to format the given Texinfo document into a
+          Portable Document Format (PDF) file</para>
+          <indexterm zone="ch-system-texinfo pdftexi2dvi">
+            <primary sortas="b-pdftexi2dvi">pdftexi2dvi</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pod2texi">
+        <term><command>pod2texi</command></term>
+        <listitem>
+          <para>Converts Pod to Texinfo format</para>
+          <indexterm zone="ch-system-texinfo pod2texi">
+            <primary sortas="b-pod2texi">pod2texi</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="texi2any">
+        <term><command>texi2any</command></term>
+        <listitem>
+          <para>Translate Texinfo source documentation to 
+          various other formats</para>
+          <indexterm zone="ch-system-texinfo texi2any">
+            <primary sortas="b-texiany">texi2any</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="texi2dvi">
+        <term><command>texi2dvi</command></term>
+        <listitem>
+          <para>Used to format the given Texinfo document into a
+          device-independent file that can be printed</para>
+          <indexterm zone="ch-system-texinfo texi2dvi">
+            <primary sortas="b-texi2dvi">texi2dvi</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="texi2pdf">
+        <term><command>texi2pdf</command></term>
+        <listitem>
+          <para>Used to format the given Texinfo document into a
+          Portable Document Format (PDF) file</para>
+          <indexterm zone="ch-system-texinfo texi2pdf">
+            <primary sortas="b-texi2pdf">texi2pdf</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="texindex">
+        <term><command>texindex</command></term>
+        <listitem>
+          <para>Used to sort Texinfo index files</para>
+          <indexterm zone="ch-system-texinfo texindex">
+            <primary sortas="b-texindex">texindex</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

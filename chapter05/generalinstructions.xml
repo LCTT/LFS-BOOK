@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-generalinstructions">
+  <?dbhtml filename="generalinstructions.html"?>
+
+  <title>General Compilation Instructions</title>
+
+  <para>When building packages there are several assumptions made within
+  the instructions:</para>
+
+  <itemizedlist>
+
+  <listitem>
+    <para>Several of the packages are patched before compilation, but only when
+    the patch is needed to circumvent a problem. A patch is often needed in
+    both this and the next chapter, but sometimes in only one or the other.
+    Therefore, do not be concerned if instructions for a downloaded patch seem
+    to be missing.  Warning messages about <emphasis>offset</emphasis> or
+    <emphasis>fuzz</emphasis> may also be encountered when applying a patch. Do
+    not worry about these warnings, as the patch was still successfully
+    applied.</para>
+  </listitem>
+
+  <listitem>
+    <para>During the compilation of most packages, there will be several
+    warnings that scroll by on the screen. These are normal and can safely be
+    ignored.  These warnings are as they appear&mdash;warnings about
+    deprecated, but not invalid, use of the C or C++ syntax. C standards change
+    fairly often, and some packages still use the older standard. This is not a
+    problem, but does prompt the warning.</para>
+  </listitem>
+
+  <listitem>
+    <para>Check one last time that the <envar>LFS</envar> environment variable
+    is set up properly:</para>
+
+<screen role="nodump"><userinput>echo $LFS</userinput></screen>
+
+    <para>Make sure the output shows the path to the LFS partition's mount
+    point, which is <filename class="directory">/mnt/lfs</filename>, using our
+    example.</para>
+  </listitem>
+
+  <listitem>
+
+    <para>Finally, two last important items must be emphasized:</para>
+
+    <important>
+
+      <para>The build instructions assume that the <xref
+      linkend='pre-hostreqs'/>, including symbolic links, have been set
+      properly:</para>
+
+      <itemizedlist role='important'>
+
+        <listitem override='bullet'><para><command>bash</command> is the shell
+        in use.</para></listitem>
+
+        <listitem override='bullet'><para><command>sh</command> is a symbolic
+        link to <command>bash</command>.</para></listitem>
+
+        <listitem override='bullet'><para><command>/usr/bin/awk</command> is a
+        symbolic link to <command>gawk</command>.</para></listitem>
+
+        <listitem override='bullet'><para><command>/usr/bin/yacc</command> is a
+        symbolic link to <command>bison</command> or a small script that
+        executes bison.</para></listitem>
+
+      </itemizedlist>
+    </important>
+
+    <important>
+      <para>To re-emphasize the build process:</para>
+
+      <orderedlist numeration="arabic" spacing="compact">
+        <listitem>
+          <para>Place all the sources and patches in a directory that will be
+          accessible from the chroot environment such as
+          <filename class="directory">/mnt/lfs/sources/</filename>.  Do
+          <emphasis>not</emphasis> put sources in
+          <filename class="directory">/mnt/lfs/tools/</filename>.</para>
+        </listitem>
+        <listitem>
+          <para>Change to the sources directory.</para>
+        </listitem>
+        <listitem id='buildinstr' xreflabel='Package build instructions'>
+          <para>For each package:</para>
+          <orderedlist numeration="loweralpha" spacing="compact">
+            <listitem>
+              <para>Using the <command>tar</command> program, extract the package
+              to be built.  In Chapter 5, ensure you are the <emphasis>lfs</emphasis>
+              user when extracting the package.</para>
+            </listitem>
+            <listitem>
+              <para>Change to the directory created when the package was
+              extracted.</para>
+            </listitem>
+            <listitem>
+              <para>Follow the book's instructions for building the package.</para>
+            </listitem>
+            <listitem>
+              <para>Change back to the sources directory.</para>
+            </listitem>
+            <listitem>
+              <para>Delete the extracted source directory and any
+              <filename class="directory"><replaceable>&lt;package&gt;</replaceable>-build</filename>
+              directories that were created in the build process unless instructed otherwise.</para>
+            </listitem>
+          </orderedlist>
+        </listitem>
+      </orderedlist>
+    </important>
+  </listitem>
+
+  </itemizedlist>
+
+</sect1>

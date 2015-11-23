@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-psmisc" role="wrap">
+  <?dbhtml filename="psmisc.html"?>
+
+  <sect1info condition="script">
+    <productname>psmisc</productname>
+    <productnumber>&psmisc-version;</productnumber>
+    <address>&psmisc-url;</address>
+  </sect1info>
+
+  <title>Psmisc-&psmisc-version;</title>
+
+  <indexterm zone="ch-system-psmisc">
+    <primary sortas="a-Psmisc">Psmisc</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Psmisc package contains programs for displaying information about
+    running processes.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&psmisc-ch6-sbu;</seg>
+        <seg>&psmisc-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Psmisc</title>
+
+    <para>Prepare Psmisc for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>This package does not come with a test suite.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>Finally, move the <command>killall</command> and <command>fuser</command>
+    programs to the location specified by the FHS:</para>
+
+<screen><userinput remap="install">mv -v /usr/bin/fuser   /bin
+mv -v /usr/bin/killall /bin</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-psmisc" role="content">
+    <title>Contents of Psmisc</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+
+      <seglistitem>
+        <seg>fuser, killall, peekfd, prtstat, pstree, and pstree.x11 (link to pstree)</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="fuser">
+        <term><command>fuser</command></term>
+        <listitem>
+          <para>Reports the Process IDs (PIDs) of processes that use the given
+          files or file systems</para>
+          <indexterm zone="ch-system-psmisc fuser">
+            <primary sortas="b-fuser">fuser</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="killall">
+        <term><command>killall</command></term>
+        <listitem>
+          <para>Kills processes by name; it sends a signal to all processes
+          running any of the given commands</para>
+          <indexterm zone="ch-system-psmisc killall">
+            <primary sortas="b-killall">killall</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="peekfd">
+        <term><command>peekfd</command></term>
+        <listitem>
+          <para>Peek at file descriptors of a running process, given its
+          PID</para>
+          <indexterm zone="ch-system-psmisc peekfd">
+            <primary sortas="b-peekfd">peekfd</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="prtstat">
+        <term><command>prtstat</command></term>
+        <listitem>
+          <para>Prints information about a process</para>
+          <indexterm zone="ch-system-psmisc prtstat">
+            <primary sortas="b-prtstat">prtstat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pstree">
+        <term><command>pstree</command></term>
+        <listitem>
+          <para>Displays running processes as a tree</para>
+          <indexterm zone="ch-system-psmisc pstree">
+            <primary sortas="b-pstree">pstree</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pstree.x11">
+        <term><command>pstree.x11</command></term>
+        <listitem>
+          <para>Same as <command>pstree</command>, except that it waits for
+          confirmation before exiting</para>
+          <indexterm zone="ch-system-psmisc pstree.x11">
+            <primary sortas="b-pstree.x11">pstree.x11</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

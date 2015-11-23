@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE part PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-config-shells" xreflabel="Creating the /etc/shells File">
+  <?dbhtml filename="etcshells.html"?>
+
+  <sect1info>
+    <othername>$LastChangedBy: randy $</othername>
+    <date>$Date: 2007-04-04 14:42:53 -0500 (Wed, 04 Apr 2007) $</date>
+  </sect1info>
+
+  <title>Creating the /etc/shells File</title>
+
+  <indexterm zone="ch-config-shells">
+    <primary sortas="e-etc-shells">/etc/shells</primary>
+  </indexterm>
+
+  <para>The <filename>shells</filename> file contains a list of
+  login shells on the system. Applications use this file to determine
+  whether a shell is valid. For each shell a single line should be
+  present, consisting of the shell's path, relative to the root of the
+  directory structure (/).</para>
+
+  <para>For example, this file is consulted by <command>chsh</command>
+  to determine whether an unprivileged user may change the login shell for her
+  own account. If the command name is not listed, the user will be denied of
+  change.</para>
+
+  <para>It is a requirement for applications such as
+  <application>GDM</application> which does not populate the
+  face browser if it can't find <filename>/etc/shells</filename>, or
+  FTP daemons which traditionally disallow access to users
+  with shells not included in this file.</para>
+
+<screen role="root"><userinput>cat &gt; /etc/shells &lt;&lt; "EOF"
+<literal># Begin /etc/shells
+
+/bin/sh
+/bin/bash
+
+# End /etc/shells</literal>
+EOF</userinput></screen>
+
+</sect1>

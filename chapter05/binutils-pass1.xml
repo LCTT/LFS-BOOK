@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-binutils-pass1" role="wrap">
+  <?dbhtml filename="binutils-pass1.html"?>
+
+  <sect1info condition="script">
+    <productname>binutils</productname>
+    <productnumber>&binutils-version;</productnumber>
+    <address>&binutils-url;</address>
+  </sect1info>
+
+  <title>Binutils-&binutils-version; - Pass 1</title>
+
+  <indexterm zone="ch-tools-binutils-pass1">
+    <primary sortas="a-Binutils">Binutils</primary>
+    <secondary>tools, pass 1</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/binutils.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&binutils-ch5p1-sbu;</seg>
+        <seg>&binutils-ch5p1-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Cross Binutils</title>
+
+    <note><para>Go back and re-read the notes in the previous section.
+    Understanding the notes labeled important will save you a lot
+    of problems later.</para></note>
+
+    <para>It is important that Binutils be the first package compiled
+    because both Glibc and GCC perform various tests on the available
+    linker and assembler to determine which of their own features to
+    enable.</para>
+
+    <para>The Binutils documentation recommends building Binutils outside of the
+    source directory in a dedicated build directory:</para>
+
+<screen><userinput remap="pre">mkdir -v ../binutils-build
+cd ../binutils-build</userinput></screen>
+
+    <note>
+      <para>In order for the SBU values listed in the rest of the book
+      to be of any use, measure the time it takes to build this package from
+      the configuration, up to and including the first install. To achieve
+      this easily, wrap the commands in a <command>time</command>
+      command like this: <userinput>time { ./configure ... &amp;&amp; ...
+      &amp;&amp; make install; }</userinput>.</para>
+    </note>
+
+    <note><para>The approximate build SBU values and required disk space
+    in Chapter 5 does not include test suite data.</para></note>
+
+    <para>Now prepare Binutils for compilation:</para>
+
+<screen><userinput remap="configure">../binutils-&binutils-version;/configure     \
+    --prefix=/tools            \
+    --with-sysroot=$LFS        \
+    --with-lib-path=/tools/lib \
+    --target=$LFS_TGT          \
+    --disable-nls              \
+    --disable-werror</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--prefix=/tools</parameter></term>
+        <listitem>
+          <para>This tells the configure script to prepare to install the
+          Binutils programs in the <filename class="directory">/tools</filename>
+          directory.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-sysroot=$LFS</parameter></term>
+        <listitem>
+          <para>For cross compilation, this tells the build system to look in
+          $LFS for the target system libraries as needed.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-lib-path=/tools/lib</parameter></term>
+        <listitem>
+          <para>This specifies which library path the linker should be
+          configured to use.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><envar>--target=$LFS_TGT</envar></term>
+        <listitem>
+          <para>Because the machine description in the <envar>LFS_TGT</envar>
+          variable is slightly different than the value returned by the
+          <command>config.guess</command> script, this switch will tell the
+          <command>configure</command> script to adjust Binutil's build system
+          for building a cross linker.  </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-nls</parameter></term>
+        <listitem>
+          <para>This disables internationalization as i18n is not needed for the
+          temporary tools.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-werror</parameter></term>
+        <listitem>
+          <para>This prevents the build from stopping in the event that there
+          are warnings from the host's compiler.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Continue with compiling the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Compilation is now complete. Ordinarily we would now run the
+    test suite, but at this early stage the test suite framework (Tcl,
+    Expect, and DejaGNU) is not yet in place. The benefits of running the
+    tests at this point are minimal since the programs from this
+    first pass will soon be replaced by those from the second.</para>
+
+    <para>If building on x86_64, create a symlink to ensure the sanity of
+    the toolchain:</para>
+
+<screen><userinput remap="install">case $(uname -m) in
+  x86_64) mkdir -v /tools/lib &amp;&amp; ln -sv lib /tools/lib64 ;;
+esac</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-binutils" role="."/></para>
+
+  </sect2>
+
+</sect1>

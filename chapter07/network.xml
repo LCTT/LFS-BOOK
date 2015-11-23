@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-network">
+  <?dbhtml filename="network.html"?>
+
+  <title>General Network Configuration</title>
+
+  <indexterm zone="ch-scripts-network">
+    <primary sortas="d-network">network</primary>
+  <secondary>configuring</secondary></indexterm>
+
+  <para>This section only applies if a network card is to be
+  configured.</para>
+
+  <sect2>
+    <title>Network Interface Configuration Files</title>
+
+    <para>Starting with version 209, systemd ships a network configuration
+    daemon called <command>systemd-networkd</command> which can be used for
+    basic network configuration.</para>
+
+    <para>Configuration files for <command>systemd-networkd</command> can be
+    placed in <filename class="directory">/usr/lib/systemd/network</filename>
+    or <filename class="directory">/etc/systemd/network</filename>. Note that
+    files in <filename class="directory">/etc/systemd/network</filename> have
+    higher priority than the ones in
+    <filename class="directory">/usr/lib/systemd/network</filename>.</para>
+
+    <para>There are three types of configuration files:
+    <filename class="extension">.link</filename>,
+    <filename class="extension">.netdev</filename> and
+    <filename class="extension">.network</filename> files. For detailed
+    explanation about contents of the mentioned
+    configuration files, consult <filename>systemd-link(5)</filename>,
+    <filename>systemd-netdev(5)</filename> and
+    <filename>systemd-network(5)</filename> manual pages.</para>
+
+    <note><para>Udev may assign network card interface names based
+    on system physical characteristics such as enp2s1. If you are
+    not sure what your interface name is, you can always run
+    <command>ip link</command> after you have booted your system.
+    </para></note>
+
+    <sect3 id="systemd-networkd-static">
+      <title>Static IP Configuration</title>
+
+      <para>The command below creates a basic configuration file for
+      Static IP setup:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/systemd/network/10-static-eth0.network &lt;&lt; "EOF"
+<literal>[Match]
+Name=eth0
+
+[Network]
+Address=192.168.0.2/24
+Gateway=192.168.0.1
+DNS=192.168.0.1</literal>
+EOF</userinput></screen>
+
+      <para>More than one DNS entry can be specified in the configuration file.</para>
+
+    </sect3>
+
+    <sect3 id="systemd-networkd-dhcp">
+      <title>DHCP Configuration</title>
+
+      <para>The command below creates a basic configuration file for
+      DHCP setup:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/systemd/network/10-dhcp-eth0.network &lt;&lt; "EOF"
+<literal>[Match]
+Name=eth0
+
+[Network]
+DHCP=yes</literal>
+EOF</userinput></screen>
+
+      <para>Note that <command>systemd-networkd</command> can only handle
+      DHCPv4. DHCPv6 support is a work in progress.</para>
+
+    </sect3>
+
+  </sect2>
+
+  <sect2 id="resolv.conf">
+    <title>Creating the /etc/resolv.conf File</title>
+
+    <indexterm zone="resolv.conf">
+      <primary sortas="e-/etc/resolv.conf">/etc/resolv.conf</primary>
+    </indexterm>
+
+    <para>If the system is going to be connected to the Internet, it will
+    need some means of Domain Name Service (DNS) name resolution to
+    resolve Internet domain names to IP addresses, and vice versa. This is
+    best achieved by placing the IP address of the DNS server, available
+    from the ISP or network administrator, into
+    <filename>/etc/resolv.conf</filename>.</para>
+
+    <para>If static <filename>/etc/resolv.conf</filename> is desired, create
+    it by running the following command:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/resolv.conf &lt;&lt; "EOF"
+<literal># Begin /etc/resolv.conf
+
+domain <replaceable>&lt;Your Domain Name&gt;</replaceable>
+nameserver <replaceable>&lt;IP address of your primary nameserver&gt;</replaceable>
+nameserver <replaceable>&lt;IP address of your secondary nameserver&gt;</replaceable>
+
+# End /etc/resolv.conf</literal>
+EOF</userinput></screen>
+
+    <para>The <varname>domain</varname> statement can be omitted
+    or replaced with a <varname>search</varname> statement.  See the man page for
+    resolv.conf for more details.</para>
+
+    <para>Replace <replaceable>&lt;IP address of the nameserver&gt;</replaceable>
+    with the IP address of the DNS most appropriate for the setup. There will
+    often be more than one entry (requirements demand secondary servers for
+    fallback capability). If you only need or want one DNS server, remove the
+    second <emphasis>nameserver</emphasis> line from the file. The IP address
+    may also be a router on the local network.</para>
+
+    <note><para>The Google Public IPv4 DNS addresses are 8.8.8.8 and 8.8.4.4.</para></note>
+
+    <para>When using <command>systemd-networkd</command> for network
+    configuration, another daemon, <command>systemd-resolved</command>,
+    is responsible for creating the <filename>/etc/resolv.conf</filename>
+    file. It is, however, placed in a non-standard location which is
+    writable since early boot, so it is necessary to create a symlink
+    to it by running the following command:</para>
+
+<screen><userinput>ln -sfv /run/systemd/resolve/resolv.conf /etc/resolv.conf</userinput></screen>
+
+    <para>This is required if you are specifying DNS entries in <filename
+    class="extension">.network</filename> files or using the built in
+    DHCP client to obtain DNS addresses.</para>
+
+  </sect2>
+
+  <sect2 id="ch-scripts-hostname">
+    <title>Configuring the system hostname</title>
+
+    <indexterm zone="ch-scripts-hostname">
+      <primary sortas="d-hostname">hostname</primary>
+      <secondary>configuring</secondary>
+    </indexterm>
+
+     <para>During the boot process, the file <filename>/etc/hostname</filename>
+     is used for establishing the system's hostname.</para>
+
+     <para>Create the <filename>/etc/hostname</filename> file and enter a
+     hostname by running:</para>
+
+<screen><userinput>echo "<replaceable>&lt;lfs&gt;</replaceable>" &gt; /etc/hostname</userinput></screen>
+
+     <para><replaceable>&lt;lfs&gt;</replaceable> needs to be replaced with the
+     name given to the computer. Do not enter the Fully Qualified Domain Name
+     (FQDN) here. That information is put in the
+     <filename>/etc/hosts</filename> file.</para>
+
+  </sect2>
+
+  <sect2 id="ch-scripts-hosts">
+     <title>Customizing the /etc/hosts File</title>
+
+     <indexterm zone="ch-scripts-hosts">
+       <primary sortas="e-/etc/hosts">/etc/hosts</primary>
+     </indexterm>
+   
+     <indexterm zone="ch-scripts-hosts">
+       <primary sortas="d-localnet">localnet</primary>
+       <secondary>/etc/hosts</secondary>
+     </indexterm>
+   
+     <indexterm zone="ch-scripts-hosts">
+       <primary sortas="d-network">network</primary>
+       <secondary>/etc/hosts</secondary>
+     </indexterm>
+   
+     <para>Decide on the IP address, fully-qualified domain name (FQDN), and
+     possible aliases for use in the <filename>/etc/hosts</filename> file. The
+     syntax is:</para>
+   
+<screen><literal>IP_address myhost.example.org aliases</literal></screen>
+
+     <para>Unless the computer is to be visible to the Internet (i.e., there is
+     a registered domain and a valid block of assigned IP addresses&mdash;most
+     users do not have this), make sure that the IP address is in the private
+     network IP address range. Valid ranges are:</para>
+
+<screen><literal>Private Network Address Range      Normal Prefix
+10.0.0.1 - 10.255.255.254           8
+172.x.0.1 - 172.x.255.254           16
+192.168.y.1 - 192.168.y.254         24</literal></screen>
+
+     <para>x can be any number in the range 16-31. y can be any number in the
+     range 0-255.</para>
+   
+     <para>A valid private IP address could be 192.168.1.1. A valid FQDN for
+     this IP could be lfs.example.org.</para>
+   
+     <para>Even if not using a network card, a valid FQDN is still required.
+     This is necessary for certain programs to operate correctly.</para>
+   
+     <para>Create the  <filename>/etc/hosts</filename> file by running:</para>
+
+<screen><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
+<literal># Begin /etc/hosts (network card version)
+
+127.0.0.1 localhost
+::1       localhost
+<replaceable>&lt;192.168.0.2&gt;</replaceable> <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> <replaceable>[alias1] [alias2] ...</replaceable>
+
+# End /etc/hosts (network card version)</literal>
+EOF</userinput></screen>
+
+     <para>The <replaceable>&lt;192.168.0.2&gt;</replaceable> and
+     <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> values need to be
+     changed for specific uses or requirements (if assigned an IP address by a
+     network/system administrator and the machine will be connected to an
+     existing network). The optional alias name(s) can be omitted.</para>
+   
+     <para>If a network card is not going to be configured, create the
+     <filename>/etc/hosts</filename> file by running:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
+<literal># Begin /etc/hosts (no network card version)
+
+127.0.0.1 <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable> localhost
+::1       localhost
+
+# End /etc/hosts (no network card version)</literal>
+EOF</userinput></screen>
+
+     <para>The ::1 entry is the IPv6 counterpart of 127.0.0.1 and represents the IPv6 loopback interface.</para>
+
+   </sect2>
+
+</sect1>

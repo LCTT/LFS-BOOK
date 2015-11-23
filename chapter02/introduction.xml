@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="space-introduction">
+  <?dbhtml filename="introduction.html"?>
+
+  <title>Introduction</title>
+
+  <para>In this chapter, the partition which will host the LFS system is
+  prepared. We will create the partition itself, create a file system
+  on it, and mount it.</para>
+
+</sect1>

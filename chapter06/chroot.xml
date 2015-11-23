@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-chroot">
+  <?dbhtml filename="chroot.html"?>
+
+  <title>Entering the Chroot Environment</title>
+
+  <para>It is time to enter the chroot environment to begin building and
+  installing the final LFS system. As user <systemitem
+  class="username">root</systemitem>, run the following command to enter the
+  realm that is, at the moment, populated with only the temporary tools:</para>
+
+<screen role="nodump"><userinput>chroot "$LFS" /tools/bin/env -i \
+    HOME=/root                  \
+    TERM="$TERM"                \
+    PS1='\u:\w\$ '              \
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
+    /tools/bin/bash --login +h</userinput></screen>
+
+  <para>The <parameter>-i</parameter> option given to the <command>env</command>
+  command will clear all variables of the chroot environment. After that, only
+  the <envar>HOME</envar>, <envar>TERM</envar>, <envar>PS1</envar>, and
+  <envar>PATH</envar> variables are set again. The
+  <parameter>TERM=$TERM</parameter> construct will set the <envar>TERM</envar>
+  variable inside chroot to the same value as outside chroot. This variable is
+  needed for programs like <command>vim</command> and <command>less</command>
+  to operate properly.  If other variables are needed, such as
+  <envar>CFLAGS</envar> or <envar>CXXFLAGS</envar>, this is a good place to set
+  them again.</para>
+
+  <para>From this point on, there is no need to use the
+  <envar>LFS</envar> variable anymore, because all work will be restricted
+  to the LFS file system.  This is because the Bash shell is told that
+  <filename class="directory">$LFS</filename> is now the root
+  (<filename class="directory">/</filename>) directory.</para>
+
+  <para>Notice that <filename class="directory">/tools/bin</filename> comes last
+  in the <envar>PATH</envar>. This means that a temporary tool will no longer be
+  used once its final version is installed. This occurs when the shell does not
+  <quote>remember</quote> the locations of executed binaries&mdash;for this
+  reason, hashing is switched off by passing the <parameter>+h</parameter> option
+  to <command>bash</command>.</para>
+
+  <para>Note that the <command>bash</command> prompt will say
+  <computeroutput>I have no name!</computeroutput> This is normal because the
+  <filename>/etc/passwd</filename> file has not been created yet.</para>
+
+  <note>
+    <para>It is important that all the commands throughout the remainder of this
+    chapter and the following chapters are run from within the chroot
+    environment. If you leave this environment for any reason (rebooting for
+    example), ensure that the virtual kernel filesystems are mounted as
+    explained in <xref linkend="ch-system-bindmount"/> and <xref
+    linkend="ch-system-kernfsmount"/> and enter chroot again before continuing
+    with the installation.</para>
+  </note>
+
+</sect1>

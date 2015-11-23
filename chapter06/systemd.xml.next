@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-systemd" role="wrap">
+  <?dbhtml filename="systemd.html"?>
+
+  <sect1info condition="script">
+    <productname>systemd</productname>
+    <productnumber>&systemd-version;</productnumber>
+    <address>&systemd-url;</address>
+  </sect1info>
+
+  <title>Systemd-&systemd-version;</title>
+
+  <indexterm zone="ch-system-systemd">
+    <primary sortas="a-systemd">systemd</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The systemd package contains programs for controlling the startup,
+    running, and shutdown of the system.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&systemd-ch6-sbu;</seg>
+        <seg>&systemd-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of systemd</title>
+
+    <para>First, create a file to allow systemd to build when using Util-Linux
+    built in Chapter 5 and disable LTO by default:</para>
+
+<screen><userinput remap="pre">cat &gt; config.cache &lt;&lt; "EOF"
+<literal>KILL=/bin/kill
+HAVE_BLKID=1
+BLKID_LIBS="-lblkid"
+BLKID_CFLAGS="-I/tools/include/blkid"
+cc_cv_CFLAGS__flto=no</literal>
+EOF</userinput></screen>
+
+    <para>LTO is disabled by default because it causes <command>systemd</command>
+    and other auxiliary programs to link to <filename
+    class="libraryfile">libgcc_s.so</filename>, slows the build down and makes the
+    compiled code larger.</para>
+
+    <para>Additionally, fix a build error when using Util-Linux built in
+    Chapter 5:</para>
+
+<screen><userinput remap="pre">sed -i "s:blkid/::" $(grep -rl "blkid/blkid.h")</userinput></screen>
+
+    <para>Apply a patch so that compat <command>pkg-config</command> files get
+    installed without installing compat libs which are useless on LFS:</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&systemd-compat-patch;</userinput></screen>
+
+    <para>Prepare systemd for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr                                           \
+            --sysconfdir=/etc                                       \
+            --localstatedir=/var                                    \
+            --config-cache                                          \
+            --with-rootprefix=                                      \
+            --with-rootlibdir=/lib                                  \
+            --enable-split-usr                                      \
+            --disable-gudev                                         \
+            --disable-firstboot                                     \
+            --disable-ldconfig                                      \
+            --disable-sysusers                                      \
+            --without-python                                        \
+            --docdir=/usr/share/doc/systemd-&systemd-version;                     \
+            --with-dbuspolicydir=/etc/dbus-1/system.d               \
+            --with-dbusinterfacedir=/usr/share/dbus-1/interfaces    \
+            --with-dbussessionservicedir=/usr/share/dbus-1/services \
+            --with-dbussystemservicedir=/usr/share/dbus-1/system-services</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--config-cache</parameter></term>
+        <listitem>
+          <para>This switch tells the build system to use
+          the <filename>config.cache</filename> file which
+          was created earlier.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-root*</parameter></term>
+        <listitem>
+          <para>These switches ensure that core programs and
+          shared libraries are installed in the subdirectories
+          of the root partition.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--enable-split-usr</parameter></term>
+        <listitem>
+          <para>This switch ensures that systemd will work on
+          systems where /bin, /lib and /sbin directories are not
+          symlinks to their /usr counterparts.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-gudev --without-python</parameter></term>
+        <listitem>
+          <para>These switches disable optional features because
+          LFS does not provide their dependencies.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-firstboot</parameter></term>
+        <listitem>
+          <para>This switch prevents installation of systemd
+          services responsible for setting up the system for
+          the first time. They are not useful for LFS because
+          everything is done manually.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-ldconfig</parameter></term>
+        <listitem>
+          <para>This switch prevents installation of a systemd
+          unit that runs <command>ldconfig</command> at
+          boot, making the boot time longer. Remove it if the
+          described feature is desired, even though it's not
+          useful for source distributions such as LFS.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-sysusers</parameter></term>
+        <listitem>
+          <para>This switch prevents installation of systemd
+          services responsible for setting up the
+          <filename>/etc/group</filename> and
+          <filename>/etc/passwd</filename> files. Both files
+          were created early in this chapter.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-dbus*</parameter></term>
+        <listitem>
+          <para>These switches ensure that D-Bus configuration files
+          get installed in the correct locations.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make LIBRARY_PATH=/tools/lib</userinput></screen>
+
+    <para>If you are going to run the test suite, first prevent a few test
+    cases from running because they fail in a chroot environment:</para>
+
+<screen><userinput remap="test">sed -e "s:test/udev-test.pl::g"             \
+    -e "s:test-bus-cleanup\$(EXEEXT) ::g"   \
+    -e "s:test-bus-gvariant\$(EXEEXT) ::g"  \
+    -e "s:test-dhcp6-client\$(EXEEXT) ::g"  \
+    -e "s:test-journal-flush\$(EXEEXT) ::g" \
+    -e "s:test-path-util\$(EXEEXT) ::g"     \
+    -e "s:test-sched-prio\$(EXEEXT) ::g"    \
+    -e "s:test-strv\$(EXEEXT) ::g"          \
+    -i Makefile</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make LD_LIBRARY_PATH=/tools/lib install</userinput></screen>
+
+    <para>Move NSS libraries to <filename class="directory">/lib</filename>:</para>
+
+<screen><userinput remap="install">mv -v /usr/lib/libnss_{myhostname,mymachines,resolve}.so.2 /lib</userinput></screen>
+
+    <para>Remove an unnecessary directory:</para>
+
+<screen><userinput remap="install">rm -rfv /usr/lib/rpm</userinput></screen>
+
+    <para>Create the Sysvinit compatibility symlinks, so systemd is used
+    as the default init system:</para>
+
+<screen><userinput remap="install">for tool in runlevel reboot shutdown poweroff halt telinit; do
+     ln -sfv ../bin/systemctl /sbin/${tool}
+done
+ln -sfv ../lib/systemd/systemd /sbin/init</userinput></screen>
+
+    <para>Remove a reference to a non-existent group:</para>
+
+<screen><userinput remap="install">sed -i "s:0775 root lock:0755 root root:g" /usr/lib/tmpfiles.d/legacy.conf</userinput></screen>
+
+    <para>Create the <filename>/etc/machine-id</filename> file needed by
+    Journald:</para>
+
+<screen><userinput remap="install">systemd-machine-id-setup</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-systemd" role="content">
+    <title>Contents of systemd</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed libraries</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>bootctl, busctl, coredumpctl, halt, hostnamectl, init, journalctl,
+        kernel-install, localectl, loginctl, machinectl, networkctl, poweroff,
+        reboot, runlevel, shutdown, systemctl, systemd-analyze,
+        systemd-ask-password, systemd-cat, systemd-cgls, systemd-cgtop,
+        systemd-delta, systemd-detect-virt, systemd-escape,<!-- systemd-firstboot, -->
+        systemd-inhibit, systemd-machine-id-setup, systemd-notify, systemd-nspawn,
+        systemd-path, systemd-run, systemd-stdio-bridge,<!-- systemd-sysusers, -->
+        systemd-tmpfiles, systemd-tty-ask-password-agent, telinit, timedatectl,
+        and udevadm</seg>
+        <seg>libnss_myhostname.so.2, libnss_mymachines.so.2, libnss_resolve.so.2,
+        libsystemd.so, libudev.so</seg>
+        <seg>/etc/binfmt.d, /etc/init.d, /etc/kernel, /etc/modules-load.d,
+        /etc/sysctl.d, /etc/systemd, /etc/tmpfiles.d, /etc/udev,
+        /etc/xdg/systemd, /lib/systemd, /lib/udev, /usr/include/systemd,
+        /usr/lib/binfmt.d, /usr/lib/kernel, /usr/lib/modules-load.d,
+        /usr/lib/sysctl.d, /usr/lib/systemd,<!-- /usr/lib/sysusers.d, -->
+        /usr/lib/tmpfiles.d, /usr/share/doc/systemd-&systemd-version;,
+        /usr/share/factory, /usr/share/systemd, /var/lib/systemd,
+        /var/log/journal</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="bootctl">
+        <term><command>bootctl</command></term>
+        <listitem>
+          <para>used to query the firmware and boot manager settings.</para>
+          <indexterm zone="ch-system-systemd bootctl">
+            <primary sortas="b-bootctl">bootctl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="busctl">
+        <term><command>busctl</command></term>
+        <listitem>
+          <para>Used to introspect and monitor the D-Bus bus.</para>
+          <indexterm zone="ch-system-systemd busctl">
+            <primary sortas="b-busctl">busctl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="coredumpctl">
+        <term><command>coredumpctl</command></term>
+        <listitem>
+          <para>Used to retrieve coredumps from the systemd Journal</para>
+          <indexterm zone="ch-system-systemd coredumpctl">
+            <primary sortas="b-coredumpctl">coredumpctl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="halt">
+        <term><command>halt</command></term>
+        <listitem>
+          <para>Normally invokes <command>shutdown</command> with the
+          <parameter>-h</parameter> option, except when already in run-level 0,
+          then it tells the kernel to halt the system; it notes in the
+          file <filename>/var/log/wtmp</filename> that the system is being
+          brought down.</para>
+          <indexterm zone="ch-system-systemd halt">
+            <primary sortas="b-halt">halt</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="hostnamectl">
+        <term><command>hostnamectl</command></term>
+        <listitem>
+          <para>Used to query and change the system hostname and related
+          settings.</para>
+          <indexterm zone="ch-system-systemd hostnamectl">
+            <primary sortas="b-hostnamectl">hostnamectl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="init">
+        <term><command>init</command></term>
+        <listitem>
+          <para>The first process to be started when the kernel has initialized
+          the hardware which takes over the boot process and starts all the
+          proceses it is instructed to.</para>
+          <indexterm zone="ch-system-systemd init">
+            <primary sortas="b-init">init</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="journalctl">
+        <term><command>journalctl</command></term>
+        <listitem>
+          <para>Used to query the contents of the systemd Journal.</para>
+          <indexterm zone="ch-system-systemd journalctl">
+            <primary sortas="b-journalctl">journalctl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="kernel-install">
+        <term><command>kernel-install</command></term>
+        <listitem>
+          <para>Used to add and remove kernel and initramfs images to and
+          from /boot.</para>
+          <indexterm zone="ch-system-systemd kernel-install">
+            <primary sortas="b-kernel-install">kernel-install</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="localectl">
+        <term><command>localectl</command></term>
+        <listitem>
+          <para>Used to query and change the system locale and keyboard layout
+          settings.</para>
+          <indexterm zone="ch-system-systemd localectl">
+            <primary sortas="b-localectl">localectl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="loginctl">
+        <term><command>loginctl</command></term>
+        <listitem>
+          <para>Used to introspect and control the state of the systemd Login
+          Manager.</para>
+          <indexterm zone="ch-system-systemd loginctl">
+            <primary sortas="b-loginctl">loginctl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="machinectl">
+        <term><command>machinectl</command></term>
+        <listitem>
+          <para>Used to introspect and control the state of the systemd Virtual
+          Machine and Container Registration Manager</para>
+          <indexterm zone="ch-system-systemd machinectl">
+            <primary sortas="b-machinectl">machinectl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="poweroff">
+        <term><command>poweroff</command></term>
+        <listitem>
+          <para>Tells the kernel to halt the system and switch off the computer
+          (see <command>halt</command>).</para>
+          <indexterm zone="ch-system-systemd poweroff">
+            <primary sortas="b-poweroff">poweroff</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="reboot">
+        <term><command>reboot</command></term>
+        <listitem>
+          <para>Tells the kernel to reboot the system (see
+          <command>halt</command>).</para>
+          <indexterm zone="ch-system-systemd reboot">
+            <primary sortas="b-reboot">reboot</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="runlevel">
+        <term><command>runlevel</command></term>
+        <listitem>
+          <para>Reports the previous and the current run-level, as noted in the
+          last run-level record in <filename>/var/run/utmp</filename>.</para>
+          <indexterm zone="ch-system-systemd runlevel">
+            <primary sortas="b-runlevel">runlevel</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="shutdown">
+        <term><command>shutdown</command></term>
+        <listitem>
+          <para>Brings the system down in a secure way, signaling all processes
+          and notifying all logged-in users.</para>
+          <indexterm zone="ch-system-systemd shutdown">
+            <primary sortas="b-shutdown">shutdown</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemctl">
+        <term><command>systemctl</command></term>
+        <listitem>
+          <para>Used to introspect and control the state of the systemd system and
+          service manager.</para>
+          <indexterm zone="ch-system-systemd systemctl">
+            <primary sortas="b-systemctl">systemctl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-analyze">
+        <term><command>systemd-analyze</command></term>
+        <listitem>
+          <para>Used to determine system boot-up performance of the current boot.
+          </para>
+          <indexterm zone="ch-system-systemd systemd-analyze">
+            <primary sortas="b-systemd-analyze">systemd-analyze</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-ask-password">
+        <term><command>systemd-ask-password</command></term>
+        <listitem>
+          <para>Used to query a system password or passphrase from the user, using a
+          question message specified on the command line.</para>
+          <indexterm zone="ch-system-systemd systemd-ask-password">
+            <primary sortas="b-systemd-ask-password">systemd-ask-password</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-cat">
+        <term><command>systemd-cat</command></term>
+        <listitem>
+          <para>Used to connect STDOUT and STDERR of a process with the Journal.
+          </para>
+          <indexterm zone="ch-system-systemd systemd-cat">
+            <primary sortas="b-systemd-cat">systemd-cat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-cgls">
+        <term><command>systemd-cgls</command></term>
+        <listitem>
+          <para>Recursively shows the contents of the selected Linux control group
+          hierarchy in a tree.</para>
+          <indexterm zone="ch-system-systemd systemd-cgls">
+            <primary sortas="b-systemd-cgls">systemd-cgls</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-cgtop">
+        <term><command>systemd-cgtop</command></term>
+        <listitem>
+          <para>Shows the top control groups of the local Linux control group hierarchy,
+          ordered by their CPU, memory and disk I/O load.</para>
+          <indexterm zone="ch-system-systemd systemd-cgtop">
+            <primary sortas="b-systemd-cgtop">systemd-cgtop</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-delta">
+        <term><command>systemd-delta</command></term>
+        <listitem>
+          <para>Used to identify and compare configuration files in
+          <filename class="directory">/etc</filename> that override default
+          counterparts in <filename class="directory">/usr</filename>.</para>
+          <indexterm zone="ch-system-systemd systemd-delta">
+            <primary sortas="b-systemd-delta">systemd-delta</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-detect-virt">
+        <term><command>systemd-detect-virt</command></term>
+        <listitem>
+          <para>Detects execution in a virtualized environment.</para>
+          <indexterm zone="ch-system-systemd systemd-detect-virt">
+            <primary sortas="b-systemd-detect-virt">systemd-detect-virt</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-escape">
+        <term><command>systemd-escape</command></term>
+        <listitem>
+          <para>Used to escape strings for inclusion in systemd unit names.</para>
+          <indexterm zone="ch-system-systemd systemd-escape">
+            <primary sortas="b-systemd-escape">systemd-escape</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <!-- <varlistentry id="systemd-firstboot">
+        <term><command>systemd-firstboot</command></term>
+        <listitem>
+          <para>Initializes the most basic system settings interactively on the
+          first boot.</para>
+          <indexterm zone="ch-system-systemd systemd-firstboot">
+            <primary sortas="b-systemd-firstboot">systemd-firstboot</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry> -->
+
+      <varlistentry id="systemd-inhibit">
+        <term><command>systemd-inhibit</command></term>
+        <listitem>
+          <para>Used to execute a program with a shutdown, sleep or idle inhibitor lock
+          taken.</para>
+          <indexterm zone="ch-system-systemd systemd-inhibit">
+            <primary sortas="b-systemd-inhibit">systemd-inhibit</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-machine-id-setup">
+        <term><command>systemd-machine-id-setup</command></term>
+        <listitem>
+          <para>Used by system installer tools to initialize the machine ID stored in
+          <filename>/etc/machine-id</filename> at install time with a randomly
+          generated ID.</para>
+          <indexterm zone="ch-system-systemd systemd-machine-id-setup">
+            <primary sortas="b-systemd-machine-id-setup">systemd-machine-id-setup</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-notify">
+        <term><command>systemd-notify</command></term>
+        <listitem>
+          <para>Used by daemon scripts to notify the init system about status changes.
+          </para>
+          <indexterm zone="ch-system-systemd systemd-notify">
+            <primary sortas="b-systemd-notify">systemd-notify</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-nspawn">
+        <term><command>systemd-nspawn</command></term>
+        <listitem>
+          <para>Used to run a command or OS in a light-weight namespace container.</para>
+          <indexterm zone="ch-system-systemd systemd-nspawn">
+            <primary sortas="b-systemd-nspawn">systemd-nspawn</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-path">
+        <term><command>systemd-path</command></term>
+        <listitem>
+          <para>Used to query system and user paths.</para>
+          <indexterm zone="ch-system-systemd systemd-path">
+            <primary sortas="b-systemd-path">systemd-path</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-run">
+        <term><command>systemd-run</command></term>
+        <listitem>
+          <para>Used to create and start a transient .service or a .scope unit and
+          run the specified command in it.</para>
+          <indexterm zone="ch-system-systemd systemd-run">
+            <primary sortas="b-systemd-run">systemd-run</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <!-- <varlistentry id="systemd-stdio-bridge">
+        <term><command>systemd-stdio-bridge</command></term>
+        <listitem>
+          <para>To be completed</para>
+          <indexterm zone="ch-system-systemd systemd-stdio-bridge">
+            <primary sortas="b-systemd-stdio-bridge">systemd-stdio-bridge</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry> -->
+
+      <!-- <varlistentry id="systemd-sysusers">
+        <term><command>systemd-sysusers</command></term>
+        <listitem>
+          <para>Creates system users and groups, based on the file format and location
+          specified in <filename class="directory">sysusers.d</filename>.</para>
+          <indexterm zone="ch-system-systemd systemd-sysusers">
+            <primary sortas="b-systemd-sysusers">systemd-sysusers</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry> -->
+
+      <varlistentry id="systemd-tmpfiles">
+        <term><command>systemd-tmpfiles</command></term>
+        <listitem>
+          <para>Creates, deletes and cleans up volatile and temporary files and directories,
+          based on the configuration file format and location specified in
+          <filename class="directory">tmpfiles.d</filename> directories.</para>
+          <indexterm zone="ch-system-systemd systemd-tmpfiles">
+            <primary sortas="b-systemd-tmpfiles">systemd-tmpfiles</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="systemd-tty-ask-password-agent">
+        <term><command>systemd-tty-ask-password-agent</command></term>
+        <listitem>
+          <para>Used to list or process pending systemd password requests</para>
+          <indexterm zone="ch-system-systemd systemd-tty-ask-password-agent">
+            <primary sortas="b-systemd-tty-ask-password-agent">systemd-tty-ask-password-agent</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="telinit">
+        <term><command>telinit</command></term>
+        <listitem>
+          <para>Tells <command>init</command> which run-level to change to.</para>
+          <indexterm zone="ch-system-systemd telinit">
+            <primary sortas="b-telinit">telinit</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="timedatectl">
+        <term><command>timedatectl</command></term>
+        <listitem>
+          <para>Used to query and change the system clock and its settings.
+          </para>
+          <indexterm zone="ch-system-systemd timedatectl">
+            <primary sortas="b-timedatectl">timedatectl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="udevadm">
+        <term><command>udevadm</command></term>
+        <listitem>
+          <para>Generic Udev administration tool: controls the udevd daemon,
+          provides info from the Udev database, monitors uevents, waits for
+          uevents to finish, tests Udev configuration, and triggers uevents
+          for a given device.</para>
+          <indexterm zone="ch-system-systemd udevadm">
+            <primary sortas="b-udevadm">udevadm</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libsystemd">
+        <term><filename class="libraryfile">libsystemd</filename></term>
+        <listitem>
+          <para>systemd utility library.</para>
+          <indexterm zone="ch-system-systemd libsystemd">
+            <primary sortas="c-libsystemd">libsystemd</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libudev">
+        <term><filename class="libraryfile">libudev</filename></term>
+        <listitem>
+          <para>A library to access Udev device information.</para>
+          <indexterm zone="ch-system-systemd libudev">
+            <primary sortas="c-libudev">libudev</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

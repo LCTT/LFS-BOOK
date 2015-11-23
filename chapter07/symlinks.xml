@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-symlinks">
+  <?dbhtml filename="symlinks.html"?>
+
+  <title>Creating Custom Symlinks to Devices</title>
+
+  <sect2>
+    <title>Dealing with duplicate devices</title>
+
+    <para>As explained in <xref linkend="ch-scripts-udev"/>, the order in
+    which devices with the same function appear in
+    <filename class="directory">/dev</filename> is essentially random.
+    E.g., if you have a USB web camera and a TV tuner, sometimes
+    <filename>/dev/video0</filename> refers to the camera and
+    <filename>/dev/video1</filename> refers to the tuner, and sometimes
+    after a reboot the order changes to the opposite one.
+    For all classes of hardware except sound cards and network cards, this is
+    fixable by creating udev rules for custom persistent symlinks.
+    The case of network cards is covered separately in
+    <xref linkend="ch-scripts-network"/>, and sound card configuration can
+    be found in <ulink url="&blfs-book;postlfs/devices.html">BLFS</ulink>.</para>
+
+    <para>For each of your devices that is likely to have this problem
+    (even if the problem doesn't exist in your current Linux distribution),
+    find the corresponding directory under
+    <filename class="directory">/sys/class</filename> or
+    <filename class="directory">/sys/block</filename>.
+    For video devices, this may be
+    <filename
+    class="directory">/sys/class/video4linux/video<replaceable>X</replaceable></filename>.
+    Figure out the attributes that identify the device uniquely (usually,
+    vendor and product IDs and/or serial numbers work):</para>
+
+<screen role="nodump"><userinput>udevadm info -a -p /sys/class/video4linux/video0</userinput></screen>
+
+    <para>Then write rules that create the symlinks, e.g.:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/udev/rules.d/83-duplicate_devs.rules &lt;&lt; "EOF"
+<literal>
+# Persistent symlinks for webcam and tuner
+KERNEL=="video*", ATTRS{idProduct}=="1910", ATTRS{idVendor}=="0d81", \
+    SYMLINK+="webcam"
+KERNEL=="video*", ATTRS{device}=="0x036f", ATTRS{vendor}=="0x109e", \
+    SYMLINK+="tvtuner"
+</literal>
+EOF</userinput></screen>
+
+    <para>The result is that <filename>/dev/video0</filename> and
+    <filename>/dev/video1</filename> devices still refer randomly to the tuner
+    and the web camera (and thus should never be used directly), but there are
+    symlinks <filename>/dev/tvtuner</filename> and
+    <filename>/dev/webcam</filename> that always point to the correct
+    device.</para>
+
+ </sect2>
+
+</sect1>

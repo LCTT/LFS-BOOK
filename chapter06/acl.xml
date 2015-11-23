@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-acl" role="wrap">
+  <?dbhtml filename="acl.html"?>
+
+  <sect1info condition="script">
+    <productname>acl</productname>
+    <productnumber>&acl-version;</productnumber>
+    <address>&acl-url;</address>
+  </sect1info>
+
+  <title>Acl-&acl-version;</title>
+
+  <indexterm zone="ch-system-acl">
+    <primary sortas="a-Acl">Acl</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Acl package contains utilities to administer Access Control Lists,
+    which are used to define more fine-grained discretionary access rights for
+    files and directories.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&acl-ch6-sbu;</seg>
+        <seg>&acl-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Acl</title>
+
+    <para>Modify the documentation directory so that it is a versioned
+    directory:</para>
+
+<screen><userinput remap="pre">sed -i -e 's|/@pkg_name@|&amp;-@pkg_version@|' include/builddefs.in</userinput></screen>
+
+    <para>Fix some broken tests:</para>
+
+<screen><userinput remap="pre">sed -i "s:| sed.*::g" test/{sbits-restore,cp,misc}.test</userinput></screen>
+
+    <para>Additionally, fix a bug that causes <command>getfacl -e</command>
+    to segfault on overly long group name:</para>
+
+<screen><userinput remap="pre">sed -i -e "/TABS-1;/a if (x > (TABS-1)) x = (TABS-1);" \
+    libacl/__acl_to_any_text.c</userinput></screen>
+
+    <para>Prepare Acl for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr    \
+            --disable-static \
+            --libexecdir=/usr/lib</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>The Acl tests need to be run on a filesystem that supports access
+    controls after <application>Coreutils</application> has been built with the
+    Acl libraries.  If desired, return to this package and run <command>make -j1
+    tests</command> after <application>Coreutils</application> has been built
+    later in this chapter.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install install-dev install-lib
+chmod -v 755 /usr/lib/libacl.so</userinput></screen>
+
+    <para>The shared library needs to be moved to
+    <filename class="directory">/lib</filename>, and as a result the
+    <filename class="extension">.so</filename> file in
+    <filename class="directory">/usr/lib</filename> will need to be recreated:</para>
+
+<screen><userinput remap="install">mv -v /usr/lib/libacl.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-acl" role="content">
+    <title>Contents of Acl</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed library</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>chacl, getfacl, and setacl</seg>
+        <seg>libacl.{a,so}</seg>
+        <seg>/usr/include/acl and /usr/share/doc/acl-&acl-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="chacl">
+        <term><command>chacl</command></term>
+        <listitem>
+          <para>Changes the access control list of a file
+          or directory</para>
+          <indexterm zone="ch-system-acl chacl">
+            <primary sortas="b-chacl">chacl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="getfacl">
+        <term><command>getfacl</command></term>
+        <listitem>
+          <para>Gets file access control lists</para>
+          <indexterm zone="ch-system-acl getfacl">
+            <primary sortas="b-getfacl">getfacl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="setacl">
+        <term><command>setacl</command></term>
+        <listitem>
+          <para>Sets file access control lists</para>
+          <indexterm zone="ch-system-acl setacl">
+            <primary sortas="b-setacl">setacl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libacl">
+        <term><filename class="libraryfile">libacl</filename></term>
+        <listitem>
+          <para>Contains the  library functions for manipulating Access Control Lists</para>
+          <indexterm zone="ch-system-acl libacl">
+            <primary sortas="c-libacl">libacl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

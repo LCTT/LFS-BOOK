@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-intro-whatsnew">
+  <?dbhtml filename="whatsnew.html"?>
+
+  <title>What's new since the last release</title>
+
+  <para>Below is a list of package updates made since the previous
+  release of the book.</para>
+
+  <!--
+    Every package in the book is listed in the "Upgraded to:" section.
+    Comment/uncomment as needed. DO NOT delete any of these lines unless that
+    package is removed from the book entirely.
+  -->
+
+  <itemizedlist>
+    <title>Upgraded to:</title>
+    <listitem><para></para></listitem>  <!-- satisfy build -->
+    <!--<listitem>
+    <para>None</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Acl-&acl-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Attr-&attr-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Autoconf &autoconf-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Automake &automake-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Bash &bash-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>Binutils &binutils-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>Bison &bison-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Bzip2 &bzip2-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>Check &check-version;</para>
+    </listitem>
+    <listitem>
+      <para>Coreutils &coreutils-version;</para>
+    </listitem>
+    <listitem>
+      <para>D-Bus-&dbus-version;</para>
+    </listitem>
+    <listitem>
+      <para>DejaGNU &dejagnu-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>Diffutils &diffutils-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>E2fsprogs &e2fsprogs-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>Expat-&expat-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Expect &expect-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>File &file-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>Findutils &findutils-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Flex &flex-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>Gawk &gawk-version;</para>
+    </listitem>
+    <listitem>
+      <para>GCC &gcc-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>GDBM &gdbm-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>Gettext &gettext-version;</para>
+    </listitem>
+    <listitem>
+      <para>Glibc &glibc-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>GMP &gmp-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Gperf-&gperf-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Grep &grep-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Groff &groff-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>GRUB &grub-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Gzip &gzip-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>IANA-Etc &iana-etc-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>Inetutils &inetutils-version;</para>
+    </listitem>
+    <listitem>
+      <para>Intltool-&intltool-version;</para>
+    </listitem>
+    <listitem>
+      <para>IPRoute2 &iproute2-version;</para>
+    </listitem>
+    <listitem>
+      <para>Kbd &kbd-version;</para>
+    </listitem>
+    <listitem>
+      <para>Kmod &kmod-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>Less &less-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Libcap-&libcap-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>Libpipeline &libpipeline-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>Libtool &libtool-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>Linux &linux-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>M4 &m4-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Make &make-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>Man-DB &man-db-version;</para>
+    </listitem>
+    <listitem>
+      <para>Man-pages &man-pages-version;</para>
+    </listitem>
+    <listitem>
+      <para>MPC &mpc-version;</para>
+    </listitem>
+    <listitem>
+      <para>MPFR &mpfr-version;</para>
+    </listitem>
+    <listitem>
+      <para>Ncurses &ncurses-version;</para>
+    </listitem>
+    <listitem>
+      <para>Patch &patch-version;</para>
+    </listitem>
+    <listitem>
+      <para>Perl &perl-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>Pkg-config &pkgconfig-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>Procps-ng &procps-ng-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>Psmisc &psmisc-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Readline &readline-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Sed &sed-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Shadow &shadow-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>Systemd &systemd-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>Tar &tar-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>Tcl-core-&tcl-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>Texinfo &texinfo-version;</para>
+    </listitem>
+    <listitem>
+      <para>Tzdata &tzdata-version;</para>
+    </listitem>
+    <listitem>
+      <para>Util-Linux &util-linux-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>Vim &vim-version;</para>
+    </listitem>-->
+    <!--<listitem>
+      <para>XML-Parser-&xml-parser-version;</para>
+    </listitem>-->
+    <listitem>
+      <para>XZ-Utils &xz-version;</para>
+    </listitem>
+    <!--<listitem>
+      <para>Zlib &zlib-version;</para>
+    </listitem>-->
+  </itemizedlist>
+
+  <!--<itemizedlist>
+    <title>Downgraded to:</title>
+
+    <listitem>
+      <para>PLACEHOLDER</para>
+    </listitem>
+
+  </itemizedlist>-->
+
+  <itemizedlist>
+    <title>Added:</title>
+    <listitem><para></para></listitem>  <!-- satisfy build -->
+
+    <listitem>
+      <para>&bash-fixes-patch;</para>
+    </listitem>
+<!--
+    <listitem>
+      <para>&gcc-upstream-patch;</para>
+    </listitem>
+-->
+    <listitem>
+      <para>&glibc-upstream-patch;</para>
+    </listitem>
+
+    <listitem>
+      <para>&mpfr-upstream-patch;</para>
+    </listitem>
+
+    <listitem>
+      <para>&systemd-compat-patch;</para>
+    </listitem>
+
+    <listitem>
+      <para>Tcl-core-&tcl-version;</para>
+    </listitem>
+
+  </itemizedlist>
+
+  <itemizedlist>
+    <title>Removed:</title>
+    <listitem><para></para></listitem>  <!-- satisfy build -->
+
+    <listitem>
+      <para>bash-4.3.30-upstream_fixes-1.patch</para>
+    </listitem>
+
+    <listitem>
+      <para>mpfr-3.1.2-upstream_fixes-3.patch</para>
+    </listitem>
+
+    <listitem>
+      <para>systemd-219-compat-1.patch</para>
+    </listitem>
+
+    <listitem>
+      <para>Tcl-8.6.3</para>
+    </listitem>
+
+
+  </itemizedlist>
+
+</sect1>

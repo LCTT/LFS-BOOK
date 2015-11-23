@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-creatingdirs">
+  <?dbhtml filename="creatingdirs.html"?>
+
+  <title>Creating Directories</title>
+
+  <para>It is time to create some structure in the LFS file system. Create a
+  standard directory tree by issuing the following commands:</para>
+
+<screen><userinput>mkdir -pv /{bin,boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
+mkdir -pv /{media/{floppy,cdrom},sbin,srv,var}
+install -dv -m 0750 /root
+install -dv -m 1777 /tmp /var/tmp
+mkdir -pv /usr/{,local/}{bin,include,lib,sbin,src}
+mkdir -pv /usr/{,local/}share/{color,dict,doc,info,locale,man}
+mkdir -v  /usr/{,local/}share/{misc,terminfo,zoneinfo}
+mkdir -v  /usr/libexec
+mkdir -pv /usr/{,local/}share/man/man{1..8}
+
+case $(uname -m) in
+ x86_64) ln -sv lib /lib64
+         ln -sv lib /usr/lib64
+         ln -sv lib /usr/local/lib64 ;;
+esac
+
+mkdir -v /var/{log,mail,spool}
+ln -sv /run /var/run
+ln -sv /run/lock /var/lock
+mkdir -pv /var/{opt,cache,lib/{color,misc,locate},local}</userinput></screen>
+
+  <para>Directories are, by default, created with permission mode 755, but
+  this is not desirable for all directories. In the commands above, two
+  changes are made&mdash;one to the home directory of user <systemitem
+  class="username">root</systemitem>, and another to the directories for
+  temporary files.</para>
+
+  <para>The first mode change ensures that not just anybody can enter
+  the <filename class="directory">/root</filename> directory&mdash;the
+  same as a normal user would do with his or her home directory. The
+  second mode change makes sure that any user can write to the
+  <filename class="directory">/tmp</filename> and <filename
+  class="directory">/var/tmp</filename> directories, but cannot remove
+  another user's files from them. The latter is prohibited by the so-called
+  <quote>sticky bit,</quote> the highest bit (1) in the 1777 bit mask.</para>
+
+  <sect2>
+    <title>FHS Compliance Note</title>
+
+    <para>The directory tree is based on the Filesystem Hierarchy Standard (FHS)
+    (available at <ulink url="https://wiki.linuxfoundation.org/en/FHS"/>).
+    The FHS also stipulates the existence of <filename
+    class="directory">/usr/local/games</filename> and <filename
+    class="directory">/usr/share/games</filename>. The FHS is not precise as to
+    the structure of the <filename class="directory">/usr/local/share</filename>
+    subdirectory, so we create only the directories that are needed. However,
+    feel free to create these directories if you prefer to conform more strictly
+    to the FHS.</para>
+
+  </sect2>
+
+</sect1>

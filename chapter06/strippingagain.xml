@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-strippingagain">
+  <?dbhtml filename="strippingagain.html"?>
+
+  <title>Stripping Again</title>
+
+  <para>If the intended user is not a programmer and does not plan to do
+  any debugging on the system software, the system size can be decreased
+  by about 90 MB by removing the debugging symbols from binaries and
+  libraries. This causes no inconvenience other than not being able to
+  debug the software fully anymore.</para>
+
+  <para>Most people who use the command mentioned below do not
+  experience any difficulties. However, it is easy to make a typo and
+  render the new system unusable, so before running the
+  <command>strip</command> command, it is a good idea to make a
+  backup of the LFS system in its current state.</para>
+
+  <para>Before performing the stripping, take special care to ensure that
+  none of the binaries that are about to be stripped are running. If
+  unsure whether the user entered chroot with the command given in
+  <xref linkend="ch-system-chroot" role=","/> first exit from
+  chroot:</para>
+
+<screen role="nodump"><userinput>logout</userinput></screen>
+
+  <para>Then reenter it with:</para>
+
+<screen role="nodump"><userinput>chroot $LFS /tools/bin/env -i            \
+    HOME=/root TERM=$TERM PS1='\u:\w\$ ' \
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin   \
+    /tools/bin/bash --login</userinput></screen>
+
+  <para>Now the binaries and libraries can be safely stripped:</para>
+
+<screen><userinput>/tools/bin/find /{,usr/}{bin,lib,sbin} -type f \
+    -exec /tools/bin/strip --strip-debug '{}' ';'</userinput></screen>
+
+  <para>A large number of files will be reported as having their file
+  format not recognized. These warnings can be safely ignored. These
+  warnings indicate that those files are scripts instead of
+  binaries.</para>
+</sect1>

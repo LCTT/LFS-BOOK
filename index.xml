@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "general.ent">
+  %general-entities;
+]>
+<book>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="prologue/bookinfo.xml"/>
+<!--
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="prologue/dedication.xml"/>
+-->
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="prologue/preface.xml"/>
+
+<part id="part1">
+<title>Introduction</title>
+<?dbhtml filename="part1.html"?>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter01/chapter01.xml"/>
+</part>
+
+<part id="part2">
+<title>Preparing for the Build</title>
+<?dbhtml filename="part2.html"?>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter02/chapter02.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter03/chapter03.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter04/chapter04.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter05/chapter05.xml"/>
+</part>
+
+<part id="part3">
+<title>Building the LFS System</title>
+<?dbhtml filename="part3.html"?>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter06/chapter06.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter07/chapter07.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter08/chapter08.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter09/chapter09.xml"/>
+</part>
+
+<part id="part4">
+<title>Appendices</title>
+<?dbhtml filename="part4.html"?>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="appendices/acronymlist.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="appendices/acknowledgments.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="appendices/dependencies.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="appendices/license.xml"/>
+</part>
+
+<index/>
+
+</book>
+

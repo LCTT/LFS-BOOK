@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-introduction">
+  <?dbhtml filename="introduction.html"?>
+
+  <title>Introduction</title>
+
+  <para>This chapter discusses configuration files and systemd services.
+  First, the general configuration files needed to set up networking are
+  presented.</para>
+
+  <itemizedlist>
+     <listitem>
+       <para><xref linkend="ch-scripts-network" role="."/></para>
+     </listitem>
+     <listitem>
+       <para><xref linkend="ch-scripts-hostname" role="."/></para>
+     </listitem>
+     <listitem>
+       <para><xref linkend="ch-scripts-hosts" role="."/></para>
+     </listitem>
+  </itemizedlist>
+
+  <para>Second, issues that affect the proper setup of devices are
+  discussed.</para>
+
+  <itemizedlist>
+     <listitem>
+       <para><xref linkend="ch-scripts-udev" role="."/></para>
+     </listitem>
+     <listitem>
+       <para><xref linkend="ch-scripts-symlinks" role="."/></para>
+     </listitem>
+  </itemizedlist>
+
+  <para>Third, configuring the system clock and keyboard layout.</para>
+
+  <itemizedlist>
+     <listitem>
+       <para><xref linkend="ch-scripts-clock" role="."/></para>
+     </listitem>
+     <listitem>
+       <para><xref linkend="ch-scripts-console" role="."/></para>
+     </listitem>
+  </itemizedlist>
+
+
+  <para>Fourth, a brief introduction to the scripts and configuration
+  files used when the user logs into the system.</para>
+
+  <itemizedlist>
+     <listitem>
+       <para><xref linkend="ch-scripts-locale" role="."/></para>
+     </listitem>
+     <listitem>
+       <para><xref linkend="ch-scripts-inputrc" role="."/></para>
+     </listitem>
+  </itemizedlist>
+
+  <para>And finally, configuring the systemd behavior.</para>
+
+  <itemizedlist>
+     <listitem>
+       <para><xref linkend="ch-scripts-systemd-custom" role="."/></para>
+     </listitem>
+  </itemizedlist>
+
+</sect1>

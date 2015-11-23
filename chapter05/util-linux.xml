@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-util-linux" role="wrap">
+  <?dbhtml filename="util-linux.html"?>
+
+  <sect1info condition="script">
+    <productname>util-linux</productname>
+    <productnumber>&util-linux-version;</productnumber>
+    <address>&util-linux-url;</address>
+  </sect1info>
+
+  <title>Util-linux-&util-linux-version;</title>
+
+  <indexterm zone="ch-tools-util-linux">
+    <primary sortas="a-Util-linux">Util-linux</primary>
+    <secondary>tools</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Util-linux package contains miscellaneous utility programs.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&util-linux-ch5-sbu;</seg>
+        <seg>&util-linux-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Util-linux</title>
+
+    <para>Prepare Util-linux for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/tools                \
+            --without-python               \
+            --disable-makeinstall-chown    \
+            --without-systemdsystemunitdir \
+            PKG_CONFIG=""</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure option:</title>
+
+      <varlistentry>
+        <term><parameter>--without-python</parameter></term>
+        <listitem>
+          <para>This switch disables using <application>Python</application>
+          if it is installed on the host system.  It avoids trying to build
+          unneeded bindings.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-makeinstall-chown</parameter></term>
+        <listitem>
+          <para>This switch disables using the <command>chown</command> command
+          during installation.  This is not needed when installing into the
+          /tools directory and avoids the necessity of installing as
+          root.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--without-systemdsystemunitdir</parameter></term>
+        <listitem>
+          <para>On systems that use systemd, the package tries to install 
+          a systemd specific file to a non-existent directory in /tools.
+          This switch disables the unnecessary action.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><envar>PKG_CONFIG=""</envar></term>
+        <listitem>
+          <para>Setting this envronment variable prevents adding unneeded
+          features that may be available on the host. Note that the location
+          shown for setting this environment variable is different from other
+          LFS sections where variables are set preceding the command.  This
+          location is shown to demonstrate an alternative way of setting an
+          environment variable when using configure.</para>
+        </listitem>
+      </varlistentry>
+     </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+</sect1>

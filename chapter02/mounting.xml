@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="space-mounting">
+  <?dbhtml filename="mounting.html"?>
+
+  <title>Mounting the New Partition</title>
+
+  <para>Now that a file system has been created, the partition needs to
+  be made accessible. In order to do this, the partition needs to be
+  mounted at a chosen mount point. For the purposes of this book, it is
+  assumed that the file system is mounted under the directory specified by the
+  <envar>LFS</envar> envronment varibale as described in the previous section.
+  </para>
+
+  <para>Create the mount point and mount the LFS file system by running:</para>
+
+<screen role="nodump"><userinput>mkdir -pv $LFS
+mount -v -t ext4 /dev/<replaceable>&lt;xxx&gt;</replaceable> $LFS</userinput></screen>
+
+  <para>Replace <replaceable>&lt;xxx&gt;</replaceable> with the designation of the LFS
+  partition.</para>
+
+  <para>If using multiple partitions for LFS (e.g., one for <filename
+  class="directory">/</filename> and another for <filename
+  class="directory">/usr</filename>), mount them using:</para>
+
+<screen role="nodump"><userinput>mkdir -pv $LFS
+mount -v -t ext4 /dev/<replaceable>&lt;xxx&gt;</replaceable> $LFS
+mkdir -v $LFS/usr
+mount -v -t ext4 /dev/<replaceable>&lt;yyy&gt;</replaceable> $LFS/usr</userinput></screen>
+
+  <para>Replace <replaceable>&lt;xxx&gt;</replaceable> and
+  <replaceable>&lt;yyy&gt;</replaceable> with the appropriate partition
+  names.</para>
+
+  <para>Ensure that this new partition is not mounted with permissions that are
+  too restrictive (such as the <option>nosuid</option> or
+  <option>nodev</option> options). Run the <command>mount</command> command
+  without any parameters to see what options are set for the mounted LFS
+  partition. If <option>nosuid</option> and/or <option>nodev</option> are set,
+  the partition will need to be remounted.</para>
+
+  <para>If you are using a <systemitem
+  class="filesystem">swap</systemitem> partition, ensure that it is enabled
+  using the <command>swapon</command> command:</para>
+
+<screen role="nodump"><userinput>/sbin/swapon -v /dev/<replaceable>&lt;zzz&gt;</replaceable></userinput></screen>
+
+  <para>Replace <replaceable>&lt;zzz&gt;</replaceable> with the name of the
+  <systemitem class="filesystem">swap</systemitem> partition.</para>
+
+  <para>Now that there is an established place to work, it is time to
+  download the packages.</para>
+
+</sect1>
+

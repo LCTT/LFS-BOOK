@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-perl" role="wrap">
+  <?dbhtml filename="perl.html"?>
+
+  <sect1info condition="script">
+    <productname>perl</productname>
+    <productnumber>&perl-version;</productnumber>
+    <address>&perl-url;</address>
+  </sect1info>
+
+  <title>Perl-&perl-version;</title>
+
+  <indexterm zone="ch-tools-perl">
+    <primary sortas="a-Perl">Perl</primary>
+    <secondary>tools</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/perl.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&perl-ch5-sbu;</seg>
+        <seg>&perl-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Perl</title>
+<!--
+    <para>First apply the following patch to adapt some hard-wired paths to the
+    C library:</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&perl-libc-patch;</userinput></screen>
+ 
+    Note: -Dlibs=-lm below avoids looking for gdbm and db libraries causing failure
+-->
+    <para>Prepare Perl for compilation:</para>
+
+<screen><userinput remap="configure">sh Configure -des -Dprefix=/tools -Dlibs=-lm</userinput></screen>
+
+    <para>Build the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Although Perl comes with a test suite, it would be better to wait
+    until it is installed in the next chapter.</para>
+
+    <para>Only a few of the utilities and libraries need to be installed at this
+    time:</para>
+
+<screen><userinput remap="install">cp -v perl cpan/podlators/pod2man /tools/bin
+mkdir -pv /tools/lib/perl5/&perl-version;
+cp -Rv lib/* /tools/lib/perl5/&perl-version;</userinput></screen>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-perl" role="."/></para>
+
+  </sect2>
+
+</sect1>

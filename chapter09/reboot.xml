@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-finish-reboot">
+  <?dbhtml filename="reboot.html"?>
+
+  <title>Rebooting the System</title>
+
+  <para>Now that all of the software has been installed, it is time to reboot
+  your computer. However, you should be aware of a few things. The system you
+  have created in this book is quite minimal, and most likely will not have
+  the functionality you would need to be able to continue forward. By installing
+  a few extra packages from the BLFS book while still in our current chroot
+  environment, you can leave yourself in a much better position to continue on
+  once you reboot into your new LFS installation. Here are some suggestions:</para>
+
+  <itemizedlist>
+
+    <listitem><para>A text mode browser such as <ulink
+    url='&blfs-book;basicnet/lynx.html'>Lynx</ulink>
+    will allow you to easily view the BLFS book in one virtual terminal, while
+    building packages in another.</para></listitem>
+
+    <listitem><para>The <ulink
+    url='&blfs-book;general/gpm.html'>GPM</ulink> package will allow
+    you to perform copy/paste actions in your virtual
+    terminals.</para></listitem>
+
+    <listitem><para>If you are in a situation where static IP configuration
+    does not meet your networking requirements, installing a package
+    such as <ulink url='&blfs-book;basicnet/dhcpcd.html'>dhcpcd</ulink>
+    or the client portion of <ulink
+    url='&blfs-book;basicnet/dhcp.html'>dhcp</ulink> may be
+    useful.</para></listitem>
+
+    <listitem><para>Installing <ulink
+    url='&blfs-book;postlfs/sudo.html'>sudo</ulink> may be useful for
+    building packages as a non-root user and easily installing the resulting
+    packages in your new system.  </para></listitem>
+
+    <listitem><para>If you want to access your new system from a remote system
+    within a comfortable GUI environment, install <ulink
+    url='&blfs-book;postlfs/openssh.html'>openssh</ulink> and its
+    prerequsite, <ulink
+    url='&blfs-book;postlfs/openssl.html'>openssl</ulink>.
+    </para></listitem>
+
+    <listitem><para>To make fetching files over the internet easier, install
+    <ulink url='&blfs-book;basicnet/wget.html'>wget</ulink>.
+    </para></listitem>
+
+    <listitem><para>If one or more of your disk drives have a GUID partition
+    table (GPT), either <ulink
+    url='&blfs-book;postlfs/gptfdisk.html'>gptfdisk</ulink> or <ulink
+    url='&blfs-book;postlfs/parted.html'>parted</ulink> will be useful.
+    </para></listitem>
+
+    <listitem><para>Finally, a review of the following configuration files
+    is also appropriate at this point.  </para>
+
+      <itemizedlist>
+        <listitem><para>/etc/bashrc                  </para></listitem>
+        <listitem><para>/etc/dircolors               </para></listitem>
+        <listitem><para>/etc/fstab                   </para></listitem>
+        <listitem><para>/etc/hosts                   </para></listitem>
+        <listitem><para>/etc/inputrc                 </para></listitem>
+        <listitem><para>/etc/profile                 </para></listitem>
+        <listitem><para>/etc/resolv.conf             </para></listitem>
+        <listitem><para>/etc/vimrc                   </para></listitem>
+        <listitem><para>/root/.bash_profile          </para></listitem>
+        <listitem><para>/root/.bashrc                </para></listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+
+  <para>Now that we have said that, let's move on to booting our shiny new LFS
+  installation for the first time! First exit from the chroot environment:</para>
+
+<screen><userinput>logout</userinput></screen>
+
+  <para>Then unmount the virtual file systems:</para>
+
+<screen><userinput>umount -v $LFS/dev/pts
+umount -v $LFS/dev
+umount -v $LFS/run
+umount -v $LFS/proc
+umount -v $LFS/sys</userinput></screen>
+
+  <para>Unmount the LFS file system itself:</para>
+
+<screen><userinput>umount -v $LFS</userinput></screen>
+
+  <para>If multiple partitions were created, unmount the other
+  partitions before unmounting the main one, like this:</para>
+
+<screen role="nodump"><userinput>umount -v $LFS/usr
+umount -v $LFS/home
+umount -v $LFS</userinput></screen>
+
+  <para>Now, reboot the system with:</para>
+
+<screen role="nodump"><userinput>shutdown -r now</userinput></screen>
+
+  <para>Assuming the GRUB boot loader was set up as outlined earlier, the menu
+  is set to boot <emphasis>LFS &version;</emphasis> automatically.</para>
+
+  <para>When the reboot is complete, the LFS system is ready for use and
+  more software may be added to suit your needs.</para>
+
+</sect1>

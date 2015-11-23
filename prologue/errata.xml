@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="pre-errata">
+  <?dbhtml filename="errata.html"?>
+
+  <title>Errata</title>
+
+  <para>The software used to create an LFS system is constantly being updated
+  and enhanced. Security warnings and bug fixes may become available after
+  the LFS book has been released. To check whether the package versions or
+  instructions in this release of LFS need any modifications to accommodate
+  security vulnerabilities or other bug fixes, please visit <ulink
+  url="&errata;"/> before proceeding with your build. You should note any
+  changes shown and apply them to the relevant section of the book as you
+  progress with building the LFS system.</para>
+
+</sect1>

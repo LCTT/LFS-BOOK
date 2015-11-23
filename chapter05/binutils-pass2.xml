@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-binutils-pass2" role="wrap">
+  <?dbhtml filename="binutils-pass2.html"?>
+
+  <sect1info condition="script">
+    <productname>binutils</productname>
+    <productnumber>&binutils-version;</productnumber>
+    <address>&binutils-url;</address>
+  </sect1info>
+
+  <title>Binutils-&binutils-version; - Pass 2</title>
+
+  <indexterm zone="ch-tools-binutils-pass2">
+    <primary sortas="a-Binutils">Binutils</primary>
+    <secondary>tools, pass 2</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/binutils.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&binutils-ch5p2-sbu;</seg>
+        <seg>&binutils-ch5p2-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Binutils</title>
+
+    <para>Create a separate build directory again:</para>
+
+<screen><userinput remap="pre">mkdir -v ../binutils-build
+cd ../binutils-build</userinput></screen>
+
+    <para>Prepare Binutils for compilation:</para>
+
+<screen><userinput remap="configure">CC=$LFS_TGT-gcc                \
+AR=$LFS_TGT-ar                 \
+RANLIB=$LFS_TGT-ranlib         \
+../binutils-&binutils-version;/configure     \
+    --prefix=/tools            \
+    --disable-nls              \
+    --disable-werror           \
+    --with-lib-path=/tools/lib \
+    --with-sysroot</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the new configure options:</title>
+
+      <varlistentry>
+        <term><parameter>CC=$LFS_TGT-gcc AR=$LFS_TGT-ar RANLIB=$LFS_TGT-ranlib</parameter></term>
+        <listitem>
+          <para>Because this is really a native build of Binutils, setting these
+          variables ensures that the build system uses the cross-compiler and
+          associated tools instead of the ones on the host system.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-lib-path=/tools/lib</parameter></term>
+        <listitem>
+          <para>This tells the configure script to specify the library
+          search path during the compilation of Binutils, resulting in
+          <filename class="directory">/tools/lib</filename> being passed
+          to the linker. This prevents the linker from searching through
+          library directories on the host.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-sysroot</parameter></term>
+        <listitem>
+          <para>The sysroot feature enables the linker to find shared objects
+          which are required by other shared objects explicitly included on the
+          linker's command line. Without this, some packages may not build
+          successfully on some hosts.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>Now prepare the linker for the <quote>Re-adjusting</quote> phase in
+    the next chapter:</para>
+
+<screen><userinput remap="adjust">make -C ld clean
+make -C ld LIB_PATH=/usr/lib:/lib
+cp -v ld/ld-new /tools/bin</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the make parameters:</title>
+
+      <varlistentry>
+        <term><parameter>-C ld clean</parameter></term>
+        <listitem>
+          <para>This tells the make program to remove all compiled
+          files in the <filename class="directory">ld</filename>
+          subdirectory.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>-C ld LIB_PATH=/usr/lib:/lib</parameter></term>
+        <listitem>
+          <para>This option rebuilds everything in the <filename
+          class="directory">ld</filename> subdirectory. Specifying the
+          <envar>LIB_PATH</envar> Makefile variable on the command line
+          allows us to override the default value of the temporary tools
+          and point it to the proper final path. The value of this variable
+          specifies the linker's default library search path. This
+          preparation is used in the next chapter.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-binutils" role="."/></para>
+
+  </sect2>
+
+</sect1>

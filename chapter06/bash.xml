@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-bash" role="wrap">
+  <?dbhtml filename="bash.html"?>
+
+  <sect1info condition="script">
+    <productname>bash</productname>
+    <productnumber>&bash-version;</productnumber>
+    <address>&bash-url;</address>
+  </sect1info>
+
+  <title>Bash-&bash-version;</title>
+
+  <indexterm zone="ch-system-bash">
+    <primary sortas="a-Bash">Bash</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Bash package contains the Bourne-Again SHell.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&bash-ch6-sbu;</seg>
+        <seg>&bash-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Bash</title>
+
+    <para>First, apply the following patch to fix various bugs that have been
+    addressed upstream:</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&bash-fixes-patch;</userinput></screen>
+
+    <para>Prepare Bash for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr                       \
+            --bindir=/bin                       \
+            --docdir=/usr/share/doc/bash-&bash-version; \
+            --without-bash-malloc               \
+            --with-installed-readline</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the new configure option:</title>
+
+      <varlistentry>
+        <term><parameter>--with-installed-readline</parameter></term>
+        <listitem>
+          <para>This option tells Bash to use the <filename
+          class="libraryfile">readline</filename> library that is already
+          installed on the system rather than using its own readline
+          version.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Skip down to <quote>Install the
+    package</quote> if not running the test suite.</para>
+
+    <para>To prepare the tests, ensure that the <systemitem class="username">nobody</systemitem> user can write to the sources tree:</para>
+
+<screen><userinput remap="test">chown -Rv nobody .</userinput></screen>
+
+    <para>Now, run the tests as the <systemitem
+    class="username">nobody</systemitem> user:</para>
+
+<screen><userinput remap="test">su nobody -s /bin/bash -c "PATH=$PATH make tests"</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>Run the newly compiled <command>bash</command> program (replacing the one that is
+    currently being executed):</para>
+
+<screen role="nodump"><userinput>exec /bin/bash --login +h</userinput></screen>
+
+    <note>
+      <para>The parameters used make the <command>bash</command>
+      process an interactive login shell and continue to disable hashing so
+      that new programs are found as they become available.</para>
+    </note>
+
+  </sect2>
+
+  <sect2 id="contents-bash" role="content">
+    <title>Contents of Bash</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>bash, bashbug, and sh (link to bash)</seg>
+        <seg>/usr/share/doc/bash-&bash-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="bash">
+        <term><command>bash</command></term>
+        <listitem>
+          <para>A widely-used command interpreter; it performs many types of
+          expansions and substitutions on a given command line before executing
+          it, thus making this interpreter a powerful tool</para>
+          <indexterm zone="ch-system-bash bash">
+            <primary sortas="b-bash">bash</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="bashbug">
+        <term><command>bashbug</command></term>
+        <listitem>
+          <para>A shell script to help the user compose and mail standard
+          formatted bug reports concerning <command>bash</command></para>
+          <indexterm zone="ch-system-bash bashbug">
+            <primary sortas="b-bashbug">bashbug</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sh">
+        <term><command>sh</command></term>
+        <listitem>
+          <para>A symlink to the <command>bash</command> program; when invoked
+          as <command>sh</command>, <command>bash</command> tries to mimic the
+          startup behavior of historical versions of <command>sh</command> as
+          closely as possible, while conforming to the POSIX standard as
+          well</para>
+          <indexterm zone="ch-system-bash sh">
+            <primary sortas="b-sh">sh</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

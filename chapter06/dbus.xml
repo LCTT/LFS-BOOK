@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-dbus" role="wrap">
+  <?dbhtml filename="dbus.html"?>
+
+  <sect1info condition="script">
+    <productname>dbus</productname>
+    <productnumber>&dbus-version;</productnumber>
+    <address>&dbus-url;</address>
+  </sect1info>
+
+  <title>D-Bus-&dbus-version;</title>
+
+  <indexterm zone="ch-system-dbus">
+    <primary sortas="a-dbus">D-Bus</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>D-Bus is a message bus system, a simple way for applications to talk
+    to one another. D-Bus supplies both a system daemon (for events such as
+    "new hardware device added" or "printer queue changed") and a
+    per-user-login-session daemon (for general IPC needs among user
+    applications). Also, the message bus is built on top of a general one-to-one
+    message passing framework, which can be used by any two applications to
+    communicate directly (without going through the message bus daemon).</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&dbus-ch6-sbu;</seg>
+        <seg>&dbus-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of D-Bus</title>
+
+    <para>Prepare D-Bus for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr                       \
+            --sysconfdir=/etc                   \
+            --localstatedir=/var                \
+            --docdir=/usr/share/doc/dbus-&dbus-version; \
+            --disable-static                    \
+            --with-console-auth-dir=/run/console</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--with-console-auth-dir=/run/console</parameter></term>
+        <listitem>
+          <para>This specifies the location of the ConsoleKit auth
+          directory.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>This package does come with a testsuite, but it requires several
+    packages that are not included in LFS. Instructions for running the
+    testsuite can be found in the BLFS book at
+    <ulink url="&blfs-book;general/dbus.html"/>.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>The shared library needs to be moved to
+    <filename class="directory">/lib</filename>, and as a result the
+    <filename class="extension">.so</filename> file in
+    <filename class="directory">/usr/lib</filename> will need to be recreated:</para>
+
+<screen><userinput remap="install">mv -v /usr/lib/libdbus-1.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</userinput></screen>
+
+    <para>Create a symlink, so that D-Bus and systemd can use the same
+    <filename>machine-id</filename> file:</para>
+
+<screen><userinput remap="install">ln -sfv /etc/machine-id /var/lib/dbus</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-dbus" role="content">
+    <title>Contents of D-Bus</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed libraries</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>dbus-cleanup-sockets, dbus-daemon, dbus-launch, dbus-monitor,
+        dbus-run-session, dbus-send, and dbus-uuidgen</seg>
+        <seg>libdbus-1.{a,so}</seg>
+        <seg>/etc/dbus-1, /usr/include/dbus-1.0, /usr/lib/dbus-1.0,
+        /usr/share/dbus-1, /usr/share/doc/dbus-&dbus-version;,
+        and /var/lib/dbus</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="dbus-cleanup-sockets">
+        <term><command>dbus-cleanup-sockets</command></term>
+        <listitem>
+          <para>Used to clean up leftover sockets in a directory</para>
+          <indexterm zone="ch-system-dbus dbus-cleanup-sockets">
+            <primary sortas="b-dbus-cleanup-sockets">dbus-cleanup-sockets</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dbus-daemon">
+        <term><command>dbus-daemon</command></term>
+        <listitem>
+          <para>The D-Bus message bus daemon</para>
+          <indexterm zone="ch-system-dbus dbus-daemon">
+            <primary sortas="b-dbus-daemon">dbus-daemon</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dbus-launch">
+        <term><command>dbus-launch</command></term>
+        <listitem>
+          <para>Starts <command>dbus-daemon</command> from a shell
+          script</para>
+          <indexterm zone="ch-system-dbus dbus-launch">
+            <primary sortas="b-dbus-launch">dbus-launch</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dbus-monitor">
+        <term><command>dbus-monitor</command></term>
+        <listitem>
+          <para>Monitors messages passing through a D-Bus message bus</para>
+          <indexterm zone="ch-system-dbus dbus-monitor">
+            <primary sortas="b-dbus-monitor">dbus-monitor</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dbus-run-session">
+        <term><command>dbus-run-session</command></term>
+        <listitem>
+          <para>Starts a session bus instance of <command>dbus-daemon</command>
+          from a shell script and starts a specified program in that
+          session</para>
+          <indexterm zone="ch-system-dbus dbus-run-session">
+            <primary sortas="b-dbus-run-session">dbus-run-session</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dbus-send">
+        <term><command>dbus-send</command></term>
+        <listitem>
+          <para>Sends a message to a D-Bus message bus</para>
+          <indexterm zone="ch-system-dbus dbus-send">
+            <primary sortas="b-dbus-send">dbus-send</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dbus-uuidgen">
+        <term><command>dbus-uuidgen</command></term>
+        <listitem>
+          <para>Generates a universally unique ID</para>
+          <indexterm zone="ch-system-dbus dbus-uuidgen">
+            <primary sortas="b-dbus-uuidgen">dbus-uuidgen</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libdbus-1">
+        <term><filename class="libraryfile">libdbus-1</filename></term>
+        <listitem>
+          <para>Contains API functions used to communicate with the D-Bus
+          message bus</para>
+          <indexterm zone="ch-system-dbus libdbus-1">
+            <primary sortas="c-libdbus-1">libdbus-1</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

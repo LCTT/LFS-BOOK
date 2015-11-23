@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-pkgconfig" role="wrap">
+  <?dbhtml filename="pkg-config.html"?>
+
+  <sect1info condition="script">
+    <productname>pkgconfig</productname>
+    <productnumber>&pkgconfig-version;</productnumber>
+    <address>&pkgconfig-url;</address>
+  </sect1info>
+
+  <title>Pkg-config-&pkgconfig-version;</title>
+
+  <indexterm zone="ch-system-pkgconfig">
+    <primary sortas="a-pkgconfig">Pkgconfig</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para> The pkg-config package contains a tool for passing the include path
+    and/or library paths to build tools during the configure and make file
+    execution.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&pkgconfig-ch6-sbu;</seg>
+        <seg>&pkgconfig-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Pkg-config</title>
+
+    <para>Prepare Pkg-config for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr        \
+            --with-internal-glib \
+            --disable-host-tool  \
+            --docdir=/usr/share/doc/pkg-config-&pkgconfig-version;</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the new configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--with-internal-glib</parameter></term>
+        <listitem>
+          <para>This will allow pkg-config to use its internal version of
+          Glib because an external version is not available in LFS.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-host-tool</parameter></term>
+        <listitem>
+          <para>This option disables the creation of an undesired hard link
+          to the pkg-config program.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-pkgconfig" role="content">
+    <title>Contents of Pkg-config</title>
+
+    <segmentedlist>
+      <segtitle>Installed program</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>pkg-config</seg>
+        <seg>/usr/share/doc/pkg-config-&pkgconfig-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="pkgconfig">
+         <!-- Don't remove the extra space, it prevents a FOP warning. -->
+        <term><command>pkg-config </command></term>
+        <listitem>
+          <para>returns meta information for the specified library or package
+          </para>
+          <indexterm zone="ch-system-pkgconfig pkgconfig">
+            <primary sortas="b-pkgconfig">pkg-config</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

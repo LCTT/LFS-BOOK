@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-m4" role="wrap">
+  <?dbhtml filename="m4.html"?>
+
+  <sect1info condition="script">
+    <productname>m4</productname>
+    <productnumber>&m4-version;</productnumber>
+    <address>&m4-url;</address>
+  </sect1info>
+
+  <title>M4-&m4-version;</title>
+
+  <indexterm zone="ch-system-m4">
+    <primary sortas="a-M4">M4</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The M4 package contains a macro processor.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&m4-ch6-sbu;</seg>
+        <seg>&m4-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of M4</title>
+
+    <para>Prepare M4 for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>The test-update-copyright.sh failure can safely be ignored.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+
+  <sect2 id="contents-m4" role="content">
+    <title>Contents of M4</title>
+
+    <segmentedlist>
+      <segtitle>Installed program</segtitle>
+
+      <seglistitem>
+        <seg>m4</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="m4">
+         <!-- Don't remove the extra space, it prevet a FOP warning. -->
+        <term><command>m4 </command></term>
+        <listitem>
+          <para>copies the given files while expanding the macros that they
+          contain [These macros are either built-in or user-defined and can
+          take any number of arguments. Besides performing macro expansion,
+          <command>m4</command> has built-in functions for including named
+          files, running Unix commands, performing integer arithmetic,
+          manipulating text, recursion, etc. The <command>m4</command> program
+          can be used either as a front-end to a compiler or as a macro processor
+          in its own right.]</para>
+          <indexterm zone="ch-system-m4 m4">
+            <primary sortas="b-m4">m4</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

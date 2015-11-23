@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="materials-packages">
+  <?dbhtml filename="packages.html"?>
+
+  <title>All Packages</title>
+
+  <para>Download or otherwise obtain the following packages:</para>
+
+  <variablelist role="materials">
+
+    <varlistentry>
+      <term>Acl (&acl-version;) - <token>&acl-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&acl-home;"/></para>
+        <para>Download: <ulink url="&acl-url;"/></para>
+        <para>MD5 sum: <literal>&acl-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Attr (&attr-version;) - <token>&attr-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&attr-home;"/></para>
+        <para>Download: <ulink url="&attr-url;"/></para>
+        <para>MD5 sum: <literal>&attr-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Autoconf (&autoconf-version;) - <token>&autoconf-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&autoconf-home;"/></para>
+        <para>Download: <ulink url="&autoconf-url;"/></para>
+        <para>MD5 sum: <literal>&autoconf-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Automake (&automake-version;) - <token>&automake-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&automake-home;"/></para>
+        <para>Download: <ulink url="&automake-url;"/></para>
+        <para>MD5 sum: <literal>&automake-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Bash (&bash-version;) - <token>&bash-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&bash-home;"/></para>
+        <para>Download: <ulink url="&bash-url;"/></para>
+        <para>MD5 sum: <literal>&bash-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Bc (&bc-version;) - <token>&bc-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&bc-home;"/></para>
+        <para>Download: <ulink url="&bc-url;"/></para>
+        <para>MD5 sum: <literal>&bc-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Binutils (&binutils-version;) - <token>&binutils-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&binutils-home;"/></para>
+        <para>Download: <ulink url="&binutils-url;"/></para>
+        <para>MD5 sum: <literal>&binutils-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Bison (&bison-version;) - <token>&bison-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&bison-home;"/></para>
+        <para>Download: <ulink url="&bison-url;"/></para>
+        <para>MD5 sum: <literal>&bison-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Bzip2 (&bzip2-version;) - <token>&bzip2-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&bzip2-home;"/></para>
+        <para>Download: <ulink url="&bzip2-url;"/></para>
+        <para>MD5 sum: <literal>&bzip2-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Check (&check-version;) - <token>&check-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&check-home;"/></para>
+        <para>Download: <ulink url="&check-url;"/></para>
+        <para>MD5 sum: <literal>&check-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Coreutils (&coreutils-version;) - <token>&coreutils-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&coreutils-home;"/></para>
+        <para>Download: <ulink url="&coreutils-url;"/></para>
+        <para>MD5 sum: <literal>&coreutils-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>D-Bus (&dbus-version;) - <token>&dbus-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&dbus-home;"/></para>
+        <para>Download: <ulink url="&dbus-url;"/></para>
+        <para>MD5 sum: <literal>&dbus-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>DejaGNU (&dejagnu-version;) - <token>&dejagnu-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&dejagnu-home;"/></para>
+        <para>Download: <ulink url="&dejagnu-url;"/></para>
+        <para>MD5 sum: <literal>&dejagnu-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Diffutils (&diffutils-version;) - <token>&diffutils-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&diffutils-home;"/></para>
+        <para>Download: <ulink url="&diffutils-url;"/></para>
+        <para>MD5 sum: <literal>&diffutils-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>E2fsprogs (&e2fsprogs-version;) - <token>&e2fsprogs-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&e2fsprogs-home;"/></para>
+        <para>Download: <ulink url="&e2fsprogs-url;"/></para>
+        <para>MD5 sum: <literal>&e2fsprogs-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Expat (&expat-version;) - <token>&expat-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&expat-home;"/></para>
+        <para>Download: <ulink url="&expat-url;"/></para>
+        <para>MD5 sum: <literal>&expat-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Expect (&expect-version;) - <token>&expect-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&expect-home;"/></para>
+        <para>Download: <ulink url="&expect-url;"/></para>
+        <para>MD5 sum: <literal>&expect-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>File (&file-version;) - <token>&file-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&file-home;"/></para>
+        <para>Download: <ulink url="&file-url;"/></para>
+        <para>MD5 sum: <literal>&file-md5;</literal></para>
+
+        <note>
+          <para>File (&file-version;) may no longer be available at the
+          listed location. The site administrators of the master download
+          location occasionally remove older versions when new ones are
+          released. An alternative download location that may have the correct
+          version available can also be found at: <ulink
+          url="http://www.linuxfromscratch.org/lfs/download.html#ftp"/>.</para>
+        </note>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Findutils (&findutils-version;) - <token>&findutils-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&findutils-home;"/></para>
+        <para>Download: <ulink url="&findutils-url;"/></para>
+        <para>MD5 sum: <literal>&findutils-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Flex (&flex-version;) - <token>&flex-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&flex-home;"/></para>
+        <para>Download: <ulink url="&flex-url;"/></para>
+        <para>MD5 sum: <literal>&flex-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Gawk (&gawk-version;) - <token>&gawk-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&gawk-home;"/></para>
+        <para>Download: <ulink url="&gawk-url;"/></para>
+        <para>MD5 sum: <literal>&gawk-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>GCC (&gcc-version;) - <token>&gcc-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&gcc-home;"/></para>
+        <para>Download: <ulink url="&gcc-url;"/></para>
+        <para>MD5 sum: <literal>&gcc-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>GDBM (&gdbm-version;) - <token>&gdbm-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&gdbm-home;"/></para>
+        <para>Download: <ulink url="&gdbm-url;"/></para>
+        <para>MD5 sum: <literal>&gdbm-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Gettext (&gettext-version;) - <token>&gettext-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&gettext-home;"/></para>
+        <para>Download: <ulink url="&gettext-url;"/></para>
+        <para>MD5 sum: <literal>&gettext-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Glibc (&glibc-version;) - <token>&glibc-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&glibc-home;"/></para>
+        <para>Download: <ulink url="&glibc-url;"/></para>
+        <para>MD5 sum: <literal>&glibc-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>GMP (&gmp-version;) - <token>&gmp-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&gmp-home;"/></para>
+        <para>Download: <ulink url="&gmp-url;"/></para>
+        <para>MD5 sum: <literal>&gmp-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Gperf (&gperf-version;) - <token>&gperf-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&gperf-home;"/></para>
+        <para>Download: <ulink url="&gperf-url;"/></para>
+        <para>MD5 sum: <literal>&gperf-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Grep (&grep-version;) - <token>&grep-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&grep-home;"/></para>
+        <para>Download: <ulink url="&grep-url;"/></para>
+        <para>MD5 sum: <literal>&grep-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Groff (&groff-version;) - <token>&groff-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&groff-home;"/></para>
+        <para>Download: <ulink url="&groff-url;"/></para>
+        <para>MD5 sum: <literal>&groff-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>GRUB (&grub-version;) - <token>&grub-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&grub-home;"/></para>
+        <para>Download: <ulink url="&grub-url;"/></para>
+        <para>MD5 sum: <literal>&grub-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Gzip (&gzip-version;) - <token>&gzip-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&gzip-home;"/></para>
+        <para>Download: <ulink url="&gzip-url;"/></para>
+        <para>MD5 sum: <literal>&gzip-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Iana-Etc (&iana-etc-version;) - <token>&iana-etc-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&iana-etc-home;"/></para>
+        <para>Download: <ulink url="&iana-etc-url;"/></para>
+        <para>MD5 sum: <literal>&iana-etc-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Inetutils (&inetutils-version;) - <token>&inetutils-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&inetutils-home;"/></para>
+        <para>Download: <ulink url="&inetutils-url;"/></para>
+        <para>MD5 sum: <literal>&inetutils-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Intltool (&intltool-version;) - <token>&intltool-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&intltool-home;"/></para>
+        <para>Download: <ulink url="&intltool-url;"/></para>
+        <para>MD5 sum: <literal>&intltool-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>IPRoute2 (&iproute2-version;) - <token>&iproute2-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&iproute2-home;"/></para>
+        <para>Download: <ulink url="&iproute2-url;"/></para>
+        <para>MD5 sum: <literal>&iproute2-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Kbd (&kbd-version;) - <token>&kbd-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&kbd-home;"/></para>
+        <para>Download: <ulink url="&kbd-url;"/></para>
+        <para>MD5 sum: <literal>&kbd-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Kmod (&kmod-version;) - <token>&kmod-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&kmod-home;"/></para>
+        <para>Download: <ulink url="&kmod-url;"/></para>
+        <para>MD5 sum: <literal>&kmod-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Less (&less-version;) - <token>&less-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&less-home;"/></para>
+        <para>Download: <ulink url="&less-url;"/></para>
+        <para>MD5 sum: <literal>&less-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Libcap (&libcap-version;) - <token>&libcap-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&libcap-home;"/></para>
+        <para>Download: <ulink url="&libcap-url;"/></para>
+        <para>MD5 sum: <literal>&libcap-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Libpipeline (&libpipeline-version;) - <token>&libpipeline-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&libpipeline-home;"/></para>
+        <para>Download: <ulink url="&libpipeline-url;"/></para>
+        <para>MD5 sum: <literal>&libpipeline-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Libtool (&libtool-version;) - <token>&libtool-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&libtool-home;"/></para>
+        <para>Download: <ulink url="&libtool-url;"/></para>
+        <para>MD5 sum: <literal>&libtool-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Linux (&linux-version;) - <token>&linux-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&linux-home;"/></para>
+        <para>Download: <ulink url="&linux-url;"/></para>
+        <para>MD5 sum: <literal>&linux-md5;</literal></para>
+
+        <note>
+          <para>The Linux kernel is updated relatively often, many times due to
+          discoveries of security vulnerabilities.  The latest available
+          &linux-major-version;.&linux-minor-version;.x kernel version should be
+          used, unless the errata page says otherwise.</para>
+
+          <para>For users with limited speed or expensive bandwidth who wish to
+          update the Linux kernel, a baseline version of the package and
+          patches can be downloaded separately.  This may save some time or
+          cost for a subsequent patch level upgrade within a minor release.
+          </para>
+
+        </note>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>M4 (&m4-version;) - <token>&m4-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&m4-home;"/></para>
+        <para>Download: <ulink url="&m4-url;"/></para>
+        <para>MD5 sum: <literal>&m4-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Make (&make-version;) - <token>&make-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&make-home;"/></para>
+        <para>Download: <ulink url="&make-url;"/></para>
+        <para>MD5 sum: <literal>&make-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Man-DB (&man-db-version;) - <token>&man-db-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&man-db-home;"/></para>
+        <para>Download: <ulink url="&man-db-url;"/></para>
+        <para>MD5 sum: <literal>&man-db-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Man-pages (&man-pages-version;) - <token>&man-pages-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&man-pages-home;"/></para>
+        <para>Download: <ulink url="&man-pages-url;"/></para>
+        <para>MD5 sum: <literal>&man-pages-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>MPC (&mpc-version;) - <token>&mpc-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&mpc-home;"/></para>
+        <para>Download: <ulink url="&mpc-url;"/></para>
+        <para>MD5 sum: <literal>&mpc-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>MPFR (&mpfr-version;) - <token>&mpfr-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&mpfr-home;"/></para>
+        <para>Download: <ulink url="&mpfr-url;"/></para>
+        <para>MD5 sum: <literal>&mpfr-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Ncurses (&ncurses-version;) - <token>&ncurses-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&ncurses-home;"/></para>
+        <para>Download: <ulink url="&ncurses-url;"/></para>
+        <para>MD5 sum: <literal>&ncurses-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <!-- FIXME:
+    <varlistentry>
+      <term>Ncurses Rollup Patch (&ncurses-date;) - 328 KB:</term>
+      <listitem>
+        <para><ulink url="ftp://invisible-island.net/ncurses/&ncurses-version;/"/></para>
+
+        <note>
+          <para>Ncurses Rollup Patch (&ncurses-date;) may no longer be available
+          at the listed location. The site administrators of the master download
+          location occasionally remove older versions when new ones are released.
+          There is no alternative download location yet.</para>
+        </note>
+      </listitem>
+    </varlistentry>
+    -->
+
+    <varlistentry>
+      <term>Patch (&patch-version;) - <token>&patch-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&patch-home;"/></para>
+        <para>Download: <ulink url="&patch-url;"/></para>
+        <para>MD5 sum: <literal>&patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Perl (&perl-version;) - <token>&perl-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&perl-home;"/></para>
+        <para>Download: <ulink url="&perl-url;"/></para>
+        <para>MD5 sum: <literal>&perl-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Pkg-config (&pkgconfig-version;) - <token>&pkgconfig-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&pkgconfig-home;"/></para>
+        <para>Download: <ulink url="&pkgconfig-url;"/></para>
+        <para>MD5 sum: <literal>&pkgconfig-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Procps (&procps-ng-version;) - <token>&procps-ng-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&procps-ng-home;"/></para>
+        <para>Download: <ulink url="&procps-ng-url;"/></para>
+        <para>MD5 sum: <literal>&procps-ng-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Psmisc (&psmisc-version;) - <token>&psmisc-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&psmisc-home;"/></para>
+        <para>Download: <ulink url="&psmisc-url;"/></para>
+        <para>MD5 sum: <literal>&psmisc-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Readline (&readline-version;) - <token>&readline-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&readline-home;"/></para>
+        <para>Download: <ulink url="&readline-url;"/></para>
+        <para>MD5 sum: <literal>&readline-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Sed (&sed-version;) - <token>&sed-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&sed-home;"/></para>
+        <para>Download: <ulink url="&sed-url;"/></para>
+        <para>MD5 sum: <literal>&sed-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Shadow (&shadow-version;) - <token>&shadow-size;</token>:</term>
+      <listitem>
+        <!-- <para>Home page: <ulink url="&shadow-home;"/></para> -->
+        <para>Download: <ulink url="&shadow-url;"/></para>
+        <para>MD5 sum: <literal>&shadow-md5;</literal></para>
+
+        <!-- Using http://cdn.debian.net/debian/pool/main/s/shadow/
+             for now since alioth has not reconstituted shadow -->
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Systemd (&systemd-version;) - <token>&systemd-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&systemd-home;"/></para>
+        <para>Download: <ulink url="&systemd-url;"/></para>
+        <para>MD5 sum: <literal>&systemd-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Tar (&tar-version;) - <token>&tar-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&tar-home;"/></para>
+        <para>Download: <ulink url="&tar-url;"/></para>
+        <para>MD5 sum: <literal>&tar-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Tcl (&tcl-version;) - <token>&tcl-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&tcl-home;"/></para>
+        <para>Download: <ulink url="&tcl-url;"/></para>
+        <para>MD5 sum: <literal>&tcl-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Texinfo (&texinfo-version;) - <token>&texinfo-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&texinfo-home;"/></para>
+        <para>Download: <ulink url="&texinfo-url;"/></para>
+        <para>MD5 sum: <literal>&texinfo-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Time Zone Data (&tzdata-version;) - <token>&tzdata-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&tzdata-home;"/></para>
+        <para>Download: <ulink url="&tzdata-url;"/></para>
+        <para>MD5 sum: <literal>&tzdata-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Util-linux (&util-linux-version;) - <token>&util-linux-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&util-linux-home;"/></para>
+        <para>Download: <ulink url="&util-linux-url;"/></para>
+        <para>MD5 sum: <literal>&util-linux-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Vim (&vim-version;) - <token>&vim-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&vim-home;"/></para>
+        <para>Download: <ulink url="&vim-url;"/></para>
+        <para>MD5 sum: <literal>&vim-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>XML::Parser (&xml-parser-version;) - <token>&xml-parser-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&xml-parser-home;"/></para>
+        <para>Download: <ulink url="&xml-parser-url;"/></para>
+        <para>MD5 sum: <literal>&xml-parser-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Xz Utils (&xz-version;) - <token>&xz-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&xz-home;"/></para>
+        <para>Download: <ulink url="&xz-url;"/></para>
+        <para>MD5 sum: <literal>&xz-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Zlib (&zlib-version;) - <token>&zlib-size;</token>:</term>
+      <listitem>
+        <para>Home page: <ulink url="&zlib-home;"/></para>
+        <para>Download: <ulink url="&zlib-url;"/></para>
+        <para>MD5 sum: <literal>&zlib-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+
+  <para>Total size of these packages: about <returnvalue/></para>
+
+</sect1>

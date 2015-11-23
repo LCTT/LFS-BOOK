@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-systemd-custom">
+  <?dbhtml filename="systemd-custom.html"?>
+
+  <title>Systemd Usage and Configuration</title>
+
+  <indexterm zone="ch-scripts-systemd-custom">
+    <primary sortas="e-Systemd">Systemd Customization</primary>
+  </indexterm>
+
+  <sect2>
+    <title>Basic Configuration</title>
+
+    <para>The <filename>/etc/systemd/system.conf</filename> file contains a set
+    of options to control basic systemd operations. The default file has all
+    entries commented out with the default settings indicated. This file is
+    where the log level may be changed as well as some basic logging settings.
+    See <filename>systemd-system.conf(5)</filename> manual page for details on
+    each configuration option.</para>
+
+  </sect2>
+
+  <sect2>
+    <title>Disabling Screen Clearing at Boot Time</title>
+
+    <para>The normal behavior for systemd is to clear the screen at
+    the end of the boot sequence. If desired, this behavior may be
+    changed by running the following command:</para>
+
+<screen role="nodump"><userinput>mkdir -pv /etc/systemd/system/getty@tty1.service.d
+
+cat &gt; /etc/systemd/system/getty@tty1.service.d/noclear.conf &lt;&lt; EOF
+<literal>[Service]
+TTYVTDisallocate=no</literal>
+EOF</userinput></screen>
+
+    <para>The boot messages can always be revied by using the
+    <userinput>journalctl -b</userinput> command as the root user.</para>
+
+  </sect2>
+
+  <sect2>
+    <title>Disabling tmpfs for /tmp</title>
+
+    <para>By default, <filename class="directory">/tmp</filename> is created as
+    a tmpfs. If this is not desired, it can be overridden by the following:</para>
+
+<screen role="nodump"><userinput>ln -sfv /dev/null /etc/systemd/system/tmp.mount</userinput></screen>
+
+    <para>This is not necessary if there is a separate partition for
+    <filename class="directory">/tmp</filename> specified in
+    <filename>/etc/fstab</filename>.</para>
+
+  </sect2>
+
+  <sect2>
+    <title>Configuring Automatic File Creation and Deletion</title>
+
+    <para>There are several services that create or delete files or
+    directories:</para>
+
+    <itemizedlist>
+      <listitem><para>systemd-tmpfiles-clean.service</para></listitem>
+      <listitem><para>systemd-tmpfiles-setup-dev.service</para></listitem>
+      <listitem><para>systemd-tmpfiles-setup.service</para></listitem>
+    </itemizedlist>
+  
+    <para>The system location for the configuration files is
+    <filename>/usr/lib/tmpfiles.d/*.conf</filename>. The local 
+    configuration files are in
+    <filename class="directory">/etc/tmpfiles.d</filename>. Files in
+    <filename class="directory">/etc/tmpfiles.d</filename> override
+    files with the same name in
+    <filename class="directory">/usr/lib/tmpfiles.d</filename>. See
+    <filename>tmpfiles.d(5)</filename> manual page  for file format
+    details.</para>
+
+  </sect2>
+
+  <sect2>
+    <title>Overriding Default Services Behavior</title>
+
+    <para>A systemd service contents can be overriden by creating a directory
+    and a configuration file in <filename
+    class="directory">/etc/systemd/system</filename>. For example:</para>
+
+<screen role="nodump"><userinput>mkdir -pv /etc/systemd/system/foobar.service.d
+
+cat > /etc/systemd/system/foobar.service.d/foobar.conf &lt;&lt; EOF
+<literal>[Service]
+Restart=always
+RestartSec=30</literal>
+EOF</userinput></screen>
+
+     <para>See <filename>systemd.unit(5)</filename> manual page for more
+     information. After creating the configuration file, run
+     <userinput>systemctl daemon-reload</userinput> and <userinput>systemctl
+     restart foobar</userinput> to activate the changes to a service.</para>
+
+  </sect2>
+
+  <sect2>
+    <title>Debugging the Boot Sequence</title>
+
+    <para>There are several commands that can be used to help debug the systemd 
+    boot process. Here are some examples:</para>
+
+    <itemizedlist>
+       <listitem><para>systemctl list-units -t service [--all]</para></listitem>
+       <listitem><para>systemctl list-units -t target  [--all]</para></listitem>
+       <listitem><para>systemctl show -p Wants multi-user.target</para></listitem>
+       <listitem><para>systemctl status sshd.service</para></listitem>
+    </itemizedlist>
+
+  </sect2>
+
+</sect1>

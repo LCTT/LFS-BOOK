@@ -1,0 +1,45 @@
+<!ENTITY version         "7.8-systemd">
+<!ENTITY short-version   "systemd">  <!-- Used in dbus chapter, change to x.y for release -->
+<!ENTITY releasedate     "September 28th, 2015">
+<!ENTITY copyrightdate   "1999-2015"><!-- jhalfs needs a literal dash, not &ndash; -->
+<!ENTITY milestone       "7.8">
+<!ENTITY generic-version "systemd"> <!-- Use "development", "testing", or "x.y[-pre{x}]" -->
+
+<!ENTITY lfs-root        "http://www.linuxfromscratch.org/">
+<!ENTITY blfs-root       "&lfs-root;blfs/">
+<!ENTITY blfs-book       "&blfs-root;view/&short-version;/">
+<!ENTITY faq-root        "&lfs-root;faq/">
+<!ENTITY hints-root      "&lfs-root;hints/downloads/files/">
+<!ENTITY hints-index     "&lfs-root;hints/list.html">
+<!ENTITY patches-root    "&lfs-root;patches/lfs/&generic-version;/">
+<!ENTITY downloads-root  "&lfs-root;lfs/downloads/&generic-version;/">
+<!ENTITY livecd-root     "&lfs-root;livecd/">
+<!ENTITY test-results    "&lfs-root;lfs/build-logs/&generic-version;/">
+<!ENTITY errata          "&lfs-root;lfs/errata/&generic-version;/">
+<!ENTITY min-kernel      "2.6.32">
+                         
+<!ENTITY lfs-ticket-root "http://wiki.linuxfromscratch.org/lfs/ticket/">
+
+<!ENTITY anduin          "http://anduin.linuxfromscratch.org/sources">
+<!ENTITY anduin-sources  "&anduin;/LFS/lfs-packages/conglomeration/">
+<!ENTITY anduin-other    "&anduin;/other/">
+
+<!ENTITY buildtime       "Approximate build time">
+<!ENTITY diskspace       "Required disk space">
+<!ENTITY dependencies    "Installation depends on">
+<!ENTITY testsuites      "Test suite depends on">
+<!ENTITY before          "Must be installed before">
+<!ENTITY external        "Optional dependencies">
+                         
+<!ENTITY gnu             "http://ftp.gnu.org/gnu/">
+<!ENTITY gnu-software    "http://www.gnu.org/software/">
+<!ENTITY alpha-gnu       "http://alpha.gnu.org/gnu/">
+<!ENTITY kernel          "https://www.kernel.org/pub/">
+<!ENTITY sourceforge     "http://prdownloads.sourceforge.net/">
+<!ENTITY savannah        "http://download.savannah.gnu.org">
+
+<!ENTITY % packages-entities SYSTEM "packages.ent">
+%packages-entities;
+
+<!ENTITY % patches-entities SYSTEM "patches.ent">
+%patches-entities;

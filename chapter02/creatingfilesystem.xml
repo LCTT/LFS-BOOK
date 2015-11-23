@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="space-creatingfilesystem">
+  <?dbhtml filename="creatingfilesystem.html"?>
+
+  <title>Creating a File System on the Partition</title>
+
+  <para>Now that a blank partition has been set up, the file system can be
+  created.  LFS can use any file system recognized by the Linux kernel, but the 
+  most common types are ext3 and ext4.  The choice of file system can be 
+  complex and depends on the characteristics of the files and the size of 
+  the partition.  For example:</para>
+
+  <variablelist>
+    <varlistentry>
+      <term>ext2</term>
+      <listitem><para>is suitable for small partitions that are updated infrequently
+      such as /boot.</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>ext3</term>
+      <listitem><para>is an upgrade to ext2 that includes a journal
+      to help recover the partition's status in the case of an unclean 
+      shutdown.  It is commonly used as a general purpose file system.
+      </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>ext4</term>
+      <listitem><para>is the latest version of the ext file system family of
+      partition types.  It provides several new capabilities including
+      nano-second timestamps, creation and use of very large files (16 TB), and
+      speed improvements.</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+
+  <para>Other file sytems, including FAT32, NTFS, ReiserFS, JFS, and XFS are
+  useful for specialized purposes.  More information about these file systems
+  can be found at <ulink
+  url="http://en.wikipedia.org/wiki/Comparison_of_file_systems"/>.</para>
+
+  <para>LFS assumes that the root file system (/) is of type ext4.  To create
+  an <systemitem class="filesystem">ext4</systemitem> file system on the LFS
+  partition, run the following:</para>
+
+<screen role="nodump"><userinput>mkfs -v -t ext4 /dev/<replaceable>&lt;xxx&gt;</replaceable></userinput></screen>
+
+<!--
+  <para>Replace <replaceable>&lt;xxx&gt;</replaceable> with the name of the LFS
+  partition (<filename class="devicefile">sda5</filename> in our previous
+  example).</para>
+
+  <note>
+    <para>Some host distributions use custom features in their filesystem
+    creation tools (E2fsprogs). This can cause problems when booting into your new
+    LFS in Chapter 9, as those features will not be supported by the LFS-installed
+    E2fsprogs; you will get an error similar to <quote>unsupported filesystem
+    features, upgrade your e2fsprogs</quote>. To check if your host system
+    uses custom enhancements, run the following command:</para>
+
+<screen role="nodump"><userinput>debugfs -R feature /dev/<replaceable>&lt;xxx&gt;</replaceable></userinput></screen>
+
+    <para>If the output contains features other than
+    <option>has_journal</option>, <option>ext_attr</option>,
+    <option>resize_inode</option>, <option>dir_index</option>,
+    <option>filetype</option>, <option>sparse_super</option>,
+    <option>large_file</option> or <option>needs_recovery</option>, then your
+    host system may have custom enhancements.  In that case, to avoid later
+    problems, you should compile the stock E2fsprogs package and use the
+    resulting binaries to re-create the filesystem on your LFS partition:</para>
+
+<screen role="nodump"><userinput>cd /tmp
+tar -xzvf /path/to/sources/e2fsprogs-&e2fsprogs-version;.tar.gz
+cd e2fsprogs-&e2fsprogs-version;
+mkdir -v build
+cd build
+../configure
+make #note that we intentionally don't 'make install' here!
+./misc/mke2fs -jv /dev/<replaceable>&lt;xxx&gt;</replaceable>
+cd /tmp
+rm -rfv e2fsprogs-&e2fsprogs-version;</userinput></screen>
+  </note>
+-->
+  <para>If you are using an existing <systemitem class="filesystem">swap
+  </systemitem> partition, there is no need to format it. If a new
+  <systemitem class="filesystem"> swap</systemitem> partition was created,
+  it will need to be initialized with this command:</para>
+
+<screen role="nodump"><userinput>mkswap /dev/<replaceable>&lt;yyy&gt;</replaceable></userinput></screen>
+
+  <para>Replace <replaceable>&lt;yyy&gt;</replaceable> with the name of the
+  <systemitem class="filesystem">swap</systemitem> partition.</para>
+
+</sect1>

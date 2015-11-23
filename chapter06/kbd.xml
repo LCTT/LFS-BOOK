@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-kbd" role="wrap">
+  <?dbhtml filename="kbd.html"?>
+
+  <sect1info condition="script">
+    <productname>kbd</productname>
+    <productnumber>&kbd-version;</productnumber>
+    <address>&kbd-url;</address>
+  </sect1info>
+
+  <title>Kbd-&kbd-version;</title>
+
+  <indexterm zone="ch-system-kbd">
+    <primary sortas="a-Kbd">Kbd</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Kbd package contains key-table files, console fonts, and keyboard
+    utilities.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&kbd-ch6-sbu;</seg>
+        <seg>&kbd-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Kbd</title>
+
+    <para>The behaviour of the Backspace and Delete keys is not consistent
+    across the keymaps in the Kbd package. The following patch fixes this
+    issue for i386 keymaps:</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&kbd-backspace-patch;</userinput></screen>
+
+    <para>After patching, the Backspace key generates the character with code 127,
+    and the Delete key generates a well-known escape sequence.</para>
+
+    <para>Remove the redundant <command>resizecons</command> program (it requires
+    the defunct svgalib to provide the video mode files - for normal use
+    <command>setfont</command> sizes the console appropriately) together with its
+    manpage.</para>
+
+<screen><userinput remap="pre">sed -i 's/\(RESIZECONS_PROGS=\)yes/\1no/g' configure
+sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in</userinput></screen>
+
+    <para>Prepare Kbd for compilation:</para>
+
+<screen><userinput remap="configure">PKG_CONFIG_PATH=/tools/lib/pkgconfig ./configure --prefix=/usr --disable-vlock</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+<!--
+      <varlistentry>
+        <term><parameter>- -datadir=/lib/kbd</parameter></term>
+        <listitem>
+          <para>This option puts keyboard layout data in a directory that will
+          always be on the root partition instead of the default <filename
+          class="directory">/usr/share/kbd</filename>.</para>
+       </listitem>
+      </varlistentry>
+-->
+      <varlistentry>
+        <term><parameter>--disable-vlock</parameter></term>
+        <listitem>
+          <para>This option prevents the vlock utility from being built, as it
+          requires the PAM library, which isn't available in the chroot
+          environment.</para>
+       </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <note>
+      <para>For some languages (e.g., Belarusian) the Kbd package doesn't
+      provide a useful keymap where the stock <quote>by</quote> keymap assumes
+      the ISO-8859-5 encoding, and the CP1251 keymap is normally used. Users of
+      such languages have to download working keymaps separately.</para>
+    </note>
+
+<!--
+    <para>Some of the scripts in the LFS-Bootscripts package depend on
+    <command>kbd_mode</command>, <command>loadkeys</command>,
+    <command>openvt</command>, and
+    <command>setfont</command>.  As <filename class="directory">/usr</filename>
+    may not be available during the early stages of booting, those binaries
+    need to be on the root partition:</para>
+
+<screen><userinput remap="install">mv -v /usr/bin/{kbd_mode,loadkeys,openvt,setfont} /bin</userinput></screen>
+-->
+    <para>If desired, install the documentation:</para>
+
+<screen><userinput remap="install">mkdir -v       /usr/share/doc/kbd-&kbd-version;
+cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-kbd" role="content">
+    <title>Contents of Kbd</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>chvt, deallocvt, dumpkeys, fgconsole, getkeycodes, kbdinfo,
+        kbd_mode, kbdrate, loadkeys, loadunimap,
+        mapscrn, openvt, psfaddtable (link to psfxtable), psfgettable (link to
+        psfxtable), psfstriptable (link to psfxtable), psfxtable, <!--resizecons,-->
+        setfont, setkeycodes, setleds, setmetamode,
+        showconsolefont, showkey, unicode_start, and unicode_stop</seg>
+        <seg>/usr/share/consolefonts, /usr/share/consoletrans, /usr/share/keymaps,
+        and /usr/share/unimaps</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="chvt">
+        <term><command>chvt</command></term>
+        <listitem>
+          <para>Changes the foreground virtual terminal</para>
+          <indexterm zone="ch-system-kbd chvt">
+            <primary sortas="b-chvt">chvt</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="deallocvt">
+        <term><command>deallocvt</command></term>
+        <listitem>
+          <para>Deallocates unused virtual terminals</para>
+          <indexterm zone="ch-system-kbd deallocvt">
+            <primary sortas="b-deallocvt">deallocvt</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dumpkeys">
+        <term><command>dumpkeys</command></term>
+        <listitem>
+          <para>Dumps the keyboard translation tables</para>
+          <indexterm zone="ch-system-kbd dumpkeys">
+            <primary sortas="b-dumpkeys">dumpkeys</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="fgconsole">
+        <term><command>fgconsole</command></term>
+        <listitem>
+          <para>Prints the number of the active virtual terminal</para>
+          <indexterm zone="ch-system-kbd fgconsole">
+            <primary sortas="b-fgconsole">fgconsole</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="getkeycodes">
+        <term><command>getkeycodes</command></term>
+        <listitem>
+          <para>Prints the kernel scancode-to-keycode mapping table</para>
+          <indexterm zone="ch-system-kbd getkeycodes">
+            <primary sortas="b-getkeycodes">getkeycodes</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="kbdinfo">
+        <term><command>kbdinfo</command></term>
+        <listitem>
+          <para>Obtains information about the status of a console</para>
+          <indexterm zone="ch-system-kbd kbdinfo">
+            <primary sortas="b-kbdinfo">kbdinfo</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="kbd_mode">
+        <term><command>kbd_mode</command></term>
+        <listitem>
+          <para>Reports or sets the keyboard mode</para>
+          <indexterm zone="ch-system-kbd kbd_mode">
+            <primary sortas="b-kbd_mode">kbd_mode</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="kbdrate">
+        <term><command>kbdrate</command></term>
+        <listitem>
+          <para>Sets the keyboard repeat and delay rates</para>
+          <indexterm zone="ch-system-kbd kbdrate">
+            <primary sortas="b-kbdrate">kbdrate</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="loadkeys">
+        <term><command>loadkeys</command></term>
+        <listitem>
+          <para>Loads the keyboard translation tables</para>
+          <indexterm zone="ch-system-kbd loadkeys">
+            <primary sortas="b-loadkeys">loadkeys</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="loadunimap">
+        <term><command>loadunimap</command></term>
+        <listitem>
+          <para>Loads the kernel unicode-to-font mapping table</para>
+          <indexterm zone="ch-system-kbd loadunimap">
+            <primary sortas="b-loadunimap">loadunimap</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mapscrn">
+        <term><command>mapscrn</command></term>
+        <listitem>
+          <para>An obsolete program that used to load a user-defined output
+          character mapping table into the console driver; this is now done
+          by <command>setfont</command></para>
+          <indexterm zone="ch-system-kbd mapscrn">
+            <primary sortas="b-mapscrn">mapscrn</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="openvt">
+        <term><command>openvt</command></term>
+        <listitem>
+          <para>Starts a program on a new virtual terminal (VT)</para>
+          <indexterm zone="ch-system-kbd openvt">
+            <primary sortas="b-openvt">openvt</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="psfaddtable">
+        <term><command>psfaddtable</command></term>
+        <listitem>
+          <para>Adds a Unicode character table to a console font</para>
+          <indexterm zone="ch-system-kbd psfaddtable">
+            <primary sortas="b-psfaddtable">psfaddtable</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="psfgettable">
+        <term><command>psfgettable</command></term>
+        <listitem>
+          <para>Extracts the embedded Unicode character table from a console
+          font</para>
+          <indexterm zone="ch-system-kbd psfgettable">
+            <primary sortas="b-psfgettable">psfgettable</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="psfstriptable">
+        <term><command>psfstriptable</command></term>
+        <listitem>
+          <para>Removes the embedded Unicode character table from a console
+          font</para>
+          <indexterm zone="ch-system-kbd psfstriptable">
+            <primary sortas="b-psfstriptable">psfstriptable</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="psfxtable">
+        <term><command>psfxtable</command></term>
+        <listitem>
+          <para>Handles Unicode character tables for console fonts</para>
+          <indexterm zone="ch-system-kbd psfxtable">
+            <primary sortas="b-psfxtable">psfxtable</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+  <!--<varlistentry id="resizecons">
+        <term><command>resizecons</command></term>
+        <listitem>
+          <para>Changes the kernel idea of the console size</para>
+          <indexterm zone="ch-system-kbd resizecons">
+            <primary sortas="b-resizecons">resizecons</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>-->
+
+      <varlistentry id="setfont">
+        <term><command>setfont</command></term>
+        <listitem>
+          <para>Changes the Enhanced Graphic Adapter (EGA) and Video Graphics
+          Array (VGA) fonts on the console</para>
+          <indexterm zone="ch-system-kbd setfont">
+            <primary sortas="b-setfont">setfont</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="setkeycodes">
+        <term><command>setkeycodes</command></term>
+        <listitem>
+          <para>Loads kernel scancode-to-keycode mapping table entries; this is
+          useful if there are unusual keys on the keyboard</para>
+          <indexterm zone="ch-system-kbd setkeycodes">
+            <primary sortas="b-setkeycodes">setkeycodes</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="setleds">
+        <term><command>setleds</command></term>
+        <listitem>
+          <para>Sets the keyboard flags and Light Emitting Diodes (LEDs)</para>
+          <indexterm zone="ch-system-kbd setleds">
+            <primary sortas="b-setleds">setleds</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="setmetamode">
+        <term><command>setmetamode</command></term>
+        <listitem>
+          <para>Defines the keyboard meta-key handling</para>
+          <indexterm zone="ch-system-kbd setmetamode">
+            <primary sortas="b-setmetamode">setmetamode</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="showconsolefont">
+        <term><command>showconsolefont</command></term>
+        <listitem>
+          <para>Shows the current EGA/VGA console screen font</para>
+          <indexterm zone="ch-system-kbd showconsolefont">
+            <primary sortas="b-showconsolefont">showconsolefont</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="showkey">
+        <term><command>showkey</command></term>
+        <listitem>
+          <para>Reports the scancodes, keycodes, and ASCII codes of the keys
+          pressed on the keyboard</para>
+          <indexterm zone="ch-system-kbd showkey">
+            <primary sortas="b-showkey">showkey</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="unicode_start">
+        <term><command>unicode_start</command></term>
+        <listitem>
+          <para>Puts the keyboard and console in UNICODE mode [Don't use this
+          program unless your keymap file is in the ISO-8859-1 encoding. For
+          other encodings, this utility produces incorrect results.]</para>
+          <indexterm zone="ch-system-kbd unicode_start">
+            <primary sortas="b-unicode_start">unicode_start</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="unicode_stop">
+        <term><command>unicode_stop</command></term>
+        <listitem>
+          <para>Reverts keyboard and console from UNICODE mode</para>
+          <indexterm zone="ch-system-kbd unicode_stop">
+            <primary sortas="b-unicode_stop">unicode_stop</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-creatingtoolsdir">
+  <?dbhtml filename="creatingtoolsdir.html"?>
+
+  <title>Creating the $LFS/tools Directory</title>
+
+  <para>All programs compiled in <xref linkend="chapter-temporary-tools"/>
+  will be installed under <filename class="directory">$LFS/tools</filename>
+  to keep them separate from the programs compiled in <xref
+  linkend="chapter-building-system"/>. The programs compiled here are
+  temporary tools and will not be a part of the final LFS system. By keeping
+  these programs in a separate directory, they can easily be discarded later
+  after their use. This also prevents these programs from ending up in the
+  host production directories (easy to do by accident in <xref
+  linkend="chapter-temporary-tools"/>).</para>
+
+  <para>Create the required directory by running the following as
+  <systemitem class="username">root</systemitem>:</para>
+
+<screen><userinput>mkdir -v $LFS/tools</userinput></screen>
+
+  <para>The next step is to create a <filename class="symlink">/tools</filename>
+  symlink on the host system. This will point to the newly-created directory on
+  the LFS partition. Run this command as <systemitem
+  class="username">root</systemitem> as well:</para>
+
+<screen><userinput>ln -sv $LFS/tools /</userinput></screen>
+
+  <note>
+    <para>The above command is correct. The <command>ln</command> command
+    has a few syntactic variations, so be sure to check
+    <command>info coreutils ln</command> and <filename>ln(1)</filename>
+    before reporting what you may think is an error.</para>
+  </note>
+
+  <para>The created symlink enables the toolchain to be compiled so that it
+  always refers to <filename class="directory">/tools</filename>, meaning
+  that the compiler, assembler, and linker will work both in Chapter 5
+  (when we are still using some tools from the host) and in the next (when
+  we are <quote>chrooted</quote> to the LFS partition).</para>
+
+</sect1>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<chapter id="chapter-partitioning" xreflabel="Chapter 2">
+  <?dbhtml dir="chapter02"?>
+  <?dbhtml filename="chapter02.html"?>
+
+  <title>Preparing a New Partition</title>
+
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="creatingpartition.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="creatingfilesystem.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="aboutlfs.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="mounting.xml"/>
+
+</chapter>

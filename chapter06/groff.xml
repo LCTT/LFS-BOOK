@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-groff" role="wrap">
+  <?dbhtml filename="groff.html"?>
+
+  <sect1info condition="script">
+    <productname>groff</productname>
+    <productnumber>&groff-version;</productnumber>
+    <address>&groff-url;</address>
+  </sect1info>
+
+  <title>Groff-&groff-version;</title>
+
+  <indexterm zone="ch-system-groff">
+    <primary sortas="a-Groff">Groff</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Groff package contains programs for processing and formatting
+    text.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&groff-ch6-sbu;</seg>
+        <seg>&groff-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Groff</title>
+
+    <para>Groff expects the environment variable <envar>PAGE</envar> to
+    contain the default paper size. For users in the United States,
+    <parameter>PAGE=letter</parameter> is appropriate. Elsewhere,
+    <parameter>PAGE=A4</parameter> may be more suitable. While the default
+    paper size is configured during compilation, it can be overridden later
+    by echoing either <quote>A4</quote> or <quote>letter</quote> to the
+    <filename>/etc/papersize</filename> file.</para>
+
+    <para>Prepare Groff for compilation:</para>
+
+<screen><userinput remap="configure">PAGE=<replaceable>&lt;paper_size&gt;</replaceable> ./configure --prefix=/usr</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>This package does not come with a test suite.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-groff" role="content">
+  <title>Contents of Groff</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>addftinfo, afmtodit, chem, eqn, eqn2graph, gdiffmk,
+        geqn (link to eqn), grap2graph, grn, grodvi, groff, groffer, grog,
+        grolbp, grolj4, grops, grotty, gtbl (link to tbl), hpftodit,
+        indxbib, lkbib, lookbib, mmroff, neqn, nroff, pdfroff, pfbtops, pic,
+        pic2graph, post-grohtml, preconv, pre-grohtml, refer, roff2dvi,
+        roff2html, roff2pdf, roff2ps, roff2text, roff2x, soelim, tbl, tfmtodit,
+        and troff</seg>
+        <seg>/usr/lib/groff and /usr/share/doc/groff-&groff-version;,
+        /usr/share/groff</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="addftinfo">
+        <term><command>addftinfo</command></term>
+        <listitem>
+          <para>Reads a troff font file and adds some additional font-metric
+          information that is used by the <command>groff</command> system</para>
+          <indexterm zone="ch-system-groff addftinfo">
+            <primary sortas="b-addftinfo">addftinfo</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="afmtodit">
+        <term><command>afmtodit</command></term>
+        <listitem>
+          <para>Creates a font file for use with <command>groff</command> and
+          <command>grops</command></para>
+          <indexterm zone="ch-system-groff afmtodit">
+            <primary sortas="b-afmtodit">afmtodit</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="chem">
+        <term><command>chem</command></term>
+        <listitem>
+          <para>Groff preprocessor for producing chemical structure diagrams</para>
+          <indexterm zone="ch-system-groff chem">
+            <primary sortas="b-chem">chem</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="eqn">
+        <term><command>eqn</command></term>
+        <listitem>
+          <para>Compiles descriptions of equations embedded within troff
+          input files into commands that are understood by
+          <command>troff</command></para>
+          <indexterm zone="ch-system-groff eqn">
+            <primary sortas="b-eqn">eqn</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="eqn2graph">
+        <term><command>eqn2graph</command></term>
+        <listitem>
+          <para>Converts a troff EQN (equation) into a cropped image</para>
+          <indexterm zone="ch-system-groff eqn2graph">
+            <primary sortas="b-eqn2graph">eqn2graph</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="gdiffmk">
+        <term><command>gdiffmk</command></term>
+        <listitem>
+          <para>Marks differences between groff/nroff/troff files</para>
+          <indexterm zone="ch-system-groff gdiffmk">
+            <primary sortas="b-gdiffmk">gdiffmk</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="geqn">
+        <term><command>geqn</command></term>
+        <listitem>
+          <para>A link to <command>eqn</command></para>
+          <indexterm zone="ch-system-groff geqn">
+            <primary sortas="b-geqn">geqn</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grap2graph">
+        <term><command>grap2graph</command></term>
+        <listitem>
+          <para>Converts a grap diagram into a cropped bitmap image</para>
+          <indexterm zone="ch-system-groff grap2graph">
+            <primary sortas="b-grap2graph">grap2graph</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grn">
+        <term><command>grn</command></term>
+        <listitem>
+          <para>A <command>groff</command> preprocessor for gremlin files</para>
+          <indexterm zone="ch-system-groff grn">
+            <primary sortas="b-grn">grn</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grodvi">
+        <term><command>grodvi</command></term>
+        <listitem>
+          <para>A driver for <command>groff</command> that produces TeX dvi
+          format</para>
+          <indexterm zone="ch-system-groff grodvi">
+            <primary sortas="b-grodvi">grodvi</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="groff">
+        <term><command>groff</command></term>
+        <listitem>
+          <para>A front-end to the groff document formatting system; normally, it
+          runs the <command>troff</command> program and a post-processor
+          appropriate for the selected device</para>
+          <indexterm zone="ch-system-groff groff">
+            <primary sortas="b-groff">groff</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="groffer">
+        <term><command>groffer</command></term>
+        <listitem>
+          <para>Displays groff files and man pages on X and tty terminals</para>
+          <indexterm zone="ch-system-groff groffer">
+            <primary sortas="b-groffer">groffer</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grog">
+        <term><command>grog</command></term>
+        <listitem>
+          <para>Reads files and guesses which of the <command>groff</command>
+          options <option>-e</option>, <option>-man</option>, <option>-me</option>,
+          <option>-mm</option>, <option>-ms</option>, <option>-p</option>,
+          <option>-s</option>, and <option>-t</option> are required for printing
+          files, and reports the <command>groff</command> command including those
+          options</para>
+          <indexterm zone="ch-system-groff grog">
+            <primary sortas="b-grog">grog</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grolbp">
+        <term><command>grolbp</command></term>
+        <listitem>
+          <para>Is a <command>groff</command> driver for Canon CAPSL printers
+          (LBP-4 and LBP-8 series laser printers)</para>
+          <indexterm zone="ch-system-groff grolbp">
+            <primary sortas="b-grolbp">grolbp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grolj4">
+        <term><command>grolj4</command></term>
+        <listitem>
+          <para>Is a driver for <command>groff</command> that produces output
+          in PCL5 format suitable for an HP LaserJet 4 printer</para>
+          <indexterm zone="ch-system-groff grolj4">
+            <primary sortas="b-grolj4">grolj4</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grops">
+        <term><command>grops</command></term>
+        <listitem>
+          <para>Translates the output of GNU <command>troff</command> to
+          PostScript</para>
+          <indexterm zone="ch-system-groff grops">
+            <primary sortas="b-grops">grops</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grotty">
+        <term><command>grotty</command></term>
+        <listitem>
+          <para>Translates the output of GNU <command>troff</command> into
+          a form suitable for typewriter-like devices</para>
+          <indexterm zone="ch-system-groff grotty">
+            <primary sortas="b-grotty">grotty</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="gtbl">
+        <term><command>gtbl</command></term>
+        <listitem>
+          <para>A link to <command>tbl</command></para>
+          <indexterm zone="ch-system-groff gtbl">
+            <primary sortas="b-gtbl">gtbl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="hpftodit">
+        <term><command>hpftodit</command></term>
+        <listitem>
+          <para>Creates a font file for use with <command>groff -Tlj4</command>
+          from an HP-tagged font metric file</para>
+          <indexterm zone="ch-system-groff hpftodit">
+            <primary sortas="b-hpftodit">hpftodit</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="indxbib">
+        <term><command>indxbib</command></term>
+        <listitem>
+          <para>Creates an inverted index for the bibliographic databases with a
+          specified file for use with <command>refer</command>,
+          <command>lookbib</command>, and <command>lkbib</command></para>
+          <indexterm zone="ch-system-groff indxbib">
+            <primary sortas="b-indxbib">indxbib</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="lkbib">
+        <term><command>lkbib</command></term>
+        <listitem>
+          <para>Searches bibliographic databases for references that contain
+          specified keys and reports any references found</para>
+          <indexterm zone="ch-system-groff lkbib">
+            <primary sortas="b-lkbib">lkbib</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="lookbib">
+        <term><command>lookbib</command></term>
+        <listitem>
+          <para>Prints a prompt on the standard error (unless the standard input
+          is not a terminal), reads a line containing a set of keywords from the
+          standard input, searches the bibliographic databases in a specified file
+          for references containing those keywords, prints any references found
+          on the standard output, and repeats this process until the end of
+          input</para>
+          <indexterm zone="ch-system-groff lookbib">
+            <primary sortas="b-lookbib">lookbib</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mmroff">
+        <term><command>mmroff</command></term>
+        <listitem>
+          <para>A simple preprocessor for <command>groff</command></para>
+          <indexterm zone="ch-system-groff mmroff">
+            <primary sortas="b-mmroff">mmroff</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="neqn">
+        <term><command>neqn</command></term>
+        <listitem>
+          <para>Formats equations for American Standard Code for Information
+          Interchange (ASCII) output</para>
+          <indexterm zone="ch-system-groff neqn">
+            <primary sortas="b-neqn">neqn</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="nroff">
+        <term><command>nroff</command></term>
+        <listitem>
+          <para>A script that emulates the <command>nroff</command> command
+          using <command>groff</command></para>
+          <indexterm zone="ch-system-groff nroff">
+            <primary sortas="b-nroff">nroff</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pdfroff">
+        <term><command>pdfroff</command></term>
+        <listitem>
+          <para>Creates pdf documents using groff</para>
+          <indexterm zone="ch-system-groff pdfroff">
+            <primary sortas="b-pdfroff">pdfroff</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pfbtops">
+        <term><command>pfbtops</command></term>
+        <listitem>
+          <para>Translates a PostScript font in <filename
+          class="extension">.pfb</filename> format to ASCII</para>
+          <indexterm zone="ch-system-groff pfbtops">
+            <primary sortas="b-pfbtops">pfbtops</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pic">
+        <term><command>pic</command></term>
+        <listitem>
+          <para>Compiles descriptions of pictures embedded within troff or
+          TeX input files into commands understood by TeX or
+          <command>troff</command></para>
+          <indexterm zone="ch-system-groff pic">
+            <primary sortas="b-pic">pic</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pic2graph">
+        <term><command>pic2graph</command></term>
+        <listitem>
+          <para>Converts a PIC diagram into a cropped image</para>
+          <indexterm zone="ch-system-groff pic2graph">
+            <primary sortas="b-pic2graph">pic2graph</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="post-grohtml">
+        <term><command>post-grohtml</command></term>
+        <listitem>
+          <para>Translates the output of GNU <command>troff</command> to
+          HTML</para>
+          <indexterm zone="ch-system-groff post-grohtml">
+            <primary sortas="b-post-grohtml">post-grohtml</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="preconv">
+        <term><command>preconv</command></term>
+        <listitem>
+          <para>Converts encoding of input files to something GNU
+          <command>troff</command> understands</para>
+          <indexterm zone="ch-system-groff preconv">
+            <primary sortas="b-preconv">preconv</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pre-grohtml">
+        <term><command>pre-grohtml </command></term>
+        <listitem>
+          <para>Translates the output of GNU <command>troff</command> to
+          HTML</para>
+          <indexterm zone="ch-system-groff pre-grohtml">
+            <primary sortas="b-pre-grohtml">pre-grohtml</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="refer">
+        <term><command>refer</command></term>
+        <listitem>
+          <para>Copies the contents of a file to the standard output, except
+          that lines between <emphasis>.[</emphasis> and <emphasis>.]</emphasis>
+          are interpreted as citations, and lines between <emphasis>.R1</emphasis>
+          and <emphasis>.R2</emphasis> are interpreted as commands for how
+          citations are to be processed</para>
+          <indexterm zone="ch-system-groff refer">
+            <primary sortas="b-refer">refer</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="roff2dvi">
+        <term><command>roff2dvi</command></term>
+        <listitem>
+          <para>Transforms roff files into DVI format</para>
+          <indexterm zone="ch-system-groff roff2dvi">
+            <primary sortas="b-roff2dvi">roff2dvi</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="roff2html">
+        <term><command>roff2html</command></term>
+        <listitem>
+          <para>Transforms roff files into HTML format</para>
+          <indexterm zone="ch-system-groff roff2html">
+            <primary sortas="b-roff2html">roff2html</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="roff2pdf">
+        <term><command>roff2pdf</command></term>
+        <listitem>
+          <para>Transforms roff files into PDFs</para>
+          <indexterm zone="ch-system-groff roff2pdf">
+            <primary sortas="b-roff2pdf">roff2pdf</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="roff2ps">
+        <term><command>roff2ps</command></term>
+        <listitem>
+          <para>Transforms roff files into ps files</para>
+          <indexterm zone="ch-system-groff roff2ps">
+            <primary sortas="b-roff2ps">roff2ps</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="roff2text">
+        <term><command>roff2text</command></term>
+        <listitem>
+          <para>Transforms roff files into text files</para>
+          <indexterm zone="ch-system-groff roff2text">
+            <primary sortas="b-roff2text">roff2text</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="roff2x">
+        <term><command>roff2x</command></term>
+        <listitem>
+          <para>Transforms roff files into other formats</para>
+          <indexterm zone="ch-system-groff roff2x">
+            <primary sortas="b-roff2x">roff2x</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="soelim">
+        <term><command>soelim</command></term>
+        <listitem>
+          <para>Reads files and replaces lines of the form <emphasis>.so
+          file</emphasis> by the contents of the mentioned
+          <emphasis>file</emphasis></para>
+          <indexterm zone="ch-system-groff soelim">
+            <primary sortas="b-soelim">soelim</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tbl">
+        <term><command>tbl</command></term>
+        <listitem>
+          <para>Compiles descriptions of tables embedded within troff input
+          files into commands that are understood by
+          <command>troff</command></para>
+          <indexterm zone="ch-system-groff tbl">
+            <primary sortas="b-tbl">tbl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tfmtodit">
+        <term><command>tfmtodit</command></term>
+        <listitem>
+          <para>Creates a font file for use with <command>groff
+          -Tdvi</command></para>
+          <indexterm zone="ch-system-groff tfmtodit">
+            <primary sortas="b-tfmtodit">tfmtodit</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="troff">
+        <term><command>troff</command></term>
+        <listitem>
+          <para>Is highly compatible with Unix <command>troff</command>; it
+          should usually be invoked using the <command>groff</command> command,
+          which will also run preprocessors and post-processors in the
+          appropriate order and with the appropriate options</para>
+          <indexterm zone="ch-system-groff troff">
+            <primary sortas="b-troff">troff</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

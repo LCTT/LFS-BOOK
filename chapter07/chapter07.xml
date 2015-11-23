@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<chapter id="chapter-bootscripts" xreflabel="Chapter 7">
+  <?dbhtml dir="chapter07"?>
+  <?dbhtml filename="chapter07.html"?>
+
+  <title>Basic System Configuration</title>
+
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="network.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="udev.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="symlinks.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="clock.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="console.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="locale.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="inputrc.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="etcshells.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="systemd-custom.xml"/>
+
+</chapter>

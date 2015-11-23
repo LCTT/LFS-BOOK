@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-adjusting">
+  <?dbhtml filename="adjusting.html"?>
+
+  <title>Adjusting the Toolchain</title>
+
+  <para>Now that the temporary C libraries have been installed, all
+  tools compiled in the rest of this chapter should be linked against
+  these libraries. In order to accomplish this, the cross-compiler's
+  specs file needs to be adjusted to point to the new dynamic linker
+  in <filename class="directory">/tools</filename>.</para>
+
+  <para>This is done by dumping the compiler's <quote>specs</quote> file to a
+  location where it will look for it by default.
+  A simple <command>sed</command> substitution then alters the
+  dynamic linker that GCC will use. The principle here is to find all references
+  to the dynamic linker file in <filename class="directory">/lib</filename>
+  or possibly <filename class="directory">/lib64</filename> if the host system
+  is 64-bit capable, and adjust them to point to the new location in
+  <filename class="directory">/tools</filename>.</para>
+
+  <para>For the sake of accuracy, it is recommended to use a copy-and-paste
+  method when issuing the following command. Be sure to visually inspect the
+  specs file to verify that it has properly adjusted all references to the
+  dynamic linker location. Refer to <xref
+    linkend="ch-tools-toolchaintechnotes" role=","/> for the default name
+  of the dynamic linker, if necessary.</para>
+
+<!-- Ampersands are needed to allow copy and paste -->
+<screen><userinput>SPECS=`dirname $($LFS_TGT-gcc -print-libgcc-file-name)`/specs
+$LFS_TGT-gcc -dumpspecs | sed \
+  -e 's@/lib\(64\)\?/ld@/tools&amp;@g' \
+  -e "/^\*cpp:$/{n;s,$, -isystem /tools/include,}" &gt; $SPECS
+echo "New specs file is: $SPECS"
+unset SPECS</userinput></screen>
+
+  <caution>
+    <para>At this point, it is imperative to stop and ensure that the basic
+    functions (compiling and linking) of the new toolchain are working as
+    expected. To perform a sanity check, run the following commands:</para>
+
+<screen><userinput>echo 'int main(){}' &gt; dummy.c
+$LFS_TGT-gcc -B/tools/lib dummy.c
+readelf -l a.out | grep ': /tools'</userinput></screen>
+
+    <para>If everything is working correctly, there should be no errors,
+    and the output of the last command will be of the form:</para>
+
+<screen><computeroutput>[Requesting program interpreter: /tools/lib/ld-linux.so.2]</computeroutput></screen>
+
+    <para>Note that <filename class="directory">/tools/lib</filename>, or
+    <filename class="directory">/tools/lib64</filename> for 64-bit machines
+    appears as the prefix of the dynamic linker.</para>
+
+    <para>If the output is not shown as above or there was no output at all,
+    then something is wrong. Investigate and retrace the steps to find out
+    where the problem is and correct it. This issue must be resolved before
+    continuing on. Something may have gone wrong with the
+    specs file amendment above. In this case, redo the specs file amendment,
+    being careful to copy-and-paste the commands.</para>
+
+    <para>Once all is well, clean up the test files:</para>
+
+<screen><userinput>rm -v dummy.c a.out</userinput></screen>
+
+  </caution>
+
+  <note><para>Building Binutils in the next section will serve as an additional check that
+  the toolchain has been built properly. If Binutils fails to build, it is an
+  indication that something has gone wrong with the previous Binutils, GCC, or Glibc
+  installations.</para></note>
+
+</sect1>

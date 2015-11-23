@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-mpc" role="wrap">
+  <?dbhtml filename="mpc.html"?>
+
+  <sect1info condition="script">
+    <productname>mpc</productname>
+    <productnumber>&mpc-version;</productnumber>
+    <address>&mpc-url;</address>
+  </sect1info>
+
+  <title>MPC-&mpc-version;</title>
+
+  <indexterm zone="ch-system-mpc">
+    <primary sortas="a-MPC">MPC</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The MPC package contains a library for the arithmetic of complex
+    numbers with arbitrarily high precision and correct rounding of the
+    result.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&mpc-ch6-sbu;</seg>
+        <seg>&mpc-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of MPC</title>
+
+    <para>Prepare MPC for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/mpc-&mpc-version;</userinput></screen>
+
+    <para>Compile the package and generate the HTML documentation:</para>
+
+<screen><userinput remap="make">make
+make html</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package and its documentation:</para>
+
+<screen><userinput remap="install">make install
+make install-html</userinput></screen>
+
+  </sect2>
+
+
+  <sect2 id="contents-mpc" role="content">
+    <title>Contents of MPC</title>
+
+    <segmentedlist>
+      <segtitle>Installed Libraries</segtitle>
+      <segtitle>Installed Directory</segtitle>
+
+      <seglistitem>
+        <seg>libmpc.{a,so}</seg>
+        <seg>/usr/share/doc/mpc-&mpc-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="libmpc">
+        <term><filename class="libraryfile">libmpc</filename></term>
+        <listitem>
+          <para>Contains complex math functions</para>
+          <indexterm zone="ch-system-mpc libmpc">
+            <primary sortas="c-libmpc">libmpc</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

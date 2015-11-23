@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+   <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-inputrc">
+  <?dbhtml filename="inputrc.html"?>
+
+  <title>Creating the /etc/inputrc File</title>
+
+  <indexterm zone="ch-scripts-inputrc">
+    <primary sortas="e-/etc/inputrc">/etc/inputrc</primary>
+  </indexterm>
+
+  <para>The <filename>inputrc</filename> file handles keyboard mapping for
+  specific situations. This file is the startup file used by Readline &mdash; the
+  input-related library &mdash; used by Bash and most other shells.</para>
+
+  <para>Most people do not need user-specific keyboard mappings so the command
+  below creates a global <filename>/etc/inputrc</filename> used by everyone who
+  logs in. If you later decide you need to override the defaults on a per-user
+  basis, you can create a <filename>.inputrc</filename> file in the user's home
+  directory with the modified mappings.</para>
+
+  <para>For more information on how to edit the <filename>inputrc</filename>
+  file, see <command>info bash</command> under the <emphasis>Readline Init
+  File</emphasis> section. <command>info readline</command> is also a good
+  source of information.</para>
+
+  <para>Below is a generic global <filename>inputrc</filename> along with comments
+  to explain what the various options do. Note that comments cannot be on the same
+  line as commands. Create the file using the following command:</para>
+
+<screen><userinput>cat &gt; /etc/inputrc &lt;&lt; "EOF"
+<literal># Begin /etc/inputrc
+# Modified by Chris Lynn &lt;roryo@roryo.dynup.net&gt;
+
+# Allow the command prompt to wrap to the next line
+set horizontal-scroll-mode Off
+
+# Enable 8bit input
+set meta-flag On
+set input-meta On
+
+# Turns off 8th bit stripping
+set convert-meta Off
+
+# Keep the 8th bit for display
+set output-meta On
+
+# none, visible or audible
+set bell-style none
+
+# All of the following map the escape sequence of the value
+# contained in the 1st argument to the readline specific functions
+"\eOd": backward-word
+"\eOc": forward-word
+
+# for linux console
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+"\e[3~": delete-char
+"\e[2~": quoted-insert
+
+# for xterm
+"\eOH": beginning-of-line
+"\eOF": end-of-line
+
+# for Konsole
+"\e[H": beginning-of-line
+"\e[F": end-of-line
+
+# End /etc/inputrc</literal>
+EOF</userinput></screen>
+
+</sect1>

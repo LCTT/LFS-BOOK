@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-gdbm" role="wrap">
+  <?dbhtml filename="gdbm.html"?>
+
+  <sect1info condition="script">
+    <productname>gdbm</productname>
+    <productnumber>&gdbm-version;</productnumber>
+    <address>&gdbm-url;</address>
+  </sect1info>
+
+  <title>GDBM-&gdbm-version;</title>
+
+  <indexterm zone="ch-system-gdbm">
+    <primary sortas="a-Gdbm">GDBM</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The GDBM package contains the GNU Database Manager.  It is a library
+    of database functions that use extensible hashing and work similar to the
+    standard UNIX dbm.  The library provides primitives for storing key/data
+    pairs, searching and retrieving the data by its key and deleting a key
+    along with its data. </para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&gdbm-ch6-sbu;</seg>
+        <seg>&gdbm-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of GDBM</title>
+
+    <para>Prepare GDBM for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr \
+            --disable-static \
+            --enable-libgdbm-compat</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure option:</title>
+
+      <varlistentry>
+        <term><envar>--enable-libgdbm-compat</envar></term>
+        <listitem>
+          <para>This switch enables the libgdbm compatibility library to be
+          built, as some packages outside of LFS may require the older DBM
+          routines it provides.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-gdbm" role="content">
+    <title>Contents of GDBM</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed libraries</segtitle>
+
+      <seglistitem>
+        <seg>gdbm_dump, gdbm_load, and gdbmtool</seg>
+        <seg>libgdbm.{a,so} and libgdbm_compat.{a,so}</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="gdbm_dump">
+        <term><command>gdbm_dump</command></term>
+        <listitem>
+          <para>Dumps a GDBM database to a file</para>
+          <indexterm zone="ch-system-gdbm gdbm_dump">
+            <primary sortas="b-gdbm_dump">gdbm_dump</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="gdbm_load">
+        <term><command>gdbm_load</command></term>
+        <listitem>
+          <para>Recreates a GDBM database from a dump file</para>
+          <indexterm zone="ch-system-gdbm gdbm_load">
+            <primary sortas="b-gdbm_load">gdbm_load</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="gdbmtool">
+        <term><command>gdbmtool</command></term>
+        <listitem>
+          <para>Tests and modifies a GDBM database</para>
+          <indexterm zone="ch-system-gdbm gdbmtool">
+            <primary sortas="b-gdbmtool">gdbmtool</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libgdbm">
+        <term><filename class="libraryfile">libgdbm</filename></term>
+        <listitem>
+          <para>Contains functions to manipulate a hashed database</para>
+          <indexterm zone="ch-system-gdbm libgdbm">
+            <primary sortas="c-libgdbm">libgdbm</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libgdbm_compat">
+        <term><filename class="libraryfile">libgdbm_compat</filename></term>
+        <listitem>
+          <para>Compatibility library containing older DBM functions</para>
+          <indexterm zone="ch-system-gdbm libgdbm_compat">
+            <primary sortas="c-libgdbm_compat">libgdbm_compat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

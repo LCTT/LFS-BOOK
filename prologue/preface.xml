@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<preface id="preface">
+  <?dbhtml dir="prologue"?>
+  <?dbhtml filename="preface.html"?>
+
+  <title>Preface</title>
+
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="foreword.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="audience.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="architecture.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="standards.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="why.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="prerequisites.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="hostreqs.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="typography.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="organization.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="errata.xml"/>
+
+</preface>

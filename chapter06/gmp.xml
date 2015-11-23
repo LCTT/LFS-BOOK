@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-gmp" role="wrap">
+  <?dbhtml filename="gmp.html"?>
+
+  <sect1info condition="script">
+    <productname>gmp</productname>
+    <productnumber>&gmp-version;</productnumber>
+    <address>&gmp-url;</address>
+  </sect1info>
+
+  <title>GMP-&gmp-version;</title>
+
+  <indexterm zone="ch-system-gmp">
+    <primary sortas="a-GMP">GMP</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The GMP package contains math libraries. These have useful functions
+    for arbitrary precision arithmetic.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&gmp-ch6-sbu;</seg>
+        <seg>&gmp-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of GMP</title>
+
+    <note>
+      <para>If you are building for 32-bit x86, but you have a CPU which is
+      capable of running 64-bit code <emphasis>and</emphasis> you have specified
+      <envar>CFLAGS</envar> in the environment, the configure script will
+      attempt to configure for 64-bits and fail.
+      Avoid this by invoking the configure command below with
+<screen role="nodump"><userinput><parameter>ABI=32</parameter> ./configure ...</userinput></screen></para>
+    </note>
+
+    <para>Prepare GMP for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr    \
+            --enable-cxx     \
+            --disable-static \
+            --docdir=/usr/share/doc/gmp-&gmp-version;</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the new configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--enable-cxx</parameter></term>
+        <listitem>
+          <para>This parameter enables C++ support</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--docdir=/usr/share/doc/gmp-&gmp-version;</parameter></term>
+        <listitem>
+          <para>This variable specifies the correct place for the
+          documentation.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package and generate the HTML documentation:</para>
+
+<screen><userinput remap="make">make
+make html</userinput></screen>
+
+    <important>
+      <para>The test suite for GMP in this section is considered critical.
+      Do not skip it under any circumstances.</para>
+    </important>
+
+    <para>Test the results:</para>
+
+<screen><userinput remap="test">make check 2>&amp;1 | tee gmp-check-log</userinput></screen>
+
+    <para>Ensure that all 188 tests in the test suite passed.
+    Check the results by issuing the following command:</para>
+
+<screen><userinput remap="test">awk '/tests passed/{total+=$2} ; END{print total}' gmp-check-log</userinput></screen>
+
+    <para>Install the package and its documentation:</para>
+
+<screen><userinput remap="install">make install
+make install-html</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-gmp" role="content">
+    <title>Contents of GMP</title>
+
+    <segmentedlist>
+      <segtitle>Installed Libraries</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>libgmp.{a,so} and libgmpxx.{a,so}</seg>
+        <seg>/usr/share/doc/gmp-&gmp-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="libgmp">
+        <term><filename class="libraryfile">libgmp</filename></term>
+        <listitem>
+          <para>Contains precision math functions</para>
+          <indexterm zone="ch-system-gmp libgmp">
+            <primary sortas="c-libgmp">libgmp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libgmpxx">
+        <term><filename class="libraryfile">libgmpxx</filename></term>
+        <listitem>
+          <para>Contains C++ precision math functions</para>
+          <indexterm zone="ch-system-gmp libgmpxx">
+            <primary sortas="c-libgmpxx">libgmpxx</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+  </sect2>
+
+</sect1>

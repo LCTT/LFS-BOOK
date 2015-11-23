@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-intro-askforhelp">
+  <?dbhtml filename="askforhelp.html"?>
+
+  <title>Help</title>
+
+  <para>If an issue or a question is encountered while working through
+  this book, please check the FAQ page at <ulink url="&faq-root;#generalfaq"/>.
+  Questions are often already answered there. If your question is not
+  answered on this page, try to find the source of the problem. The
+  following hint will give you some guidance for troubleshooting:
+  <ulink url="&hints-root;errors.txt"/>.</para>
+
+  <para>If you cannot find your problem listed in the FAQ, search the mailing
+  lists at <ulink url="&lfs-root;search.html"/>.</para>
+
+  <para>We also have a wonderful LFS community that is willing to offer
+  assistance through the mailing lists and IRC (see the <xref
+  linkend="ch-intro-resources"/> section of this book). However,
+  we get several support questions every day and many of them can be easily
+  answered by going to the FAQ and by searching the mailing lists first.
+  So, for us to offer the best assistance possible, you need to do some
+  research on your own first. That allows us to focus on the more unusual
+  support needs. If your searches do not produce a solution, please include
+  all relevant information (mentioned below) in your request for help.</para>
+
+  <sect2>
+    <title>Things to Mention</title>
+
+    <para>Apart from a brief explanation of the problem being experienced,
+    the essential things to include in any request for help are:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>The version of the book being used (in this case &version;)</para>
+      </listitem>
+      <listitem>
+        <para>The host distribution and version being used to create LFS</para>
+      </listitem>
+      <listitem>
+        <para>The output from the <xref linkend='version-check'/> script</para>
+      </listitem>
+      <listitem>
+        <para>The package or section the problem was encountered in</para>
+      </listitem>
+      <listitem>
+        <para>The exact error message or symptom being received</para>
+      </listitem>
+      <listitem>
+        <para>Note whether you have deviated from the book at all </para>
+      </listitem>
+    </itemizedlist>
+
+    <note>
+      <para>Deviating from this book does <emphasis>not</emphasis> mean that
+      we will not help you. After all, LFS is about personal preference.
+      Being upfront about any changes to the established procedure helps us
+      evaluate and determine possible causes of your problem.</para>
+    </note>
+
+  </sect2>
+
+  <sect2>
+    <title>Configure Script Problems</title>
+
+    <para>If something goes wrong while running the <command>configure</command>
+    script, review the <filename>config.log</filename> file. This file may
+    contain errors encountered during <command>configure</command> which were
+    not printed to the screen. Include the <emphasis>relevant</emphasis> lines
+    if you need to ask for help.</para>
+
+  </sect2>
+
+  <sect2>
+    <title>Compilation Problems</title>
+
+    <para>Both the screen output and the contents of various files are useful
+    in determining the cause of compilation problems. The screen output from
+    the <command>configure</command> script and the <command>make</command>
+    run can be helpful. It is not necessary to include the entire output, but
+    do include enough of the relevant information. Below is an example of the
+    type of information to include from the screen output from
+    <command>make</command>:</para>
+
+<screen><computeroutput>gcc -DALIASPATH=\"/mnt/lfs/usr/share/locale:.\"
+-DLOCALEDIR=\"/mnt/lfs/usr/share/locale\"
+-DLIBDIR=\"/mnt/lfs/usr/lib\"
+-DINCLUDEDIR=\"/mnt/lfs/usr/include\" -DHAVE_CONFIG_H -I. -I.
+-g -O2 -c getopt1.c
+gcc -g -O2 -static -o make ar.o arscan.o commands.o dir.o
+expand.o file.o function.o getopt.o implicit.o job.o main.o
+misc.o read.o remake.o rule.o signame.o variable.o vpath.o
+default.o remote-stub.o version.o opt1.o
+-lutil job.o: In function `load_too_high':
+/lfs/tmp/make-3.79.1/job.c:1565: undefined reference
+to `getloadavg'
+collect2: ld returned 1 exit status
+make[2]: *** [make] Error 1
+make[2]: Leaving directory `/lfs/tmp/make-3.79.1'
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory `/lfs/tmp/make-3.79.1'
+make: *** [all-recursive-am] Error 2</computeroutput></screen>
+
+    <para>In this case, many people would just include the bottom
+    section:</para>
+
+<screen><computeroutput>make [2]: *** [make] Error 1</computeroutput></screen>
+
+    <para>This is not enough information to properly diagnose the problem
+    because it only notes that something went wrong, not
+    <emphasis>what</emphasis> went wrong. The entire section, as in the
+    example above, is what should be saved because it includes the command
+    that was executed and the associated error message(s).</para>
+
+    <para>An excellent article about asking for help on the Internet is
+    available online at <ulink
+    url="http://catb.org/~esr/faqs/smart-questions.html"/>. Read and
+    follow the hints in this document to increase the likelihood of getting
+    the help you need.</para>
+
+  </sect2>
+
+</sect1>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- Start of Common Patches -->
+
+<!ENTITY bash-fixes-patch "bash-&bash-version;-upstream_fixes-2.patch">
+<!ENTITY bash-fixes-patch-md5 "fd2d7ca532f9ea53d678a6bc79354681">
+<!ENTITY bash-fixes-patch-size "13 KB">
+
+<!ENTITY bc-memory-leak-patch "bc-&bc-version;-memory_leak-1.patch">
+<!ENTITY bc-memory-leak-patch-md5 "877e81fba316fe487ec23501059d54b8">
+<!ENTITY bc-memory-leak-patch-size "1.4 KB">
+
+<!ENTITY bzip2-docs-patch "bzip2-&bzip2-version;-install_docs-1.patch">
+<!ENTITY bzip2-docs-patch-md5 "6a5ac7e89b791aae556de0f745916f7f">
+<!ENTITY bzip2-docs-patch-size "1.6 KB">
+
+<!ENTITY coreutils-i18n-patch "coreutils-&coreutils-version;-i18n-1.patch">
+<!ENTITY coreutils-i18n-patch-md5 "c6a5ccda1ca61de7c93b09d27a9a26d5">
+<!ENTITY coreutils-i18n-patch-size "141 KB">
+
+<!ENTITY glibc-fhs-patch "glibc-&glibc-version;-fhs-1.patch">
+<!ENTITY glibc-fhs-patch-md5 "9a5997c3452909b1769918c759eff8a2">
+<!ENTITY glibc-fhs-patch-size "2.8 KB">
+
+<!ENTITY glibc-upstream-patch "glibc-&glibc-version;-upstream_i386_fix-1.patch">
+<!ENTITY glibc-upstream-patch-md5 "cfb3cb46074a833ac5729be79e4f2592">
+<!ENTITY glibc-upstream-patch-size "1.9 KB">
+
+<!ENTITY kbd-backspace-patch "kbd-&kbd-version;-backspace-1.patch">
+<!ENTITY kbd-backspace-patch-md5 "f75cca16a38da6caa7d52151f7136895">
+<!ENTITY kbd-backspace-patch-size "12 KB">
+
+<!ENTITY mpfr-upstream-patch "mpfr-&mpfr-version;-upstream_fixes-1.patch">
+<!ENTITY mpfr-upstream-patch-md5 "2044abd90351861311c9aafcfb0ce864">
+<!ENTITY mpfr-upstream-patch-size "81 KB">
+
+<!ENTITY readline-fixes-patch "readline-&readline-version;-upstream_fixes-3.patch">
+<!ENTITY readline-fixes-patch-md5 "6b0d9f4e79319d56a7fee9b35e5cfd1b">
+<!ENTITY readline-fixes-patch-size "8 KB">
+
+<!ENTITY systemd-compat-patch "systemd-&systemd-version;-compat-3.patch">
+<!ENTITY systemd-compat-patch-md5 "5ef7a63335bd572dac54ac460caaebeb">
+<!ENTITY systemd-compat-patch-size "12 KB">

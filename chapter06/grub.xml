@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-grub" role="wrap">
+  <?dbhtml filename="grub.html"?>
+
+  <sect1info condition="script">
+    <productname>grub</productname>
+    <productnumber>&grub-version;</productnumber>
+    <address>&grub-url;</address>
+  </sect1info>
+
+  <title>GRUB-&grub-version;</title>
+
+  <indexterm zone="ch-system-grub">
+    <primary sortas="a-Grub">GRUB</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The GRUB package contains the GRand Unified Bootloader.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&grub-ch6-sbu;</seg>
+        <seg>&grub-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of GRUB</title>
+
+    <para>Prepare GRUB for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr          \
+            --sbindir=/sbin        \
+            --sysconfdir=/etc      \
+            --disable-grub-emu-usb \
+            --disable-efiemu       \
+            --disable-werror</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the new configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--disable-werror</parameter></term>
+        <listitem>
+          <para>This allows the build to complete with warnings introduced
+          by more recent Flex versions.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-grub-emu-usb --disable-efiemu</parameter></term>
+        <listitem>
+          <para>These options minimize what is built by disabling features and
+          testing programs not needed for LFS.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>This package does not come with a test suite.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  <para>Using GRUB to make your LFS system bootable will be discussed in
+  <xref linkend="ch-bootable-grub"/>.</para>
+
+  </sect2>
+
+  <sect2 id="contents-gRUB" role="content">
+    <title>Contents of GRUB</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+
+       <seg>                      grub-bios-setup, grub-editenv,     grub-fstest,
+            grub-install,         grub-kbdcomp,    grub-menulst2cfg, grub-mkconfig,
+                                  grub-mkimage,    grub-mklayout,    grub-mknetdir,
+            grub-mkpasswd-pbkdf2, grub-mkrelpath,  grub-mkrescue,    grub-mkstandalone,
+            grub-ofpathname,      grub-probe,      grub-reboot,      grub-script-check,
+            grub-set-default,                      grub-sparc64-setup </seg>
+
+        <seg>/usr/lib/grub, /etc/grub.d, /usr/share/grub, /boot/grub</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="grub-bios-setup">
+        <term><command>grub-bios-setup</command></term>
+        <listitem>
+          <para>Is a helper program for grub-install</para>
+          <indexterm zone="ch-system-grub grub-bios-setup">
+            <primary sortas="b-grub-bios-setup">grub-bios-setup</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-editenv">
+        <term><command>grub-editenv</command></term>
+        <listitem>
+          <para>A tool to edit the environment block</para>
+          <indexterm zone="ch-system-grub grub-editenv">
+            <primary sortas="b-grub-editenv">grub-editenv</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-fstest">
+        <term><command>grub-fstest</command></term>
+        <listitem>
+          <para>Tool to debug the filesystem driver</para>
+          <indexterm zone="ch-system-grub grub-fstest">
+            <primary sortas="b-grub-fstest">grub-fstest</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-install">
+        <term><command>grub-install</command></term>
+        <listitem>
+          <para>Install GRUB on your drive</para>
+          <indexterm zone="ch-system-grub grub-install">
+            <primary sortas="b-grub-install">grub-install</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-kbdcomp">
+        <term><command>grub-kbdcomp</command></term>
+        <listitem>
+          <para>Script that converts an xkb layout into one recognized by
+          GRUB</para>
+          <indexterm zone="ch-system-grub grub-kbdcomp">
+            <primary sortas="b-grub-kbdcomp">grub-kbdcomp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-menulst2cfg">
+        <term><command>grub-menulst2cfg</command></term>
+        <listitem>
+          <para>Converts a GRUB Legacy <filename>menu.lst</filename>
+          into a <filename>grub.cfg</filename> for use with GRUB 2</para>
+          <indexterm zone="ch-system-grub grub-menulst2cfg">
+            <primary sortas="b-grub-menulst2cfg">grub-menulst2cfg</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-mkconfig">
+        <term><command>grub-mkconfig</command></term>
+        <listitem>
+          <para>Generate a grub config file</para>
+          <indexterm zone="ch-system-grub grub-mkconfig">
+            <primary sortas="b-grub-mkconfig">grub-mkconfig</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-mkimage">
+        <term><command>grub-mkimage</command></term>
+        <listitem>
+          <para>Make a bootable image of GRUB</para>
+          <indexterm zone="ch-system-grub grub-mkimage">
+            <primary sortas="b-grub-mkimage">grub-mkimage</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-mklayout">
+        <term><command>grub-mklayout</command></term>
+        <listitem>
+          <para>Generates a GRUB keyboard layout file</para>
+          <indexterm zone="ch-system-grub grub-mklayout">
+            <primary sortas="b-grub-mklayout">grub-mklayout</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-mknetdir">
+        <term><command>grub-mknetdir</command></term>
+        <listitem>
+          <para>Prepares a GRUB netboot directory</para>
+          <indexterm zone="ch-system-grub grub-mknetdir">
+            <primary sortas="b-grub-mknetdir">grub-mknetdir</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-mkpasswd-pbkdf2">
+        <term><command>grub-mkpasswd-pbkdf2</command></term>
+        <listitem>
+          <para>Generates an encrypted PBKDF2 password for use in the boot
+          menu</para>
+          <indexterm zone="ch-system-grub grub-mkpasswd-pbkdf2">
+            <primary sortas="b-grub-mkpasswd-pbkdf2">grub-mkpasswd-pbkdf2</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-mkrelpath">
+        <term><command>grub-mkrelpath</command></term>
+        <listitem>
+          <para>Makes a system pathname relative to its root</para>
+          <indexterm zone="ch-system-grub grub-mkrelpath">
+            <primary sortas="b-grub-mkrelpath">grub-mkrelpath</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-mkrescue">
+        <term><command>grub-mkrescue</command></term>
+        <listitem>
+          <para>Make a bootable image of GRUB suitable for a floppy disk or CDROM/DVD</para>
+          <indexterm zone="ch-system-grub grub-mkrescue">
+            <primary sortas="b-grub-mkrescue">grub-mkrescue</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-mkstandalone">
+        <term><command>grub-mkstandalone</command></term>
+        <listitem>
+          <para>Generates a standalone image</para>
+          <indexterm zone="ch-system-grub grub-mkstandalone">
+            <primary sortas="b-grub-mkstandalone">grub-mkstandalone</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-ofpathname">
+        <term><command>grub-ofpathname</command></term>
+        <listitem>
+          <para>Is a helper program that prints the path of a GRUB device</para>
+          <indexterm zone="ch-system-grub grub-ofpathname">
+            <primary sortas="b-grub-ofpathname">grub-ofpathname</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-probe">
+        <term><command>grub-probe</command></term>
+        <listitem>
+          <para>Probe device information for a given path or device</para>
+          <indexterm zone="ch-system-grub grub-probe">
+            <primary sortas="b-grub-probe">grub-probe</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-reboot">
+        <term><command>grub-reboot</command></term>
+        <listitem>
+          <para>Sets the default boot entry for GRUB for the next boot only</para>
+          <indexterm zone="ch-system-grub grub-reboot">
+            <primary sortas="b-grub-reboot">grub-reboot</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-script-check">
+        <term><command>grub-script-check</command></term>
+        <listitem>
+          <para>Checks GRUB configuration script for syntax errors</para>
+          <indexterm zone="ch-system-grub grub-script-check">
+            <primary sortas="b-grub-script-check">grub-script-check</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-set-default">
+        <term><command>grub-set-default</command></term>
+        <listitem>
+          <para>Sets the default boot entry for GRUB</para>
+          <indexterm zone="ch-system-grub grub-set-default">
+            <primary sortas="b-grub-set-default">grub-set-default</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grub-sparc64-setup">
+        <term><command>grub-sparc64-setup</command></term>
+        <listitem>
+          <para>Is a helper program for grub-setup</para>
+          <indexterm zone="ch-system-grub grub-sparc64-setup">
+            <primary sortas="b-grub-sparc64-setup">grub-setup</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

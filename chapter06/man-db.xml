@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-man-db" role="wrap">
+  <?dbhtml filename="man-db.html"?>
+
+  <sect1info condition="script">
+    <productname>man-db</productname>
+    <productnumber>&man-db-version;</productnumber>
+    <address>&man-db-url;</address>
+  </sect1info>
+
+  <title>Man-DB-&man-db-version;</title>
+
+  <indexterm zone="ch-system-man-db">
+    <primary sortas="a-Man-DB">Man-DB</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Man-DB package contains programs for finding and viewing man
+    pages.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&man-db-ch6-sbu;</seg>
+        <seg>&man-db-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Man-DB</title>
+
+    <para>Prepare Man-DB for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr                        \
+            --docdir=/usr/share/doc/man-db-&man-db-version; \
+            --sysconfdir=/etc                    \
+            --disable-setuid                     \
+            --with-browser=/usr/bin/lynx         \
+            --with-vgrind=/usr/bin/vgrind        \
+            --with-grap=/usr/bin/grap</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--disable-setuid</parameter></term>
+        <listitem>
+          <para>This disables making the <command>man</command> program setuid
+          to user <systemitem class="username">man</systemitem>.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-...</parameter></term>
+        <listitem>
+          <para>These three parameters are used to set some default programs.
+          <command>lynx</command> is a text-based web browser (see
+          BLFS for installation instructions), <command>vgrind</command>
+          converts program sources to Groff input, and <command>grap</command>
+          is useful for typesetting graphs in Groff documents. The
+          <command>vgrind</command> and <command>grap</command> programs are
+          not normally needed for viewing manual pages. They are not part of
+          LFS or BLFS, but you should be able to install them yourself after
+          finishing LFS if you wish to do so.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+   <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>Remove a reference to a non-existent user:</para>
+
+<screen><userinput remap="install">sed -i "s:man root:root root:g" /usr/lib/tmpfiles.d/man-db.conf</userinput></screen>
+
+  </sect2>
+
+  <sect2>
+    <title>Non-English Manual Pages in LFS</title>
+
+    <para>The following table shows the character set that Man-DB assumes
+    manual pages installed under
+    <filename class="directory">/usr/share/man/&lt;ll&gt;</filename> will be
+    encoded with.  In addition to this, Man-DB correctly determines if manual
+    pages installed in that directory are UTF-8 encoded.</para>
+
+    <!-- Origin: man-db-2.5.9/lib/encodings.c -->
+    <table>
+<title>Expected character encoding of legacy 8-bit manual pages</title>
+      <?dbfo table-width="6in" ?>
+
+      <tgroup cols="4">
+
+        <colspec colnum="1" colwidth="1.5in"/>
+        <colspec colnum="2" colwidth="1in"/>
+        <colspec colnum="3" colwidth="2.5in"/>
+        <colspec colnum="4" colwidth="1in"/>
+
+        <thead>
+          <row>
+            <entry>Language (code)</entry>
+            <entry>Encoding</entry>
+            <entry>Language (code)</entry>
+            <entry>Encoding</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry>Danish (da)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Croatian (hr)</entry>
+            <entry>ISO-8859-2</entry>
+          </row>
+          <row>
+            <entry>German (de)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Hungarian (hu)</entry>
+            <entry>ISO-8859-2</entry>
+          </row>
+          <row>
+            <entry>English (en)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Japanese (ja)</entry>
+            <entry>EUC-JP</entry>
+          </row>
+          <row>
+            <entry>Spanish (es)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Korean (ko)</entry>
+            <entry>EUC-KR</entry>
+          </row>
+          <row>
+            <entry>Estonian (et)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Lithuanian (lt)</entry>
+            <entry>ISO-8859-13</entry>
+          </row>
+          <row>
+            <entry>Finnish (fi)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Latvian (lv)</entry>
+            <entry>ISO-8859-13</entry>
+          </row>
+          <row>
+            <entry>French (fr)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Macedonian (mk)</entry>
+            <entry>ISO-8859-5</entry>
+          </row>
+          <row>
+            <entry>Irish (ga)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Polish (pl)</entry>
+            <entry>ISO-8859-2</entry>
+          </row>
+          <row>
+            <entry>Galician (gl)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Romanian (ro)</entry>
+            <entry>ISO-8859-2</entry>
+          </row>
+          <row>
+            <entry>Indonesian (id)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Russian (ru)</entry>
+            <entry>KOI8-R</entry>
+          </row>
+          <row>
+            <entry>Icelandic (is)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Slovak (sk)</entry>
+            <entry>ISO-8859-2</entry>
+          </row>
+          <row>
+            <entry>Italian (it)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Slovenian (sl)</entry>
+            <entry>ISO-8859-2</entry>
+          </row>
+          <row>
+            <entry>Norwegian Bokmal (nb)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Serbian Latin (sr@latin)</entry>
+            <entry>ISO-8859-2</entry>
+          </row>
+          <row>
+            <entry>Dutch (nl)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Serbian (sr)</entry>
+            <entry>ISO-8859-5</entry>
+          </row>
+          <row>
+            <entry>Norwegian Nynorsk (nn)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Turkish (tr)</entry>
+            <entry>ISO-8859-9</entry>
+          </row>
+          <row>
+            <entry>Norwegian (no)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Ukrainian (uk)</entry>
+            <entry>KOI8-U</entry>
+          </row>
+          <row>
+            <entry>Portuguese (pt)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Vietnamese (vi)</entry>
+            <entry>TCVN5712-1</entry>
+          </row>
+          <row>
+            <entry>Swedish (sv)</entry>
+            <entry>ISO-8859-1</entry>
+            <entry>Simplified Chinese (zh_CN)</entry>
+            <entry>GBK</entry>
+          </row>
+          <row>
+            <entry>Belarusian (be)</entry>
+            <entry>CP1251</entry>
+            <entry>Simplified Chinese, Singapore (zh_SG)</entry>
+            <entry>GBK</entry>
+          </row>
+          <row>
+            <entry>Bulgarian (bg)</entry>
+            <entry>CP1251</entry>
+            <entry>Traditional Chinese, Hong Kong (zh_HK)</entry>
+            <entry>BIG5HKSCS</entry>
+          </row>
+          <row>
+            <entry>Czech (cs)</entry>
+            <entry>ISO-8859-2</entry>
+            <entry>Traditional Chinese (zh_TW)</entry>
+            <entry>BIG5</entry>
+          </row>
+          <row>
+            <entry>Greek (el)</entry>
+            <entry>ISO-8859-7</entry>
+            <entry></entry>
+            <entry></entry>
+          </row>
+
+        </tbody>
+
+      </tgroup>
+
+    </table>
+
+    <note>
+      <para>Manual pages in languages not in the list are not supported.</para>
+    </note>
+
+  </sect2>
+
+  <sect2 id="contents-man-db" role="content">
+    <title>Contents of Man-DB</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed libraries</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>accessdb, apropos (link to whatis), catman, lexgrog, man, mandb,
+        manpath, whatis, and zsoelim</seg>
+        <seg>libman.so and libmandb.so</seg>
+        <seg>/usr/lib/man-db, /usr/libexec/man-db,
+        and /usr/share/doc/man-db-&man-db-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="accessdb">
+        <term><command>accessdb</command></term>
+        <listitem>
+          <para>Dumps the <command>whatis</command> database contents in
+          human-readable form</para>
+          <indexterm zone="ch-system-man-db accessdb">
+            <primary sortas="b-accessdb">accessdb</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="apropos">
+        <term><command>apropos</command></term>
+        <listitem>
+          <para>Searches the <command>whatis</command> database and displays
+          the short descriptions of system commands that contain a given
+          string</para>
+          <indexterm zone="ch-system-man-db apropos">
+            <primary sortas="b-apropos">apropos</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="catman">
+        <term><command>catman</command></term>
+        <listitem>
+          <para>Creates or updates the pre-formatted manual pages</para>
+          <indexterm zone="ch-system-man-db catman">
+            <primary sortas="b-catman">catman</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="lexgrog">
+        <term><command>lexgrog</command></term>
+        <listitem>
+          <para>Displays one-line summary information about a given manual
+          page</para>
+          <indexterm zone="ch-system-man-db lexgrog">
+            <primary sortas="b-lexgrog">lexgrog</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="man">
+        <term><command>man</command></term>
+        <listitem>
+          <para>Formats and displays the requested manual page</para>
+          <indexterm zone="ch-system-man-db man">
+            <primary sortas="b-man">man</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mandb">
+        <term><command>mandb</command></term>
+        <listitem>
+          <para>Creates or updates the <command>whatis</command> database</para>
+          <indexterm zone="ch-system-man-db mandb">
+            <primary sortas="b-mandb">mandb</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="manpath">
+        <term><command>manpath</command></term>
+        <listitem>
+          <para>Displays the contents of $MANPATH or (if $MANPATH is not set)
+          a suitable search path based on the settings in man.conf and the
+          user's environment</para>
+          <indexterm zone="ch-system-man-db manpath">
+            <primary sortas="b-manpath">manpath</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="whatis">
+        <term><command>whatis</command></term>
+        <listitem>
+          <para>Searches the <command>whatis</command> database and displays
+          the short descriptions of system commands that contain the given
+          keyword as a separate word</para>
+          <indexterm zone="ch-system-man-db whatis">
+            <primary sortas="b-whatis">whatis</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="zsoelim">
+        <term><command>zsoelim</command></term>
+        <listitem>
+          <para>Reads files and replaces lines of the form <emphasis>.so
+          file</emphasis> by the contents of the mentioned
+          <emphasis>file</emphasis></para>
+          <indexterm zone="ch-system-man-db zsoelim">
+            <primary sortas="b-zsoelim">zsoelim</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libman">
+        <term><filename class="libraryfile">libman</filename></term>
+        <listitem>
+          <para>Contains run-time support for <command>man</command></para>
+          <indexterm zone="ch-system-man-db libman">
+            <primary sortas="c-libman">libman</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libmandb">
+        <term><filename class="libraryfile">libmandb</filename></term>
+        <listitem>
+          <para>Contains run-time support for <command>man</command></para>
+          <indexterm zone="ch-system-man-db libmandb">
+            <primary sortas="c-libmandb">libmandb</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-partitioning-aboutlfs">
+  <?dbhtml filename="aboutlfs.html"?>
+
+  <title>Setting The $LFS Variable</title>
+
+  <para>Throughout this book, the environment variable <envar>LFS</envar> will
+  be used several times. You should ensure that this variable is always defined
+  throughout the LFS build process. It should be set to the name of the
+  directory where you will be building your LFS system - we will use
+  <filename class="directory">/mnt/lfs</filename> as an example, but the
+  directory choice is up to you. If you are building LFS on a separate
+  partition, this directory will be the mount point for the partition.
+  Choose a directory location and set the variable with the
+  following command:</para>
+
+<screen role="nodump"><userinput>export LFS=<replaceable>/mnt/lfs</replaceable></userinput></screen>
+
+  <para>Having this variable set is beneficial in that commands such as
+  <command>mkdir -v $LFS/tools</command> can be typed literally. The shell
+  will automatically replace <quote>$LFS</quote> with
+  <quote>/mnt/lfs</quote> (or whatever the variable was set to) when it
+  processes the command line.</para>
+
+  <para>Do not forget to check that <envar>LFS</envar> is set whenever
+  you leave and reenter the current working environment (such as when doing a
+  <command>su</command> to <systemitem class="username">root</systemitem> or
+  another user). Check that the <envar>LFS</envar> variable is set up
+  properly with:</para>
+
+<screen role="nodump"><userinput>echo $LFS</userinput></screen>
+
+  <para>Make sure the output shows the path to your LFS system's build
+  location, which is <filename class="directory">/mnt/lfs</filename> if the
+  provided example was followed. If the output is incorrect, use the command
+  given earlier on this  page to set <envar>$LFS</envar> to the correct
+  directory name.</para>
+
+  <note><para>One way to ensure that the <envar>LFS</envar> variable is always
+  set is to edit the <filename>.bash_profile</filename> file in both your
+  personal home directory and in  <filename>/root/.bash_profile</filename> and
+  enter the export command above.  </para></note>
+
+</sect1>

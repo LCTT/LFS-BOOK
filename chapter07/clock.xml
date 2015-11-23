@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-clock">
+  <?dbhtml filename="clock.html"?>
+
+  <title>Configuring the system clock</title>
+
+  <indexterm zone="ch-scripts-clock">
+    <primary sortas="d-clock">clock</primary>
+  <secondary>configuring</secondary></indexterm>
+
+  <para>This section discusses how to configure the
+  <command>systemd-timedated</command> system service, which configures
+  system clock and timezone.</para>
+
+  <para>If you cannot remember whether or not the hardware clock is set to UTC,
+  find out by running the <userinput>hwclock --localtime --show</userinput>
+  command. This will display what the current time is according to the hardware
+  clock. If this time matches whatever your watch says, then the hardware clock is
+  set to local time. If the output from <command>hwclock</command> is not local
+  time, chances are it is set to UTC time. Verify this by adding or subtracting
+  the proper amount of hours for the timezone to the time shown by
+  <command>hwclock</command>. For example, if you are currently in the MST
+  timezone, which is also known as GMT -0700, add seven hours to the local
+  time.</para>
+
+  <para><command>systemd-timedated</command> reads <filename>/etc/adjtime</filename>,
+  and depending on the contents of the file, it sets the clock to either UTC or
+  local time.</para>
+
+  <para>Create the <filename>/etc/adjtime</filename> file with the following contents
+  if your hardware clock is set to local time:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/adjtime &lt;&lt; "EOF"
+<literal>0.0 0 0.0
+0
+LOCAL</literal>
+EOF</userinput></screen>
+
+  <para>If <filename>/etc/adjtime</filename> isn't present at first boot,
+  <command>systemd-timedated</command> will assume that hardware clock is
+  set to UTC and adjust the file according to that.</para>
+
+  <para>You can also use the <command>timedatectl</command> utility to tell
+  <command>systemd-timedated</command> if your hardware clock is set to
+  UTC or local time:</para>
+
+<screen role="nodump"><userinput>timedatectl set-local-rtc 1</userinput></screen>
+
+  <para><command>timedatectl</command> can also be used to change system time and
+  time zone.</para>
+
+  <para>To change your current system time, issue:</para>
+
+<screen role="nodump"><userinput>timedatectl set-time YYYY-MM-DD HH:MM:SS</userinput></screen>
+
+  <para>Hardware clock will also be updated accordingly.</para>
+
+  <para>To change your current time zone, issue:</para>
+
+<screen role="nodump"><userinput>timedatectl set-timezone TIMEZONE</userinput></screen>
+
+  <para>You can get list of available time zones by running:</para>
+
+<screen role="nodump"><userinput>timedatectl list-timezones</userinput></screen>
+
+  <note><para>Please note that <command>timedatectl</command> command can
+  be used only on a system booted with systemd.</para></note>
+
+  <sect2>
+    <title>Network Time Synchronization</title>
+
+    <para>Starting with version 213, systemd ships a daemon called
+    <command>systemd-timesyncd</command> which can be used to
+    synchronize the system time with remote NTP servers.</para>
+
+    <para>The daemon is not intended as a replacement for the well
+    established NTP daemon, but as a client only implementation
+    of the SNTP protocol which can be used for less advanced
+    tasks and on resource limited systems.</para>
+
+    <para>Starting with systemd version 216, the
+    <command>systemd-timesyncd</command> daemon is enabled by
+    default. If you want to disable it, issue the following
+    command:</para>
+
+<screen role="nodump"><userinput>systemctl disable systemd-timesyncd</userinput></screen>
+
+    <para>The <filename>/etc/systemd/timesyncd.conf</filename> file
+    can be used to change the NTP servers that
+    <command>systemd-timesyncd</command> synchronizes with.</para>
+
+    <para>Please note that when system clock is set to Local Time,
+    <command>systemd-timesyncd</command> won't update hardware
+    clock.</para>
+
+  </sect2>
+
+</sect1>

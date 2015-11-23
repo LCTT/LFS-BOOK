@@ -1,0 +1,9 @@
+/*
+$LastChangedBy: krejzi $
+$Date: 2013-12-10 19:37:38 -0400 (Tue, 10 Dec 2013) $
+*/
+@import url(lfs.css);
+
+.navfooter, .headerlinks {
+   display: none;
+}

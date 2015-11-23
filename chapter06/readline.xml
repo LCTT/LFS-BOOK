@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-readline" role="wrap">
+  <?dbhtml filename="readline.html"?>
+
+  <sect1info condition="script">
+    <productname>readline</productname>
+    <productnumber>&readline-version;</productnumber>
+    <address>&readline-url;</address>
+  </sect1info>
+
+  <title>Readline-&readline-version;</title>
+
+  <indexterm zone="ch-system-readline">
+    <primary sortas="a-Readline">Readline</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Readline package is a set of libraries that offers command-line
+    editing and history capabilities.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&readline-ch6-sbu;</seg>
+        <seg>&readline-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Readline</title>
+
+    <para>First install some patches to fix various bugs that have been
+    addressed upstream:</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&readline-fixes-patch;</userinput></screen>
+
+    <para>Reinstalling Readline will cause the old libraries to be moved to
+    &lt;libraryname&gt;.old. While this is normally not a problem, in some cases
+    it can trigger a linking bug in <command>ldconfig</command>. This can be
+    avoided by issuing the following two seds:</para>
+
+<screen><userinput remap="pre">sed -i '/MV.*old/d' Makefile.in
+sed -i '/{OLDSUFF}/c:' support/shlib-install</userinput></screen>
+
+    <para>Prepare Readline for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/readline-&readline-version;</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make SHLIB_LIBS=-lncurses</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the make option:</title>
+
+      <varlistentry>
+        <term><parameter>SHLIB_LIBS=-lncurses</parameter></term>
+        <listitem>
+          <para>This option forces Readline to link against the
+          <filename class="libraryfile">libncurses</filename> (really,
+          <filename class="libraryfile">libncursesw</filename>) library.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>This package does not come with a test suite.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make SHLIB_LIBS=-lncurses install</userinput></screen>
+
+    <para>Now move the dynamic libraries to a more appropriate location
+    and fix up some symbolic links:</para>
+
+<screen><userinput remap="install">mv -v /usr/lib/lib{readline,history}.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libreadline.so) /usr/lib/libreadline.so
+ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so</userinput></screen>
+
+    <para>If desired, install the documentation:</para>
+
+<screen><userinput remap="install">install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-&readline-version;</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-readline" role="content">
+    <title>Contents of Readline</title>
+
+    <segmentedlist>
+      <segtitle>Installed libraries</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>libhistory.{a,so} and libreadline.{a,so}</seg>
+        <seg>/usr/include/readline, /usr/share/readline, and
+        /usr/share/doc/readline-&readline-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="libhistory">
+        <term><filename class="libraryfile">libhistory</filename></term>
+        <listitem>
+          <para>Provides a consistent user interface for recalling lines
+          of history</para>
+          <indexterm zone="ch-system-readline libhistory">
+            <primary sortas="c-libhistory">libhistory</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libreadline">
+        <term><filename class="libraryfile">libreadline</filename></term>
+        <listitem>
+          <para>Aids in the consistency of user interface across discrete
+          programs that need to provide a command line interface</para>
+          <indexterm zone="ch-system-readline libreadline">
+            <primary sortas="c-libreadline">libreadline</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

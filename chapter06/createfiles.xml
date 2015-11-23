@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-createfiles">
+  <?dbhtml filename="createfiles.html"?>
+
+  <title>Creating Essential Files and Symlinks</title>
+
+  <indexterm zone="ch-system-createfiles">
+    <primary sortas="e-/etc/passwd">/etc/passwd</primary>
+  </indexterm>
+
+  <indexterm zone="ch-system-createfiles">
+    <primary sortas="e-/etc/group">/etc/group</primary>
+  </indexterm>
+
+  <indexterm zone="ch-system-createfiles">
+    <primary sortas="e-/var/run/utmp">/var/run/utmp</primary>
+  </indexterm>
+
+  <indexterm zone="ch-system-createfiles">
+    <primary sortas="e-/var/log/btmp">/var/log/btmp</primary>
+  </indexterm>
+
+  <indexterm zone="ch-system-createfiles">
+    <primary sortas="e-/var/log/lastlog">/var/log/lastlog</primary>
+  </indexterm>
+
+  <indexterm zone="ch-system-createfiles">
+    <primary sortas="e-/var/log/wtmp">/var/log/wtmp</primary>
+  </indexterm>
+
+  <para>Some programs use hard-wired paths to programs which do not exist yet. In
+  order to satisfy these programs, create a number of symbolic links which will be
+  replaced by real files throughout the course of this chapter after the software
+  has been installed:</para>
+
+<screen><userinput>ln -sv /tools/bin/{bash,cat,echo,pwd,stty} /bin
+ln -sv /tools/bin/perl /usr/bin
+ln -sv /tools/lib/libgcc_s.so{,.1} /usr/lib
+ln -sv /tools/lib/libstdc++.so{,.6} /usr/lib
+sed 's/tools/usr/' /tools/lib/libstdc++.la > /usr/lib/libstdc++.la
+ln -sv bash /bin/sh</userinput></screen>
+
+  <variablelist>
+    <title>The purpose of each link:</title>
+
+    <varlistentry>
+      <term><parameter><filename>/bin/bash</filename></parameter></term>
+      <listitem>
+        <para>Many <command>bash</command> scripts specify
+        <filename>/bin/bash</filename>.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter><filename>/bin/cat</filename></parameter></term>
+      <listitem>
+        <para>This pathname is hard-coded into Glibc's configure script.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter><filename>/bin/echo</filename></parameter></term>
+      <listitem>
+        <para>This is to satisfy one of the tests in Glibc's test suite, which
+        expects <filename>/bin/echo</filename>.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter><filename>/bin/pwd</filename></parameter></term>
+      <listitem>
+        <para>Some <command>configure</command> scripts, particularly Glibc's,
+        have this pathname hard-coded.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter><filename>/bin/stty</filename></parameter></term>
+      <listitem>
+        <para>This pathname is hard-coded into Expect, therefore it is needed
+        for Binutils and GCC test suites to pass.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter><filename>/usr/bin/perl</filename></parameter></term>
+      <listitem>
+        <para>Many Perl scripts hard-code this path to the
+        <command>perl</command> program.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter><filename>/usr/lib/libgcc_s.so{,.1}</filename></parameter></term>
+      <listitem>
+        <para>Glibc needs this for the pthreads library to work.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter><filename>/usr/lib/libstdc++{,.6}</filename></parameter></term>
+      <listitem>
+        <para>This is needed by several tests in Glibc's test suite, as well as
+        for C++ support in GMP.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter><filename>/usr/lib/libstdc++.la</filename></parameter></term>
+      <listitem>
+        <para>This prevents a <filename class="directory">/tools</filename>
+        reference that would otherwise be in
+        <filename>/usr/lib/libstdc++.la</filename> after GCC is installed.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter><filename>/bin/sh</filename></parameter></term>
+      <listitem>
+        <para>Many shell scripts hard-code <filename>/bin/sh</filename>.</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+
+  <para>Historically, Linux maintains a list of the mounted file systems in the
+  file <filename>/etc/mtab</filename>. Modern kernels maintain this list
+  internally and exposes it to the user via the <filename
+  class="directory">/proc</filename> filesystem. To satisfy utilities that
+  expect the presence of <filename>/etc/mtab</filename>, create the following
+  symbolic link:</para>
+
+<screen><userinput>ln -sv /proc/self/mounts /etc/mtab</userinput></screen>
+
+  <para>In order for user <systemitem class="username">root</systemitem> to be
+  able to login and for the name <quote>root</quote> to be recognized, there
+  must be relevant entries in the <filename>/etc/passwd</filename> and
+  <filename>/etc/group</filename> files.</para>
+
+  <para>Create the <filename>/etc/passwd</filename> file by running the following
+  command:</para>
+
+<screen><userinput>cat &gt; /etc/passwd &lt;&lt; "EOF"
+<literal>root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/dev/null:/bin/false
+daemon:x:6:6:Daemon User:/dev/null:/bin/false
+messagebus:x:18:18:D-Bus Message Daemon User:/var/run/dbus:/bin/false
+systemd-bus-proxy:x:72:72:systemd Bus Proxy:/:/bin/false
+systemd-journal-gateway:x:73:73:systemd Journal Gateway:/:/bin/false
+systemd-journal-remote:x:74:74:systemd Journal Remote:/:/bin/false
+systemd-journal-upload:x:75:75:systemd Journal Upload:/:/bin/false
+systemd-network:x:76:76:systemd Network Management:/:/bin/false
+systemd-resolve:x:77:77:systemd Resolver:/:/bin/false
+systemd-timesync:x:78:78:systemd Time Synchronization:/:/bin/false
+nobody:x:99:99:Unprivileged User:/dev/null:/bin/false</literal>
+EOF</userinput></screen>
+
+  <para>The actual password for <systemitem class="username">root</systemitem>
+  (the <quote>x</quote> used here is just a placeholder) will be set later.</para>
+
+  <para>Create the <filename>/etc/group</filename> file by running the following
+  command:</para>
+
+<screen><userinput>cat &gt; /etc/group &lt;&lt; "EOF"
+<literal>root:x:0:
+bin:x:1:daemon
+sys:x:2:
+kmem:x:3:
+tape:x:4:
+tty:x:5:
+daemon:x:6:
+floppy:x:7:
+disk:x:8:
+lp:x:9:
+dialout:x:10:
+audio:x:11:
+video:x:12:
+utmp:x:13:
+usb:x:14:
+cdrom:x:15:
+adm:x:16:
+messagebus:x:18:
+systemd-journal:x:23:
+input:x:24:
+mail:x:34:
+systemd-bus-proxy:x:72:
+systemd-journal-gateway:x:73:
+systemd-journal-remote:x:74:
+systemd-journal-upload:x:75:
+systemd-network:x:76:
+systemd-resolve:x:77:
+systemd-timesync:x:78:
+nogroup:x:99:
+users:x:999:</literal>
+EOF</userinput></screen>
+
+  <para>The created groups are not part of any standard&mdash;they are groups
+  decided on in part by the requirements of the Udev configuration in this
+  chapter, and in part by common convention employed by a number of existing
+  Linux distributions. In addition, some test suites rely on specific users
+  or groups.  The Linux Standard Base (LSB, available at <ulink
+  url="http://www.linuxbase.org"/>) recommends only that, besides the group
+  <systemitem class="groupname">root</systemitem> with a Group ID (GID) of 0,
+  a group <systemitem class="groupname">bin</systemitem> with a GID of 1 be
+  present. All other group names and GIDs can be chosen freely by the system
+  administrator since well-written programs do not depend on GID numbers, but
+  rather use the group's name.</para>
+
+  <para>To remove the <quote>I have no name!</quote> prompt, start a new
+  shell. Since a full Glibc was installed in <xref
+  linkend="chapter-temporary-tools"/> and the
+  <filename>/etc/passwd</filename> and <filename>/etc/group</filename>
+  files have been created, user name and group name resolution will now
+  work:</para>
+
+<screen role="nodump"><userinput>exec /tools/bin/bash --login +h</userinput></screen>
+
+  <para>Note the use of the <parameter>+h</parameter> directive. This tells
+  <command>bash</command> not to use its internal path hashing. Without this
+  directive, <command>bash</command> would remember the paths to binaries it has
+  executed. To ensure the use of the newly compiled binaries as soon as they are
+  installed, the <parameter>+h</parameter> directive will be used for the duration
+  of this chapter.</para>
+
+  <para>The <command>login</command>, <command>agetty</command>, and
+  <command>init</command> programs (and others) use a number of log
+  files to record information such as who was logged into the system and
+  when. However, these programs will not write to the log files if they
+  do not already exist. Initialize the log files and give them
+  proper permissions:</para>
+
+<screen><userinput>touch /var/log/{btmp,lastlog,wtmp}
+chgrp -v utmp /var/log/lastlog
+chmod -v 664  /var/log/lastlog
+chmod -v 600  /var/log/btmp</userinput></screen>
+
+  <para>The <filename>/var/log/wtmp</filename> file records all logins and
+  logouts. The <filename>/var/log/lastlog</filename> file records when each
+  user last logged in. The <filename>/var/log/btmp</filename> file records the
+  bad login attempts.</para>
+
+  <note><para>The <filename>/run/utmp</filename> file records the users that
+  are currently logged in.  This file is created dynamically in the boot
+  scripts.</para></note>
+
+</sect1>

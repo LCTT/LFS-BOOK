@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-bootable-kernel" role="wrap">
+  <?dbhtml filename="kernel.html"?>
+
+  <sect1info condition="script">
+    <productname>linux</productname>
+    <productnumber>&linux-version;</productnumber>
+    <address>&linux-url;</address>
+  </sect1info>
+
+  <title>Linux-&linux-version;</title>
+
+  <indexterm zone="ch-bootable-kernel">
+    <primary sortas="a-Linux">Linux</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Linux package contains the Linux kernel.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&linux-ch8-sbu;</seg>
+        <seg>&linux-ch8-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of the kernel</title>
+
+    <para>Building the kernel involves a few steps&mdash;configuration,
+    compilation, and installation. Read the <filename>README</filename> file
+    in the kernel source tree for alternative methods to the way this book
+    configures the kernel.</para>
+
+    <para>Prepare for compilation by running the following command:</para>
+
+<screen><userinput remap="pre">make mrproper</userinput></screen>
+
+    <para>This ensures that the kernel tree is absolutely clean. The
+    kernel team recommends that this command be issued prior to each
+    kernel compilation. Do not rely on the source tree being clean after
+    un-tarring.</para>
+
+    <!-- Support for compiling a keymap into the kernel is deliberately removed -->
+
+    <para>Configure the kernel via a menu-driven interface. For general
+    information on kernel configuration see <ulink
+    url="&hints-root;kernel-configuration.txt"/>.  BLFS has some information
+    regarding particular kernel configuration requirements of packages outside
+    of LFS at <ulink
+    url="&blfs-book;longindex.html#kernel-config-index"/>.  Additional
+    information about configuring and building the kernel can be found at
+    <ulink url="http://www.kroah.com/lkn/"/> </para>
+
+    <note><para>A good starting place for setting up the kernel configuration
+    is to run <command>make defconfig</command>. This will set the base
+    configuration to a good state that takes your current system architecture
+    into account.</para>
+
+    <para>Be sure to enable or disable following features or the system might not
+    work correctly or boot at all:</para>
+
+    <screen role="nodump">General setup  ---&gt;
+  [*] open by fhandle syscalls [CONFIG_FHANDLE]
+  [ ] Auditing support [CONFIG_AUDIT]
+  [*] Control Group support [CONFIG_CGROUPS]
+Processor type and features  ---&gt;
+  [*] Enable seccomp to safely compute untrusted bytecode [CONFIG_SECCOMP]
+Networking support  ---&gt;
+  Networking options  ---&gt;
+    &lt;*&gt; The IPv6 protocol [CONFIG_IPV6]
+Device Drivers  ---&gt;
+  Generic Driver Options  ---&gt;
+    [ ] Support for uevent helper [CONFIG_UEVENT_HELPER]
+    [*] Maintain a devtmpfs filesystem to mount at /dev [CONFIG_DEVTMPFS]
+    [ ] Fallback user-helper invocation for firmware loading [CONFIG_FW_LOADER_USER_HELPER]
+Firmware Drivers  ---&gt;
+    [*] Export DMI identification via sysfs to userspace [CONFIG_DMIID]
+File systems  ---&gt;
+  [*] Inotify support for userspace [CONFIG_INOTIFY_USER]
+  &lt;*&gt; Kernel automounter version 4 support (also supports v3) [CONFIG_AUTOFS4_FS]
+  Pseudo filesystems  ---&gt;
+    [*] Tmpfs POSIX Access Control Lists [CONFIG_TMPFS_POSIX_ACL]
+    [*] Tmpfs extended attributes [CONFIG_TMPFS_XATTR]</screen></note>
+
+    <note><para>While "The IPv6 Protocol" is not strictly required, it is
+    highly recommended by the systemd developers.</para></note>
+
+    <variablelist>
+      <title>The rationale for the above configuration items:</title>
+
+      <varlistentry>
+        <term><parameter>Support for uevent helper</parameter></term>
+        <listitem>
+          <para>Having this opion set may interfere with device
+          management when using Udev/Eudev. </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>Maintain a devtmpfs</parameter></term>
+        <listitem>
+          <para>This will create automated device nodes which are populated by the
+          kernel, even without Udev running.  Udev then runs on top of this,
+          managing permissions and adding symlinks.  This configuration
+          item is required for all users of Udev/Eudev.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+<screen role="nodump"><userinput>make LANG=<replaceable>&lt;host_LANG_value&gt;</replaceable> LC_ALL= menuconfig</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the make parameters:</title>
+
+      <varlistentry>
+        <term><parameter>LANG=&lt;host_LANG_value&gt; LC_ALL=</parameter></term>
+        <listitem>
+          <para>This establishes the locale setting to the one used on the host.
+          This is needed for a proper menuconfig ncurses interface line
+          drawing on UTF-8 linux text console.</para>
+
+          <para>Be sure to replace <replaceable>&lt;host_LANG_value&gt;</replaceable>
+          by the value of the <envar>$LANG</envar> variable from your host.
+          If not set, you could use instead the host's value of <envar>$LC_ALL</envar>
+          or <envar>$LC_CTYPE</envar>.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Alternatively, <command>make oldconfig</command> may be more
+    appropriate in some situations. See the <filename>README</filename>
+    file for more information.</para>
+
+    <para>If desired, skip kernel configuration by copying the kernel
+    config file, <filename>.config</filename>, from the host system
+    (assuming it is available) to the unpacked <filename
+    class="directory">linux-&linux-version;</filename> directory. However,
+    we do not recommend this option. It is often better to explore all the
+    configuration menus and create the kernel configuration from
+    scratch.</para>
+
+    <para>Compile the kernel image and modules:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>If using kernel modules, module configuration in <filename
+    class="directory">/etc/modprobe.d</filename> may be required.
+    Information pertaining to modules and kernel configuration is
+    located in <xref linkend="ch-scripts-udev"/> and in the kernel
+    documentation in the <filename
+    class="directory">linux-&linux-version;/Documentation</filename> directory.
+    Also, <filename>modprobe.d(5)</filename> may be of interest.</para>
+
+    <para>Install the modules, if the kernel configuration uses them:</para>
+
+<screen><userinput remap="install">make modules_install</userinput></screen>
+
+    <para>After kernel compilation is complete, additional steps are
+    required to complete the installation. Some files need to be copied to
+    the <filename class="directory">/boot</filename> directory.</para>
+
+    <para>The path to the kernel image may vary depending on the platform being
+    used. The filename below can be changed to suit your taste, but the stem of
+    the filename should be <emphasis>vmlinuz</emphasis> to be compatible with
+    the automatic setup of the boot process described in the next section.  The
+    following command assumes an x86 architecture:</para>
+
+<screen><userinput remap="install">cp -v arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&version;</userinput></screen>
+
+    <para><filename>System.map</filename> is a symbol file for the kernel.
+    It maps the function entry points of every function in the kernel API,
+    as well as the addresses of the kernel data structures for the running
+    kernel.  It is used as a resource when investigating kernel problems.
+    Issue the following command to install the map file:</para>
+
+<screen><userinput remap="install">cp -v System.map /boot/System.map-&linux-version;</userinput></screen>
+
+    <para>The kernel configuration file <filename>.config</filename>
+    produced by the <command>make menuconfig</command> step
+    above contains all the configuration selections for the kernel
+    that was just compiled. It is a good idea to keep this file for future
+    reference:</para>
+
+<screen><userinput remap="install">cp -v .config /boot/config-&linux-version;</userinput></screen>
+
+    <para>Install the documentation for the Linux kernel:</para>
+
+<screen><userinput remap="install">install -d /usr/share/doc/linux-&linux-version;
+cp -r Documentation/* /usr/share/doc/linux-&linux-version;</userinput></screen>
+
+    <para>It is important to note that the files in the kernel source
+    directory are not owned by <emphasis>root</emphasis>. Whenever a
+    package is unpacked as user <emphasis>root</emphasis> (like we did
+    inside chroot), the files have the user and group IDs of whatever
+    they were on the packager's computer. This is usually not a problem
+    for any other package to be installed because the source tree is
+    removed after the installation. However, the Linux source tree is
+    often retained for a long time.  Because of this, there is a chance
+    that whatever user ID the packager used will be assigned to somebody
+    on the machine. That person would then have write access to the kernel
+    source.</para>
+
+    <note>
+      <para>In many cases, the configuration of the kernel will need to be 
+      updated for packages that will be installed later in BLFS.  Unlike
+      other packages, it is not necessary to remove the kernel source tree
+      after the newly built kernel is installed.</para>  
+    
+      <para>If the kernel source tree is going to be retained, run
+      <command>chown -R 0:0</command> on the <filename
+      class="directory">linux-&linux-version;</filename> directory to ensure
+      all files are owned by user <emphasis>root</emphasis>.</para>
+    </note>
+
+    <warning>
+      <para>Some kernel documentation recommends creating a symlink from
+      <filename class="symlink">/usr/src/linux</filename> pointing to the kernel
+      source directory.  This is specific to kernels prior to the 2.6 series and
+      <emphasis>must not</emphasis> be created on an LFS system as it can cause
+      problems for packages you may wish to build once your base LFS system is
+      complete.</para>
+    </warning>
+
+    <warning>
+      <para>The headers in the system's <filename
+      class="directory">include</filename> directory (<filename
+      class="directory">/usr/include</filename>) should
+      <emphasis>always</emphasis> be the ones against which Glibc was compiled,
+      that is, the sanitised headers installed in <xref
+      linkend="ch-system-linux-headers"/>.  Therefore, they should
+      <emphasis>never</emphasis> be replaced by either the raw kernel headers
+      or any other kernel sanitized headers.</para>
+    </warning>
+
+  </sect2>
+
+  <sect2 id="conf-modprobe" role="configuration">
+    <title>Configuring Linux Module Load Order</title>
+
+    <indexterm zone="conf-modprobe">
+      <primary sortas="e-/etc/modprobe.d/usb.conf">/etc/modprobe.d/usb.conf</primary>
+    </indexterm>
+
+    <para>Most of the time Linux modules are loaded automatically, but
+    sometimes it needs some specific direction.  The program that loads
+    modules, <command>modprobe</command> or <command>insmod</command>, uses
+    <filename>/etc/modprobe.d/usb.conf</filename> for this purpose.  This file
+    needs to be created so that if the USB drivers (ehci_hcd, ohci_hcd and
+    uhci_hcd) have been built as modules, they will be loaded in the correct
+    order; ehci_hcd needs to be loaded prior to ohci_hcd and uhci_hcd in order
+    to avoid a warning being output at boot time.</para>
+
+    <para>Create a new file <filename>/etc/modprobe.d/usb.conf</filename> by running
+    the following:</para>
+
+<screen><userinput>install -v -m755 -d /etc/modprobe.d
+cat &gt; /etc/modprobe.d/usb.conf &lt;&lt; "EOF"
+<literal># Begin /etc/modprobe.d/usb.conf
+
+install ohci_hcd /sbin/modprobe ehci_hcd ; /sbin/modprobe -i ohci_hcd ; true
+install uhci_hcd /sbin/modprobe ehci_hcd ; /sbin/modprobe -i uhci_hcd ; true
+
+# End /etc/modprobe.d/usb.conf</literal>
+EOF</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-kernel" role="content">
+    <title>Contents of Linux</title>
+
+    <segmentedlist>
+      <segtitle>Installed files</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>config-&linux-version;,
+        vmlinuz-&linux-version;-lfs-&version;, and
+        System.map-&linux-version;</seg>
+        <seg>/lib/modules, /usr/share/doc/linux-&linux-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="config">
+        <term><filename>config-&linux-version;</filename></term>
+        <listitem>
+          <para>Contains all the configuration selections for the kernel</para>
+          <indexterm zone="ch-bootable-kernel config">
+            <primary sortas="e-/boot/config">/boot/config-&linux-version;</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="lfskernel">
+        <term><filename>vmlinuz-&linux-version;-lfs-&version;</filename></term>
+        <listitem>
+          <para>The engine of the Linux system. When turning on the computer,
+          the kernel is the first part of the operating system that gets loaded.
+          It detects and initializes all components of the computer's hardware,
+          then makes these components available as a tree of files to the
+          software and turns a single CPU into a multitasking machine capable
+          of running scores of programs seemingly at the same time</para>
+          <indexterm zone="ch-bootable-kernel lfskernel">
+            <primary sortas="b-lfskernel">lfskernel-&linux-version;</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="System.map">
+        <term><filename>System.map-&linux-version;</filename></term>
+        <listitem>
+          <para>A list of addresses and symbols; it maps the entry points and
+          addresses of all the functions and data structures in the
+          kernel</para>
+          <indexterm zone="ch-bootable-kernel System.map">
+            <primary sortas="e-/boot/System.map">/boot/System.map-&linux-version;</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-finish-theend">
+  <?dbhtml filename="theend.html"?>
+
+  <title>The End</title>
+
+  <indexterm zone="ch-finish-theend">
+    <primary sortas="e-/etc/lfs-release">/etc/lfs-release</primary>
+  </indexterm>
+
+  <indexterm zone="ch-finish-theend">
+    <primary sortas="e-/etc/lsb-release">/etc/lsb-release</primary>
+  </indexterm>
+
+  <indexterm zone="ch-finish-theend">
+    <primary sortas="e-/etc/os-release">/etc/os-release</primary>
+  </indexterm>
+
+  <para>Well done! The new LFS system is installed! We wish you much
+  success with your shiny new custom-built Linux system.</para>
+
+  <para>Create an <filename>/etc/os-release</filename> file required by
+  systemd:</para>
+
+<screen><userinput>cat &gt; /etc/os-release &lt;&lt; "EOF"
+NAME="Linux From Scratch"
+VERSION="&version;"
+ID=lfs
+PRETTY_NAME="Linux From Scratch &version;"
+EOF</userinput></screen>
+
+  <para>It is recommended to create <filename>/etc/lfs-release</filename>
+  for compatibility with non systemd branch. By having this file, it is very
+  easy for you (and for us if you need to ask for help at some point) to find
+  out which LFS version is installed on the system. Create this file by
+  running:</para>
+
+<screen><userinput>echo &version; &gt; /etc/lfs-release</userinput></screen>
+
+  <para>It is also a good idea to create a file to show the status of your
+  new system with respect to the Linux Standards Base (LSB).  To create
+  this file, run:</para>
+
+<screen><userinput>cat &gt; /etc/lsb-release &lt;&lt; "EOF"
+DISTRIB_ID="Linux From Scratch"
+DISTRIB_RELEASE="&version;"
+DISTRIB_CODENAME="&lt;your name here&gt;"
+DISTRIB_DESCRIPTION="Linux From Scratch"
+EOF</userinput></screen>
+
+  <para>Be sure to put some sort of customization for the field
+  'DISTRIB_CODENAME' to make the system uniquely yours.</para>
+
+</sect1>

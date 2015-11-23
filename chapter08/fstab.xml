@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-bootable-fstab">
+  <?dbhtml filename="fstab.html"?>
+
+  <title>Creating the /etc/fstab File</title>
+
+  <indexterm zone="ch-bootable-fstab">
+    <primary sortas="e-/etc/fstab">/etc/fstab</primary>
+  </indexterm>
+
+  <para>The <filename>/etc/fstab</filename> file is used by some programs to
+  determine where file systems are to be mounted by default, in which order, and
+  which must be checked (for integrity errors) prior to mounting. Create a new
+  file systems table like this:</para>
+
+<screen><userinput>cat &gt; /etc/fstab &lt;&lt; "EOF"
+<literal># Begin /etc/fstab
+
+# file system  mount-point  type     options             dump  fsck
+#                                                              order
+
+/dev/<replaceable>&lt;xxx&gt;</replaceable>     /            <replaceable>&lt;fff&gt;</replaceable>    defaults            1     1
+/dev/<replaceable>&lt;yyy&gt;</replaceable>     swap         swap     pri=1               0     0
+
+# End /etc/fstab</literal>
+EOF</userinput></screen>
+
+  <para>Replace <replaceable>&lt;xxx&gt;</replaceable>,
+  <replaceable>&lt;yyy&gt;</replaceable>, and <replaceable>&lt;fff&gt;</replaceable>
+  with the values appropriate for the system, for example, <filename
+  class="partition">sda2</filename>, <filename
+  class="partition">sda5</filename>, and <systemitem
+  class="filesystem">ext4</systemitem>. For details on the six
+  fields in this file, see <command>man 5 fstab</command>.</para>
+
+  <para>Filesystems with MS-DOS or Windows origin (i.e.: vfat, ntfs, smbfs, cifs,
+  iso9660, udf) need the <quote>iocharset</quote> mount option in order for
+  non-ASCII characters in file names to be interpreted properly. The value
+  of this option should be the same as the character set of your locale,
+  adjusted in such a way that the kernel understands it. This works if the
+  relevant character set definition (found under File systems -&gt;
+  Native Language Support) has been compiled into the kernel
+  or built as a module. The <quote>codepage</quote> option is also needed for
+  vfat and smbfs filesystems. It should be set to the codepage number used
+  under MS-DOS in your country. E.g., in order to mount USB flash drives, a
+  ru_RU.KOI8-R user would need the following in the options portion of its
+  mount line in <filename>/etc/fstab</filename>:</para>
+
+<screen><literal>noauto,user,quiet,showexec,iocharset=koi8r,codepage=866</literal></screen>
+
+  <para>The corresponding options fragment for ru_RU.UTF-8 users is:</para>
+
+<screen><literal>noauto,user,quiet,showexec,iocharset=utf8,codepage=866</literal></screen>
+
+  <note>
+    <para>In the latter case, the kernel emits the following message:</para>
+
+<screen><computeroutput>FAT: utf8 is not a recommended IO charset for FAT filesystems,
+    filesystem will be case sensitive!</computeroutput></screen>
+
+    <para>This negative recommendation should be ignored, since all other values
+    of the <quote>iocharset</quote> option result in wrong display of filenames in
+    UTF-8 locales.</para>
+  </note>
+
+  <para>It is also possible to specify default codepage and iocharset values for
+  some filesystems during kernel configuration. The relevant parameters
+  are named
+  <quote>Default NLS Option</quote> (<option>CONFIG_NLS_DEFAULT)</option>,
+  <quote>Default Remote NLS Option</quote> (<option>CONFIG_SMB_NLS_DEFAULT</option>),
+  <quote>Default codepage for FAT</quote> (<option>CONFIG_FAT_DEFAULT_CODEPAGE</option>), and
+  <quote>Default iocharset for FAT</quote> (<option>CONFIG_FAT_DEFAULT_IOCHARSET</option>).
+  There is no way to specify these settings for the
+  ntfs filesystem at kernel compilation time.</para>
+
+  <para>It is possible to make the ext3 filesystem reliable across power
+  failures for some hard disk types.  To do this, add the
+  <option>barrier=1</option> mount option to the appropriate entry in
+  <filename>/etc/fstab</filename>.  To check if the disk drive supports
+  this option, run
+  <ulink url="&blfs-book;general/hdparm.html">hdparm</ulink>
+  on the applicable disk drive.  For example, if:</para>
+
+<screen role="nodump"><userinput>hdparm -I /dev/sda | grep NCQ</userinput></screen>
+
+  <para>returns non-empty output, the option is supported.</para>
+
+  <para>Note: Logical Volume Management (LVM) based partitions cannot use the
+  <option>barrier</option> option.</para>
+
+</sect1>

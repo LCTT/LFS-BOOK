@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<chapter id="chapter-building-system" xreflabel="Chapter 6">
+  <?dbhtml dir="chapter06"?>
+  <?dbhtml filename="chapter06.html"?>
+
+  <title>Installing Basic System Software</title>
+
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="kernfs.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pkgmgt.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chroot.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="creatingdirs.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="createfiles.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="linux-headers.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="man-pages.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="glibc.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="adjusting.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="zlib.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="file.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="binutils.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gmp.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="mpfr.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="mpc.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gcc.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bzip2.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pkgconfig.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ncurses.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="attr.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="acl.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="libcap.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="sed.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="shadow.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="psmisc.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="procps.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="e2fsprogs.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="coreutils.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iana-etc.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="m4.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="flex.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bison.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="grep.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="readline.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bash.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bc.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="libtool.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gdbm.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="expat.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="inetutils.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="perl.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="xml-parser.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="autoconf.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="automake.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="diffutils.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gawk.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="findutils.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gettext.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="intltool.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gperf.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="groff.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="xz.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="grub.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="less.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gzip.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iproute2.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="kbd.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="kmod.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="libpipeline.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="make.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="patch.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="systemd.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dbus.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="util-linux.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="man-db.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tar.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="texinfo.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="vim.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="aboutdebug.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="strippingagain.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="revisedchroot.xml"/>
+
+</chapter>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-check" role="wrap">
+  <?dbhtml filename="check.html"?>
+
+  <sect1info condition="script">
+    <productname>check</productname>
+    <productnumber>&check-version;</productnumber>
+    <address>&check-url;</address>
+  </sect1info>
+
+  <title>Check-&check-version;</title>
+
+  <indexterm zone="ch-tools-check">
+    <primary sortas="a-Check">Check</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>Check is a unit testing framework for C.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&check-ch5-sbu;</seg>
+        <seg>&check-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Check</title>
+
+    <para>Prepare Check for compilation:</para>
+
+<screen><userinput remap="configure">PKG_CONFIG= ./configure --prefix=/tools</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure parameter:</title>
+
+      <varlistentry>
+        <term><parameter>PKG_CONFIG=</parameter></term>
+        <listitem>
+          <para>This tells the configure script to ignore any
+          pkg-config options that may cause the system to try to link
+          with libraries not in the <filename class="directory">/tools</filename>
+          directory.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>Build the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Compilation is now complete. As discussed earlier, running the test
+    suite is not mandatory for the temporary tools here in this chapter. To run
+    the Check test suite anyway, issue the following command:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Note that the Check test suite may take a relatively long
+    (up to 4 SBU) time.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-check" role="content">
+    <title>Contents of Check</title>
+
+    <segmentedlist>
+      <segtitle>Installed program</segtitle>
+      <segtitle>Installed library</segtitle>
+
+      <seglistitem>
+        <seg>checkmk</seg>
+        <seg>libcheck.{a,so}</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="checkmk">
+        <term><command>checkmk</command></term>
+        <listitem>
+          <para>Awk script for generating C unit tests for use with the Check
+          unit testing framework</para>
+          <indexterm zone="ch-tools-check checkmk">
+            <primary sortas="b-checmk">checkmk</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libcheck">
+        <term><filename class="libraryfile">libcheck.{a,so}</filename></term>
+        <listitem>
+          <para>Contains functions that allow Check to be called from a test
+          program</para>
+          <indexterm zone="ch-tools-check libcheck">
+            <primary sortas="c-libcheck">libcheck</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

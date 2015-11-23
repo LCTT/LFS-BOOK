@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-bison" role="wrap">
+  <?dbhtml filename="bison.html"?>
+
+  <sect1info condition="script">
+    <productname>bison</productname>
+    <productnumber>&bison-version;</productnumber>
+    <address>&bison-url;</address>
+  </sect1info>
+
+  <title>Bison-&bison-version;</title>
+
+  <indexterm zone="ch-system-bison">
+    <primary sortas="a-Bison">Bison</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Bison package contains a parser generator.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&bison-ch6-sbu;</seg>
+        <seg>&bison-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Bison</title>
+<!-- bison only installs a static library
+    <para>Inhibit static library installation:</para>
+
+<screen><userinput remap="pre">sed -i '/lib_LIBRARIES =/d' Makefile.in</userinput></screen>    
+-->
+    <para>Prepare Bison for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/bison-&bison-version;</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results (about 0.5 SBU), issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-bison" role="content">
+    <title>Contents of Bison</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed library</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>bison and yacc</seg>
+        <seg>liby.a</seg>
+        <seg>/usr/share/bison</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="bison">
+        <term><command>bison</command></term>
+        <listitem>
+          <para>Generates, from a series of rules, a program for analyzing the
+          structure of text files; Bison is a replacement for Yacc (Yet Another
+          Compiler Compiler)</para>
+          <indexterm zone="ch-system-bison bison">
+            <primary sortas="b-bison">bison</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="yacc">
+        <term><command>yacc</command></term>
+        <listitem>
+          <para>A wrapper for <command>bison</command>, meant for programs that
+          still call <command>yacc</command> instead of <command>bison</command>;
+          it calls <command>bison</command> with the <parameter>-y</parameter>
+          option</para>
+          <indexterm zone="ch-system-bison yacc">
+            <primary sortas="b-yacc">yacc</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="liby">
+        <term><filename class="libraryfile">liby</filename></term>
+        <listitem>
+          <para>The Yacc library containing implementations of Yacc-compatible
+          <function>yyerror</function> and <function>main</function> functions;
+          this library is normally not very useful, but POSIX requires it</para>
+          <indexterm zone="ch-system-bison liby">
+            <primary sortas="c-liby">liby</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

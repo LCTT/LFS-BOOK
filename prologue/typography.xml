@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="pre-typography">
+  <?dbhtml filename="typography.html"?>
+
+  <title>Typography</title>
+
+  <para>To make things easier to follow, there are a few typographical
+  conventions used throughout this book. This section contains some
+  examples of the typographical format found throughout Linux From
+  Scratch.</para>
+
+<screen role="nodump"><userinput>./configure --prefix=/usr</userinput></screen>
+
+  <para>This form of text is designed to be typed exactly as seen unless
+  otherwise noted in the surrounding text. It is also used in the explanation
+  sections to identify which of the commands is being referenced.</para>
+
+  <para>In some cases, a logical line is extended to two or more physical lines
+  with a backslash at the end of the line.</para>
+
+<screen role="nodump"><userinput>CC="gcc -B/usr/bin/" ../binutils-2.18/configure \
+  --prefix=/tools --disable-nls --disable-werror</userinput></screen>
+
+  <para>Note that the backslash must be followed by an immediate return.  Other
+  whitespace characters like spaces or tab characters will create incorrect
+  results.</para>
+
+<screen><computeroutput>install-info: unknown option '--dir-file=/mnt/lfs/usr/info/dir'</computeroutput></screen>
+
+  <para>This form of text (fixed-width text) shows screen output, usually as
+  the result of commands issued.  This format is also used to show filenames,
+  such as <filename>/etc/ld.so.conf</filename>.</para>
+
+  <para><emphasis>Emphasis</emphasis></para>
+
+  <para>This form of text is used for several purposes in the book. Its main
+  purpose is to emphasize important points or items.</para>
+
+  <para><ulink url="&lfs-root;"/></para>
+
+  <para>This format is used for hyperlinks both within the LFS community and to
+  external pages. It includes HOWTOs, download locations, and websites.</para>
+
+<screen role="nodump"><userinput>cat &gt; $LFS/etc/group &lt;&lt; "EOF"
+<literal>root:x:0:
+bin:x:1:
+......</literal>
+EOF</userinput></screen>
+
+  <para>This format is used when creating configuration files. The first command
+  tells the system to create the file <filename>$LFS/etc/group</filename> from
+  whatever is typed on the following lines until the sequence End Of File (EOF)
+  is encountered. Therefore, this entire section is generally typed as
+  seen.</para>
+
+  <para><replaceable>&lt;REPLACED TEXT&gt;</replaceable></para>
+
+  <para>This format is used to encapsulate text that is not to be typed
+  as seen or for copy-and-paste operations.</para>
+
+  <para><replaceable>[OPTIONAL TEXT]</replaceable></para>
+
+  <para>This format is used to encapsulate text that is optional.</para>
+
+  <para><filename>passwd(5)</filename></para>
+
+  <para>This format is used to refer to a specific manual (man) page. The number inside parentheses
+  indicates a specific section inside the manuals. For example,
+  <command>passwd</command> has two man pages. Per LFS installation instructions,
+  those two man pages will be located at
+  <filename>/usr/share/man/man1/passwd.1</filename> and
+  <filename>/usr/share/man/man5/passwd.5</filename>. When the book uses <filename>passwd(5)</filename> it is
+  specifically referring to <filename>/usr/share/man/man5/passwd.5</filename>.
+  <command>man passwd</command> will print the first man page it finds that
+  matches <quote>passwd</quote>, which will be
+  <filename>/usr/share/man/man1/passwd.1</filename>. For this example, you will
+  need to run <command>man 5 passwd</command> in order to read the specific page
+  being referred to. It should be noted that most man pages do not have duplicate
+  page names in different sections. Therefore, <command>man <replaceable>&lt;program
+  name&gt;</replaceable></command> is generally sufficient.</para>
+
+</sect1>
+
