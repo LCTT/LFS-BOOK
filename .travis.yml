@@ -3,3 +3,9 @@ before_install:
   - sudo apt-get install -qq make libxml2-utils docbook-utils
 install: true
 script: make validate
+notifications:
+  email:
+    recipients:
+      - gz291jolefo@quip-integrations.appspotmail.com
+    on_success: always
+    on_failure: always
