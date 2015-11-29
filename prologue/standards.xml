@@ -8,58 +8,40 @@
 <sect1 id="pre-standards">
   <?dbhtml filename="standards.html"?>
 
-  <title>LFS and Standards</title>
+  <title>LFS 和标准</title>
 
   <!--<sect2>
     <title/> -->
 
-     <para>The structure of LFS follows Linux standards as closely as
-     possible.  The primary standards are:</para>
+     <para>LFS 的结构尽可能的遵循 Linux 的标准。主要的标准有：</para>
 
     <itemizedlist>
       <listitem>
-        <para><ulink url="http://pubs.opengroup.org/onlinepubs/9699919799/">
-        POSIX.1-2008</ulink>.</para>
+        <para><ulink url="http://pubs.opengroup.org/onlinepubs/9699919799/">POSIX.1-2008</ulink>.</para>
       </listitem>
       <listitem>
-        <para><ulink 
-        url="http://refspecs.linuxfoundation.org/fhs.shtml">
-        Filesystem Hierarchy Standard (FHS) Version 3.0</ulink></para>
+        <para><ulink url="http://refspecs.linuxfoundation.org/fhs.shtml">文件系统层次结构标准（FHS）3.0 版本</ulink></para>
 
       </listitem>
       <listitem>
-        <para><ulink url="http://refspecs.linuxfoundation.org/lsb.shtml">Linux
-        Standard Base (LSB) Version 5.0</ulink></para>
+        <para><ulink url="http://refspecs.linuxfoundation.org/lsb.shtml">Linux 标准规范（LSB） 5.0 版本</ulink></para>
 
-        <para>The LSB has four separate standards: Core, Desktop,
-        Runtime Languages, and Imaging. In addition to generic requirements
-        there are also architecture specific requirements.  There are also two
-        areas for trial use: Gtk3 and Graphics.  LFS attempts to conform to the
-        architectures discussed in the previous section.</para>
+        <para>LSB 有四个独立的标准：核心、桌面、运行时语言和成像。除了普通的要求，还有架构特定要求。此外还有两个领域在试行：分别是 Gtk3 和图形。LFS 试图遵从前一节中所讨论的架构要求。</para>
 
-        <note><para>Many people do not agree with the requirements of the LSB.
-        The main purpose of defining it is to ensure that proprietary software
-        will be able to be installed and run properly on a compliant system.
-        Since LFS is source based, the user has complete control over what
-        packages are desired and many choose not to install some packages that
-        are specified by the LSB.</para></note>
+        <note><para>很多人不认同 LSB 的要求。定义它的主要目的是确保私有软件能够在兼容的系统上安装并正常运行。由于 LFS 是基于源代码的，用户对于需要什么软件包有完全的控制权，很多人选择不安装 LSB 规范所要求的软件包。</para></note>
 
       </listitem>
     </itemizedlist>
 
-    <para>Creating a complete LFS system capable of passing the LSB
-    certifications tests is possible, but not without many additional packages
-    that are beyond the scope of LFS.  These additional packages have
-    installation instructions in BLFS. </para>
+    <para>创建一个能够通过 LSB 认证测试的完整 LFS 系统是可行的，但需要很多 LFS 范围之外的额外软件包。在 BLFS 中有这些额外软件包的安装说明。</para>
 
     <variablelist>
-      <bridgehead renderas="sect3">Packages supplied by LFS needed to
-          satisfy the LSB Requirements</bridgehead>
+      <bridgehead renderas="sect3">由 LFS 提供，用于满足 LSB 要求的软件包</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry>
-        <term><emphasis>LSB Core:</emphasis></term>
+        <term><emphasis>LSB 核心：</emphasis></term>
         <listitem>
           <para>Bash, Bc, Binutils, Coreutils, Diffutils, File, Findutils, Gawk,
                 Grep, GTK+2, Gzip, M4, Man-DB, Ncurses, Procps, Psmisc, Sed,
@@ -68,43 +50,42 @@
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Desktop:</emphasis></term>
+        <term><emphasis>LSB 桌面：</emphasis></term>
         <listitem>
-          <para>None</para>
+          <para>无</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Runtime Languages:</emphasis></term>
+        <term><emphasis>LSB 运行时语言：</emphasis></term>
         <listitem>
           <para>Perl</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Imaging:</emphasis></term>
+        <term><emphasis>LSB 成像：</emphasis></term>
         <listitem>
-          <para>None</para>
+          <para>无</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Gtk3 and LSB Graphics (Trial Use):</emphasis></term>
+        <term><emphasis>LSB Gtk3 和 LSB 图形（试行）：</emphasis></term>
         <listitem>
-          <para>None</para>
+          <para>无</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Packages supplied by BLFS needed to
-          satisfy the LSB Requirements</bridgehead>
+      <bridgehead renderas="sect3">由 BLFS 提供，用于满足 LSB 要求的软件包</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry>
-        <term><emphasis>LSB Core:</emphasis></term>
+        <term><emphasis>LSB 核心：</emphasis></term>
         <listitem>
           <para>At, Batch (a part of At), Cpio, Ed, Fcrontab, Initd-tools,
           Lsb_release, NSPR, NSS, PAM, Pax, Sendmail (or Postfix or Exim), time
@@ -113,7 +94,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Desktop:</emphasis></term>
+        <term><emphasis>LSB 桌面：</emphasis></term>
         <listitem>
           <para>Alsa, ATK, Cairo, Desktop-file-utils, Freetype, Fontconfig,
           Gdk-pixbuf, Glib2, Icon-naming-utils, Libjpeg-turbo, Libpng, Libtiff,
@@ -122,21 +103,21 @@
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Runtime Languages:</emphasis></term>
+        <term><emphasis>LSB 运行时语言：</emphasis></term>
         <listitem>
           <para>Python, Libxml2, Libxslt </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Imaging:</emphasis></term>
+        <term><emphasis>LSB 成像：</emphasis></term>
         <listitem>
           <para>CUPS, Cups-filters, Ghostscript, SANE</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Gtk3 and LSB Graphics (Trial Use):</emphasis></term>
+        <term><emphasis>LSB Gtk3 和 LSB 图形（试行）：</emphasis></term>
         <listitem>
           <para>GTK+3</para>
         </listitem>
@@ -145,43 +126,42 @@
     </variablelist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Packages not supplied by LFS or BLFS
-      needed to satisfy the LSB Requirements</bridgehead>
+      <bridgehead renderas="sect3">LFS 和 BLFS 没有提供，用于满足 LSB 要求的软件包</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry>
-        <term><emphasis>LSB Core:</emphasis></term>
+        <term><emphasis>LSB 核心：</emphasis></term>
         <listitem>
-          <para>None</para>
+          <para>无</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Desktop:</emphasis></term>
+        <term><emphasis>LSB 桌面：</emphasis></term>
         <listitem>
-          <para>None</para>
+          <para>无</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Runtime Languages:</emphasis></term>
+        <term><emphasis>LSB 运行时语言：</emphasis></term>
         <listitem>
-          <para>None</para>
+          <para>无</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Imaging:</emphasis></term>
+        <term><emphasis>LSB 成像：</emphasis></term>
         <listitem>
-          <para>None</para>
+          <para>无</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Gtk3 and LSB Graphics (Trial Use):</emphasis></term>
+        <term><emphasis>LSB Gtk3 和 LSB 图形（试行）：</emphasis></term>
         <listitem>
-          <para>None</para>
+          <para>无</para>
         </listitem>
       </varlistentry>
 
