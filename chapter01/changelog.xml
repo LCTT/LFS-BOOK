@@ -8,18 +8,16 @@
 <sect1 id="ch-scatter-changelog">
   <?dbhtml filename="changelog.html"?>
 
-  <title>Changelog</title>
+  <title>更新日志</title>
 
-  <para>This is version &version; of the Linux From Scratch book, dated
-  &releasedate;. If this book is more than six months old, a newer and better
-  version is probably already available. To find out, please check one of the
-  mirrors via <ulink url="&lfs-root;mirrors.html"/>.</para>
+  <para>此手册是 Linux From Scratch 手册，当前版本是 &version; ，发布日期为 &releasedate;。
+      如果距离这个时间已超过 6 个月,那么应该已经有更新和更好的版本了。
+      可以访问 <ulink url="&lfs-root;mirrors.html"/> 来查看是否有更新版本。</para>
 
-  <para>Below is a list of changes made since the previous release of the
-  book.</para>
+  <para>以下是本手册在上一次发布以后的更新列表。</para>
 
   <itemizedlist>
-    <title>Changelog Entries:</title>
+    <title>更新日志条目：</title>
 
 <!-- Changelog template
 
@@ -40,33 +38,31 @@
       <para>2015-09-28</para>
       <itemizedlist>
         <listitem>
-          <para>[renodr] - LFS 7.8-systemd released.</para>
+          <para>[renodr] - LFS 7.8-systemd 发布</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Fix a warning when doing the GCC compile tests.</para>
+          <para>[renodr] - 修复一个 GCC 编译测试时的警告。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Add additional discussion about copying LFS systems
-          from one machine to another machine.</para>
+          <para>[renodr] - 添加将 LFS 系统从一台机器复制到其他机器的额外讨论。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Provide ncurses non-wide-character libraries that
-          are compliant with version 5 of ncurses.</para>
+          <para>[renodr] - 提供和 ncurses 版本 5 兼容的 ncurses 非宽字符（non-wide-character）版本库。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Remove unnecessary sed in e2fsprogs.</para>
+          <para>[renodr] - 在 e2fsprogs 中删除不必要的 sed。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to util-linux-2.27.</para>
+          <para>[renodr] - 更新到 util-linux-2.27。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to linux-4.2.</para>
+          <para>[renodr] - 更新到 linux-4.2。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to iproute2-4.2.0.</para>
+          <para>[renodr] - 更新到 iproute2-4.2.0。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Refresh build sizes and SBU values.</para>
+          <para>[renodr] - 刷新了构建时的体积和 SBU 值。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -75,22 +71,22 @@
       <para>2015-08-25</para>
       <itemizedlist>
         <listitem>
-          <para>[renodr] - Add an upstream patch for MPFR.</para>
+          <para>[renodr] - 添加一个 MPFR 的上游补丁。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to libpipeline-1.4.1.</para>
+          <para>[renodr] - 更新到 libpipeline-1.4.1。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to linux-4.1.6.</para>
+          <para>[renodr] - 更新到 linux-4.1.6。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to man-db-2.7.2.</para>
+          <para>[renodr] - 更新到 man-db-2.7.2。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Add a patch to allow glibc to build properly on i386 systems.</para>
+          <para>[renodr] - 添加一个补丁让 glibc 能够正确的在 i386 系统上构建。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Remove obsolete r* programs from inetutils.</para>
+          <para>[renodr] - 从 inetutils 删除过时的 r* 程序。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -99,29 +95,28 @@
       <para>2015-08-19</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Add a workaround to ncurses in
-          Chapter 5 for hosts that have mawk installed.</para>
+          <para>[bdubbs] - 在第五章中，当宿主机安装有 mawk 时，为 ncurses 增加一种变通的方案。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to binutils-2.25.1.</para>
+          <para>[renodr] - 更新到 binutils-2.25.1。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to check-0.10.0.</para>
+          <para>[renodr] - 更新到 check-0.10.0。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to procps-ng-3.3.11.</para>
+          <para>[renodr] - 更新到 procps-ng-3.3.11。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to man-pages-4.02.</para>
+          <para>[renodr] - 更新到 man-pages-4.02。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to glibc-2.22.</para>
+          <para>[renodr] - 更新到 glibc-2.22。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to linux-4.1.5.</para>
+          <para>[renodr] - 更新到 linux-4.1.5。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Update to tzdata2015f.</para>
+          <para>[renodr] - 更新到 tzdata2015f。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -130,14 +125,13 @@
       <para>2015-07-23</para>
       <itemizedlist>
         <listitem>
-          <para>[krejzi] - Fixed a warning in the intltool-update
-          perl script caused by perl-5.22.</para>
+          <para>[krejzi] - 修复由 perl-5.22 引起的 intltool-update 中 perl 脚本的一个警告。</para>
         </listitem>
         <listitem>
-          <para>[krejzi] - Updated to dbus-1.8.20.</para>
+          <para>[krejzi] - 更新到 dbus-1.8.20。</para>
         </listitem>
         <listitem>
-          <para>[krejzi] - Updated to systemd-222.</para>
+          <para>[krejzi] - 更新到 systemd-222。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -146,16 +140,13 @@
       <para>2015-07-16</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to gcc-5.2.0. Fixes
-          <ulink url="&lfs-ticket-root;3819">*3819</ulink>.</para>
+          <para>[bdubbs] - 更新到 gcc-5.2.0。修复 <ulink url="&lfs-ticket-root;3819">*3819</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to gettext-0.19.5.1. Fixes
-          <ulink url="&lfs-ticket-root;3818">*3818</ulink>.</para>
+          <para>[bdubbs] - 更新到 gettext-0.19.5.1。修复 <ulink url="&lfs-ticket-root;3818">*3818</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to kbd-2.0.3. Fixes
-          <ulink url="&lfs-ticket-root;3815">#3815</ulink>.</para>
+          <para>[bdubbs] - 更新到 kbd-2.0.3。修复 <ulink url="&lfs-ticket-root;3815">#3815</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -164,25 +155,19 @@
       <para>2015-07-12</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to iproute2-4.1.1. Fixes
-          <ulink url="&lfs-ticket-root;3811">*3811</ulink>.</para>
+          <para>[bdubbs] - 更新到 iproute2-4.1.1。修复 <ulink url="&lfs-ticket-root;3811">*3811</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to file-5.24. Fixes
-          <ulink url="&lfs-ticket-root;3812">*3812</ulink>.</para>
+          <para>[bdubbs] - 更新到 file-5.24。修复 <ulink url="&lfs-ticket-root;3812">*3812</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.1.2. Fixes
-          <ulink url="&lfs-ticket-root;3814">#3814</ulink>.</para>
+          <para>[bdubbs] - 更新到 linux-4.1.2。修复 <ulink url="&lfs-ticket-root;3814">#3814</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to gettext-0.19.5. Fixes
-          <ulink url="&lfs-ticket-root;3813">#3813</ulink>.</para>
+          <para>[bdubbs] - 更新到 gettext-0.19.5。修复 <ulink url="&lfs-ticket-root;3813">#3813</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Fix a warning in the installed automake 
-          perl script.
-          <ulink url="&lfs-ticket-root;3809">#3809</ulink>.</para>
+          <para>[bdubbs] - 修复 automake perl 脚本中的一个警告。<ulink url="&lfs-ticket-root;3809">#3809</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -191,24 +176,19 @@
       <para>2015-07-04</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to iproute2-4.1.0. Fixes
-          <ulink url="&lfs-ticket-root;3802">*3802</ulink>.</para>
+          <para>[bdubbs] - 更新到 iproute2-4.1.0。修复 <ulink url="&lfs-ticket-root;3802">*3802</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to texinfo-6.0. Fixes
-          <ulink url="&lfs-ticket-root;3803">*3803</ulink>.</para>
+          <para>[bdubbs] - 更新到 texinfo-6.0。修复 <ulink url="&lfs-ticket-root;3803">*3803</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.1.1. Fixes
-          <ulink url="&lfs-ticket-root;3805">#3805</ulink>.</para>
+          <para>[bdubbs] - 更新到 linux-4.1.1。修复 <ulink url="&lfs-ticket-root;3805">#3805</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to coreutils-8.24. Fixes
-          <ulink url="&lfs-ticket-root;3806">#3806</ulink>.</para>
+          <para>[bdubbs] - 更新到 coreutils-8.24。修复 <ulink url="&lfs-ticket-root;3806">#3806</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update perl installed files. Fixes
-          <ulink url="&lfs-ticket-root;3804">#3804</ulink>.</para>
+          <para>[bdubbs] - 更新 perl 已安装的文件，修复 <ulink url="&lfs-ticket-root;3804">#3804</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -217,7 +197,7 @@
       <para>2015-06-28</para>
       <itemizedlist>
         <listitem>
-          <para>[krejzi] - Updated to systemd-221.</para>
+          <para>[krejzi] - 更新到 systemd-221。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -226,16 +206,13 @@
       <para>2015-06-23</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to tzdata-2015e. Fixes
-          <ulink url="&lfs-ticket-root;3798">*3798</ulink>.</para>
+          <para>[bdubbs] - 更新到 tzdata-2015e。修复 <ulink url="&lfs-ticket-root;3798">*3798</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to mpfr-3.1.3. Fixes
-          <ulink url="&lfs-ticket-root;3800">#3800</ulink>.</para>
+          <para>[bdubbs] - 更新到 mpfr-3.1.3。修复 <ulink url="&lfs-ticket-root;3800">#3800</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.1. Fixes
-          <ulink url="&lfs-ticket-root;3801">#3801</ulink>.</para>
+          <para>[bdubbs] - 更新到 linux-4.1。修复 <ulink url="&lfs-ticket-root;3801">#3801</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -244,9 +221,7 @@
       <para>2015-06-13</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Simplify gcc-pass1 instructions. Thanks to
-          Pierre Labastie for the patch. Fixes 
-          <ulink url="&lfs-ticket-root;3797">#3797</ulink>.</para>
+          <para>[bdubbs] - 简化 gcc 的第一阶段的说明，感谢 Pierre Labastie 的补丁。修复 <ulink url="&lfs-ticket-root;3797">#3797</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -255,20 +230,16 @@
       <para>2015-06-10</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update standards discussion for FHS 3.0
-          and LSB-5.0.</para>
+          <para>[bdubbs] - FHS 3.0 和 LSB-5.0 更新标准讨论。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to inetutils-1.9.4. Fixes 
-          <ulink url="&lfs-ticket-root;3796">#3796</ulink>.</para>
+          <para>[bdubbs] - 更新到 inetutils-1.9.4。修复 <ulink url="&lfs-ticket-root;3796">#3796</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to file-5.23. Fixes 
-          <ulink url="&lfs-ticket-root;3795">#3795</ulink>.</para>
+          <para>[bdubbs] - 更新到 file-5.23。修复 <ulink url="&lfs-ticket-root;3795">#3795</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to kmod-21. Fixes 
-          <ulink url="&lfs-ticket-root;3794">#3794</ulink>.</para>
+          <para>[bdubbs] - 更新到 kmod-21。修复 <ulink url="&lfs-ticket-root;3794">#3794</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -277,8 +248,7 @@
       <para>2015-06-07</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.0.5. Fixes 
-          <ulink url="&lfs-ticket-root;3793">#3793</ulink>.</para>
+          <para>[bdubbs] - 更新到 linux-4.0.5。修复 <ulink url="&lfs-ticket-root;3793">#3793</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -287,8 +257,7 @@
       <para>2015-06-05</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to perl-5.22.0. Fixes 
-          <ulink url="&lfs-ticket-root;3791">#3791</ulink>.</para>
+          <para>[bdubbs] - 更新到 perl-5.22.0。修复 <ulink url="&lfs-ticket-root;3791">#3791</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -297,8 +266,7 @@
       <para>2015-05-25</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to bash-4.3.30-upstream_fixes-2.patch. 
-          Fixes <ulink url="&lfs-ticket-root;3789">#3789</ulink>.</para>
+          <para>[bdubbs] - 更新到 bash-4.3.30-upstream_fixes-2.patch。修复 <ulink url="&lfs-ticket-root;3789">#3789</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -307,20 +275,16 @@
       <para>2015-05-23</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.0.4. Fixes
-          <ulink url="&lfs-ticket-root;3786">#3786</ulink>.</para>
+          <para>[bdubbs] - 更新到 linux-4.0.4。修复 <ulink url="&lfs-ticket-root;3786">#3786</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to e2fsprogs-1.42.13. Fixes
-          <ulink url="&lfs-ticket-root;3787">#3787</ulink>.</para>
+          <para>[bdubbs] - 更新到 e2fsprogs-1.42.13。修复 <ulink url="&lfs-ticket-root;3787">#3787</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to gawk-4.1.3. Fixes
-          <ulink url="&lfs-ticket-root;3788">#3788</ulink>.</para>
+          <para>[bdubbs] - 更新到 gawk-4.1.3。修复 <ulink url="&lfs-ticket-root;3788">#3788</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Added a new patch for gcc to fix inline
-          issues and some libgomp problems.</para>
+          <para>[bdubbs] - 添加一个补丁以修复 gcc 的函数内联报告和 libgomp 的问题。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -329,8 +293,7 @@
       <para>2015-05-15</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Add a patch from upstream to fix 
-          some libgomp (gcc) problems.</para>
+          <para>[bdubbs] - 添加来自上游的补丁以修复一些 libgomp (gcc) 的问题。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -339,27 +302,22 @@
       <para>2015-05-14</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to gawk-4.1.2. Fixes
-          <ulink url="&lfs-ticket-root;3781">#3781</ulink>.</para>
+          <para>[bdubbs] - 更新到 gawk-4.1.2。修复 <ulink url="&lfs-ticket-root;3781">#3781</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.0.3. Fixes
-          <ulink url="&lfs-ticket-root;3782">#3782</ulink>.</para>
+          <para>[bdubbs] - 更新到 linux-4.0.3。修复 <ulink url="&lfs-ticket-root;3782">#3782</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to util-linux-2.26.2. Fixes
-          <ulink url="&lfs-ticket-root;3783">#3783</ulink>.</para>
+          <para>[bdubbs] - 更新到 util-linux-2.26.2。修复 <ulink url="&lfs-ticket-root;3783">#3783</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to man-pages-4.00. Fixes
-          <ulink url="&lfs-ticket-root;3784">#3784</ulink>.</para>
+          <para>[bdubbs] - 更新到 man-pages-4.00。修复 <ulink url="&lfs-ticket-root;3784">#3784</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to inetutils-1.9.3. Fixes
-          <ulink url="&lfs-ticket-root;3785">#3785</ulink>.</para>
+          <para>[bdubbs] - 更新到 inetutils-1.9.3。修复 <ulink url="&lfs-ticket-root;3785">#3785</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[krejzi] - Updated to dbus-1.8.18.</para>
+          <para>[krejzi] - 更新到 dbus-1.8.18。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -368,8 +326,7 @@
       <para>2015-04-26</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Updated to tzdata-2015d. Fixes
-          <ulink url="&lfs-ticket-root;3780">#3780</ulink>.</para>
+          <para>[bdubbs] - 更新到 tzdata-2015d。修复 <ulink url="&lfs-ticket-root;3780">#3780</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -378,18 +335,13 @@
       <para>2015-04-24</para>
       <itemizedlist>
         <listitem>
-          <para>[krejzi] - Added a fix for security issue
-          in Glibc (CVE-2015-1781). Thanks to Ken Moffat
-          for identifying the problem and the fix.</para>
+          <para>[krejzi] - 添加一个补丁以修复 Glibc (CVE-2015-1781) 中的安全报告。感谢 Ken Moffat 验证和修复此问题。</para>
         </listitem>
         <listitem>
-          <para>[krejzi] - Fixed Ncurses and Perl build
-          with GCC 5. Thanks to Ken Moffat and Douglas
-          R. Reno for providing the patches.</para>
+          <para>[krejzi] - 修复 Ncurses 和 Perl 在 GCC 5 中的构建问题。感谢 Ken Moffat 和 Douglas R. Reno 提供的补丁。</para>
         </listitem>
         <listitem>
-          <para>[krejzi] - Updated to GCC-5.1.0. Fixes
-          <ulink url="&lfs-ticket-root;3779">#3779</ulink>.</para>
+          <para>[krejzi] - 更新到 GCC-5.1.0。修复 <ulink url="&lfs-ticket-root;3779">#3779</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -398,8 +350,7 @@
       <para>2015-04-21</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to man-pages-3.8.3. Fixes
-          <ulink url="&lfs-ticket-root;3778">#3778</ulink>.</para>
+          <para>[bdubbs] - 更新到 man-pages-3.8.3。修复 <ulink url="&lfs-ticket-root;3778">#3778</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -408,16 +359,13 @@
       <para>2015-04-16</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.0. Fixes
-          <ulink url="&lfs-ticket-root;3775">#3775</ulink>.</para>
+          <para>[bdubbs] - 更新到 linux-4.0。修复 <ulink url="&lfs-ticket-root;3775">#3775</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to tzdata-2015c. Fixes
-          <ulink url="&lfs-ticket-root;3776">#3776</ulink>.</para>
+          <para>[bdubbs] - 更新到 tzdata-2015c。修复 <ulink url="&lfs-ticket-root;3776">#3776</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to iproute2-4.0.0. Fixes
-          <ulink url="&lfs-ticket-root;3777">#3777</ulink>.</para>
+          <para>[bdubbs] - 更新到 iproute2-4.0.0。修复 <ulink url="&lfs-ticket-root;3777">#3777</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -427,14 +375,13 @@
       <itemizedlist>
         <listitem>
           <para>[bdubbs] - Adjust discussion of LFS envronment variable to be
-          before first use.</para>
+          before first use。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Use --with-glibc-version=2.11 in gcc-pass1.</para>
+          <para>[bdubbs] - 在 gcc 的第一阶段中，使用 --with-glibc-version=2.11 参数。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to dejagnu-1.5.3. Fixes
-          <ulink url="&lfs-ticket-root;3773">#3773</ulink>.</para>
+          <para>[bdubbs] - 更新到 dejagnu-1.5.3。修复 <ulink url="&lfs-ticket-root;3773">#3773</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -443,12 +390,10 @@
       <para>2015-03-28</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to linux-3.19.3. Fixes
-          <ulink url="&lfs-ticket-root;3772">#3772</ulink>.</para>
+          <para>[bdubbs] - 更新到 linux-3.19.3。修复 <ulink url="&lfs-ticket-root;3772">#3772</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to tzdata2015b. Fixes
-          <ulink url="&lfs-ticket-root;3770">#3770</ulink>.</para>
+          <para>[bdubbs] - 更新到 tzdata2015b。修复 <ulink url="&lfs-ticket-root;3770">#3770</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -457,8 +402,7 @@
       <para>2015-03-20</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to linux-3.19.2. Fixes
-          <ulink url="&lfs-ticket-root;3768">#3768</ulink>.</para>
+          <para>[bdubbs] - 更新到 linux-3.19.2。修复 <ulink url="&lfs-ticket-root;3768">#3768</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -467,20 +411,15 @@
       <para>2015-03-15</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to tcl-core-8.6.4. Fixes
-          <ulink url="&lfs-ticket-root;3766">#3766</ulink>.</para>
+          <para>[bdubbs] - 更新到 tcl-core-8.6.4。修复 <ulink url="&lfs-ticket-root;3766">#3766</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to util-linux-2.26.1. Fixes
-          <ulink url="&lfs-ticket-root;3767">#3767</ulink>.</para>
+          <para>[bdubbs] - 更新到 util-linux-2.26.1。修复 <ulink url="&lfs-ticket-root;3767">#3767</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Remove non-essential static libraries
-          from the installation. Added a new section in Chapter 6 
-          Introduction, suppressed many static libraries in different
+          <para>[bdubbs] - 在安装时移除非必要的静态库。在第六章的介绍中添加一个新的小结，suppressed many static libraries in different
           packages, and removed the remaining in the Cleaning Up section.
-          Fixes
-          <ulink url="&lfs-ticket-root;3751">#3751</ulink>.</para>
+          修复 <ulink url="&lfs-ticket-root;3751">#3751</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -489,8 +428,7 @@
       <para>2015-03-11</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to intltool-0.51.0. Fixes
-          <ulink url="&lfs-ticket-root;3764">#3764</ulink>.</para>
+          <para>[bdubbs] - 更新到 intltool-0.51.0。修复 <ulink url="&lfs-ticket-root;3764">#3764</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -499,16 +437,13 @@
       <para>2015-03-08</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to linux-3.19.1. Fixes
-          <ulink url="&lfs-ticket-root;3763">#3763</ulink>.</para>
+          <para>[bdubbs] - 更新到 linux-3.19.1。修复 <ulink url="&lfs-ticket-root;3763">#3763</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to patch-2.7.5. Fixes
-          <ulink url="&lfs-ticket-root;3762">#3762</ulink>.</para>
+          <para>[bdubbs] - 更新到 patch-2.7.5。修复 <ulink url="&lfs-ticket-root;3762">#3762</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Change tcl to minimal tcl-core package. Fixes
-          <ulink url="&lfs-ticket-root;3752">#3752</ulink>.</para>
+          <para>[bdubbs] - 将 tcl更改为 minimal tcl-core。修复 <ulink url="&lfs-ticket-root;3752">#3752</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -517,20 +452,16 @@
       <para>2015-03-07</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to mpc-1.0.3. Fixes
-          <ulink url="&lfs-ticket-root;3753">#3753</ulink>.</para>
+          <para>[bdubbs] - 更新到 mpc-1.0.3。修复 <ulink url="&lfs-ticket-root;3753">#3753</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to man-pages-3.8.1. Fixes
-          <ulink url="&lfs-ticket-root;3754">#3754</ulink>.</para>
+          <para>[bdubbs] - 更新到 man-pages-3.8.1。修复 <ulink url="&lfs-ticket-root;3754">#3754</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to xz-5.2.1. Fixes
-          <ulink url="&lfs-ticket-root;3757">#3757</ulink>.</para>
+          <para>[bdubbs] - 更新到 xz-5.2.1。修复 <ulink url="&lfs-ticket-root;3757">#3757</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to kmod-20. Fixes
-          <ulink url="&lfs-ticket-root;3758">#3758</ulink>.</para>
+          <para>[bdubbs] - 更新到 kmod-20。修复 <ulink url="&lfs-ticket-root;3758">#3758</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -539,7 +470,7 @@
       <para>2015-03-06</para>
       <itemizedlist>
         <listitem>
-          <para>[krejzi] - LFS-7.7-systemd released.</para>
+          <para>[krejzi] - LFS-7.7-systemd 发布。</para>
         </listitem>
       </itemizedlist>
     </listitem>
