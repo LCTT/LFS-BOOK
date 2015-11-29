@@ -9,7 +9,7 @@
   <?dbhtml dir="chapter01"?>
   <?dbhtml filename="chapter01.html"?>
 
-  <title>Introduction</title>
+  <title>介绍</title>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="how.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="whatsnew.xml"/>
