@@ -8,50 +8,21 @@
 <sect1 id="pre-audience">
   <?dbhtml filename="audience.html"?>
 
-  <title>Audience</title>
+  <title>致读者</title>
 
-<para>There are many reasons why you would want to read this book. One of the
-questions many people raise is, <quote>why go through all the hassle of manually
-building a Linux system from scratch when you can just download and install
-an existing one?</quote></para>
+<para>说到为什么要读这本书，我想，原因一定很多。有些人可能会提出这样的疑问：<quote>都已经有现成的 Linux 系统可以下载和安装了，你为什么还要多此一举的从无到有创建一个呢？</quote></para>
 
-<para>One important reason for this project's existence is to help you learn
-how a Linux system works from the inside out. Building an LFS system helps
-demonstrate what makes Linux tick, and how things work together and depend on
-each other. One of the best things that this learning experience can provide is
-the ability to customize a Linux system to suit your own unique needs.</para>
+<para>此项目存在的一个重要原因是帮助你了解 Linux 内部是如何工作的。通过构建 LFS 系统，你可以更好的理解 Linux 是如何正常运转，和其它程序之间是如何协同工作，以及和其它程序之间的依赖关系。最棒的是，这个学习经历能给你提供自定义 Linux 系统以满足你自己独特需求的能力。</para>
 
-<para>Another key benefit of LFS is that it allows you to have more control
-over the system without relying on someone else's Linux implementation. With
-LFS, you are in the driver's seat and dictate every aspect of the
-system.</para>
+<para>另一个重要的原因是，你对系统本身有更多的控制权，而不必知道别人是如何实现的。在 LFS 下，你就是主宰，系统的各个方面都需要你亲力亲为。</para>
 
-<para>LFS allows you to create very compact Linux systems. When installing
-regular distributions, you are often forced to install a great many
-programs which are probably never used or understood. These programs waste
-resources. You may argue that with today's hard drive and CPUs, such
-resources are no longer a consideration. Sometimes, however, you are still
-constrained by size considerations if nothing else. Think about bootable
-CDs, USB sticks, and embedded systems. Those are areas where LFS can be
-beneficial.</para>
+<para>LFS 可以让你创建极其精简的 Linux 系统。当安装那些常规的 Linux 系统，你往往迫不得已安装那些你用不到的（甚至你都不知道它们是干什么的）程序。这些程序也许会浪费你的硬件资源。你可能要说了，现在计算机的资源那么丰富，稍微浪费一些又有什么关系呢。但是你依旧要考虑到可引导 CD、USB 棒或者是一些嵌入式环境，它们对资源高度敏感，这恰恰是 LFS 所擅长的地方。</para>
 
-<para>Another advantage of a custom built Linux system is security. By compiling
-the entire system from source code, you are empowered to audit everything
-and apply all the security patches desired. It is no longer necessary to
-wait for somebody else to compile binary packages that fix a security hole.
-Unless you examine the patch and implement it yourself, you have no
-guarantee that the new binary package was built correctly and adequately
-fixes the problem.</para>
+<para>另一个优势是，自定义的 Linux 系统有更高的安全性。通过从源码构建一个完整的系统，你有权审核所有的代码和打入所需的安全补丁。这避免了花很长时间去等待别人编译修复了安全漏洞的二进制程序。而且，除非你检查了补丁文件且做了完整的验证，否则你又怎么能确信，新的二进制程序的的确确编译正确且解决了问题呢？</para>
 
-<para>The goal of Linux From Scratch is to build a complete and usable
-foundation-level system. If you do not wish to build your own Linux system
-from scratch, you may not entirely benefit from the information in this
-book.</para>
+<para>从零构建一个基本可用的 Linux 系统是本书的目标，如果你并不打算这么做，那么，这本书可能对你来说用处并不大。</para>
 
-<para>There are too many other good reasons to build your own LFS system to
-list them all here. In the end, education is by far the most powerful of
-reasons. As you continue in your LFS experience, you will discover the power
-that information and knowledge truly bring.</para>
+<para>有太多的原因来支撑你从头构建属于自己的 LFS 系统了。最重要的原因，我想还是当你学会构建 LFS 后，就会发现你已经学会太多的相关信息和知识了。</para>
 
 </sect1>
 
