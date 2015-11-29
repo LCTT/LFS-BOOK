@@ -1,0 +1,24 @@
+--- 7.7-systemd/chapter02/mounting.xml	2015-11-28 20:31:24.556344346 -0400
++++ 7.8-systemd/chapter02/mounting.xml	2015-11-23 00:24:08.153588807 -0400
+@@ -13,17 +13,11 @@
+   <para>Now that a file system has been created, the partition needs to
+   be made accessible. In order to do this, the partition needs to be
+   mounted at a chosen mount point. For the purposes of this book, it is
+-  assumed that the file system is mounted under <filename
+-  class="directory">/mnt/lfs</filename>, but the directory choice is up
+-  to you.</para>
++  assumed that the file system is mounted under the directory specified by the
++  <envar>LFS</envar> envronment varibale as described in the previous section.
++  </para>
+ 
+-  <para>Choose a mount point and assign it to the <envar>LFS</envar>
+-  environment variable by running:</para>
+-
+-<screen role="nodump"><userinput>export LFS=/mnt/lfs</userinput></screen>
+-
+-  <para>Next, create the mount point and mount the LFS file system by
+-  running:</para>
++  <para>Create the mount point and mount the LFS file system by running:</para>
+ 
+ <screen role="nodump"><userinput>mkdir -pv $LFS
+ mount -v -t ext4 /dev/<replaceable>&lt;xxx&gt;</replaceable> $LFS</userinput></screen>

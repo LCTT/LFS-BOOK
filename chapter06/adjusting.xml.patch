@@ -1,0 +1,11 @@
+--- 7.7-systemd/chapter06/adjusting.xml	2015-11-28 20:31:24.648345682 -0400
++++ 7.8-systemd/chapter06/adjusting.xml	2015-11-23 00:24:02.966556144 -0400
+@@ -42,7 +42,7 @@
+   functions (compiling and linking) of the adjusted toolchain are working
+   as expected. To do this, perform the following sanity checks:</para>
+ 
+-<screen os="a"><userinput>echo 'main(){}' &gt; dummy.c
++<screen os="a"><userinput>echo 'int main(){}' &gt; dummy.c
+ cc dummy.c -v -Wl,--verbose &amp;&gt; dummy.log
+ readelf -l a.out | grep ': /lib'</userinput></screen>
+ 

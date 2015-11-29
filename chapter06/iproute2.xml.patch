@@ -1,0 +1,31 @@
+--- 7.7-systemd/chapter06/iproute2.xml	2015-11-28 20:31:24.636345508 -0400
++++ 7.8-systemd/chapter06/iproute2.xml	2015-11-23 00:24:02.974556194 -0400
+@@ -56,8 +56,17 @@
+ <!-- Save as comments for now    
+     <para>Remove a compiler flag that causes the compilation to fail:</para>
+ <screen><userinput remap="pre">sed -i 's/-Werror//' Makefile</userinput></screen>
++
+ -->
++<!--
++
++    <para>Do not build the unneeded tipc program.  Transparent Inter-process
++    Communication (TIPC) is a network communications protocol for Inter-process
++    communication (IPC) that was designed for intra-cluster
++    communication.</para>
+ 
++<screen><userinput remap="pre">sed -i 's/tipc //' Makefile</userinput></screen>
++-->
+     <para>Compile the package:</para>
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+@@ -88,8 +97,8 @@
+         <seg>bridge, ctstat (link to lnstat), genl, ifcfg, ifstat, ip, lnstat,
+         nstat, routef, routel, rtacct, rtmon, rtpr, rtstat (link to lnstat), ss,
+         and tc</seg>
+-        <seg>/etc/iproute2, /usr/lib/tc, /usr/share/doc/iproute2-&iproute2-version;,
+-        and /usr/lib/tc</seg>
++        <seg>/etc/iproute2, /usr/lib/tc, and /usr/share/doc/iproute2-&iproute2-version;,
++        </seg>
+       </seglistitem>
+     </segmentedlist>
+ 

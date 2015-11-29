@@ -1,0 +1,13 @@
+--- 7.7-systemd/chapter06/libcap.xml	2015-11-28 20:31:24.643345609 -0400
++++ 7.8-systemd/chapter06/libcap.xml	2015-11-23 00:24:02.959556100 -0400
+@@ -43,6 +43,10 @@
+   <sect2 role="installation">
+     <title>Installation of Libcap</title>
+ 
++    <para>Prevent a static library from being installed:</para>
++
++<screen><userinput remap="pre">sed -i '/install.*STALIBNAME/d' libcap/Makefile</userinput></screen>
++
+     <para>Compile the package:</para>
+ 
+ <screen><userinput remap="make">make</userinput></screen>

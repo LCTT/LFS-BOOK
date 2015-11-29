@@ -1,0 +1,92 @@
+--- 7.7-systemd/chapter05/glibc.xml	2015-11-28 20:31:24.596344927 -0400
++++ 7.8-systemd/chapter05/glibc.xml	2015-11-23 00:24:02.739554717 -0400
+@@ -43,41 +43,15 @@
+   <sect2 role="installation">
+     <title>Installation of Glibc</title>
+ 
+-    <para>In some cases, particularly LFS 7.1, the rpc headers were not
+-    installed properly.  Test to see if they are installed in the host system
+-    and install if they are not:</para>
+-
+-<screen><userinput remap="pre">if [ ! -r /usr/include/rpc/types.h ]; then
+-  su -c 'mkdir -pv /usr/include/rpc'
+-  su -c 'cp -v sunrpc/rpc/*.h /usr/include/rpc'
+-fi</userinput></screen>
+-
+-    <para>Fix a regression in the package that affects 32-bit architectures:</para>
+-
+-<screen><userinput remap="pre">sed -e '/ia32/s/^/1:/' \
+-    -e '/SSE2/s/^1://' \
+-    -i  sysdeps/i386/i686/multiarch/mempcpy_chk.S</userinput></screen>
++    <para>First, fix a build problem that affects i386 systems:</para>
++
++<screen><userinput remap="pre">patch -Np1 -i ../&glibc-upstream-patch;</userinput></screen>
+ 
+     <para>The Glibc documentation recommends building Glibc outside of the source
+     directory in a dedicated build directory:</para>
+ 
+ <screen><userinput remap="pre">mkdir -v ../glibc-build
+ cd ../glibc-build</userinput></screen>
+-<!--
+-    <para>Because Glibc no longer supports i386, its developers say to use the
+-    compiler flag <parameter>-march=i486</parameter> when building it for x86
+-    machines. There are several ways to accomplish that, but testing shows that
+-    the flag is best placed inside the build variable <quote>CFLAGS</quote>.
+-    Instead of overriding completely what Glibc's internal build system uses
+-    for CFLAGS, append the new flag to the existing contents of CFLAGS by
+-    making use of the special file <filename>configparms</filename>. The
+-    -mtune=native flag is also necessary to reset a reasonable value for -mtune
+-    that is changed when setting -march.</para>
+-
+-<screen><userinput remap="configure">case `uname -m` in
+-  i?86) echo "CFLAGS += -march=i486 -mtune=native" &gt; configparms ;;
+-esac</userinput></screen>
+--->
+ 
+     <para>Next, prepare Glibc for compilation:</para>
+ 
+@@ -87,6 +61,7 @@
+       --build=$(../glibc-&glibc-version;/scripts/config.guess) \
+       --disable-profile                             \
+       --enable-kernel=&min-kernel;                        \
++      --enable-obsolete-rpc                         \
+       --with-headers=/tools/include                 \
+       libc_cv_forced_unwind=yes                     \
+       libc_cv_ctors_header=yes                      \
+@@ -122,6 +97,15 @@
+       </varlistentry>
+ 
+       <varlistentry>
++        <term><parameter>--enable-obsolete-rpc</parameter></term>
++        <listitem>
++          <para>This installs NIS and RPC related headers that are not
++          installed by default. They are required to build GCC and by
++          several BLFS packages.</para>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry>
+         <term><parameter>--with-headers=/tools/include</parameter></term>
+         <listitem>
+           <para>This tells Glibc to compile itself against the headers recently
+@@ -207,7 +191,7 @@
+     functions (compiling and linking) of the new toolchain are working as
+     expected. To perform a sanity check, run the following commands:</para>
+ 
+-<screen><userinput>echo 'main(){}' &gt; dummy.c
++<screen><userinput>echo 'int main(){}' &gt; dummy.c
+ $LFS_TGT-gcc dummy.c
+ readelf -l a.out | grep ': /tools'</userinput></screen>
+ 
+@@ -216,9 +200,8 @@
+ 
+ <screen><computeroutput>[Requesting program interpreter: /tools/lib/ld-linux.so.2]</computeroutput></screen>
+ 
+-    <para>Note that <filename class="directory">/tools/lib</filename>, or
+-    <filename class="directory">/tools/lib64</filename> for 64-bit machines
+-    appears as the prefix of the dynamic linker.</para>
++    <para>Note that for 64-bit machines, the interpreter name will be
++    <filename>/tools/lib64/ld-linux-x86-64.so.2</filename>.</para>
+ 
+     <para>If the output is not shown as above or there was no output at all,
+     then something is wrong. Investigate and retrace the steps to find out

@@ -1,0 +1,11 @@
+--- 7.7-systemd/chapter06/expat.xml	2015-11-28 20:31:24.643345609 -0400
++++ 7.8-systemd/chapter06/expat.xml	2015-11-23 00:24:02.957556087 -0400
+@@ -43,7 +43,7 @@
+ 
+     <para>Prepare Expat for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
++<screen><userinput remap="configure">./configure --prefix=/usr --disable-static</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 

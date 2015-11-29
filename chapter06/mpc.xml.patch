@@ -1,0 +1,13 @@
+--- 7.7-systemd/chapter06/mpc.xml	2015-11-28 20:31:24.651345726 -0400
++++ 7.8-systemd/chapter06/mpc.xml	2015-11-23 00:24:02.970556169 -0400
+@@ -44,7 +44,9 @@
+ 
+     <para>Prepare MPC for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/mpc-&mpc-version;</userinput></screen>
++<screen><userinput remap="configure">./configure --prefix=/usr    \
++            --disable-static \
++            --docdir=/usr/share/doc/mpc-&mpc-version;</userinput></screen>
+ 
+     <para>Compile the package and generate the HTML documentation:</para>
+ 

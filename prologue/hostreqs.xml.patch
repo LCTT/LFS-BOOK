@@ -1,0 +1,37 @@
+--- 7.7-systemd/prologue/hostreqs.xml	2015-11-28 20:31:24.660345856 -0400
++++ 7.8-systemd/prologue/hostreqs.xml	2015-11-23 00:24:02.989556288 -0400
+@@ -77,7 +77,7 @@
+     </listitem>
+ 
+     <listitem>
+-      <para><emphasis role="strong">Glibc-2.5.1</emphasis> (Versions
++      <para><emphasis role="strong">Glibc-2.11</emphasis> (Versions
+       greater than &glibc-version; are not recommended as they have
+       not been tested)</para>
+     </listitem>
+@@ -161,7 +161,6 @@
+ <screen role="nodump"><userinput>cat &gt; version-check.sh &lt;&lt; "EOF"
+ <literal>#!/bin/bash
+ # Simple script to list version numbers of critical development tools
+-
+ export LC_ALL=C
+ bash --version | head -n1 | cut -d" " -f2-4
+ echo "/bin/sh -&gt; `readlink -f /bin/sh`"
+@@ -185,7 +184,7 @@
+ if [ -h /usr/bin/awk ]; then
+   echo "/usr/bin/awk -&gt; `readlink -f /usr/bin/awk`";
+ elif [ -x /usr/bin/awk ]; then
+-  echo yacc is `/usr/bin/awk --version | head -n1`
++  echo awk is `/usr/bin/awk --version | head -n1`
+ else 
+   echo "awk not found" 
+ fi
+@@ -205,7 +204,7 @@
+ makeinfo --version | head -n1
+ xz --version | head -n1
+ 
+-echo 'main(){}' &gt; dummy.c &amp;&amp; g++ -o dummy dummy.c
++echo 'int main(){}' &gt; dummy.c &amp;&amp; g++ -o dummy dummy.c
+ if [ -x dummy ]
+   then echo "g++ compilation OK";
+   else echo "g++ compilation failed"; fi

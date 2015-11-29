@@ -1,0 +1,24 @@
+--- 7.7-systemd/chapter06/pkgmgt.xml	2015-11-28 20:31:24.652345740 -0400
++++ 7.8-systemd/chapter06/pkgmgt.xml	2015-11-23 00:24:02.972556182 -0400
+@@ -250,7 +250,7 @@
+ 
+     <para>One of the advantages of an LFS system is that there are no files that
+     depend on the position of files on a disk system.  Cloning an LFS build to
+-    another computer with an architecture similar to the base system is as
++    another computer with the same architecture as the base system is as
+     simple as using <command>tar</command> on the LFS partition that contains
+     the root directory (about 250MB uncompressed for a base LFS build), copying
+     that file via network transfer or CD-ROM to the new system and expanding
+@@ -268,6 +268,12 @@
+     differences in system hardware and the original kernel
+     configuration.</para>
+ 
++    <note><para>There have been some reports of issues when copying between
++    similar but not identical architectures. For instance, the instruction set
++    for an Intel architecture is not identical with an AMD processor and later
++    versions of some processors may have instructions that are unavailable in
++    earlier versions.</para></note>
++
+     <para>Finally the new system has to be made bootable via <xref
+     linkend="ch-bootable-grub"/>.</para>
+ 

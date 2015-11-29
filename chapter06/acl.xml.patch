@@ -1,0 +1,13 @@
+--- 7.7-systemd/chapter06/acl.xml	2015-11-28 20:31:24.644345624 -0400
++++ 7.8-systemd/chapter06/acl.xml	2015-11-23 00:24:02.961556112 -0400
+@@ -59,7 +59,9 @@
+ 
+     <para>Prepare Acl for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr --libexecdir=/usr/lib</userinput></screen>
++<screen><userinput remap="configure">./configure --prefix=/usr    \
++            --disable-static \
++            --libexecdir=/usr/lib</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 

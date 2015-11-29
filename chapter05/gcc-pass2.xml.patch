@@ -1,0 +1,11 @@
+--- 7.7-systemd/chapter05/gcc-pass2.xml	2015-11-28 20:31:24.588344811 -0400
++++ 7.8-systemd/chapter05/gcc-pass2.xml	2015-11-23 00:24:02.740554724 -0400
+@@ -181,7 +181,7 @@
+     functions (compiling and linking) of the new toolchain are working as
+     expected. To perform a sanity check, run the following commands:</para>
+ 
+-<screen><userinput>echo 'main(){}' &gt; dummy.c
++<screen><userinput>echo 'int main(){}' &gt; dummy.c
+ cc dummy.c
+ readelf -l a.out | grep ': /tools'</userinput></screen>
+ 

@@ -1,0 +1,157 @@
+--- 7.7-systemd/prologue/standards.xml	2015-11-28 20:31:24.661345871 -0400
++++ 7.8-systemd/prologue/standards.xml	2015-11-23 00:24:02.990556294 -0400
+@@ -23,18 +23,19 @@
+       </listitem>
+       <listitem>
+         <para><ulink 
+-        url="http://www.linuxfoundation.org/collaborate/workgroups/lsb/fhs-30-draft-1">
+-        Filesystem Hierarchy Standard version 3.0 Draft 1 (FHS)</ulink></para>
++        url="http://refspecs.linuxfoundation.org/fhs.shtml">
++        Filesystem Hierarchy Standard (FHS) Version 3.0</ulink></para>
+ 
+       </listitem>
+       <listitem>
+         <para><ulink url="http://refspecs.linuxfoundation.org/lsb.shtml">Linux
+-        Standard Base (LSB) Specifications</ulink></para>
++        Standard Base (LSB) Version 5.0</ulink></para>
+ 
+-        <para>The LSB has five separate standards: Core, C++, Desktop,
+-        Runtime Languages, and Printing. In addition to generic requirements
+-        there are also architecture specific requirements.  LFS attempts to
+-        conform to the architectures discussed in the previous section.</para>
++        <para>The LSB has four separate standards: Core, Desktop,
++        Runtime Languages, and Imaging. In addition to generic requirements
++        there are also architecture specific requirements.  There are also two
++        areas for trial use: Gtk3 and Graphics.  LFS attempts to conform to the
++        architectures discussed in the previous section.</para>
+ 
+         <note><para>Many people do not agree with the requirements of the LSB.
+         The main purpose of defining it is to ensure that proprietary software
+@@ -61,19 +62,12 @@
+         <term><emphasis>LSB Core:</emphasis></term>
+         <listitem>
+           <para>Bash, Bc, Binutils, Coreutils, Diffutils, File, Findutils, Gawk,
+-                Grep, Gzip, M4, Man-DB, Ncurses, Procps, Psmisc, Sed,
++                Grep, GTK+2, Gzip, M4, Man-DB, Ncurses, Procps, Psmisc, Sed,
+                 Shadow, Tar, Util-linux, Zlib</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><emphasis>LSB C++:</emphasis></term>
+-        <listitem>
+-          <para>Gcc</para>
+-        </listitem>
+-      </varlistentry>
+-
+-      <varlistentry>
+         <term><emphasis>LSB Desktop:</emphasis></term>
+         <listitem>
+           <para>None</para>
+@@ -88,14 +82,14 @@
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><emphasis>LSB Printing:</emphasis></term>
++        <term><emphasis>LSB Imaging:</emphasis></term>
+         <listitem>
+           <para>None</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><emphasis>LSB Multimeda:</emphasis></term>
++        <term><emphasis>LSB Gtk3 and LSB Graphics (Trial Use):</emphasis></term>
+         <listitem>
+           <para>None</para>
+         </listitem>
+@@ -113,44 +107,38 @@
+         <term><emphasis>LSB Core:</emphasis></term>
+         <listitem>
+           <para>At, Batch (a part of At), Cpio, Ed, Fcrontab, Initd-tools,
+-          Lsb_release, PAM, Pax, Sendmail (or Postfix or Exim), time </para>
+-        </listitem>
+-      </varlistentry>
+-
+-      <varlistentry>
+-        <term><emphasis>LSB C++:</emphasis></term>
+-        <listitem>
+-          <para>None</para>
++          Lsb_release, NSPR, NSS, PAM, Pax, Sendmail (or Postfix or Exim), time
++          </para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+         <term><emphasis>LSB Desktop:</emphasis></term>
+         <listitem>
+-          <para>ATK, Cairo, Desktop-file-utils, Freetype, Fontconfig,
+-                Glib2, GTK+2, Icon-naming-utils, Libjpeg, Libpng, Libxml2,
+-                MesaLib, Pango, Qt4, Xorg</para>
++          <para>Alsa, ATK, Cairo, Desktop-file-utils, Freetype, Fontconfig,
++          Gdk-pixbuf, Glib2, Icon-naming-utils, Libjpeg-turbo, Libpng, Libtiff,
++          Libxml2, MesaLib, Pango, Qt4, Xdg-utils, Xorg</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+         <term><emphasis>LSB Runtime Languages:</emphasis></term>
+         <listitem>
+-          <para>Python</para>
++          <para>Python, Libxml2, Libxslt </para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><emphasis>LSB Printing:</emphasis></term>
++        <term><emphasis>LSB Imaging:</emphasis></term>
+         <listitem>
+-          <para>CUPS</para>
++          <para>CUPS, Cups-filters, Ghostscript, SANE</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><emphasis>LSB Multimeda:</emphasis></term>
++        <term><emphasis>LSB Gtk3 and LSB Graphics (Trial Use):</emphasis></term>
+         <listitem>
+-          <para>Alsa Libraries, NSPR, NSS, OpenSSL, Java, Xdg-utils</para>
++          <para>GTK+3</para>
+         </listitem>
+       </varlistentry>
+ 
+@@ -170,16 +158,9 @@
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><emphasis>LSB C++:</emphasis></term>
+-        <listitem>
+-          <para>None</para>
+-        </listitem>
+-      </varlistentry>
+-
+-      <varlistentry>
+         <term><emphasis>LSB Desktop:</emphasis></term>
+         <listitem>
+-          <para>Qt3</para>
++          <para>None</para>
+         </listitem>
+       </varlistentry>
+ 
+@@ -191,14 +172,14 @@
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><emphasis>LSB Printing:</emphasis></term>
++        <term><emphasis>LSB Imaging:</emphasis></term>
+         <listitem>
+           <para>None</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><emphasis>LSB Multimeda:</emphasis></term>
++        <term><emphasis>LSB Gtk3 and LSB Graphics (Trial Use):</emphasis></term>
+         <listitem>
+           <para>None</para>
+         </listitem>

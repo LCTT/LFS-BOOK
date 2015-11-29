@@ -1,0 +1,11 @@
+--- 7.7-systemd/chapter02/chapter02.xml	2015-11-28 20:31:24.557344361 -0400
++++ 7.8-systemd/chapter02/chapter02.xml	2015-11-23 00:24:08.153588807 -0400
+@@ -14,7 +14,7 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="creatingpartition.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="creatingfilesystem.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="mounting.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="aboutlfs.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="mounting.xml"/>
+ 
+ </chapter>

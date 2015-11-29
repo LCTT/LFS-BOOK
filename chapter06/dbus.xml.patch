@@ -1,0 +1,10 @@
+--- 7.7-systemd/chapter06/dbus.xml	2015-11-28 20:31:24.653345754 -0400
++++ 7.8-systemd/chapter06/dbus.xml	2015-11-23 00:24:02.972556182 -0400
+@@ -52,6 +52,7 @@
+             --sysconfdir=/etc                   \
+             --localstatedir=/var                \
+             --docdir=/usr/share/doc/dbus-&dbus-version; \
++            --disable-static                    \
+             --with-console-auth-dir=/run/console</userinput></screen>
+ 
+     <variablelist>

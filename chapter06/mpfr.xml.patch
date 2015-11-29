@@ -1,0 +1,16 @@
+--- 7.7-systemd/chapter06/mpfr.xml	2015-11-28 20:31:24.636345508 -0400
++++ 7.8-systemd/chapter06/mpfr.xml	2015-11-23 00:24:02.974556194 -0400
+@@ -44,11 +44,12 @@
+     <para>First, apply the following patch to fix various bugs that have been
+     addressed upstream:</para>
+ 
+-<screen><userinput remap="pre">patch -Np1 -i ../&mpfr-fixes-patch;</userinput></screen>
++<screen><userinput remap="pre">patch -Np1 -i ../&mpfr-upstream-patch;</userinput></screen>
+ 
+     <para>Prepare MPFR for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr        \
++            --disable-static     \
+             --enable-thread-safe \
+             --docdir=/usr/share/doc/mpfr-&mpfr-version;</userinput></screen>
+ 

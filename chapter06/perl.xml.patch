@@ -1,0 +1,41 @@
+--- 7.7-systemd/chapter06/perl.xml	2015-11-28 20:31:24.650345711 -0400
++++ 7.8-systemd/chapter06/perl.xml	2015-11-23 00:24:02.968556156 -0400
+@@ -56,9 +56,10 @@
+ <screen><userinput remap="pre">export BUILD_ZLIB=False
+ export BUILD_BZIP2=0</userinput></screen>
+ <!--
+-    <para>Fix a potential security problem:</para>
++    <para>Apply a patch to allow the Errno.pm module and the h2ph
++    program to build correctly when building with GCC 5:</para>
+ 
+-<screen><userinput remap="pre">patch -Np1 -i ../&perl-fix-patch;</userinput></screen>
++<screen><userinput remap="pre">patch -Np1 -i ../&perl-gcc5-fixes-patch;</userinput></screen>
+ -->
+     <para>To have full control over the way Perl is set up, you can remove the
+     <quote>-des</quote> options from the following command and hand-pick the way
+@@ -134,7 +135,7 @@
+       <segtitle>Installed directory</segtitle>
+ 
+       <seglistitem>
+-        <seg>a2p, c2ph, config_data, corelist, cpan, cpan2dist, cpanp,
++        <seg>a2p, c2ph, corelist, cpan, cpan2dist, cpanp,
+         cpanp-run-perl, enc2xs, find2perl, h2ph, h2xs,
+         instmodsh, json_pp, libnetcfg, perl, perl&perl-version; (link to perl),
+         perlbug, perldoc, perlivp, perlthanks (link to perlbug), piconv, pl2pm,
+@@ -171,16 +172,6 @@
+           </indexterm>
+         </listitem>
+       </varlistentry>
+-
+-      <varlistentry id="config_data">
+-        <term><command>config_data</command></term>
+-        <listitem>
+-          <para>Queries or changes configuration of Perl modules</para>
+-          <indexterm zone="ch-system-perl config_data">
+-            <primary sortas="b-config_data">config_data</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+ 
+       <varlistentry id="corelist">
+         <term><command>corelist</command></term>

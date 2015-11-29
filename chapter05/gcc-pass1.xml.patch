@@ -1,0 +1,65 @@
+--- 7.7-systemd/chapter05/gcc-pass1.xml	2015-11-28 20:31:24.588344811 -0400
++++ 7.8-systemd/chapter05/gcc-pass1.xml	2015-11-23 00:24:02.740554724 -0400
+@@ -98,12 +98,14 @@
+     copied files.  When used in conjunction with <command>cp -u</command>, this
+     prevents unexpected changes to the original files in case the commands are
+     inadvertently run twice.  </para>
+-
++<!--
+     <para>GCC doesn't detect stack protection correctly, which causes problems
+     for the build of Glibc-&glibc-version;, so fix that by issuing the following
+     command:</para>
+ 
+ <screen><userinput remap="pre">sed -i '/k prot/agcc_cv_libc_provides_ssp=yes' gcc/configure</userinput></screen>
++-->
++
+ <!--
+     <para>Also fix a problem identified upstream:</para>
+ 
+@@ -120,6 +122,7 @@
+ <screen><userinput remap="configure">../gcc-&gcc-version;/configure                             \
+     --target=$LFS_TGT                              \
+     --prefix=/tools                                \
++    --with-glibc-version=2.11                      \
+     --with-sysroot=$LFS                            \
+     --with-newlib                                  \
+     --without-headers                              \
+@@ -132,13 +135,10 @@
+     --disable-threads                              \
+     --disable-libatomic                            \
+     --disable-libgomp                              \
+-    --disable-libitm                               \
+     --disable-libquadmath                          \
+-    --disable-libsanitizer                         \
+     --disable-libssp                               \
+     --disable-libvtv                               \
+-    --disable-libcilkrts                           \
+-    --disable-libstdc++-v3                         \
++    --disable-libstdcxx                            \
+     --enable-languages=c,c++</userinput></screen>
+     <variablelist>
+       <title>The meaning of the configure options:</title>
+@@ -195,17 +195,14 @@
+ 
+       <varlistentry>
+         <term><parameter>--disable-decimal-float, --disable-threads,
+-        --disable-libatomic, --disable-libgomp, --disable-libitm,
+-        --disable-libquadmath, --disable-libsanitizer,
+-        --disable-libssp, --disable-libvtv, --disable-libcilkrts,
+-        --disable-libstdc++-v3</parameter></term>
++        --disable-libatomic, --disable-libgomp, --disable-libquadmath,
++        --disable-libssp, --disable-libvtv, --disable-libstdcxx</parameter></term>
+         <listitem>
+           <para>These switches disable support for the decimal floating point
+-          extension, threading, libatomic, libgomp, libitm, 
+-          libquadmath, libsanitizer, libssp, libvtv, libcilkrts
+-          and the C++ standard library respectively. These features will fail
+-          to compile when building a cross-compiler and are not necessary for
+-          the task of cross-compiling the temporary libc.</para>
++          extension, threading, libatomic, libgomp, libquadmath, libssp,
++          libvtv, and the C++ standard library respectively. These features
++          will fail to compile when building a cross-compiler and are not
++          necessary for the task of cross-compiling the temporary libc.</para>
+         </listitem>
+       </varlistentry>
+ 

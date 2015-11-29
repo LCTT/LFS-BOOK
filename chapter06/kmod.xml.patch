@@ -1,0 +1,19 @@
+--- 7.7-systemd/chapter06/kmod.xml	2015-11-28 20:31:24.639345551 -0400
++++ 7.8-systemd/chapter06/kmod.xml	2015-11-23 00:24:02.979556225 -0400
+@@ -74,10 +74,15 @@
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+ 
++    <para>This package does not come with a test suite that can be run in the
++    LFS chroot environment.  At a minimum the git program is required and
++    several tests will not run outside of a git repository. </para>
++
++<!--
+     <para>To test the results, issue:</para>
+ 
+ <screen><userinput remap="test">make check</userinput></screen>
+-
++-->
+     <para>Install the package, and create symlinks for
+     compatibility with Module-Init-Tools (the package that previously handled
+     Linux kernel modules):</para>

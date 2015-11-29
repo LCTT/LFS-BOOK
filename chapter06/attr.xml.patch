@@ -1,0 +1,18 @@
+--- 7.7-systemd/chapter06/attr.xml	2015-11-28 20:31:24.645345638 -0400
++++ 7.8-systemd/chapter06/attr.xml	2015-11-23 00:24:02.963556125 -0400
+@@ -47,13 +47,13 @@
+ <screen><userinput remap="pre">sed -i -e 's|/@pkg_name@|&amp;-@pkg_version@|' include/builddefs.in</userinput></screen>
+ 
+     <para>Prevent installation of manual pages that were already installed by
+-    Man-Pages package:</para>
++    the <xref linkend="man-pages"/> package:</para>
+ 
+ <screen><userinput remap="pre">sed -i -e "/SUBDIRS/s|man2||" man/Makefile</userinput></screen>
+ 
+     <para>Prepare Attr for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
++<screen><userinput remap="configure">./configure --prefix=/usr --disable-static</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 

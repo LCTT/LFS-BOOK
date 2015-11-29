@@ -1,0 +1,32 @@
+--- 7.7-systemd/chapter06/introduction.xml	2015-11-28 20:31:24.637345522 -0400
++++ 7.8-systemd/chapter06/introduction.xml	2015-11-23 00:24:02.976556206 -0400
+@@ -55,4 +55,29 @@
+   <note><para>The SBU values and required disk space includes
+   test suite data for all applicable packages in Chapter 6.</para></note>
+ 
++  <sect2>
++    <title>About libraries</title>
++
++    <para>In general, the LFS editors discourage building and installing static
++    libraries.  The original purpose for most static libraries has been made
++    obsolete in a modern Linux system.  In addition linking a static library
++    into a program can be detrimental.  If an update to the library is needed
++    to remove a security problem, all programs that use the static library will
++    need to be relinked to the new library.  Since the use of static libraries
++    is not always obvious, the relevant programs (and the procedures needed to
++    do the linking) may not even be known.</para>
++
++    <para>In the procedures in Chapter 6, we remove or disable installation of
++    most static libraries.  In a few cases, especially glibc and gcc, the use
++    of static libraries remains essential to the general package building
++    process.  Usually this is done by passing a
++    <option>--disable-static</option> option to <command>configure</command>.
++    In other cases, alternate means are needed.</para>
++
++    <para>For a more complete discussion of libraries, see the discussion
++    <ulink url="&blfs-root;/view/&short-version;/introduction/libraries.html">
++    Libraries: Static or shared?</ulink> in the BLFS book.</para>
++
++  </sect2>
++
+ </sect1>

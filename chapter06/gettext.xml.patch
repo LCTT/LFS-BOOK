@@ -1,0 +1,13 @@
+--- 7.7-systemd/chapter06/gettext.xml	2015-11-28 20:31:24.638345537 -0400
++++ 7.8-systemd/chapter06/gettext.xml	2015-11-23 00:24:02.977556213 -0400
+@@ -45,7 +45,9 @@
+ 
+     <para>Prepare Gettext for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/gettext-&gettext-version;</userinput></screen>
++<screen><userinput remap="configure">./configure --prefix=/usr    \
++            --disable-static \
++            --docdir=/usr/share/doc/gettext-&gettext-version;</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 

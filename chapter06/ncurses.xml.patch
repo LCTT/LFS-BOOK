@@ -1,0 +1,137 @@
+--- 7.7-systemd/chapter06/ncurses.xml	2015-11-28 20:31:24.652345740 -0400
++++ 7.8-systemd/chapter06/ncurses.xml	2015-11-23 00:24:02.971556175 -0400
+@@ -41,15 +41,9 @@
+   <sect2 role="installation">
+     <title>Installation of Ncurses</title>
+ 
+-    <!-- FIXME: Uncomment if using a dated ncurses release instead of a numbered
+-         one.
++    <para>Don't install a static library that is not handled by configure:</para>
+ 
+-    <para>Since the release of Ncurses-&ncurses-version;, some bugs have been fixed
+-    and features added. The most important news are .......
+-    To get these fixes and features, apply the rollup patch:</para>
+-
+-<screen><userinput>bzcat ../&ncurses-rollup-patch; | patch -Np1</userinput></screen>
+-    -->
++<screen><userinput remap="pre">sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in</userinput></screen>
+ 
+     <para>Prepare Ncurses for compilation:</para>
+ 
+@@ -57,6 +51,7 @@
+             --mandir=/usr/share/man \
+             --with-shared           \
+             --without-debug         \
++            --without-normal        \
+             --enable-pc-files       \
+             --enable-widec</userinput></screen>
+ 
+@@ -85,6 +80,14 @@
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry>
++        <term><parameter>--without-normal</parameter></term>
++        <listitem>
++          <para>This switch disables building and installing most static libraries.
++          </para>
++        </listitem>
++      </varlistentry>
++
+     </variablelist>
+ 
+     <para>Compile the package:</para>
+@@ -105,7 +108,7 @@
+     <filename class="directory">/lib</filename> directory, where they are
+     expected to reside:</para>
+ 
+-<screen><userinput remap="install">mv -v /usr/lib/libncursesw.so.5* /lib</userinput></screen>
++<screen><userinput remap="install">mv -v /usr/lib/libncursesw.so.6* /lib</userinput></screen>
+ 
+     <para>Because the libraries have been moved, one symlink points to
+     a non-existent file. Recreate it:</para>
+@@ -119,11 +122,8 @@
+ <screen><userinput remap="install">for lib in ncurses form panel menu ; do
+     rm -vf                    /usr/lib/lib${lib}.so
+     echo "INPUT(-l${lib}w)" &gt; /usr/lib/lib${lib}.so
+-    ln -sfv lib${lib}w.a      /usr/lib/lib${lib}.a
+     ln -sfv ${lib}w.pc        /usr/lib/pkgconfig/${lib}.pc
+-done
+-
+-ln -sfv libncurses++w.a /usr/lib/libncurses++.a</userinput></screen>
++done</userinput></screen>
+ 
+     <para>Finally, make sure that old applications that look for
+     <filename class="libraryfile">-lcurses</filename> at build time are still
+@@ -131,9 +131,7 @@
+ 
+ <screen><userinput remap="install">rm -vf                     /usr/lib/libcursesw.so
+ echo "INPUT(-lncursesw)" &gt; /usr/lib/libcursesw.so
+-ln -sfv libncurses.so      /usr/lib/libcurses.so
+-ln -sfv libncursesw.a      /usr/lib/libcursesw.a
+-ln -sfv libncurses.a       /usr/lib/libcurses.a</userinput></screen>
++ln -sfv libncurses.so      /usr/lib/libcurses.so</userinput></screen>
+ 
+     <para>If desired, install the Ncurses documentation:</para>
+ 
+@@ -143,7 +141,9 @@
+     <note>
+       <para>The instructions above don't create non-wide-character Ncurses
+       libraries since no package installed by compiling from sources would
+-      link against them at runtime. If you must have such libraries because
++      link against them at runtime. However, the only known binary-only
++      applications that link against non-wide-character Ncurses libraries
++      require version 5. If you must have such libraries because
+       of some binary-only application or to be compliant with LSB, build
+       the package again with the following commands:</para>
+ 
+@@ -152,7 +152,8 @@
+             --with-shared    \
+             --without-normal \
+             --without-debug  \
+-            --without-cxx-binding
++            --without-cxx-binding \
++            --with-abi-version=5
+ make sources libs
+ cp -av lib/lib*.so.5* /usr/lib</userinput></screen>
+     </note>
+@@ -168,14 +169,31 @@
+       <segtitle>Installed directories</segtitle>
+ 
+       <seglistitem>
+-        <seg>captoinfo (link to tic), clear, infocmp, infotocap (link to tic),
+-        ncursesw5-config, reset (link to tset), tabs, tic, toe, tput, and tset</seg>
+-        <seg>libcursesw.{a,so} (symlink and linker script to libncursesw.{a,so}),
+-        libformw.{a,so}, libmenuw.{a,so}, libncurses++w.a, libncursesw.{a,so},
+-        libpanelw.{a,so}, and their non-wide-character counterparts without "w"
+-        in the library names.</seg>
+-        <seg>/usr/share/tabset, /usr/share/terminfo, and
+-        /usr/share/doc/ncurses-&ncurses-version;</seg>
++        <seg>
++           captoinfo (link to tic), 
++           clear, 
++           infocmp, 
++           infotocap (link to tic),
++           ncursesw5-config, 
++           reset (link to tset), 
++           tabs, 
++           tic, 
++           toe, 
++           tput, and 
++           tset
++        </seg>
++        <seg>
++           libcursesw.so (symlink and linker script to libncursesw.so),
++           libformw.so, 
++           libmenuw.so, 
++           libncursesw.so,
++           libpanelw.so, and their non-wide-character counterparts without "w"
++              in the library names.</seg>
++        <seg>
++           /usr/share/tabset, 
++           /usr/share/terminfo, and
++           /usr/share/doc/ncurses-&ncurses-version;
++        </seg>
+       </seglistitem>
+     </segmentedlist>
+ 

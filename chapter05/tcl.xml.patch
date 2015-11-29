@@ -1,0 +1,50 @@
+--- 7.7-systemd/chapter05/tcl.xml	2015-11-28 20:31:24.592344869 -0400
++++ 7.8-systemd/chapter05/tcl.xml	2015-11-23 00:24:02.749554780 -0400
+@@ -9,15 +9,15 @@
+   <?dbhtml filename="tcl.html"?>
+ 
+   <sect1info condition="script">
+-    <productname>tcl</productname>
++    <productname>tcl-core</productname>
+     <productnumber>&tcl-version;</productnumber>
+     <address>&tcl-url;</address>
+   </sect1info>
+ 
+-  <title>Tcl-&tcl-version;</title>
++  <title>Tcl-core-&tcl-version;</title>
+ 
+   <indexterm zone="ch-tools-tcl">
+-    <primary sortas="a-Tcl">Tcl</primary>
++    <primary sortas="a-Tcl">Tcl-core</primary>
+   </indexterm>
+ 
+   <sect2 role="package">
+@@ -38,7 +38,7 @@
+   </sect2>
+ 
+   <sect2 role="installation">
+-    <title>Installation of Tcl</title>
++    <title>Installation of Tcl-core</title>
+ 
+     <para>This package and the next three (Expect, DejaGNU, and Check) are
+     installed to support running the test suites for GCC and Binutils and other
+@@ -48,6 +48,10 @@
+     run in this chapter (they are not mandatory), these packages are required
+     to run the test suites in <xref linkend="chapter-building-system"/>.</para>
+ 
++    <para>Note that the Tcl package used here is a minimal version needed
++    to run the LFS tests.  For the full package, see the  
++    <ulink url='&blfs-book;general/tcl.html'>BLFS Tcl procedures</ulink>.</para>
++
+     <para>Prepare Tcl for compilation:</para>
+ 
+ <screen><userinput remap="configure">cd unix
+@@ -93,7 +97,7 @@
+   </sect2>
+ 
+   <sect2 id="contents-tcl" role="content">
+-    <title>Contents of Tcl</title>
++    <title>Contents of Tcl-core</title>
+ 
+     <segmentedlist>
+       <segtitle>Installed programs</segtitle>

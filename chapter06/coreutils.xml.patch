@@ -1,0 +1,21 @@
+--- 7.7-systemd/chapter06/coreutils.xml	2015-11-28 20:31:24.645345638 -0400
++++ 7.8-systemd/chapter06/coreutils.xml	2015-11-23 00:24:02.962556118 -0400
+@@ -49,12 +49,15 @@
+     <para>POSIX requires that programs from Coreutils recognize character
+     boundaries correctly even in multibyte locales. The following patch fixes
+     this non-compliance and other internationalization-related bugs.
+-    Afterwards make sure the timestamp for <filename>Makefile.in</filename> is
++    <!--Afterwards make sure the timestamp for <filename>Makefile.in</filename> is
+     later than all other files to prevent a <command>make</command>
+-    error:</para>
++    error:</para>-->
++    Afterwards disable a test that fails with the current version of perl.</para>
+ 
+ <screen><userinput remap="pre">patch -Np1 -i ../&coreutils-i18n-patch; 
+-touch Makefile.in</userinput></screen>
++sed -i '/tests\/misc\/sort.pl/ d' Makefile.in</userinput></screen>
++
++<!--touch Makefile.in</userinput></screen>-->
+ 
+     <note>
+       <para>In the past, many bugs were found in this patch. When reporting new

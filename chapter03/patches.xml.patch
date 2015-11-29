@@ -1,0 +1,126 @@
+--- 7.7-systemd/chapter03/patches.xml	2015-11-28 20:31:24.560344404 -0400
++++ 7.8-systemd/chapter03/patches.xml	2015-11-23 00:24:02.442552851 -0400
+@@ -33,31 +33,6 @@
+         <para>MD5 sum: <literal>&bc-memory-leak-patch-md5;</literal></para>
+       </listitem>
+     </varlistentry>
+-<!--
+-    <varlistentry>
+-      <term>Binutils LTO Patch - <token>&binutils-lto-patch-size;</token>:</term>
+-      <listitem>
+-        <para>Download: <ulink url="&patches-root;&binutils-lto-patch;"/></para>
+-        <para>MD5 sum: <literal>&binutils-lto-patch-md5;</literal></para>
+-      </listitem>
+-    </varlistentry>
+-
+-    <varlistentry>
+-      <term>Binutils LTO Testsuite Patch - <token>&binutils-lto-testsuite-patch-size;</token>:</term>
+-      <listitem>
+-        <para>Download: <ulink url="&patches-root;&binutils-lto-testsuite-patch;"/></para>
+-        <para>MD5 sum: <literal>&binutils-lto-testsuite-patch-md5;</literal></para>
+-      </listitem>
+-    </varlistentry>
+-
+-    <varlistentry>
+-      <term>Binutils Multiple Plugins Patch - <token>&binutils-multiple-plugins-patch-size;</token>:</term>
+-      <listitem>
+-        <para>Download: <ulink url="&patches-root;&binutils-multiple-plugins-patch;"/></para>
+-        <para>MD5 sum: <literal>&binutils-multiple-plugins-patch-md5;</literal></para>
+-      </listitem>
+-    </varlistentry>
+--->
+     <varlistentry>
+       <term>Bzip2 Documentation Patch - <token>&bzip2-docs-patch-size;</token>:</term>
+       <listitem>
+@@ -73,33 +48,7 @@
+         <para>MD5 sum: <literal>&coreutils-i18n-patch-md5;</literal></para>
+       </listitem>
+     </varlistentry>
+-<!--
+-    <varlistentry>
+-      <term>Coreutils shuf Segmentation Fault Fix Patch - <token>&coreutils-shuf-segfault-patch-size;</token>:</term>
+-      <listitem>
+-        <para>Download: <ulink url="&patches-root;&coreutils-shuf-segfault-patch;"/></para>
+-        <para>MD5 sum: <literal>&coreutils-shuf-segfault-patch-md5;</literal></para>
+-      </listitem>
+-    </varlistentry>
+--->
+-<!--
+-    <varlistentry>
+-      <term>E2fsprogs Fix Test Patch - <token>&e2fsprogs-fix-test-patch-size;</token>:</term>
+-      <listitem>
+-        <para>Download: <ulink url="&patches-root;&e2fsprogs-fix-test-patch;"/></para>
+-        <para>MD5 sum: <literal>&e2fsprogs-fix-test-patch-md5;</literal></para>
+-      </listitem>
+-    </varlistentry>
+--->
+-<!--
+-    <varlistentry>
+-      <term>Gcc Upstream Patch - <token>&gcc-upstream-patch-size;</token>:</term>
+-      <listitem>
+-        <para>Download: <ulink url="&patches-root;&gcc-upstream-patch;"/></para>
+-        <para>MD5 sum: <literal>&gcc-upstream-patch-md5;</literal></para>
+-      </listitem>
+-    </varlistentry>
+--->
++
+     <varlistentry>
+       <term>Glibc FHS Patch - <token>&glibc-fhs-patch-size;</token>:</term>
+       <listitem>
+@@ -109,29 +58,29 @@
+     </varlistentry>
+ 
+     <varlistentry>
+-      <term>Kbd Backspace/Delete Fix Patch - <token>&kbd-backspace-patch-size;</token>:</term>
++      <term>Glibc i386 Patch - <token>&glibc-upstream-patch-size;</token>:</term>
+       <listitem>
+-        <para>Download: <ulink url="&patches-root;&kbd-backspace-patch;"/></para>
+-        <para>MD5 sum: <literal>&kbd-backspace-patch-md5;</literal></para>
++        <para>Download: <ulink url="&patches-root;&glibc-upstream-patch;"/></para>
++        <para>MD5 sum: <literal>&glibc-upstream-patch-md5;</literal></para>
+       </listitem>
+     </varlistentry>
+ 
+     <varlistentry>
+-      <term>Mpfr Upstream Fixes Patch - <token>&mpfr-fixes-patch-size;</token>:</term>
++      <term>Kbd Backspace/Delete Fix Patch - <token>&kbd-backspace-patch-size;</token>:</term>
+       <listitem>
+-        <para>Download: <ulink url="&patches-root;&mpfr-fixes-patch;"/></para>
+-        <para>MD5 sum: <literal>&mpfr-fixes-patch-md5;</literal></para>
++        <para>Download: <ulink url="&patches-root;&kbd-backspace-patch;"/></para>
++        <para>MD5 sum: <literal>&kbd-backspace-patch-md5;</literal></para>
+       </listitem>
+     </varlistentry>
+-<!--
++
+     <varlistentry>
+-      <term>Perl Data::Dumper Patch - <token>&perl-fix-patch-size;</token>:</term>
++      <term>MPFR Upstream Fixes Patch - <token>&mpfr-upstream-patch-size;</token>:</term>
+       <listitem>
+-        <para>Download: <ulink url="&patches-root;&perl-fix-patch;"/></para>
+-        <para>MD5 sum: <literal>&perl-fix-patch-md5;</literal></para>
++        <para>Download: <ulink url="&patches-root;&mpfr-upstream-patch;"/></para>
++        <para>MD5 sum: <literal>&mpfr-upstream-patch-md5;</literal></para>
+       </listitem>
+     </varlistentry>
+--->
++
+     <varlistentry>
+       <term>Readline Upstream Fixes Patch - <token>&readline-fixes-patch-size;</token>:</term>
+       <listitem>
+@@ -147,15 +96,6 @@
+         <para>MD5 sum: <literal>&systemd-compat-patch-md5;</literal></para>
+       </listitem>
+     </varlistentry>
+-<!--
+-    <varlistentry>
+-      <term>Tar Manpage Patch - <token>&tar-manpage-patch-size;</token>:</term>
+-      <listitem>
+-        <para>Download: <ulink url="&patches-root;&tar-manpage-patch;"/></para>
+-        <para>MD5 sum: <literal>&tar-manpage-patch-md5;</literal></para>
+-      </listitem>
+-    </varlistentry>
+--->
+   </variablelist>
+ 
+   <para>Total size of these patches: about <returnvalue/></para>

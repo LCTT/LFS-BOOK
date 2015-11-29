@@ -1,0 +1,141 @@
+--- 7.7-systemd/chapter06/glibc.xml	2015-11-28 20:31:24.652345740 -0400
++++ 7.8-systemd/chapter06/glibc.xml	2015-11-23 00:24:02.970556169 -0400
+@@ -53,14 +53,12 @@
+       an <function>iconv()</function> implementation and can convert from/to
+       Unicode, therefore libiconv is not required on an LFS system.</para>
+     </note>
+-
+     <para>Some of the Glibc programs use non-FHS compilant
+     <filename class="directory">/var/db</filename> directory to store
+     their runtime data. Apply the following patch to make such programs
+     store their runtime data in the FHS-compliant locations:</para>
+-
+-<screen><userinput remap="pre">patch -Np1 -i ../&glibc-fhs-patch;</userinput></screen>
+-
++ 
++<screen><userinput remap="pre">patch -Np1 -i ../&glibc-fhs-patch;</userinput></screen> 
+     <para>The Glibc build system is self-contained and will install
+     perfectly, even though the compiler specs file and linker are still
+     pointing at <filename class="directory">/tools</filename>. The specs
+@@ -68,11 +66,9 @@
+     Glibc autoconf tests would give false results and defeat the goal
+     of achieving a clean build.</para>
+ 
+-    <para>Fix a regression in the package that affects 32-bit architectures:</para>
++    <para>Now, fix a build problem that affects i386 systems:</para>
+ 
+-<screen><userinput remap="pre">sed -e '/ia32/s/^/1:/' \
+-    -e '/SSE2/s/^1://' \
+-    -i  sysdeps/i386/i686/multiarch/mempcpy_chk.S</userinput></screen>
++<screen><userinput remap="pre">patch -Np1 -i ../&glibc-upstream-patch;</userinput></screen>
+ 
+     <para>The Glibc documentation recommends building Glibc outside of the source
+     directory in a dedicated build directory:</para>
+@@ -88,20 +84,6 @@
+     --enable-kernel=&min-kernel; \
+     --enable-obsolete-rpc</userinput></screen>
+ 
+-    <variablelist>
+-      <title>The meaning of the new configure options:</title>
+-
+-      <varlistentry>
+-        <term><parameter>--enable-obsolete-rpc</parameter></term>
+-        <listitem>
+-          <para>Installs NIS and RPC related headers that are not installed by
+-          default; these are required to rebuild Glibc and by several BLFS
+-          packages.</para>
+-        </listitem>
+-      </varlistentry>
+-
+-    </variablelist>
+-
+     <para>Compile the package:</para>
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+@@ -123,6 +105,12 @@
+     <itemizedlist>
+ 
+       <listitem>
++        <para><emphasis>posix/tst-getaddrinfo4</emphasis> will always fail 
++        due to not having the necessary network applications when the tests are
++        run.</para>
++      </listitem>
++
++      <listitem>
+         <para>The <emphasis>tst/tst-cputimer1</emphasis> and 
+         <emphasis>rt/tst-cpuclock2</emphasis> tests have been known to
+         fail.  The reason is not completely understood, but indications are
+@@ -143,10 +131,6 @@
+         make -k check</command>).</para>
+       </listitem>
+ -->
+-      <listitem>
+-        <para>posix/tst-getaddrinfo4 and posix/tst-getaddrinfo5 will always fail 
+-        due to not having a network connection when the tests are run.</para>
+-      </listitem>
+ <!--
+       <listitem>
+         <para>libio/tst-ftell-partial-wide.out fails because it needs a locale
+@@ -154,6 +138,12 @@
+       </listitem>
+ -->
+       <listitem>
++        <para>The <emphasis>elf/tst-protected1a</emphasis> and
++        <emphasis>elf/tst-protected1b</emphasis> tests are known to
++        fail with the current stable version of binutils.</para>
++      </listitem>
++
++      <listitem>
+         <para>Other tests known to fail on some architectures are
+         malloc/tst-malloc-usable and nptl/tst-cleanupx4. </para>
+       </listitem>
+@@ -248,10 +238,12 @@
+       <primary sortas="e-/etc/localtime">/etc/localtime</primary>
+     </indexterm>
+ 
++  <sect3>
++  <title>Adding nsswitch.conf</title>
++
+     <para>The <filename>/etc/nsswitch.conf</filename> file needs to be created
+-    because, although Glibc provides defaults when this file is missing or corrupt,
+-    the Glibc defaults do not work well in a networked environment. The time zone
+-    also needs to be configured.</para>
++    because the Glibc defaults do not work well in a networked environment.
++    </para>
+ 
+     <para>Create a new file <filename>/etc/nsswitch.conf</filename> by running the
+     following:</para>
+@@ -274,7 +266,12 @@
+ # End /etc/nsswitch.conf</literal>
+ EOF</userinput></screen>
+ 
+-    <para>Install timezone data:</para>
++    </sect3>
++
++    <sect3>
++    <title>Adding time zone data</title>
++
++    <para>Install and set up the timezone data with the following:</para>
+ <screen><userinput>tar -xf ../tzdata&tzdata-version;.tar.gz
+ 
+ ZONEINFO=/usr/share/zoneinfo
+@@ -352,9 +349,9 @@
+     <para>Replace <replaceable>&lt;xxx&gt;</replaceable> with the name of the
+     time zone selected (e.g., Canada/Eastern).</para>
+ 
+-  </sect2>
++  </sect3>
+ 
+-  <sect2 id="conf-ld" role="configuration">
++  <sect3 id="conf-ld" role="configuration">
+     <title>Configuring the Dynamic Loader</title>
+ 
+     <indexterm zone="conf-ld">
+@@ -397,6 +394,7 @@
+ EOF
+ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
+ 
++  </sect3>
+   </sect2>
+ 
+   <sect2 id="contents-glibc" role="content">

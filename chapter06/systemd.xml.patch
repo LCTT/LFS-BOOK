@@ -1,0 +1,63 @@
+--- 7.7-systemd/chapter06/systemd.xml	2015-11-28 20:31:24.643345609 -0400
++++ 7.8-systemd/chapter06/systemd.xml	2015-11-23 00:24:02.959556100 -0400
+@@ -45,6 +45,8 @@
+ 
+ <screen><userinput remap="pre">cat &gt; config.cache &lt;&lt; "EOF"
+ <literal>KILL=/bin/kill
++MOUNT_PATH=/bin/mount
++UMOUNT_PATH=/bin/umount
+ HAVE_BLKID=1
+ BLKID_LIBS="-lblkid"
+ BLKID_CFLAGS="-I/tools/include/blkid"
+@@ -69,9 +71,11 @@
+ 
+ <screen><userinput remap="pre">patch -Np1 -i ../&systemd-compat-patch;</userinput></screen>
+ 
+-    <para>Disable a test case that always fails:</para>
++    <para>Disable two tests that always fail:</para>
+ 
+-<screen><userinput remap="pre">sed -i "s:test/udev-test.pl ::g" Makefile.in</userinput></screen>
++<screen><userinput remap="pre">sed -e 's:test/udev-test.pl ::g'  \
++    -e 's:test-copy$(EXEEXT) ::g' \
++    -i Makefile.in</userinput></screen>
+ 
+     <para>Prepare systemd for compilation:</para>
+ 
+@@ -82,7 +86,6 @@
+             --with-rootprefix=                                      \
+             --with-rootlibdir=/lib                                  \
+             --enable-split-usr                                      \
+-            --disable-gudev                                         \
+             --disable-firstboot                                     \
+             --disable-ldconfig                                      \
+             --disable-sysusers                                      \
+@@ -123,10 +126,11 @@
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><parameter>--disable-gudev --without-python</parameter></term>
++        <term><parameter>--without-python</parameter></term>
+         <listitem>
+-          <para>These switches disable optional features because
+-          LFS does not provide their dependencies.</para>
++          <para>This switch prevents <command>configure</command>
++          from trying to use Python which isn't built
++          in LFS.</para>
+         </listitem>
+       </varlistentry>
+ 
+@@ -199,12 +203,9 @@
+ done
+ ln -sfv ../lib/systemd/systemd /sbin/init</userinput></screen>
+ 
+-    <para>Remove a reference to a non-existent group and fix
+-    a configuration file so it doesn't cause
+-    <command>systemd-tmpfiles</command> to fail at boot:</para>
++    <para>Remove a reference to a non-existent group:</para>
+ 
+-<screen><userinput remap="install">sed -i "s:0775 root lock:0755 root root:g" /usr/lib/tmpfiles.d/legacy.conf
+-sed -i "/pam.d/d" /usr/lib/tmpfiles.d/etc.conf</userinput></screen>
++<screen><userinput remap="install">sed -i "s:0775 root lock:0755 root root:g" /usr/lib/tmpfiles.d/legacy.conf</userinput></screen>
+ 
+     <para>Create the <filename>/etc/machine-id</filename> file needed by
+     <command>systemd-journald</command>:</para>

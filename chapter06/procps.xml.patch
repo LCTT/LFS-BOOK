@@ -1,0 +1,16 @@
+--- 7.7-systemd/chapter06/procps.xml	2015-11-28 20:31:24.641345580 -0400
++++ 7.8-systemd/chapter06/procps.xml	2015-11-23 00:24:02.954556068 -0400
+@@ -76,11 +76,10 @@
+ 
+ <screen><userinput remap="install">make install</userinput></screen>
+ 
+-<para>Finally, move essential files to a location that can be found if
++<para>Finally, move essential libraries to a location that can be found if
+ <filename class="directory">/usr</filename> is not mounted.</para>
+ 
+-<screen><userinput remap="install">mv -v /usr/bin/pidof /bin
+-mv -v /usr/lib/libprocps.so.* /lib
++<screen><userinput remap="install">mv -v /usr/lib/libprocps.so.* /lib
+ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</userinput></screen>
+ 
+   </sect2>

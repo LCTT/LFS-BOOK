@@ -1,0 +1,16 @@
+--- 7.7-systemd/chapter06/e2fsprogs.xml	2015-11-28 20:31:24.636345508 -0400
++++ 7.8-systemd/chapter06/e2fsprogs.xml	2015-11-23 00:24:02.974556194 -0400
+@@ -44,11 +44,11 @@
+   <sect2 role="installation">
+     <title>Installation of E2fsprogs</title>
+ 
+-    <para>First, fix a potential security issue identified upstream:</para>
++<!--     <para>First, fix a potential security issue identified upstream:</para>
+ 
+ <screen><userinput remap="pre">sed -e '/int.*old_desc_blocks/s/int/blk64_t/' \
+     -e '/if (old_desc_blocks/s/super->s_first_meta_bg/desc_blocks/' \
+-    -i lib/ext2fs/closefs.c</userinput></screen>
++    -i lib/ext2fs/closefs.c</userinput></screen> -->
+ 
+     <para>The E2fsprogs documentation recommends that the package be built in
+     a subdirectory of the source tree: </para>

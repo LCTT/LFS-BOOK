@@ -1,0 +1,25 @@
+--- 7.7-systemd/chapter06/bison.xml	2015-11-28 20:31:24.637345522 -0400
++++ 7.8-systemd/chapter06/bison.xml	2015-11-23 00:24:02.975556200 -0400
+@@ -39,18 +39,15 @@
+ 
+   <sect2 role="installation">
+     <title>Installation of Bison</title>
++<!-- bison only installs a static library
++    <para>Inhibit static library installation:</para>
+ 
++<screen><userinput remap="pre">sed -i '/lib_LIBRARIES =/d' Makefile.in</userinput></screen>    
++-->
+     <para>Prepare Bison for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/bison-&bison-version;</userinput></screen>
+-<!--
+-    <para>The configure system causes Bison to be built without support for
+-    internationalization of error messages if a <command>bison</command>
+-    program is not already in $PATH. The following addition will correct
+-    this:</para>
+ 
+-<screen><userinput remap="configure">echo '#define YYENABLE_NLS 1' &gt;&gt; lib/config.h</userinput></screen>
+--->
+     <para>Compile the package:</para>
+ 
+ <screen><userinput remap="make">make</userinput></screen>

@@ -1,0 +1,69 @@
+--- 7.7-systemd/chapter06/xz.xml	2015-11-28 20:31:24.640345566 -0400
++++ 7.8-systemd/chapter06/xz.xml	2015-11-23 00:24:02.952556056 -0400
+@@ -46,7 +46,9 @@
+ 
+     <para>Prepare Xz for compilation with:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/xz-&xz-version;</userinput></screen>
++<screen><userinput remap="configure">./configure --prefix=/usr    \
++            --disable-static \
++            --docdir=/usr/share/doc/xz-&xz-version;</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 
+@@ -75,15 +77,37 @@
+       <segtitle>Installed directories</segtitle>
+ 
+       <seglistitem>
+-        <seg>lzcat (link to xz), lzcmp (link to xzdiff), lzdiff (link to
+-        xzdiff), lzegrep (link to xzgrep), lzfgrep (link to xzgrep),
+-        lzgrep (link to xzgrep), lzless (link to xzless), lzma (link to xz),
+-        lzmadec, lzmainfo, lzmore (link to xzmore),
+-        unlzma (link to xz), unxz, (link to xz), xz, xzcat (link to xz),
+-        xzcmp (link to xzdiff), xzdec, xzdiff, xzegrep (link to xzgrep),
+-        xzfgrep (link to xzgrep), xzgrep, xzless, and xzmore</seg>
+-        <seg>liblzma.{a,so}</seg>
+-        <seg>/usr/include/lzma and /usr/share/doc/xz-&xz-version;</seg>
++        <seg>
++          lzcat (link to xz), 
++          lzcmp (link to xzdiff), 
++          lzdiff (link to xzdiff), 
++          lzegrep (link to xzgrep), 
++          lzfgrep (link to xzgrep),
++          lzgrep (link to xzgrep), 
++          lzless (link to xzless), 
++          lzma (link to xz),
++          lzmadec, 
++          lzmainfo, 
++          lzmore (link to xzmore),
++          unlzma (link to xz), 
++          unxz (link to xz), 
++          xz, 
++          xzcat (link to xz),
++          xzcmp (link to xzdiff), 
++          xzdec, 
++          xzdiff, 
++          xzegrep (link to xzgrep),
++          xzfgrep (link to xzgrep), 
++          xzgrep, 
++          xzless, and 
++          xzmore</seg>
++        <seg>
++          liblzma.so
++        </seg>
++        <seg>
++          /usr/include/lzma and 
++          /usr/share/doc/xz-&xz-version;
++         </seg>
+       </seglistitem>
+     </segmentedlist>
+ 
+@@ -125,7 +149,7 @@
+       <varlistentry id="lzegrep">
+         <term><command>lzegrep</command></term>
+         <listitem>
+-          <para>Runs <command>egrep</command> on LZMA compressed files files</para>
++          <para>Runs <command>egrep</command> on LZMA compressed files</para>
+           <indexterm zone="ch-system-xz lzegrep">
+             <primary sortas="b-lzegrep">lzegrep</primary>
+           </indexterm>

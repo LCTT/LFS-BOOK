@@ -1,0 +1,11 @@
+--- 7.7-systemd/chapter06/grep.xml	2015-11-28 20:31:24.639345551 -0400
++++ 7.8-systemd/chapter06/grep.xml	2015-11-23 00:24:02.979556225 -0400
+@@ -56,6 +56,8 @@
+ 
+ <screen><userinput remap="test">make check</userinput></screen>
+ 
++    <para>The test-update-copyright.sh failure can be safely ignored.</para>
++
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install</userinput></screen>

@@ -1,0 +1,12 @@
+--- 7.7-systemd/prologue/bookinfo.xml	2015-11-28 20:31:24.659345842 -0400
++++ 7.8-systemd/prologue/bookinfo.xml	2015-11-23 00:24:02.992556307 -0400
+@@ -16,8 +16,7 @@
+       <surname>Beekmans</surname>
+     </author>
+     <author>
+-      <firstname>Edited by Matthew Burgess</firstname>
+-      <surname>and Armin K.</surname>
++      <firstname>Edited by Douglas R. Reno</firstname>
+     </author>
+   </authorgroup>
+ 

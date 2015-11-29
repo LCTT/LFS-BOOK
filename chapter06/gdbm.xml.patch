@@ -1,0 +1,13 @@
+--- 7.7-systemd/chapter06/gdbm.xml	2015-11-28 20:31:24.641345580 -0400
++++ 7.8-systemd/chapter06/gdbm.xml	2015-11-23 00:24:02.955556074 -0400
+@@ -46,7 +46,9 @@
+ 
+     <para>Prepare GDBM for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr --enable-libgdbm-compat</userinput></screen>
++<screen><userinput remap="configure">./configure --prefix=/usr \
++            --disable-static \
++            --enable-libgdbm-compat</userinput></screen>
+ 
+     <variablelist>
+       <title>The meaning of the configure option:</title>

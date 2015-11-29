@@ -1,0 +1,30 @@
+--- 7.7-systemd/chapter05/libstdc++.xml	2015-11-28 20:31:24.590344840 -0400
++++ 7.8-systemd/chapter05/libstdc++.xml	2015-11-23 00:24:02.743554743 -0400
+@@ -50,7 +50,7 @@
+ 
+     <para>Create a directory for Libstdc++ and enter it:</para>
+ 
+-<screen><userinput remap="pre">mkdir -pv ../gcc-build
++<screen><userinput remap="pre">mkdir -v ../gcc-build
+ cd ../gcc-build</userinput></screen>
+ 
+     <para>Prepare Libstdc++ for compilation:</para>
+@@ -59,7 +59,6 @@
+     --host=$LFS_TGT                 \
+     --prefix=/tools                 \
+     --disable-multilib              \
+-    --disable-shared                \
+     --disable-nls                   \
+     --disable-libstdcxx-threads     \
+     --disable-libstdcxx-pch         \
+@@ -79,8 +78,8 @@
+       <varlistentry>
+         <term><parameter>--disable-libstdcxx-threads</parameter></term>
+         <listitem>
+-          <para>Since we have not built the thread C library, the C++
+-          one cannot be built as well.</para>
++          <para>Since we have not yet built the C threads library, the C++
++          one cannot be built either.</para>
+         </listitem>
+       </varlistentry>
+ 

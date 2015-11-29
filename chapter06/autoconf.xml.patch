@@ -1,0 +1,11 @@
+--- 7.7-systemd/chapter06/autoconf.xml	2015-11-28 20:31:24.646345653 -0400
++++ 7.8-systemd/chapter06/autoconf.xml	2015-11-23 00:24:02.964556131 -0400
+@@ -55,7 +55,7 @@
+ 
+     <para>This takes a long time, about 4.7 SBUs. In addition, 6 tests are skipped
+     that use Automake. For full test coverage, Autoconf can be re-tested
+-    after Automake has been installed.  In addition, one test fails due to
++    after Automake has been installed.  In addition, two tests fail due to
+     changes in libtool-2.4.3 and later.</para>
+ 
+     <para>Install the package:</para>

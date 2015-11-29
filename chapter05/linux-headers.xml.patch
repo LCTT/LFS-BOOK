@@ -1,0 +1,12 @@
+--- 7.7-systemd/chapter05/linux-headers.xml	2015-11-28 20:31:24.594344898 -0400
++++ 7.8-systemd/chapter05/linux-headers.xml	2015-11-23 00:24:02.736554698 -0400
+@@ -48,8 +48,7 @@
+     by way of sanitizing various C header files that are shipped in the Linux
+     kernel source tarball.</para>
+ 
+-    <para>Make sure there are no stale files and dependencies lying around
+-    from previous activity:</para>
++    <para>Make sure there are no stale files embedded in the package:</para>
+ 
+ <screen><userinput remap="pre">make mrproper</userinput></screen>
+ 

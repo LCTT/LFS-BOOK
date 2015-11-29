@@ -1,0 +1,11 @@
+--- 7.7-systemd/chapter05/adjusting.xml	2015-11-28 20:31:24.593344883 -0400
++++ 7.8-systemd/chapter05/adjusting.xml	2015-11-23 00:24:02.751554793 -0400
+@@ -45,7 +45,7 @@
+     functions (compiling and linking) of the new toolchain are working as
+     expected. To perform a sanity check, run the following commands:</para>
+ 
+-<screen><userinput>echo 'main(){}' &gt; dummy.c
++<screen><userinput>echo 'int main(){}' &gt; dummy.c
+ $LFS_TGT-gcc -B/tools/lib dummy.c
+ readelf -l a.out | grep ': /tools'</userinput></screen>
+ 

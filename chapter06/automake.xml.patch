@@ -1,0 +1,13 @@
+--- 7.7-systemd/chapter06/automake.xml	2015-11-28 20:31:24.641345580 -0400
++++ 7.8-systemd/chapter06/automake.xml	2015-11-23 00:24:02.954556068 -0400
+@@ -41,6 +41,10 @@
+   <sect2 role="installation">
+     <title>Installation of Automake</title>
+ 
++    <para>First fix a warning that is caused by perl-5.22 and later:</para>
++
++<screen><userinput remap="pre">sed -i 's:/\\\${:/\\\$\\{:' bin/automake.in</userinput></screen>
++
+     <para>Prepare Automake for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/automake-&automake-version;</userinput></screen>

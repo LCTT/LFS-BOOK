@@ -1,0 +1,19 @@
+--- 7.7-systemd/chapter06/util-linux.xml	2015-11-28 20:31:24.650345711 -0400
++++ 7.8-systemd/chapter06/util-linux.xml	2015-11-23 00:24:02.969556163 -0400
+@@ -62,7 +62,7 @@
+ -->
+     <para>Prepare Util-linux for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
++<screen><userinput remap="configure">./configure ADJTIME_PATH=/var/lib/hwclock/adjtime     \
+             --docdir=/usr/share/doc/util-linux-&util-linux-version; \
+             --disable-chfn-chsh  \
+             --disable-login      \
+@@ -71,6 +71,7 @@
+             --disable-setpriv    \
+             --disable-runuser    \
+             --disable-pylibmount \
++            --disable-static     \
+             --without-python</userinput></screen>
+ 
+     <para>The --disable and --without options prevent warnings about

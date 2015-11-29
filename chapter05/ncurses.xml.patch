@@ -1,0 +1,13 @@
+--- 7.7-systemd/chapter05/ncurses.xml	2015-11-28 20:31:24.588344811 -0400
++++ 7.8-systemd/chapter05/ncurses.xml	2015-11-23 00:24:02.740554724 -0400
+@@ -43,6 +43,10 @@
+   <sect2 role="installation">
+     <title>Installation of Ncurses</title>
+ 
++    <para>First, ensure that gawk is found first during configuration:</para>
++
++<screen><userinput remap="pre">sed -i s/mawk// configure</userinput></screen>
++
+     <para>Prepare Ncurses for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/tools \

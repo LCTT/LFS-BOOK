@@ -1,0 +1,30 @@
+--- 7.7-systemd/chapter06/gcc.xml	2015-11-28 20:31:24.644345624 -0400
++++ 7.8-systemd/chapter06/gcc.xml	2015-11-23 00:24:02.959556100 -0400
+@@ -41,13 +41,7 @@
+   <sect2 role="installation">
+     <title>Installation of GCC</title>
+ <!--
+-    <para>As in Chapter 5, fix a problem identified upstream:</para>
+-
+-<screen><userinput remap="pre">sed -i 's/if \((code.*))\)/if (\1 \&amp;\&amp; \!DEBUG_INSN_P (insn))/' gcc/sched-deps.c</userinput></screen>
+-
+-
+-    <para>Now fix another problem identified upstream that causes some 
+-    programs to fail:</para>
++    <para>First apply some fixes from the upstream repository:</para>
+ 
+ <screen><userinput remap="pre">patch -Np1 -i ../&gcc-upstream-patch;</userinput></screen>
+ -->
+@@ -121,10 +115,8 @@
+     url="&test-results;"/> and <ulink url="http://gcc.gnu.org/ml/gcc-testresults/"/>.</para>
+ 
+     <para>A few unexpected failures cannot always be avoided. The GCC developers
+-    are usually aware of these issues, but have not resolved them yet. <!-- In
+-    particular, the <filename class="libraryfile">libmudflap</filename> tests
+-    are known to be particularly problematic as a result of a bug in GCC
+-    (<ulink url="http://gcc.gnu.org/bugzilla/show_bug.cgi?id=20003"/>). -->
++    are usually aware of these issues, but have not resolved them yet.
++    In particular, one test in the libgomp test suite is known to fail.
+     Unless the test results are vastly different from those at the above URL,
+     it is safe to continue.</para>
+ 

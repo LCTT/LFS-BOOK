@@ -1,0 +1,29 @@
+--- 7.7-systemd/chapter06/revisedchroot.xml	2015-11-28 20:31:24.637345522 -0400
++++ 7.8-systemd/chapter06/revisedchroot.xml	2015-11-23 00:24:02.976556206 -0400
+@@ -35,12 +35,24 @@
+     instructions for this (see <ulink url="&blfs-root;"/>).</para>
+   </note>
+ 
+-<screen role="nodump"><userinput>rm -rf /tools</userinput></screen>
+-
+   <para>If the virtual kernel file systems have been unmounted, either manually
+   or through a reboot, ensure that the virtual kernel file systems are mounted
+   when reentering the chroot. This process was explained in <xref
+   linkend="ch-system-bindmount"/> and <xref
+   linkend="ch-system-kernfsmount"/>.</para>
+ 
++  <para>Finally, there were several static libraries that were not supressed earlier
++  in the chapter in order to satisfy the regression tests in several packages. These 
++  libraries are from binutils, bzip2, e2fsprogs, <!--flex,--> libtool, and zlib.  If desired,
++  remove them now:</para>
++
++<screen><userinput>rm /usr/lib/lib{bfd,opcodes}.a
++rm /usr/lib/libbz2.a
++rm /usr/lib/lib{com_err,e2p,ext2fs,ss}.a
++<!--rm /usr/lib/lib{fl,fl_pic}.a
++-->rm /usr/lib/libltdl.a
++rm /usr/lib/libz.a</userinput></screen>
++
++<!-- Flex shared library is broken. Keep static until next flex release. -->
++
+ </sect1>

@@ -1,0 +1,11 @@
+--- 7.7-systemd/chapter06/binutils.xml	2015-11-28 20:31:24.639345551 -0400
++++ 7.8-systemd/chapter06/binutils.xml	2015-11-23 00:24:02.978556219 -0400
+@@ -110,7 +110,7 @@
+ 
+     <para>Test the results:</para>
+ 
+-<screen><userinput remap="test">make -k check</userinput></screen>
++<screen><userinput remap="test">make check</userinput></screen>
+ 
+     <para>Install the package:</para>
+ 

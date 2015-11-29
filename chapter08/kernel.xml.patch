@@ -1,0 +1,24 @@
+--- 7.7-systemd/chapter08/kernel.xml	2015-11-28 20:31:24.674346059 -0400
++++ 7.8-systemd/chapter08/kernel.xml	2015-11-23 00:24:03.009556414 -0400
+@@ -216,10 +216,17 @@
+     on the machine. That person would then have write access to the kernel
+     source.</para>
+ 
+-    <para>If the kernel source tree is going to be retained, run
+-    <command>chown -R 0:0</command> on the <filename
+-    class="directory">linux-&linux-version;</filename> directory to ensure
+-    all files are owned by user <emphasis>root</emphasis>.</para>
++    <note>
++      <para>In many cases, the configuration of the kernel will need to be 
++      updated for packages that will be installed later in BLFS.  Unlike
++      other packages, it is not necessary to remove the kernel source tree
++      after the newly built kernel is installed.</para>  
++    
++      <para>If the kernel source tree is going to be retained, run
++      <command>chown -R 0:0</command> on the <filename
++      class="directory">linux-&linux-version;</filename> directory to ensure
++      all files are owned by user <emphasis>root</emphasis>.</para>
++    </note>
+ 
+     <warning>
+       <para>Some kernel documentation recommends creating a symlink from

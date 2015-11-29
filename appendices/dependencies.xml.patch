@@ -1,0 +1,11 @@
+--- 7.7-systemd/appendices/dependencies.xml	2015-11-28 20:31:22.601315918 -0400
++++ 7.8-systemd/appendices/dependencies.xml	2015-11-23 00:24:03.053556691 -0400
+@@ -546,7 +546,7 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep,
++         <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep, Gperf,
+          Make, and Sed</seg>
+         </seglistitem>
+       </segmentedlist>

@@ -1,0 +1,14 @@
+--- 7.7-systemd/chapter06/gmp.xml	2015-11-28 20:31:24.638345537 -0400
++++ 7.8-systemd/chapter06/gmp.xml	2015-11-23 00:24:02.976556206 -0400
+@@ -52,8 +52,9 @@
+ 
+     <para>Prepare GMP for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr \
+-            --enable-cxx  \
++<screen><userinput remap="configure">./configure --prefix=/usr    \
++            --enable-cxx     \
++            --disable-static \
+             --docdir=/usr/share/doc/gmp-&gmp-version;</userinput></screen>
+ 
+     <variablelist>
