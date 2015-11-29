@@ -8,85 +8,71 @@
 <sect1 id="ch-intro-askforhelp">
   <?dbhtml filename="askforhelp.html"?>
 
-  <title>Help</title>
+  <title>帮助</title>
 
-  <para>If an issue or a question is encountered while working through
-  this book, please check the FAQ page at <ulink url="&faq-root;#generalfaq"/>.
-  Questions are often already answered there. If your question is not
-  answered on this page, try to find the source of the problem. The
-  following hint will give you some guidance for troubleshooting:
-  <ulink url="&hints-root;errors.txt"/>.</para>
+  <para>如果在使用本书的过程中有疑问或碰到问题，可以先去看下 FAQ 页面<ulink url="&faq-root;#generalfaq"/>。
+      那里已经解决了很多经常遇到的问题。如果你的问题在那里找不到答案，可以先尝试找出问题的原因。下面页面里的提示
+      可以提供一些帮你定位问题的帮助：<ulink url="&hints-root;errors.txt"/>。
+  </para>
 
-  <para>If you cannot find your problem listed in the FAQ, search the mailing
-  lists at <ulink url="&lfs-root;search.html"/>.</para>
+  <para>如果在 FAQ 里找不到你遇到的问题，还可以在这个邮件列表里搜索一
+      下：<ulink url="&lfs-root;search.html"/>。</para>
 
-  <para>We also have a wonderful LFS community that is willing to offer
-  assistance through the mailing lists and IRC (see the <xref
-  linkend="ch-intro-resources"/> section of this book). However,
-  we get several support questions every day and many of them can be easily
-  answered by going to the FAQ and by searching the mailing lists first.
-  So, for us to offer the best assistance possible, you need to do some
-  research on your own first. That allows us to focus on the more unusual
-  support needs. If your searches do not produce a solution, please include
-  all relevant information (mentioned below) in your request for help.</para>
+  <para>我们还有一个很棒的 LFS 社区，大家都很乐意通过邮件列表和 IRC 提供协助（参看本书的 <xref linkend="ch-intro-resources"/>）。
+      不过，我们每天收到的支持问题中有很多其实可以通过查看 FAQ 和搜索邮件列表轻松解决。
+      所以为了让我们能最大可能地提供更好的协助，希望你碰到问题能自己先研究一下。这样可以让我们有精力去关注更罕见问题。
+      如果你自己搜索不到解决方式，请在你的帮助请求里收集所有相关信息（下面提到的）。</para>
 
   <sect2>
-    <title>Things to Mention</title>
+    <title>需要提供的信息</title>
 
-    <para>Apart from a brief explanation of the problem being experienced,
-    the essential things to include in any request for help are:</para>
+    <para>除了对遇到的问题的简短描述外，帮助请求里还需要包含的以下的关键信息：</para>
 
     <itemizedlist>
       <listitem>
-        <para>The version of the book being used (in this case &version;)</para>
+        <para>所用手册的版本（当前版本为 &version;）</para>
       </listitem>
       <listitem>
-        <para>The host distribution and version being used to create LFS</para>
+        <para>用来构建 LFS 的宿主机器的 Linux 发行版以及版本</para>
       </listitem>
       <listitem>
-        <para>The output from the <xref linkend='version-check'/> script</para>
+        <para>本手册 <xref linkend='version-check'/> 中脚本的所有输出信息</para>
       </listitem>
       <listitem>
-        <para>The package or section the problem was encountered in</para>
+        <para>出现问题的软件包或本手册的章节</para>
       </listitem>
       <listitem>
-        <para>The exact error message or symptom being received</para>
+        <para>精确的错误信息或表现形式</para>
       </listitem>
       <listitem>
-        <para>Note whether you have deviated from the book at all </para>
+        <para>注明你是否已经脱离了本书的内容</para>
       </listitem>
     </itemizedlist>
 
     <note>
-      <para>Deviating from this book does <emphasis>not</emphasis> mean that
-      we will not help you. After all, LFS is about personal preference.
-      Being upfront about any changes to the established procedure helps us
-      evaluate and determine possible causes of your problem.</para>
+      <para>脱离本手册的内容并<emphasis>不是</emphasis>说我们就一定不会帮你。
+          毕竟,LFS 还是属于个人爱好。坦率地告知别人对已验证流程作出的任何改动,
+          有助于我们评估和找到你问题的可能原因。</para>
     </note>
 
   </sect2>
 
   <sect2>
-    <title>Configure Script Problems</title>
+    <title> 配置脚本问题</title>
 
-    <para>If something goes wrong while running the <command>configure</command>
-    script, review the <filename>config.log</filename> file. This file may
-    contain errors encountered during <command>configure</command> which were
-    not printed to the screen. Include the <emphasis>relevant</emphasis> lines
-    if you need to ask for help.</para>
+    <para>如果在运行 <command>configure</command> 脚本时遇到问题,
+        查看一下 <filename>config.log</filename> 文件。这个文件中可能会包
+        含 <command>configure</command> 脚本运行时没有输出到屏幕上的错误信息。
+        在寻求帮助的话请包含相关行。</para>
 
   </sect2>
 
   <sect2>
-    <title>Compilation Problems</title>
+    <title>编译问题</title>
 
-    <para>Both the screen output and the contents of various files are useful
-    in determining the cause of compilation problems. The screen output from
-    the <command>configure</command> script and the <command>make</command>
-    run can be helpful. It is not necessary to include the entire output, but
-    do include enough of the relevant information. Below is an example of the
-    type of information to include from the screen output from
-    <command>make</command>:</para>
+    <para>屏幕上的显示输出和各个文件的内容都有助于定位编译发生问题的原因。<command>configure</command> 和
+        <command>make</command> 命令的输出信息都有用。然而通常并不需要在寻求帮助时将这些信息一股脑的贴出来，
+        但是一定要包含足够的相关信息。下面的例子就是在执行 <command>make</command> 命令出错后应该贴出来的输出信息：</para>
 
 <screen><computeroutput>gcc -DALIASPATH=\"/mnt/lfs/usr/share/locale:.\"
 -DLOCALEDIR=\"/mnt/lfs/usr/share/locale\"
@@ -107,22 +93,16 @@ make[1]: *** [all-recursive] Error 1
 make[1]: Leaving directory `/lfs/tmp/make-3.79.1'
 make: *** [all-recursive-am] Error 2</computeroutput></screen>
 
-    <para>In this case, many people would just include the bottom
-    section:</para>
+    <para>在此例子中，很多人可能仅仅就贴出最后的一部分：</para>
 
 <screen><computeroutput>make [2]: *** [make] Error 1</computeroutput></screen>
 
-    <para>This is not enough information to properly diagnose the problem
-    because it only notes that something went wrong, not
-    <emphasis>what</emphasis> went wrong. The entire section, as in the
-    example above, is what should be saved because it includes the command
-    that was executed and the associated error message(s).</para>
+    <para>这样的信息并不能用于诊断问题，实际上它仅仅是告知别人出了问题，却没有指出到底是哪里出现问题。
+        这也就是为什么要提供更加完整的信息。比如在上面的例子中，就告诉别人所执行的命令及相应的错误信息。</para>
 
-    <para>An excellent article about asking for help on the Internet is
-    available online at <ulink
-    url="http://catb.org/~esr/faqs/smart-questions.html"/>. Read and
-    follow the hints in this document to increase the likelihood of getting
-    the help you need.</para>
+    <para>这个链接 <ulink
+    url="http://catb.org/~esr/faqs/smart-questions.html"/> 中的文章告知人们如何在互联网上寻求帮助，可以去看一下，
+        且遵循其中的提问原则进行提问，可以提高获得帮助的概率（亦让别人对你伸出援手更加方便）。</para>
 
   </sect2>
 
