@@ -8,10 +8,9 @@
 <sect1 id="ch-intro-whatsnew">
   <?dbhtml filename="whatsnew.html"?>
 
-  <title>What's new since the last release</title>
+  <title>自上一版手册发布后的变更</title>
 
-  <para>Below is a list of package updates made since the previous
-  release of the book.</para>
+  <para>下面列举了上一版手册发布后的一些软件包更新。</para>
 
   <!--
     Every package in the book is listed in the "Upgraded to:" section.
@@ -20,7 +19,7 @@
   -->
 
   <itemizedlist>
-    <title>Upgraded to:</title>
+    <title>更新：</title>
     <listitem><para></para></listitem>  <!-- satisfy build -->
     <!--<listitem>
     <para>None</para>
@@ -235,7 +234,7 @@
   </itemizedlist>-->
 
   <itemizedlist>
-    <title>Added:</title>
+    <title>新增：</title>
     <listitem><para></para></listitem>  <!-- satisfy build -->
 
     <listitem>
@@ -265,7 +264,7 @@
   </itemizedlist>
 
   <itemizedlist>
-    <title>Removed:</title>
+    <title>移除：</title>
     <listitem><para></para></listitem>  <!-- satisfy build -->
 
     <listitem>

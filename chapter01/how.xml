@@ -8,19 +8,15 @@
 <sect1 id="ch-intro-how">
   <?dbhtml filename="how.html"?>
 
-  <title>How to Build an LFS System</title>
+  <title> 如何构建 LFS 系统</title>
 
-  <para>The LFS system will be built by using an already installed
-  Linux distribution (such as Debian, OpenMandriva, Fedora, or openSUSE). This
-  existing Linux system (the host) will be used as a starting point to
-  provide necessary programs, including a compiler, linker, and shell,
-  to build the new system. Select the <quote>development</quote> option
-  during the distribution installation to be able to access these
-  tools.</para>
+  <para>LFS 系统需要在一个已经安装好的 Linux 发行版(比如 Debian、
+      OpenMandriva、Fedora 或 OpenSUSE 等)中构建。这个已有的 Linux 系统
+      (即宿主)作为构建新系统的起始点,提供了必要的程序,包括编译器、链接器和 shell。
+      请在安装发行版的过程中选择 “development(开发)”选项以便使用这些开发工具。</para>
 
-  <para>As an alternative to installing a separate distribution onto your
-  machine, you may wish to use <!-- the Linux From Scratch LiveCD or --> a LiveCD from a
-  commercial distribution. <!-- The LFS LiveCD works well as a host system,
+  <para>您可以选择在电脑上安装一个独立的发行版，亦可以临时使用商业发行版的 LiveCD。
+      <!-- The LFS LiveCD works well as a host system,
   providing all the tools you need to successfully follow the instructions in
   this book. The LiveCD version is behind the current book, but is still useful
   as a host for building the current book.  The <quote>-nosrc</quote> or
@@ -35,13 +31,10 @@
     drives.</para>
   </note> -->
 
-  <para><xref linkend="chapter-partitioning"/> of this book describes how
-  to create a new Linux native partition and file system. This is the place
-  where the new LFS system will be compiled and installed. <xref
-  linkend="chapter-getting-materials"/> explains which packages and
-  patches need to be downloaded to build an LFS system and how to store
-  them on the new file system. <xref linkend="chapter-final-preps"/>
-  discusses the setup of an appropriate working environment. Please read
+  <para>本手册的 <xref linkend="chapter-partitioning"/> 描述了如何创建一个新的 Linux 本地分区
+      和文件系统。这就是编译和安装全新的 LFS 系统的地方。<xref linkend="chapter-getting-materials"/> 
+      介绍了构建 LFS 系统所需要下载的软件包和补丁，以及如何将它们保存到新的文件系统中。<xref linkend="chapter-final-preps"/>
+      讨论了如何设置恰当的工作环境。Please read
   <xref linkend="chapter-final-preps"/> carefully as it explains several
   important issues you need be aware of before beginning to
   work your way through <xref linkend="chapter-temporary-tools"/> and beyond.</para>
