@@ -9,7 +9,7 @@
   <?dbhtml dir="chapter02"?>
   <?dbhtml filename="chapter02.html"?>
 
-  <title>Preparing a New Partition</title>
+  <title>准备新分区</title>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="creatingpartition.xml"/>
