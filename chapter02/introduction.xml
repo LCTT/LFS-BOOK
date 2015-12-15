@@ -8,10 +8,8 @@
 <sect1 id="space-introduction">
   <?dbhtml filename="introduction.html"?>
 
-  <title>Introduction</title>
+  <title>介绍</title>
 
-  <para>In this chapter, the partition which will host the LFS system is
-  prepared. We will create the partition itself, create a file system
-  on it, and mount it.</para>
+  <para>在本章中，我们将会准备用于安装 LFS 的分区。包括建立分区、为分区设置文件系统，挂载分区。</para>
 
 </sect1>

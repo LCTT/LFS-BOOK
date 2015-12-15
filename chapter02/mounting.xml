@@ -8,54 +8,35 @@
 <sect1 id="space-mounting">
   <?dbhtml filename="mounting.html"?>
 
-  <title>Mounting the New Partition</title>
+  <title>挂载新分区</title>
 
-  <para>Now that a file system has been created, the partition needs to
-  be made accessible. In order to do this, the partition needs to be
-  mounted at a chosen mount point. For the purposes of this book, it is
-  assumed that the file system is mounted under the directory specified by the
-  <envar>LFS</envar> envronment varibale as described in the previous section.
-  </para>
+  <para>至此，文件系统已经创建妥当，下一步就是访问这些分区了。为此，需要将这些建立的分区挂载到选定的挂载点。本书假定的挂载点为环境变量 <envar>LFS</envar> 指向的地址，如前文所述。</para>
 
-  <para>Create the mount point and mount the LFS file system by running:</para>
+  <para>创建挂载点并用下面的命令挂载 LFS 文件系统：</para>
 
 <screen role="nodump"><userinput>mkdir -pv $LFS
 mount -v -t ext4 /dev/<replaceable>&lt;xxx&gt;</replaceable> $LFS</userinput></screen>
 
-  <para>Replace <replaceable>&lt;xxx&gt;</replaceable> with the designation of the LFS
-  partition.</para>
+  <para>请用 LFS 分区替代 <replaceable>&lt;xxx&gt;</replaceable> 。</para>
 
-  <para>If using multiple partitions for LFS (e.g., one for <filename
-  class="directory">/</filename> and another for <filename
-  class="directory">/usr</filename>), mount them using:</para>
+  <para>如果 LFS 使用了多个分区（如， <filename class="directory">/</filename> 和 <filename class="directory">/usr</filename>)，需要挂载：</para>
 
 <screen role="nodump"><userinput>mkdir -pv $LFS
 mount -v -t ext4 /dev/<replaceable>&lt;xxx&gt;</replaceable> $LFS
 mkdir -v $LFS/usr
 mount -v -t ext4 /dev/<replaceable>&lt;yyy&gt;</replaceable> $LFS/usr</userinput></screen>
 
-  <para>Replace <replaceable>&lt;xxx&gt;</replaceable> and
-  <replaceable>&lt;yyy&gt;</replaceable> with the appropriate partition
-  names.</para>
+  <para>请替换 <replaceable>&lt;xxx&gt;</replaceable> 和 <replaceable>&lt;yyy&gt;</replaceable> 为合适的分区名。</para>
 
-  <para>Ensure that this new partition is not mounted with permissions that are
-  too restrictive (such as the <option>nosuid</option> or
-  <option>nodev</option> options). Run the <command>mount</command> command
-  without any parameters to see what options are set for the mounted LFS
-  partition. If <option>nosuid</option> and/or <option>nodev</option> are set,
-  the partition will need to be remounted.</para>
+  <para>请确保在挂载新分区时没有使用过于严格的权限参数（如 <option>nosuid</option> 或 <option>nodev</option> 选项）。运行不带任何参数的 <command>mount</command> 命令来查看在挂载 LFS 分区时设置了什么参数。如果设置了 <option>nosuid</option> 和/或 <option>nodev</option> 参数，就需要重新挂载了。</para>
 
-  <para>If you are using a <systemitem
-  class="filesystem">swap</systemitem> partition, ensure that it is enabled
-  using the <command>swapon</command> command:</para>
+  <para>如果你要使用 <systemitem class="filesystem">swap</systemitem> 分区，请使用 <command>swapon</command> 命令确保它是可用的：</para>
 
 <screen role="nodump"><userinput>/sbin/swapon -v /dev/<replaceable>&lt;zzz&gt;</replaceable></userinput></screen>
 
-  <para>Replace <replaceable>&lt;zzz&gt;</replaceable> with the name of the
-  <systemitem class="filesystem">swap</systemitem> partition.</para>
+  <para>请替换 <replaceable>&lt;zzz&gt;</replaceable> 为 <systemitem class="filesystem">swap</systemitem> 分区名。</para>
 
-  <para>Now that there is an established place to work, it is time to
-  download the packages.</para>
+  <para>至此你已经建立了自己的工作空间，是时候下载软件包了。</para>
 
 </sect1>
 
