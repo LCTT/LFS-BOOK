@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-finish-reboot">
+  <?dbhtml filename="reboot.html"?>
+
+  <title>重启系统</title>
+
+  <para>至此，所有的软件都已安装完毕，是时候重启你的电脑了。然而，你也应该注意一些事情。通过学习本书建立起来的系统属于最小系统，这也就意味着可能会缺失一些你需要的功能。就是说你还需要做些事情。当重启进入你的新 LFS 中时，这是一个在当前的 chroot 环境中安装一些 BLFS 书中的额外软件包的好时机。 以下给出了一些建议：</para>
+
+  <itemizedlist>
+
+    <listitem><para>文本模式的浏览器，例如 <ulink
+    url='&blfs-book;basicnet/lynx.html'>Lynx</ulink>
+    ，可以在虚拟终端中访问这本 BLFS 书，以进行后续的编译打包工作。</para></listitem>
+
+    <listitem><para><ulink
+    url='&blfs-book;general/gpm.html'>GPM（GPM：一个支持控制台和 xterm 的鼠标服务）</ulink> 软件包可以让你在虚拟终端中更方便的执行复制/粘贴工作。</para></listitem>
+
+    <listitem><para>如果静态 IP 配置不能很好的适用于你当前环境的网络配置，可以安装 <ulink url='&blfs-book;basicnet/dhcpcd.html'>dhcpcd</ulink>
+    或者是 <ulink
+    url='&blfs-book;basicnet/dhcp.html'>dhcp</ulink> 的客户端部分来解决。</para></listitem>
+
+    <listitem><para>安装 <ulink
+    url='&blfs-book;postlfs/sudo.html'>sudo</ulink> ，以便在非 root 用户环境下编译软件包，且可以很轻松的在新系统中安装编译出来的软件。</para></listitem>
+
+    <listitem><para>如果你想要在舒适的 GUI 环境远程访问新系统，请安装<ulink
+    url='&blfs-book;postlfs/openssh.html'>openssh</ulink> 及其依赖包<ulink
+    url='&blfs-book;postlfs/openssl.html'>openssl</ulink>。
+    </para></listitem>
+
+    <listitem><para>为了更加便利的从网络中下载文件，请安装
+    <ulink url='&blfs-book;basicnet/wget.html'>wget</ulink>。
+    </para></listitem>
+
+    <listitem><para>如果你有 GUID 分区表（GPT） 类型的磁盘，你也许需要 <ulink
+    url='&blfs-book;postlfs/gptfdisk.html'>gptfdisk</ulink> 或是 <ulink
+    url='&blfs-book;postlfs/parted.html'>parted</ulink> 。
+    </para></listitem>
+
+    <listitem><para>最后，检查以下的配置文件是不是都是正确的吧。 </para>
+
+      <itemizedlist>
+        <listitem><para>/etc/bashrc                  </para></listitem>
+        <listitem><para>/etc/dircolors               </para></listitem>
+        <listitem><para>/etc/fstab                   </para></listitem>
+        <listitem><para>/etc/hosts                   </para></listitem>
+        <listitem><para>/etc/inputrc                 </para></listitem>
+        <listitem><para>/etc/profile                 </para></listitem>
+        <listitem><para>/etc/resolv.conf             </para></listitem>
+        <listitem><para>/etc/vimrc                   </para></listitem>
+        <listitem><para>/root/.bash_profile          </para></listitem>
+        <listitem><para>/root/.bashrc                </para></listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+
+  <para>哎呀，劳累了那么久，赶快重启到我们那闪闪发亮的全新的 LFS 系统吧！首先，请退出 chroot 环境：</para>
+
+<screen><userinput>logout</userinput></screen>
+
+  <para>然后卸载虚拟文件系统：</para>
+
+<screen><userinput>umount -v $LFS/dev/pts
+umount -v $LFS/dev
+umount -v $LFS/run
+umount -v $LFS/proc
+umount -v $LFS/sys</userinput></screen>
+
+  <para>卸载 LFS 文件系统本身：</para>
+
+<screen><userinput>umount -v $LFS</userinput></screen>
+
+  <para>I如果还建立了其它的挂载点，请在卸载 LFS 文件系统之前先卸载它们：</para>
+
+<screen role="nodump"><userinput>umount -v $LFS/usr
+umount -v $LFS/home
+umount -v $LFS</userinput></screen>
+
+  <para>至此，重启系统吧：</para>
+
+<screen role="nodump"><userinput>shutdown -r now</userinput></screen>
+
+  <para>这里假设 GRUB 引导器已经如前文所述安装完毕且配置正确，启动项也已经自动设置为 <emphasis>LFS &version;</emphasis> 。</para>
+
+  <para>重启后，LFS 便已经可以使用了，你可以安装一些其它的软件以满足自己的需求。</para>
+
+</sect1>
