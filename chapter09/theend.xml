@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-finish-theend">
+  <?dbhtml filename="theend.html"?>
+
+  <title>最后的最后</title>
+
+  <indexterm zone="ch-finish-theend">
+    <primary sortas="e-/etc/lfs-release">/etc/lfs-release</primary>
+  </indexterm>
+
+  <indexterm zone="ch-finish-theend">
+    <primary sortas="e-/etc/lsb-release">/etc/lsb-release</primary>
+  </indexterm>
+
+  <indexterm zone="ch-finish-theend">
+    <primary sortas="e-/etc/os-release">/etc/os-release</primary>
+  </indexterm>
+
+  <para>哈哈，干的很不错！到这里，全新的 LFS 系统就已经安装完成了！我们也很期待你那闪闪发光的定制 Linux 系统呐。</para>
+
+  <para>创建一个 systemd 所需的 <filename>/etc/os-release</filename> 文件：</para>
+
+<screen><userinput>cat &gt; /etc/os-release &lt;&lt; "EOF"
+NAME="Linux From Scratch"
+VERSION="&version;"
+ID=lfs
+PRETTY_NAME="Linux From Scratch &version;"
+EOF</userinput></screen>
+
+  <para>建立 <filename>/etc/lfs-release</filename>
+  文件十分明智。当你需要寻求帮助，这个文件可以立即帮助我们确定你当前使用的 LFS 版本。运行以下命令新建此文件：</para>
+
+<screen><userinput>echo &version; &gt; /etc/lfs-release</userinput></screen>
+
+  <para>为向 Linux Standards Base (LSB) 致敬，你可以建立文件来显示当前系统的完整信息. 运行以下命令新建此文件：</para>
+
+<screen><userinput>cat &gt; /etc/lsb-release &lt;&lt; "EOF"
+DISTRIB_ID="Linux From Scratch"
+DISTRIB_RELEASE="&version;"
+DISTRIB_CODENAME="&lt;your name here&gt;"
+DISTRIB_DESCRIPTION="Linux From Scratch"
+EOF</userinput></screen>
+
+  <para>你可以在 'DISTRIB_CODENAME' 字段填写一些特别的字符来彰显“你的”系统的与众不同！</para>
+
+</sect1>
