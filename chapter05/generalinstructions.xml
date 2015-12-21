@@ -8,108 +8,86 @@
 <sect1 id="ch-tools-generalinstructions">
   <?dbhtml filename="generalinstructions.html"?>
 
-  <title>General Compilation Instructions</title>
+  <title>通用编译指南</title>
 
-  <para>When building packages there are several assumptions made within
-  the instructions:</para>
+  <para>编译软件包时本指南中有几个假定：</para>
 
   <itemizedlist>
 
   <listitem>
-    <para>Several of the packages are patched before compilation, but only when
-    the patch is needed to circumvent a problem. A patch is often needed in
-    both this and the next chapter, but sometimes in only one or the other.
-    Therefore, do not be concerned if instructions for a downloaded patch seem
-    to be missing.  Warning messages about <emphasis>offset</emphasis> or
-    <emphasis>fuzz</emphasis> may also be encountered when applying a patch. Do
-    not worry about these warnings, as the patch was still successfully
-    applied.</para>
+    <para>有几个软件包在编译之前需要打补丁来规避一些问题。有的补丁会在本章和下一章中都需要，
+        但有时候只有其中一章会需要，因此，如果某章看起来缺少某个补丁的下载说明时不用担心。
+        安装补丁的时候也许会遇到关于 <emphasis>offset</emphasis> 或者
+        <emphasis>fuzz</emphasis> 的警告信息。别担心这些警告，补丁还是会成功安装的。</para>
   </listitem>
 
   <listitem>
-    <para>During the compilation of most packages, there will be several
-    warnings that scroll by on the screen. These are normal and can safely be
-    ignored.  These warnings are as they appear&mdash;warnings about
-    deprecated, but not invalid, use of the C or C++ syntax. C standards change
-    fairly often, and some packages still use the older standard. This is not a
-    problem, but does prompt the warning.</para>
+    <para>在大部分软件包的编译过程中，屏幕上都可能出现几个警告。这都很正常，可以安全地忽略。
+        这些警告正如它们描述的那样，是对使用过时的 C 或 C++ 语法的警告，而不是这些语法不可用。
+        C 语言的标准经常改变，一些软件包仍然在使用旧的标准。这并不是一个问题，虽然确实会弹出警告。</para>
   </listitem>
 
   <listitem>
-    <para>Check one last time that the <envar>LFS</envar> environment variable
-    is set up properly:</para>
+    <para>最后确认一次是否正确设置了 <envar>LFS</envar> 环境变量：</para>
 
 <screen role="nodump"><userinput>echo $LFS</userinput></screen>
 
-    <para>Make sure the output shows the path to the LFS partition's mount
-    point, which is <filename class="directory">/mnt/lfs</filename>, using our
-    example.</para>
+    <para>确认输出显示的是 LFS 分区挂载点的路径，在我们的例子中也就是 <filename class="directory">/mnt/lfs</filename>。</para>
   </listitem>
 
   <listitem>
 
-    <para>Finally, two last important items must be emphasized:</para>
+    <para>最后，必须强调两个重要的点：</para>
 
     <important>
 
-      <para>The build instructions assume that the <xref
-      linkend='pre-hostreqs'/>, including symbolic links, have been set
-      properly:</para>
+      <para>编译指南假定你已经正确地设置了 <xref linkend='pre-hostreqs'/> 和符号链接：</para>
 
       <itemizedlist role='important'>
 
-        <listitem override='bullet'><para><command>bash</command> is the shell
-        in use.</para></listitem>
+        <listitem override='bullet'>shell 使用的是 <para><command>bash</command>。</para></listitem>
 
-        <listitem override='bullet'><para><command>sh</command> is a symbolic
-        link to <command>bash</command>.</para></listitem>
+        <listitem override='bullet'><para><command>sh</command> 是到 <command>bash</command> 的符号链接。</para></listitem>
 
-        <listitem override='bullet'><para><command>/usr/bin/awk</command> is a
-        symbolic link to <command>gawk</command>.</para></listitem>
+        <listitem override='bullet'><para><command>/usr/bin/awk</command> 是到 <command>gawk</command> 的符号链接。</para></listitem>
 
-        <listitem override='bullet'><para><command>/usr/bin/yacc</command> is a
-        symbolic link to <command>bison</command> or a small script that
-        executes bison.</para></listitem>
+        <listitem override='bullet'><para><command>/usr/bin/yacc</command> 是到 <command>bison</command> 
+                的符号链接或者一个执行 bison 的小脚本。</para></listitem>
 
       </itemizedlist>
     </important>
 
     <important>
-      <para>To re-emphasize the build process:</para>
+      <para>再次强调构建过程：</para>
 
       <orderedlist numeration="arabic" spacing="compact">
         <listitem>
-          <para>Place all the sources and patches in a directory that will be
-          accessible from the chroot environment such as
-          <filename class="directory">/mnt/lfs/sources/</filename>.  Do
-          <emphasis>not</emphasis> put sources in
-          <filename class="directory">/mnt/lfs/tools/</filename>.</para>
+          <para>把所有源文件和补丁放到 chroot 环境可访问的目录，例如
+              <filename class="directory">/mnt/lfs/sources/</filename>。
+              但是千万<emphasis>不能</emphasis>把源文件放在
+              <filename class="directory">/mnt/lfs/tools/</filename>中。</para>
         </listitem>
         <listitem>
-          <para>Change to the sources directory.</para>
+          <para>进入到源文件目录。</para>
         </listitem>
         <listitem id='buildinstr' xreflabel='Package build instructions'>
-          <para>For each package:</para>
+          <para>对于每个软件包:</para>
           <orderedlist numeration="loweralpha" spacing="compact">
             <listitem>
-              <para>Using the <command>tar</command> program, extract the package
-              to be built.  In Chapter 5, ensure you are the <emphasis>lfs</emphasis>
-              user when extracting the package.</para>
+              <para>用 <command>tar</command> 程序解压要编译的软件包。在第五章中，
+                  确保解压软件包时你使用的是 <emphasis>lfs</emphasis> 用户。</para>
             </listitem>
             <listitem>
-              <para>Change to the directory created when the package was
-              extracted.</para>
+              <para>进入到解压后创建的目录中。</para>
             </listitem>
             <listitem>
-              <para>Follow the book's instructions for building the package.</para>
+              <para>根据指南说明编译软件包。</para>
             </listitem>
             <listitem>
-              <para>Change back to the sources directory.</para>
+              <para>回退到源文件目录。</para>
             </listitem>
             <listitem>
-              <para>Delete the extracted source directory and any
-              <filename class="directory"><replaceable>&lt;package&gt;</replaceable>-build</filename>
-              directories that were created in the build process unless instructed otherwise.</para>
+              <para>除非特别说明，删除解压出来的目录和所有编译过程中生成的 <filename class="directory"><replaceable>&lt;package&gt;</replaceable>-build</filename> 目录。</para>
             </listitem>
           </orderedlist>
         </listitem>

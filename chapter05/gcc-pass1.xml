@@ -18,7 +18,7 @@
 
   <indexterm zone="ch-tools-gcc-pass1">
     <primary sortas="a-GCC">GCC</primary>
-    <secondary>tools, pass 1</secondary>
+    <secondary>工具,第一遍</secondary>
   </indexterm>
 
   <sect2 role="package">
@@ -41,19 +41,18 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Cross GCC</title>
+    <title>安装交叉编译的 GCC</title>
 
-    <para>GCC now requires the GMP, MPFR and MPC packages. As these packages may
-    not be included in your host distribution, they will be built with
-    GCC.  Unpack each package into the GCC source directory and rename the
-    resulting directories so the GCC build procedures will automatically
-    use them:</para>
+    <para>现在 GCC 需要 GMP、 MPFR 和 MPC 软件包。在你的主机发行版中可能并不包括
+这些软件包，
+        它们将和 GCC 一起编译。解压每个软件包到 GCC 源文件夹并重命名
+解压后的文件夹，
+        以便 GCC 编译过程中能自动使用这些软件：</para>
 
-    <note><para>There are frequent misunderstandings about this chapter.  The
-    procedures are the same as every other chapter as explained earlier (<xref
-    linkend='buildinstr'/>).  First extract the gcc tarball from the sources
-    directory and then change to the directory created.  Only then should you
-    proceed with the instructions below.</para></note>
+    <note><para>有些读者对本章节内容存在误解。和之前章节中介绍的(<xref linkend='buildinstr'/>)一样，
+            过程都是相同的。首先从源文件夹中解压 gcc tar 包 然后进入
+到创建的文件夹中。
+            然后才可以执行下面的指令。</para></note>
 
 <screen><userinput remap="pre">tar -xf ../mpfr-&mpfr-version;.tar.xz
 mv -v mpfr-&mpfr-version; mpfr
@@ -62,11 +61,11 @@ mv -v gmp-&gmp-extracted-version; gmp
 tar -xf ../mpc-&mpc-version;.tar.gz
 mv -v mpc-&mpc-version; mpc</userinput></screen>
 
-    <para>The following command will change the location of GCC's default
-    dynamic linker to use the one installed in <filename
-    class="directory">/tools</filename>. It also removes <filename
-    class="directory">/usr/include</filename> from GCC's include search path.
-    Issue:</para>
+    <para>下面的指令将会修改 GCC 默认的动态链接器为安装在
+        <filename class="directory">/tools</filename> 文件夹中的。
+        它也会
+从 GCC 的 include 搜索路径中移除 <filename
+    class="directory">/usr/include</filename> 。执行：</para>
 
 <screen><userinput remap="pre">for file in \
  $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h)
@@ -82,22 +81,17 @@ do
   touch $file.orig
 done</userinput></screen>
 
-    <para>In case the above seems hard to follow, let's break it down a bit.
-    First we find all the files under the <filename
-    class="directory">gcc/config</filename> directory that are named either
-    <filename>linux.h</filename>, <filename>linux64.h</filename> or
-    <filename>sysv4.h</filename>.  For each file found, we copy it to a file of
-    the same name but with an added suffix of <quote>.orig</quote>. Then the
-    first sed expression prepends <quote>/tools</quote> to every instance of
-    <quote>/lib/ld</quote>, <quote>/lib64/ld</quote> or
-    <quote>/lib32/ld</quote>, while the second one replaces hard-coded
-    instances of <quote>/usr</quote>. Next, we add our define statements which
-    alter the default startfile prefix to the end of the file. Note that the
-    trailing <quote>/</quote> in <quote>/tools/lib/</quote> is required.
-    Finally, we use <command>touch</command> to update the timestamp on the
-    copied files.  When used in conjunction with <command>cp -u</command>, this
-    prevents unexpected changes to the original files in case the commands are
-    inadvertently run twice.  </para>
+    <para>如果上面的看起来难以理解，让我们分开来看一下吧。首先我们找到 <filename
+    class="directory">gcc/config</filename> 文件夹下的所有命名为 
+        <filename>linux.h</filename>,<filename>linux64.h</filename> 
+        或 <filename>sysv4.h</filename> 的文件。对于找到的每个文件，
+        我们把它复制到相同名称的文件，但增加了后缀 <quote>.orig</quote>。
+        然后第一个 sed 表达式在每个 <quote>/lib/ld</quote>,<quote>/lib64/ld</quote> 
+        或 <quote>/lib32/ld</quote> 实例前面增加 <quote>/tools</quote>，第二个 sed 表达式替换 
+        <quote>/usr</quote> 的硬编码实例。然后，我们添加这改变默认 startfile 前缀到文件末尾的定义语句。
+        注意 <quote>/tools/lib/</quote> 后面必须跟 <quote>/</quote> 。最后，
+        我们用 <command>touch</command> 更新复制文件的时间戳。
+        当与 <command>cp -u</command> 一起使用时，可以防止命令被无意中运行两次造成对原始文件意外的更改。</para>
 <!--
     <para>GCC doesn't detect stack protection correctly, which causes problems
     for the build of Glibc-&glibc-version;, so fix that by issuing the following
@@ -111,13 +105,12 @@ done</userinput></screen>
 
 <screen><userinput remap="pre">sed -i 's/if \((code.*))\)/if (\1 \&amp;\&amp; \!DEBUG_INSN_P (insn))/' gcc/sched-deps.c</userinput></screen>
 -->
-    <para>The GCC documentation recommends building GCC outside of the
-    source directory in a dedicated build directory:</para>
+    <para>GCC 手册建议在源文件夹之外一个专门的编译文件夹中编译 GCC：</para>
 
 <screen><userinput remap="pre">mkdir -v ../gcc-build
 cd ../gcc-build</userinput></screen>
 
-    <para>Prepare GCC for compilation:</para>
+    <para>准备编译 GCC:</para>
 
 <screen><userinput remap="configure">../gcc-&gcc-version;/configure                             \
     --target=$LFS_TGT                              \
@@ -141,55 +134,49 @@ cd ../gcc-build</userinput></screen>
     --disable-libstdcxx                            \
     --enable-languages=c,c++</userinput></screen>
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义:</title>
 
       <varlistentry>
         <term><parameter>--with-newlib</parameter></term>
         <listitem>
-          <para>Since a working C library is not yet available, this ensures
-          that the inhibit_libc constant is defined when building libgcc. This prevents
-          the compiling of any code that requires libc support.</para>
+          <para>由于还没有可用的 C 库，这确保编译 libgcc 时定义了常数 inhibit_libc。
+              这可以防止编译任何需要 libc 支持的代码。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--without-headers</parameter></term>
         <listitem>
-          <para>When creating a complete cross-compiler, GCC requires
-          standard headers compatible with the target system. For our
-          purposes these headers will not be needed. This switch prevents
-          GCC from looking for them.</para>
+          <para>创建一个完成的交叉编译器的时候， GCC 要求标准头文件和目标系统兼容。
+              对于我们的目的来说，不需要这些头文件。这个选项可以防止 GCC 查找它们。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--with-local-prefix=/tools</parameter></term>
         <listitem>
-          <para>The local prefix is the location in the system that GCC will search
-          for locally installed include files. The default is <filename>/usr/local</filename>.
-          Setting this to <filename>/tools</filename> helps keep the host location of
-          <filename>/usr/local</filename> out of this GCC's search path.</para>
+          <para>GCC 会查找本地已安装的 include 文件的系统位置。
+              默认是 <filename>/usr/local</filename>。
+              把它设置为 <filename>/tools</filename> 能把主机位置中的
+              <filename>/usr/local</filename> 从 GCC 的搜索路径中排除。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--with-native-system-header-dir=/tools/include</parameter></term>
         <listitem>
-          <para>By default GCC searches <filename>/usr/include</filename> for system
-          headers. In conjunction with the sysroot switch, this would translate normally
-          to <filename>$LFS/usr/include</filename>. However the headers that will be installed
-          in the next two sections will go to <filename>$LFS/tools/include</filename>. This
-          switch ensures that gcc will find them correctly. In the second pass of GCC, this
-          same switch will ensure that no headers from the host system are found.</para>
+          <para>GCC 默认会在 <filename>/usr/include</filename> 中查找系统头文件。
+              和 sysroot 选项一起使用，会转换为 <filename>$LFS/usr/include</filename> 。
+              在后面两个章节中头文件会被安装到 <filename>$LFS/tools/include</filename> 。
+              这个选项确保 gcc 能正确找到它们。第二次编译 GCC时，
+              同样的选项可以保证不会去寻找主机系统的头文件。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-shared</parameter></term>
         <listitem>
-          <para>This switch forces GCC to link its internal libraries
-          statically. We do this to avoid possible issues with the host
-          system.</para>
+          <para>这个选项强制 GCC 静态链接到它的内部库。我们这样做是为了避免与主机系统可能出现的问题。</para>
         </listitem>
       </varlistentry>
 
@@ -198,43 +185,38 @@ cd ../gcc-build</userinput></screen>
         --disable-libatomic, --disable-libgomp, --disable-libquadmath,
         --disable-libssp, --disable-libvtv, --disable-libstdcxx</parameter></term>
         <listitem>
-          <para>These switches disable support for the decimal floating point
-          extension, threading, libatomic, libgomp, libquadmath, libssp,
-          libvtv, and the C++ standard library respectively. These features
-          will fail to compile when building a cross-compiler and are not
-          necessary for the task of cross-compiling the temporary libc.</para>
+          <para>这些选项取消了对十进制浮点数扩展、线程化、 libatomic、 libgomp、
+              libitm、 libquadmath、 libsanitizer、 libssp、 libvtv、 libcilkrts 和 C++
+              标准库的支持。这些功能在编译交叉编译器的时候会导致编译失败，
+              对于交叉编译临时 libc 来说也没有必要。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-multilib</parameter></term>
         <listitem>
-          <para>On x86_64, LFS does not yet support a multilib configuration.
-          This switch is harmless for x86.</para>
+          <para>在 x86_64 机器上， LFS 还不支持 multilib 配置。这个选项对 x86 来说无害。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--enable-languages=c,c++</parameter></term>
         <listitem>
-          <para>This option ensures that only the C and C++ compilers are built.
-          These are the only languages needed now.</para>
+          <para>这个选项确保只编译 C 和 C++ 编译器。这些是现在唯一需要的语言。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile GCC by running:</para>
+    <para>运行命令编译 GCC:</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Compilation is now complete. At this point, the test suite would
-    normally be run, but, as mentioned before, the test suite framework is
-    not in place yet. The benefits of running the tests at this point
-    are minimal since the programs from this first pass will soon be
-    replaced.</para>
+    <para>现在编译完成了。在这里，通常会运行测试套件，但正如前面提到的，
+        测试套件框架还没有准备好。在此进行测试的并没有太多好处，
+        因为第一遍编译的程序很快会被取代。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包:</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 <!--
@@ -253,7 +235,7 @@ cd ../gcc-build</userinput></screen>
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
+    <para>该软件包的详细信息参见
     <xref linkend="contents-gcc" role="."/></para>
 
   </sect2>
