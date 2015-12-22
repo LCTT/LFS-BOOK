@@ -8,15 +8,22 @@
 <sect1 id="ch-tools-introduction">
   <?dbhtml filename="introduction.html"?>
 
-  <title>简介</title>
+  <title>Introduction</title>
 
-  <para>本章内容将要向您展示如何构建一个最小的 Linux 系统——该系统将包含刚刚能够构建 <xref linkend="chapter-building-system"/> 中的最终 LFS 所需要的工具，以及一个比最小环境更具用户便捷性的工作环境。</para>
+  <para>This chapter shows how to build a minimal Linux system.
+  This system will contain just enough tools to start constructing the final
+  LFS system in <xref linkend="chapter-building-system"/> and allow a working
+  environment with more user convenience than a minimum environment would.</para>
 
-  <para>构建最小系统共分为两步：第一步是构建一个宿主系统无关的新工具链（编译器、汇编器、链接器、库文件和一些有用的工具）。
-      第二步则是使用该工具链构建其他的基础工具。</para>
+  <para>There are two steps in building this minimal system. The first step
+  is to build a new and host-independent toolchain (compiler, assembler,
+  linker, libraries, and a few useful utilities).  The second step uses this
+  toolchain to build the other essential tools.</para>
 
-  <para>本章中编译得到的文件将被安装在目录 <filename class="directory">$LFS/tools</filename> 下，
-      以使其与下一章中安装的文件和宿主系统生成的目录分开。这是因为此处编译的软件包都是临时性的，
-      因此我们不希望它们污染后面即将制作的 LFS 系统。</para>
+  <para>The files compiled in this chapter will be installed under the
+  <filename class="directory">$LFS/tools</filename> directory to keep them
+  separate from the files installed in the next chapter and the host
+  production directories. Since the packages compiled here are temporary,
+  we do not want them to pollute the soon-to-be LFS system.</para>
 
 </sect1>
