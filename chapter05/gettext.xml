@@ -41,24 +41,23 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Gettext</title>
+    <title>安装 Gettext</title>
 
-    <para>For our temporary set of tools, we only need to build and install
-    three programs from Gettext.</para>
+    <para>对于我们这次用到的临时工具集，我们只需要编译安装 Gettext 软件包里的 3 个程序。</para>
 
-    <para>Prepare Gettext for compilation:</para>
+    <para>配置 Gettext 准备编译：</para>
 
 <screen><userinput remap="configure">cd gettext-tools
 EMACS="no" ./configure --prefix=/tools --disable-shared</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure option:</title>
+      <title>配置脚本参数的含义：</title>
 
       <varlistentry>
         <term><parameter>EMACS="no"</parameter></term>
         <listitem>
-          <para>This prevents the configure script from determining where to
-          install Emacs Lisp files as the test is known to hang on some hosts.
+          <para>这个选项会禁止配置脚本侦测安装 Emacs Lisp 文件的位置，
+              已知在某些系统中会引起错误。
           </para>
         </listitem>
       </varlistentry>
@@ -66,14 +65,13 @@ EMACS="no" ./configure --prefix=/tools --disable-shared</userinput></screen>
       <varlistentry>
         <term><parameter>--disable-shared</parameter></term>
         <listitem>
-          <para>We do not need to install any of the shared Gettext libraries at
-          this time, therefore there is no need to build them.</para>
+          <para>这次我们不需要安装任何的 Gettext 动态库，所以不需要编译。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make -C gnulib-lib
 make -C intl pluralx.c
@@ -81,13 +79,11 @@ make -C src msgfmt
 make -C src msgmerge
 make -C src xgettext</userinput></screen>
 
-    <para>As only three programs have been compiled, it is not possible to run the
-    test suite without compiling additional support libraries from the Gettext
-    package. It is therefore not recommended to attempt to run the test suite at
-    this stage.</para>
+    <para>因为只编译了 3 个程序，不编译 Gettext 的额外支持库的话测试套件不可能成功运行。
+        所以在这个阶段不建议尝试运行测试套件。</para>
 
-    <para>Install the <command>msgfmt</command>, <command>msgmerge</command> and
-    <command>xgettext</command> programs:</para>
+    <para>安装 <command>msgfmt</command>, <command>msgmerge</command> 和
+    <command>xgettext</command> 程序：</para>
 
 <screen><userinput remap="install">cp -v src/{msgfmt,msgmerge,xgettext} /tools/bin</userinput></screen>
 
@@ -96,7 +92,7 @@ make -C src xgettext</userinput></screen>
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
+    <para>关于这个软件包的详细资料请参阅：
     <xref linkend="contents-gettext" role="."/></para>
 
   </sect2>
