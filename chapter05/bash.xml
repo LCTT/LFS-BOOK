@@ -41,50 +41,46 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Bash</title>
+    <title>安装 Bash</title>
 <!--
     <para>First, apply the following patch to fix various bugs that have been
     addressed upstream:</para>
 
 <screen><userinput remap="pre">patch -Np1 -i ../&bash-fixes-patch;</userinput></screen>
 -->
-    <para>Prepare Bash for compilation:</para>
+    <para>配置 Bash 准备编译：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/tools --without-bash-malloc</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置脚本参数的含义：</title>
 
       <varlistentry>
         <term><parameter>--without-bash-malloc</parameter></term>
         <listitem>
-          <para>This option turns off the use of Bash's memory allocation
-          (<function>malloc</function>) function which is known to cause
-          segmentation faults. By turning this option off, Bash will use
-          the <function>malloc</function> functions from Glibc which are
-          more stable.</para>
+          <para>这个选项会禁用 Bash 的内存分配功能（ <function>malloc</function> ），
+              这个功能已知会导致段错误。而禁用这个功能后， 
+              Bash 将使用 Glibc 的 <function>malloc</function> 函数，这样会更稳定。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Compilation is now complete. As discussed earlier, running the test
-    suite is not mandatory for the temporary tools here in this chapter. To run
-    the Bash test suite anyway, issue the following command:</para>
+    <para>现在编译已经完成。之前说过，不要求为本章中所构建的临时工具运行测试套件。
+        不过你仍然要测试 Bash 的话可以用下面的命令：</para>
 
 
 <screen><userinput remap="test">make tests</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Make a link for the programs that use <command>sh</command> for
-    a shell:</para>
+    <para>为使用 <command>sh</command> 终端的程序创建一个软链接：</para>
 
 <screen><userinput remap="install">ln -sv bash /tools/bin/sh</userinput></screen>
 
@@ -93,7 +89,7 @@
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
+    <para>关于这个软件包的详细资料请参见:
     <xref linkend="contents-bash" role="."/></para>
 
   </sect2>
