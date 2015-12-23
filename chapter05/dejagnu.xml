@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The DejaGNU package contains a framework for testing other
-    programs.</para>
+    <para>DejaGNU 软件包包含了测试其他程序的框架。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,17 +38,17 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of DejaGNU</title>
+    <title>安装 DejaGNU</title>
 
-    <para>Prepare DejaGNU for compilation:</para>
+    <para>配置 DejaGNU 准备编译：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/tools</userinput></screen>
 
-    <para>Build and install the package:</para>
+    <para>编译安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>要测试编译结果，执行：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
@@ -57,10 +56,10 @@
 
 
   <sect2 id="contents-dejagnu" role="content">
-    <title>Contents of DejaGNU</title>
+    <title>DejaGNU 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed program</segtitle>
+      <segtitle>安装的程序：</segtitle>
 
       <seglistitem>
         <seg>runtest</seg>
@@ -68,15 +67,14 @@
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="runtest">
         <term><command>runtest</command></term>
         <listitem>
-          <para>A wrapper script that locates the proper
-          <command>expect</command> shell and then runs DejaGNU</para>
+          <para>一个封装脚本用于定位合适的 <command>expect</command> 终端然后执行DejaGNU。</para>
           <indexterm zone="ch-tools-dejagnu runtest">
             <primary sortas="b-runtest">runtest</primary>
           </indexterm>
