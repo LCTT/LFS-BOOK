@@ -9,7 +9,7 @@
   <?dbhtml dir="chapter03"?>
   <?dbhtml filename="chapter03.html"?>
 
-  <title>软件包和补丁</title>
+  <title>Packages and Patches</title>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="packages.xml"/>
