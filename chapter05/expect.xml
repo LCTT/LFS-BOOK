@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Expect package contains a program for carrying out scripted
-    dialogues with other interactive programs.</para>
+    <para>Expect 软件包包含一个实现用脚本和其他交互式程序进行对话的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,73 +38,65 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Expect</title>
+    <title>安装 Expect</title>
 
-    <para>First, force Expect's configure script to use <filename>/bin/stty</filename>
-    instead of a <filename>/usr/local/bin/stty</filename> it may find on the host system.
-    This will ensure that our test suite tools remain sane for the final builds of our
-    toolchain:</para>
+    <para>首先，强制 Expect 的 configure 配置脚本使用 <filename>/bin/stty</filename> 
+        替代宿主机系统里可能存在的 <filename>/usr/local/bin/stty</filename> 。
+        这样可以保证我们的测试套件工具在工具链的最后一次构建能够正常。</para>
 
 <screen><userinput remap="pre">cp -v configure{,.orig}
 sed 's:/usr/local/bin:/bin:' configure.orig &gt; configure</userinput></screen>
 
-    <para>Now prepare Expect for compilation:</para>
+    <para>现在配置 Expect 准备编译：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/tools       \
             --with-tcl=/tools/lib \
             --with-tclinclude=/tools/include</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置脚本参数的含义：</title>
 
       <varlistentry>
         <term><parameter>--with-tcl=/tools/lib</parameter></term>
         <listitem>
-          <para>This ensures that the configure script finds the Tcl
-          installation in the temporary tools location instead of possibly
-          locating an existing one on the host system.</para>
+          <para>这个选项可以保证 configure 配置脚本会从临时工具目录里找 Tcl 的安装位置， 
+              而不是在宿主机系统中寻找。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--with-tclinclude=/tools/include</parameter></term>
         <listitem>
-          <para>This explicitly tells Expect where to find Tcl's internal
-          headers. Using this option avoids conditions where
-          <command>configure</command> fails because it cannot automatically
-          discover the location of Tcl's headers.</para>
+          <para>这个选项会给 Expect 显式地指定 Tcl 内部头文件的位置。
+              通过这个选项可以避免 <command>configure</command> 脚本不能自动发现 Tcl 头文件位置的情况。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Build the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Compilation is now complete. As discussed earlier, running the test
-    suite is not mandatory for the temporary tools here in this chapter. To run
-    the Expect test suite anyway, issue the following command:</para>
+    <para>现在编译已经完成。之前说过，不要求为本章中所构建的临时工具运行测试套件。
+        不过你仍然要测试 Expect 的话可以用下面的命令：:</para>
 
 <screen><userinput remap="test">make test</userinput></screen>
 
-    <para>Note that the Expect test suite is known to experience failures under
-    certain host conditions that are not within our control. Therefore,
-    test suite failures here are not surprising and are not considered
-    critical.</para>
+    <para>请注意 Expect 测试套件已知在某些宿主机特定情况下有过失败的情况， 
+        我们还没有完全把握。不过，在这里测试套件运行失败并不奇怪，也不认为是关键问题。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make SCRIPTS="" install</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the make parameter:</title>
+      <title>make参数的含义：</title>
 
       <varlistentry>
         <term><parameter>SCRIPTS=""</parameter></term>
         <listitem>
-          <para>This prevents installation of the supplementary Expect
-          scripts, which are not needed.</para>
+          <para>这个变量可以避免安装额外的 Expect 脚本，没有必要。</para>
         </listitem>
       </varlistentry>
 
@@ -114,11 +105,11 @@ sed 's:/usr/local/bin:/bin:' configure.orig &gt; configure</userinput></screen>
   </sect2>
 
   <sect2 id="contents-expect" role="content">
-    <title>Contents of Expect</title>
+    <title> Expect 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed program</segtitle>
-      <segtitle>Installed library</segtitle>
+      <segtitle>安装的程序：</segtitle>
+      <segtitle>安装的库：</segtitle>
 
       <seglistitem>
         <seg>expect</seg>
@@ -127,15 +118,14 @@ sed 's:/usr/local/bin:/bin:' configure.orig &gt; configure</userinput></screen>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="expect">
         <term><command>expect</command></term>
         <listitem>
-          <para>Communicates with other interactive programs according
-          to a script</para>
+          <para>基于脚本和其他交互式程序通信。</para>
           <indexterm zone="ch-tools-expect expect">
             <primary sortas="b-expect">expect</primary>
           </indexterm>
@@ -145,8 +135,7 @@ sed 's:/usr/local/bin:/bin:' configure.orig &gt; configure</userinput></screen>
       <varlistentry id="libexpect">
         <term><filename class="libraryfile">libexpect-&expect-lib-version;.so</filename></term>
         <listitem>
-          <para>Contains functions that allow Expect to be used as a Tcl
-          extension or to be used directly from C or C++ (without Tcl)</para>
+          <para>包含一些函数允许 Expect 用作 Tcl 扩展或直接用于 C/C++（不用 Tcl）。</para>
           <indexterm zone="ch-tools-expect libexpect">
             <primary sortas="c-libexpect-&expect-lib-version;">libexpect-&expect-lib-version;</primary>
           </indexterm>
