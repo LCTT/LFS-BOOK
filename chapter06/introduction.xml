@@ -16,11 +16,8 @@
 
   <para>我们不建议在编译时使用优化。这虽然可以让程序运行得快那么一点点，但是却也有可能增加编译难度以及在运行时出问题。如果在打开优化后编译失败，请试一下关闭优化编译看看。就算打开优化通过了编译，考虑到源代码和编译工具之间的复杂交互，仍然存在编译不正确的风险。还有需要注意 <option>-march</option> 和 <option>-mtune</option> 选项除了本书指定的值都未经测试。这有可能导致工具链软件包（Binutils、GCC 和 Glibc）发生问题。对比使用编译优化带来的好处与风险，这样做经常是得不偿失。第一次构建 LFS 系统还是推荐不要使用自定义优化。这样构建出来的系统一样会运行得很快于此同时还很稳定。 </para>
 
-  <para>本章里安装软件包的顺序需要严格遵守，这是为了保证不会有程序意外地依赖与 <filename class="directory">/tools</filename> 路径的硬链相关的目录。同样  For the same reason, do not compile separate packages in parallel.
-  Compiling in parallel may save time (especially on dual-CPU machines), but it
-  could result in a program containing a hard-wired path to <filename
-  class="directory">/tools</filename>, which will cause the program to stop
-  working when that directory is removed.</para>
+  <para>本章里安装软件包的顺序需要严格遵守，这是为了保证不会有程序意外地依赖与 <filename class="directory">/tools</filename> 路径的硬链相关的目录。同样的理由，不要同时编译不同的软件包。并行地编译也许能节省一点时间（特别是在双 CPU 电脑上），但是它可能会导致程序里存在包含到 <filename
+  class="directory">/tools</filename> 目录的硬链接，这样的话在这个目录移除后程序就不能正常工作了。</para>
 
   <para>在安装指令之前，每个页面都提供了关于软件包的信息，包括其中所包含内容的精确描述，构建需求的大致时间，以及在过程中需求磁盘空间的大小。在安装指令之后，是一个该软件包即将安装的程序和库（及概要说明）的列表。</para>
 
