@@ -23,10 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Glibc package contains the main C library. This library provides
-    the basic routines for allocating memory, searching directories, opening and
-    closing files, reading and writing files, string handling, pattern matching,
-    arithmetic, and so on.</para>
+    <para>Glibc 软件包包含了主要的 C 函数库。这个库提供了分配内存、搜索目录、打开关闭文件、读写文件、操作字符串、模式匹配、基础算法等基本程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -41,22 +38,12 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Glibc</title>
+    <title>安装 Glibc</title>
 
     <note>
-      <para>Some packages outside of LFS suggest installing GNU libiconv in
-      order to translate data from one encoding to another. The project's
-      home page (<ulink url="http://www.gnu.org/software/libiconv/"/>) says
-      <quote>This library provides an <function>iconv()</function>
-      implementation, for use on systems which don't have one, or whose
-      implementation cannot convert from/to Unicode.</quote> Glibc provides
-      an <function>iconv()</function> implementation and can convert from/to
-      Unicode, therefore libiconv is not required on an LFS system.</para>
+      <para>有些 LFS 之外的软件包会建议安装 GNU libiconv 来转换不同编码的文字。根据项目主页（<ulink url="http://www.gnu.org/software/libiconv/"/>）上的说法<quote>这个库会提供函数 <function>iconv()</function> 的实现，应用于那些没有这个函数的系统，或者函数实现中不支持 Unicode 转换的系统。</quote>Glibc 提供了函数 <function>iconv()</function> 的实现而且支持 Unicode 转换，所以对于 LFS 系统来说并不需要 libiconv 库。</para>
     </note>
-    <para>Some of the Glibc programs use non-FHS compilant
-    <filename class="directory">/var/db</filename> directory to store
-    their runtime data. Apply the following patch to make such programs
-    store their runtime data in the FHS-compliant locations:</para>
+    <para>有些 Glibc 程序会用到和 FHS 不兼容的 <filename class="directory">/var/db</filename> 目录来存储它们的运行时数据。打上如下的补丁让这些程序在 FHS 兼容的位置存储它们的运行时数据。</para>
  
 <screen><userinput remap="pre">patch -Np1 -i ../&glibc-fhs-patch;</userinput></screen> 
     <para>The Glibc build system is self-contained and will install
