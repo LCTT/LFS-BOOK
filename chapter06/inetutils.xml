@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Inetutils package contains programs for basic networking.</para>
+    <para>Inetutils 软件包包含基本的网络程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,14 +38,14 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Inetutils</title>
+    <title>安装 Inetutils</title>
 <!--
     <para>Create a definition to allow the <command>ifconfig</command> program
     to build properly:</para>
 
 <screen><userinput remap="pre">echo '#define PATH_PROCNET_DEV "/proc/net/dev"' &gt;&gt; ifconfig/system/linux.h </userinput></screen>
 -->
-    <para>Prepare Inetutils for compilation:</para>
+    <para>准备编译 Inetutils：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr        \
             --localstatedir=/var \
@@ -58,67 +58,52 @@
             --disable-servers</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--disable-r*</parameter></term>
         <listitem>
-          <para>These parameters disable building obsolete programs that should
-          not be used due to security issues. The functions provided by these
-          programs can be provided by the <application>openssh</application>
-          package in the BLFS book.</para>
+          <para>为了安全，该参数使编译过时的程序不能被使用。提供该功能的程序在手册 BLFS 中的 <application>openssh</application> 会有所提及。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-logger</parameter></term>
         <listitem>
-          <para>This option prevents Inetutils from installing the
-          <command>logger</command> program, which is used by scripts to
-          pass messages to the System Log Daemon. Do not install it because
-          Util-linux installs a more recent version.</para>
+          <para>该选项防止 Inetutils 安装 <command>logger</command> 程序，脚本使用该程序传递消息到系统日志守护进程。因为 Util-linux 安装了一个更新版本因此不能安装这个。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-whois</parameter></term>
         <listitem>
-          <para>This option disables the building of the Inetutils
-          <command>whois</command> client, which is out of date. Instructions for
-          a better <command>whois</command> client are in the BLFS book.</para>
+          <para>该选项禁用编译过时的 Inetutils <command>whois</command> 客户端。BLFS 指南中有更好的 <command>whois</command> 客户端说明。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-servers</parameter></term>
         <listitem>
-          <para>This disables the installation of the various network servers
-          included as part of the Inetutils package. These servers are deemed not
-          appropriate in a basic LFS system. Some are insecure by nature and are
-          only considered safe on trusted networks. Note that
-          better replacements are available for many of these servers.</para>
+          <para>禁用安装作为 Inetutils 软件包一部分的多种网络服务程序。这些服务程序被认为不适用于基础的 LFS 系统。一些本来就不安全，只在可信网络中才认为安全。注意这些服务程序有更好的可用替代品。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
-    <para>One test, <emphasis>libls.sh</emphasis>, is known to fail due to hard
-    coding of some support program paths. All tests pass if the tests are rerun
-    at the end of Chapter 6.</para>
+    <para>该测试，<emphasis>libls.sh</emphasis>，由于一些支持文件的硬编码问题，已知会失败。若在第六章结束后重测该测试，所有测试项目都将会通过。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Move some programs so they are available if <filename
-    class='directory'>/usr</filename> is not accessible:</para>
+    <para>移动一些程序使得 <filename class='directory'>/usr</filename> 不可访问时仍保持可用：</para>
 
 <screen><userinput remap="install">mv -v /usr/bin/{hostname,ping,ping6,traceroute} /bin
 mv -v /usr/bin/ifconfig /sbin</userinput></screen>
@@ -126,26 +111,26 @@ mv -v /usr/bin/ifconfig /sbin</userinput></screen>
   </sect2>
 
   <sect2 id="contents-inetutils" role="content">
-    <title>Contents of Inetutils</title>
+    <title>Inetutils 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
+      <segtitle>安装的程序：</segtitle>
 
       <seglistitem>
-        <seg>ftp, ifconfig, hostname, ping, ping6, rcp, rexec, rlogin, 
-        rsh, talk, telnet, tftp, and traceroute</seg>
+        <seg>ftp, ifconfig, hostname, ping, ping6, rcp, rexec, rlogin,
+        rsh, talk, telnet, tftp, 和 traceroute</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="ftp">
         <term><command>ftp</command></term>
         <listitem>
-        <para>Is the file transfer protocol program</para>
+        <para>简要介绍</para>
         <indexterm zone="ch-system-inetutils ftp">
           <primary sortas="b-ftp">ftp</primary>
         </indexterm>
@@ -155,7 +140,7 @@ mv -v /usr/bin/ifconfig /sbin</userinput></screen>
       <varlistentry id="ifconfig">
         <term><command>ifconfig</command></term>
         <listitem>
-        <para>Manages network interfaces</para>
+        <para>管理网络接口</para>
         <indexterm zone="ch-system-inetutils ifconfig">
           <primary sortas="b-ifconfig">ifconfig</primary>
         </indexterm>
@@ -165,7 +150,7 @@ mv -v /usr/bin/ifconfig /sbin</userinput></screen>
       <varlistentry id="hostname">
         <term><command>hostname</command></term>
         <listitem>
-          <para>Reports or sets the name of the host</para>
+          <para>报告或设置主机名称</para>
           <indexterm zone="ch-system-inetutils hostname">
             <primary sortas="b-hostname">hostname</primary>
           </indexterm>
@@ -175,8 +160,7 @@ mv -v /usr/bin/ifconfig /sbin</userinput></screen>
       <varlistentry id="ping">
         <term><command>ping</command></term>
         <listitem>
-          <para>Sends echo-request packets and reports how long the replies
-          take</para>
+          <para>发送请求应答包并报告响应用时</para>
           <indexterm zone="ch-system-inetutils ping">
             <primary sortas="b-ping">ping</primary>
           </indexterm>
@@ -186,7 +170,7 @@ mv -v /usr/bin/ifconfig /sbin</userinput></screen>
       <varlistentry id="ping6">
         <term><command>ping6</command></term>
         <listitem>
-          <para>A version of <command>ping</command> for IPv6 networks</para>
+          <para>用于 IPv6 网络的 <command>ping</command> 版本</para>
           <indexterm zone="ch-system-inetutils ping6">
             <primary sortas="b-ping6">ping6</primary>
           </indexterm>
@@ -196,7 +180,7 @@ mv -v /usr/bin/ifconfig /sbin</userinput></screen>
       <varlistentry id="talk">
         <term><command>talk</command></term>
         <listitem>
-          <para>Is used to chat with another user</para>
+          <para>用于和另一个用户交互</para>
           <indexterm zone="ch-system-inetutils talk">
             <primary sortas="b-talk">talk</primary>
           </indexterm>
@@ -206,7 +190,7 @@ mv -v /usr/bin/ifconfig /sbin</userinput></screen>
       <varlistentry id="telnet">
         <term><command>telnet</command></term>
         <listitem>
-          <para>An interface to the TELNET protocol</para>
+          <para>TELNET 协议接口</para>
           <indexterm zone="ch-system-inetutils telnet">
             <primary sortas="b-telnet">telnet</primary>
           </indexterm>
@@ -216,7 +200,7 @@ mv -v /usr/bin/ifconfig /sbin</userinput></screen>
       <varlistentry id="tftp">
         <term><command>tftp</command></term>
         <listitem>
-          <para>A trivial file transfer program</para>
+          <para>简单文件传输程序</para>
           <indexterm zone="ch-system-inetutils tftp">
             <primary sortas="b-tftp">tftp</primary>
           </indexterm>
@@ -226,9 +210,7 @@ mv -v /usr/bin/ifconfig /sbin</userinput></screen>
       <varlistentry id="traceroute">
         <term><command>traceroute</command></term>
         <listitem>
-          <para>Traces the route your packets take from the host you are
-          working on to another host on a network, showing all the intermediate
-          hops (gateways) along the way</para>
+          <para>跟踪从你的工作主机发送到另一个网络上的主机的数据包通过的路径，显示中间通过的跳（网关）。</para>
           <indexterm zone="ch-system-inetutils traceroute">
             <primary sortas="b-traceroute">traceroute</primary>
           </indexterm>

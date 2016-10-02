@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+ <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
   <!ENTITY % general-entities SYSTEM "../general.ent">
@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Binutils package contains a linker, an assembler, and other
-    tools for handling object files.</para>
+    <para>Binutils 软件包包含一个链接器、一个汇编器、以及其它处理目标文件的工具。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,20 +38,17 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Binutils</title>
+    <title>安装 Binutils</title>
 
-    <para>Verify that the PTYs are working properly inside the chroot
-    environment by performing a simple test:</para>
+    <para>通过一个简单测试验证在 chroot 环境下 PTY 工作正常：</para>
 
 <screen><userinput remap="test">expect -c "spawn ls"</userinput></screen>
 
-    <para>This command should output the following:</para>
+    <para>这个命令应该输出以下内容：</para>
 
 <screen><computeroutput>spawn ls</computeroutput></screen>
 
-    <para>If, instead, the output includes the message below, then the environment
-    is not set up for proper PTY operation.  This issue needs to be resolved before
-    running the test suites for Binutils and GCC:</para>
+    <para>假如输出包括下面的信息，那么表示没有为 PTY 操作设置好环境。在运行 Binutils 和 GCC 的测试套件之前需要解决这个问题：</para>
 
 <screen><computeroutput>The system has no more ptys.
 Ask your system administrator to create more.</computeroutput></screen>
@@ -65,87 +61,74 @@ Ask your system administrator to create more.</computeroutput></screen>
 
 <screen><userinput remap="pre">patch -Np1 -i ../&binutils-multiple-plugins-patch;</userinput></screen>
 -->
-    <para>The Binutils documentation recommends building Binutils outside of the
-    source directory in a dedicated build directory:</para>
+    <para>Binutils 的文档建议在源文件目录之外一个专用的编译目录编译 Binutils：</para>
 
 <screen><userinput remap="pre">mkdir -v ../binutils-build
 cd ../binutils-build</userinput></screen>
 
-    <para>Prepare Binutils for compilation:</para>
+    <para>准备编译 Binutils：</para>
 
 <screen><userinput remap="configure">../binutils-&binutils-version;/configure --prefix=/usr   \
                            --enable-shared \
                            --disable-werror</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make tooldir=/usr</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the make parameter:</title>
+      <title>make 参数的含义:</title>
 
       <varlistentry>
         <term><parameter>tooldir=/usr</parameter></term>
         <listitem>
-          <para>Normally, the tooldir (the directory where the executables will
-          ultimately be located) is set to <filename
-          class="directory">$(exec_prefix)/$(target_alias)</filename>. For
-          example, x86_64 machines would expand that to <filename
-          class="directory">/usr/x86_64-unknown-linux-gnu</filename>. Because this is
-          a custom system, this target-specific directory in <filename
-          class="directory">/usr</filename> is not required. <filename
-          class="directory">$(exec_prefix)/$(target_alias)</filename> would be
-          used if the system was used to cross-compile (for example, compiling a
-          package on an Intel machine that generates code that can be executed
-          on PowerPC machines).</para>
+          <para>一般来说，tooldir (最终存放可执行文件的目录) 设置为 <filename class="directory">$(exec_prefix)/$(target_alias)</filename>。例如，x86_64 机器会把它扩展为 <filename class="directory">/usr/x86_64-unknown-linux-gnu</filename>。因为这是个自定制的系统，并不需要 <filename
+          class="directory">/usr</filename>中的特定目标目录。如果系统用于交叉编译（例如，在 Intel 机器上编译能生成在 PowerPC 机器上运行的代码的软件包）会使用 <filename
+          class="directory">$(exec_prefix)/$(target_alias)</filename>。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
     <important>
-      <para>The test suite for Binutils in this section is considered critical.
-      Do not skip it under any circumstances.</para>
+      <para>本章节中的 Binutils 测试套件至关重要，任何情况下都不能跳过。</para>
     </important>
 
-    <para>Test the results:</para>
+    <para>查看结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make tooldir=/usr install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-binutils" role="content">
-    <title>Contents of Binutils</title>
+    <title>Binutils 内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directory</segtitle>
+      <segtitle>安装的程序：</segtitle>
+      <segtitle>安装的库：</segtitle>
+      <segtitle>安装目录：</segtitle>
 
       <seglistitem>
         <seg>addr2line, ar, as, c++filt, elfedit, gprof, ld, ld.bfd, nm,
-        objcopy, objdump, ranlib, readelf, size, strings, and strip</seg>
-        <seg>libbfd.{a,so} and libopcodes.{a,so}</seg>
+        objcopy, objdump, ranlib, readelf, size, strings, 和 strip</seg>
+        <seg>libbfd.{a,so} 和 libopcodes.{a,so}</seg>
         <seg>/usr/lib/ldscripts</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="addr2line">
         <term><command>addr2line</command></term>
         <listitem>
-          <para>Translates program addresses to file names and line numbers;
-          given an address and the name of an executable, it uses the debugging
-          information in the executable to determine which source file and line
-          number are associated with the address</para>
+          <para>转换程序地址为文件名称和行号；给定一个地址和可执行文件的名称，它使用可执行文件中的调试信息来判断与该地址关联的源文件以及行号。</para>
           <indexterm zone="ch-system-binutils addr2line">
             <primary sortas="b-addr2line">addr2line</primary>
           </indexterm>
@@ -155,7 +138,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="ar">
         <term><command>ar</command></term>
         <listitem>
-          <para>Creates, modifies, and extracts from archives</para>
+          <para>创建、更改以及抽取归档文件。</para>
           <indexterm zone="ch-system-binutils ar">
             <primary sortas="b-ar">ar</primary>
           </indexterm>
@@ -165,8 +148,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="as">
         <term><command>as</command></term>
         <listitem>
-          <para>An assembler that assembles the output of <command>gcc</command>
-          into object files</para>
+          <para>一个将 <command>gcc</command> 的输出汇编到目标文件的汇编器。</para>
           <indexterm zone="ch-system-binutils as">
             <primary sortas="b-as">as</primary>
           </indexterm>
@@ -176,8 +158,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="c-filt">
         <term><command>c++filt</command></term>
         <listitem>
-          <para>Used by the linker to de-mangle C++ and Java symbols and to keep
-          overloaded functions from clashing</para>
+          <para>链接器用来过滤 C++ 和 Java 符号以及防止重载函数冲突。</para>
           <indexterm zone="ch-system-binutils c-filt">
             <primary sortas="b-c++filt">c++filt</primary>
           </indexterm>
@@ -187,7 +168,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="elfedit">
         <term><command>elfedit</command></term>
         <listitem>
-          <para>Updates the ELF header of ELF files</para>
+          <para>更新 ELF 文件的 ELF 文件头。</para>
           <indexterm zone="ch-system-binutils elfedit">
             <primary sortas="b-elfedit">elfedit</primary>
           </indexterm>
@@ -197,7 +178,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="gprof">
         <term><command>gprof</command></term>
         <listitem>
-          <para>Displays call graph profile data</para>
+          <para>显示调用关系图配置数据。</para>
           <indexterm zone="ch-system-binutils gprof">
             <primary sortas="b-gprof">gprof</primary>
           </indexterm>
@@ -207,9 +188,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="ld">
         <term><command>ld</command></term>
         <listitem>
-          <para>A linker that combines a number of object and archive files
-          into a single file, relocating their data and tying up symbol
-          references</para>
+          <para一个将多个目标文件和归档文件合并为单一文件，重定位数据及绑定符号引用的链接器。</para>
           <indexterm zone="ch-system-binutils ld">
             <primary sortas="b-ld">ld</primary>
           </indexterm>
@@ -219,7 +198,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="ld.bfd">
         <term><command>ld.bfd</command></term>
         <listitem>
-          <para>Hard link to <command>ld</command></para>
+          <para>到 <command>ld</command> 的硬链接。</para>
           <indexterm zone="ch-system-binutils ld.bfd">
             <primary sortas="b-ld.bfd">ld.bfd</primary>
           </indexterm>
@@ -229,7 +208,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="nm">
         <term><command>nm</command></term>
         <listitem>
-          <para>Lists the symbols occurring in a given object file</para>
+          <para>列出指定目标文件中出现的符号。</para>
           <indexterm zone="ch-system-binutils nm">
             <primary sortas="b-nm">nm</primary>
           </indexterm>
@@ -239,7 +218,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="objcopy">
         <term><command>objcopy</command></term>
         <listitem>
-          <para>Translates one type of object file into another</para>
+          <para>转换某种类型的目标文件到另一种类型。</para>
           <indexterm zone="ch-system-binutils objcopy">
             <primary sortas="b-objcopy">objcopy</primary>
           </indexterm>
@@ -249,10 +228,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="objdump">
         <term><command>objdump</command></term>
         <listitem>
-          <para>Displays information about the given object file, with options
-          controlling the particular information to display; the information
-          shown is useful to programmers who are working on the compilation
-          tools</para>
+          <para>显示给定目标文件的信息，用选项可以控制显示特定信息；显示的信息对于使用编译工具的程序员非常有用。</para>
           <indexterm zone="ch-system-binutils objdump">
             <primary sortas="b-objdump">objdump</primary>
           </indexterm>
@@ -262,9 +238,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="ranlib">
         <term><command>ranlib</command></term>
         <listitem>
-          <para>Generates an index of the contents of an archive and stores it
-          in the archive; the index lists all of the symbols defined by archive
-          members that are relocatable object files</para>
+          <para>生成归档文件内容的索引并保存到归档文件；索引列出了所有归档文件成员——可重定位的目标文件定义的符号。</para>
           <indexterm zone="ch-system-binutils ranlib">
             <primary sortas="b-ranlib">ranlib</primary>
           </indexterm>
@@ -274,7 +248,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="readelf">
         <term><command>readelf</command></term>
         <listitem>
-          <para>Displays information about ELF type binaries</para>
+          <para>显示 ELF 类型的二进制文件的信息。</para>
           <indexterm zone="ch-system-binutils readelf">
             <primary sortas="b-readelf">readelf</primary>
           </indexterm>
@@ -284,8 +258,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="size">
         <term><command>size</command></term>
         <listitem>
-          <para>Lists the section sizes and the total size for the given
-          object files</para>
+          <para>列出所给目标文件各部分大小和总的大小。</para>
           <indexterm zone="ch-system-binutils size">
             <primary sortas="b-size">size</primary>
           </indexterm>
@@ -295,11 +268,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="strings">
         <term><command>strings</command></term>
         <listitem>
-          <para>Outputs, for each given file, the sequences of printable
-          characters that are of at least the specified length (defaulting to
-          four); for object files, it prints, by default, only the strings from
-          the initializing and loading sections while for other types of files, it
-          scans the entire file</para>
+          <para>对每个给定文件，输出不低于指定长度（默认是4）的可打印字符序列；对于目标文件，它默认只打印初始化和引导部分的字符串，而对于其它类型的文件扫描整个文件。</para>
           <indexterm zone="ch-system-binutils strings">
             <primary sortas="b-strings">strings</primary>
           </indexterm>
@@ -309,7 +278,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="strip">
         <term><command>strip</command></term>
         <listitem>
-          <para>Discards symbols from object files</para>
+          <para>从目标文件中去除符号。</para>
           <indexterm zone="ch-system-binutils strip">
             <primary sortas="b-strip">strip</primary>
           </indexterm>
@@ -319,7 +288,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="libbfd">
         <term><filename class="libraryfile">libbfd</filename></term>
         <listitem>
-          <para>The Binary File Descriptor library</para>
+          <para>二进制文件描述库。</para>
           <indexterm zone="ch-system-binutils libbfd">
             <primary sortas="c-libbfd">libbfd</primary>
           </indexterm>
@@ -329,10 +298,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="libopcodes">
         <term><filename class="libraryfile">libopcodes</filename></term>
         <listitem>
-          <para>A library for dealing with opcodes&mdash;the <quote>readable
-          text</quote> versions of instructions for the processor;
-          it is used for building utilities like
-          <command>objdump</command></para>
+          <para>一个库用于处理操作码&mdash;<quote>可读文本</quote>版的处理器指令；用于构建类似 <command>objdump</command> 的工具。</para>
           <indexterm zone="ch-system-binutils libopcodes">
             <primary sortas="c-libopcodes">libopcodes</primary>
           </indexterm>

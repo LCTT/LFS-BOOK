@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Psmisc package contains programs for displaying information about
-    running processes.</para>
+    <para>Psmisc 软件包包含用于显示运行中进程信息的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,24 +38,23 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Psmisc</title>
+    <title>安装 Psmisc</title>
 
-    <para>Prepare Psmisc for compilation:</para>
+    <para>准备编译 Psmisc：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>This package does not come with a test suite.</para>
+    <para>该软件包没有测试套件。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Finally, move the <command>killall</command> and <command>fuser</command>
-    programs to the location specified by the FHS:</para>
+    <para>最后，将程序 <command>killall</command> 和 <command>fuser</command> 移动到 FHS 指定的位置：</para>
 
 <screen><userinput remap="install">mv -v /usr/bin/fuser   /bin
 mv -v /usr/bin/killall /bin</userinput></screen>
@@ -64,26 +62,25 @@ mv -v /usr/bin/killall /bin</userinput></screen>
   </sect2>
 
   <sect2 id="contents-psmisc" role="content">
-    <title>Contents of Psmisc</title>
+    <title>Psmisc 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
+      <segtitle>安装的程序：</segtitle>
 
       <seglistitem>
-        <seg>fuser, killall, peekfd, prtstat, pstree, and pstree.x11 (link to pstree)</seg>
+        <seg>fuser, killall, peekfd, prtstat, pstree, 和 pstree.x11 (链接到 pstree)</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="fuser">
         <term><command>fuser</command></term>
         <listitem>
-          <para>Reports the Process IDs (PIDs) of processes that use the given
-          files or file systems</para>
+          <para>报告使用指定文件或文件系统的进程的进程 ID（PID）</para>
           <indexterm zone="ch-system-psmisc fuser">
             <primary sortas="b-fuser">fuser</primary>
           </indexterm>
@@ -93,8 +90,7 @@ mv -v /usr/bin/killall /bin</userinput></screen>
       <varlistentry id="killall">
         <term><command>killall</command></term>
         <listitem>
-          <para>Kills processes by name; it sends a signal to all processes
-          running any of the given commands</para>
+          <para>根据名称杀死进程；它发送信号到所有的运行任何给定命令的进程</para>
           <indexterm zone="ch-system-psmisc killall">
             <primary sortas="b-killall">killall</primary>
           </indexterm>
@@ -104,8 +100,7 @@ mv -v /usr/bin/killall /bin</userinput></screen>
       <varlistentry id="peekfd">
         <term><command>peekfd</command></term>
         <listitem>
-          <para>Peek at file descriptors of a running process, given its
-          PID</para>
+          <para>根据 PID 查看正在运行进程的文件描述符</para>
           <indexterm zone="ch-system-psmisc peekfd">
             <primary sortas="b-peekfd">peekfd</primary>
           </indexterm>
@@ -115,7 +110,7 @@ mv -v /usr/bin/killall /bin</userinput></screen>
       <varlistentry id="prtstat">
         <term><command>prtstat</command></term>
         <listitem>
-          <para>Prints information about a process</para>
+          <para>打印关于某个进程的信息</para>
           <indexterm zone="ch-system-psmisc prtstat">
             <primary sortas="b-prtstat">prtstat</primary>
           </indexterm>
@@ -125,7 +120,7 @@ mv -v /usr/bin/killall /bin</userinput></screen>
       <varlistentry id="pstree">
         <term><command>pstree</command></term>
         <listitem>
-          <para>Displays running processes as a tree</para>
+          <para>以树形结构显示运行中的进程</para>
           <indexterm zone="ch-system-psmisc pstree">
             <primary sortas="b-pstree">pstree</primary>
           </indexterm>
@@ -135,8 +130,7 @@ mv -v /usr/bin/killall /bin</userinput></screen>
       <varlistentry id="pstree.x11">
         <term><command>pstree.x11</command></term>
         <listitem>
-          <para>Same as <command>pstree</command>, except that it waits for
-          confirmation before exiting</para>
+          <para>和 <command>pstree</command> 命令相同，但退出时它会等待确认</para>
           <indexterm zone="ch-system-psmisc pstree.x11">
             <primary sortas="b-pstree.x11">pstree.x11</primary>
           </indexterm>
