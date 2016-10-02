@@ -148,7 +148,7 @@ ln -sfv ../../lib/libshadow.so.0 /usr/lib/libshadow.so</userinput></screen> -->
   </sect2>
 
   <sect2 role="configuration">
-    <title>设置 root 密码/title>
+    <title>设置 root 密码</title>
 
     <para>运行下面的命令为用户 <emphasis>root</emphasis> 设置密码：</para>
 
