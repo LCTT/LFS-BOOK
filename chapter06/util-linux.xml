@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Util-linux 软件包其它实用程序。包括处理文件系统、控制台、分区以及消息等工具。/para>
+    <para>Util-linux 软件包其它实用程序。包括处理文件系统、控制台、分区以及消息等工具。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -260,7 +260,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="ctrlaltdel">
         <term><command>ctrlaltdel</command></term>
         <listitem>
-          <para>设置 Ctrl+Alt+Del 组合键的功能为硬或软复位/para>
+          <para>设置 Ctrl+Alt+Del 组合键的功能为硬或软复位</para>
           <indexterm zone="ch-system-util-linux ctrlaltdel">
             <primary sortas="b-ctrlaltdel">ctrlaltdel</primary>
           </indexterm>

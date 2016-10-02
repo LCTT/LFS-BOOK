@@ -138,7 +138,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
       <varlistentry id="dbus-monitor">
         <term><command>dbus-monitor</command></term>
         <listitem>
-          <para>监控 D-Bus 消息总线中传送的消息/para>
+          <para>监控 D-Bus 消息总线中传送的消息</para>
           <indexterm zone="ch-system-dbus dbus-monitor">
             <primary sortas="b-dbus-monitor">dbus-monitor</primary>
           </indexterm>

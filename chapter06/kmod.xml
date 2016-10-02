@@ -124,7 +124,7 @@ ln -sv kmod /bin/lsmod</userinput></screen>
       <varlistentry id="insmod">
         <term><command>insmod</command></term>
         <listitem>
-          <para>在运行的内核上安装可加载模块/para>
+          <para>在运行的内核上安装可加载模块</para>
           <indexterm zone="ch-system-kmod insmod">
             <primary sortas="b-insmod">insmod</primary>
           </indexterm>

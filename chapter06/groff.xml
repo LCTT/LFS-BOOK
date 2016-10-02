@@ -356,7 +356,7 @@
       <varlistentry id="pic">
         <term><command>pic</command></term>
         <listitem>
-          <para>编译嵌入了 troff 或 TeX 输入文件的图像的描述为 TeX 或 command>troff</command> 能理解的命令</para>
+          <para>编译嵌入了 troff 或 TeX 输入文件的图像的描述为 TeX 或  <command>troff</command> 能理解的命令</para>
           <indexterm zone="ch-system-groff pic">
             <primary sortas="b-pic">pic</primary>
           </indexterm>

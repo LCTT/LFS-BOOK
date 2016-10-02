@@ -188,7 +188,7 @@ cd ../binutils-build</userinput></screen>
       <varlistentry id="ld">
         <term><command>ld</command></term>
         <listitem>
-          <para一个将多个目标文件和归档文件合并为单一文件，重定位数据及绑定符号引用的链接器。</para>
+          <para>一个将多个目标文件和归档文件合并为单一文件，重定位数据及绑定符号引用的链接器。</para>
           <indexterm zone="ch-system-binutils ld">
             <primary sortas="b-ld">ld</primary>
           </indexterm>

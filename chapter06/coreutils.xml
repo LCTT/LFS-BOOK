@@ -102,7 +102,7 @@ sed -i '/tests\/misc\/sort.pl/ d' Makefile.in</userinput></screen>
 
 <screen><userinput remap="test">chown -Rv nobody . </userinput></screen>
 
-    <para>现在运行测试。确保 <userinput>su</userinput> 环境中的 PATH 环境变量包含了 /tools/bin。/para>
+    <para>现在运行测试。确保 <userinput>su</userinput> 环境中的 PATH 环境变量包含了 /tools/bin。</para>
 
 <screen><userinput remap="test">su nobody -s /bin/bash \
           -c "PATH=$PATH make RUN_EXPENSIVE_TESTS=yes check"</userinput></screen>
