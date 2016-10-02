@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Bash package contains the Bourne-Again SHell.</para>
+    <para>Bash 软件包包含 Bourne-Again Shell。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,14 +38,13 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Bash</title>
+    <title>安装 Bash</title>
 
-    <para>First, apply the following patch to fix various bugs that have been
-    addressed upstream:</para>
+    <para>首先，安装下面的补丁修复上游解决的一些 bug：</para>
 
 <screen><userinput remap="pre">patch -Np1 -i ../&bash-fixes-patch;</userinput></screen>
 
-    <para>Prepare Bash for compilation:</para>
+    <para>准备编译 Bash：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr                       \
             --bindir=/bin                       \
@@ -54,77 +53,68 @@
             --with-installed-readline</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the new configure option:</title>
+      <title>新配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--with-installed-readline</parameter></term>
         <listitem>
-          <para>This option tells Bash to use the <filename
-          class="libraryfile">readline</filename> library that is already
-          installed on the system rather than using its own readline
-          version.</para>
+          <para>该选项告诉 Bash 使用系统中已经安装的 <filename
+          class="libraryfile">readline</filename> 库而不是使用自带的 readline 版本。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Skip down to <quote>Install the
-    package</quote> if not running the test suite.</para>
+    <para>如果不需要运行测试套件的话跳转到 <quote>Install the package</quote>。</para>
 
-    <para>To prepare the tests, ensure that the <systemitem class="username">nobody</systemitem> user can write to the sources tree:</para>
+    <para>准备测试，确保 <systemitem class="username">nobody</systemitem> 用户可以写源文件树：</para>
 
 <screen><userinput remap="test">chown -Rv nobody .</userinput></screen>
 
-    <para>Now, run the tests as the <systemitem
-    class="username">nobody</systemitem> user:</para>
+    <para>现在，以 <systemitem class="username">nobody</systemitem> 用户身份运行测试：</para>
 
 <screen><userinput remap="test">su nobody -s /bin/bash -c "PATH=$PATH make tests"</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Run the newly compiled <command>bash</command> program (replacing the one that is
-    currently being executed):</para>
+    <para>运行新编译的 <command>bash</command> 程序（替换正在运行的那个）：</para>
 
 <screen role="nodump"><userinput>exec /bin/bash --login +h</userinput></screen>
 
     <note>
-      <para>The parameters used make the <command>bash</command>
-      process an interactive login shell and continue to disable hashing so
-      that new programs are found as they become available.</para>
+      <para>参数使 <command>bash</command> 进程成为一个可交互的登录 shell 并停用散列使得新程序可用的时候就能发现。</para>
     </note>
 
   </sect2>
 
   <sect2 id="contents-bash" role="content">
-    <title>Contents of Bash</title>
+    <title>Bash 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed directory</segtitle>
+      <segtitle>安装的程序：</segtitle>
+      <segtitle>安装目录：</segtitle>
 
       <seglistitem>
-        <seg>bash, bashbug, and sh (link to bash)</seg>
+        <seg>bash, bashbug, 和 sh (链接到 bash)</seg>
         <seg>/usr/share/doc/bash-&bash-version;</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="bash">
         <term><command>bash</command></term>
         <listitem>
-          <para>A widely-used command interpreter; it performs many types of
-          expansions and substitutions on a given command line before executing
-          it, thus making this interpreter a powerful tool</para>
+          <para>广泛使用的命令解释器；在执行一个命令之前进行多种扩展和替换，使得该解释器成为一个强大的工具</para>
           <indexterm zone="ch-system-bash bash">
             <primary sortas="b-bash">bash</primary>
           </indexterm>
@@ -134,8 +124,7 @@
       <varlistentry id="bashbug">
         <term><command>bashbug</command></term>
         <listitem>
-          <para>A shell script to help the user compose and mail standard
-          formatted bug reports concerning <command>bash</command></para>
+          <para>一个 shell 脚本，用于帮助用户撰写和发送标准格式的关于 <command>bash</command> 的 bug 报告邮件</para>
           <indexterm zone="ch-system-bash bashbug">
             <primary sortas="b-bashbug">bashbug</primary>
           </indexterm>
@@ -145,11 +134,7 @@
       <varlistentry id="sh">
         <term><command>sh</command></term>
         <listitem>
-          <para>A symlink to the <command>bash</command> program; when invoked
-          as <command>sh</command>, <command>bash</command> tries to mimic the
-          startup behavior of historical versions of <command>sh</command> as
-          closely as possible, while conforming to the POSIX standard as
-          well</para>
+          <para>到<command>bash</command> 程序的符号链接；当以 <command>sh</command> 调用时，在符合 POSIX 标准的情况下，<command>bash</command> 尽可能地模仿历史版本上 <command>sh</command> 的启动过程</para>
           <indexterm zone="ch-system-bash sh">
             <primary sortas="b-sh">sh</primary>
           </indexterm>

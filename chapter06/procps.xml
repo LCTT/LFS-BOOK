@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Procps-ng package contains programs for monitoring processes.</para>
+    <para>Procps-ng 软件包包含监视进程的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,9 +38,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Procps-ng</title>
+    <title>安装 Procps-ng</title>
 
-    <para>Now prepare procps-ng for compilation:</para>
+    <para>准备编译 procps-ng：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr                            \
             --exec-prefix=                           \
@@ -50,34 +50,31 @@
             --disable-kill</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--disable-kill</parameter></term>
         <listitem>
-          <para>This switch disables building the <command>kill</command>
-          command that will be installed by the Util-linux package.</para>
+          <para>该选项将不会编译已经由 Util-linux 软件包安装了的 <command>kill</command> 命令。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>The test suite needs some custom modifications for LFS.
-    Remove the test that fails when scripting does not use a tty device.
-    To run the test suite, run the following commands:</para>
+    <para>对于 LFS，测试套件需要自定义某些更改。移除当脚本不使用 tty 设备时失败的测试。用下面的命令运行测试套件：</para>
 
 <screen><userinput remap="test">sed -i -r 's|(pmap_initname)\\\$|\1|' testsuite/pmap.test/pmap.exp
 make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-<para>Finally, move essential libraries to a location that can be found if
-<filename class="directory">/usr</filename> is not mounted.</para>
+<para>最后，移动重要文件到一个可以找到的位置，如果
+<filename class="directory">/usr</filename> 没有挂载的话。</para>
 
 <screen><userinput remap="install">mv -v /usr/lib/libprocps.so.* /lib
 ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</userinput></screen>
@@ -85,31 +82,30 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
   </sect2>
 
   <sect2 id="contents-procps" role="content">
-    <title>Contents of Procps-ng</title>
+    <title>Procps-ng 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed library</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序：</segtitle>
+      <segtitle>安装的库：</segtitle>
+      <segtitle>安装目录：</segtitle>
 
       <seglistitem>
         <seg>free, pgrep, pidof, pkill, pmap, ps, pwdx, slabtop,
-        sysctl, tload, top, uptime, vmstat, w, and watch</seg>
+        sysctl, tload, top, uptime, vmstat, w, 和 watch</seg>
         <seg>libprocps.so</seg>
-        <seg>/usr/include/proc and /usr/share/doc/procps-ng-&procps-ng-version;</seg>
+        <seg>/usr/include/proc 和 /usr/share/doc/procps-ng-&procps-ng-version;</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="free">
         <term><command>free</command></term>
         <listitem>
-          <para>Reports the amount of free and used memory (both physical and
-          swap memory) in the system</para>
+          <para>报告系统中空闲和使用的内存容量（包括物理和交换内存）</para>
           <indexterm zone="ch-system-procps free">
             <primary sortas="b-free">free</primary>
           </indexterm>
@@ -119,7 +115,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="pgrep">
         <term><command>pgrep</command></term>
         <listitem>
-          <para>Looks up processes based on their name and other attributes</para>
+          <para>根据名称和其它属性查找进程</para>
           <indexterm zone="ch-system-procps pgrep">
             <primary sortas="b-pgrep">pgrep</primary>
           </indexterm>
@@ -129,7 +125,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="pidof">
         <term><command>pidof</command></term>
         <listitem>
-          <para>Reports the PIDs of the given programs</para>
+          <para>报告指定程序的 PID</para>
           <indexterm zone="ch-system-procps pidof">
             <primary sortas="b-pidof">pidof</primary>
           </indexterm>
@@ -139,7 +135,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="pkill">
         <term><command>pkill</command></term>
         <listitem>
-          <para>Signals processes based on their name and other attributes</para>
+          <para>根据名称和其它属性给进程发送信号</para>
           <indexterm zone="ch-system-procps pkill">
             <primary sortas="b-pkill">pkill</primary>
           </indexterm>
@@ -149,7 +145,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="pmap">
         <term><command>pmap</command></term>
         <listitem>
-          <para>Reports the memory map of the given process</para>
+          <para>报告指定进程的内存映射情况</para>
           <indexterm zone="ch-system-procps pmap">
             <primary sortas="b-pmap">pmap</primary>
           </indexterm>
@@ -159,7 +155,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="ps">
         <term><command>ps</command></term>
         <listitem>
-          <para>Lists the current running processes</para>
+          <para>列出正在运行的进程</para>
           <indexterm zone="ch-system-procps ps">
             <primary sortas="b-ps">ps</primary>
           </indexterm>
@@ -169,7 +165,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="pwdx">
         <term><command>pwdx</command></term>
         <listitem>
-          <para>Reports the current working directory of a process</para>
+          <para>报告进程的当前工作目录</para>
           <indexterm zone="ch-system-procps pwdx">
             <primary sortas="b-pwdx">pwdx</primary>
           </indexterm>
@@ -179,7 +175,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="slabtop">
         <term><command>slabtop</command></term>
         <listitem>
-          <para>Displays detailed kernel slap cache information in real time</para>
+          <para>实时显示内核 slab 缓存信息</para>
           <indexterm zone="ch-system-procps slabtop">
             <primary sortas="b-slabtop">slabtop</primary>
           </indexterm>
@@ -189,7 +185,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="sysctl">
         <term><command>sysctl</command></term>
         <listitem>
-          <para>Modifies kernel parameters at run time</para>
+          <para>运行时修改内核参数</para>
           <indexterm zone="ch-system-procps sysctl">
             <primary sortas="b-sysctl">sysctl</primary>
           </indexterm>
@@ -199,7 +195,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="tload">
         <term><command>tload</command></term>
         <listitem>
-          <para>Prints a graph of the current system load average</para>
+          <para>打印当前系统平均负荷曲线图</para>
           <indexterm zone="ch-system-procps tload">
             <primary sortas="b-tload">tload</primary>
           </indexterm>
@@ -209,8 +205,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="top">
         <term><command>top</command></term>
         <listitem>
-          <para>Displays a list of the most CPU intensive processes; it
-          provides an ongoing look at processor activity in real time</para>
+          <para>显示最 CPU 密集型进程列表；它可以实时地连续查看处理器活动</para>
           <indexterm zone="ch-system-procps top">
             <primary sortas="b-top">top</primary>
           </indexterm>
@@ -220,8 +215,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="uptime">
         <term><command>uptime</command></term>
         <listitem>
-          <para>Reports how long the system has been running, how many users are
-          logged on, and the system load averages</para>
+          <para>报告系统运行时长、登录用户数目以及系统平均负荷</para>
           <indexterm zone="ch-system-procps uptime">
             <primary sortas="b-uptime">uptime</primary>
           </indexterm>
@@ -231,9 +225,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="vmstat">
         <term><command>vmstat</command></term>
         <listitem>
-          <para>Reports virtual memory statistics, giving information about
-          processes, memory, paging, block Input/Output (IO), traps, and CPU
-          activity</para>
+          <para>报告虚拟内存统计信息、给出关于进程、内存、分页、块输入/输出(IO)、陷阱以及 CPU 活动的信息</para>
           <indexterm zone="ch-system-procps vmstat">
             <primary sortas="b-vmstat">vmstat</primary>
           </indexterm>
@@ -243,8 +235,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="w">
         <term><command>w</command></term>
         <listitem>
-          <para>Shows which users are currently logged on, where, and since
-          when</para>
+          <para>显示当前登录的用户、以及登录地点和时间</para>
           <indexterm zone="ch-system-procps w">
             <primary sortas="b-w">w</primary>
           </indexterm>
@@ -254,9 +245,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="watch">
         <term><command>watch</command></term>
         <listitem>
-          <para>Runs a given command repeatedly, displaying the first
-          screen-full of its output; this allows a user to watch the output
-          change over time</para>
+          <para>重复运行指定命令，显示输出的第一个整屏；这允许用户查看随着时间的输出变化</para>
           <indexterm zone="ch-system-procps watch">
             <primary sortas="b-watch">watch</primary>
           </indexterm>
@@ -266,8 +255,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
       <varlistentry id="libprocps">
         <term><filename class="libraryfile">libprocps</filename></term>
         <listitem>
-          <para>Contains the functions used by most programs in this
-          package</para>
+          <para>包含该软件包大部分程序使用的函数</para>
           <indexterm zone="ch-system-procps libprocps">
             <primary sortas="c-libprocps">libprocps</primary>
           </indexterm>

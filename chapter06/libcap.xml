@@ -23,10 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Libcap package implements the user-space interfaces to the POSIX
-    1003.1e capabilities available in Linux kernels. These capabilities are a
-    partitioning of the all powerful root privilege into a set of distinct
-    privileges.</para>
+    <para>Libcap 软件包实现了可用在 Linux 内核上的对 POSIX 1003.1e 功能的用户空间接口。 这些功能将所有强大 root 权限划分为不同的权限组合。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -41,41 +38,36 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Libcap</title>
+    <title>安装 Libcap</title>
 
-    <para>Prevent a static library from being installed:</para>
+    <para>避免安装静态库：</para>
 
 <screen><userinput remap="pre">sed -i '/install.*STALIBNAME/d' libcap/Makefile</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>This package does not come with a test suite.</para>
+    <para>这个软件包没有测试套件。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make RAISE_SETFCAP=no prefix=/usr install
 chmod -v 755 /usr/lib/libcap.so</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the make option:</title>
+      <title>make 选项的含义：</title>
 
       <varlistentry>
         <term><parameter>RAISE_SETFCAP=no</parameter></term>
         <listitem>
-          <para>This parameter skips trying to use <command>setcap</command>
-          on itself. This avoids an installation error if the kernel or file
-          system does not support extended capabilities.</para>
+          <para>这个选项跳过尝试对自身使用 <command>setcap</command>。这可以避免内核或文件系统不支持扩展功能时出现安装错误。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>The shared library needs to be moved to
-    <filename class="directory">/lib</filename>, and as a result the
-    <filename class="extension">.so</filename> file in
-    <filename class="directory">/usr/lib</filename> will need to be recreated:</para>
+    <para>需要移动共享库到 <filename class="directory">/lib</filename>，因此需要重建 <filename class="directory">/usr/lib</filename> 中的 <filename class="extension">.so</filename> 文件：</para>
 
 <screen><userinput remap="install">mv -v /usr/lib/libcap.so.* /lib
 ln -sfv ../../lib/$(readlink /usr/lib/libcap.so) /usr/lib/libcap.so</userinput></screen>
@@ -83,14 +75,14 @@ ln -sfv ../../lib/$(readlink /usr/lib/libcap.so) /usr/lib/libcap.so</userinput><
   </sect2>
 
   <sect2 id="contents-libcap" role="content">
-    <title>Contents of Libcap</title>
+    <title>Libcap 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed library</segtitle>
+      <segtitle>安装的程序：</segtitle>
+      <segtitle>安装的库：</segtitle>
 
       <seglistitem>
-        <seg>capsh, getcap, getpcaps, and setcap</seg>
+        <seg>capsh, getcap, getpcaps, 和 setcap</seg>
         <seg>libcap.{a,so}</seg>
       </seglistitem>
     </segmentedlist>
@@ -103,7 +95,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libcap.so) /usr/lib/libcap.so</userinput><
       <varlistentry id="capsh">
         <term><command>capsh</command></term>
         <listitem>
-          <para>A shell wrapper to explore and constrain capability support</para>
+          <para>使用和控制功能支持的 shell 封装</para>
           <indexterm zone="ch-system-libcap capsh">
             <primary sortas="b-capsh">capsh</primary>
           </indexterm>
@@ -113,7 +105,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libcap.so) /usr/lib/libcap.so</userinput><
       <varlistentry id="getcap">
         <term><command>getcap</command></term>
         <listitem>
-          <para>Examines file capabilities</para>
+          <para>检查文件功能</para>
           <indexterm zone="ch-system-libcap getcap">
             <primary sortas="b-getcap">getcap</primary>
           </indexterm>
@@ -123,7 +115,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libcap.so) /usr/lib/libcap.so</userinput><
       <varlistentry id="getpcaps">
         <term><command>getpcaps</command></term>
         <listitem>
-          <para>Displays the capabilities on the queried process(es)</para>
+          <para>显示查询进程的功能</para>
           <indexterm zone="ch-system-libcap getpcaps">
             <primary sortas="b-getpcaps">getpcaps</primary>
           </indexterm>
@@ -133,8 +125,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libcap.so) /usr/lib/libcap.so</userinput><
       <varlistentry id="libcap">
         <term><filename class="libraryfile">libcap</filename></term>
         <listitem>
-          <para>Contains the library functions for manipulating POSIX 1003.1e
-          capabilities</para>
+          <para>包括用于管理 POSIX 1003.1e 功能的库函数</para>
           <indexterm zone="ch-system-libcap libcap">
             <primary sortas="c-libcap">libcap</primary>
           </indexterm>

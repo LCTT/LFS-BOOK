@@ -23,10 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Findutils package contains programs to find files. These programs
-    are provided to recursively search through a directory tree and to
-    create, maintain, and search a database (often faster than the recursive
-    find, but unreliable if the database has not been recently updated).</para>
+    <para>Findutils 软件包包含查找文件的程序。这些程序提供递归搜索目录树、创建、管理以及搜索数据库（通常比递归式的 find 要快，但如果数据库最近没有更新的话结果不可靠）。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -41,42 +38,37 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Findutils</title>
+    <title>安装 Findutils</title>
 
-    <para>Prepare Findutils for compilation:</para>
+    <para>准备编译 Findutils：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr --localstatedir=/var/lib/locate</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--localstatedir</parameter></term>
         <listitem>
-          <para>This option changes the location of the <command>locate</command>
-          database to be in <filename class="directory">/var/lib/locate</filename>,
-          which is FHS-compliant.</para>
+          <para>T该选项改变 <command>locate</command> 数据库的位置为 FHS 兼容的 <filename class="directory">/var/lib/locate</filename>。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Some packages in BLFS and beyond expect the
-    <command>find</command> program in <filename
-    class="directory">/bin</filename>, so make sure
-    it's placed there:</para>
+    <para>一些 BLFS 及之上的软件包希望 <command>find</command> 程序在 <filename class="directory">/bin</filename>，因此确保位置正确：</para>
 
 <screen><userinput remap="install">mv -v /usr/bin/find /bin
 sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
@@ -84,26 +76,25 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
   </sect2>
 
   <sect2 id="contents-findutils" role="content">
-    <title>Contents of Findutils</title>
+    <title>Findutils 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
+      <segtitle>安装的程序：</segtitle>
 
       <seglistitem>
-        <seg>bigram, code, find, frcode, locate, oldfind, updatedb, and xargs</seg>
+        <seg>bigram, code, find, frcode, locate, oldfind, updatedb, 和 xargs</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="bigram">
         <term><command>bigram</command></term>
         <listitem>
-          <para>Was formerly used to produce <command>locate</command>
-          databases</para>
+          <para>之前用于生成 <command>locate</command> 数据库</para>
           <indexterm zone="ch-system-findutils bigram">
             <primary sortas="b-bigram">bigram</primary>
           </indexterm>
@@ -113,8 +104,7 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
       <varlistentry id="code">
         <term><command>code</command></term>
         <listitem>
-          <para>Was formerly used to produce <command>locate</command>
-          databases; it is the ancestor of <command>frcode</command></para>
+          <para>之前用于生成 <command>locate</command> 数据库； 是 <command>frcode</command> 的祖先版本</para>
           <indexterm zone="ch-system-findutils code">
             <primary sortas="b-code">code</primary>
           </indexterm>
@@ -124,8 +114,7 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
       <varlistentry id="find">
         <term><command>find</command></term>
         <listitem>
-          <para>Searches given directory trees for files matching the specified
-          criteria</para>
+          <para>查找指定目录树中匹配特定要求的文件</para>
           <indexterm zone="ch-system-findutils find">
             <primary sortas="b-find">find</primary>
           </indexterm>
@@ -135,9 +124,7 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
       <varlistentry id="frcode">
         <term><command>frcode</command></term>
         <listitem>
-          <para>Is called by <command>updatedb</command> to compress the list
-          of file names; it uses front-compression, reducing the database size
-          by a factor of four to five</para>
+          <para><command>updatedb</command> 调用来压缩文件名称列表； 它使用前向压缩，能压缩数据库为原来的四分之一到五分之一</para>
           <indexterm zone="ch-system-findutils frcode">
             <primary sortas="b-frcode">frcode</primary>
           </indexterm>
@@ -147,8 +134,7 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
       <varlistentry id="locate">
         <term><command>locate</command></term>
         <listitem>
-          <para>Searches through a database of file names and reports the names
-          that contain a given string or match a given pattern</para>
+          <para>搜索文件名称数据库并报告包含给定字符串或匹配给定模式的文件名称</para>
           <indexterm zone="ch-system-findutils locate">
             <primary sortas="b-locate">locate</primary>
           </indexterm>
@@ -158,7 +144,7 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
       <varlistentry id="oldfind">
         <term><command>oldfind</command></term>
         <listitem>
-          <para>Older version of find, using a different algorithm</para>
+          <para>老版本的 find，使用一个不同的算法</para>
           <indexterm zone="ch-system-findutils oldfind">
             <primary sortas="b-oldfind">oldfind</primary>
           </indexterm>
@@ -168,10 +154,7 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
       <varlistentry id="updatedb">
       <term><command>updatedb</command></term>
         <listitem>
-          <para>Updates the <command>locate</command> database; it scans the
-          entire file system (including other file systems that are currently
-          mounted, unless told not to) and puts every file name it finds into
-          the database</para>
+          <para>更新 <command>locate</command> 数据库； 它搜索整个文件系统（包括已挂载的其它文件系统，除非指定排除） 并把找到的每个文件名插入到数据库</para>
           <indexterm zone="ch-system-findutils updatedb">
             <primary sortas="b-updatedb">updatedb</primary>
           </indexterm>
@@ -181,7 +164,7 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
       <varlistentry id="xargs">
         <term><command>xargs</command></term>
         <listitem>
-          <para>Can be used to apply a given command to a list of files</para>
+          <para>对一系列文件运行给定命令</para>
           <indexterm zone="ch-system-findutils xargs">
             <primary sortas="b-xargs">xargs</primary>
           </indexterm>
