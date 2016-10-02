@@ -23,9 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Patch package contains a program for modifying or creating files
-    by applying a <quote>patch</quote> file typically created by the
-    <command>diff</command> program.</para>
+    <para>Patch 软件包包含一个通过打<quote>补丁</quote>创建或修改文件的程序，补丁文件通常由  <command>diff</command> 程序生成。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -40,31 +38,31 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Patch</title>
+    <title>安装 Patch</title>
 
-    <para>Prepare Patch for compilation:</para>
+    <para>准备编译 Patch：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-patch" role="content">
-    <title>Contents of Patch</title>
+    <title>Patch 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed program</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
         <seg>patch</seg>
@@ -72,17 +70,14 @@
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="patch">
         <term><command>patch</command></term>
         <listitem>
-          <para>Modifies files according to a patch file [A patch file is
-          normally a difference listing created with the <command>diff</command>
-          program. By applying these differences to the original files,
-          <command>patch</command> creates the patched versions.]</para>
+          <para>根据补丁文件修改文件[补丁文件通常是由 <command>diff</command> 程序产生的差异列表。通过对源文件应用这些差异生成打补丁后的版本。]</para>
           <indexterm zone="ch-system-patch patch">
             <primary sortas="b-patch">patch</primary>
           </indexterm>

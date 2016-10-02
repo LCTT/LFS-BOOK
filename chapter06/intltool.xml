@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Intltool is an internationalization tool used for extracting
-    translatable strings from source files.</para>
+    <para>Intltool 是一个用于从源文件中抽取可翻译字符串的国际化工具。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,25 +38,25 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Intltool</title>
+    <title>安装 Intltool</title>
 
-    <para>First fix a warning that is caused by perl-5.22 and later:</para>
+    <para>首先修复 perl-5.22 和其后版本导致的警告：</para>
 
 <screen><userinput remap="pre">sed -i 's:\\\${:\\\$\\{:' intltool-update.in</userinput></screen>
 
-    <para>Prepare Intltool for compilation:</para>
+    <para>准备编译 Intltool：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install
 install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-&intltool-version;/I18N-HOWTO</userinput></screen>
@@ -65,29 +64,29 @@ install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-&intltool-version;/I18N
   </sect2>
 
   <sect2 id="contents-intltool" role="content">
-    <title>Contents of Intltool</title>
+    <title>Intltool 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>intltool-extract, intltool-merge, intltool-prepare,
-        intltool-update, and intltoolize</seg>
+        intltool-update, 和 intltoolize</seg>
         <seg>/usr/share/doc/intltool-&intltool-version; and
         /usr/share/intltool</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="intltoolize">
         <term><command>intltoolize</command></term>
         <listitem>
-          <para>Prepares a package to use intltool</para>
+          <para>准备使用 intltool 的软件包</para>
           <indexterm zone="ch-system-intltool intltoolize">
             <primary sortas="b-intltoolize">intltoolize</primary>
           </indexterm>
@@ -97,7 +96,7 @@ install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-&intltool-version;/I18N
       <varlistentry id="intltool-extract">
         <term><command>intltool-extract</command></term>
         <listitem>
-          <para>Generates header files that can be read by <command>gettext</command></para>
+          <para>生成 <command>gettext</command> 能读取的头文件</para>
           <indexterm zone="ch-system-intltool intltool-extract">
             <primary sortas="b-intltool-extract">intltool-extract</primary>
           </indexterm>
@@ -107,7 +106,7 @@ install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-&intltool-version;/I18N
       <varlistentry id="intltool-merge">
         <term><command>intltool-merge</command></term>
         <listitem>
-          <para>Merges translated strings into various file types</para>
+          <para>合并翻译后的字符串到多种文件格式</para>
           <indexterm zone="ch-system-intltool intltool-merge">
             <primary sortas="b-intltool-merge">intltool-merge</primary>
           </indexterm>
@@ -117,7 +116,7 @@ install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-&intltool-version;/I18N
       <varlistentry id="intltool-prepare">
         <term><command>intltool-prepare</command></term>
         <listitem>
-          <para>Updates pot files and merges them with translation files</para>
+          <para>更新 pot 文件并把它们和翻译文件合并</para>
           <indexterm zone="ch-system-intltool intltool-prepare">
             <primary sortas="b-intltool-prepare">intltool-prepare</primary>
           </indexterm>
@@ -127,7 +126,7 @@ install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-&intltool-version;/I18N
       <varlistentry id="intltool-update">
         <term><command>intltool-update</command></term>
         <listitem>
-          <para>Updates the po template files and merges them with the translations</para>
+          <para>更新 po 模板文件并把它们和翻译文件合并</para>
           <indexterm zone="ch-system-intltool intltool-update">
             <primary sortas="b-intltool-update">intltool-update</primary>
           </indexterm>
