@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The GMP package contains math libraries. These have useful functions
-    for arbitrary precision arithmetic.</para>
+    <para>GMP 软件包包含一些数学库。这里有对任意精度数值计算很有用的函数。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,18 +38,14 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of GMP</title>
+    <title>安装 GMP</title>
 
     <note>
-      <para>If you are building for 32-bit x86, but you have a CPU which is
-      capable of running 64-bit code <emphasis>and</emphasis> you have specified
-      <envar>CFLAGS</envar> in the environment, the configure script will
-      attempt to configure for 64-bits and fail.
-      Avoid this by invoking the configure command below with
+      <para>如果你是为 32 位的 x86 系统编译，但是你的 CPU 可以运行 64 位代码<emphasis>并且</emphasis>环境中你有指定的 <envar>CFLAGS</envar>，那么配置脚本会尝试配置为 64 位并导致失败。用下面的 方式执行配置命令来避免这个问题：
 <screen role="nodump"><userinput><parameter>ABI=32</parameter> ./configure ...</userinput></screen></para>
     </note>
 
-    <para>Prepare GMP for compilation:</para>
+    <para>准备编译 GMP:</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr    \
             --enable-cxx     \
@@ -58,45 +53,42 @@
             --docdir=/usr/share/doc/gmp-&gmp-version;</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the new configure options:</title>
+      <title>新配置选项的含义:</title>
 
       <varlistentry>
         <term><parameter>--enable-cxx</parameter></term>
         <listitem>
-          <para>This parameter enables C++ support</para>
+          <para>这个参数启用 C++ 支持</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--docdir=/usr/share/doc/gmp-&gmp-version;</parameter></term>
         <listitem>
-          <para>This variable specifies the correct place for the
-          documentation.</para>
+          <para>这个变量指定保存文档的正确位置</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package and generate the HTML documentation:</para>
+    <para>编译软件包并生成 HTML 文档：</para>
 
 <screen><userinput remap="make">make
 make html</userinput></screen>
 
     <important>
-      <para>The test suite for GMP in this section is considered critical.
-      Do not skip it under any circumstances.</para>
+      <para>该章节 GMP 的测试套件至关重要，任何情况下都不能跳过。</para>
     </important>
 
-    <para>Test the results:</para>
+    <para>查看结果:</para>
 
 <screen><userinput remap="test">make check 2>&amp;1 | tee gmp-check-log</userinput></screen>
 
-    <para>Ensure that all 188 tests in the test suite passed.
-    Check the results by issuing the following command:</para>
+    <para>确认测试套件中所有的 188 个测试都通过了。通过输入下面的命令检查结果：</para>
 
 <screen><userinput remap="test">awk '/tests passed/{total+=$2} ; END{print total}' gmp-check-log</userinput></screen>
 
-    <para>Install the package and its documentation:</para>
+    <para>安装软件包和文档：</para>
 
 <screen><userinput remap="install">make install
 make install-html</userinput></screen>
@@ -104,11 +96,11 @@ make install-html</userinput></screen>
   </sect2>
 
   <sect2 id="contents-gmp" role="content">
-    <title>Contents of GMP</title>
+    <title>GMP 内容</title>
 
     <segmentedlist>
-      <segtitle>Installed Libraries</segtitle>
-      <segtitle>Installed directory</segtitle>
+      <segtitle>安装的库：</segtitle>
+      <segtitle>安装目录：</segtitle>
 
       <seglistitem>
         <seg>libgmp.{a,so} and libgmpxx.{a,so}</seg>
@@ -117,14 +109,14 @@ make install-html</userinput></screen>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="libgmp">
         <term><filename class="libraryfile">libgmp</filename></term>
         <listitem>
-          <para>Contains precision math functions</para>
+          <para>包括精度数学函数</para>
           <indexterm zone="ch-system-gmp libgmp">
             <primary sortas="c-libgmp">libgmp</primary>
           </indexterm>
@@ -134,7 +126,7 @@ make install-html</userinput></screen>
       <varlistentry id="libgmpxx">
         <term><filename class="libraryfile">libgmpxx</filename></term>
         <listitem>
-          <para>Contains C++ precision math functions</para>
+          <para>包括 C++ 精度属性函数</para>
           <indexterm zone="ch-system-gmp libgmpxx">
             <primary sortas="c-libgmpxx">libgmpxx</primary>
           </indexterm>

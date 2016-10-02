@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Gawk package contains programs for manipulating text files.</para>
+    <para>Gawk 软件包包含用于操作文本文件的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,25 +38,25 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Gawk</title>
+    <title>安装 Gawk</title>
 
-    <para>Prepare Gawk for compilation:</para>
+    <para>准备编译 Gawk：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>If desired, install the documentation:</para>
+    <para>如果需要的话，安装帮助文档：</para>
 
 <screen><userinput remap="install">mkdir -v /usr/share/doc/gawk-&gawk-version;
 cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} /usr/share/doc/gawk-&gawk-version;</userinput></screen>
@@ -64,32 +64,32 @@ cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} /usr/share/doc/gawk-&gawk-version;</
   </sect2>
 
   <sect2 id="contents-gawk" role="content">
-    <title>Contents of Gawk</title>
+    <title>Gawk 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
-        <seg>awk (link to gawk), gawk, gawk-&gawk-version;, and igawk</seg>
+        <seg>awk (链接到 gawk), gawk, gawk-&gawk-version;, 和 igawk</seg>
         <seg>filefuncs.so, fnmatch.so, fork.so, inplace.so, ordchr.so,
         readdir.so, readfile.so, revoutput.so, revtwoway.so, rwarray.so,
-        testext.so, and time.so</seg>
-        <seg>/usr/lib/gawk, /usr/libexec/awk, /usr/share/awk, and
+        testext.so, 和 time.so</seg>
+        <seg>/usr/lib/gawk, /usr/libexec/awk, /usr/share/awk, 和
         /usr/share/doc/gawk-&gawk-version;</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="awk">
         <term><command>awk</command></term>
         <listitem>
-          <para>A link to <command>gawk</command></para>
+          <para>到 <command>gawk</command> 的链接</para>
           <indexterm zone="ch-system-gawk awk">
             <primary sortas="b-awk">awk</primary>
           </indexterm>
@@ -99,8 +99,7 @@ cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} /usr/share/doc/gawk-&gawk-version;</
       <varlistentry id="gawk">
         <term><command>gawk</command></term>
         <listitem>
-          <para>A program for manipulating text files; it is the GNU
-          implementation of <command>awk</command></para>
+          <para>用于操作文本文件的程序；<command>awk</command> 的 GNU 实现</para>
           <indexterm zone="ch-system-gawk gawk">
             <primary sortas="b-gawk">gawk</primary>
           </indexterm>
@@ -110,7 +109,7 @@ cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} /usr/share/doc/gawk-&gawk-version;</
       <varlistentry id="gawk-version">
         <term><command>gawk-&gawk-version;</command></term>
         <listitem>
-          <para>A hard link to <command>gawk</command></para>
+          <para>到 <command>gawk</command> 的硬链接</para>
           <indexterm zone="ch-system-gawk gawk-version">
             <primary sortas="b-gawk-&gawk-version;">gawk-&gawk-version;</primary>
           </indexterm>
@@ -120,7 +119,7 @@ cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} /usr/share/doc/gawk-&gawk-version;</
       <varlistentry id="igawk">
         <term><command>igawk</command></term>
         <listitem>
-          <para>Gives <command>gawk</command> the ability to include files</para>
+          <para>使 <command>gawk</command> 具有包含文件的能力</para>
           <indexterm zone="ch-system-gawk igawk">
             <primary sortas="b-igawk">igawk</primary>
           </indexterm>

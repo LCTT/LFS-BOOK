@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Kmod package contains libraries and utilities for loading kernel
-    modules</para>
+    <para>Kmod 软件包包含用于加载内核模块的库和工具</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,9 +38,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Kmod</title>
+    <title>安装 Kmod</title>
 
-    <para>Prepare Kmod for compilation:</para>
+    <para>准备编译 Kmod：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr          \
             --bindir=/bin          \
@@ -51,41 +50,36 @@
             --with-zlib</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--with-xz, --with-zlib</parameter></term>
         <listitem>
-          <para>These options enable Kmod to handle compressed kernel modules.</para>
+          <para>这些选项使 Kmod 能处理压缩的内核模块。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--with-rootlibdir=/lib</parameter></term>
         <listitem>
-          <para>This option ensures different library related files are placed 
-          in the correct directories.</para>
+          <para>该选项确保和不同库相关的文件放置到正确的目录。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>This package does not come with a test suite that can be run in the
-    LFS chroot environment.  At a minimum the git program is required and
-    several tests will not run outside of a git repository. </para>
+    <para>这个软件包没有附带可在LFS chroot环境中运行测试套件。至少需要 git 程序并进行一些测试保证不会在 git 仓库外运行。 </para>
 
 <!--
     <para>To test the results, issue:</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 -->
-    <para>Install the package, and create symlinks for
-    compatibility with Module-Init-Tools (the package that previously handled
-    Linux kernel modules):</para>
+    <para>安装软件包并创建符号链接使兼容 Module-Init-Tools(之前处理 Linux 内核模块的软件包)：</para>
 
 <screen><userinput remap="install">make install
 
@@ -98,32 +92,29 @@ ln -sv kmod /bin/lsmod</userinput></screen>
   </sect2>
 
   <sect2 id="contents-kmod" role="content">
-    <title>Contents of Kmod</title>
+    <title>Kmod 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed library</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
-        <seg>depmod (link to kmod), insmod (link to kmod), kmod, 
-        lsmod (link to kmod), modinfo (link to kmod), modprobe (link to kmod),
-        and rmmod (link to kmod)</seg>
+        <seg>depmod (链接到 kmod), insmod (链接到 kmod), kmod,
+        lsmod (链接到 kmod), modinfo (链接到 kmod), modprobe (链接到 kmod),
+        和 rmmod (链接到 kmod)</seg>
         <seg>libkmod.so</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="depmod">
         <term><command>depmod</command></term>
         <listitem>
-          <para>Creates a dependency file based on the symbols it finds in the
-          existing set of modules; this dependency file is used by
-          <command>modprobe</command> to automatically load the required
-          modules</para>
+          <para>基于从已有的模块集上发现的符号创建依赖文件；<command>modprobe</command> 用该依赖文件自动加载所需模块</para>
           <indexterm zone="ch-system-kmod depmod">
             <primary sortas="b-depmod">depmod</primary>
           </indexterm>
@@ -133,7 +124,7 @@ ln -sv kmod /bin/lsmod</userinput></screen>
       <varlistentry id="insmod">
         <term><command>insmod</command></term>
         <listitem>
-          <para>Installs a loadable module in the running kernel</para>
+          <para>在运行的内核上安装可加载模块</para>
           <indexterm zone="ch-system-kmod insmod">
             <primary sortas="b-insmod">insmod</primary>
           </indexterm>
@@ -143,7 +134,7 @@ ln -sv kmod /bin/lsmod</userinput></screen>
       <varlistentry id="kmod">
         <term><command>kmod</command></term>
         <listitem>
-          <para>Loads and unloads kernel modules</para>
+          <para>加载或卸载内核模块</para>
           <indexterm zone="ch-system-kmod kmod">
             <primary sortas="b-kmod">kmod</primary>
           </indexterm>
@@ -153,7 +144,7 @@ ln -sv kmod /bin/lsmod</userinput></screen>
       <varlistentry id="lsmod">
         <term><command>lsmod</command></term>
         <listitem>
-          <para>Lists currently loaded modules</para>
+          <para>列出当前已加载模块</para>
           <indexterm zone="ch-system-kmod lsmod">
             <primary sortas="b-lsmod">lsmod</primary>
           </indexterm>
@@ -163,8 +154,7 @@ ln -sv kmod /bin/lsmod</userinput></screen>
       <varlistentry id="modinfo">
         <term><command>modinfo</command></term>
         <listitem>
-          <para>Examines an object file associated with a kernel module and
-          displays any information that it can glean</para>
+          <para>检查和内核模块相关联的目标文件并显示搜索到的任何信息</para>
           <indexterm zone="ch-system-kmod modinfo">
             <primary sortas="b-modinfo">modinfo</primary>
           </indexterm>
@@ -174,8 +164,7 @@ ln -sv kmod /bin/lsmod</userinput></screen>
       <varlistentry id="modprobe">
         <term><command>modprobe</command></term>
         <listitem>
-          <para>Uses a dependency file, created by
-          <command>depmod</command>, to automatically load relevant modules</para>
+          <para>用 <command>depmod</command> 创建的依赖文件自动加载相关模块</para>
           <indexterm zone="ch-system-kmod modprobe">
             <primary sortas="b-modprobe">modprobe</primary>
           </indexterm>
@@ -185,7 +174,7 @@ ln -sv kmod /bin/lsmod</userinput></screen>
       <varlistentry id="rmmod">
         <term><command>rmmod</command></term>
         <listitem>
-          <para>Unloads modules from the running kernel</para>
+          <para>从运行中的内核卸载模块</para>
           <indexterm zone="ch-system-kmod rmmod">
             <primary sortas="b-rmmod">rmmod</primary>
           </indexterm>
@@ -195,8 +184,7 @@ ln -sv kmod /bin/lsmod</userinput></screen>
       <varlistentry id="libkmod">
         <term><filename class="libraryfile">libkmod</filename></term>
         <listitem>
-          <para>This library is used by other programs to load and unload kernel
-           modules</para>
+          <para>其它程序使用该库加载或卸载内核模块</para>
           <indexterm zone="ch-system-kmod">
             <primary sortas="c-libkmod">libkmod</primary>
           </indexterm>
@@ -208,4 +196,3 @@ ln -sv kmod /bin/lsmod</userinput></screen>
   </sect2>
 
 </sect1>
-
