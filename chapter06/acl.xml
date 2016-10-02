@@ -23,9 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Acl package contains utilities to administer Access Control Lists,
-    which are used to define more fine-grained discretionary access rights for
-    files and directories.</para>
+    <para>Acl 软件包包含管理访问控制列表的工具，访问控制列表用于定义文件和目录更细粒度的自定义访问权限。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -40,48 +38,40 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Acl</title>
+    <title>安装 Acl</title>
 
-    <para>Modify the documentation directory so that it is a versioned
-    directory:</para>
+    <para>修改存放文档的目录，使它放在版本特定的目录：</para>
 
 <screen><userinput remap="pre">sed -i -e 's|/@pkg_name@|&amp;-@pkg_version@|' include/builddefs.in</userinput></screen>
 
-    <para>Fix some broken tests:</para>
+    <para>修复一些损坏的测试：</para>
 
 <screen><userinput remap="pre">sed -i "s:| sed.*::g" test/{sbits-restore,cp,misc}.test</userinput></screen>
 
-    <para>Additionally, fix a bug that causes <command>getfacl -e</command>
-    to segfault on overly long group name:</para>
+    <para>另外，修复一个组名称超长时会使 <command>getfacl -e</command> 出现段错误的错误：</para>
 
 <screen><userinput remap="pre">sed -i -e "/TABS-1;/a if (x > (TABS-1)) x = (TABS-1);" \
     libacl/__acl_to_any_text.c</userinput></screen>
 
-    <para>Prepare Acl for compilation:</para>
+    <para>准备编译 Acl：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr    \
             --disable-static \
             --libexecdir=/usr/lib</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>The Acl tests need to be run on a filesystem that supports access
-    controls after <application>Coreutils</application> has been built with the
-    Acl libraries.  If desired, return to this package and run <command>make -j1
-    tests</command> after <application>Coreutils</application> has been built
-    later in this chapter.</para>
+    <para>在用 Acl 库构建 <application>Coreutils</application> 后，Acl 测试才能在支持访问控制的文件系统上运行。如果需要的话，可以在本章后面构建完 <application>Coreutils</application> 之后回到这个软件包运行 <command>make -j1
+    tests</command> 进行测试。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install install-dev install-lib
 chmod -v 755 /usr/lib/libacl.so</userinput></screen>
 
-    <para>The shared library needs to be moved to
-    <filename class="directory">/lib</filename>, and as a result the
-    <filename class="extension">.so</filename> file in
-    <filename class="directory">/usr/lib</filename> will need to be recreated:</para>
+    <para>需要移动共享库到 <filename class="directory">/lib</filename>，因此需要重建 <filename class="directory">/usr/lib</filename>  中的 <filename class="extension">.so</filename> 文件：</para>
 
 <screen><userinput remap="install">mv -v /usr/lib/libacl.so.* /lib
 ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so</userinput></screen>
@@ -89,30 +79,29 @@ ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so</userinput><
   </sect2>
 
   <sect2 id="contents-acl" role="content">
-    <title>Contents of Acl</title>
+    <title>Acl 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed library</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序：</segtitle>
+      <segtitle>安装的库：</segtitle>
+      <segtitle>安装目录：</segtitle>
 
       <seglistitem>
-        <seg>chacl, getfacl, and setacl</seg>
+        <seg>chacl, getfacl, 和 setacl</seg>
         <seg>libacl.{a,so}</seg>
-        <seg>/usr/include/acl and /usr/share/doc/acl-&acl-version;</seg>
+        <seg>/usr/include/acl 和 /usr/share/doc/acl-&acl-version;</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="chacl">
         <term><command>chacl</command></term>
         <listitem>
-          <para>Changes the access control list of a file
-          or directory</para>
+          <para>更改文件或目录的访问控制列表</para>
           <indexterm zone="ch-system-acl chacl">
             <primary sortas="b-chacl">chacl</primary>
           </indexterm>
@@ -122,7 +111,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so</userinput><
       <varlistentry id="getfacl">
         <term><command>getfacl</command></term>
         <listitem>
-          <para>Gets file access control lists</para>
+          <para>获取文件访问控制列表</para>
           <indexterm zone="ch-system-acl getfacl">
             <primary sortas="b-getfacl">getfacl</primary>
           </indexterm>
@@ -132,7 +121,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so</userinput><
       <varlistentry id="setacl">
         <term><command>setacl</command></term>
         <listitem>
-          <para>Sets file access control lists</para>
+          <para>设置文件访问控制列表</para>
           <indexterm zone="ch-system-acl setacl">
             <primary sortas="b-setacl">setacl</primary>
           </indexterm>
@@ -142,7 +131,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so</userinput><
       <varlistentry id="libacl">
         <term><filename class="libraryfile">libacl</filename></term>
         <listitem>
-          <para>Contains the  library functions for manipulating Access Control Lists</para>
+          <para>包括用于管理访问控制列表的库函数</para>
           <indexterm zone="ch-system-acl libacl">
             <primary sortas="c-libacl">libacl</primary>
           </indexterm>

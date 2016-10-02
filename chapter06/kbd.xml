@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Kbd package contains key-table files, console fonts, and keyboard
-    utilities.</para>
+    <para>Kbd 软件包包含键表文件、控制台字体和键盘工具。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,31 +38,25 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Kbd</title>
+    <title>安装 Kbd</title>
 
-    <para>The behaviour of the Backspace and Delete keys is not consistent
-    across the keymaps in the Kbd package. The following patch fixes this
-    issue for i386 keymaps:</para>
+    <para>在 Kbd 软件包中退格键（Backspace）和删除键（Delete）的行为和键映射并不一致。 下面的补丁修复了 i386 键映射中的这个问题：</para>
 
 <screen><userinput remap="pre">patch -Np1 -i ../&kbd-backspace-patch;</userinput></screen>
 
-    <para>After patching, the Backspace key generates the character with code 127,
-    and the Delete key generates a well-known escape sequence.</para>
+    <para>打补丁后，退格键生成编码为 127 的字符，删除键会生成一个著名的转义序列。</para>
 
-    <para>Remove the redundant <command>resizecons</command> program (it requires
-    the defunct svgalib to provide the video mode files - for normal use
-    <command>setfont</command> sizes the console appropriately) together with its
-    manpage.</para>
+    <para>移除冗余的 <command>resizecons</command> 程序（它要求功能不全的 svglib 提供视频模式文件 - 用于正常使用 <command>setfont</command> 设置控制台字体大小）以及帮助手册。</para>
 
 <screen><userinput remap="pre">sed -i 's/\(RESIZECONS_PROGS=\)yes/\1no/g' configure
 sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in</userinput></screen>
 
-    <para>Prepare Kbd for compilation:</para>
+    <para>准备编译 Kbd：</para>
 
 <screen><userinput remap="configure">PKG_CONFIG_PATH=/tools/lib/pkgconfig ./configure --prefix=/usr --disable-vlock</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 <!--
       <varlistentry>
         <term><parameter>- -datadir=/lib/kbd</parameter></term>
@@ -77,31 +70,26 @@ sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in</userinput></screen>
       <varlistentry>
         <term><parameter>--disable-vlock</parameter></term>
         <listitem>
-          <para>This option prevents the vlock utility from being built, as it
-          requires the PAM library, which isn't available in the chroot
-          environment.</para>
+          <para>该选项防止编译 vlock 工具，因为它要求 chroot 环境中不可用的 PAM 库。</para>
        </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
     <note>
-      <para>For some languages (e.g., Belarusian) the Kbd package doesn't
-      provide a useful keymap where the stock <quote>by</quote> keymap assumes
-      the ISO-8859-5 encoding, and the CP1251 keymap is normally used. Users of
-      such languages have to download working keymaps separately.</para>
+      <para>由于通常使用的 CP1251 键映射假设使用 ISO-8859-5 编码，Kbd 软件包不能为某些语言（例如 Belarusian） 提供可用的键映射。 使用这样的语言需要单独下载能工作的键映射。</para>
     </note>
 
 <!--
@@ -114,7 +102,7 @@ sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in</userinput></screen>
 
 <screen><userinput remap="install">mv -v /usr/bin/{kbd_mode,loadkeys,openvt,setfont} /bin</userinput></screen>
 -->
-    <para>If desired, install the documentation:</para>
+    <para>如果需要的话，安装帮助文档：</para>
 
 <screen><userinput remap="install">mkdir -v       /usr/share/doc/kbd-&kbd-version;
 cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
@@ -122,33 +110,33 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
   </sect2>
 
   <sect2 id="contents-kbd" role="content">
-    <title>Contents of Kbd</title>
+    <title>Kbd 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>chvt, deallocvt, dumpkeys, fgconsole, getkeycodes, kbdinfo,
         kbd_mode, kbdrate, loadkeys, loadunimap,
-        mapscrn, openvt, psfaddtable (link to psfxtable), psfgettable (link to
-        psfxtable), psfstriptable (link to psfxtable), psfxtable, <!--resizecons,-->
+        mapscrn, openvt, psfaddtable (链接到 psfxtable), psfgettable (链接到
+        psfxtable), psfstriptable (链接到 psfxtable), psfxtable, <!--resizecons,-->
         setfont, setkeycodes, setleds, setmetamode,
-        showconsolefont, showkey, unicode_start, and unicode_stop</seg>
+        showconsolefont, showkey, unicode_start, 和 unicode_stop</seg>
         <seg>/usr/share/consolefonts, /usr/share/consoletrans, /usr/share/keymaps,
-        and /usr/share/unimaps</seg>
+        和 /usr/share/unimaps</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="chvt">
         <term><command>chvt</command></term>
         <listitem>
-          <para>Changes the foreground virtual terminal</para>
+          <para>更改前台虚拟终端</para>
           <indexterm zone="ch-system-kbd chvt">
             <primary sortas="b-chvt">chvt</primary>
           </indexterm>
@@ -158,7 +146,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="deallocvt">
         <term><command>deallocvt</command></term>
         <listitem>
-          <para>Deallocates unused virtual terminals</para>
+          <para>重新分配未使用的虚拟终端</para>
           <indexterm zone="ch-system-kbd deallocvt">
             <primary sortas="b-deallocvt">deallocvt</primary>
           </indexterm>
@@ -168,7 +156,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="dumpkeys">
         <term><command>dumpkeys</command></term>
         <listitem>
-          <para>Dumps the keyboard translation tables</para>
+          <para>转储键盘转换表</para>
           <indexterm zone="ch-system-kbd dumpkeys">
             <primary sortas="b-dumpkeys">dumpkeys</primary>
           </indexterm>
@@ -178,7 +166,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="fgconsole">
         <term><command>fgconsole</command></term>
         <listitem>
-          <para>Prints the number of the active virtual terminal</para>
+          <para>输出活动虚拟终端的数目</para>
           <indexterm zone="ch-system-kbd fgconsole">
             <primary sortas="b-fgconsole">fgconsole</primary>
           </indexterm>
@@ -188,7 +176,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="getkeycodes">
         <term><command>getkeycodes</command></term>
         <listitem>
-          <para>Prints the kernel scancode-to-keycode mapping table</para>
+          <para>输出内核扫描码到键码的映射表</para>
           <indexterm zone="ch-system-kbd getkeycodes">
             <primary sortas="b-getkeycodes">getkeycodes</primary>
           </indexterm>
@@ -198,7 +186,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="kbdinfo">
         <term><command>kbdinfo</command></term>
         <listitem>
-          <para>Obtains information about the status of a console</para>
+          <para>获取关于某个终端的状态信息</para>
           <indexterm zone="ch-system-kbd kbdinfo">
             <primary sortas="b-kbdinfo">kbdinfo</primary>
           </indexterm>
@@ -208,7 +196,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="kbd_mode">
         <term><command>kbd_mode</command></term>
         <listitem>
-          <para>Reports or sets the keyboard mode</para>
+          <para>报告或设置键盘模式</para>
           <indexterm zone="ch-system-kbd kbd_mode">
             <primary sortas="b-kbd_mode">kbd_mode</primary>
           </indexterm>
@@ -218,7 +206,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="kbdrate">
         <term><command>kbdrate</command></term>
         <listitem>
-          <para>Sets the keyboard repeat and delay rates</para>
+          <para>设置键盘重复和延迟速度</para>
           <indexterm zone="ch-system-kbd kbdrate">
             <primary sortas="b-kbdrate">kbdrate</primary>
           </indexterm>
@@ -228,7 +216,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="loadkeys">
         <term><command>loadkeys</command></term>
         <listitem>
-          <para>Loads the keyboard translation tables</para>
+          <para>加载键盘转换表</para>
           <indexterm zone="ch-system-kbd loadkeys">
             <primary sortas="b-loadkeys">loadkeys</primary>
           </indexterm>
@@ -238,7 +226,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="loadunimap">
         <term><command>loadunimap</command></term>
         <listitem>
-          <para>Loads the kernel unicode-to-font mapping table</para>
+          <para>加载内核 Unicode 到字体映射表</para>
           <indexterm zone="ch-system-kbd loadunimap">
             <primary sortas="b-loadunimap">loadunimap</primary>
           </indexterm>
@@ -248,9 +236,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="mapscrn">
         <term><command>mapscrn</command></term>
         <listitem>
-          <para>An obsolete program that used to load a user-defined output
-          character mapping table into the console driver; this is now done
-          by <command>setfont</command></para>
+          <para>用于加载用户定义的输出字符映射表到控制台驱动的过时程序；现在通过  <command>setfont</command> 完成</para>
           <indexterm zone="ch-system-kbd mapscrn">
             <primary sortas="b-mapscrn">mapscrn</primary>
           </indexterm>
@@ -260,7 +246,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="openvt">
         <term><command>openvt</command></term>
         <listitem>
-          <para>Starts a program on a new virtual terminal (VT)</para>
+          <para>在一个新的虚拟终端（VT）启动程序</para>
           <indexterm zone="ch-system-kbd openvt">
             <primary sortas="b-openvt">openvt</primary>
           </indexterm>
@@ -270,7 +256,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="psfaddtable">
         <term><command>psfaddtable</command></term>
         <listitem>
-          <para>Adds a Unicode character table to a console font</para>
+          <para>添加 Unicode 字符表到控制台字体</para>
           <indexterm zone="ch-system-kbd psfaddtable">
             <primary sortas="b-psfaddtable">psfaddtable</primary>
           </indexterm>
@@ -280,8 +266,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="psfgettable">
         <term><command>psfgettable</command></term>
         <listitem>
-          <para>Extracts the embedded Unicode character table from a console
-          font</para>
+          <para>从控制台字体抽取嵌入的 Unicode 字符表</para>
           <indexterm zone="ch-system-kbd psfgettable">
             <primary sortas="b-psfgettable">psfgettable</primary>
           </indexterm>
@@ -291,8 +276,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="psfstriptable">
         <term><command>psfstriptable</command></term>
         <listitem>
-          <para>Removes the embedded Unicode character table from a console
-          font</para>
+          <para>从控制台字体移除嵌入的 Unicode 字符表</para>
           <indexterm zone="ch-system-kbd psfstriptable">
             <primary sortas="b-psfstriptable">psfstriptable</primary>
           </indexterm>
@@ -302,7 +286,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="psfxtable">
         <term><command>psfxtable</command></term>
         <listitem>
-          <para>Handles Unicode character tables for console fonts</para>
+          <para>为控制台字体处理 Unicode 字符表</para>
           <indexterm zone="ch-system-kbd psfxtable">
             <primary sortas="b-psfxtable">psfxtable</primary>
           </indexterm>
@@ -322,8 +306,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="setfont">
         <term><command>setfont</command></term>
         <listitem>
-          <para>Changes the Enhanced Graphic Adapter (EGA) and Video Graphics
-          Array (VGA) fonts on the console</para>
+          <para>更改控制台的增强图形适配器（Enhanced Graphic Adapter,EGA）和视频图形阵列（Video Graphics Array,VGA）的字体</para>
           <indexterm zone="ch-system-kbd setfont">
             <primary sortas="b-setfont">setfont</primary>
           </indexterm>
@@ -333,8 +316,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="setkeycodes">
         <term><command>setkeycodes</command></term>
         <listitem>
-          <para>Loads kernel scancode-to-keycode mapping table entries; this is
-          useful if there are unusual keys on the keyboard</para>
+          <para>加载内核扫描码到键码映射表条目；键盘上有异常键时非常有用</para>
           <indexterm zone="ch-system-kbd setkeycodes">
             <primary sortas="b-setkeycodes">setkeycodes</primary>
           </indexterm>
@@ -344,7 +326,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="setleds">
         <term><command>setleds</command></term>
         <listitem>
-          <para>Sets the keyboard flags and Light Emitting Diodes (LEDs)</para>
+          <para>设置键盘标记和发光二极管（Light Emitting Diodes,LEDs）</para>
           <indexterm zone="ch-system-kbd setleds">
             <primary sortas="b-setleds">setleds</primary>
           </indexterm>
@@ -354,7 +336,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="setmetamode">
         <term><command>setmetamode</command></term>
         <listitem>
-          <para>Defines the keyboard meta-key handling</para>
+          <para>定义键盘元键处理</para>
           <indexterm zone="ch-system-kbd setmetamode">
             <primary sortas="b-setmetamode">setmetamode</primary>
           </indexterm>
@@ -364,7 +346,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="showconsolefont">
         <term><command>showconsolefont</command></term>
         <listitem>
-          <para>Shows the current EGA/VGA console screen font</para>
+          <para>显示当前 EGA/VGA 控制台屏幕字体</para>
           <indexterm zone="ch-system-kbd showconsolefont">
             <primary sortas="b-showconsolefont">showconsolefont</primary>
           </indexterm>
@@ -374,8 +356,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="showkey">
         <term><command>showkey</command></term>
         <listitem>
-          <para>Reports the scancodes, keycodes, and ASCII codes of the keys
-          pressed on the keyboard</para>
+          <para>报告键盘上按键的扫描码、键码以及 ASCII 码</para>
           <indexterm zone="ch-system-kbd showkey">
             <primary sortas="b-showkey">showkey</primary>
           </indexterm>
@@ -385,9 +366,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="unicode_start">
         <term><command>unicode_start</command></term>
         <listitem>
-          <para>Puts the keyboard and console in UNICODE mode [Don't use this
-          program unless your keymap file is in the ISO-8859-1 encoding. For
-          other encodings, this utility produces incorrect results.]</para>
+          <para>设置键盘和控制台为 UNICODE 模式[别用该程序，除非你的键映射文件是 ISO-8859-1 编码。对于其它编码，该工具会输出错误结果。]</para>
           <indexterm zone="ch-system-kbd unicode_start">
             <primary sortas="b-unicode_start">unicode_start</primary>
           </indexterm>
@@ -397,7 +376,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="unicode_stop">
         <term><command>unicode_stop</command></term>
         <listitem>
-          <para>Reverts keyboard and console from UNICODE mode</para>
+          <para>从 UNICODE 模式恢复键盘和控制台为原来模式</para>
           <indexterm zone="ch-system-kbd unicode_stop">
             <primary sortas="b-unicode_stop">unicode_stop</primary>
           </indexterm>

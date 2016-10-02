@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The M4 package contains a macro processor.</para>
+    <para>M4 软件包包含一个宏处理器。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,23 +38,23 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of M4</title>
+    <title>安装 M4</title>
 
-    <para>Prepare M4 for compilation:</para>
+    <para>准备编译 M4：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
     <para>The test-update-copyright.sh failure can safely be ignored.</para>
 
-    <para>Install the package:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
@@ -62,10 +62,10 @@
 
 
   <sect2 id="contents-m4" role="content">
-    <title>Contents of M4</title>
+    <title>M4 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed program</segtitle>
+      <segtitle>安装的程序：</segtitle>
 
       <seglistitem>
         <seg>m4</seg>
@@ -73,7 +73,7 @@
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
@@ -81,14 +81,7 @@
          <!-- Don't remove the extra space, it prevet a FOP warning. -->
         <term><command>m4 </command></term>
         <listitem>
-          <para>copies the given files while expanding the macros that they
-          contain [These macros are either built-in or user-defined and can
-          take any number of arguments. Besides performing macro expansion,
-          <command>m4</command> has built-in functions for including named
-          files, running Unix commands, performing integer arithmetic,
-          manipulating text, recursion, etc. The <command>m4</command> program
-          can be used either as a front-end to a compiler or as a macro processor
-          in its own right.]</para>
+          <para>复制给定的文件并扩展其中包括的宏[这些宏或者是内建的或是 用户定义的，可以有任何数目的参数。除了进行宏扩展，<command>m4</command> 还有用于包含命名文件、运行 Unix 命令、进行整数运算、操作文本、 递归等内建函数。 <command>m4</command> 程序可以作为一个编译器的前端，也可以作为一个宏处理器使用。]</para>
           <indexterm zone="ch-system-m4 m4">
             <primary sortas="b-m4">m4</primary>
           </indexterm>

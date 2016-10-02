@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Gzip package contains programs for compressing and decompressing
-    files.</para>
+    <para>Gzip 软件包包含用于压缩和解压文件的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,25 +38,25 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Gzip</title>
+    <title>安装 Gzip</title>
 
-    <para>Prepare Gzip for compilation:</para>
+    <para>准备编译 Gzip：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr --bindir=/bin</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Move some programs that do not need to be on the root filesystem:</para>
+    <para>移动不需要在根文件系统的程序：</para>
 
 <screen><userinput remap="install">mv -v /bin/{gzexe,uncompress,zcmp,zdiff,zegrep} /usr/bin
 mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
@@ -65,26 +64,26 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
   </sect2>
 
   <sect2 id="contents-gzip" role="content">
-    <title>Contents of Gzip</title>
+    <title>Gzip 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
         <seg>gunzip, gzexe, gzip, uncompress, zcat, zcmp, zdiff, zegrep, zfgrep,
-        zforce, zgrep, zless, zmore, and znew</seg>
+        zforce, zgrep, zless, zmore, 和 znew</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="gunzip">
         <term><command>gunzip</command></term>
         <listitem>
-          <para>Decompresses gzipped files</para>
+          <para>解压 gzip 压缩的文件</para>
           <indexterm zone="ch-system-gzip gunzip">
             <primary sortas="b-gunzip">gunzip</primary>
           </indexterm>
@@ -94,7 +93,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="gzexe">
         <term><command>gzexe</command></term>
         <listitem>
-          <para>Creates self-decompressing executable files</para>
+          <para>创建自解压可执行文件</para>
           <indexterm zone="ch-system-gzip gzexe">
             <primary sortas="b-gzexe">gzexe</primary>
           </indexterm>
@@ -104,7 +103,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="gzip">
         <term><command>gzip</command></term>
         <listitem>
-          <para>Compresses the given files using Lempel-Ziv (LZ77) coding</para>
+          <para>用 Lempel-Ziv(LZ77) 编码压缩指定文件</para>
           <indexterm zone="ch-system-gzip gzip">
             <primary sortas="b-gzip">gzip</primary>
           </indexterm>
@@ -114,7 +113,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="uncompress">
         <term><command>uncompress</command></term>
         <listitem>
-          <para>Decompresses compressed files</para>
+          <para>解压压缩文件</para>
           <indexterm zone="ch-system-gzip uncompress">
             <primary sortas="b-uncompress">uncompress</primary>
           </indexterm>
@@ -124,7 +123,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="zcat">
         <term><command>zcat</command></term>
         <listitem>
-          <para>Decompresses the given gzipped files to standard output</para>
+          <para>解压指定 gzip 压缩的文件到标准输出</para>
           <indexterm zone="ch-system-gzip zcat">
             <primary sortas="b-zcat">zcat</primary>
           </indexterm>
@@ -134,7 +133,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="zcmp">
         <term><command>zcmp</command></term>
         <listitem>
-          <para>Runs <command>cmp</command> on gzipped files</para>
+          <para>对 gzip 压缩的文件运行 <command>cmp</command> 命令</para>
           <indexterm zone="ch-system-gzip zcmp">
             <primary sortas="b-zcmp">zcmp</primary>
           </indexterm>
@@ -144,7 +143,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="zdiff">
         <term><command>zdiff</command></term>
         <listitem>
-          <para>Runs <command>diff</command> on gzipped files</para>
+          <para>对 gzip 压缩的文件运行 <command>diff</command> 命令</para>
           <indexterm zone="ch-system-gzip zdiff">
             <primary sortas="b-zdiff">zdiff</primary>
           </indexterm>
@@ -154,7 +153,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="zegrep">
         <term><command>zegrep</command></term>
         <listitem>
-          <para>Runs <command>egrep</command> on gzipped files</para>
+          <para>对 gzip 压缩的文件运行 <command>egrep</command> 命令</para>
           <indexterm zone="ch-system-gzip zegrep">
             <primary sortas="b-zegrep">zegrep</primary>
           </indexterm>
@@ -164,7 +163,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="zfgrep">
         <term><command>zfgrep</command></term>
         <listitem>
-          <para>Runs <command>fgrep</command> on gzipped files</para>
+          <para>对 gzip 压缩的文件运行 <command>fgrep</command> 命令</para>
           <indexterm zone="ch-system-gzip zfgrep">
             <primary sortas="b-zfgrep">zfgrep</primary>
           </indexterm>
@@ -174,10 +173,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="zforce">
         <term><command>zforce</command></term>
         <listitem>
-          <para>Forces a <filename class="extension">.gz</filename> extension on
-          all given files that are gzipped files, so that <command>gzip</command>
-          will not compress them again; this can be useful when file names were
-          truncated during a file transfer</para>
+          <para>强制所有指定的 gzip 压缩文件的扩展名为 <filename class="extension">.gz</filename>，这样 <command>gzip</command> 就不会对它们再次压缩；这在文件传输中文件名被截断时非常有用</para>
           <indexterm zone="ch-system-gzip zforce">
             <primary sortas="b-zforce">zforce</primary>
           </indexterm>
@@ -187,7 +183,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="zgrep">
         <term><command>zgrep</command></term>
         <listitem>
-          <para>Runs <command>grep</command> on gzipped files</para>
+          <para>对 gzip 压缩的文件运行 <command>grep</command> 命令</para>
           <indexterm zone="ch-system-gzip zgrep">
             <primary sortas="b-zgrep">zgrep</primary>
           </indexterm>
@@ -197,7 +193,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="zless">
         <term><command>zless</command></term>
         <listitem>
-          <para>Runs <command>less</command> on gzipped files</para>
+          <para>对 gzip 压缩的文件运行 <command>less</command> 命令</para>
           <indexterm zone="ch-system-gzip zless">
             <primary sortas="b-zless">zless</primary>
           </indexterm>
@@ -207,7 +203,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="zmore">
         <term><command>zmore</command></term>
         <listitem>
-          <para>Runs <command>more</command> on gzipped files</para>
+          <para>对 gzip 压缩的文件运行 <command>more</command> 命令</para>
           <indexterm zone="ch-system-gzip zmore">
             <primary sortas="b-zmore">zmore</primary>
           </indexterm>
@@ -217,10 +213,7 @@ mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</userinput></screen>
       <varlistentry id="znew">
         <term><command>znew</command></term>
         <listitem>
-          <para>Re-compresses files from <command>compress</command> format to
-          <command>gzip</command> format&mdash;<filename
-          class="extension">.Z</filename> to <filename
-          class="extension">.gz</filename></para>
+          <para>从 <command>compress</command> 格式到 <command>gzip</command> 格式重新压缩文件format&mdash;<filename class="extension">.Z</filename> 到 <filename class="extension">.gz</filename></para>
           <indexterm zone="ch-system-gzip znew">
             <primary sortas="b-znew">znew</primary>
           </indexterm>

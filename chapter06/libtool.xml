@@ -23,9 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Libtool package contains the GNU generic library support script.
-    It wraps the complexity of using shared libraries in a consistent, portable
-    interface.</para>
+    <para>Libtool 软件包包含 GNU 通用库支持脚本。它用一致的、可移植的接口封装复杂的共享库。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -40,25 +38,23 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Libtool</title>
+    <title>安装 Libtool</title>
 
-    <para>Prepare Libtool for compilation:</para>
+    <para>准备编译 Libtool：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results (about 11.0 SBU), issue:</para>
+    <para>用以下命令测试结果(大约 11.0 SBU)：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Five tests are known to fail in the LFS build envronment due
-    to a circular dependency, but all tests pass if rechecked after 
-    automake is installed.</para>
+    <para>在 LFS 构建环境中已知有 5 个测试由于循环依赖会失败，但如果安装完 automake 之后重新检查，所有测试就都能通过。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
@@ -66,29 +62,29 @@
 
 
   <sect2 id="contents-libtool" role="content">
-    <title>Contents of Libtool</title>
+    <title>Libtool 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序：</segtitle>
+      <segtitle>安装的库：</segtitle>
+      <segtitle>安装目录：</segtitle>
 
       <seglistitem>
-        <seg>libtool and libtoolize</seg>
+        <seg>libtool 和 libtoolize</seg>
         <seg>libltdl.{a,so}</seg>
-        <seg>/usr/include/libltdl and /usr/share/libtool</seg>
+        <seg>/usr/include/libltdl 和 /usr/share/libtool</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="libtool">
         <term><command>libtool</command></term>
         <listitem>
-          <para>Provides generalized library-building support services</para>
+          <para>提供通用库编译支持服务</para>
           <indexterm zone="ch-system-libtool libtool">
             <primary sortas="b-libtool">libtool</primary>
           </indexterm>
@@ -98,8 +94,7 @@
       <varlistentry id="libtoolize">
         <term><command>libtoolize</command></term>
         <listitem>
-          <para>Provides a standard way to add <command>libtool</command>
-          support to a package</para>
+          <para>提供添加 <command>libtool</command> 支持到软件包的一个标准方法</para>
           <indexterm zone="ch-system-libtool libtoolize">
             <primary sortas="b-libtoolize">libtoolize</primary>
           </indexterm>
@@ -109,7 +104,7 @@
       <varlistentry id="libltdl">
         <term><filename class="libraryfile">libltdl</filename></term>
         <listitem>
-          <para>Hides the various difficulties of dlopening libraries</para>
+          <para>埋藏 dlopen 库的诸多难处</para>
           <indexterm zone="ch-system-libtool libltdl">
             <primary sortas="c-libltdl">libltdl</primary>
           </indexterm>

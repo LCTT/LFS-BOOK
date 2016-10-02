@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Gperf generates a perfect hash function from a key set.</para>
+    <para>Gperf 为键集合生成完美的哈希函数。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,33 +38,31 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Gperf</title>
+    <title>安装 Gperf</title>
 
-    <para>Prepare Gperf for compilation:</para>
+    <para>准备编译 Gperf：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/gperf-&gperf-version;</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>The tests are known to fail if running multiple
-    simultaneous tests (-j option greater than 1). To test
-    the results, issue:</para>
+    <para>该测试已知在运行多任务同时测试（即 -j 选项大于 1）时会失败。用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make -j1 check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-gperf" role="content">
-    <title>Contents of Gperf</title>
+    <title>Gperf 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed program</segtitle>
+      <segtitle>安装的程序：</segtitle>
 
       <seglistitem>
         <seg>gperf</seg>
@@ -72,14 +70,15 @@
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍
+</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="gperf">
         <term><command>gperf</command></term>
         <listitem>
-          <para>Generates a perfect hash from a key set</para>
+          <para>为键集合生成完美哈希</para>
           <indexterm zone="ch-system-gperf gperf">
             <primary sortas="b-gperf">gperf</primary>
           </indexterm>
