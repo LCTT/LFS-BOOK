@@ -54,7 +54,7 @@
 <screen><computeroutput>UTF-8</computeroutput></screen>
 
   <para>根据以上输出，我们再次修改 <filename>/etc/locale.conf</filename>，
-  将字符映射表设置为标准形式（<quote>zh_CN.utf8</quote> 变为 </quote>zh_CN.UTF-8</quote>）。
+  将字符映射表设置为标准形式（<quote>zh_CN.utf8</quote> 变为 <quote>zh_CN.UTF-8</quote>）。
   同理，也可一并查询以下设置的标准命令，然后将其添加到 bash 的启动文件中
   （译者注：对于 bash 来说，启动文件为 <filename>.bashrc</filename>）。</para>
 
