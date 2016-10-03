@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
   <!ENTITY % general-entities SYSTEM "../general.ent">
@@ -8,49 +8,54 @@
 <sect1 id="ch-scripts-network">
   <?dbhtml filename="network.html"?>
 
-  <title>General Network Configuration</title>
+  <title>通用网络配置</title>
 
   <indexterm zone="ch-scripts-network">
-    <primary sortas="d-network">network</primary>
-  <secondary>configuring</secondary></indexterm>
+    <primary sortas="d-network">网络</primary>
+  <secondary>配置</secondary></indexterm>
 
-  <para>This section only applies if a network card is to be
-  configured.</para>
+  <para>本节仅在需要配置网卡时参考。</para>
 
   <sect2>
-    <title>Network Interface Configuration Files</title>
+    <title>网络接口配置文件</title>
 
-    <para>Starting with version 209, systemd ships a network configuration
-    daemon called <command>systemd-networkd</command> which can be used for
-    basic network configuration.</para>
+    <para>从版本 209 开始，systemd 提供了一个名为 <command>systemd-networkd</command> 命令用于处理基本的网络配置。</para>
 
-    <para>Configuration files for <command>systemd-networkd</command> can be
-    placed in <filename class="directory">/usr/lib/systemd/network</filename>
-    or <filename class="directory">/etc/systemd/network</filename>. Note that
-    files in <filename class="directory">/etc/systemd/network</filename> have
-    higher priority than the ones in
-    <filename class="directory">/usr/lib/systemd/network</filename>.</para>
+    <para><command>systemd-networkd</command> 的配置文件可能在 <filename class="directory">/usr/lib/systemd/network</filename> 或
+     <filename class="directory">/etc/systemd/network</filename> 中，其中 <filename class="directory">/usr/lib/systemd/network</filename>
+     中的配置文件优先级更高。</para>
 
-    <para>There are three types of configuration files:
-    <filename class="extension">.link</filename>,
-    <filename class="extension">.netdev</filename> and
-    <filename class="extension">.network</filename> files. For detailed
-    explanation about contents of the mentioned
-    configuration files, consult <filename>systemd-link(5)</filename>,
-    <filename>systemd-netdev(5)</filename> and
-    <filename>systemd-network(5)</filename> manual pages.</para>
+    <para>配置文件的类型有三种，分别是：<filename class="extension">.link</filename>，
+    <filename class="extension">.netdev</filename> 和
+    <filename class="extension">.network</filename>。可以通过查阅 man 手册的 <filename>systemd-link(5)</filename>，
+    <filename>systemd-netdev(5)</filename> 和
+    <filename>systemd-network(5)</filename> 获得更多关于这些配置文件的详细介绍。</para>
 
-    <note><para>Udev may assign network card interface names based
-    on system physical characteristics such as enp2s1. If you are
-    not sure what your interface name is, you can always run
-    <command>ip link</command> after you have booted your system.
-    </para></note>
+    <note><para>udev 可能根据你电脑的物理设备特性将网卡接口设置为不同的名称，比如 enp2s1。
+      如果你不能确定你的网卡名称，可以在系统启动后执行 <command>ip link</command> 命令查看。</para>
+      <para>
+  		译者注：通过执行 <command>ip link</command> 命令，你应该能够取得类似以下的输出：</para>
+  		<screen><literal>
+  		1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default
+  			link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+  		2: enp3s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT
+  			group default qlen 1000
+  			link/ether fc:aa:14:2d:db:a1 brd ff:ff:ff:ff:ff:ff
+  		3: wlp0s20u9: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DORMANT group
+  			default qlen 1000
+  			link/ether 0c:82:68:52:85:57 brd ff:ff:ff:ff:ff:ff
+  		</literal></screen>
+  		<para>其中斜体的部分就是物理网卡的名称。</para>
+  		<para>以下内容摘录于 ArchLinux wiki：</para>
+  		<para>对于有多块网卡的电脑，固定设备名称很重要。许多配置问题都是由于网络接口名称变化引起的。</para>
+  		<para>udev 负责给设备命名。Systemd v197 引入了可预测的网络接口名称自动给网络设备分配静态名称，
+        网络接口现在是以前缀 en（以太网）、wl（WLAN）、或者 ww（WWAN）附上一个自动生成的标识符，
+        产生了一个类似于 enp2s1 的条目。</para></note>
 
     <sect3 id="systemd-networkd-static">
-      <title>Static IP Configuration</title>
+      <title>静态 IP 配置</title>
 
-      <para>The command below creates a basic configuration file for
-      Static IP setup:</para>
+      <para>通过以下的命令创建静态 IP 的基本配置文件：</para>
 
 <screen role="nodump"><userinput>cat &gt; /etc/systemd/network/10-static-eth0.network &lt;&lt; "EOF"
 <literal>[Match]
@@ -62,15 +67,14 @@ Gateway=192.168.0.1
 DNS=192.168.0.1</literal>
 EOF</userinput></screen>
 
-      <para>More than one DNS entry can be specified in the configuration file.</para>
+      <para>在配置文件中，可以指定多个 DNS 条目。</para>
 
     </sect3>
 
     <sect3 id="systemd-networkd-dhcp">
-      <title>DHCP Configuration</title>
+      <title>DHCP 配置</title>
 
-      <para>The command below creates a basic configuration file for
-      DHCP setup:</para>
+      <para>通过以下的命令创建 DHCP 的基本配置文件：</para>
 
 <screen role="nodump"><userinput>cat &gt; /etc/systemd/network/10-dhcp-eth0.network &lt;&lt; "EOF"
 <literal>[Match]
@@ -80,29 +84,25 @@ Name=eth0
 DHCP=yes</literal>
 EOF</userinput></screen>
 
-      <para>Note that <command>systemd-networkd</command> can only handle
-      DHCPv4. DHCPv6 support is a work in progress.</para>
+      <para>需要注意的是，当前 <command>systemd-networkd</command> 仅能够处理 DHCPv4。
+      DHCPv6 的支持正在快马加鞭的筹划中。</para>
 
     </sect3>
 
   </sect2>
 
   <sect2 id="resolv.conf">
-    <title>Creating the /etc/resolv.conf File</title>
+    <title>创建 /etc/resolv.conf 文件</title>
 
     <indexterm zone="resolv.conf">
       <primary sortas="e-/etc/resolv.conf">/etc/resolv.conf</primary>
     </indexterm>
 
-    <para>If the system is going to be connected to the Internet, it will
-    need some means of Domain Name Service (DNS) name resolution to
-    resolve Internet domain names to IP addresses, and vice versa. This is
-    best achieved by placing the IP address of the DNS server, available
-    from the ISP or network administrator, into
-    <filename>/etc/resolv.conf</filename>.</para>
+    <para>如果你的系统需要连接到互联网，它需要利用 DNS 服务将互联网域名解析为实际的 IP 地址，
+      反之亦然。最好的方法是将从 ISP 或者是网络管理员那里取得的 DNS 服务器地址填入
+      <filename>/etc/resolv.conf</filename>。</para>
 
-    <para>If static <filename>/etc/resolv.conf</filename> is desired, create
-    it by running the following command:</para>
+    <para>如果需要静态的 <filename>/etc/resolv.conf</filename> 文件，请使用以下命令：</para>
 
 <screen role="nodump"><userinput>cat &gt; /etc/resolv.conf &lt;&lt; "EOF"
 <literal># Begin /etc/resolv.conf
@@ -114,100 +114,89 @@ nameserver <replaceable>&lt;IP address of your secondary nameserver&gt;</replace
 # End /etc/resolv.conf</literal>
 EOF</userinput></screen>
 
-    <para>The <varname>domain</varname> statement can be omitted
-    or replaced with a <varname>search</varname> statement.  See the man page for
-    resolv.conf for more details.</para>
+    <para><varname>domain</varname> 声明可以忽略或者以 <varname>search</varname> 声明替换。
+    参考 man 手册的 resolv.conf 部分获得更多信息。</para>
 
-    <para>Replace <replaceable>&lt;IP address of the nameserver&gt;</replaceable>
-    with the IP address of the DNS most appropriate for the setup. There will
-    often be more than one entry (requirements demand secondary servers for
-    fallback capability). If you only need or want one DNS server, remove the
-    second <emphasis>nameserver</emphasis> line from the file. The IP address
-    may also be a router on the local network.</para>
+    <para>其中，<replaceable>&lt;IP address of the nameserver&gt;</replaceable> 替换为最合适的 DNS 的 IP 地址。
+    通常会有多个条目（需要备选服务器具有相关兼容性）。如果你只需要一台 DNS 服务器，
+    请不要输入第二行 <emphasis>nameserver</emphasis> 的内容。该 IP 地址也可以是本地网络中的一台路由。</para>
 
-    <note><para>The Google Public IPv4 DNS addresses are 8.8.8.8 and 8.8.4.4.</para></note>
+    <note><para>Google 公开 IPv4 DNS 解析服务器地址为 8.8.8.8 和 8.8.4.4.</para>
+          <para>（译者注：国内也有一些 IT 公司提供公开可用的 DNS 解析服务：</para>
+          <para>114 DNS：114.114.114.114 和 114.114.115.115</para>
+          <para>阿里 DNS：223.5.5.5 和 223.6.6.6</para>
+          <para>百度 DNS：180.76.76.76</para>
+          <para>OpenDNS：208.67.220.220）</para>
+    </note>
 
-    <para>When using <command>systemd-networkd</command> for network
-    configuration, another daemon, <command>systemd-resolved</command>,
-    is responsible for creating the <filename>/etc/resolv.conf</filename>
-    file. It is, however, placed in a non-standard location which is
-    writable since early boot, so it is necessary to create a symlink
-    to it by running the following command:</para>
+    <para>当使用 <command>systemd-networkd</command> 配置网络，另一个守护进程 <command>systemd-resolved</command>
+    将会创建 <filename>/etc/resolv.conf</filename> 文件。然后在早先版本中此文件的路径并不标准，
+    因此你需要使用以下的命令创建到标准位置的链接：</para>
 
 <screen><userinput>ln -sfv /run/systemd/resolve/resolv.conf /etc/resolv.conf</userinput></screen>
 
-    <para>This is required if you are specifying DNS entries in <filename
-    class="extension">.network</filename> files or using the built in
-    DHCP client to obtain DNS addresses.</para>
+    <para>对于在 <filename
+  class="extension">.network</filename> 文件中指定了 DNS 或者使用内置 DHCP 客户端获得
+  DNS 这两种情况，必须要做如上操作。</para>
 
   </sect2>
 
   <sect2 id="ch-scripts-hostname">
-    <title>Configuring the system hostname</title>
+    <title>配置系统主机名称</title>
 
     <indexterm zone="ch-scripts-hostname">
-      <primary sortas="d-hostname">hostname</primary>
-      <secondary>configuring</secondary>
+      <primary sortas="d-hostname">主机名</primary>
+      <secondary>配置</secondary>
     </indexterm>
 
-     <para>During the boot process, the file <filename>/etc/hostname</filename>
-     is used for establishing the system's hostname.</para>
+     <para>在系统启动过程中，<filename>/etc/hostname</filename> 文件用于创建系统的主机名称。</para>
 
-     <para>Create the <filename>/etc/hostname</filename> file and enter a
-     hostname by running:</para>
+     <para>通过以下命令创建 <filename>/etc/hostname</filename> 文件：</para>
 
 <screen><userinput>echo "<replaceable>&lt;lfs&gt;</replaceable>" &gt; /etc/hostname</userinput></screen>
 
-     <para><replaceable>&lt;lfs&gt;</replaceable> needs to be replaced with the
-     name given to the computer. Do not enter the Fully Qualified Domain Name
-     (FQDN) here. That information is put in the
-     <filename>/etc/hosts</filename> file.</para>
+     <para><replaceable>&lt;lfs&gt;</replaceable> 替换为你想要设置的名称。请不要输入完整域名（Fully Qualified Domain Name，FQDN），
+     它应该在 <filename>/etc/hosts</filename> 文件中。</para>
 
   </sect2>
 
   <sect2 id="ch-scripts-hosts">
-     <title>Customizing the /etc/hosts File</title>
+     <title>自定义 /etc/hosts 文件</title>
 
      <indexterm zone="ch-scripts-hosts">
        <primary sortas="e-/etc/hosts">/etc/hosts</primary>
      </indexterm>
-   
+
      <indexterm zone="ch-scripts-hosts">
-       <primary sortas="d-localnet">localnet</primary>
+       <primary sortas="d-localnet">本地网络</primary>
        <secondary>/etc/hosts</secondary>
      </indexterm>
-   
+
      <indexterm zone="ch-scripts-hosts">
-       <primary sortas="d-network">network</primary>
+       <primary sortas="d-network">网络</primary>
        <secondary>/etc/hosts</secondary>
      </indexterm>
-   
-     <para>Decide on the IP address, fully-qualified domain name (FQDN), and
-     possible aliases for use in the <filename>/etc/hosts</filename> file. The
-     syntax is:</para>
-   
+
+     <para>将确定IP地址、完整域名（Fully-Qualified Domain Name，FQDN）
+       和可能的别名填入 <filename>/etc/hosts</filename> 文件中。语法是：</para>
+
 <screen><literal>IP_address myhost.example.org aliases</literal></screen>
 
-     <para>Unless the computer is to be visible to the Internet (i.e., there is
-     a registered domain and a valid block of assigned IP addresses&mdash;most
-     users do not have this), make sure that the IP address is in the private
-     network IP address range. Valid ranges are:</para>
+     <para>除非当前电脑对互联网可见（即已经注册有域名且分配有效的 IP 段——放心吧，
+       大多数用户都没有），否则请确保 IP 地址位于专有网络 IP 段。有效的范围是：</para>
 
-<screen><literal>Private Network Address Range      Normal Prefix
+<screen><literal>私人网络地址范围      正常前缀
 10.0.0.1 - 10.255.255.254           8
 172.x.0.1 - 172.x.255.254           16
 192.168.y.1 - 192.168.y.254         24</literal></screen>
 
-     <para>x can be any number in the range 16-31. y can be any number in the
-     range 0-255.</para>
-   
-     <para>A valid private IP address could be 192.168.1.1. A valid FQDN for
-     this IP could be lfs.example.org.</para>
-   
-     <para>Even if not using a network card, a valid FQDN is still required.
-     This is necessary for certain programs to operate correctly.</para>
-   
-     <para>Create the  <filename>/etc/hosts</filename> file by running:</para>
+     <para>x 为 16-31 之间的任意值。Y 为 0-255 之间的任意值。</para>
+
+     <para>有效的专有 IP 地址形如 192.168.1.1，有效的完整域名形如 lfs.example.org。</para>
+
+     <para>就算没有网卡，也应该提供有效的完整域名，否则某些软件可能无法正常运行。</para>
+
+     <para>通过以下命令创建 <filename>/etc/hosts</filename> 文件：</para>
 
 <screen><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
 <literal># Begin /etc/hosts (network card version)
@@ -219,14 +208,12 @@ EOF</userinput></screen>
 # End /etc/hosts (network card version)</literal>
 EOF</userinput></screen>
 
-     <para>The <replaceable>&lt;192.168.0.2&gt;</replaceable> and
-     <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> values need to be
-     changed for specific uses or requirements (if assigned an IP address by a
-     network/system administrator and the machine will be connected to an
-     existing network). The optional alias name(s) can be omitted.</para>
-   
-     <para>If a network card is not going to be configured, create the
-     <filename>/etc/hosts</filename> file by running:</para>
+     <para><replaceable>&lt;192.168.0.2&gt;</replaceable> 和
+      <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> 应该更改为需要设置的值
+       （如果此 IP 地址是由网络/系统管理员分配的且电脑可以连接到存在的网络）。别名可以省略。</para>
+
+     <para>如果暂时不打算进行以上的配置，那直接运行下面的命令创建最通用的 <filename>/etc/hosts</filename> 文件：
+     </para>
 
 <screen role="nodump"><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
 <literal># Begin /etc/hosts (no network card version)
@@ -237,7 +224,7 @@ EOF</userinput></screen>
 # End /etc/hosts (no network card version)</literal>
 EOF</userinput></screen>
 
-     <para>The ::1 entry is the IPv6 counterpart of 127.0.0.1 and represents the IPv6 loopback interface.</para>
+     <para>::1 为 IPv6 对应的 127.0.0.1，且为 IPv6 的回环接口。</para>
 
    </sect2>
 
