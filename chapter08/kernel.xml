@@ -168,15 +168,11 @@ cp -r Documentation/* /usr/share/doc/linux-&linux-version;</userinput></screen>
       这样的话，就有可能会把软件包作者的用户 ID 对应到本机的某个用户上。从而这个用户就会拥有内核源代码的写权限。</para>
 
     <note>
-      <para>In many cases, the configuration of the kernel will need to be
-      updated for packages that will be installed later in BLFS.  Unlike
-      other packages, it is not necessary to remove the kernel source tree
-      after the newly built kernel is installed.</para>
+      <para>在很多情况下，内核的配置信息需要在稍后安装来自于 BLFS 的软件包后更新。
+        这和其他的软件包不同，在安装完成编译好的内核后不需要将内核源码树删除。</para>
 
-      <para>If the kernel source tree is going to be retained, run
-      <command>chown -R 0:0</command> on the <filename
-      class="directory">linux-&linux-version;</filename> directory to ensure
-      all files are owned by user <emphasis>root</emphasis>.</para>
+      <para>如果想要保留内核的源码树，在 <filename class="directory">linux-&linux-version;</filename>
+      下运行 <command>chown -R 0:0</command> 来确保所有文件的所有者都 <emphasis>root</emphasis>。</para>
     </note>
 
     <warning>
