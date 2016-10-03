@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version='1.0' encoding='utf-8'?>
 
 <!-- Notes:
      For empty *-home entities use " " not ""
@@ -521,7 +521,7 @@
 <!ENTITY shadow-size "1,558 KB">
 <!ENTITY shadow-url "http://pkg-shadow.alioth.debian.org/releases/shadow-&shadow-version;.tar.xz">
 <!ENTITY shadow-md5 "2bfafe7d4962682d31b5eba65dba4fc8">
-<!ENTITY shadow-home "http://pkg-shadow.alioth.debian.org/"> 
+<!ENTITY shadow-home "http://pkg-shadow.alioth.debian.org/">
 <!ENTITY shadow-ch6-du "43 MB">
 <!ENTITY shadow-ch6-sbu "0.2 SBU">
 
@@ -612,4 +612,3 @@
 <!ENTITY zlib-home "http://www.zlib.net/">
 <!ENTITY zlib-ch6-du "4.0 MB">
 <!ENTITY zlib-ch6-sbu "0.1 SBU">
-
