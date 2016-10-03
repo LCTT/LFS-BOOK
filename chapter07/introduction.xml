@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
   <!ENTITY % general-entities SYSTEM "../general.ent">
@@ -8,11 +8,9 @@
 <sect1 id="ch-scripts-introduction">
   <?dbhtml filename="introduction.html"?>
 
-  <title>Introduction</title>
+  <title>简介</title>
 
-  <para>This chapter discusses configuration files and systemd services.
-  First, the general configuration files needed to set up networking are
-  presented.</para>
+  <para>这一章将会讲解配置文件和 systemd 服务。首先，给出了设置网络需要的通用配置文件。</para>
 
   <itemizedlist>
      <listitem>
@@ -26,8 +24,7 @@
      </listitem>
   </itemizedlist>
 
-  <para>Second, issues that affect the proper setup of devices are
-  discussed.</para>
+  <para>然后，讨论可能影响正确的设备配置的问题。</para>
 
   <itemizedlist>
      <listitem>
@@ -38,7 +35,7 @@
      </listitem>
   </itemizedlist>
 
-  <para>Third, configuring the system clock and keyboard layout.</para>
+  <para>第三步，配置系统时间和键盘布局。</para>
 
   <itemizedlist>
      <listitem>
@@ -50,8 +47,7 @@
   </itemizedlist>
 
 
-  <para>Fourth, a brief introduction to the scripts and configuration
-  files used when the user logs into the system.</para>
+  <para>第四步，简单介绍当用户登录系统时用到的脚本和配置文件。</para>
 
   <itemizedlist>
      <listitem>
@@ -62,7 +58,7 @@
      </listitem>
   </itemizedlist>
 
-  <para>And finally, configuring the systemd behavior.</para>
+  <para>最后，配置 systemd。</para>
 
   <itemizedlist>
      <listitem>
