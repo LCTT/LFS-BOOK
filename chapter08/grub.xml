@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
   <!ENTITY % general-entities SYSTEM "../general.ent">
@@ -14,88 +14,62 @@
     <address>&grub-url;</address>
   </sect1info>
 
-  <title>Using GRUB to Set Up the Boot Process</title>
+  <title>使用 GRUB 设置启动过程</title>
 
   <sect2>
-    <title>Introduction</title>
+    <title>简介</title>
 
-    <warning><para>Configuring GRUB incorrectly can render your system
-    inoperable without an alternate boot device such as a CD-ROM.  This
-    section is not required to boot your LFS system.  You may just
-    want to modify your current boot loader, e.g. Grub-Legacy, GRUB2, or
-    LILO.</para></warning>
+    <warning><para>对 GRUB 进行错误的配置可能会导致在没有外置启动设备（某些USB设备，
+      某些 CD-ROM 等）的情况下无法正常的启动。你可能仅仅需要修改当前正在使用的引导器
+      （比如：Grub-Legacy，GRUB2 或 LILO 等）的配置。</para></warning>
 
 
-    <para> Ensure that an emergency boot disk is ready to <quote>rescue</quote>
-    the computer if the computer becomes unusable (un-bootable).  If you do not
-    already have a boot device, you can create one.  In order for the procedure
-    below to work, you need to jump ahead to BLFS and install
-    <userinput>xorriso</userinput> from the <ulink
-    url="&blfs-book;multimedia/libisoburn.html">
-    libisoburn</ulink> package.</para>
+    <para>一定要确保你有一个可以引导的光盘或者是 U 盘以备不时之需，否则万一电脑真的不能启动谁都救不了你。
+      如果你需要建立可引导的设备，可以按照以下方法操作（跳转到 BLFS 从
+      <ulink url="&blfs-book;multimedia/libisoburn.html"> libisoburn</ulink>软件包安装 <userinput>xorriso</userinput>）。</para>
 
-<screen role="nodump"><userinput>cd /tmp 
-grub-mkrescue --output=grub-img.iso 
+<screen role="nodump"><userinput>cd /tmp
+grub-mkrescue --output=grub-img.iso
 xorriso -as cdrecord -v dev=/dev/cdrw blank=as_needed grub-img.iso</userinput></screen>
 
   </sect2>
 
   <sect2>
-    <title>GRUB Naming Conventions</title>
+    <title>GRUB 命名约定</title>
 
-    <para>GRUB uses its own naming structure for drives and partitions in
-    the form of <emphasis>(hdn,m)</emphasis>, where <emphasis>n</emphasis>
-    is the hard drive number and <emphasis>m</emphasis> is the partition
-    number. The hard drive number starts from zero, but the partition number
-    starts from one for normal partitions and five for extended partitions.
-    Note that this is different from earlier versions where
-    both numbers started from zero. For example, partition <filename
-    class="partition">sda1</filename> is <emphasis>(hd0,1)</emphasis> to
-    GRUB and <filename class="partition">sdb3</filename> is
-    <emphasis>(hd1,3)</emphasis>. In contrast to Linux, GRUB does not
-    consider CD-ROM drives to be hard drives. For example, if using a CD
-    on <filename class="partition">hdb</filename> and a second hard drive
-    on <filename class="partition">hdc</filename>, that second hard drive
-    would still be <emphasis>(hd1)</emphasis>.</para>
+    <para>GRUB 对于硬盘和分区自有一套命名规则 <emphasis>(hdn,m)</emphasis>，
+    其中 <emphasis>n</emphasis> 是硬盘数，<emphasis>m</emphasis> 是分区号。
+    硬盘数 N 从 0 开始计数，分区数需要区别对待 —— 主分区从 1 开始计数而扩展分区从 5 开始计数。
+    需要注意的是，和早期版本相比，计数方式都有所变化。例如，分区 <filename class="partition">sda1</filename> 是 <emphasis>(hd0,1)</emphasis>，
+    <filename class="partition">sdb3</filename> 是 <emphasis>(hd1,3)</emphasis>。
+    Linux 下，并不将 CD-ROM 设备假想为硬盘。例如，就算已有 CD 设备挂载为 <filename class="partition">hdb</filename>，
+    第二块硬盘挂载为 <filename class="partition">hdc</filename>，GRUB 依旧将第二块硬盘称为 <emphasis>(hd1)</emphasis>。</para>
+
+    <para>（译者注：为什么这里扩展分区从 5 计数，可以查看 mbr 的相关知识。早期版本的 GRUB 是什么计算磁盘和分区数，我忘记了，不过，大家就记住新的就好啦。）</para>
 
   </sect2>
 
   <sect2>
-    <title>Setting Up the Configuration</title>
+    <title>配置配置文件Setting Up the Configuration</title>
 
-    <para>GRUB works by writing data to the first physical track of the
-    hard disk.  This area is not part of any file system.  The programs
-    there access GRUB modules in the boot partition.  The default location
-    is /boot/grub/.</para>
+    <para>GRUB 会将一些数据写入硬盘的第一个物理扇区。这一部分不属于任何一个操作系统，在启动时，
+      该部分数据激活，然后寻找 Grub 的模块，Grub 模块的默认位置为 /boot/grub/。</para>
 
-    <para>The location of the boot partition is a choice of the user that
-    affects the configuration.  One recommendation is to have a separate small
-    (suggested size is 100 MB) partition just for boot information.  That way
-    each build, whether LFS or some commercial distro, can access the same boot
-    files and access can be made from any booted system.  If you choose to do
-    this, you will need to mount the separate partition, move all files in the
-    current <filename class="directory">/boot</filename> directory (e.g. the
-    linux kernel you just built in the previous section) to the new partition.
-    You will then need to unmount the partition and remount it as <filename
-    class="directory">/boot</filename>.  If you do this, be sure to update
-    <filename>/etc/fstab</filename>.</para>
+    <para>一种建议是使用一个独立的小分区（建议大小 100MB）专用于引导信息。那样的话，每一个发行版，
+      不论是 LFS 还是其他的商业发行版，都能访问相同的引导文件而且任何已经启动的系统都能访问它。
+      如果你选择这么做，你需要挂载这个独立分区，移动所有的文件从当前的 <filename class="directory">/boot</filename> 目录
+      (比如说你上一节刚编译的 Linux 内核)到新的分区。你然后要卸载这个新分区，重新挂载它为 <filename class="directory">/boot</filename>。
+      如果你这么做，一定要更新 <filename>/etc/fstab</filename>。</para>
 
-    <para>Using the current lfs partition will also work, but configuration
-    for multiple systems is more difficult.</para>
+    <para>使用当前的 lfs 分区也没有什么问题，但是在配置多系统启动的时候有些不同。</para>
 
-    <para>Using the above information, determine the appropriate
-    designator for the root partition (or boot partition, if a separate
-    one is used). For the following example, it is assumed that the root
-    (or separate boot) partition is <filename
-    class="partition">sda2</filename>.</para>
+    <para>从以上信息可知，需要确定根分区的磁盘位置（如果使用单独的分区，则需要知道引导分区的磁盘位置），
+      以下假定根分区（或者是磁盘分区）是 <filename class="partition">sda2</filename>。</para>
 
-    <para>Install the GRUB files into <filename
-    class="directory">/boot/grub</filename> and set up the boot track:</para>
+    <para>将 GRUB 文件安装到 <filename class="directory">/boot/grub</filename> 然后设置启动扇区：</para>
 
     <warning>
-      <para>The following command will overwrite the current boot loader. Do not
-      run the command if this is not desired, for example, if using a third party
-      boot manager to manage the Master Boot Record (MBR).</para>
+      <para>以下命令将会覆盖已有的引导器。如无需要，请勿运行（比如已经有第三方引导器管理 MBR）。</para>
     </warning>
 
 <screen role="nodump"><userinput>grub-install /dev/sda</userinput></screen>
@@ -114,9 +88,17 @@ xorriso -as cdrecord -v dev=/dev/cdrw blank=as_needed grub-img.iso</userinput></
   </sect2>
 
   <sect2 id="grub-cfg">
-    <title>Creating the GRUB Configuration File</title>
+    <title>创建 GRUB 配置文件</title>
+    <note>
+      <para>译者注：</para>
+      <para>如果实在不知道怎么编写 grub.cfg 文件，或者担心误操作导致系统遭到破坏，可以在宿主系统中安装旧版本的内核，
+        如果有新版本内核也可以直接更新，安装内核的时候它会自动寻找可启动的操作系统，并把它们添加到 fstab 文件中，
+        这样，如果 LFS 配置都正确的话就会找到这个 LFS 系统并添加到 fstab 文件中，重启之后就可以发现 GRUB 菜单中已有 LFS 条目。
+        之后可以再删除这里安装的内核。
+      </para>
+    </note>
 
-    <para>Generate <filename>/boot/grub/grub.cfg</filename>:</para>
+    <para>创建 <filename>/boot/grub/grub.cfg</filename>:</para>
 
     <screen><userinput>cat &gt; /boot/grub/grub.cfg &lt;&lt; "EOF"
 <literal># Begin /boot/grub/grub.cfg
@@ -131,25 +113,16 @@ menuentry "GNU/Linux, Linux &linux-version;-lfs-&version;" {
 }</literal>
 EOF</userinput></screen>
 
-    <note><para>From <application>GRUB</application>'s perspective, the
-    kernel files are relative to the partition used.  If you
-    used a separate /boot partition, remove /boot from the above
-    <emphasis>linux</emphasis> line.  You will also need to change the
-    <emphasis>set root</emphasis> line to point to the boot partition.
-    </para></note>
+    <note><para>从 <application>GRUB</application> 的角度看，内核文件相当于一个分区，
+    所以假如你使用单独的 /boot 分区，请不要在 <emphasis>linux</emphasis> 行添加 /boot。
+    此外还需要将 <emphasis>set root</emphasis> 行指向 /boot 所在的实际分区。</para></note>
 
-    <para>GRUB is an extremely powerful program and it provides a tremendous
-    number of options for booting from a wide variety of devices, operating
-    systems, and partition types.  There are also many options for customization
-    such as graphical splash screens, playing sounds, mouse input, etc.  The
-    details of these options are beyond the scope of this introduction.</para>
+    <para>GRUB 功能十分强大，它提供了大量的用于从种类繁多的设备和操作系统以及不同的分区类型启动的选项。
+      此外还可以定制溅射屏幕、播放声音或者是鼠标等。很遗憾的是，这些功能超出本文的范畴，我们一概不予讨论。</para>
 
-    <caution><para>There is a command, <application>grub-mkconfig</application>, that
-    can write a configuration file automatically.  It uses a set of scripts in
-    /etc/grub.d/ and will destroy any customizations that you make.  These scripts
-    are designed primarily for non-source distributions and are not recommended for
-    LFS.  If you install a commercial Linux distribution, there is a good chance
-    that this program will be run.  Be sure to back up your grub.cfg file.</para></caution>
+    <caution><para><application>grub-mkconfig</application> 命令可以自动建立配置文件。
+    它使用位于 /etc/grub.d/ 下的一组脚本且将会忽略用户的设置。这些命令主要用于那些非源码编译的发行版，
+    所以不建议 LFS 用户使用此命令。如果你使用商业发行版，你可以试着运行这个命令（运行之前记得备份原来的 grub.cfg文件）。</para></caution>
 
    </sect2>
 
