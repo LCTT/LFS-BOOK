@@ -20,7 +20,7 @@
 <!ENTITY attr-md5 "84f58dec00b60f2dc8fd1c9709291cc7">
 <!ENTITY attr-home "&gnu-software;attr/">
 <!ENTITY attr-ch6-du "3.4 MB">
-<!ENTITY attr-ch6-sbu "less than 0.1 SBU">
+<!ENTITY attr-ch6-sbu "少于 0.1 SBU">
 
 <!ENTITY autoconf-version "2.69">
 <!ENTITY autoconf-size "1,186 KB">
@@ -37,7 +37,7 @@
 <!ENTITY automake-md5 "9a1ddb0e053474d9d1105cfe39b0c48d">
 <!ENTITY automake-home "&gnu-software;automake/">
 <!ENTITY automake-ch6-du "107 MB">
-<!ENTITY automake-ch6-sbu "less than 0.1 SBU (about 11.4 SBU with tests)">
+<!ENTITY automake-ch6-sbu "少于 0.1 SBU (about 11.4 SBU with tests)">
 
 <!ENTITY bash-version "4.3.30">
 <!ENTITY bash-size "7,7791 KB">
@@ -83,9 +83,9 @@
 <!ENTITY bzip2-md5 "00b516f4704d4a7cb50a1d97e6e8e15b">
 <!ENTITY bzip2-home "http://www.bzip.org/">
 <!ENTITY bzip2-ch5-du "5.7 MB">
-<!ENTITY bzip2-ch5-sbu "less than 0.1 SBU">
+<!ENTITY bzip2-ch5-sbu "少于 0.1 SBU">
 <!ENTITY bzip2-ch6-du "1.6 MB">
-<!ENTITY bzip2-ch6-sbu "less than 0.1 SBU">
+<!ENTITY bzip2-ch6-sbu "少于 0.1 SBU">
 
 <!ENTITY check-version "0.10.0">
 <!ENTITY check-size "752 KB">
@@ -119,7 +119,7 @@
 <!ENTITY dejagnu-md5 "5bda2cdb1af51a80aecce58d6e42bd2f">
 <!ENTITY dejagnu-home "&gnu-software;dejagnu/">
 <!ENTITY dejagnu-ch5-du "4.3 MB">
-<!ENTITY dejagnu-ch5-sbu "less than 0.1 SBU">
+<!ENTITY dejagnu-ch5-sbu "少于 0.1 SBU">
 
 <!ENTITY diffutils-version "3.3">
 <!ENTITY diffutils-size "1,170 KB">
@@ -255,7 +255,7 @@
 <!ENTITY gperf-md5 "c1f1db32fb6598d6a93e6e88796a8632">
 <!ENTITY gperf-home "&gnu-software;gperf/">
 <!ENTITY gperf-ch6-du "6.0 MB">
-<!ENTITY gperf-ch6-sbu "less than 0.1 SBU">
+<!ENTITY gperf-ch6-sbu "少于 0.1 SBU">
 
 <!ENTITY grep-version "2.21">
 <!ENTITY grep-size "1,232 KB">
@@ -299,7 +299,7 @@
 <!ENTITY iana-etc-md5 "3ba3afb1d1b261383d247f46cb135ee8">
 <!ENTITY iana-etc-home "http://freecode.com/projects/iana-etc">
 <!ENTITY iana-etc-ch6-du "2.2 MB">
-<!ENTITY iana-etc-ch6-sbu "less than 0.1 SBU">
+<!ENTITY iana-etc-ch6-sbu "少于 0.1 SBU">
 
 <!ENTITY inetutils-version "1.9.4">
 <!ENTITY inetutils-size "1,333 KB">
@@ -315,7 +315,7 @@
 <!ENTITY intltool-md5 "12e517cac2b57a0121cda351570f1e63">
 <!ENTITY intltool-home "http://freedesktop.org/wiki/Software/intltool">
 <!ENTITY intltool-ch6-du "1.2 MB">
-<!ENTITY intltool-ch6-sbu "less than 0.1 SBU">
+<!ENTITY intltool-ch6-sbu "少于 0.1 SBU">
 
 <!ENTITY iproute2-version "4.2.0">
 <!ENTITY iproute2-size "485 KB">
@@ -355,7 +355,7 @@
 <!ENTITY libcap-md5 "d43ab9f680435a7fff35b4ace8d45b80">
 <!ENTITY libcap-home "https://sites.google.com/site/fullycapable/">
 <!ENTITY libcap-ch6-du "1.4 MB">
-<!ENTITY libcap-ch6-sbu "less than 0.1 SBU">
+<!ENTITY libcap-ch6-sbu "少于 0.1 SBU">
 
 <!ENTITY libpipeline-version "1.4.1">
 <!ENTITY libpipeline-size "787 KB">
@@ -427,7 +427,7 @@
 <!ENTITY man-pages-md5 "6c5692af39eb5fe468a8bd1f110b0edd">
 <!ENTITY man-pages-home "http://www.kernel.org/doc/man-pages/">
 <!ENTITY man-pages-ch6-du "26 MB">
-<!ENTITY man-pages-ch6-sbu "less than 0.1 SBU">
+<!ENTITY man-pages-ch6-sbu "少于 0.1 SBU">
 
 <!ENTITY mpc-version "1.0.3">
 <!ENTITY mpc-size "655 KB">
@@ -497,7 +497,7 @@
 <!ENTITY psmisc-md5 "935c0fd6eb208288262b385fa656f1bf">
 <!ENTITY psmisc-home "http://psmisc.sourceforge.net/">
 <!ENTITY psmisc-ch6-du "4.2 MB">
-<!ENTITY psmisc-ch6-sbu "less than 0.1 SBU">
+<!ENTITY psmisc-ch6-sbu "少于 0.1 SBU">
 
 <!ENTITY readline-version "6.3">
 <!ENTITY readline-size "2,411 KB">
@@ -593,7 +593,7 @@
 <!ENTITY xml-parser-md5 "af4813fe3952362451201ced6fbce379">
 <!ENTITY xml-parser-home "https://github.com/chorny/XML-Parser">
 <!ENTITY xml-parser-ch6-du "2.0 MB">
-<!ENTITY xml-parser-ch6-sbu "less than 0.1 SBU">
+<!ENTITY xml-parser-ch6-sbu "少于 0.1 SBU">
 
 <!ENTITY xz-version "5.2.1">
 <!ENTITY xz-size "987 KB">
