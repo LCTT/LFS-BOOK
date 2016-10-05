@@ -86,8 +86,8 @@
     <title>pkg-config 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的软件：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的软件</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>pkg-config</seg>

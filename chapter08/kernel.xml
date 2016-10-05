@@ -218,8 +218,8 @@ EOF</userinput></screen>
     <title>Linux 的内容</title>
 
     <segmentedlist>
-      <segtitle>安装的文件：</segtitle>
-      <segtitle>安装的目录：</segtitle>
+      <segtitle>安装的文件</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>config-&linux-version;,

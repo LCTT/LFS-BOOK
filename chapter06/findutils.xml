@@ -79,7 +79,7 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
     <title>Findutils 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
         <seg>bigram, code, find, frcode, locate, oldfind, updatedb, 和 xargs</seg>

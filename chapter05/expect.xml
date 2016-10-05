@@ -108,8 +108,8 @@ sed 's:/usr/local/bin:/bin:' configure.orig &gt; configure</userinput></screen>
     <title> Expect 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的库：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>expect</seg>

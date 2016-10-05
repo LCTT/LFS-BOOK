@@ -60,8 +60,8 @@ find dest/include \( -name .install -o -name ..install.cmd \) -delete
     <title>Linux API 头文件内容</title>
 
     <segmentedlist>
-      <segtitle>安装的头文件：</segtitle>
-      <segtitle>安装的目录：</segtitle>
+      <segtitle>安装的头文件</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>/usr/include/asm/*.h、/usr/include/asm-generic/*.h、/usr/include/drm/*.h、/usr/include/linux/*.h、/usr/include/mtd/*.h、/usr/include/rdma/*.h、/usr/include/scsi/*.h、/usr/include/sound/*.h、/usr/include/video/*.h 和 /usr/include/xen/*.h</seg>

@@ -14,7 +14,7 @@
     <address>&linux-url;</address>
   </sect1info>
 
-  <title>Linux-&linux-version; API Headers</title>
+  <title>Linux-&linux-version; API 头文件</title>
 
   <indexterm zone="ch-tools-linux-headers">
     <primary sortas="a-Linux">Linux</primary>
@@ -43,14 +43,14 @@
   <sect2 role="installation">
     <title>安装 Linux API 头文件</title>
 
-    <para>Linux 内核需要展示供系统 C 库（在 LFS 中是 Glibc）使用的应用程序编程接口（ API）。 
+    <para>Linux 内核需要展示供系统 C 库（在 LFS 中是 Glibc）使用的应用程序编程接口（ API）。
         这通过在 Linux 内核源代码 tar 包中包括一些 C 头文件来完成。</para>
 
     <para>确认这里没有陈旧的文件且不依赖于之前的操作：</para>
 
 <screen><userinput remap="pre">make mrproper</userinput></screen>
 
-    <para>从源代码中提取用户可见的内核头文件。把他们保存在一个临时本地文件夹中然后复制到所需的位置， 
+    <para>从源代码中提取用户可见的内核头文件。把他们保存在一个临时本地文件夹中然后复制到所需的位置，
         因为解压过程会移除目标文件夹中任何已有的文件。</para>
 
 <screen><userinput remap="make">make INSTALL_HDR_PATH=dest headers_install

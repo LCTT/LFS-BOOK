@@ -64,7 +64,7 @@
 
     <segmentedlist>
       <segtitle>安装的程序</segtitle>
-      <segtitle>安装的库：</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>file</seg>

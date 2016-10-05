@@ -68,7 +68,7 @@
     <title>Grep 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
         <seg>egrep, fgrep, 和 grep</seg>
