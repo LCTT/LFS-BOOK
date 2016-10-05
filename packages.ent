@@ -37,11 +37,7 @@
 <!ENTITY automake-md5 "9a1ddb0e053474d9d1105cfe39b0c48d">
 <!ENTITY automake-home "&gnu-software;automake/">
 <!ENTITY automake-ch6-du "107 MB">
-<<<<<<< HEAD
 <!ENTITY automake-ch6-sbu "少于 0.1 SBU (包含测试大于 11.4 SBU)">
-=======
-<!ENTITY automake-ch6-sbu "少于 0.1 SBU (about 11.4 SBU with tests)">
->>>>>>> refs/remotes/LCTT/7.8-systemd-translating
 
 <!ENTITY bash-version "4.3.30">
 <!ENTITY bash-size "7,7791 KB">
