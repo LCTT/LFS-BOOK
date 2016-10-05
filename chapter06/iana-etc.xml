@@ -56,7 +56,7 @@
     <title>Iana-Etc 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的文件：</segtitle>
+      <segtitle>安装的文件</segtitle>
 
       <seglistitem>
         <seg>/etc/protocols 和 /etc/services</seg>

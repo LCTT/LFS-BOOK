@@ -82,9 +82,9 @@ ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so</userinput><
     <title>Acl 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>chacl, getfacl, 和 setacl</seg>

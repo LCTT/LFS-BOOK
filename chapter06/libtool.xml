@@ -65,9 +65,9 @@
     <title>Libtool 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>libtool 和 libtoolize</seg>

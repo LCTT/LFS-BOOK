@@ -76,9 +76,9 @@ ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</userinput
     <title>Attr 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>attr, getfattr, 和 setattr</seg>

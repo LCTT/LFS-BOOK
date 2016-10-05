@@ -24,12 +24,12 @@
 <!ENTITY anduin-sources  "&anduin;/LFS/lfs-packages/conglomeration/">
 <!ENTITY anduin-other    "&anduin;/other/">
 
-<!ENTITY buildtime       "大概编译时间：">
-<!ENTITY diskspace       "所需磁盘空间：">
-<!ENTITY dependencies    "安装必选依赖：">
-<!ENTITY testsuites      "测试套件依赖：">
-<!ENTITY before          "必须预先安装：">
-<!ENTITY external        "可供选择依赖：">
+<!ENTITY buildtime       "大概编译时间">
+<!ENTITY diskspace       "所需磁盘空间">
+<!ENTITY dependencies    "安装必选依赖">
+<!ENTITY testsuites      "测试套件依赖">
+<!ENTITY before          "必须预先安装">
+<!ENTITY external        "可供选择依赖">
 
 <!ENTITY gnu             "http://ftp.gnu.org/gnu/">
 <!ENTITY gnu-software    "http://www.gnu.org/software/">

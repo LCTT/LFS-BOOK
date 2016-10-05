@@ -76,8 +76,8 @@ make install-html</userinput></screen>
     <title>MPFR 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>libmpfr.{a,so}</seg>

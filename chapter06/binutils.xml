@@ -108,9 +108,9 @@ cd ../binutils-build</userinput></screen>
     <title>Binutils 内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>addr2line, ar, as, c++filt, elfedit, gprof, ld, ld.bfd, nm,

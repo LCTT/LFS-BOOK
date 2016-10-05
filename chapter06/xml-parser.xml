@@ -62,7 +62,7 @@
     <title>XML::Parser 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的模块：</segtitle>
+      <segtitle>安装的模块</segtitle>
 
       <seglistitem>
         <seg>Expat.so</seg>

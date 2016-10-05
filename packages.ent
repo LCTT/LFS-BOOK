@@ -37,7 +37,7 @@
 <!ENTITY automake-md5 "9a1ddb0e053474d9d1105cfe39b0c48d">
 <!ENTITY automake-home "&gnu-software;automake/">
 <!ENTITY automake-ch6-du "107 MB">
-<!ENTITY automake-ch6-sbu "少于 0.1 SBU (about 11.4 SBU with tests)">
+<!ENTITY automake-ch6-sbu "少于 0.1 SBU (包含测试大于 11.4 SBU)">
 
 <!ENTITY bash-version "4.3.30">
 <!ENTITY bash-size "7,7791 KB">
@@ -207,7 +207,7 @@
 <!ENTITY gcc-ch5p2-du "2.8 GB">
 <!ENTITY gcc-ch5p2-sbu "11.9 SBU">
 <!ENTITY gcc-ch6-du "311 GB ">
-<!ENTITY gcc-ch6-sbu "95.5 SBU (with tests)">
+<!ENTITY gcc-ch6-sbu "95.5 SBU (含测试)">
 
 <!ENTITY libstdcpp-ch5-du "850 MB">
 <!ENTITY libstdcpp-ch5-sbu "0.5 SBU">
@@ -385,8 +385,8 @@
 <!-- measured for 3.9.0 / gcc-4.8.0 on x86_64 : minimum is
  allnoconfig extended for a hopefully-bootable build on desktop machine,
  max is allyesconfig which requires openssl -->
-<!ENTITY linux-ch8-du "700 - 6800 MB (typically about 800-900 MB)">
-<!ENTITY linux-ch8-sbu "3.0 - 49.0 SBU (typically about 6 SBU)">
+<!ENTITY linux-ch8-du "700 - 6800 MB (一般约 800-900 MB)">
+<!ENTITY linux-ch8-sbu "3.0 - 49.0 SBU (一般约 6 SBU)">
 
 <!ENTITY linux-headers-ch5-du "707 MB">
 <!ENTITY linux-headers-ch5-sbu "0.2 SBU">

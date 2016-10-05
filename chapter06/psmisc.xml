@@ -65,7 +65,7 @@ mv -v /usr/bin/killall /bin</userinput></screen>
     <title>Psmisc 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
         <seg>fuser, killall, peekfd, prtstat, pstree, 和 pstree.x11 (链接到 pstree)</seg>

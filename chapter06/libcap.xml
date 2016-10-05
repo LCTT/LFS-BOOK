@@ -78,8 +78,8 @@ ln -sfv ../../lib/$(readlink /usr/lib/libcap.so) /usr/lib/libcap.so</userinput><
     <title>Libcap 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的库：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>capsh, getcap, getpcaps, 和 setcap</seg>

@@ -67,7 +67,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libz.so) /usr/lib/libz.so</userinput></scr
     <title>Zlib 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的库：</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>libz.{a,so}</seg>

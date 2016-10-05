@@ -114,7 +114,7 @@ mv -v /usr/bin/ifconfig /sbin</userinput></screen>
     <title>Inetutils 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
         <seg>ftp, ifconfig, hostname, ping, ping6, rcp, rexec, rlogin,

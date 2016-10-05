@@ -160,8 +160,8 @@ ln -sfv ../../lib/libshadow.so.0 /usr/lib/libshadow.so</userinput></screen> -->
     <title>Shadow 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>chage, chfn, chgpasswd, chpasswd, chsh, expiry, faillog, gpasswd,

@@ -14,7 +14,7 @@
     <address>&binutils-url;</address>
   </sect1info>
 
-  <title>Binutils-&binutils-version; - Pass 1</title>
+  <title>Binutils-&binutils-version; - 第 1 遍</title>
 
   <indexterm zone="ch-tools-binutils-pass1">
     <primary sortas="a-Binutils">Binutils</primary>

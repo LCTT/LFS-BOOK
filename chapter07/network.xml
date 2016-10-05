@@ -35,16 +35,14 @@
       如果你不能确定你的网卡名称，可以在系统启动后执行 <command>ip link</command> 命令查看。</para>
       <para>
   		译者注：通过执行 <command>ip link</command> 命令，你应该能够取得类似以下的输出：</para>
-  		<screen><literal>
-  		1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default
-  			link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-  		2: enp3s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP mode DEFAULT
-  			group default qlen 1000
-  			link/ether fc:aa:14:2d:db:a1 brd ff:ff:ff:ff:ff:ff
-  		3: wlp0s20u9: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP mode DORMANT group
-  			default qlen 1000
-  			link/ether 0c:82:68:52:85:57 brd ff:ff:ff:ff:ff:ff
-  		</literal></screen>
+  		<screen><literal>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default
+   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: enp3s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP mode DEFAULT
+   group default qlen 1000
+   link/ether fc:aa:14:2d:db:a1 brd ff:ff:ff:ff:ff:ff
+3: wlp0s20u9: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP mode DORMANT group
+   default qlen 1000
+   link/ether 0c:82:68:52:85:57 brd ff:ff:ff:ff:ff:ff</literal></screen>
   		<para>其中斜体的部分就是物理网卡的名称。</para>
   		<para>以下内容摘录于 ArchLinux wiki：</para>
   		<para>对于有多块网卡的电脑，固定设备名称很重要。许多配置问题都是由于网络接口名称变化引起的。</para>

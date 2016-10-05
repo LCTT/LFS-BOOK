@@ -137,9 +137,9 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
     <title>E2fsprogs 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>badblocks, chattr, compile_et, debugfs, dumpe2fs,e2freefrag,

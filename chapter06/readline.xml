@@ -93,8 +93,8 @@ ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so</us
     <title>Readline 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>libhistory.{a,so} 和 libreadline.{a,so}</seg>

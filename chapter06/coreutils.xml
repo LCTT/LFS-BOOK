@@ -136,9 +136,9 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
     <title>Coreutils 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>[, base64, basename, cat, chcon, chgrp, chmod, chown, chroot, cksum,

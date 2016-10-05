@@ -8,7 +8,7 @@
 <sect1 id="ch-scripts-locale">
   <?dbhtml filename="locale.html"?>
 
-  <title>UTF-8</title>
+  <title>配置系统语言环境</title>
 
   <indexterm zone="ch-scripts-locale">
     <primary sortas="e-etc-locale-conf">/etc/locale.conf</primary>

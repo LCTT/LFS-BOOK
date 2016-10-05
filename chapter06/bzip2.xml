@@ -92,9 +92,9 @@ ln -sv bzip2 /bin/bzcat</userinput></screen>
     <title>Bzip2 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>bunzip2 (链接到 bzip2), bzcat (链接到 bzip2), bzcmp (链接到

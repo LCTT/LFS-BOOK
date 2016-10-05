@@ -68,8 +68,8 @@ make -j4 check</userinput></screen>
     <title>关于 Automake 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的目录：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>aclocal, aclocal-&am-minor-version;, automake,

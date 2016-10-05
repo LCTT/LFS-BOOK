@@ -99,8 +99,8 @@ make install-html</userinput></screen>
     <title>GMP 内容</title>
 
     <segmentedlist>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>libgmp.{a,so} and libgmpxx.{a,so}</seg>

@@ -304,9 +304,9 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
     <title>Glibc 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装的库：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>catchsegv, gencat, getconf, getent, iconv, iconvconfig, ldconfig,

@@ -116,9 +116,9 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
     <title>Perl 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的程序：</segtitle>
-      <segtitle>安装的库：</segtitle>
-      <segtitle>安装目录：</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>a2p, c2ph, corelist, cpan, cpan2dist, cpanp,
