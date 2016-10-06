@@ -17,4 +17,6 @@
 
 ## 协作规范
 
-* 请参考 [CONTRIBUTING.md](CONTRIBUTING.md)
+![协作流程图](https://cdn.rawgit.com/vizv/LFS-BOOK/16ad31e95ab2bab4b974947f140ccaa7ede8cbdc/CONTRIBUTING.svg)
+
+* 详情请参考 [CONTRIBUTING.md](CONTRIBUTING.md)
