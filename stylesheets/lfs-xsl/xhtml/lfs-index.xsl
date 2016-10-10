@@ -50,19 +50,19 @@ $Date: 2013-12-10 19:37:38 -0400 (Tue, 10 Dec 2013) $
             <xsl:when test="$divtitle = 'A'">
               <a id="package-index" name="package-index"/>
               <xsl:call-template name="gentext">
-                <xsl:with-param name="key">Packages</xsl:with-param>
+                <xsl:with-param name="key">软件包</xsl:with-param>
               </xsl:call-template>
             </xsl:when>
             <xsl:when test="$divtitle = 'B'">
               <a id="program-index" name="program-index"/>
               <xsl:call-template name="gentext">
-                <xsl:with-param name="key">Programs</xsl:with-param>
+                <xsl:with-param name="key">可执行程序</xsl:with-param>
               </xsl:call-template>
             </xsl:when>
             <xsl:when test="$divtitle = 'C'">
               <a id="library-index" name="library-index"/>
               <xsl:call-template name="gentext">
-                <xsl:with-param name="key">Libraries</xsl:with-param>
+                <xsl:with-param name="key">库</xsl:with-param>
               </xsl:call-template>
             </xsl:when>
             <xsl:when test="$divtitle = 'D'">
@@ -70,13 +70,13 @@ $Date: 2013-12-10 19:37:38 -0400 (Tue, 10 Dec 2013) $
                 <xsl:when test="$book-type = 'blfs'">
                   <a id="kernel-config-index" name="kernel-config-index"/>
                   <xsl:call-template name="gentext">
-                    <xsl:with-param name="key">Kernel Configuration</xsl:with-param>
+                    <xsl:with-param name="key">内核配置文件</xsl:with-param>
                   </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
                   <a id="scripts-index" name="scripts-index"/>
                   <xsl:call-template name="gentext">
-                    <xsl:with-param name="key">Scripts</xsl:with-param>
+                    <xsl:with-param name="key">脚本</xsl:with-param>
                   </xsl:call-template>
                 </xsl:otherwise>
               </xsl:choose>
@@ -86,13 +86,13 @@ $Date: 2013-12-10 19:37:38 -0400 (Tue, 10 Dec 2013) $
                 <xsl:when test="$book-type = 'blfs'">
                   <a id="config-file-index" name="config-file-index"/>
                   <xsl:call-template name="gentext">
-                    <xsl:with-param name="key">Configuration Files</xsl:with-param>
+                    <xsl:with-param name="key">配置文件</xsl:with-param>
                   </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
                   <a id="other-index" name="other-index"/>
                   <xsl:call-template name="gentext">
-                    <xsl:with-param name="key">Others</xsl:with-param>
+                    <xsl:with-param name="key">其他</xsl:with-param>
                   </xsl:call-template>
                 </xsl:otherwise>
               </xsl:choose>
@@ -100,13 +100,13 @@ $Date: 2013-12-10 19:37:38 -0400 (Tue, 10 Dec 2013) $
             <xsl:when test="$divtitle = 'F'">
                 <a id="bootscript-index" name="bootscript-index"/>
                 <xsl:call-template name="gentext">
-                  <xsl:with-param name="key">Bootscripts</xsl:with-param>
+                  <xsl:with-param name="key">启动脚本</xsl:with-param>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$divtitle = 'G'">
               <a id="other-index" name="other-index"/>
               <xsl:call-template name="gentext">
-                <xsl:with-param name="key">Others</xsl:with-param>
+                <xsl:with-param name="key">其他</xsl:with-param>
               </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -229,7 +229,7 @@ $Date: 2013-12-10 19:37:38 -0400 (Tue, 10 Dec 2013) $
             </xsl:call-template>
           </xsl:attribute>
           <xsl:call-template name="gentext">
-            <xsl:with-param name="key">description</xsl:with-param>
+            <xsl:with-param name="key">描述</xsl:with-param>
           </xsl:call-template>
         </a>
         <br/>
