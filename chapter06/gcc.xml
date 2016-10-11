@@ -70,7 +70,7 @@ cd ../gcc-build</userinput></screen>
           <para>设置环境变量防止访问到硬编码的 /tools/bin/sed 路径。</para>
         </listitem>
       </varlistentry>
- 
+
       <varlistentry>
         <term><parameter>--with-system-zlib</parameter></term>
         <listitem>
@@ -118,7 +118,7 @@ cd ../gcc-build</userinput></screen>
 
 <screen><userinput remap="install">ln -sv gcc /usr/bin/cc</userinput></screen>
 
-    <para>增加一个兼容符号链接启用编译程序时进行链接时间优化（Link Time Optimization，LTO）：</para> 
+    <para>增加一个兼容符号链接启用编译程序时进行链接时间优化（Link Time Optimization，LTO）：</para>
 
 <screen><userinput remap="install">install -v -dm755 /usr/lib/bfd-plugins
 ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/&gcc-version;/liblto_plugin.so /usr/lib/bfd-plugins/</userinput></screen>
@@ -282,7 +282,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
