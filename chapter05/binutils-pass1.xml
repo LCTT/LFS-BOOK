@@ -41,36 +41,25 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Cross Binutils</title>
+    <title>安装交叉编译的 Binutils</title>
 
-    <note><para>Go back and re-read the notes in the previous section.
-    Understanding the notes labeled important will save you a lot
-    of problems later.</para></note>
+    <note><para>返回前面章节重新阅读注意事项。了解标记为重要的注意事项能在后面帮你节省很多问题。</para></note>
 
-    <para>It is important that Binutils be the first package compiled
-    because both Glibc and GCC perform various tests on the available
-    linker and assembler to determine which of their own features to
-    enable.</para>
+    <para>第一个编译 Binutils 软件包很重要，因为 Glibc 和 GCC 会对可用的链接器和汇编器执行各种测试以决定启用它们自己的哪些功能。</para>
 
-    <para>The Binutils documentation recommends building Binutils outside of the
-    source directory in a dedicated build directory:</para>
+    <para>Binutils 手册建议在源码目录之外一个专门的编译目录里面编译 Binutils：</para>
 
 <screen><userinput remap="pre">mkdir -v ../binutils-build
 cd ../binutils-build</userinput></screen>
 
     <note>
-      <para>In order for the SBU values listed in the rest of the book
-      to be of any use, measure the time it takes to build this package from
-      the configuration, up to and including the first install. To achieve
-      this easily, wrap the commands in a <command>time</command>
-      command like this: <userinput>time { ./configure ... &amp;&amp; ...
-      &amp;&amp; make install; }</userinput>.</para>
+      <para>为了衡量在本书中其余部分所使用 SBU 值，我们要测量一下这个软件包从配置到包括第一次安装在内的编译时间。为了轻松的做到这点，用类似 <userinput>time { ./configure ... &amp;&amp; ...
+      &amp;&amp; make install; }</userinput> 的方式将命令包装在  <command>time</command> 命令中。</para>
     </note>
 
-    <note><para>The approximate build SBU values and required disk space
-    in Chapter 5 does not include test suite data.</para></note>
+    <note><para>第五章中大概编译的 SBU 值和所需磁盘空间不包括测试套件数据。</para></note>
 
-    <para>Now prepare Binutils for compilation:</para>
+    <para>现在准备编译 Binutils：</para>
 
 <screen><userinput remap="configure">../binutils-&binutils-version;/configure     \
     --prefix=/tools            \
@@ -81,80 +70,65 @@ cd ../binutils-build</userinput></screen>
     --disable-werror</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--prefix=/tools</parameter></term>
         <listitem>
-          <para>This tells the configure script to prepare to install the
-          Binutils programs in the <filename class="directory">/tools</filename>
-          directory.</para>
+          <para>告诉配置脚本将 Binutils 程序安装到 <filename class="directory">/tools</filename> 文件夹。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--with-sysroot=$LFS</parameter></term>
         <listitem>
-          <para>For cross compilation, this tells the build system to look in
-          $LFS for the target system libraries as needed.</para>
+          <para>用于交叉编译，告诉编译系统在 $LFS 中查找所需的目标系统库。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--with-lib-path=/tools/lib</parameter></term>
         <listitem>
-          <para>This specifies which library path the linker should be
-          configured to use.</para>
+          <para>指定需要配置使用的链接器的库路径。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><envar>--target=$LFS_TGT</envar></term>
         <listitem>
-          <para>Because the machine description in the <envar>LFS_TGT</envar>
-          variable is slightly different than the value returned by the
-          <command>config.guess</command> script, this switch will tell the
-          <command>configure</command> script to adjust Binutil's build system
-          for building a cross linker.  </para>
+          <para>因为 <envar>LFS_TGT</envar> 变量中的机器描述和  <command>config.guess</command> 脚本返回的值略有不同，这个选项会告诉 <command>configure</command> 脚本调整 Binutils 的编译系统来编译一个交叉链接器。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-nls</parameter></term>
         <listitem>
-          <para>This disables internationalization as i18n is not needed for the
-          temporary tools.</para>
+          <para>这会禁止国际化（i18n），因为国际化对临时工具来说没有必要。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-werror</parameter></term>
         <listitem>
-          <para>This prevents the build from stopping in the event that there
-          are warnings from the host's compiler.</para>
+          <para>这会防止来自宿主编译器的警告事件导致停止编译。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Continue with compiling the package:</para>
+    <para>继续编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Compilation is now complete. Ordinarily we would now run the
-    test suite, but at this early stage the test suite framework (Tcl,
-    Expect, and DejaGNU) is not yet in place. The benefits of running the
-    tests at this point are minimal since the programs from this
-    first pass will soon be replaced by those from the second.</para>
+    <para>现在编译完成了。通常现在我们会运行测试套件，但在这个初期阶段，测试套件框架（Tcl、Expect 和 DejaGNU） 还没有就绪。在此进行测试的好处不多，因为第一遍编译的程序很快会被第二遍的代替。</para>
 
-    <para>If building on x86_64, create a symlink to ensure the sanity of
-    the toolchain:</para>
+    <para>如果是在 x86_64 上编译，创建符号链接，以确保工具链的完整性：</para>
 
 <screen><userinput remap="install">case $(uname -m) in
   x86_64) mkdir -v /tools/lib &amp;&amp; ln -sv lib /tools/lib64 ;;
 esac</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包:</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
@@ -163,8 +137,7 @@ esac</userinput></screen>
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
-    <xref linkend="contents-binutils" role="."/></para>
+    <para>该软件包的详细信息在 <xref linkend="contents-binutils" role="."/> 中。</para>
 
   </sect2>
 
