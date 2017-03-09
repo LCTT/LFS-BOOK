@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-gcc-pass1" role="wrap">
+  <?dbhtml filename="gcc-pass1.html"?>
+
+  <sect1info condition="script">
+    <productname>gcc</productname>
+    <productnumber>&gcc-version;</productnumber>
+    <address>&gcc-url;</address>
+  </sect1info>
+
+  <title>GCC-&gcc-version; - Pass 1</title>
+
+  <indexterm zone="ch-tools-gcc-pass1">
+    <primary sortas="a-GCC">GCC</primary>
+    <secondary>tools, pass 1</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/gcc.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&gcc-ch5p1-sbu;</seg>
+        <seg>&gcc-ch5p1-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Cross GCC</title>
+
+    <para>GCC now requires the GMP, MPFR and MPC packages. As these packages may
+    not be included in your host distribution, they will be built with
+    GCC.  Unpack each package into the GCC source directory and rename the
+    resulting directories so the GCC build procedures will automatically
+    use them:</para>
+
+    <note><para>There are frequent misunderstandings about this chapter.  The
+    procedures are the same as every other chapter as explained earlier (<xref
+    linkend='buildinstr'/>).  First extract the gcc tarball from the sources
+    directory and then change to the directory created.  Only then should you
+    proceed with the instructions below.</para></note>
+
+<screen><userinput remap="pre">tar -xf ../mpfr-&mpfr-version;.tar.xz
+mv -v mpfr-&mpfr-version; mpfr
+tar -xf ../gmp-&gmp-version;.tar.xz
+mv -v gmp-&gmp-version; gmp
+tar -xf ../mpc-&mpc-version;.tar.gz
+mv -v mpc-&mpc-version; mpc</userinput></screen>
+
+    <para>The following command will change the location of GCC's default
+    dynamic linker to use the one installed in <filename
+    class="directory">/tools</filename>. It also removes <filename
+    class="directory">/usr/include</filename> from GCC's include search path.
+    Issue:</para>
+
+<screen><userinput remap="pre">for file in gcc/config/{linux,i386/linux{,64}}.h
+do
+  cp -uv $file{,.orig}
+  sed -e 's@/lib\(64\)\?\(32\)\?/ld@/tools&amp;@g' \
+      -e 's@/usr@/tools@g' $file.orig &gt; $file
+  echo '
+#undef STANDARD_STARTFILE_PREFIX_1
+#undef STANDARD_STARTFILE_PREFIX_2
+#define STANDARD_STARTFILE_PREFIX_1 "/tools/lib/"
+#define STANDARD_STARTFILE_PREFIX_2 ""' &gt;&gt; $file
+  touch $file.orig
+done</userinput></screen>
+
+    <para>In case the above seems hard to follow, let's break it down a bit.
+    First we find all the files under the <filename
+    class="directory">gcc/config</filename> directory that are named either
+    <filename>linux.h</filename>, <filename>linux64.h</filename> or
+    <filename>sysv4.h</filename>.  For each file found, we copy it to a file of
+    the same name but with an added suffix of <quote>.orig</quote>. Then the
+    first sed expression prepends <quote>/tools</quote> to every instance of
+    <quote>/lib/ld</quote>, <quote>/lib64/ld</quote> or
+    <quote>/lib32/ld</quote>, while the second one replaces hard-coded
+    instances of <quote>/usr</quote>. Next, we add our define statements which
+    alter the default startfile prefix to the end of the file. Note that the
+    trailing <quote>/</quote> in <quote>/tools/lib/</quote> is required.
+    Finally, we use <command>touch</command> to update the timestamp on the
+    copied files.  When used in conjunction with <command>cp -u</command>, this
+    prevents unexpected changes to the original files in case the commands are
+    inadvertently run twice.</para>
+
+    <para>Finally, on x86_64 hosts, set the default directory name for
+    64-bit libraries to <quote>lib</quote>:</para>
+
+<screen><userinput remap="pre">case $(uname -m) in
+  x86_64)
+    sed -e '/m64=/s/lib64/lib/' \
+        -i.orig gcc/config/i386/t-linux64
+ ;;
+esac</userinput></screen>
+
+<!--
+    <para>GCC doesn't detect stack protection correctly, which causes problems
+    for the build of Glibc-&glibc-version;, so fix that by issuing the following
+    command:</para>
+
+<screen><userinput remap="pre">sed -i '/k prot/agcc_cv_libc_provides_ssp=yes' gcc/configure</userinput></screen>
+-->
+
+<!--
+    <para>Also fix a problem identified upstream:</para>
+
+<screen><userinput remap="pre">sed -i 's/if \((code.*))\)/if (\1 \&amp;\&amp; \!DEBUG_INSN_P (insn))/' gcc/sched-deps.c</userinput></screen>
+-->
+    <para>The GCC documentation recommends building GCC 
+    in a dedicated build directory:</para>
+
+<screen><userinput remap="pre">mkdir -v build
+cd       build</userinput></screen>
+
+    <para>Prepare GCC for compilation:</para>
+
+<screen><userinput remap="configure">../configure                                       \
+    --target=$LFS_TGT                              \
+    --prefix=/tools                                \
+    --with-glibc-version=2.11                      \
+    --with-sysroot=$LFS                            \
+    --with-newlib                                  \
+    --without-headers                              \
+    --with-local-prefix=/tools                     \
+    --with-native-system-header-dir=/tools/include \
+    --disable-nls                                  \
+    --disable-shared                               \
+    --disable-multilib                             \
+    --disable-decimal-float                        \
+    --disable-threads                              \
+    --disable-libatomic                            \
+    --disable-libgomp                              \
+    --disable-libmpx                               \
+    --disable-libquadmath                          \
+    --disable-libssp                               \
+    --disable-libvtv                               \
+    --disable-libstdcxx                            \
+    --enable-languages=c,c++</userinput></screen>
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--with-newlib</parameter></term>
+        <listitem>
+          <para>Since a working C library is not yet available, this ensures
+          that the inhibit_libc constant is defined when building libgcc. This prevents
+          the compiling of any code that requires libc support.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--without-headers</parameter></term>
+        <listitem>
+          <para>When creating a complete cross-compiler, GCC requires
+          standard headers compatible with the target system. For our
+          purposes these headers will not be needed. This switch prevents
+          GCC from looking for them.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-local-prefix=/tools</parameter></term>
+        <listitem>
+          <para>The local prefix is the location in the system that GCC will search
+          for locally installed include files. The default is <filename>/usr/local</filename>.
+          Setting this to <filename>/tools</filename> helps keep the host location of
+          <filename>/usr/local</filename> out of this GCC's search path.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-native-system-header-dir=/tools/include</parameter></term>
+        <listitem>
+          <para>By default GCC searches <filename>/usr/include</filename> for system
+          headers. In conjunction with the sysroot switch, this would translate normally
+          to <filename>$LFS/usr/include</filename>. However the headers that will be installed
+          in the next two sections will go to <filename>$LFS/tools/include</filename>. This
+          switch ensures that gcc will find them correctly. In the second pass of GCC, this
+          same switch will ensure that no headers from the host system are found.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-shared</parameter></term>
+        <listitem>
+          <para>This switch forces GCC to link its internal libraries
+          statically. We do this to avoid possible issues with the host
+          system.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-decimal-float, --disable-threads,
+        --disable-libatomic, --disable-libgomp, --disable-libmpx,
+        --disable-libquadmath, --disable-libssp, --disable-libvtv,
+        --disable-libstdcxx</parameter></term>
+        <listitem>
+          <para>These switches disable support for the decimal floating point
+          extension, threading, libatomic, libgomp, libmpx, libquadmath, libssp,
+          libvtv, and the C++ standard library respectively. These features
+          will fail to compile when building a cross-compiler and are not
+          necessary for the task of cross-compiling the temporary libc.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-multilib</parameter></term>
+        <listitem>
+          <para>On x86_64, LFS does not yet support a multilib configuration.
+          This switch is harmless for x86.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--enable-languages=c,c++</parameter></term>
+        <listitem>
+          <para>This option ensures that only the C and C++ compilers are built.
+          These are the only languages needed now.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile GCC by running:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Compilation is now complete. At this point, the test suite would
+    normally be run, but, as mentioned before, the test suite framework is
+    not in place yet. The benefits of running the tests at this point
+    are minimal since the programs from this first pass will soon be
+    replaced.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+<!--
+    <para>Using <parameter>- -disable-shared</parameter> means that the
+    <filename>libgcc_eh.a</filename> file isn't created and installed. The
+    Glibc package depends on this library as it uses
+    <parameter>-lgcc_eh</parameter> within its build system. This dependency
+    can be satisfied by creating a symlink to <filename>libgcc.a</filename>,
+    since that file will end up containing the objects normally contained in
+    <filename>libgcc_eh.a</filename>:</para>
+
+<screen><userinput remap="install">ln -sv libgcc.a `$LFS_TGT-gcc -print-libgcc-file-name | sed 's/libgcc/&amp;_eh/'`</userinput></screen>
+-->
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-gcc" role="."/></para>
+
+  </sect2>
+
+</sect1>

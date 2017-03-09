@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-pcre" role="wrap">
+  <?dbhtml filename="pcre.html"?>
+
+  <sect1info condition="script">
+    <productname>pcre</productname>
+    <productnumber>&pcre-version;</productnumber>
+    <address>&pcre-url;</address>
+  </sect1info>
+
+  <title>PCRE-&pcre-version;</title>
+
+  <indexterm zone="ch-system-pcre">
+    <primary sortas="a-PCRE">PCRE</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The PCRE package contains Perl Compatible Regular Expression
+    libraries. These are useful for implementing regular expression pattern
+    matching using the same syntax and semantics as Perl 5.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&pcre-ch6-sbu;</seg>
+        <seg>&pcre-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of PCRE</title>
+
+    <para>Prepare PCRE for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr \
+            --docdir=/usr/share/doc/pcre-&pcre-version; \
+            --enable-utf8 \
+            --enable-unicode-properties \
+            --enable-pcregrep-libz \
+            --enable-pcregrep-libbz2</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--enable-utf8</parameter></term>
+        <listitem>
+          <para>This switch includes the code for handling UTF-8 character
+                strings in the library.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><parameter>--enable-unicode-properties</parameter></term>
+        <listitem>
+          <para>This switch enables Unicode properties support.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><parameter>--enable-pcregrep-lib*</parameter></term>
+        <listitem>
+          <para>These switches enable the PCRE library to read files compressed
+          with <command>gzip</command> and <command>bzip2</command>.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>The <command>grep</command> binary will be installed in <filename class="directory">/bin</filename> and will link against the PCRE library; as such,
+move the library to <filename class="directory">/lib</filename>:</para>
+
+<screen><userinput remap="install">mv -v /usr/lib/libpcre.so.* /lib/
+ln -v -sf ../../lib/libpcre.so.0 /usr/lib/libpcre.so</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-pcre" role="content">
+    <title>Contents of PCRE</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed libraries</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>pcregrep, pcretest, and pcre-config</seg>
+        <seg>libpcre.{a,so}, libpcrecpp.{a,so} and libpcreposix.{a,so}</seg>
+        <seg>/usr/share/doc/pcre-&pcre-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="pcregrep">
+        <term><command>pcregrep</command></term>
+        <listitem>
+          <para>A grep that understands Perl compatible regular
+          expressions.</para>
+          <indexterm zone="ch-system-pcre pcregrep">
+            <primary sortas="b-pcre">pcregrep</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pcretest">
+        <term><command>pcretest</command></term>
+        <listitem>
+          <para>Tests a Perl compatible regular expression</para>
+          <indexterm zone="ch-system-pcre pcretest">
+            <primary sortas="b-pcretest">pcretest</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pcre-config">
+        <term><command>pcre-config</command></term>
+        <listitem>
+          <para>Used during the compilation process of programs linking to the
+          PCRE libraries</para>
+          <indexterm zone="ch-system-pcre pcre-config">
+            <primary sortas="b-pcre-config">pcre-config</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libpcre">
+        <term><filename class="libraryfile">libpcre</filename></term>
+        <listitem>
+          <para>Provides functions useful for working with regular
+          expressions</para>
+          <indexterm zone="ch-system-pcre libpcre">
+            <primary sortas="c-libpcre">libpcre</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libpcrecpp">
+        <term><filename class="libraryfile">libpcrecpp</filename></term>
+        <listitem>
+          <para>Provides C++ wrapper functions for the libpcre library</para>
+          <indexterm zone="ch-system-pcre libpcrecpp">
+            <primary sortas="c-libpcrecpp">libpcrecpp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libpcreposix">
+        <term><filename class="libraryfile">libpcreposix</filename></term>
+        <listitem>
+          <para>Provides wrapper functions based on the POSIX regular expression
+          API</para>
+          <indexterm zone="ch-system-pcre libpcreposix">
+            <primary sortas="c-libpcreposix">libpcreposix</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

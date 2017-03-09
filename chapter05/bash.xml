@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-bash" role="wrap">
+  <?dbhtml filename="bash.html"?>
+
+  <sect1info condition="script">
+    <productname>bash</productname>
+    <productnumber>&bash-version;</productnumber>
+    <address>&bash-url;</address>
+  </sect1info>
+
+  <title>Bash-&bash-version;</title>
+
+  <indexterm zone="ch-tools-bash">
+    <primary sortas="a-Bash">Bash</primary>
+    <secondary>tools</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/bash.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&bash-ch5-sbu;</seg>
+        <seg>&bash-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Bash</title>
+<!--
+    <para>First, apply the following patch to fix various bugs that have been
+    addressed upstream:</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&bash-fixes-patch;</userinput></screen>
+-->
+    <para>Prepare Bash for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/tools --without-bash-malloc</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--without-bash-malloc</parameter></term>
+        <listitem>
+          <para>This option turns off the use of Bash's memory allocation
+          (<function>malloc</function>) function which is known to cause
+          segmentation faults. By turning this option off, Bash will use
+          the <function>malloc</function> functions from Glibc which are
+          more stable.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Compilation is now complete. As discussed earlier, running the test
+    suite is not mandatory for the temporary tools here in this chapter. To run
+    the Bash test suite anyway, issue the following command:</para>
+
+
+<screen><userinput remap="test">make tests</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>Make a link for the programs that use <command>sh</command> for
+    a shell:</para>
+
+<screen><userinput remap="install">ln -sv bash /tools/bin/sh</userinput></screen>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-bash" role="."/></para>
+
+  </sect2>
+
+</sect1>

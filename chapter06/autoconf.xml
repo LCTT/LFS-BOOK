@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-autoconf" role="wrap">
+  <?dbhtml filename="autoconf.html"?>
+
+  <sect1info condition="script">
+    <productname>autoconf</productname>
+    <productnumber>&autoconf-version;</productnumber>
+    <address>&autoconf-url;</address>
+  </sect1info>
+
+  <title>Autoconf-&autoconf-version;</title>
+
+  <indexterm zone="ch-system-autoconf">
+    <primary sortas="a-Autoconf">Autoconf</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Autoconf package contains programs for producing shell scripts that
+    can automatically configure source code.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&autoconf-ch6-sbu;</seg>
+        <seg>&autoconf-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Autoconf</title>
+
+    <para>Prepare Autoconf for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>This takes a long time, about &autoconf-ch6-sbu-tests; SBUs. In addition,
+    several tests are skipped that use Automake. For full test coverage,
+    Autoconf can be re-tested after Automake has been installed.  In addition,
+    two tests fail due to changes in libtool-2.4.3 and later.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-autoconf" role="content">
+    <title>Contents of Autoconf</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>autoconf, autoheader, autom4te, autoreconf, autoscan, autoupdate,
+        and ifnames</seg>
+        <seg>/usr/share/autoconf</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="autoconf">
+        <term><command>autoconf</command></term>
+        <listitem>
+          <para>Produces shell scripts that automatically configure software
+          source code packages to adapt to many kinds of Unix-like systems;
+          the configuration scripts it produces are independent&mdash;running
+          them does not require the <command>autoconf</command> program</para>
+          <indexterm zone="ch-system-autoconf autoconf">
+            <primary sortas="b-autoconf">autoconf</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="autoheader">
+        <term><command>autoheader</command> </term>
+        <listitem>
+          <para>A tool for creating template files of C
+          <emphasis>#define</emphasis> statements for configure to use</para>
+          <indexterm zone="ch-system-autoconf autoheader">
+            <primary sortas="b-autoheader">autoheader</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="autom4te">
+        <term><command>autom4te</command></term>
+        <listitem>
+          <para>A wrapper for the M4 macro processor</para>
+          <indexterm zone="ch-system-autoconf autom4te">
+            <primary sortas="b-autom4te">autom4te</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="autoreconf">
+        <term><command>autoreconf</command></term>
+        <listitem>
+          <para>Automatically runs <command>autoconf</command>,
+          <command>autoheader</command>, <command>aclocal</command>,
+          <command>automake</command>, <command>gettextize</command>, and
+          <command>libtoolize</command> in the correct order to save time
+          when changes are made to <command>autoconf</command> and
+          <command>automake</command> template files</para>
+          <indexterm zone="ch-system-autoconf autoreconf">
+            <primary sortas="b-autoreconf">autoreconf</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="autoscan">
+        <term><command>autoscan</command> </term>
+        <listitem>
+          <para>Helps to create a <filename>configure.in</filename> file for a
+          software package; it examines the source files in a directory tree,
+          searching them for common portability issues, and creates a
+          <filename>configure.scan</filename> file that serves as as a
+          preliminary <filename>configure.in</filename> file for the
+          package</para>
+          <indexterm zone="ch-system-autoconf autoscan">
+            <primary sortas="b-autoscan">autoscan</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="autoupdate">
+        <term><command>autoupdate</command></term>
+        <listitem>
+          <para>Modifies a <filename>configure.in</filename> file that still
+          calls <command>autoconf</command> macros by their old names to use the
+          current macro names</para>
+          <indexterm zone="ch-system-autoconf autoupdate">
+            <primary sortas="b-autoupdate">autoupdate</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ifnames">
+        <term><command>ifnames</command> </term>
+        <listitem>
+          <para>Helps when writing <filename>configure.in</filename> files
+          for a software package; it prints the identifiers that the package
+          uses in C preprocessor conditionals [If a package has already been set
+          up to have some portability, this program can help determine what
+          <command>configure</command> needs to check for. It can also fill in
+          gaps in a <filename>configure.in</filename> file generated by
+          <command>autoscan</command>.]</para>
+          <indexterm zone="ch-system-autoconf ifnames">
+            <primary sortas="b-ifnames">ifnames</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-gcc-pass2" role="wrap">
+  <?dbhtml filename="gcc-pass2.html"?>
+
+  <sect1info condition="script">
+    <productname>gcc</productname>
+    <productnumber>&gcc-version;</productnumber>
+    <address>&gcc-url;</address>
+  </sect1info>
+
+  <title>GCC-&gcc-version; - Pass 2</title>
+
+  <indexterm zone="ch-tools-gcc-pass2">
+    <primary sortas="a-GCC">GCC</primary>
+    <secondary>tools, pass 2</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/gcc.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&gcc-ch5p2-sbu;</seg>
+        <seg>&gcc-ch5p2-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of GCC</title>
+
+    <para>Our first build of GCC has installed a couple of internal system
+    headers.  Normally one of them, <filename>limits.h</filename>, will in turn
+    include the corresponding system <filename>limits.h</filename> header, in
+    this case, <filename>/tools/include/limits.h</filename>. However, at the
+    time of the first build of gcc <filename>/tools/include/limits.h</filename>
+    did not exist, so the internal header that GCC installed is a partial,
+    self-contained file and does not include the extended features of the
+    system header. This was adequate for building the temporary libc, but this
+    build of GCC now requires the full internal header.  Create a full version
+    of the internal header using a command that is identical to what the GCC
+    build system does in normal circumstances:</para>
+
+<screen><userinput remap="pre">cat gcc/limitx.h gcc/glimits.h gcc/limity.h &gt; \
+  `dirname $($LFS_TGT-gcc -print-libgcc-file-name)`/include-fixed/limits.h</userinput></screen>
+<!--
+    <para>For x86 machines, the limited number of registers is a bottleneck
+    for the system.  Free one up by not using a frame pointer that is not
+    needed:</para>
+
+<screen><userinput remap="pre">case `uname -m` in
+  i?86) sed -i 's/^T_CFLAGS =$/&amp; -fomit-frame-pointer/' gcc/Makefile.in ;;
+esac</userinput></screen>
+-->
+    <para>Once again, change the location of GCC's default dynamic linker to
+    use the one installed in <filename
+    class="directory">/tools</filename>.</para>
+
+<screen><userinput remap="pre">for file in gcc/config/{linux,i386/linux{,64}}.h
+do
+  cp -uv $file{,.orig}
+  sed -e 's@/lib\(64\)\?\(32\)\?/ld@/tools&amp;@g' \
+      -e 's@/usr@/tools@g' $file.orig &gt; $file
+  echo '
+#undef STANDARD_STARTFILE_PREFIX_1
+#undef STANDARD_STARTFILE_PREFIX_2
+#define STANDARD_STARTFILE_PREFIX_1 "/tools/lib/"
+#define STANDARD_STARTFILE_PREFIX_2 ""' &gt;&gt; $file
+  touch $file.orig
+done</userinput></screen>
+
+    <para>If building on x86_64, change the default directory name for 64-bit
+    libraries to <quote>lib</quote>:</para>
+
+<screen><userinput remap="pre">case $(uname -m) in
+  x86_64)
+    sed -e '/m64=/s/lib64/lib/' \
+        -i.orig gcc/config/i386/t-linux64
+  ;;
+esac</userinput></screen>
+
+    <para>As in the first build of GCC it requires the GMP, MPFR and MPC
+    packages. Unpack the tarballs and move them into the required directory
+    names:</para>
+
+<screen><userinput remap="pre">tar -xf ../mpfr-&mpfr-version;.tar.xz
+mv -v mpfr-&mpfr-version; mpfr
+tar -xf ../gmp-&gmp-version;.tar.xz
+mv -v gmp-&gmp-version; gmp
+tar -xf ../mpc-&mpc-version;.tar.gz
+mv -v mpc-&mpc-version; mpc</userinput></screen>
+<!--
+    <para>As in the first build of GCC, fix a problem identified upstream:</para>
+
+<screen><userinput remap="pre">sed -i 's/if \((code.*))\)/if (\1 \&amp;\&amp; \!DEBUG_INSN_P (insn))/' gcc/sched-deps.c</userinput></screen>
+-->
+    <para>Create a separate build directory again:</para>
+
+<screen><userinput remap="pre">mkdir -v build
+cd       build</userinput></screen>
+
+    <para>Before starting to build GCC, remember to unset any environment
+    variables that override the default optimization flags.</para>
+
+    <para>Now prepare GCC for compilation:</para>
+
+<screen><userinput remap="configure">CC=$LFS_TGT-gcc                                    \
+CXX=$LFS_TGT-g++                                   \
+AR=$LFS_TGT-ar                                     \
+RANLIB=$LFS_TGT-ranlib                             \
+../configure                                       \
+    --prefix=/tools                                \
+    --with-local-prefix=/tools                     \
+    --with-native-system-header-dir=/tools/include \
+    --enable-languages=c,c++                       \
+    --disable-libstdcxx-pch                        \
+    --disable-multilib                             \
+    --disable-bootstrap                            \
+    --disable-libgomp</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the new configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--enable-languages=c,c++</parameter></term>
+        <listitem>
+          <para>This option ensures that both the C and C++ compilers are
+          built.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-libstdcxx-pch</parameter></term>
+        <listitem>
+          <para>Do not build the pre-compiled header (PCH) for
+          <filename class="libraryfile">libstdc++</filename>. It takes up a
+          lot of space, and we have no use for it.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-bootstrap</parameter></term>
+        <listitem>
+          <para>For native builds of GCC, the default is to do a "bootstrap"
+          build. This does not just compile GCC, but compiles it several times.
+          It uses the programs compiled in a first round to compile itself a
+          second time, and then again a third time.  The second and third
+          iterations are compared to make sure it can reproduce itself
+          flawlessly. This also implies that it was compiled correctly.
+          However, the LFS build method should provide a solid compiler
+          without the need to bootstrap each time.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>As a finishing touch, create a symlink. Many programs and scripts
+    run <command>cc</command> instead of <command>gcc</command>, which is
+    used to keep programs generic and therefore usable on all kinds of UNIX
+    systems where the GNU C compiler is not always installed. Running
+    <command>cc</command> leaves the system administrator free to decide
+    which C compiler to install:</para>
+
+<screen><userinput remap="install">ln -sv gcc /tools/bin/cc</userinput></screen>
+
+  <caution>
+    <para>At this point, it is imperative to stop and ensure that the basic
+    functions (compiling and linking) of the new toolchain are working as
+    expected. To perform a sanity check, run the following commands:</para>
+
+<screen><userinput>echo 'int main(){}' &gt; dummy.c
+cc dummy.c
+readelf -l a.out | grep ': /tools'</userinput></screen>
+
+    <para>If everything is working correctly, there should be no errors,
+    and the output of the last command will be of the form:</para>
+
+<screen><computeroutput>[Requesting program interpreter: /tools/lib/ld-linux.so.2]</computeroutput></screen>
+
+    <para>Note that <filename class="directory">/tools/lib</filename>, or
+    <filename class="directory">/tools/lib64</filename> for 64-bit machines
+    appears as the prefix of the dynamic linker.</para>
+
+    <para>If the output is not shown as above or there was no output at all,
+    then something is wrong. Investigate and retrace the steps to find out
+    where the problem is and correct it. This issue must be resolved before
+    continuing on. First, perform the sanity check again, using
+    <command>gcc</command> instead of <command>cc</command>. If this works,
+    then the <filename class="symlink">/tools/bin/cc</filename> symlink is
+    missing. Install the symlink as per above.
+    Next, ensure that the <envar>PATH</envar> is correct. This
+    can be checked by running <command>echo $PATH</command> and verifying that
+    <filename class="directory">/tools/bin</filename> is at the head of the
+    list. If the <envar>PATH</envar> is wrong it could mean that you are not
+    logged in as user <systemitem class="username">lfs</systemitem> or that
+    something went wrong back in <xref linkend="ch-tools-settingenviron"
+    role="."/></para>
+
+    <para>Once all is well, clean up the test files:</para>
+
+<screen><userinput>rm -v dummy.c a.out</userinput></screen>
+
+  </caution>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-gcc" role="."/></para>
+
+  </sect2>
+
+</sect1>

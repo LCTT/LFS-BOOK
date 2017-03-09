@@ -1,0 +1,72 @@
+#!/bin/sh
+########################################################################
+# Begin mountvirtfs
+#
+# Description : Mount proc, sysfs, and run
+#
+# Authors     : Gerard Beekmans - gerard@linuxfromscratch.org
+#               DJ Lucas - dj@linuxfromscratch.org
+# Update      : Bruce Dubbs - bdubbs@linuxfromscratch.org
+#
+# Version     : LFS 7.0
+#
+########################################################################
+
+### BEGIN INIT INFO
+# Provides:            mountvirtfs
+# Required-Start:
+# Should-Start:
+# Required-Stop:
+# Should-Stop:
+# Default-Start:       S
+# Default-Stop:
+# Short-Description:   Mounts /sys and /proc virtual (kernel) filesystems.
+#                      Mounts /run (tmpfs) and /dev (devtmpfs).
+# Description:         Mounts /sys and /proc virtual (kernel) filesystems.
+#                      Mounts /run (tmpfs) and /dev (devtmpfs).
+# X-LFS-Provided-By:   LFS
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+case "${1}" in
+   start)
+      # Make sure /run is available before logging any messages
+      if ! mountpoint /run >/dev/null; then
+         mount /run || failed=1
+      fi
+
+      mkdir -p /run/lock /run/shm
+      chmod 1777 /run/shm /run/lock
+
+      log_info_msg "Mounting virtual file systems: ${INFO}/run" 
+
+      if ! mountpoint /proc >/dev/null; then
+         log_info_msg2 " ${INFO}/proc"
+         mount -o nosuid,noexec,nodev /proc || failed=1
+      fi
+
+      if ! mountpoint /sys >/dev/null; then
+         log_info_msg2 " ${INFO}/sys" 
+         mount -o nosuid,noexec,nodev /sys || failed=1
+      fi
+
+      if ! mountpoint /dev >/dev/null; then
+         log_info_msg2 " ${INFO}/dev" 
+         mount -o mode=0755,nosuid /dev  || failed=1
+      fi
+
+      ln -sfn /run/shm /dev/shm
+      
+      (exit ${failed})
+      evaluate_retval
+      exit $failed
+      ;;
+
+   *)
+      echo "Usage: ${0} {start}"
+      exit 1
+      ;;
+esac
+
+# End mountvirtfs

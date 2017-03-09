@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-introduction" revision="sysv">
+  <?dbhtml filename="introduction.html"?>
+
+  <title>Introduction</title>
+
+    <para>Booting a Linux system involves several tasks.  The process must
+    mount both virtual and real file systems, initialize devices, activate swap,
+    check file systems for integrity, mount any swap partitions or files, set
+    the system clock, bring up networking, start any daemons required by the
+    system, and accomplish any other custom tasks needed by the user.  This
+    process must be organized to ensure the tasks are performed in the correct
+    order but, at the same time, be executed as fast as possible.</para>
+
+<!--    <para>In the packages that were installed in Chapter 6, there were two
+    different boot systems installed.  LFS provides the ability to easily
+    select which system the user wants to use and to compare and contrast the
+    two systems by actually running each system on the local computer.  The
+    advantages and disadvantages of these systems is presented below.</para>-->
+
+  <sect2 id='sysv-desc'>
+    <title>System V</title>
+
+    <para>System V is the classic boot process that has been used in Unix and
+    Unix-like systems such as Linux since about 1983.  It consists of a small
+    program, <command>init</command>, that sets up basic programs such as
+    <command>login</command> (via getty) and runs a script.  This script,
+    usually named <command>rc</command>,  controls the execution of a set of
+    additional scripts that perform the tasks required to initialize the
+    system.</para>
+
+    <para>The <command>init</command> program is controlled by the 
+    <filename>/etc/inittab</filename> file and is organized into run levels that
+    can be run by the user:</para>
+
+<literallayout>
+0 &mdash; halt
+1 &mdash; Single user mode
+2 &mdash; Multiuser, without networking
+3 &mdash; Full multiuser mode
+4 &mdash; User definable
+5 &mdash; Full multiuser mode with display manager
+6 &mdash; reboot
+</literallayout>
+
+    <para>The usual default run level is 3 or 5.</para>
+
+    <bridgehead renderas="sect3">Advantages</bridgehead>
+
+    <itemizedlist>
+      <listitem>
+          <para>Established, well understood system.</para>
+      </listitem>
+
+      <listitem>
+          <para>Easy to customize.</para>
+      </listitem>
+
+    </itemizedlist>
+
+
+    <bridgehead renderas="sect3">Disadvantages</bridgehead>
+
+    <itemizedlist>
+      <listitem>
+          <para>Slower to boot.  A medium speed base LFS system 
+          takes 8-12 seconds where the boot time is measured from the 
+          first kernel message to the login prompt.  Network 
+          connectivity is typically established about 2 seconds 
+          after the login prompt.</para>
+      </listitem>
+
+      <listitem>
+          <para>Serial processing of boot tasks. This is related to the previous
+          point.  A delay in any process such as a file system check, will
+          delay the entire boot process.</para>
+      </listitem>
+
+      <listitem>
+          <para>Does not directly support advanced features like
+          control groups (cgroups), and per-user fair share scheduling.</para>
+      </listitem>
+
+      <listitem>
+          <para>Adding scripts requires manual, static sequencing decisions.</para>
+      </listitem>
+
+    </itemizedlist>
+
+  </sect2>
+<!--
+  <sect2 id='sysd-desc'>
+    <title>Systemd</title>
+
+    <para>Systemd is a group of interconnected programs that handles system and
+    individual process requests.  It provides a dependency system between
+    various entities called "units".  It automatically addresses dependencies
+    between units and can execute several startup tasks in parallel.  It
+    provides login, inetd, logging, time, and networking services. </para>
+
+    <bridgehead renderas="sect3">Advantages</bridgehead>
+
+    <itemizedlist>
+      <listitem>
+          <para>Used on many established distributions by default.</para>
+      </listitem>
+
+      <listitem>
+          <para>There is extensive documentation. 
+          See <ulink url="http://www.freedesktop.org/wiki/Software/systemd/"/>.</para>
+      </listitem>
+
+      <listitem>
+          <para>Parallel execution of boot processes. A medium speed
+          base LFS system takes 6-10 seconds from kernel start to a 
+          login prompt.  Network connectivity is typically established 
+          about 2 seconds after the login prompt.  More complex startup
+          procedures may show a greater speedup when compared to System V.</para>
+      </listitem>
+
+      <listitem>
+          <para>Implements advanced features such as control groups to 
+          manage related processes.</para>
+      </listitem>
+
+      <listitem>
+          <para>Maintains backward compatibility with System V programs 
+          and scripts.</para>
+      </listitem>
+    </itemizedlist>
+
+    <bridgehead renderas="sect3">Disadvantages</bridgehead>
+
+    <itemizedlist>
+      <listitem>
+          <para>There is a substantial learning curve.</para>
+      </listitem>
+
+      <listitem>
+          <para>Some advanced features such as dbus or cgroups cannot be
+          disabled if they are not otherwise needed.</para>
+      </listitem>
+
+      <listitem>
+          <para>Although implemented as several executable programs
+          the user cannot choose to implement only the portions desired.</para>
+      </listitem>
+
+      <listitem>
+          <para>Due to the nature of using compiled programs, systemd is
+          more difficult to debug.</para>
+      </listitem>
+
+      <listitem>
+          <para>Logging is done in a binary format.  Extra tools must
+          be used to process logs or additional processes must be implemented
+          to duplicate traditional logging programs.</para>
+      </listitem>
+
+    </itemizedlist>
+
+  </sect2>
+-->
+<!--
+  <sect2 id='sysv'>
+    <title>Selecting a Boot Method</title>
+
+    <para>Selecting a boot method in LFS is relatively easy.  
+    Both systems are installed side-by-side.  The only task needed is to
+    ensure the files that are needed by the system have the correct names.
+    The following scripts do that.</para>
+
+<screen><userinput remap="install">cat &gt; /usr/sbin/set-systemd &lt;&lt; "EOF"
+#! /bin/bash
+
+ln -svfn init-systemd   /sbin/init
+ln -svfn init.d-systemd /etc/init.d
+
+for tool in halt poweroff reboot runlevel shutdown telinit; do
+  ln -sfvn  ${tool}-systemd   /sbin/${tool}
+  ln -svfn  ${tool}-systemd.8 /usr/share/man/man8/${tool}.8
+done
+
+echo "Now reboot with /sbin/reboot-sysv"
+EOF
+
+chmod 0744 /usr/sbin/set-systemd
+
+cat &gt; /usr/sbin/set-sysv &lt;&lt; "EOF"
+#! /bin/bash
+
+ln -sfvn init-sysv    /sbin/init
+ln -svfn init.d-sysv  /etc/init.d
+
+for tool in halt poweroff reboot runlevel shutdown telinit; do
+  ln -sfvn  ${tool}-sysv   /sbin/${tool}
+  ln -svfn  ${tool}-sysv.8 /usr/share/man/man8/${tool}.8
+done
+
+echo "Now reboot with /sbin/reboot-systemd"
+EOF
+
+chmod 0744 /usr/sbin/set-sysv</userinput></screen>
+
+  <note><para>The comment about the correct command to reboot in the 
+  above scripts is correct.  The reboot command for the current boot
+  system must be used after the script changes the default reboot command.
+  </para></note>
+
+  <para>Now set the desired boot system.  The default is System V:</para>
+
+<screen><userinput remap="install">/usr/sbin/set-sysv</userinput></screen>
+
+  <para>Changing the boot system can be done at any time by running the 
+  appropriate script above and rebooting.</para>
+
+  </sect2>
+-->
+</sect1>

@@ -1,0 +1,261 @@
+2014-03-02  <bdubbs@linuxfromscratch.org>
+   * Makefile.lfs: Remove build procedures leaving only LFS rules
+
+2014-02-16  <bdubbs@linuxfromscratch.org>
+   * Makefile.lfs: Adjust warning flags.  Adjust linking rules to
+     allow build with util-linux in LFS's /tools directory.
+
+2010-01-26	Matt Burgess <matthew@linuxfromscratch.org>
+	* 55-lfs.rules: Remove lots of rules that have been merged upstream.
+	* 61-cdrom.rules: Remove as upstream has a replacement.
+	* doc/*: Cleanup and rewrite now that the rules are much simpler.
+
+2009-09-25	Bryan Kadzban <bryan@linuxfromscratch.org>
+	* 55-lfs.rules: Make the RTC rule (which runs setclock) work for people
+	  that don't use the RTC-class driver -- add another copy of the rule,
+	  using KERNEL=="rtc" instead of SUBSYSTEM=="rtc".  Also move the ACTION
+	  match before the assignment to MODE.
+
+2009-05-23	Bruce Dubbs <bdubbs@linuxfromscratch.org>
+	* 55-lfs.rules: Set the rtc by udev upon boot.  Removed aio device from
+	  udev configuration so defaults are used.
+
+2009-05-16	Bryan Kadzban <bryan@linuxfromscratch.org>
+	* 55-lfs.rules: Adopt udev permissions for random, urandom, kmsg, and
+	  input devices (including psaux, which probably doesn't exist anymore
+	  anyway).
+
+2009-05-16	Matt Burgess <matthew@linuxfromscratch.org>
+	* 55-lfs.rules: Remove the block rule as it was only setting
+	  permissions that Udev will set by default
+	* 55-lfs.rules: Remove the rfcomm rule as the group it sets is already
+	  included in upstream's rule
+	* 55-lfs-rules: Remove the tape rules as the group they sets is already
+	  included in upstream's rules
+
+2009-03-15	Bryan Kadzban <bryan@linuxfromscratch.org>
+	* 55-lfs.rules: Remove the ISDN-handling rules (replaced with upstream's
+	  version, which has a better match via SUBSYSTEM).
+	* 55-lfs.rules: Replace "uucp" with "dialout" now that udev has decided
+	  to standardize on a Debian-like setup (uucp is for UUCP daemons to use
+	  for privilege separation; dialout is for users and devices).
+
+2008-12-07  Bruce Dubbs <bdubbs@linuxfromscratch.org>
+	* 55-lfs.rules: Change one line to use continuation so it does
+	  not overflow the book's width.
+
+2008-12-07  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 55-lfs.rules: Remove several rules that are either provided by upstream,
+	  or that don't have any effect (there is no /dev/js or /dev/djs according
+	  to devices.txt).
+	* 55-lfs.rules, 61-cdrom.rules: Replace ACTION=="add" with "add|change"
+	  everywhere, per upstream's general request.
+
+2008-11-11  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 55-lfs.rules, 61-cdrom.rules: Fix comments to use the right rule
+	  numbers.  Thanks to Trent Shea for the fix.  Closes #2278.
+
+2008-10-15  DJ Lucas <dj@linuxfromscratch.org>
+	* 55-lfs.rules: Override default perms on floppy disk devices provided
+	  by 50-udev-default.rules.  Thanks to Bruce Dubbs for the fix.  Closes
+	  LFS ticket #2076. 
+
+2008-05-21  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 81-firmware.rules, doc/81-firmware.txt: Remove.  This rule is
+	  already handled by udev's 50-udev-default.rules file.  The docs
+	  can be added back later if needed.
+	* Makefile: Don't install the above deleted files.
+	* 55-lfs.rules: Remove the device-mapper rule, since the upstream
+	  50-udev-default.rules file handles it properly.
+
+2008-04-02  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* Makefile: Make the package DESTDIR-friendly by installing the docs
+	  into a fixed $(PREFIX)/share/doc/udev-config directory, instead of
+	  trying to figure out what version of udev was just installed.
+
+2007-10-30  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 55-lfs.rules: Since the dialout group was renamed to uucp, delete
+	  the rules that override upstream's assignment of the dialout group.
+	  Replace "dialout" with "uucp" on the remaining rules.
+
+2007-10-29  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 51-lfs.rules: Move to 55-lfs.rules.
+	* doc/51-lfs.rules: Move to doc/55-lfs.rules.
+
+2007-10-27  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 25-lfs.rules: Some rules in here are duplicates of rules from udev's
+	  new 50-udev-defaults.rules file; remove them. Override permissions
+	  where needed elsewhere (and document overrides in comments).
+	* 26-modprobe.rules: Provided by udev's 80-drivers.rules and built-in
+	  modaliases for SCSI device-type modules in 2.6.22+ kernels; remove.
+
+	* 25-lfs.rules: Move to 51-lfs.rules.
+	* 27-firmware.rules: Move to 81-firmware.rules.
+	* 81-cdrom.rules: Move to 61-cdrom.rules.
+
+	* doc/25-lfs.txt: Rename to 51-lfs.txt.
+	* doc/26-modprobe.txt: Rename to 80-drivers.txt, and modify to reflect
+	  the upstream rules.
+	* doc/27-firmware.txt: Rename to 81-firmware.txt.
+	* doc/81-cdrom.txt: Rename to 61-cdrom.txt.
+
+	* Makefile: Use new filenames.
+
+2007-07-31  Dan Nicholson <dnicholson@linuxfromscratch.org>
+	* 25-lfs.rules: Changed the usb_device rule tto create /dev/bus/usb
+	  nodes if the usb_device in 2.6.22+ kernels. The rule was also changed
+	  to only trigger on "add" events. This change is not backwards
+	  compatible with older kernels.
+
+2007-06-12  Dan Nicholson <dnicholson@linuxfromscratch.org>
+	* 25-lfs.rules: Fix the CPUID nodes from cpu/%n/cpu to cpu/%n/cpuid,
+	  which is what's expected in userspace apps such as x86info.
+
+2007-06-08  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 25-lfs.rules: Add rules for DVB devices (create nodes in /dev/dvb/)
+	  and floppies (create extra nodes based on CMOS type), copied from
+	  the SuSE rules file.  Thanks to Alexander Patrakov for the bugreport.
+
+2007-03-04  Matthew Burgess	<matthew@linuxfromscratch.org>
+	* Makefile: Use `udevd --version' to work out what version of Udev is
+	  installed (requires Udev >= 106)
+
+2007-01-02  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 25-lfs.rules: Change CPU devices (cpu, msr, microcode) to be in
+	  /dev/cpu/ and /dev/cpu/N/, to match Documentation/devices.txt.
+
+2006-10-21  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* Makefile: Add a missing backslash in install-extra-doc.
+
+	* 05-udev-early.rules, 60-persistent-input.rules,
+	  60-persistent-storage.rules, 95-udev-late.rules: Remove.  The book
+	  will install these files from udev's etc/udev/rules.d directory
+	  instead.
+	* Makefile: Don't install these rules files after all.  Also, only
+	  install corresponding docs if requested.
+
+2006-10-20  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* Makefile: Added; contains targets to install rules and doc files.
+	  From Dan Nicholson.
+
+2006-10-14  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 05-udev-early.rules, 60-persistent-storage.rules: Sync up with
+	  upstream sample rules files (from udev-102), except for one rule
+	  which is more specific in our tarball and should probably be changed
+	  upstream. 
+	* doc/60-persistent-storage.txt: Modify to match the changes.  Also
+	  fix a couple typos.
+
+	* 25-lfs.rules: Remove duplicate rules (ttyS[0-9]* is also matched by
+	  tty[BC...S...][0-9]*, and ttyUSB[0-9]* is in there twice).
+
+	* 25-lfs.rules: Fix Alsa device KERNEL rules.  Udev uses shell-style
+	  glob matching, not regular expressions, so the old rules would match
+	  nonsense device names like hw0asdf and pcmDzxcv.  As long as the first
+	  character after the "fixed" portion was in the list, the rule would
+	  match; it wouldn't apply the same character range to later characters.
+
+	* doc/25-lfs.txt: Add a note on interaction between permissions and
+	  symlinks.
+
+2006-10-09  Bryan Kadzban  <bryan@linuxfromscrtach.org>
+	* 25-lfs.rules: Fix fb[0-9]* device permissions (should use the default
+	  0660).
+
+	* doc/25-lfs.txt: Fix typo: /dev/ptmx is given mode 0666, not 0660.
+	  Also tweak the comment about other TTY devices.
+
+2006-10-04  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 05-udev-early.rules: Remove WAIT_FOR_SYSFS="bus" rule.  With kernel
+	  2.6.18, this rule is no longer required.
+
+	* doc/05-udev-early.txt: Update to match.
+
+2006-09-28  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* doc/60-persistent-storage.txt: Explain persistent storage rules, or
+	  at least the parts I understand.  (I don't use DASD or netblock or
+	  several other supported configurations.)
+
+	* doc/81-cdrom.txt: Explain 81-cdrom.rules.
+
+	* doc/95-udev-late.txt: Explain 95-udev-late.rules.  Documentation is
+	  now finished.
+
+2006-09-26  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* doc/60-persistent-input.txt: Explain (in probably too much detail)
+	  60-persistent-input.rules.
+
+2006-09-24  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* doc/05-udev-early.txt: Rewrap to fit 80 columns.
+
+	* doc/26-modprobe.txt: Explain 26-modprobe.rules, and modaliases.
+
+	* doc/27-firmware.txt: Explain 27-firmware.rules.
+
+2006-09-24  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* doc/25-lfs.txt: Explain 25-lfs.rules.
+
+	* 25-lfs.rules: Use SYMLINK+= for isdn/capi20 also.
+
+2006-09-23  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* doc: New subdirectory to contain documentation of rules
+	* doc/README: New file, top-level documentation
+	* doc/*.txt: New documentation files, one for each rules file.  Only
+	  05-udev-early.txt has anything in it.
+
+2006-09-23  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 25-lfs.rules: Add "ignore_device" to OPTIONS for DRI devices, instead
+	  of setting NAME to an empty string.  This matches the way we ignore
+	  devmapper / LVM devices.
+
+2006-09-22  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 60-persistent-input.rules, 95-udev-late.rules: Import from udev-100.
+	  60-persistent-input.rules creates persistent symlinks for input
+	  devices, and 95-udev-late.rules enables udevmonitor.
+
+	* 60-persistent-storage.rules: Replace ATTRS{../removable} with just
+	  ATTRS{removable} on partition devices. Replace ATTRS{removable}
+	  with ATTR{removable} on whole-disk devices.
+
+2006-09-20  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* 05-early.rules: Missed a rule in the last change.  ENV{PHYSDEVBUS}
+	  in the rule that waits for the "bus" symlink should be replaced by
+	  SUBSYSTEMS.
+
+2006-09-20  Bryan Kadzban  <bryan@linuxfromscratch.org>
+	* Adapted rules to the new matches used in udev-098 and above (e.g.,
+	  SYSFS becomes ATTRS).  Prevents warnings, and support for the old
+	  matches will be removed eventually.  These rules will not work with
+	  udev-097 and before!
+	* Fixed several bugs in the rules left over from previous udev
+	  versions (missing commas, overwriting user symlinks using ="..."
+	  instead of +="...", and matching against "*" instead of "?*").
+
+	* Renamed CHANGELOG to ChangeLog, started using pseudo-GNU-format
+	  entries.  (See standards.info; search it for "changelog" to get
+	  the general gist.)
+
+dnicholson - Jul 14, 2006
+	* Fixed usbdev PROGRAM so that it works with the BusyBox sh. Thanks
+	  to Anthony Wright.
+
+n/a - Jul 12, 2006
+	* Added options so temporary nodes are not created with device-mapper
+	* Adapted cdrom rules to identify CD-ROM drives correctly by adding
+	  SUBSYSTEM=="block" test.
+	* Added simple 81-cdrom.rules file to set cdrom group ownership
+
+n/a - Jun 07, 2006
+	* Removed nvidia rules
+	* Removed bug reporting rule
+	* Moved Debian-based persistent CD-ROM rules to contrib
+	* Adapted firmware rule to udev-093
+
+n/a - May 15, 2006
+	* Part one of 25-lfs.rules rewrite
+	* Some minor tweaking of the layout
+
+n/a - May 12, 2006
+	* Initial import of the udev-config directory.
+	* Reorganized and modularized the rules files.
+	* Added explanatory comments

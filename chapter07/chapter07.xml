@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<chapter id="chapter-bootscripts" xreflabel="Chapter 7">
+  <?dbhtml dir="chapter07"?>
+  <?dbhtml filename="chapter07.html"?>
+
+  <title>System Configuration</title>
+
+  <!-- sysv -->
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bootscripts.xml"/>
+
+  <!-- systemd -->
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introductiond.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="networkd.xml"/>
+
+  <!-- common -->
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="udev.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="symlinks.xml"/>
+
+  <!-- sysv -->
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="network.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="usage.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="profile.xml"/>
+
+  <!-- systemd -->
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="clock.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="consoled.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="locale.xml"/>
+
+  <!-- common -->
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="inputrc.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="etcshells.xml"/>
+
+  <!-- systemd -->
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="systemd-custom.xml"/>
+
+</chapter>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  <!ENTITY checkfs            SYSTEM "checkfs.script">
+  <!ENTITY cleanfs            SYSTEM "cleanfs.script">
+  <!ENTITY console            SYSTEM "console.script">
+  <!ENTITY halt               SYSTEM "halt.script">
+  <!ENTITY initfunctions      SYSTEM "init-functions.script">
+  <!ENTITY localnet           SYSTEM "localnet.script">
+  <!ENTITY modules            SYSTEM "modules.script">
+  <!ENTITY mountfs            SYSTEM "mountfs.script">
+  <!ENTITY mountvirtfs        SYSTEM "mountvirtfs.script">
+  <!ENTITY network            SYSTEM "network.script">
+  <!ENTITY rc                 SYSTEM "rc.script">
+  <!ENTITY reboot             SYSTEM "reboot.script">
+  <!ENTITY sendsignals        SYSTEM "sendsignals.script">
+  <!ENTITY setclock           SYSTEM "setclock.script">
+  <!ENTITY swap               SYSTEM "swap.script">
+  <!ENTITY sysctl             SYSTEM "sysctl.script">
+  <!ENTITY sysklogd           SYSTEM "sysklogd.script">
+  <!ENTITY template           SYSTEM "template.script">
+  <!ENTITY udev               SYSTEM "udev.script">
+  <!ENTITY udev_retry         SYSTEM "udev_retry.script">
+  <!ENTITY createfiles        SYSTEM "createfiles.script">
+  <!ENTITY modules_sys        SYSTEM "modules-sysinit.script">
+  <!ENTITY cfg_udev_retry     SYSTEM "config-udev-retry.script">
+  <!ENTITY ifup               SYSTEM "ifup.script">
+  <!ENTITY ifdown             SYSTEM "ifdown.script">
+  <!ENTITY ipv4_static        SYSTEM "ipv4-static.script">
+  <!ENTITY ipv4_static_route  SYSTEM "ipv4-static-route.script">
+  %general-entities;
+]>
+
+<appendix id="scripts" xreflabel="Appendix D" revision="sysv">
+  <?dbhtml dir="scripts"?>
+  <?dbhtml filename="scripts.html"?>
+
+  <title>Boot and sysconfig scripts version-&lfs-bootscripts-version;</title>
+
+  <para>The scripts in this appendix are listed by the directory where they
+  normally reside.  The order is <filename
+  class='directory'>/etc/rc.d/init.d</filename>, <filename
+  class='directory'>/etc/sysconfig</filename>, <filename
+  class='directory'>/etc/sysconfig/network-devices</filename>, and <filename
+  class='directory'>/etc/sysconfig/network-devices/services</filename>.  Within
+  each section, the files are listed in the order they are normally called.
+  </para>
+
+  <sect1 id="rc" role="wrap">
+    <title>/etc/rc.d/init.d/rc</title>
+
+    <para>The <systemitem>rc</systemitem> script is the first script called by
+    <application>init</application> and initiates the boot process.</para>
+
+    <screen>&rc;</screen>
+  </sect1>
+
+  <sect1 id="init-functions" role="wrap">
+    <title>/lib/lsb/init-functions</title>
+    <screen>&initfunctions;</screen>
+  </sect1>
+
+  <sect1 id="mountvirtfs" role="wrap">
+    <title>/etc/rc.d/init.d/mountvirtfs</title>
+    <screen>&mountvirtfs;</screen>
+  </sect1>
+
+  <sect1 id="modules" role="wrap">
+    <title>/etc/rc.d/init.d/modules</title>
+    <screen>&modules;</screen>
+  </sect1>
+
+  <sect1 id="udev" role="wrap">
+    <title>/etc/rc.d/init.d/udev</title>
+    <screen>&udev;</screen>
+  </sect1>
+
+  <sect1 id="swap" role="wrap">
+    <title>/etc/rc.d/init.d/swap</title>
+    <screen>&swap;</screen>
+  </sect1>
+
+  <sect1 id="setclock" role="wrap">
+    <title>/etc/rc.d/init.d/setclock</title>
+    <screen>&setclock;</screen>
+  </sect1>
+
+  <sect1 id="checkfs" role="wrap">
+    <title>/etc/rc.d/init.d/checkfs</title>
+    <screen>&checkfs;</screen>
+  </sect1>
+
+  <sect1 id="mountfs" role="wrap">
+    <title>/etc/rc.d/init.d/mountfs</title>
+    <screen>&mountfs;</screen>
+  </sect1>
+
+  <sect1 id="udev_retry" role="wrap">
+    <title>/etc/rc.d/init.d/udev_retry</title>
+    <screen>&udev_retry;</screen>
+  </sect1>
+
+  <sect1 id="cleanfs" role="wrap">
+    <title>/etc/rc.d/init.d/cleanfs</title>
+    <screen>&cleanfs;</screen>
+  </sect1>
+
+  <sect1 id="console" role="wrap">
+    <title>/etc/rc.d/init.d/console</title>
+    <screen>&console;</screen>
+  </sect1>
+
+  <sect1 id="localnet" role="wrap">
+    <title>/etc/rc.d/init.d/localnet</title>
+    <screen>&localnet;</screen>
+  </sect1>
+
+  <sect1 id="sysctlscript" role="wrap">
+    <title>/etc/rc.d/init.d/sysctl</title>
+    <screen>&sysctl;</screen>
+  </sect1>
+
+  <sect1 id="sysklogd" role="wrap">
+    <title>/etc/rc.d/init.d/sysklogd</title>
+    <screen>&sysklogd;</screen>
+  </sect1>
+
+  <sect1 id="network" role="wrap">
+    <title>/etc/rc.d/init.d/network</title>
+    <screen>&network;</screen>
+  </sect1>
+
+  <sect1 id="sendsignals" role="wrap">
+    <title>/etc/rc.d/init.d/sendsignals</title>
+    <screen>&sendsignals;</screen>
+  </sect1>
+
+  <sect1 id="rebootscript" role="wrap">
+    <title>/etc/rc.d/init.d/reboot</title>
+    <screen>&reboot;</screen>
+  </sect1>
+
+  <sect1 id="haltscript" role="wrap">
+    <title>/etc/rc.d/init.d/halt</title>
+    <screen>&halt;</screen>
+  </sect1>
+
+  <sect1 id="template" role="wrap">
+    <title>/etc/rc.d/init.d/template</title>
+    <screen>&template;</screen>
+  </sect1>
+
+  <sect1 id="modulessys" role="wrap">
+    <title>/etc/sysconfig/modules</title>
+    <screen>&modules_sys;</screen>
+  </sect1>
+
+  <sect1 id="createfiles" role="wrap">
+    <title>/etc/sysconfig/createfiles</title>
+    <screen>&createfiles;</screen>
+  </sect1>
+
+  <sect1 id="config-udev-retry" role="wrap">
+    <title>/etc/sysconfig/udev-retry</title>
+    <screen>&cfg_udev_retry;</screen>
+  </sect1>
+
+  <sect1 id="ifup" role="wrap">
+    <title>/sbin/ifup</title>
+    <screen>&ifup;</screen>
+  </sect1>
+
+  <sect1 id="ifdown" role="wrap">
+    <title>/sbin/ifdown</title>
+    <screen>&ifdown;</screen>
+  </sect1>
+
+  <sect1 id="ipv4static" role="wrap">
+    <title>/lib/services/ipv4-static</title>
+    <screen>&ipv4_static;</screen>
+  </sect1>
+
+  <sect1 id="ipv4route" role="wrap">
+    <title>/lib/services/ipv4-static-route</title>
+    <screen>&ipv4_static_route;</screen>
+  </sect1>
+
+</appendix>

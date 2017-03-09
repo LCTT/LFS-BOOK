@@ -1,0 +1,1253 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-coreutils" role="wrap">
+  <?dbhtml filename="coreutils.html"?>
+
+  <sect1info condition="script">
+    <productname>coreutils</productname>
+    <productnumber>&coreutils-version;</productnumber>
+    <address>&coreutils-url;</address>
+  </sect1info>
+
+  <title>Coreutils-&coreutils-version;</title>
+
+  <indexterm zone="ch-system-coreutils">
+    <primary sortas="a-Coreutils">Coreutils</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Coreutils package contains utilities for showing and setting the
+    basic system characteristics.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&coreutils-ch6-sbu;</seg>
+        <seg>&coreutils-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Coreutils</title>
+
+    <para>POSIX requires that programs from Coreutils recognize character
+    boundaries correctly even in multibyte locales. The following patch fixes
+    this non-compliance and other internationalization-related bugs.</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&coreutils-i18n-patch;</userinput></screen>
+
+    <note>
+      <para>In the past, many bugs were found in this patch. When reporting new
+      bugs to Coreutils maintainers, please check first if they are reproducible
+      without this patch.</para>
+    </note>
+
+    <para>Now prepare Coreutils for compilation:</para>
+
+<screen><userinput remap="configure">FORCE_UNSAFE_CONFIGURE=1 ./configure \
+            --prefix=/usr            \
+            --enable-no-install-program=kill,uptime</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><envar>FORCE_UNSAFE_CONFIGURE=1</envar></term>
+        <listitem>
+          <para>This environment variable allows the package to be 
+          built as the root user.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--enable-no-install-program=kill,uptime</parameter></term>
+        <listitem>
+          <para>The purpose of this switch is to prevent Coreutils from
+          installing binaries that will be installed by other packages later.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">FORCE_UNSAFE_CONFIGURE=1 make</userinput></screen>
+
+    <para>Skip down to <quote>Install the
+    package</quote> if not running the test suite.</para>
+
+    <para>Now the test suite is ready to be run. First, run the tests that are
+    meant to be run as user <systemitem class="username">root</systemitem>:</para>
+
+<screen><userinput remap="test">make NON_ROOT_USERNAME=nobody check-root</userinput></screen>
+
+    <para>We're going to run the remainder of the tests as the
+    <systemitem class="username">nobody</systemitem> user. Certain tests,
+    however, require that the user be a member of more than one group. So that
+    these tests are not skipped we'll add a temporary group and make the
+    user <systemitem class="username">nobody</systemitem> a part of it:</para>
+
+<screen><userinput remap="test">echo "dummy:x:1000:nobody" &gt;&gt; /etc/group</userinput></screen>
+
+    <para>Fix some of the permissions so that the non-root user can compile and
+    run the tests:</para>
+
+<screen><userinput remap="test">chown -Rv nobody . </userinput></screen>
+
+    <para>Now run the tests. Make sure the PATH in the <userinput>su</userinput>
+    environment includes /tools/bin.</para>
+
+<screen><userinput remap="test">su nobody -s /bin/bash \
+          -c "PATH=$PATH make RUN_EXPENSIVE_TESTS=yes check"</userinput></screen>
+
+    <para>The test-getlogin test is known to fail on a virtual console, but
+    passes if run in a X terminal.</para>
+
+    <para>Remove the temporary group:</para>
+
+<screen><userinput remap="test">sed -i '/dummy/d' /etc/group</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>Move programs to the locations specified by the FHS:</para>
+
+<screen><userinput remap="install">mv -v /usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} /bin
+mv -v /usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm} /bin
+mv -v /usr/bin/{rmdir,stty,sync,true,uname} /bin
+mv -v /usr/bin/chroot /usr/sbin
+mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8
+sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
+
+    <para revision="sysv">Some of the scripts in the LFS-Bootscripts package
+    depend on <command>head</command>, <command>sleep</command>, and
+    <command>nice</command>.  As <filename class="directory">/usr</filename>
+    may not be available during the early stages of booting, those binaries
+    need to be on the root partition:</para>
+
+    <para revision="systemd">Some packages in BLFS and beyond expect the
+    following programs in <filename class="directory">/bin</filename>, so make
+    sure they are placed there:</para>
+
+<screen><userinput remap="install">mv -v /usr/bin/{head,sleep,nice,test,[} /bin</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-coreutils" role="content">
+    <title>Contents of Coreutils</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed library</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>[, base32, base64, basename, cat, chcon, chgrp, chmod, chown,
+        chroot, cksum, comm, cp, csplit, cut, date, dd, df, dir, dircolors,
+        dirname, du, echo, env, expand, expr, factor, false, fmt, fold, groups,
+        head, hostid, id, install, join, link, ln, logname, ls, md5sum, mkdir,
+        mkfifo, mknod, mktemp, mv, nice, nl, nohup, nproc, numfmt, od, paste,
+        pathchk, pinky, pr, printenv, printf, ptx, pwd, readlink, realpath, rm,
+        rmdir, runcon, seq, sha1sum, sha224sum, sha256sum, sha384sum,
+        sha512sum, shred, shuf, sleep, sort, split, stat, stdbuf, stty, sum,
+        sync, tac, tail, tee, test, timeout, touch, tr, true, truncate, tsort,
+        tty, uname, unexpand, uniq, unlink, users, vdir, wc, who, whoami, and
+        yes</seg>
+        <seg>libstdbuf.so</seg>
+        <seg>/usr/libexec/coreutils</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="base32">
+        <term><command>base32</command></term>
+        <listitem>
+          <para>Encodes and decodes data according to the base32 specification
+          (RFC 4648)</para>
+          <indexterm zone="ch-system-coreutils base64">
+            <primary sortas="b-base64">base64</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="base64">
+        <term><command>base64</command></term>
+        <listitem>
+          <para>Encodes and decodes data according to the base64 specification
+          (RFC 4648)</para>
+          <indexterm zone="ch-system-coreutils base64">
+            <primary sortas="b-base64">base64</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="basename">
+        <term><command>basename</command></term>
+        <listitem>
+          <para>Strips any path and a given suffix from a file name</para>
+          <indexterm zone="ch-system-coreutils basename">
+            <primary sortas="b-basename">basename</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="cat">
+        <term><command>cat</command></term>
+        <listitem>
+          <para>Concatenates files to standard output</para>
+          <indexterm zone="ch-system-coreutils cat">
+            <primary sortas="b-cat">cat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="chcon">
+        <term><command>chcon</command></term>
+        <listitem>
+          <para>Changes security context for files and directories</para>
+          <indexterm zone="ch-system-coreutils chcon">
+            <primary sortas="b-chcon">chcon</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="chgrp">
+        <term><command>chgrp</command></term>
+        <listitem>
+          <para>Changes the group ownership of files and directories</para>
+          <indexterm zone="ch-system-coreutils chgrp">
+            <primary sortas="b-chgrp">chgrp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="chmod">
+        <term><command>chmod</command></term>
+        <listitem>
+          <para>Changes the permissions of each file to the given mode; the mode
+          can be either a symbolic representation of the changes to make or an
+          octal number representing the new permissions</para>
+          <indexterm zone="ch-system-coreutils chmod">
+            <primary sortas="b-chmod">chmod</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="chown">
+        <term><command>chown</command></term>
+        <listitem>
+          <para>Changes the user and/or group ownership of files and
+          directories</para>
+          <indexterm zone="ch-system-coreutils chown">
+            <primary sortas="b-chown">chown</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="chroot">
+        <term><command>chroot</command></term>
+        <listitem>
+          <para>Runs a command with the specified directory as the
+          <filename class="directory">/</filename> directory</para>
+          <indexterm zone="ch-system-coreutils chroot">
+            <primary sortas="b-chroot">chroot</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="cksum">
+        <term><command>cksum</command></term>
+        <listitem>
+          <para>Prints the Cyclic Redundancy Check (CRC) checksum and the byte
+          counts of each specified file</para>
+          <indexterm zone="ch-system-coreutils cksum">
+            <primary sortas="b-cksum">cksum</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="comm">
+        <term><command>comm</command></term>
+        <listitem>
+          <para>Compares two sorted files, outputting in three columns the lines
+          that are unique and the lines that are common</para>
+          <indexterm zone="ch-system-coreutils comm">
+            <primary sortas="b-comm">comm</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="cp">
+        <term><command>cp</command></term>
+        <listitem>
+          <para>Copies files</para>
+          <indexterm zone="ch-system-coreutils cp">
+            <primary sortas="b-cp">cp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="csplit">
+        <term><command>csplit</command></term>
+        <listitem>
+          <para>Splits a given file into several new files, separating them
+          according to given patterns or line numbers and outputting the byte
+          count of each new file</para>
+          <indexterm zone="ch-system-coreutils csplit">
+            <primary sortas="b-csplit">csplit</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="cut">
+        <term><command>cut</command></term>
+        <listitem>
+          <para>Prints sections of lines, selecting the parts according to given
+          fields or positions</para>
+          <indexterm zone="ch-system-coreutils cut">
+            <primary sortas="b-cut">cut</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="date">
+        <term><command>date</command></term>
+        <listitem>
+          <para>Displays the current time in the given format, or sets the
+          system date</para>
+          <indexterm zone="ch-system-coreutils date">
+            <primary sortas="b-date">date</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dd">
+        <term><command>dd</command> </term>
+        <listitem>
+          <para>Copies a file using the given block size and count, while
+          optionally performing conversions on it</para>
+          <indexterm zone="ch-system-coreutils dd">
+            <primary sortas="b-dd">dd</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="df">
+        <term><command>df</command></term>
+        <listitem>
+          <para>Reports the amount of disk space available (and used) on all
+          mounted file systems, or only on the file systems holding the selected
+          files</para>
+          <indexterm zone="ch-system-coreutils df">
+            <primary sortas="b-df">df</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dir">
+        <term><command>dir</command></term>
+        <listitem>
+          <para>Lists the contents of each given directory (the same as
+          the <command>ls</command> command)</para>
+          <indexterm zone="ch-system-coreutils dir">
+            <primary sortas="b-dir">dir</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dircolors">
+        <term><command>dircolors</command></term>
+        <listitem>
+          <para>Outputs commands to set the <envar>LS_COLOR</envar>
+          environment variable to change the color scheme used by
+          <command>ls</command></para>
+          <indexterm zone="ch-system-coreutils dircolors">
+            <primary sortas="b-dircolors">dircolors</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dirname">
+        <term><command>dirname</command></term>
+        <listitem>
+          <para>Strips the non-directory suffix from a file name</para>
+          <indexterm zone="ch-system-coreutils dirname">
+            <primary sortas="b-dirname">dirname</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="du">
+        <term><command>du</command></term>
+        <listitem>
+          <para>Reports the amount of disk space used by the current directory,
+          by each of the given directories (including all subdirectories) or by
+          each of the given files</para>
+          <indexterm zone="ch-system-coreutils du">
+            <primary sortas="b-du">du</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="echo">
+        <term><command>echo</command></term>
+        <listitem>
+          <para>Displays the given strings</para>
+          <indexterm zone="ch-system-coreutils echo">
+            <primary sortas="b-echo">echo</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="env">
+        <term><command>env</command></term>
+        <listitem>
+          <para>Runs a command in a modified environment</para>
+          <indexterm zone="ch-system-coreutils env">
+            <primary sortas="b-env">env</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="expand">
+        <term><command>expand</command></term>
+        <listitem>
+          <para>Converts tabs to spaces</para>
+          <indexterm zone="ch-system-coreutils expand">
+            <primary sortas="b-expand">expand</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="expr">
+        <term><command>expr</command></term>
+        <listitem>
+          <para>Evaluates expressions</para>
+          <indexterm zone="ch-system-coreutils expr">
+            <primary sortas="b-expr">expr</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="factor">
+        <term><command>factor</command></term>
+        <listitem>
+          <para>Prints the prime factors of all specified integer numbers</para>
+          <indexterm zone="ch-system-coreutils factor">
+            <primary sortas="b-factor">factor</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="false">
+        <term><command>false</command></term>
+        <listitem>
+          <para>Does nothing, unsuccessfully; it always exits with a status code
+          indicating failure</para>
+          <indexterm zone="ch-system-coreutils false">
+            <primary sortas="b-false">false</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="fmt">
+        <term><command>fmt</command></term>
+        <listitem>
+          <para>Reformats the paragraphs in the given files</para>
+          <indexterm zone="ch-system-coreutils fmt">
+            <primary sortas="b-fmt">fmt</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="fold">
+        <term><command>fold</command></term>
+        <listitem>
+          <para>Wraps the lines in the given files</para>
+          <indexterm zone="ch-system-coreutils fold">
+            <primary sortas="b-fold">fold</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="groups">
+        <term><command>groups</command></term>
+        <listitem>
+          <para>Reports a user's group memberships</para>
+          <indexterm zone="ch-system-coreutils groups">
+            <primary sortas="b-groups">groups</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="head">
+        <term><command>head</command></term>
+        <listitem>
+          <para>Prints the first ten lines (or the given number of lines)
+          of each given file</para>
+          <indexterm zone="ch-system-coreutils head">
+            <primary sortas="b-head">head</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="hostid">
+        <term><command>hostid</command></term>
+        <listitem>
+          <para>Reports the numeric identifier (in hexadecimal) of the host</para>
+          <indexterm zone="ch-system-coreutils hostid">
+            <primary sortas="b-hostid">hostid</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="id">
+        <term><command>id</command></term>
+        <listitem>
+          <para>Reports the effective user ID, group ID, and group memberships
+          of the current user or specified user</para>
+          <indexterm zone="ch-system-coreutils id">
+            <primary sortas="b-id">id</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="install">
+        <term><command>install</command> </term>
+        <listitem>
+          <para>Copies files while setting their permission modes and, if
+          possible, their owner and group</para>
+          <indexterm zone="ch-system-coreutils install">
+            <primary sortas="b-install">install</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="join">
+        <term><command>join</command></term>
+        <listitem>
+          <para>Joins the lines that have identical join fields from two
+          separate files</para>
+          <indexterm zone="ch-system-coreutils join">
+            <primary sortas="b-join">join</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="link">
+        <term><command>link</command></term>
+        <listitem>
+          <para>Creates a hard link with the given name to a file</para>
+          <indexterm zone="ch-system-coreutils link">
+            <primary sortas="b-link">link</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ln">
+        <term><command>ln</command></term>
+        <listitem>
+          <para>Makes hard links or soft (symbolic) links between files</para>
+          <indexterm zone="ch-system-coreutils ln">
+            <primary sortas="b-ln">ln</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="logname">
+        <term><command>logname</command></term>
+        <listitem>
+          <para>Reports the current user's login name</para>
+          <indexterm zone="ch-system-coreutils logname">
+            <primary sortas="b-logname">logname</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ls">
+        <term><command>ls</command></term>
+        <listitem>
+          <para>Lists the contents of each given directory</para>
+          <indexterm zone="ch-system-coreutils ls">
+            <primary sortas="b-ls">ls</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="md5sum">
+        <term><command>md5sum</command></term>
+        <listitem>
+          <para>Reports or checks Message Digest 5 (MD5) checksums</para>
+          <indexterm zone="ch-system-coreutils md5sum">
+            <primary sortas="b-md5sum">md5sum</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mkdir">
+        <term><command>mkdir</command></term>
+        <listitem>
+          <para>Creates directories with the given names</para>
+          <indexterm zone="ch-system-coreutils mkdir">
+            <primary sortas="b-mkdir">mkdir</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mkfifo">
+        <term><command>mkfifo</command></term>
+        <listitem>
+          <para>Creates First-In, First-Outs (FIFOs), a "named
+          pipe" in UNIX parlance, with the given names</para>
+          <indexterm zone="ch-system-coreutils mkfifo">
+            <primary sortas="b-mkfifo">mkfifo</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mknod">
+        <term><command>mknod</command></term>
+        <listitem>
+          <para>Creates device nodes with the given names; a device node is a
+          character special file, a block special file, or a FIFO</para>
+          <indexterm zone="ch-system-coreutils mknod">
+            <primary sortas="b-mknod">mknod</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mktemp">
+        <term><command>mktemp</command></term>
+        <listitem>
+          <para>Creates temporary files in a secure manner; it is used in scripts</para>
+        <indexterm zone="ch-system-coreutils mktemp">
+          <primary sortas="b-mktemp">mktemp</primary>
+        </indexterm>
+       </listitem>
+     </varlistentry>
+
+      <varlistentry id="mv">
+        <term><command>mv</command></term>
+        <listitem>
+          <para>Moves or renames files or directories</para>
+          <indexterm zone="ch-system-coreutils mv">
+            <primary sortas="b-mv">mv</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="nice">
+        <term><command>nice</command></term>
+        <listitem>
+          <para>Runs a program with modified scheduling priority</para>
+          <indexterm zone="ch-system-coreutils nice">
+            <primary sortas="b-nice">nice</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="nl">
+        <term><command>nl</command></term>
+        <listitem>
+          <para>Numbers the lines from the given files</para>
+          <indexterm zone="ch-system-coreutils nl">
+            <primary sortas="b-nl">nl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="nohup">
+        <term><command>nohup</command></term>
+        <listitem>
+          <para>Runs a command immune to hangups, with its output redirected to
+          a log file</para>
+          <indexterm zone="ch-system-coreutils nohup">
+            <primary sortas="b-nohup">nohup</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="nproc">
+        <term><command>nproc</command></term>
+        <listitem>
+          <para>Prints the number of processing units available to a
+          process</para>
+          <indexterm zone="ch-system-coreutils nproc">
+            <primary sortas="b-nproc">nproc</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="numfmt">
+        <term><command>numfmt</command></term>
+        <listitem>
+          <para>Converts numbers to or from human-readable strings</para>
+          <indexterm zone="ch-system-coreutils numfmt">
+            <primary sortas="b-numfmt">numfmt</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="od">
+        <term><command>od</command></term>
+        <listitem>
+          <para>Dumps files in octal and other formats</para>
+          <indexterm zone="ch-system-coreutils od">
+            <primary sortas="b-od">od</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="paste">
+        <term><command>paste</command></term>
+        <listitem>
+          <para>Merges the given files, joining sequentially corresponding lines
+          side by side, separated by tab characters</para>
+          <indexterm zone="ch-system-coreutils paste">
+            <primary sortas="b-paste">paste</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pathchk">
+        <term><command>pathchk</command></term>
+        <listitem>
+          <para>Checks if file names are valid or portable</para>
+          <indexterm zone="ch-system-coreutils pathchk">
+            <primary sortas="b-pathchk">pathchk</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pinky">
+        <term><command>pinky</command></term>
+        <listitem>
+          <para>Is a lightweight finger client; it reports some information
+          about the given users</para>
+          <indexterm zone="ch-system-coreutils pinky">
+            <primary sortas="b-pinky">pinky</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pr">
+        <term><command>pr</command></term>
+        <listitem>
+          <para>Paginates and columnates files for printing</para>
+          <indexterm zone="ch-system-coreutils pr">
+            <primary sortas="b-pr">pr</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="printenv">
+        <term><command>printenv</command></term>
+        <listitem>
+          <para>Prints the environment</para>
+          <indexterm zone="ch-system-coreutils printenv">
+            <primary sortas="b-printenv">printenv</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="printf">
+        <term><command>printf</command></term>
+        <listitem>
+          <para>Prints the given arguments according to the given format, much
+          like the C printf function</para>
+          <indexterm zone="ch-system-coreutils printf">
+            <primary sortas="b-printf">printf</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ptx">
+        <term><command>ptx</command></term>
+        <listitem>
+          <para>Produces a permuted index from the contents of the given files,
+          with each keyword in its context</para>
+          <indexterm zone="ch-system-coreutils ptx">
+            <primary sortas="b-ptx">ptx</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pwd">
+        <term><command>pwd</command></term>
+        <listitem>
+          <para>Reports the name of the current working directory</para>
+          <indexterm zone="ch-system-coreutils pwd">
+            <primary sortas="b-pwd">pwd</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="readlink">
+        <term><command>readlink</command></term>
+        <listitem>
+          <para>Reports the value of the given symbolic link</para>
+          <indexterm zone="ch-system-coreutils readlink">
+            <primary sortas="b-readlink">readlink</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="realpath">
+        <term><command>realpath</command></term>
+        <listitem>
+          <para>Prints the resolved path</para>
+          <indexterm zone="ch-system-coreutils realpath">
+            <primary sortas="b-realpath">realpath</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="rm">
+        <term><command>rm</command></term>
+        <listitem>
+          <para>Removes files or directories</para>
+          <indexterm zone="ch-system-coreutils rm">
+            <primary sortas="b-rm">rm</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="rmdir">
+        <term><command>rmdir</command></term>
+        <listitem>
+          <para>Removes directories if they are empty</para>
+          <indexterm zone="ch-system-coreutils rmdir">
+            <primary sortas="b-rmdir">rmdir</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="runcon">
+        <term><command>runcon</command></term>
+        <listitem>
+          <para>Runs a command with specified security context</para>
+          <indexterm zone="ch-system-coreutils runcon">
+            <primary sortas="b-runcon">runcon</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="seq">
+        <term><command>seq</command></term>
+        <listitem>
+          <para>Prints a sequence of numbers within a given range and with a
+          given increment</para>
+          <indexterm zone="ch-system-coreutils seq">
+            <primary sortas="b-seq">seq</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sha1sum">
+        <term><command>sha1sum</command></term>
+        <listitem>
+          <para>Prints or checks 160-bit Secure Hash Algorithm 1 (SHA1)
+          checksums</para>
+          <indexterm zone="ch-system-coreutils sha1sum">
+            <primary sortas="b-sha1sum">sha1sum</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sha224sum">
+        <term><command>sha224sum</command></term>
+        <listitem>
+          <para>Prints or checks 224-bit Secure Hash Algorithm checksums</para>
+          <indexterm zone="ch-system-coreutils sha224sum">
+            <primary sortas="b-sha224sum">sha224sum</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sha256sum">
+        <term><command>sha256sum</command></term>
+        <listitem>
+          <para>Prints or checks 256-bit Secure Hash Algorithm checksums</para>
+          <indexterm zone="ch-system-coreutils sha256sum">
+            <primary sortas="b-sha256sum">sha256sum</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sha384sum">
+        <term><command>sha384sum</command></term>
+        <listitem>
+          <para>Prints or checks 384-bit Secure Hash Algorithm checksums</para>
+          <indexterm zone="ch-system-coreutils sha384sum">
+            <primary sortas="b-sha384sum">sha384sum</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sha512sum">
+        <term><command>sha512sum</command></term>
+        <listitem>
+          <para>Prints or checks 512-bit Secure Hash Algorithm checksums</para>
+          <indexterm zone="ch-system-coreutils sha512sum">
+            <primary sortas="b-sha512sum">sha512sum</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="shred">
+        <term><command>shred</command></term>
+        <listitem>
+          <para>Overwrites the given files repeatedly with complex patterns,
+          making it difficult to recover the data</para>
+          <indexterm zone="ch-system-coreutils shred">
+            <primary sortas="b-shred">shred</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="shuf">
+        <term><command>shuf</command></term>
+        <listitem>
+          <para>Shuffles lines of text</para>
+          <indexterm zone="ch-system-coreutils shuf">
+            <primary sortas="b-shuf">shuf</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sleep">
+        <term><command>sleep</command></term>
+        <listitem>
+          <para>Pauses for the given amount of time</para>
+          <indexterm zone="ch-system-coreutils sleep">
+            <primary sortas="b-sleep">sleep</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sort">
+        <term><command>sort</command></term>
+        <listitem>
+          <para>Sorts the lines from the given files</para>
+          <indexterm zone="ch-system-coreutils sort">
+            <primary sortas="b-sort">sort</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="split">
+        <term><command>split</command></term>
+        <listitem>
+          <para>Splits the given file into pieces, by size or by number of
+          lines</para>
+          <indexterm zone="ch-system-coreutils split">
+            <primary sortas="b-split">split</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="stat">
+        <term><command>stat</command></term>
+        <listitem>
+          <para>Displays file or filesystem status</para>
+          <indexterm zone="ch-system-coreutils stat">
+            <primary sortas="b-stat">stat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="stdbuf">
+        <term><command>stdbuf</command></term>
+        <listitem>
+          <para>Runs commands with altered buffering operations for its standard
+          streams</para>
+          <indexterm zone="ch-system-coreutils stdbuf">
+            <primary sortas="b-stdbuf">stdbuf</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="stty">
+        <term><command>stty</command></term>
+        <listitem>
+          <para>Sets or reports terminal line settings</para>
+          <indexterm zone="ch-system-coreutils stty">
+            <primary sortas="b-stty">stty</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sum">
+        <term><command>sum</command></term>
+        <listitem>
+          <para>Prints checksum and block counts for each given file</para>
+          <indexterm zone="ch-system-coreutils sum">
+            <primary sortas="b-sum">sum</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sync">
+        <term><command>sync</command></term>
+        <listitem>
+          <para>Flushes file system buffers; it forces changed blocks to disk
+          and updates the super block</para>
+          <indexterm zone="ch-system-coreutils sync">
+            <primary sortas="b-sync">sync</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tac">
+        <term><command>tac</command></term>
+        <listitem>
+          <para>Concatenates the given files in reverse</para>
+          <indexterm zone="ch-system-coreutils tac">
+            <primary sortas="b-tac">tac</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tail">
+        <term><command>tail</command></term>
+        <listitem>
+          <para>Prints the last ten lines (or the given number of lines) of each
+          given file</para>
+          <indexterm zone="ch-system-coreutils tail">
+            <primary sortas="b-tail">tail</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tee">
+        <term><command>tee</command></term>
+        <listitem>
+          <para>Reads from standard input while writing both to standard output
+          and to the given files</para>
+          <indexterm zone="ch-system-coreutils tee">
+            <primary sortas="b-tee">tee</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="test">
+        <term><command>test</command></term>
+        <listitem>
+          <para>Compares values and checks file types</para>
+          <indexterm zone="ch-system-coreutils test">
+            <primary sortas="b-test">test</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="timeout">
+        <term><command>timeout</command></term>
+        <listitem>
+          <para>Runs a command with a time limit</para>
+          <indexterm zone="ch-system-coreutils timeout">
+            <primary sortas="b-timeout">timeout</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="touch">
+        <term><command>touch</command></term>
+        <listitem>
+          <para>Changes file timestamps, setting the access and modification
+          times of the given files to the current time; files that do not exist
+          are created with zero length</para>
+          <indexterm zone="ch-system-coreutils touch">
+            <primary sortas="b-touch">touch</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tr">
+        <term><command>tr</command></term>
+        <listitem>
+          <para>Translates, squeezes, and deletes the given characters from
+          standard input</para>
+          <indexterm zone="ch-system-coreutils tr">
+            <primary sortas="b-tr">tr</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="true">
+        <term><command>true</command></term>
+        <listitem>
+          <para>Does nothing, successfully; it always exits with a status code
+          indicating success</para>
+          <indexterm zone="ch-system-coreutils true">
+            <primary sortas="b-true">true</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="truncate">
+        <term><command>truncate</command></term>
+        <listitem>
+          <para>Shrinks or expands a file to the specified size</para>
+          <indexterm zone="ch-system-coreutils truncate">
+            <primary sortas="b-truncate">truncate</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tsort">
+        <term><command>tsort</command></term>
+        <listitem>
+          <para>Performs a topological sort; it writes a completely ordered list
+          according to the partial ordering in a given file</para>
+          <indexterm zone="ch-system-coreutils tsort">
+            <primary sortas="b-tsort">tsort</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tty">
+        <term><command>tty</command></term>
+        <listitem>
+          <para>Reports the file name of the terminal connected to standard
+          input</para>
+          <indexterm zone="ch-system-coreutils tty">
+            <primary sortas="b-tty">tty</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="uname">
+        <term><command>uname</command></term>
+        <listitem>
+          <para>Reports system information</para>
+          <indexterm zone="ch-system-coreutils uname">
+            <primary sortas="b-uname">uname</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="unexpand">
+        <term><command>unexpand</command></term>
+        <listitem>
+          <para>Converts spaces to tabs</para>
+          <indexterm zone="ch-system-coreutils unexpand">
+            <primary sortas="b-unexpand">unexpand</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="uniq">
+        <term><command>uniq</command></term>
+        <listitem>
+          <para>Discards all but one of successive identical lines</para>
+          <indexterm zone="ch-system-coreutils uniq">
+            <primary sortas="b-uniq">uniq</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="unlink">
+        <term><command>unlink</command></term>
+        <listitem>
+          <para>Removes the given file</para>
+          <indexterm zone="ch-system-coreutils unlink">
+            <primary sortas="b-unlink">unlink</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="users">
+        <term><command>users</command></term>
+        <listitem>
+          <para>Reports the names of the users currently logged on</para>
+          <indexterm zone="ch-system-coreutils users">
+            <primary sortas="b-users">users</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="vdir">
+        <term><command>vdir</command></term>
+        <listitem>
+          <para>Is the same as <command>ls -l</command></para>
+          <indexterm zone="ch-system-coreutils vdir">
+            <primary sortas="b-vdir">vdir</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="wc">
+        <term><command>wc</command></term>
+        <listitem>
+          <para>Reports the number of lines, words, and bytes for each given
+          file, as well as a total line when more than one file is given</para>
+          <indexterm zone="ch-system-coreutils wc">
+            <primary sortas="b-wc">wc</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="who">
+        <term><command>who</command></term>
+        <listitem>
+          <para>Reports who is logged on</para>
+          <indexterm zone="ch-system-coreutils who">
+            <primary sortas="b-who">who</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="whoami">
+        <term><command>whoami</command></term>
+        <listitem>
+          <para>Reports the user name associated with the current effective
+          user ID</para>
+          <indexterm zone="ch-system-coreutils whoami">
+            <primary sortas="b-whoami">whoami</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="yes">
+        <term><command>yes</command></term>
+        <listitem>
+          <para>Repeatedly outputs <quote>y</quote> or a given string until
+          killed</para>
+          <indexterm zone="ch-system-coreutils yes">
+            <primary sortas="b-yes">yes</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libstdbuf">
+        <term><filename class="libraryfile">libstdbuf</filename></term>
+        <listitem>
+          <para>Library used by <command>stdbuf</command></para>
+          <indexterm zone="ch-system-coreutils libstdbuf">
+            <primary sortas="c-libstdbuf">libstdbuf</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

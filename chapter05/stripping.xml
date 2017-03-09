@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-stripping">
+  <?dbhtml filename="stripping.html"?>
+
+  <title>Stripping</title>
+
+  <para>The steps in this section are optional, but if the LFS partition is
+  rather small, it is beneficial to learn that unnecessary items can be removed.
+  The executables and libraries built so far contain about 70 MB of unneeded
+  debugging symbols. Remove those symbols with:</para>
+
+<screen><userinput>strip --strip-debug /tools/lib/*
+/usr/bin/strip --strip-unneeded /tools/{,s}bin/*</userinput></screen>
+
+  <para>These commands will skip a number of files, reporting that it does not
+  recognize their file format. Most of these are scripts instead of binaries.
+  Also use the system strip command to include the strip binary in /tools.</para>
+
+  <para>Take care <emphasis>not</emphasis> to use
+  <parameter>--strip-unneeded</parameter> on the libraries. The static
+  ones would be destroyed and the toolchain packages would need to be
+  built all over again.</para>
+
+  <para>To save more, remove the documentation:</para>
+
+<screen><userinput>rm -rf /tools/{,share}/{info,man,doc}</userinput></screen>
+
+  <para>At this point, you should have at least 3 GB of free space in
+  <envar>$LFS</envar> that can be used to build and install Glibc and Gcc in
+  the next phase. If you can build and install Glibc, you can build and install
+  the rest too.</para>
+
+</sect1>

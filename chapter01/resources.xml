@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-intro-resources">
+  <?dbhtml filename="resources.html"?>
+
+  <title>Resources</title>
+
+  <sect2 id="ch-intro-faq">
+    <title>FAQ</title>
+
+    <para>If during the building of the LFS system you encounter any
+    errors, have any questions, or think there is a typo in the book,
+    please start by consulting the Frequently Asked Questions (FAQ)
+    that is located at <ulink url="&faq-root;"/>.</para>
+
+  </sect2>
+
+  <sect2 id="ch-intro-maillists" xreflabel="Chapter 1 - Mailing Lists">
+    <title>Mailing Lists</title>
+
+    <para>The <uri>linuxfromscratch.org</uri> server hosts a number of mailing
+    lists used for the development of the LFS project. These lists include the
+    main development and support lists, among others. If the FAQ does not solve
+    the problem you are having, the next step would be to search the mailing
+    lists at <ulink url="&lfs-root;search.html"/>.</para>
+
+    <para>For information on the different lists, how to subscribe, archive
+    locations, and additional information, visit
+    <ulink url="&lfs-root;mail.html"/>.</para>
+
+  </sect2>
+
+  <!-- FIXME: Remove until such time as we have our own News Server, JH 20060105
+
+  <sect2 id="ch-intro-newsserver">
+    <title>News Server</title>
+
+    <para>The mailing lists hosted at <uri>linuxfromscratch.org</uri> are
+    also accessible via the Network News Transfer Protocol (NNTP) server.
+    All messages posted to a mailing list are copied to the corresponding
+    newsgroup, and vice versa.</para>
+
+    <para>The news server is located at
+    <uri>news.linuxfromscratch.org</uri>.</para>
+
+  </sect2> -->
+
+  <sect2 id="ch-intro-irc">
+    <title>IRC</title>
+
+    <para>Several members of the LFS community offer assistance on Internet
+    Relay Chat (IRC). Before using this support, please make sure that your
+    question is not already answered in the LFS FAQ or the mailing list
+    archives. You can find the IRC network at <uri>irc.freenode.net</uri>.
+    The support channel is named #LFS-support.</para>
+
+  </sect2>
+
+  <!-- Commentted out until the target link is updated
+  <sect2 id="ch-intro-references">
+    <title>References</title>
+
+    <para>For additional information on the packages, useful tips are
+    available in the LFS Package Reference page located at <ulink
+    url="http://www.linuxfromscratch.org/~matthew/LFS-references.html"/>.</para>
+
+  </sect2>  -->
+
+  <sect2 id="ch-intro-mirrors" xreflabel="Chapter 1 - Mirror sites">
+    <title>Mirror Sites</title>
+
+    <para>The LFS project has a number of world-wide mirrors to make accessing
+    the website and downloading the required packages more convenient. Please
+    visit the LFS website at <ulink url="&lfs-root;mirrors.html"/> for a list
+    of current mirrors.</para>
+
+  </sect2>
+
+  <sect2 id="ch-intro-contactinfo">
+    <title>Contact Information</title>
+
+    <para>Please direct all your questions and comments to one of the LFS
+    mailing lists (see above).</para>
+
+  </sect2>
+
+</sect1>

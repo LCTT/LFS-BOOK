@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-diffutils" role="wrap">
+  <?dbhtml filename="diffutils.html"?>
+
+  <sect1info condition="script">
+    <productname>diffutils</productname>
+    <productnumber>&diffutils-version;</productnumber>
+    <address>&diffutils-url;</address>
+  </sect1info>
+
+  <title>Diffutils-&diffutils-version;</title>
+
+  <indexterm zone="ch-system-diffutils">
+    <primary sortas="a-Diffutils">Diffutils</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Diffutils package contains programs that show the differences
+    between files or directories.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&diffutils-ch6-sbu;</seg>
+        <seg>&diffutils-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Diffutils</title>
+
+    <para>First fix a file so locale files are installed:</para>
+
+<screen><userinput remap="pre">sed -i 's:= @mkdir_p@:= /bin/mkdir -p:' po/Makefile.in.in</userinput></screen>
+
+    <para>Prepare Diffutils for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+
+  <sect2 id="contents-diffutils" role="content">
+    <title>Contents of Diffutils</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+
+      <seglistitem>
+        <seg>cmp, diff, diff3, and sdiff</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="cmp">
+        <term><command>cmp</command></term>
+        <listitem>
+          <para>Compares two files and reports whether or in which bytes they
+          differ</para>
+          <indexterm zone="ch-system-diffutils cmp">
+            <primary sortas="b-cmp">cmp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="diff">
+        <term><command>diff</command></term>
+        <listitem>
+          <para>Compares two files or directories and reports which lines in
+          the files differ</para>
+          <indexterm zone="ch-system-diffutils diff">
+            <primary sortas="b-diff">diff</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="diff3">
+        <term><command>diff3</command></term>
+        <listitem>
+            <para>Compares three files line by line</para>
+            <indexterm zone="ch-system-diffutils diff3">
+              <primary sortas="b-diff3">diff3</primary>
+            </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sdiff">
+        <term><command>sdiff</command></term>
+        <listitem>
+          <para>Merges two files and interactively outputs the results</para>
+          <indexterm zone="ch-system-diffutils sdiff">
+            <primary sortas="b-sdiff">sdiff</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

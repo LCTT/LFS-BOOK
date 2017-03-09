@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-libstdcpp" role="wrap">
+  <?dbhtml filename="gcc-libstdc++.html"?>
+
+  <sect1info condition="script">
+    <productname>libstdc++</productname>
+    <productnumber>&gcc-version;</productnumber>
+    <address>&gcc-url;</address>
+  </sect1info>
+
+  <title>Libstdc++-&gcc-version;</title>
+
+  <indexterm zone="ch-tools-libstdcpp">
+    <primary sortas="a-GCC">GCC</primary>
+    <secondary>tools, libstdc++</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>Libstdc++ is the standard C++ library. It is needed for the correct
+    operation of the g++ compiler.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&libstdcpp-ch5-sbu;</seg>
+        <seg>&libstdcpp-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Target Libstdc++</title>
+
+    <note>
+      <para><application>Libstdc++</application> is part of the GCC sources.
+      You should first unpack the GCC tarball and change to the
+      <filename>gcc-&gcc-version;</filename> directory.</para>
+    </note>
+
+    <para>Create a separate build directory for Libstdc++ and enter it:</para>
+
+<screen><userinput remap="pre">mkdir -v build
+cd       build</userinput></screen>
+
+    <para>Prepare Libstdc++ for compilation:</para>
+
+<screen><userinput remap="configure">../libstdc++-v3/configure           \
+    --host=$LFS_TGT                 \
+    --prefix=/tools                 \
+    --disable-multilib              \
+    --disable-nls                   \
+    --disable-libstdcxx-threads     \
+    --disable-libstdcxx-pch         \
+    --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/&gcc-version;</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--host=...</parameter></term>
+        <listitem>
+          <para>Indicates to use the cross compiler we have just built
+          instead of the one in <filename>/usr/bin</filename>.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-libstdcxx-threads</parameter></term>
+        <listitem>
+          <para>Since we have not yet built the C threads library, the C++
+          one cannot be built either.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-libstdcxx-pch</parameter></term>
+        <listitem>
+          <para>This switch prevents the installation of precompiled
+          include files, which are not needed at this stage.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-gxx-include-dir=/tools/$LFS_TGT/include/c++/&gcc-version;</parameter></term>
+        <listitem>
+          <para>This is the location where the standard include files are
+          searched by the C++ compiler. In a normal build, this information
+          is automatically passed to the Libstdc++ <command>configure</command>
+          options from the top level directory. In our case, this information
+          must be explicitly given.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile libstdc++ by running:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Install the library:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-gcc" role="."/></para>
+
+  </sect2>
+
+</sect1>

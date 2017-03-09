@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<chapter id="chapter-intro" xreflabel="Chapter 1">
+  <?dbhtml dir="chapter01"?>
+  <?dbhtml filename="chapter01.html"?>
+
+  <title>Introduction</title>
+
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="how.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="whatsnew.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="changelog.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="resources.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="askforhelp.xml"/>
+  <!--<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="livecd.xml"/>-->
+
+</chapter>

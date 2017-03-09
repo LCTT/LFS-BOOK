@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-glibc" role="wrap">
+  <?dbhtml filename="glibc.html"?>
+
+  <sect1info condition="script">
+    <productname>glibc</productname>
+    <productnumber>&glibc-version;</productnumber>
+    <address>&glibc-url;</address>
+  </sect1info>
+
+  <title>Glibc-&glibc-version;</title>
+
+  <indexterm zone="ch-tools-glibc">
+    <primary sortas="a-Glibc">Glibc</primary>
+    <secondary>tools</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/glibc.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&glibc-ch5-sbu;</seg>
+        <seg>&glibc-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Glibc</title>
+
+    <para>The Glibc documentation recommends building Glibc 
+    in a dedicated build directory:</para>
+
+<screen><userinput remap="pre">mkdir -v build
+cd       build</userinput></screen>
+
+    <para>Next, prepare Glibc for compilation:</para>
+
+<screen><userinput remap="configure">../configure                             \
+      --prefix=/tools                    \
+      --host=$LFS_TGT                    \
+      --build=$(../scripts/config.guess) \
+      --enable-kernel=&min-kernel;             \
+      --with-headers=/tools/include      \
+      libc_cv_forced_unwind=yes          \
+      libc_cv_c_cleanup=yes</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--host=$LFS_TGT, --build=$(../scripts/config.guess)</parameter></term>
+        <listitem>
+          <para>The combined effect of these switches is that Glibc's build system
+          configures itself to cross-compile, using the cross-linker and
+          cross-compiler in <filename class="directory">/tools</filename>.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--enable-kernel=&min-kernel;</parameter></term>
+        <listitem>
+          <para>This tells Glibc to compile the library with support
+          for &min-kernel; and later Linux kernels.  Workarounds for older
+          kernels are not enabled.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-headers=/tools/include</parameter></term>
+        <listitem>
+          <para>This tells Glibc to compile itself against the headers recently
+          installed to the tools directory, so that it knows exactly what
+          features the kernel has and can optimize itself accordingly.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>libc_cv_forced_unwind=yes</parameter></term>
+        <listitem>
+          <para>The linker installed during
+          <xref linkend="ch-tools-binutils-pass1"/> was cross-compiled and as
+          such cannot be used until Glibc has been installed.  This means that
+          the configure test for force-unwind support will fail, as it relies on
+          a working linker.  The libc_cv_forced_unwind=yes variable is passed in
+          order to inform <command>configure</command> that force-unwind
+          support is available without it having to run the test.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><parameter>libc_cv_c_cleanup=yes</parameter></term>
+        <listitem>
+          <para>Similarly, we pass libc_cv_c_cleanup=yes through to the
+          <command>configure</command> script so that the test is skipped and C
+          cleanup handling support is configured.</para>
+        </listitem>
+      </varlistentry>
+<!--  <varlistentry>
+        <term><parameter>libc_cv_ctors_header=yes</parameter></term>
+        <listitem>
+          <para>Similarly, we pass libc_cv_ctors_header=yes through to the
+          <command>configure</command> script so that the test is skipped and
+          gcc constructor support is configured.</para>
+        </listitem>
+      </varlistentry>-->
+
+    </variablelist>
+
+    <para>During this stage the following warning might appear:</para>
+
+    <blockquote>
+<screen><computeroutput>configure: WARNING:
+*** These auxiliary programs are missing or
+*** incompatible versions: msgfmt
+*** some features will be disabled.
+*** Check the INSTALL file for required versions.</computeroutput></screen>
+    </blockquote>
+
+    <para>The missing or incompatible <command>msgfmt</command> program is
+    generally harmless. This <command>msgfmt</command> program is part of the
+    Gettext package which the host distribution should provide.</para>
+
+    <note><para>There have been reports that this package may fail when 
+    building as a "parallel make".  If this occurs, rerun the make command
+    with a "-j1" option.</para></note>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  <caution>
+    <para>At this point, it is imperative to stop and ensure that the basic
+    functions (compiling and linking) of the new toolchain are working as
+    expected. To perform a sanity check, run the following commands:</para>
+
+<screen><userinput>echo 'int main(){}' &gt; dummy.c
+$LFS_TGT-gcc dummy.c
+readelf -l a.out | grep ': /tools'</userinput></screen>
+
+    <para>If everything is working correctly, there should be no errors,
+    and the output of the last command will be of the form:</para>
+
+<screen><computeroutput>[Requesting program interpreter: /tools/lib/ld-linux.so.2]</computeroutput></screen>
+
+    <para>Note that for 64-bit machines, the interpreter name will be
+    <filename>/tools/lib64/ld-linux-x86-64.so.2</filename>.</para>
+
+    <para>If the output is not shown as above or there was no output at all,
+    then something is wrong. Investigate and retrace the steps to find out
+    where the problem is and correct it. This issue must be resolved before
+    continuing on.</para>
+
+    <para>Once all is well, clean up the test files:</para>
+
+<screen><userinput>rm -v dummy.c a.out</userinput></screen>
+
+  </caution>
+
+  <note><para>Building Binutils in the section after next will serve as an
+  additional check that the toolchain has been built properly. If Binutils
+  fails to build, it is an indication that something has gone wrong with the
+  previous Binutils, GCC, or Glibc installations.</para></note>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-glibc" role="."/></para>
+
+  </sect2>
+
+</sect1>

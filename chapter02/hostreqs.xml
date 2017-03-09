@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="pre-hostreqs" xreflabel="Host System Requirements">
+  <?dbhtml filename="hostreqs.html"?>
+
+  <title>Host System Requirements</title>
+
+    <para>Your host system should have the following software with the
+    minimum versions indicated. This should not be an issue for most
+    modern Linux distributions. Also note that many distributions will
+    place software headers into separate packages, often in the form of
+    <quote>&lt;package-name&gt;-devel</quote> or
+    <quote>&lt;package-name&gt;-dev</quote>. Be sure to install those if
+    your distribution provides them.</para>
+
+   <para>Earlier versions of the listed software packages may work, but have
+   not been tested.</para>
+
+  <itemizedlist spacing="compact">
+
+    <listitem>
+      <para><emphasis role="strong">Bash-3.2</emphasis> (/bin/sh
+      should be a symbolic or hard link to bash)</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Binutils-2.17</emphasis> (Versions
+      greater than &binutils-version; are not recommended as they have
+      not been tested)</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Bison-2.3</emphasis> (/usr/bin/yacc
+      should be a link to bison or small script that executes bison)</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Bzip2-1.0.4</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Coreutils-6.9</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Diffutils-2.8.1</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Findutils-4.2.31</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Gawk-4.0.1</emphasis> (/usr/bin/awk
+      should be a link to gawk)</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">GCC-4.7</emphasis> including the C++
+      compiler, <command>g++</command> (Versions greater than &gcc-version; are
+      not recommended as they have not been tested)</para>
+
+      <note><para>On some distributions, there have been reports that some
+      libraries used by gcc can be in an inconsistent state and that this
+      interferes with building some LFS packages.  To check this, look in
+      /usr/lib and possibly /usr/lib64 for libgmp.la, libmpfr.la, and
+      libmpc.la.  Either all three should be present or absent, but not only
+      one or two.  If the problem exists on your system, either rename or
+      delete the .la files or install the appropriate missing
+      package.</para></note>
+
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Glibc-2.11</emphasis> (Versions
+      greater than &glibc-version; are not recommended as they have
+      not been tested)</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Grep-2.5.1a</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Gzip-1.3.12</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Linux Kernel-&min-kernel;</emphasis></para>
+
+      <para>The reason for the kernel version requirement is that we specify
+      that version when building <application>glibc</application> in Chapter 6
+      at the recommendation of the developers.  It is also required by
+      udev.</para>
+
+      <para>If the host kernel is earlier than &min-kernel; you will need to replace
+      the kernel with a more up to date version. There are two ways
+      you can go about this. First, see if your Linux vendor provides a &min-kernel;
+      or later kernel package. If so, you may wish to install it. If your
+      vendor doesn't offer an acceptable kernel package, or you would prefer not to
+      install it, you can compile a kernel yourself. Instructions for
+      compiling the kernel and configuring the boot loader (assuming the host
+      uses GRUB) are located in <xref linkend="chapter-bootable"/>.</para>
+
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">M4-1.4.10</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Make-3.81</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Patch-2.5.4</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Perl-5.8.8</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Sed-4.1.5</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Tar-1.22</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Texinfo-4.7</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Xz-5.0.0</emphasis></para>
+    </listitem>
+
+  </itemizedlist>
+
+  <important>
+    <para>Note that the symlinks mentioned above are required to build an LFS
+    system using the instructions contained within this book. Symlinks that
+    point to other software (such as dash, mawk, etc.) may work, but are not
+    tested or supported by the LFS development team, and may require either
+    deviation from the instructions or additional patches to some
+    packages.</para>
+  </important>
+
+  <!-- Use an empty sect2 element to prevent a pdf warning.  -->
+  <bridgehead renderas="sect2" 
+              id="version-check" 
+              xreflabel="Host System Requirements">
+  </bridgehead>
+  <!--<title> </title>-->
+
+  <para >To see whether your host system has all the appropriate versions, and
+  the ability to compile programs, run the following:</para>
+
+<!-- ANY additional lines in the script cause a pdf rendering problem-->
+<screen role="nodump"><userinput>cat &gt; version-check.sh &lt;&lt; "EOF"
+<literal>#!/bin/bash
+# Simple script to list version numbers of critical development tools
+export LC_ALL=C
+bash --version | head -n1 | cut -d" " -f2-4
+MYSH=$(readlink -f /bin/sh)
+echo "/bin/sh -&gt; $MYSH"
+echo $MYSH | grep -q bash || echo "ERROR: /bin/sh does not point to bash"
+unset MYSH
+
+echo -n "Binutils: "; ld --version | head -n1 | cut -d" " -f3-
+bison --version | head -n1
+
+if [ -h /usr/bin/yacc ]; then
+  echo "/usr/bin/yacc -> `readlink -f /usr/bin/yacc`";
+elif [ -x /usr/bin/yacc ]; then
+  echo yacc is `/usr/bin/yacc --version | head -n1`
+else
+  echo "yacc not found" 
+fi
+
+bzip2 --version 2&gt;&amp;1 &lt; /dev/null | head -n1 | cut -d" " -f1,6-
+echo -n "Coreutils: "; chown --version | head -n1 | cut -d")" -f2
+diff --version | head -n1
+find --version | head -n1
+gawk --version | head -n1
+
+if [ -h /usr/bin/awk ]; then
+  echo "/usr/bin/awk -&gt; `readlink -f /usr/bin/awk`";
+elif [ -x /usr/bin/awk ]; then
+  echo awk is `/usr/bin/awk --version | head -n1`
+else 
+  echo "awk not found" 
+fi
+
+gcc --version | head -n1
+g++ --version | head -n1
+ldd --version | head -n1 | cut -d" " -f2-  # glibc version
+grep --version | head -n1
+gzip --version | head -n1
+cat /proc/version
+m4 --version | head -n1
+make --version | head -n1
+patch --version | head -n1
+echo Perl `perl -V:version`
+sed --version | head -n1
+tar --version | head -n1
+makeinfo --version | head -n1
+xz --version | head -n1
+<?hard-pagebreak?>
+echo 'int main(){}' &gt; dummy.c &amp;&amp; g++ -o dummy dummy.c
+if [ -x dummy ]
+  then echo "g++ compilation OK";
+  else echo "g++ compilation failed"; fi
+rm -f dummy.c dummy</literal>
+EOF
+
+bash version-check.sh</userinput></screen>
+
+  <para>Also check for some library consistency:</para>
+
+<screen role="nodump"><userinput>cat &gt; library-check.sh &lt;&lt; "EOF"
+<literal>#!/bin/bash
+for lib in lib{gmp,mpfr,mpc}.la; do
+  echo $lib: $(if find /usr/lib* -name $lib|
+               grep -q $lib;then :;else echo not;fi) found
+done
+unset lib</literal>
+EOF
+
+bash library-check.sh</userinput></screen>
+
+<para>The files identified by this script should be all present
+or all absent, but not only one or two present.</para>
+
+
+<!--</sect2>-->
+</sect1>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-adjusting">
+  <?dbhtml filename="adjusting.html"?>
+
+  <title>Adjusting the Toolchain</title>
+
+  <para>Now that the final C libraries have been installed, it is time to adjust
+  the toolchain so that it will link any
+  newly compiled program against these new libraries.</para>
+
+  <para>First, backup the <filename class="directory">/tools</filename> linker,
+  and replace it with the adjusted linker we made in chapter 5. We'll also create
+  a link to its counterpart in
+  <filename class="directory">/tools/$(uname -m)-pc-linux-gnu/bin</filename>:</para>
+
+<screen><userinput>mv -v /tools/bin/{ld,ld-old}
+mv -v /tools/$(uname -m)-pc-linux-gnu/bin/{ld,ld-old}
+mv -v /tools/bin/{ld-new,ld}
+ln -sv /tools/bin/ld /tools/$(uname -m)-pc-linux-gnu/bin/ld</userinput></screen>
+
+  <para>Next, amend the GCC specs file so that it points to the new
+  dynamic linker. Simply deleting all instances of <quote>/tools</quote> should
+  leave us with the correct path to the dynamic linker. Also adjust the specs file
+  so that GCC knows where to find the correct headers and Glibc start files.
+  A <command>sed</command> command accomplishes this:</para>
+
+<screen><userinput>gcc -dumpspecs | sed -e 's@/tools@@g'                   \
+    -e '/\*startfile_prefix_spec:/{n;s@.*@/usr/lib/ @}' \
+    -e '/\*cpp:/{n;s@$@ -isystem /usr/include@}' &gt;      \
+    `dirname $(gcc --print-libgcc-file-name)`/specs</userinput></screen>
+
+  <para>It is a good idea to visually inspect the specs file to verify the
+  intended change was actually made.</para>
+
+  <para>It is imperative at this point to ensure that the basic
+  functions (compiling and linking) of the adjusted toolchain are working
+  as expected. To do this, perform the following sanity checks:</para>
+
+<screen os="a"><userinput>echo 'int main(){}' &gt; dummy.c
+cc dummy.c -v -Wl,--verbose &amp;&gt; dummy.log
+readelf -l a.out | grep ': /lib'</userinput></screen>
+
+  <para os="b">There should be no errors,
+  and the output of the last command will be (allowing for
+  platform-specific differences in dynamic linker name):</para>
+
+<screen os="c"><computeroutput>[Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]</computeroutput></screen>
+
+  <para>Note that <filename class="directory">/lib</filename> is now
+  the prefix of our dynamic linker.</para>
+
+  <note><para>On 32-bit systems the interpreter should be
+  /lib/ld-linux.so.2.</para></note>
+
+  <para os="d">Now make sure that we're setup to use the correct start files:</para>
+
+<screen os="e"><userinput>grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log</userinput></screen>
+
+  <para os="f">The output of the last command should be:</para>
+
+<screen><computeroutput>/usr/lib/../lib/crt1.o succeeded
+/usr/lib/../lib/crti.o succeeded
+/usr/lib/../lib/crtn.o succeeded</computeroutput></screen>
+
+  <para os="g">Verify that the compiler is searching for the correct header
+  files:</para>
+
+<screen><userinput>grep -B1 '^ /usr/include' dummy.log</userinput></screen>
+
+  <para os="h">This command should return the following output:</para>
+
+<screen><computeroutput>#include &lt;...&gt; search starts here:
+ /usr/include</computeroutput></screen>
+
+  <para os="i">Next, verify that the new linker is being used with the correct search paths:</para>
+
+<screen os="j"><userinput>grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'</userinput></screen>
+
+  <para os="k">References to paths that have components with '-linux-gnu' should
+  be ignored, but otherwise the output of the last command should be:</para>
+
+<screen><computeroutput>SEARCH_DIR("/usr/lib")
+SEARCH_DIR("/lib")</computeroutput></screen>
+
+  <para os="l">Next make sure that we're using the correct libc:</para>
+
+<screen os="m"><userinput>grep "/lib.*/libc.so.6 " dummy.log</userinput></screen>
+
+  <para os="n">The output of the last command should be:</para>
+
+<screen os="o"><computeroutput>attempt to open /lib/libc.so.6 succeeded</computeroutput></screen>
+
+  <para os="p">Lastly, make sure GCC is using the correct dynamic linker:</para>
+
+<screen os="q"><userinput>grep found dummy.log</userinput></screen>
+
+  <para os="r">The output of the last command should be (allowing for
+  platform-specific differences in dynamic linker name):</para>
+
+<screen os="s"><computeroutput>found ld-linux-x86-64.so.2 at /lib/ld-linux-x86-64.so.2</computeroutput></screen>
+
+  <para os="t">If the output does not appear as shown above or is not received
+  at all, then something is seriously wrong. Investigate and retrace the
+  steps to find out where the problem is and correct it. The most likely
+  reason is that something went wrong with the specs file adjustment. Any
+  issues will need to be resolved before continuing on with the process.</para>
+
+  <para os="u">Once everything is working correctly, clean up the test files:</para>
+
+<screen os="v"><userinput>rm -v dummy.c a.out dummy.log</userinput></screen>
+
+</sect1>

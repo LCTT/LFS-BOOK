@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-sysvinit" role="wrap" revision="sysv">
+  <?dbhtml filename="sysvinit.html"?>
+
+  <sect1info condition="script">
+    <productname>sysvinit</productname>
+    <productnumber>&sysvinit-version;</productnumber>
+    <address>&sysvinit-url;</address>
+  </sect1info>
+
+  <title>Sysvinit-&sysvinit-version;</title>
+
+  <indexterm zone="ch-system-sysvinit">
+    <primary sortas="a-Sysvinit">Sysvinit</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Sysvinit package contains programs for controlling the startup,
+    running, and shutdown of the system.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&sysvinit-ch6-sbu;</seg>
+        <seg>&sysvinit-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Sysvinit</title>
+
+<!--
+    <para>When run-levels are changed (for example, when halting the
+    system), <command>init</command> sends termination signals to those
+    processes that <command>init</command> itself started and that should
+    not be running in the new run-level.  While doing this,
+    <command>init</command> outputs messages like <quote>Sending processes
+    the TERM signal</quote> which seem to imply that it is sending these
+    signals to all currently running processes. To avoid this
+    misinterpretation, modify the source so that these messages read like
+    <quote>Sending processes configured via /etc/inittab the TERM signal</quote>
+    instead:</para>
+
+<screen><userinput remap="pre">sed -i 's@Sending processes@&amp; configured via /etc/inittab@g' src/init.c</userinput></screen>
+
+    <para>Maintained versions of the <command>wall</command>,
+    <command>mountpoint</command>, <command>last</command>,
+    <command>mesg</command>, <command>sulogin</command>, and
+    <command>utmpdump</command> programs were installed earlier by Util-linux.
+    Suppress the installation of Sysvinit's versions of these programs and
+    their man pages:</para>
+
+<screen><userinput remap="make">sed -ri -e '/utmpdump/d'   \
+        -e '/mountpoint/d' \
+        -e '/mesg/d'       \
+        -e 's/= sulogin(\.8)?/=/' src/Makefile</userinput></screen>
+-->
+    <para>First, apply a patch that removes several programs installed by other
+    packages, clarifies a message, and fixes a compiler warning:</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&sysvinit-consolidated-patch;</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make -C src</userinput></screen>
+
+    <para>This package does not come with a test suite.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make -C src install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-sysvinit" role="content">
+    <title>Contents of Sysvinit</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+
+      <seglistitem>
+        <seg>bootlogd, fstab-decode, halt, init, killall5, 
+        poweroff (link to halt), reboot (link to halt), runlevel,
+        shutdown, and telinit (link to init)</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="bootlogd">
+        <term><command>bootlogd</command></term>
+        <listitem>
+          <para>Logs boot messages to a log file</para>
+          <indexterm zone="ch-system-sysvinit bootlogd">
+            <primary sortas="b-bootlogd">bootlogd</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="fstab-decode">
+        <term><command>fstab-decode</command></term>
+        <listitem>
+          <para>Run a command with fstab-encoded arguments</para>
+          <indexterm zone="ch-system-sysvinit fstab-decode">
+            <primary sortas="b-fstab-decode">fstab-decode</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="halt-sysv">
+        <term><command>halt</command></term>
+        <listitem>
+          <para>Normally invokes <command>shutdown</command> with the
+          <parameter>-h</parameter> option, except when already in run-level 0,
+          then it tells the kernel to halt the system; it notes in the
+          file <filename>/var/log/wtmp</filename> that the system is being
+          brought down</para>
+          <indexterm zone="ch-system-sysvinit halt-sysv">
+            <primary sortas="b-halt">halt</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="init-sysv">
+        <term><command>init</command></term>
+        <listitem>
+          <para>The first process to be started when the kernel has initialized
+          the hardware which takes over the boot process and starts all the
+          proceses specified in its configuration file</para>
+          <indexterm zone="ch-system-sysvinit init-sysv">
+            <primary sortas="b-init">init</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="killall5">
+        <term><command>killall5</command></term>
+        <listitem>
+          <para>Sends a signal to all processes, except the processes in its own
+          session so it will not kill its parent shell</para>
+          <indexterm zone="ch-system-sysvinit killall5">
+            <primary sortas="b-killall5">killall5</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="poweroff-sysv">
+        <term><command>poweroff</command></term>
+        <listitem>
+          <para>Tells the kernel to halt the system and switch off the computer
+          (see <command>halt</command>)</para>
+          <indexterm zone="ch-system-sysvinit poweroff-sysv">
+            <primary sortas="b-poweroff">poweroff</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="reboot-sysv">
+        <term><command>reboot</command></term>
+        <listitem>
+          <para>Tells the kernel to reboot the system (see
+          <command>halt</command>)</para>
+          <indexterm zone="ch-system-sysvinit reboot-sysv">
+            <primary sortas="b-reboot">reboot</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="runlevel-sysv">
+        <term><command>runlevel</command></term>
+        <listitem>
+          <para>Reports the previous and the current run-level, as noted in the
+          last run-level record in <filename>/var/run/utmp</filename></para>
+          <indexterm zone="ch-system-sysvinit runlevel-sysv">
+            <primary sortas="b-runlevel">runlevel</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="shutdown-sysv">
+        <term><command>shutdown</command></term>
+        <listitem>
+          <para>Brings the system down in a secure way, signaling all processes
+          and notifying all logged-in users</para>
+          <indexterm zone="ch-system-sysvinit shutdown-sysv">
+            <primary sortas="b-shutdown">shutdown</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="telinit-sysv">
+        <term><command>telinit</command></term>
+        <listitem>
+          <para>Tells <command>init</command> which run-level to change to</para>
+          <indexterm zone="ch-system-sysvinit telinit-sysv">
+            <primary sortas="b-telinit">telinit</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

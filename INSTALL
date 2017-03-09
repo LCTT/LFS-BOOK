@@ -1,0 +1,47 @@
+LFS Book Conversion Tools Installation Instructions
+
+After downloading the SVN source, there are some things that need to be set up 
+on your computer if you want to convert the XML source into something easier to 
+read (e.g. HTML, TXT, or PDF).  If you are interested in this, then keep 
+reading.  If you are only interested in editing the XML source for re- 
+submission to the lfs-book or lfs-dev mailing lists, then you do not need this 
+document.  Instead, you need to read the LFS Editor's Manual.  See the LFS 
+website at http://www.linuxfromscratch.org for more information.
+
+-------------------------------------------------------------------------------
+
+If you want to convert the XML to HTML, install the following:
+
+* libxml2
+  - http://www.linuxfromscratch.org/blfs/view/svn/general/libxml2.html
+
+* libxslt
+  - http://www.linuxfromscratch.org/blfs/view/svn/general/libxslt.html
+
+* DocBook DTD 
+  - http://www.linuxfromscratch.org/blfs/view/svn/pst/xml.html
+
+* DocBook XSL Stylesheets 
+  - http://www.linuxfromscratch.org/blfs/view/svn/pst/docbook-xsl.html
+
+* HTMLTidy
+  - http://www.linuxfromscratch.org/blfs/view/svn/general/tidy.html
+
+------------------------------------------------------------------------------- 
+
+If you want to convert the XML to TXT, install the above items, and then install
+the following:
+
+* lynx
+  - http://www.linuxfromscratch.org/blfs/view/svn/basicnet/lynx.html
+
+------------------------------------------------------------------------------- 
+
+If you want to convert the XML to PDF, install the items listed above (except
+lynx) and then install the following:
+
+* JDK
+  - http://www.linuxfromscratch.org/blfs/view/svn/general/openjdk.html
+
+* FOP and JAI
+  - http://www.linuxfromscratch.org/blfs/view/svn/pst/fop.html

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-eudev" role="wrap" revision="sysv">
+  <?dbhtml filename="eudev.html"?>
+
+  <sect1info condition="script">
+    <productname>eudev</productname>
+    <productnumber>&eudev-version;</productnumber>
+    <address>&eudev-url;</address>
+  </sect1info>
+
+  <title>Eudev-&eudev-version;</title>
+
+  <indexterm zone="ch-system-eudev">
+    <primary sortas="a-Eudev">Eudev</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Eudev package contains programs for dynamic creation of device
+    nodes.</para> 
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&eudev-ch6-sbu;</seg>
+        <seg>&eudev-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Eudev</title>
+
+    <para>First, fix a test script:</para>
+
+<screen><userinput remap="pre">sed -r -i 's|/usr(/bin/test)|\1|' test/udev-test.pl</userinput></screen>
+
+    <para>Next, remove an unneeded line that causes a build failure:</para>
+
+<screen><userinput remap="pre">sed -i '/keyboard_lookup_key/d' src/udev/udev-builtin-keyboard.c</userinput></screen>
+
+    <para>Next, add a workaround to prevent the /tools directory from being 
+    hard coded into Eudev binary files library locations:</para>
+
+<screen><userinput remap="pre">cat &gt; config.cache &lt;&lt; "EOF"
+HAVE_BLKID=1
+BLKID_LIBS="-lblkid"
+BLKID_CFLAGS="-I/tools/include"
+EOF</userinput></screen>
+
+<para>Prepare Eudev for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr           \
+            --bindir=/sbin          \
+            --sbindir=/sbin         \
+            --libdir=/usr/lib       \
+            --sysconfdir=/etc       \
+            --libexecdir=/lib       \
+            --with-rootprefix=      \
+            --with-rootlibdir=/lib  \
+            --enable-manpages       \
+            --disable-static        \
+            --config-cache</userinput></screen>
+
+<!-- Seems to be unneeded - but leave as a comment for a while
+
+            - -disable-gudev         \
+            - -enable-split-usr      \
+            - -enable-hwdb           \
+            - -disable-introspection \
+            - -disable-gtk-doc-html</userinput></screen>
+
+-->
+
+<para>Compile the package:</para>
+
+<screen><userinput remap="make">LIBRARY_PATH=/tools/lib make</userinput></screen>
+
+<para>Create some directories now that are needed for tests, but
+will also be used as a part of installation:</para>
+
+<screen><userinput remap="test">mkdir -pv /lib/udev/rules.d
+mkdir -pv /etc/udev/rules.d</userinput></screen>
+
+<para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make LD_LIBRARY_PATH=/tools/lib check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make LD_LIBRARY_PATH=/tools/lib install</userinput></screen>
+
+    <para>Install some custom rules and support files useful in an LFS 
+    environment:</para>
+
+<screen><userinput remap="install">tar -xvf ../&udev-lfs-version;.tar.bz2
+make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="conf-eudev" role="configuration">
+    <title>Configuring Eudev</title>
+
+    <indexterm zone="conf-eudev">
+      <primary sortas="a-Eudev">Eudev</primary>
+      <secondary>configuring</secondary>
+    </indexterm>
+
+    <indexterm zone="conf-eudev">
+      <primary sortas="e-/etc/udev/hwdb.bin">/etc/udev/hwdb.bin</primary>
+    </indexterm>
+
+    <para>Information about hardware devices is maintained in the
+    <filename class="directory">/etc/udev/hwdb.d</filename> and
+    <filename class="directory">/usr/lib/udev/hwdb.d</filename> directories.
+    <application>Eudev</application> needs that information to be compiled
+    into a binary database <filename>/etc/udev/hwdb.bin</filename>. Create the
+    initial database:</para>
+
+<screen><userinput>LD_LIBRARY_PATH=/tools/lib udevadm hwdb --update</userinput></screen>
+
+    <para>This command needs to be run each time the hardware information is
+    updated.</para>
+
+  </sect2>
+
+  <sect2 id="contents-eudev" role="content">
+    <title>Contents of Eudev</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed libraries</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg><!-- These are in /lib/udev and not to be called by the user:
+         accelerometer, ata_id, cdrom_id, collect, mtd_probe,
+         scsi_id, v4l_id,--> udevadm and udevd</seg>
+
+        <seg>libudev.so</seg>
+
+        <seg>/etc/udev, /lib/udev, and /usr/share/doc/udev-20140408</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+      <varlistentry id="udevadm" revision="sysv">
+        <term><command>udevadm</command></term>
+        <listitem>
+          <para>Generic udev administration tool: controls the udevd daemon,
+          provides info from the Udev database, monitors uevents, waits for
+          uevents to finish, tests Udev configuration, and triggers uevents
+          for a given device</para>
+          <indexterm zone="ch-system-eudev udevadm">
+            <primary sortas="b-udevadm">udevadm</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="udevd">
+        <term><command>udevd</command></term>
+        <listitem>
+          <para>A daemon that listens for uevents on the netlink socket,
+          creates devices and runs the configured external programs in
+          response to these uevents</para>
+          <indexterm zone="ch-system-eudev udevd">
+            <primary sortas="b-udevd">udevd</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libudev">
+        <term><filename class="libraryfile">libudev</filename></term>
+        <listitem>
+          <para>A library interface to udev device information</para>
+          <indexterm zone="ch-system-eudev libudev">
+            <primary sortas="c-libudev">libudev</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="etc-udev">
+        <term><filename class="directory">/etc/udev</filename></term>
+        <listitem>
+          <para>Contains Udev configuration files,
+          device permissions, and rules for device naming</para>
+          <indexterm zone="ch-system-eudev etc-udev">
+            <primary sortas="e-/etc/udev">/etc/udev</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

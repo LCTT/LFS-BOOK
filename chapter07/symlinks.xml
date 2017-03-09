@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-symlinks">
+  <?dbhtml filename="symlinks.html"?>
+
+  <title>Managing Devices</title>
+
+  <sect2 revision="sysv">
+
+    <title>Network Devices</title>
+
+    <para>Udev, by default, names network devices according to Firmware/BIOS
+    data or physical characteristics like the bus, slot, or MAC address.  The
+    purpose of this naming convention is to ensure that network devices are
+    named consistently and not based on the time the network card was
+    discovered.  For example, on a computer having two network cards made by
+    Intel and Realtek, the network card manufactured by Intel may become eth0
+    and the Realtek card becomes eth1. In some cases, after a reboot the cards
+    get renumbered the other way around.</para>
+    
+    <para>In the new naming scheme, typical network device names would then
+    be something like enp5s0 or wlp3s0.  If this naming convention is not
+    desired, the traditional naming scheme or a custom scheme can be
+    implemented.</para>
+
+    <sect3>
+      <title>Disabling Persistent Naming on the Kernel Command Line</title>
+   
+      <para>The traditional naming scheme using eth0, eth1, etc can be
+      restored by adding <userinput>net.ifnames=0</userinput> on the 
+      kernel command line.  This is most appropriate for those systems
+      that have only one ethernet device of the same type.  Laptops
+      often have multiple ethernet connections that are named eth0 and 
+      wlan0 and are also candidates for this method.  The command line 
+      is passed in the GRUB configuration file. 
+      See <xref linkend="grub-cfg"/>.</para>
+    </sect3>
+
+    <sect3>
+      <title>Creating Custom Udev Rules</title>
+   
+      <para>The naming scheme can be customized by creating custom Udev
+      rules.  A script has been included that generates the initial rules.
+      Generate these rules by running:</para>
+
+<screen role="install"><userinput>bash /lib/udev/init-net-rules.sh</userinput></screen>
+
+      <para> Now, inspect the
+      <filename>/etc/udev/rules.d/70-persistent-net.rules</filename> file, to
+      find out which name was assigned to which network device:</para>
+
+<screen role="nodump"><userinput>cat /etc/udev/rules.d/70-persistent-net.rules</userinput></screen>
+
+      <note><para>In some cases such as when MAC addresess have been assigned to
+      a network card manually or in a virtual environment such as Qemu or Xen,
+      the network rules file may not have been generated because addresses
+      are not consistently assigned.  In these cases, this method cannot
+      be used.</para></note>
+  
+      <para>The file begins with a comment block followed by two lines for each
+      NIC. The first line for each NIC is a commented description showing its
+      hardware IDs (e.g. its PCI vendor and device IDs, if it's a PCI card),
+      along with its driver in parentheses, if the driver can be found. Neither
+      the hardware ID nor the driver is used to determine which name to give an
+      interface; this information is only for reference. The second line is the
+      Udev rule that matches this NIC and actually assigns it a name.</para>
+  
+      <para>All Udev rules are made up of several keys, separated by commas and
+      optional whitespace. This rule's keys and an explanation of each of them
+      are as follows:</para>
+  
+      <itemizedlist>
+        <listitem>
+          <para><literal>SUBSYSTEM=="net"</literal> - This tells Udev to ignore
+          devices that are not network cards.</para>
+        </listitem>
+        <listitem>
+          <para><literal>ACTION=="add"</literal> - This tells Udev to ignore this
+          rule for a uevent that isn't an add ("remove" and "change" uevents also
+          happen, but don't need to rename network interfaces).</para>
+        </listitem>
+        <listitem>
+          <para><literal>DRIVERS=="?*"</literal> - This exists so that Udev will
+          ignore VLAN or bridge sub-interfaces (because these sub-interfaces do
+          not have drivers). These sub-interfaces are skipped because the name
+          that would be assigned would collide with their parent devices.</para>
+        </listitem>
+        <listitem>
+          <para><literal>ATTR{address}</literal> - The value of this key is the
+          NIC's MAC address.</para>
+        </listitem>
+        <listitem>
+          <para><literal>ATTR{type}=="1"</literal> - This ensures the rule only
+          matches the primary interface in the case of certain wireless drivers,
+          which create multiple virtual interfaces. The secondary interfaces are
+          skipped for the same reason that VLAN and bridge sub-interfaces are
+          skipped: there would be a name collision otherwise.</para>
+        </listitem>
+        <listitem>
+          <para><literal>NAME</literal> - The value of this key is the name that
+          Udev will assign to this interface.</para>
+        </listitem>
+      </itemizedlist>
+  
+      <para>The value of <literal>NAME</literal> is the important part. Make sure
+      you know which name has been assigned to each of your network cards before
+      proceeding, and be sure to use that <literal>NAME</literal> value when
+      creating your configuration files below.</para>
+
+    </sect3>
+
+  </sect2>
+
+  <sect2 revision="sysv">
+
+    <title>CD-ROM symlinks</title>
+
+    <para>Some software that you may want to install later (e.g., various
+    media players) expect the <filename class="symlink">/dev/cdrom</filename>
+    and <filename class="symlink">/dev/dvd</filename> symlinks to exist, and
+    to point to a CD-ROM or DVD-ROM device. Also, it may be convenient to put
+    references to those symlinks into <filename>/etc/fstab</filename>. Udev
+    comes with a script that will generate rules files to create these symlinks
+    for you, depending on the capabilities of each device, but you need to
+    decide which of two modes of operation you wish to have the script use.</para>
+
+    <para>First, the script can operate in <quote>by-path</quote> mode (used by
+    default for USB and FireWire devices), where the rules it creates depend on
+    the physical path to the CD or DVD device. Second, it can operate in
+    <quote>by-id</quote> mode (default for IDE and SCSI devices), where the
+    rules it creates depend on identification strings stored in the CD or DVD
+    device itself. The path is determined by Udev's <command>path_id</command>
+    script, and the identification strings are read from the hardware by its
+    <command>ata_id</command> or <command>scsi_id</command> programs, depending
+    on which type of device you have.</para>
+
+    <para>There are advantages to each approach; the correct approach to use
+    will depend on what kinds of device changes may happen. If you expect the
+    physical path to the device (that is, the ports and/or slots that it plugs
+    into) to change, for example because you plan on moving the drive to a
+    different IDE port or a different USB connector, then you should use the
+    <quote>by-id</quote> mode. On the other hand, if you expect the device's
+    identification to change, for example because it may die, and you would
+    replace it with a different device with the same capabilities and which
+    is plugged into the same connectors, then you should use the
+    <quote>by-path</quote> mode.</para>
+
+    <para>If either type of change is possible with your drive, then choose a
+    mode based on the type of change you expect to happen more often.</para>
+
+<!-- If you use by-id mode, the symlinks will survive even the transition
+     to libata for IDE drives, but that is not for the book. -->
+
+    <important><para>External devices (for example, a USB-connected CD drive)
+    should not use by-path persistence, because each time the device is plugged
+    into a new external port, its physical path will change. All
+    externally-connected devices will have this problem if you write Udev rules
+    to recognize them by their physical path; the problem is not limited to CD
+    and DVD drives.</para></important>
+
+    <para>If you wish to see the values that the Udev scripts will use, then
+    for the appropriate CD-ROM device, find the corresponding directory under
+    <filename class="directory">/sys</filename> (e.g., this can be
+    <filename class="directory">/sys/block/hdd</filename>) and
+    run a command similar to the following:</para>
+
+<screen role="nodump"><userinput>udevadm test /sys/block/hdd</userinput></screen>
+
+    <para>Look at the lines containing the output of various *_id programs.
+    The <quote>by-id</quote> mode will use the ID_SERIAL value if it exists and
+    is not empty, otherwise it will use a combination of ID_MODEL and
+    ID_REVISION. The <quote>by-path</quote> mode will use the ID_PATH value.</para>
+
+    <para>If the default mode is not suitable for your situation, then the
+    following modification can be made to the
+    <filename>/etc/udev/rules.d/83-cdrom-symlinks.rules</filename> file,
+    as follows (where <replaceable>mode</replaceable> is one of
+    <quote>by-id</quote> or <quote>by-path</quote>):</para>
+
+<screen role="nodump"><userinput>sed -i -e 's/"write_cd_rules"/"write_cd_rules <replaceable>mode</replaceable>"/' \
+    /etc/udev/rules.d/83-cdrom-symlinks.rules</userinput></screen>
+
+    <para>Note that it is not necessary to create the rules files or symlinks
+    at this time, because you have bind-mounted the host's
+    <filename class="directory">/dev</filename> directory into the LFS system,
+    and we assume the symlinks exist on the host. The rules and symlinks will
+    be created the first time you boot your LFS system.</para>
+
+    <para>However, if you have multiple CD-ROM devices, then the symlinks
+    generated at that time may point to different devices than they point to on
+    your host, because devices are not discovered in a predictable order. The
+    assignments created when you first boot the LFS system will be stable, so
+    this is only an issue if you need the symlinks on both systems to point to
+    the same device. If you need that, then inspect (and possibly edit) the
+    generated <filename>/etc/udev/rules.d/70-persistent-cd.rules</filename>
+    file after booting, to make sure the assigned symlinks match what you need.</para>
+
+  </sect2>
+
+  <sect2>
+
+    <title>Dealing with duplicate devices</title>
+
+    <para>As explained in <xref linkend="ch-scripts-udev"/>, the order in
+    which devices with the same function appear in
+    <filename class="directory">/dev</filename> is essentially random.
+    E.g., if you have a USB web camera and a TV tuner, sometimes
+    <filename>/dev/video0</filename> refers to the camera and
+    <filename>/dev/video1</filename> refers to the tuner, and sometimes
+    after a reboot the order changes to the opposite one.
+    For all classes of hardware except sound cards and network cards, this is
+    fixable by creating Udev rules for custom persistent symlinks.
+    The case of network cards is covered separately in
+    <xref linkend="ch-scripts-network"/>, and sound card configuration can
+    be found in <ulink url="&blfs-book;postlfs/devices.html">BLFS</ulink>.</para>
+
+    <para>For each of your devices that is likely to have this problem
+    (even if the problem doesn't exist in your current Linux distribution),
+    find the corresponding directory under
+    <filename class="directory">/sys/class</filename> or
+    <filename class="directory">/sys/block</filename>.
+    For video devices, this may be
+    <filename
+    class="directory">/sys/class/video4linux/video<replaceable>X</replaceable></filename>.
+    Figure out the attributes that identify the device uniquely (usually,
+    vendor and product IDs and/or serial numbers work):</para>
+
+<screen role="nodump"><userinput>udevadm info -a -p /sys/class/video4linux/video0</userinput></screen>
+
+    <para>Then write rules that create the symlinks, e.g.:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/udev/rules.d/83-duplicate_devs.rules &lt;&lt; "EOF"
+<literal>
+# Persistent symlinks for webcam and tuner
+KERNEL=="video*", ATTRS{idProduct}=="1910", ATTRS{idVendor}=="0d81", \
+    SYMLINK+="webcam"
+KERNEL=="video*", ATTRS{device}=="0x036f", ATTRS{vendor}=="0x109e", \
+    SYMLINK+="tvtuner"
+</literal>
+EOF</userinput></screen>
+
+    <para>The result is that <filename>/dev/video0</filename> and
+    <filename>/dev/video1</filename> devices still refer randomly to the tuner
+    and the web camera (and thus should never be used directly), but there are
+    symlinks <filename>/dev/tvtuner</filename> and
+    <filename>/dev/webcam</filename> that always point to the correct
+    device.</para>
+
+ </sect2>
+
+</sect1>

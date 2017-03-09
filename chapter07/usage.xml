@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  <!ENTITY site               SYSTEM "../appendices/rc.site.script">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-usage" revision="sysv">
+  <?dbhtml filename="usage.html"?>
+
+  <title>System V Bootscript Usage and Configuration</title>
+
+  <indexterm zone="ch-scripts-usage">
+    <primary sortas="a-Bootscripts">Bootscripts</primary>
+    <secondary>usage</secondary>
+  </indexterm>
+
+  <sect2>
+    <title>How Do the System V Bootscripts Work?</title>
+
+    <para>Linux uses a special booting facility named SysVinit that is based on a
+    concept of <emphasis>run-levels</emphasis>. It can be quite different from one
+    system to another, so it cannot be assumed that because things worked in one
+    particular Linux distribution, they should work the same in LFS too. LFS has its
+    own way of doing things, but it respects generally accepted standards.</para>
+  
+    <para>SysVinit (which will be referred to as <quote>init</quote> from now on)
+    works using a run-levels scheme. There are seven (numbered 0 to 6) run-levels
+    (actually, there are more run-levels, but they are for special cases and are
+    generally not used. See <filename>init(8)</filename> for more details), and
+    each one of those corresponds to the actions the computer is supposed to
+    perform when it starts up. The default run-level is 3. Here are the
+    descriptions of the different run-levels as they are implemented:</para>
+
+<literallayout>0: halt the computer
+1: single-user mode
+2: multi-user mode without networking
+3: multi-user mode with networking
+4: reserved for customization, otherwise does the same as 3
+5: same as 4, it is usually used for GUI login (like X's <command>xdm</command> or KDE's <command>kdm</command>)
+6: reboot the computer</literallayout>
+
+  </sect2>
+
+  <sect2 id="conf-sysvinit" role="configuration">
+  <title>Configuring Sysvinit</title>
+
+  <indexterm zone="conf-sysvinit">
+    <primary sortas="a-Sysvinit">Sysvinit</primary>
+    <secondary>configuring</secondary>
+  </indexterm>
+
+  <indexterm zone="conf-sysvinit">
+    <primary sortas="e-/etc/inittab">/etc/inittab</primary>
+  </indexterm>
+
+  <para>During the kernel initialization, the first program that is run
+  is either specified on the command line or, by default
+  <command>init</command>.  This program reads the initialization file
+  <filename>/etc/inittab</filename>.  Create this file with:</para>
+
+<screen><userinput>cat &gt; /etc/inittab &lt;&lt; "EOF"
+<literal># Begin /etc/inittab
+
+id:3:initdefault:
+
+si::sysinit:/etc/rc.d/init.d/rc S
+
+l0:0:wait:/etc/rc.d/init.d/rc 0
+l1:S1:wait:/etc/rc.d/init.d/rc 1
+l2:2:wait:/etc/rc.d/init.d/rc 2
+l3:3:wait:/etc/rc.d/init.d/rc 3
+l4:4:wait:/etc/rc.d/init.d/rc 4
+l5:5:wait:/etc/rc.d/init.d/rc 5
+l6:6:wait:/etc/rc.d/init.d/rc 6
+
+ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+
+su:S016:once:/sbin/sulogin
+
+1:2345:respawn:/sbin/agetty --noclear tty1 9600
+2:2345:respawn:/sbin/agetty tty2 9600
+3:2345:respawn:/sbin/agetty tty3 9600
+4:2345:respawn:/sbin/agetty tty4 9600
+5:2345:respawn:/sbin/agetty tty5 9600
+6:2345:respawn:/sbin/agetty tty6 9600
+
+# End /etc/inittab</literal>
+EOF</userinput></screen>
+
+  <para>An explanation of this initialization file is in the man page for
+  <emphasis>inittab</emphasis>.  For LFS, the key command that is run is
+  <command>rc</command>. The initialization file above will instruct
+  <command>rc</command> to run all the scripts starting with an S in the
+  <filename class="directory">/etc/rc.d/rcS.d</filename> directory
+  followed by all the scripts starting with an S in the <filename
+  class="directory">/etc/rc.d/rc?.d</filename> directory where the question
+  mark is specified by the initdefault value.</para>
+
+  <para>As a convenience, the <command>rc</command> script reads a library of
+  functions in <filename class="directory">/lib/lsb/init-functions</filename>.
+  This library also reads an optional configuration file,
+  <filename>/etc/sysconfig/rc.site</filename>.  Any of the system
+  configuration file parameters described in subsequent sections can be
+  alternatively placed in this file allowing consolidation of all system
+  parameters in this one file.</para>
+
+  <para>As a debugging convenience, the functions script also logs all output
+  to <filename>/run/var/bootlog</filename>.  Since the <filename
+  class="directory">/run</filename> directory is a tmpfs, this file is not
+  persistent across boots, however it is appended to the more permanent file
+  <filename>/var/log/boot.log</filename> at the end of the boot process.</para>
+
+  <sect3 id="init-levels" >
+  <title>Changing Run Levels</title>
+
+  <para>Changing run-levels is done with <command>init
+  <replaceable>&lt;runlevel&gt;</replaceable></command>, where
+  <replaceable>&lt;runlevel&gt;</replaceable> is the target run-level. For example, to
+  reboot the computer, a user could issue the <command>init 6</command> command,
+  which is an alias for the <command>reboot</command> command. Likewise,
+  <command>init 0</command> is an alias for the <command>halt</command>
+  command.</para>
+
+  <para>There are a number of directories under <filename
+  class="directory">/etc/rc.d</filename> that look like <filename
+  class="directory">rc?.d</filename> (where ? is the number of the run-level) and
+  <filename class="directory">rcsysinit.d</filename>, all containing a number of
+  symbolic links. Some begin with a <emphasis>K</emphasis>, the others begin with
+  an <emphasis>S</emphasis>, and all of them have two numbers following the
+  initial letter. The K means to stop (kill) a service and the S means to start a
+  service. The numbers determine the order in which the scripts are run, from 00
+  to 99&mdash;the lower the number the earlier it gets executed. When
+  <command>init</command> switches to another run-level, the appropriate services
+  are either started or stopped, depending on the runlevel chosen.</para>
+
+  <para>The real scripts are in <filename
+  class="directory">/etc/rc.d/init.d</filename>. They do the actual work, and
+  the symlinks all point to them. K links and S links point to
+  the same script in <filename class="directory">/etc/rc.d/init.d</filename>.
+  This is because the scripts can be called with different parameters like
+  <parameter>start</parameter>, <parameter>stop</parameter>,
+  <parameter>restart</parameter>, <parameter>reload</parameter>, and
+  <parameter>status</parameter>. When a K link is encountered, the appropriate
+  script is run with the <parameter>stop</parameter> argument. When an S link
+  is encountered, the appropriate script is run with the
+  <parameter>start</parameter> argument.</para>
+
+  <para>There is one exception to this explanation. Links that start
+  with an <emphasis>S</emphasis> in the <filename
+  class="directory">rc0.d</filename> and <filename
+  class="directory">rc6.d</filename> directories will not cause anything
+  to be started. They will be called with the parameter
+  <parameter>stop</parameter> to stop something. The logic behind this
+  is that when a user is going to reboot or halt the system, nothing
+  needs to be started.  The system only needs to be stopped.</para>
+
+  <para>These are descriptions of what the arguments make the scripts
+  do:</para>
+
+  <variablelist>
+
+    <varlistentry>
+      <term><parameter>start</parameter></term>
+      <listitem>
+        <para>The service is started.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter>stop</parameter></term>
+      <listitem>
+        <para>The service is stopped.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter>restart</parameter></term>
+      <listitem>
+        <para>The service is stopped and then started again.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter>reload</parameter></term>
+      <listitem>
+        <para>The configuration of the service is updated.
+        This is used after the configuration file of a service was modified, when
+        the service does not need to be restarted.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter>status</parameter></term>
+      <listitem>
+        <para>Tells if the service is running and with which PIDs.</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+
+  <para>Feel free to modify the way the boot process works (after all,
+  it is your own LFS system). The files given here are an example of how
+  it can be done.</para>
+
+  </sect3>
+  </sect2>
+
+  <sect2>
+    <title>Udev Bootscripts</title>
+
+      <para>The <filename>/etc/rc.d/init.d/udev</filename> initscript starts
+      <command>udevd</command>, triggers any "coldplug" devices that have
+      already been created by the kernel and waits for any rules to complete.
+      The script also unsets the uevent handler from the default of
+      <filename>/sbin/hotplug </filename>.  This is done because the kernel no
+      longer needs to call out to an external binary.  Instead
+      <command>udevd</command> will listen on a netlink socket for uevents that
+      the kernel raises.</para>
+
+      <para>The <command>/etc/rc.d/init.d/udev_retry</command> initscript takes
+      care of re-triggering events for subsystems whose rules may rely on
+      filesystems that are not mounted until the <command>mountfs</command>
+      script is run (in particular, <filename class="directory">/usr</filename>
+      and <filename class="directory">/var</filename> may cause this).  This
+      script runs after the <command>mountfs</command> script, so those rules
+      (if re-triggered) should succeed the second time around.  It is
+      configured from the <filename>/etc/sysconfig/udev_retry</filename> file;
+      any words in this file other than comments are considered subsystem names
+      to trigger at retry time.  To find the subsystem of a device, use
+      <command>udevadm info --attribute-walk &lt;device&gt;</command> where
+      &lt;device&gt; is an absolute path in /dev or /sys such as /dev/sr0 or
+      /sys/class/rtc.</para>
+
+    <sect3>
+      <title>Module Loading</title>
+
+      <para>Device drivers compiled as modules may have aliases built into them.
+      Aliases are visible in the output of the <command>modinfo</command>
+      program and are usually related to the bus-specific identifiers of devices
+      supported by a module. For example, the <emphasis>snd-fm801</emphasis>
+      driver supports PCI devices with vendor ID 0x1319 and device ID 0x0801,
+      and has an alias of <quote>pci:v00001319d00000801sv*sd*bc04sc01i*</quote>.
+      For most devices, the bus driver exports the alias of the driver that
+      would handle the device via <systemitem
+      class="filesystem">sysfs</systemitem>. E.g., the
+      <filename>/sys/bus/pci/devices/0000:00:0d.0/modalias</filename> file
+      might contain the string
+      <quote>pci:v00001319d00000801sv00001319sd00001319bc04sc01i00</quote>.
+      The default rules provided with Udev will cause <command>udevd</command>
+      to call out to <command>/sbin/modprobe</command> with the contents of the
+      <envar>MODALIAS</envar> uevent environment variable (which should be the
+      same as the contents of the <filename>modalias</filename> file in sysfs),
+      thus loading all modules whose aliases match this string after wildcard
+      expansion.</para>
+
+      <para>In this example, this means that, in addition to
+      <emphasis>snd-fm801</emphasis>, the obsolete (and unwanted)
+      <emphasis>forte</emphasis> driver will be loaded if it is
+      available. See below for ways in which the loading of unwanted drivers can
+      be prevented.</para>
+
+      <para>The kernel itself is also able to load modules for network
+      protocols, filesystems and NLS support on demand.</para>
+
+    </sect3>
+
+    <sect3>
+      <title>Handling Hotpluggable/Dynamic Devices</title>
+
+      <para>When you plug in a device, such as a Universal Serial Bus (USB) MP3
+      player, the kernel recognizes that the device is now connected and
+      generates a uevent. This uevent is then handled by
+      <command>udevd</command> as described above.</para>
+
+    </sect3>
+  </sect2>
+
+  <sect2 id="ch-scripts-clock">
+    <title>Configuring the System Clock</title>
+
+    <indexterm zone="ch-scripts-clock">
+      <primary sortas="d-scripts-setclock">setclock</primary>
+    <secondary>configuring</secondary></indexterm>
+
+    <para>The <command>setclock</command> script reads the time from the hardware
+    clock, also known as the BIOS or the Complementary Metal Oxide Semiconductor
+    (CMOS) clock. If the hardware clock is set to UTC, this script will convert the
+    hardware clock's time to the local time using the
+    <filename>/etc/localtime</filename> file (which tells the
+    <command>hwclock</command> program which timezone the user is in). There is no
+    way to detect whether or not the hardware clock is set to UTC, so this
+    needs to be configured manually.</para>
+
+    <para>The <command>setclock</command> is run via
+    <application>udev</application> when the kernel detects the hardware
+    capability upon boot.  It can also be run manually with the stop parameter to
+    store the system time to the CMOS clock.</para>
+
+    <para>If you cannot remember whether or not the hardware clock is set to UTC,
+    find out by running the <userinput>hwclock --localtime --show</userinput>
+    command. This will display what the current time is according to the hardware
+    clock. If this time matches whatever your watch says, then the hardware clock is
+    set to local time. If the output from <command>hwclock</command> is not local
+    time, chances are it is set to UTC time. Verify this by adding or subtracting
+    the proper amount of hours for the timezone to the time shown by
+    <command>hwclock</command>. For example, if you are currently in the MST
+    timezone, which is also known as GMT -0700, add seven hours to the local
+    time.</para>
+
+    <para>Change the value of the <envar>UTC</envar> variable below
+    to a value of <parameter>0</parameter> (zero) if the hardware clock
+    is <emphasis>not</emphasis> set to UTC time.</para>
+
+    <para>Create a new file <filename>/etc/sysconfig/clock</filename> by running
+    the following:</para>
+
+<screen><userinput>cat &gt; /etc/sysconfig/clock &lt;&lt; "EOF"
+<literal># Begin /etc/sysconfig/clock
+
+UTC=1
+
+# Set this to any options you might need to give to hwclock,
+# such as machine hardware clock type for Alphas.
+CLOCKPARAMS=
+
+# End /etc/sysconfig/clock</literal>
+EOF</userinput></screen>
+
+    <para>A good hint explaining how to deal with time on LFS is available
+    at <ulink url="&hints-root;time.txt"/>. It explains issues such as
+    time zones, UTC, and the <envar>TZ</envar> environment variable.</para>
+
+    <note><para>The CLOCKPARAMS and UTC paramaters may be alternatively set
+    in the <filename>/etc/sysconfig/rc.site</filename> file.</para></note>
+
+  </sect2>
+
+  <sect2 id="ch-scripts-console">
+  <?dbhtml filename="console.html"?>
+
+  <title>Configuring the Linux Console</title>
+
+  <indexterm zone="ch-scripts-console">
+    <primary sortas="d-console">console</primary>
+    <secondary>configuring</secondary>
+  </indexterm>
+
+  <para>This section discusses how to configure the <command>console</command>
+  bootscript that sets up the keyboard map, console font and console kernel log
+  level. If non-ASCII characters (e.g., the copyright sign, the British pound
+  sign and Euro symbol) will not be used and the keyboard is a U.S. one, much
+  of this section can be skipped. Without the configuration file, (or
+  equivalent settings in <filename>rc.site</filename>), the
+  <command>console</command> bootscript will do nothing.</para>
+
+  <para>The <command>console</command> script reads the
+  <filename>/etc/sysconfig/console</filename> file for configuration
+  information.  Decide which keymap and screen font will be used. Various
+  language-specific HOWTOs can also help with this, see <ulink
+  url="http://www.tldp.org/HOWTO/HOWTO-INDEX/other-lang.html"/>. If still in
+  doubt, look in the <filename class="directory">/usr/share/keymaps</filename>
+  and <filename class="directory">/usr/share/consolefonts</filename> directories
+  for valid keymaps and screen fonts. Read <filename>loadkeys(1)</filename> and
+  <filename>setfont(8)</filename> manual pages to determine the correct
+  arguments for these programs.</para>
+
+  <para>The <filename>/etc/sysconfig/console</filename> file should contain lines
+  of the form: VARIABLE="value". The following variables are recognized:</para>
+  <variablelist>
+
+    <varlistentry>
+      <term>LOGLEVEL</term>
+      <listitem>
+        <para>This variable specifies the log level for kernel messages sent
+        to the console as set by <command>dmesg</command>. Valid levels are
+        from "1" (no messages) to "8". The default level is "7".</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>KEYMAP</term>
+      <listitem>
+        <para>This variable specifies the arguments for the
+        <command>loadkeys</command> program, typically, the name of keymap
+        to load, e.g., <quote>it</quote>. If this variable is not set, the
+        bootscript will not run the <command>loadkeys</command> program,
+        and the default kernel keymap will be used.  Note that a few keymaps
+        have multiple versions with the same name (cz and its variants in
+        qwerty/ and qwertz/, es in olpc/ and qwerty/, and trf in fgGIod/ and
+        qwerty/). In these cases the parent directory should also be specified
+        (e.g. qwerty/es) to ensure the proper keymap is loaded.
+        </para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>KEYMAP_CORRECTIONS</term>
+      <listitem>
+        <para>This (rarely used) variable
+        specifies the arguments for the second call to the
+        <command>loadkeys</command> program. This is useful if the stock keymap
+        is not completely satisfactory and a small adjustment has to be made. E.g.,
+        to include the Euro sign into a keymap that normally doesn't have it,
+        set this variable to <quote>euro2</quote>.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>FONT</term>
+      <listitem>
+        <para>This variable specifies the arguments for the
+        <command>setfont</command> program. Typically, this includes the font
+        name, <quote>-m</quote>, and the name of the application character
+        map to load. E.g., in order to load the <quote>lat1-16</quote> font
+        together with the <quote>8859-1</quote> application character map
+        (as it is appropriate in the USA),
+        <!-- because of the copyright sign -->
+        set this variable to <quote>lat1-16 -m 8859-1</quote>.
+        In UTF-8 mode, the kernel uses the application character map for
+        conversion of composed 8-bit key codes in the keymap to UTF-8, and thus
+        the argument of the "-m" parameter should be set to the encoding of the
+        composed key codes in the keymap.</para>
+
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>UNICODE</term>
+      <listitem>
+        <para>Set this variable to <quote>1</quote>, <quote>yes</quote> or
+        <quote>true</quote> in order to put the
+        console into UTF-8 mode. This is useful in UTF-8 based locales and
+        harmful otherwise.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>LEGACY_CHARSET</term>
+      <listitem>
+        <para>For many keyboard layouts, there is no stock Unicode keymap in
+        the Kbd package. The <command>console</command> bootscript will
+        convert an available keymap to UTF-8 on the fly if this variable is
+        set to the encoding of the available non-UTF-8 keymap.</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+
+  <para>Some examples:</para>
+
+  <itemizedlist>
+
+    <listitem>
+      <para>For a non-Unicode setup, only the KEYMAP and FONT variables are
+      generally needed. E.g., for a Polish setup, one would use:</para>
+<screen role="nodump"><userinput>cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
+<literal># Begin /etc/sysconfig/console
+
+KEYMAP="pl2"
+FONT="lat2a-16 -m 8859-2"
+
+# End /etc/sysconfig/console</literal>
+EOF</userinput></screen>
+    </listitem>
+
+    <listitem>
+      <para>As mentioned above, it is sometimes necessary to adjust a
+      stock keymap slightly. The following example adds the Euro symbol to the
+      German keymap:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
+<literal># Begin /etc/sysconfig/console
+
+KEYMAP="de-latin1"
+KEYMAP_CORRECTIONS="euro2"
+FONT="lat0-16 -m 8859-15"
+
+# End /etc/sysconfig/console</literal>
+EOF</userinput></screen>
+    </listitem>
+
+    <listitem>
+      <para>The following is a Unicode-enabled example for Bulgarian, where a
+      stock UTF-8 keymap exists:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
+<literal># Begin /etc/sysconfig/console
+
+UNICODE="1"
+KEYMAP="bg_bds-utf8"
+FONT="LatArCyrHeb-16"
+
+# End /etc/sysconfig/console</literal>
+EOF</userinput></screen>
+    </listitem>
+
+    <listitem>
+      <para>Due to the use of a 512-glyph LatArCyrHeb-16 font in the previous
+      example, bright colors are no longer available on the Linux console unless
+      a framebuffer is used. If one wants to have bright colors without
+      framebuffer and can live without characters not belonging to his language,
+      it is still possible to use a language-specific 256-glyph font, as
+      illustrated below:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
+<literal># Begin /etc/sysconfig/console
+
+UNICODE="1"
+KEYMAP="bg_bds-utf8"
+FONT="cyr-sun16"
+
+# End /etc/sysconfig/console</literal>
+EOF</userinput></screen>
+    </listitem>
+
+    <listitem>
+      <para>The following example illustrates keymap autoconversion from
+      ISO-8859-15 to UTF-8 and enabling dead keys in Unicode mode:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
+<literal># Begin /etc/sysconfig/console
+
+UNICODE="1"
+KEYMAP="de-latin1"
+KEYMAP_CORRECTIONS="euro2"
+LEGACY_CHARSET="iso-8859-15"
+FONT="LatArCyrHeb-16 -m 8859-15"
+
+# End /etc/sysconfig/console</literal>
+EOF</userinput></screen>
+    </listitem>
+
+    <listitem>
+      <para>Some keymaps have dead keys (i.e., keys that don't produce a
+      character by themselves, but put an accent on the character produced
+      by the next key) or define composition rules (such as: <quote>press
+      Ctrl+. A E to get &AElig;</quote> in the default keymap).
+      Linux-&linux-version; interprets dead keys and composition rules in the
+      keymap correctly only when the source characters to be composed together
+      are not multibyte. This deficiency doesn't affect keymaps for European
+      languages, because there accents are added to unaccented ASCII
+      characters, or two ASCII characters are composed together. However, in
+      UTF-8 mode it is a problem, e.g., for the Greek language, where one
+      sometimes needs to put an accent on the letter <quote>alpha</quote>.
+      The solution is either to avoid the use of UTF-8, or to install the
+      X window system that doesn't have this limitation in its input
+      handling.</para>
+    </listitem>
+
+    <listitem>
+      <para>For Chinese, Japanese, Korean and some other languages, the Linux
+      console cannot be configured to display the needed characters. Users
+      who need such languages should install the X Window System, fonts that
+      cover the necessary character ranges, and the proper input method (e.g.,
+      SCIM, it supports a wide variety of languages).</para>
+    </listitem>
+
+  </itemizedlist>
+
+  <!-- Added because folks keep posting their console file with X questions
+  to blfs-support list -->
+  <note>
+    <para>The <filename>/etc/sysconfig/console</filename> file only controls
+    the Linux text console localization. It has nothing to do with setting
+    the proper keyboard layout and terminal fonts in the X Window System, with
+    ssh sessions or with a serial console. In such situations, limitations
+    mentioned in the last two list items above do not apply.</para>
+  </note>
+
+  </sect2>
+
+  <sect2 id="ch-scripts-createfiles">
+    <title>Creating Files at Boot</title>
+  
+    <indexterm zone="ch-scripts-createfiles">
+      <primary sortas="d-createfiles">File creation at boot</primary>
+      <secondary>configuring</secondary>
+    </indexterm>
+  
+    <para>At times, it is desired to create files at boot time.  For instance,
+    the <filename class="directory">/tmp/.ICE-unix</filename> directory
+    may be desired.  This can be done by creating an entry in the
+    <filename>/etc/sysconfig/createfiles</filename> configuration script.
+    The format of this file is embedded in the comments of the default 
+    configuration file.</para>
+  </sect2>
+
+  <sect2 id="ch-scripts-sysklogd">
+    <title>Configuring the sysklogd Script</title>
+  
+    <indexterm zone="ch-scripts-sysklogd">
+      <primary sortas="d-sysklogd">sysklogd</primary>
+      <secondary>configuring</secondary>
+    </indexterm>
+  
+    <para>The <filename>sysklogd</filename> script invokes the
+    <command>syslogd</command> program as a part of System V initialization.  The
+    <parameter>-m 0</parameter> option turns off the periodic timestamp mark that
+    <command>syslogd</command> writes to the log files every 20 minutes by
+    default.  If you want to turn on this periodic timestamp mark, edit
+    <filename>/etc/sysconfig/rc.site</filename> and define the variable
+    SYSKLOGD_PARMS to the desired value.  For instance, to remove all parameters,
+    set the variable to a null value:</para>
+
+<screen role="nodump">SYSKLOGD_PARMS=</screen>
+
+    <para>See <userinput>man syslogd</userinput> for more options.</para>
+
+  </sect2>
+
+  <sect2 id="ch-scripts-site">
+    <title>The rc.site File</title>
+  
+    <indexterm zone="ch-scripts-site">
+      <primary sortas="a-rc.site">rc.site</primary>
+    </indexterm>
+  
+    <para>The optional <filename>/etc/sysconfig/rc.site</filename> file contains
+    settings that are automatically set for each SystemV boot script.  It can
+    alternatively set the values specified in the <filename>hostname</filename>,
+    <filename>console</filename>, and <filename>clock</filename> files in the
+    <filename class='directory'>/etc/sysconfig/</filename> directory.  If the
+    associated variables are present in both these separate files and
+    <filename>rc.site</filename>, the values in the script specific files have
+    precedence. </para>
+  
+    <para><filename>rc.site</filename> also contains parameters that can
+    customize other aspects of the boot process.  Setting the IPROMPT variable
+    will enable selective running of bootscripts.  Other options are described
+    in the file comments.  The default version of the file is as follows:</para>
+  
+    <!-- Use role to fix a pdf generation problem -->
+    <screen role="auto">&site;</screen>
+  
+    <sect3>
+      <title>Customizing the Boot and Shutdown Scripts</title>
+  
+      <para>The LFS boot scripts boot and shut down a system in a fairly
+      efficient manner, but there are a few tweaks that you can make in the
+      rc.site file to improve speed even more and to adjust messages according
+      to your preferences. To do this, adjust the settings in
+      the <filename>/etc/sysconfig/rc.site</filename> file above.</para>
+  
+      <itemizedlist>
+  
+      <listitem><para>During the boot script <filename>udev</filename>, there is
+      a call to <command>udev settle</command> that requires some time to
+      complete. This time may or may not be required depending on devices present
+      in the system.  If you only have simple partitions and a single ethernet
+      card, the boot process will probably not need to wait for this command.  To
+      skip it, set the variable OMIT_UDEV_SETTLE=y.</para></listitem>
+  
+      <listitem><para>The boot script <filename>udev_retry</filename> also runs
+      <command>udev settle</command> by default.  This command is only needed by
+      default if the <filename class='directory'>/var</filename> directory is
+      separately mounted.  This is because the clock needs the file
+      <filename>/var/lib/hwclock/adjtime</filename>.  Other customizations may
+      also need to wait for udev to complete, but in many installations it is not
+      needed.  Skip the command by setting the variable OMIT_UDEV_RETRY_SETTLE=y.
+      </para></listitem>
+  
+      <listitem><para>By default, the file system checks are silent.  This can
+      appear to be a delay during the bootup process.  To turn on the
+      <command>fsck</command> output, set the variable VERBOSE_FSCK=y.
+      </para></listitem>
+  
+      <listitem><para>When rebooting, you may want to skip the filesystem check,
+      <command>fsck</command>, completely.  To do this, either create the file
+      <filename>/fastboot</filename> or reboot the system with the command
+      <command>/sbin/shutdown -f -r now</command>.  On the other hand, you can
+      force all file systems to be checked by creating
+      <filename>/forcefsck</filename> or running <command>shutdown</command> with
+      the <parameter>-F</parameter> parameter instead of <parameter>-f</parameter>.
+      </para>
+  
+      <para>Setting the variable FASTBOOT=y will disable <command>fsck</command>
+      during the boot process until it is removed.  This is not recommended
+      on a permanent basis.</para></listitem>
+  
+      <listitem><para>Normally, all files in the <filename
+      class='directory'>/tmp</filename> directory are deleted at boot time.
+      Depending on the number of files or directories present, this can cause a
+      noticeable delay in the boot process.  To skip removing these files set the
+      variable SKIPTMPCLEAN=y.</para></listitem>
+  
+      <listitem><para>During shutdown, the <command>init</command> program sends
+      a TERM signal to each program it has started (e.g. agetty), waits for a set
+      time (default 3 seconds), and sends each process a KILL signal and waits
+      again.  This process is repeated in the <command>sendsignals</command>
+      script for any processes that are not shut down by their own scripts.  The
+      delay for <command>init</command> can be set by passing a parameter.  For
+      example to remove the delay in <command>init</command>, pass the -t0
+      parameter when shutting down or rebooting (e.g.  <command>/sbin/shutdown
+      -t0 -r now</command>).  The delay for the  <command>sendsignals</command>
+      script can be skipped by setting the parameter
+      KILLDELAY=0.</para></listitem>
+  
+      </itemizedlist>
+  
+    </sect3>
+  </sect2>
+</sect1>

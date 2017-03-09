@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-attr" role="wrap">
+  <?dbhtml filename="attr.html"?>
+
+  <sect1info condition="script">
+    <productname>attr</productname>
+    <productnumber>&attr-version;</productnumber>
+    <address>&attr-url;</address>
+  </sect1info>
+
+  <title>Attr-&attr-version;</title>
+
+  <indexterm zone="ch-system-attr">
+    <primary sortas="a-Attr">Attr</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The attr package contains utilities to administer the extended
+    attributes on filesystem objects.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&attr-ch6-sbu;</seg>
+        <seg>&attr-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Attr</title>
+
+    <para>Modify the documentation directory so that it is a versioned
+    directory:</para>
+
+<screen><userinput remap="pre">sed -i -e 's|/@pkg_name@|&amp;-@pkg_version@|' include/builddefs.in</userinput></screen>
+
+    <para>Prevent installation of manual pages that were already installed by
+    the <xref linkend="man-pages"/> package:</para>
+
+<screen><userinput remap="pre">sed -i -e "/SUBDIRS/s|man[25]||g" man/Makefile</userinput></screen>
+
+    <para>Prepare Attr for compilation:</para>
+
+<screen revision="sysv"><userinput remap="configure">./configure --prefix=/usr \
+            --bindir=/bin \
+            --disable-static</userinput></screen>
+
+<screen revision="systemd"><userinput remap="configure">./configure --prefix=/usr \
+            --disable-static</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>The tests need to be run on a filesystem that supports extended
+    attributes such as the ext2, ext3, or ext4 filesystems. The tests are also
+    known to fail if running multiple simultaneous tests (-j option greater than
+    1).  To test the results, issue:</para>
+
+<screen><userinput remap="test">make -j1 tests root-tests</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install install-dev install-lib
+chmod -v 755 /usr/lib/libattr.so</userinput></screen>
+
+    <para>The shared library needs to be moved to
+    <filename class="directory">/lib</filename>, and as a result the
+    <filename class="extension">.so</filename> file in
+    <filename class="directory">/usr/lib</filename> will need to be recreated:</para>
+
+<screen><userinput remap="install">mv -v /usr/lib/libattr.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-attr" role="content">
+    <title>Contents of Attr</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed library</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>attr, getfattr, and setattr</seg>
+        <seg>libattr.so</seg>
+        <seg>/usr/include/attr and /usr/share/doc/attr-&attr-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="attr">
+        <term><command>attr</command></term>
+        <listitem>
+          <para>Extends attributes on filesystem objects</para>
+          <indexterm zone="ch-system-attr attr">
+            <primary sortas="b-attr">attr</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="getfattr">
+        <term><command>getfattr</command></term>
+        <listitem>
+          <para>Gets the extended attributes of filesystem objects</para>
+          <indexterm zone="ch-system-attr getfattr">
+            <primary sortas="b-getfattr">getfattr</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="setattr">
+        <term><command>setattr</command></term>
+        <listitem>
+          <para>Sets the extended attributes of filesystem objects</para>
+          <indexterm zone="ch-system-attr setattr">
+            <primary sortas="b-setattr">setattr</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libattr">
+        <term><filename class="libraryfile">libattr</filename></term>
+        <listitem>
+          <para>Contains the libbrary functions for manipulating extended attributes</para>
+          <indexterm zone="ch-system-attr libattr">
+            <primary sortas="c-libattr">libattr</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

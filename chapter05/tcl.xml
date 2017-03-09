@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-tcl" role="wrap">
+  <?dbhtml filename="tcl.html"?>
+
+  <sect1info condition="script">
+    <productname>tcl-core</productname>
+    <productnumber>&tcl-version;</productnumber>
+    <address>&tcl-url;</address>
+  </sect1info>
+
+  <title>Tcl-core-&tcl-version;</title>
+
+  <indexterm zone="ch-tools-tcl">
+    <primary sortas="a-Tcl">Tcl-core</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Tcl package contains the Tool Command Language.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&tcl-ch5-sbu;</seg>
+        <seg>&tcl-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Tcl-core</title>
+
+    <para>This package and the next three (Expect, DejaGNU, and Check) are
+    installed to support running the test suites for GCC and Binutils and other
+    packages.  Installing four packages for testing purposes may seem
+    excessive, but it is very reassuring, if not essential, to know that the
+    most important tools are working properly. Even if the test suites are not
+    run in this chapter (they are not mandatory), these packages are required
+    to run the test suites in <xref linkend="chapter-building-system"/>.</para>
+
+    <para>Note that the Tcl package used here is a minimal version needed
+    to run the LFS tests.  For the full package, see the  
+    <ulink url='&blfs-book;general/tcl.html'>BLFS Tcl procedures</ulink>.</para>
+
+    <para>Prepare Tcl for compilation:</para>
+
+<screen><userinput remap="configure">cd unix
+./configure --prefix=/tools</userinput></screen>
+
+    <para>Build the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Compilation is now complete. As discussed earlier, running the test
+    suite is not mandatory for the temporary tools here in this chapter. To run
+    the Tcl test suite anyway, issue the following command:</para>
+
+<screen><userinput remap="test">TZ=UTC make test</userinput></screen>
+
+    <para>The Tcl test suite may experience failures under certain host
+    conditions that are not fully understood. Therefore, test suite failures
+    here are not surprising, and are not considered critical. The
+    <parameter>TZ=UTC</parameter> parameter sets the time zone to Coordinated
+    Universal Time (UTC), but only
+    for the duration of the test suite run. This ensures that the clock tests
+    are exercised correctly. Details on the <envar>TZ</envar> environment
+    variable are provided in <xref linkend="chapter-bootscripts"/>.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>Make the installed library writable so debugging symbols can
+    be removed later:</para>
+
+<screen><userinput remap="install">chmod -v u+w /tools/lib/libtcl&tcl-major-version;.so</userinput></screen>
+
+    <para>Install Tcl's headers. The next package, Expect, requires them
+    to build.</para>
+
+<screen><userinput remap="install">make install-private-headers</userinput></screen>
+
+    <para>Now make a necessary symbolic link:</para>
+
+<screen><userinput remap="install">ln -sv tclsh&tcl-major-version; /tools/bin/tclsh</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-tcl" role="content">
+    <title>Contents of Tcl-core</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed library</segtitle>
+
+      <seglistitem>
+        <seg>tclsh (link to tclsh&tcl-major-version;) and tclsh&tcl-major-version;</seg>
+        <seg>libtcl&tcl-major-version;.so, libtclstub&tcl-major-version;.a</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="tclsh&tcl-major-version;">
+        <term><command>tclsh&tcl-major-version;</command></term>
+        <listitem>
+          <para>The Tcl command shell</para>
+          <indexterm zone="ch-tools-tcl tclsh&tcl-major-version;">
+            <primary sortas="b-tclsh&tcl-major-version;">tclsh&tcl-major-version;</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tclsh">
+        <term><command>tclsh</command></term>
+        <listitem>
+          <para>A link to tclsh&tcl-major-version;</para>
+          <indexterm zone="ch-tools-tcl tclsh">
+            <primary sortas="b-tclsh">tclsh</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libtcl&tcl-major-version;.so">
+        <term><filename class="libraryfile">libtcl&tcl-major-version;.so</filename></term>
+        <listitem>
+          <para>The Tcl library</para>
+          <indexterm zone="ch-tools-tcl libtcl&tcl-major-version;.so">
+            <primary sortas="c-libtcl&tcl-major-version;.so">libtcl&tcl-major-version;.so</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libtclstub&tcl-major-version;.a">
+        <term><filename class="libraryfile">libtclstub&tcl-major-version;.a</filename></term>
+        <listitem>
+          <para>The Tcl Stub library</para>
+          <indexterm zone="ch-tools-tcl libtclstub&tcl-major-version;.a">
+            <primary sortas="c-libtclstub&tcl-major-version;.a">libtclstub&tcl-major-version;.a</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

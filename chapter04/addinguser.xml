@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-addinguser">
+  <?dbhtml filename="addinguser.html"?>
+
+  <title>Adding the LFS User</title>
+
+  <para>When logged in as user <systemitem class="username">root</systemitem>,
+  making a single mistake can damage or destroy a system. Therefore, we
+  recommend building the packages in this chapter as an unprivileged user.
+  You could use your own user name, but to make it easier to set up a clean
+  working environment, create a new user called <systemitem
+  class="username">lfs</systemitem> as a member of a new group (also named
+  <systemitem class="groupname">lfs</systemitem>) and use this user during
+  the installation process. As <systemitem class="username">root</systemitem>,
+  issue the following commands to add the new user:</para>
+
+<screen><userinput>groupadd lfs
+useradd -s /bin/bash -g lfs -m -k /dev/null lfs</userinput></screen>
+
+  <variablelist>
+    <title>The meaning of the command line options:</title>
+
+    <varlistentry>
+      <term><parameter>-s /bin/bash</parameter></term>
+      <listitem>
+        <para>This makes <command>bash</command> the default shell for user
+        <systemitem class="username">lfs</systemitem>.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter>-g lfs</parameter></term>
+      <listitem>
+        <para>This option adds user <systemitem class="username">lfs</systemitem>
+        to group <systemitem class="groupname">lfs</systemitem>.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter>-m</parameter></term>
+      <listitem>
+        <para>This creates a home directory for <systemitem
+        class="username">lfs</systemitem>.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter>-k /dev/null</parameter></term>
+      <listitem>
+        <para>This parameter prevents possible copying of files from a skeleton
+        directory (default is <filename class="directory">/etc/skel</filename>)
+        by changing the input location to the special null device.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter>lfs</parameter></term>
+      <listitem>
+        <para>This is the actual name for the created group and user.</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+
+  <para>To log in as <systemitem class="username">lfs</systemitem> (as opposed
+  to switching to user <systemitem class="username">lfs</systemitem> when logged
+  in as <systemitem class="username">root</systemitem>, which does not require
+  the <systemitem class="username">lfs</systemitem> user to have a password),
+  give <systemitem class="username">lfs</systemitem> a password:</para>
+
+<screen role="nodump"><userinput>passwd lfs</userinput></screen>
+
+  <para>Grant <systemitem class="username">lfs</systemitem> full access to
+  <filename class="directory">$LFS/tools</filename> by making
+  <systemitem class="username">lfs</systemitem> the directory owner:</para>
+
+<screen><userinput>chown -v lfs $LFS/tools</userinput></screen>
+
+  <para>If a separate working directory was created as suggested, give
+  user <systemitem class="username">lfs</systemitem> ownership of this
+  directory:</para>
+
+<screen><userinput>chown -v lfs $LFS/sources</userinput></screen>
+
+  <para>Next, login as user <systemitem class="username">lfs</systemitem>.
+  This can be done via a virtual console, through a display manager, or with
+  the following substitute user command:</para>
+
+<screen role="nodump"><userinput>su - lfs</userinput></screen>
+
+  <para>The <quote><parameter>-</parameter></quote> instructs
+  <command>su</command> to start a login shell as opposed to a non-login shell.
+  The difference between these two types of shells can be found in detail in
+  <filename>bash(1)</filename> and <command>info bash</command>.</para>
+
+</sect1>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="stages">
+  <?dbhtml filename="stages.html"?>
+
+  <title>Building LFS in Stages</title>
+
+  <para>LFS is designed to be built in one session.  That is, the
+  instructions assume that the system will not be shut down
+  during the process.  That does not mean that the system has to
+  be done in one sitting.  The issue is that certain procedures
+  have to be re-accomplished after a reboot if resuming LFS at
+  different points.</para>
+
+  <sect2>
+  <title>Chapters 1-4</title>
+
+    <para>These chapters are accomplished on the host system.  When
+    restarting, be careful of the following:</para>
+  
+    <itemizedlist>
+      <listitem>
+         <para>Procedures done as the root user after Section 2.4 need to 
+         have the LFS environment variable set <emphasis>FOR THE ROOT
+         USER</emphasis>.</para>
+      </listitem>
+    </itemizedlist>
+  </sect2>
+  
+  <sect2>
+  <title>Chapter 5</title>
+
+    <itemizedlist>
+      <listitem>
+         <para>The /mnt/lfs partition must be mounted.</para>
+      </listitem>
+
+      <listitem>
+         <para><emphasis>ALL</emphasis> instructions in Chapter 5 
+         must be done by user <emphasis>lfs</emphasis>.  
+         A  <command>su - lfs</command> needs to be done before any 
+         task in Chapter 5.</para>
+      </listitem>
+
+      <listitem>
+         <para>The procedures in <xref linkend='ch-tools-generalinstructions'/>
+         are critical.  If there is any
+         doubt about installing a package, ensure any previously expanded
+         tarballs are removed, re-extract the package files, and complete all
+         instructions in that section.</para>
+      </listitem>
+    </itemizedlist>
+  </sect2>
+
+  <sect2>
+  <title>Chapters 6-8</title>
+
+    <itemizedlist>
+      <listitem>
+         <para>The /mnt/lfs partition must be mounted.</para>
+      </listitem>
+
+      <listitem>
+         <para> When entering chroot, the LFS environment variable must be set
+         for root.  The LFS variable is not used otherwise.</para>
+      </listitem>
+
+      <listitem>
+         <para> The virtual file systems must be mounted.  This can be done
+         before or after entering chroot by changing to a host virtual terminal
+         and, as root, running the commands in 
+         <xref linkend='ch-system-bindmount'/> and 
+         <xref linkend='ch-system-kernfsmount'/>.</para>
+      </listitem>
+    </itemizedlist>
+  </sect2>
+</sect1>

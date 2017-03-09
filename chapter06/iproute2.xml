@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-iproute2" role="wrap">
+  <?dbhtml filename="iproute2.html"?>
+
+  <sect1info condition="script">
+    <productname>iproute2</productname>
+    <productnumber>&iproute2-version;</productnumber>
+    <address>&iproute2-url;</address>
+  </sect1info>
+
+  <title>IPRoute2-&iproute2-version;</title>
+
+  <indexterm zone="ch-system-iproute2">
+    <primary sortas="a-IPRoute2">IPRoute2</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The IPRoute2 package contains programs for basic and advanced IPV4-based
+    networking.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&iproute2-ch6-sbu;</seg>
+        <seg>&iproute2-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of IPRoute2</title>
+
+    <para>The <command>arpd</command> program included in this package will not
+    be built since it is dependent on Berkeley DB, which is not installed in
+    LFS. However, documentation files and a directory for
+    <command>arpd</command> will still be installed. Prevent this by running
+    the commands below. If the <command>arpd</command> binary is needed,
+    instructions for compiling Berkeley DB can be found in the BLFS Book at
+    <ulink url="&blfs-book;server/databases.html#db"/>.
+    </para>
+
+<screen><userinput remap="pre">sed -i /ARPD/d Makefile
+sed -i 's/arpd.8//' man/man8/Makefile
+rm -v doc/arpd.sgml</userinput></screen>
+
+    <para>It is also necessary to disable building one module that 
+    requires <ulink url="&blfs-book;postlfs/iptables.html"/>.</para>
+
+<screen><userinput remap="pre">sed -i 's/m_ipt.o//' tc/Makefile</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>This package does not have a working test suite.</para>
+<!-- currently not useful, no tests actually run
+    <para>This package comes with a test suite, but due to assumptions it makes,
+    it is not possible to reliably run these tests from within the chroot
+    environment. If you wish to run these tests after booting into your new LFS
+    system, ensure you enable <filename>/proc/config.gz</filename> support
+    in your kernel (&quot;General setup&quot; -> &quot;Enable access to
+    .config through /proc/config.gz&quot; [CONFIG_IKCONFIG_PROC]), then run
+    'make alltests' from the <filename class="directory">testsuite/</filename>
+    subdirectory.</para>-->
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make DOCDIR=/usr/share/doc/iproute2-&iproute2-version; install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-iproute2" role="content">
+    <title>Contents of IPRoute2</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>bridge, ctstat (link to lnstat), genl, ifcfg, ifstat, ip, lnstat,
+        nstat, routef, routel, rtacct, rtmon, rtpr, rtstat (link to lnstat), ss,
+        and tc</seg>
+        <seg>/etc/iproute2, /usr/lib/tc, and /usr/share/doc/iproute2-&iproute2-version;,
+        </seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="bridge">
+        <term><command>bridge</command></term>
+        <listitem>
+          <para>Configures network bridges</para>
+          <indexterm zone="ch-system-iproute2 bridge">
+            <primary sortas="b-bridge">bridge</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ctstat">
+        <term><command>ctstat</command></term>
+        <listitem>
+          <para>Connection status utility</para>
+          <indexterm zone="ch-system-iproute2 ctstat">
+            <primary sortas="b-ctstat">ctstat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="genl">
+        <term><command>genl</command></term>
+        <listitem>
+          <para>Generic netlink utility frontend</para>
+          <indexterm zone="ch-system-iproute2 genl">
+            <primary sortas="b-genl">genl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ifcfg">
+        <term><command>ifcfg</command></term>
+        <listitem>
+          <para>A shell script wrapper for the <command>ip</command> command
+          [Note that it requires the <command>arping</command> and
+          <command>rdisk</command> programs from the
+          iputils package found at <ulink url="http://www.skbuff.net/iputils/"/>.]</para>
+          <indexterm zone="ch-system-iproute2 ifcfg">
+            <primary sortas="b-ifcfg">ifcfg</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ifstat">
+        <term><command>ifstat</command></term>
+        <listitem>
+          <para>Shows the interface statistics, including the amount of
+          transmitted and received packets by interface</para>
+          <indexterm zone="ch-system-iproute2 ifstat">
+            <primary sortas="b-ifstat">ifstat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ip">
+        <term><command>ip</command></term>
+        <listitem>
+          <para>The main executable. It has several different functions:</para>
+
+          <para><command>ip link <replaceable>&lt;device&gt;</replaceable></command>
+          allows users to look at the state of devices and to make changes</para>
+
+          <para><command>ip addr</command> allows users to look at addresses and
+          their properties, add new addresses, and delete old ones</para>
+
+          <para><command>ip neighbor</command> allows users to look at neighbor
+          bindings and their properties, add new neighbor entries, and delete
+          old ones</para>
+
+          <para><command>ip rule</command> allows users to look at the routing
+          policies and change them</para>
+
+          <para><command>ip route</command> allows users to look at the routing
+          table and change routing table rules</para>
+
+          <para><command>ip tunnel</command> allows users to look at the IP
+          tunnels and their properties, and change them</para>
+
+          <para><command>ip maddr</command> allows users to look at the multicast
+          addresses and their properties, and change them</para>
+
+          <para><command>ip mroute</command> allows users to set, change, or
+          delete the multicast routing</para>
+
+          <para><command>ip monitor</command> allows users to continuously monitor
+          the state of devices, addresses and routes</para>
+          <indexterm zone="ch-system-iproute2 ip">
+            <primary sortas="b-ip">ip</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="lnstat">
+        <term><command>lnstat</command></term>
+        <listitem>
+          <para>Provides Linux network statistics; it is a generalized and more
+          feature-complete replacement for the old <command>rtstat</command>
+          program</para>
+          <indexterm zone="ch-system-iproute2 lnstat">
+            <primary sortas="b-lnstat">lnstat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="nstat">
+        <term><command>nstat</command></term>
+        <listitem>
+          <para>Shows network statistics</para>
+          <indexterm zone="ch-system-iproute2 nstat">
+            <primary sortas="b-nstat">nstat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="routef">
+        <term><command>routef</command></term>
+        <listitem>
+          <para>A component of <command>ip route</command>. This is for flushing
+          the routing tables</para>
+          <indexterm zone="ch-system-iproute2 routef">
+            <primary sortas="b-routef">routef</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="routel">
+        <term><command>routel</command></term>
+        <listitem>
+          <para>A component of <command>ip route</command>. This is for listing
+          the routing tables</para>
+          <indexterm zone="ch-system-iproute2 routel">
+            <primary sortas="b-routel">routel</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="rtacct">
+        <term><command>rtacct</command></term>
+        <listitem>
+          <para>Displays the contents of
+          <filename>/proc/net/rt_acct</filename></para>
+          <indexterm zone="ch-system-iproute2 rtacct">
+            <primary sortas="b-rtacct">rtacct</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="rtmon">
+        <term><command>rtmon</command></term>
+        <listitem>
+          <para>Route monitoring utility</para>
+          <indexterm zone="ch-system-iproute2 rtmon">
+            <primary sortas="b-rtmon">rtmon</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="rtpr">
+        <term><command>rtpr</command></term>
+        <listitem>
+          <para>Converts the output of <command>ip -o</command> back into a
+          readable form</para>
+          <indexterm zone="ch-system-iproute2 rtpr">
+            <primary sortas="b-rtpr">rtpr</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="rtstat">
+        <term><command>rtstat</command></term>
+        <listitem>
+          <para>Route status utility</para>
+          <indexterm zone="ch-system-iproute2 rtstat">
+            <primary sortas="b-rtstat">rtstat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ss">
+        <term><command>ss</command></term>
+        <listitem>
+          <para>Similar to the <command>netstat</command> command; shows active
+          connections</para>
+          <indexterm zone="ch-system-iproute2 ss">
+            <primary sortas="b-ss">ss</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tc">
+        <term><command>tc</command></term>
+        <listitem>
+          <para>Traffic Controlling Executable; this is for Quality Of Service
+          (QOS) and Class Of Service (COS) implementations</para>
+
+          <para><command>tc qdisc</command> allows users to setup the queueing
+          discipline</para>
+
+          <para><command>tc class</command> allows users to setup classes based
+          on the queuing discipline scheduling</para>
+
+          <para><command>tc estimator</command> allows users to estimate the
+          network flow into a network</para>
+
+          <para><command>tc filter</command> allows users to setup the QOS/COS
+          packet filtering</para>
+
+          <para><command>tc policy</command> allows users to setup the QOS/COS
+          policies</para>
+          <indexterm zone="ch-system-iproute2 ss">
+            <primary sortas="b-tc">tc</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

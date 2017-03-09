@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-bootscripts" role="wrap" revision="sysv">
+  <?dbhtml filename="bootscripts.html"?>
+
+  <sect1info condition="script">
+    <productname>lfs-bootscripts</productname>
+    <productnumber>&lfs-bootscripts-version;</productnumber>
+    <address>&lfs-bootscripts-url;</address>
+  </sect1info>
+
+  <title>LFS-Bootscripts-&lfs-bootscripts-version;</title>
+
+  <indexterm zone="ch-scripts-bootscripts">
+    <primary sortas="a-Bootscripts">Bootscripts</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The LFS-Bootscripts package contains a set of scripts to start/stop
+    the LFS system at bootup/shutdown.  
+    The configuration files and procedures needed to
+    customize the boot process are described in the following sections.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&lfs-bootscripts-ch7-sbu;</seg>
+        <seg>&lfs-bootscripts-ch7-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of LFS-Bootscripts</title>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-bootscripts" role="content">
+    <title>Contents of LFS-Bootscripts</title>
+    <segmentedlist>
+      <segtitle>Installed scripts</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>checkfs, cleanfs, console, functions, halt, ifdown,
+        ifup, localnet, modules, mountfs, mountvirtfs, network, rc, reboot,
+        sendsignals, setclock, ipv4-static, swap, sysctl, sysklogd, template,
+        udev, and udev_retry</seg>
+        <seg>/etc/rc.d, /etc/init.d (symbolic link), /etc/sysconfig,
+        /lib/services, /lib/lsb (symbolic link)</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="checkfs-bootscripts">
+        <term><command>checkfs</command></term>
+        <listitem>
+          <para>Checks the integrity of the file systems before they are mounted
+          (with the exception of journal and network based file systems)</para>
+          <indexterm zone="ch-scripts-bootscripts checkfs-bootscripts">
+            <primary sortas="d-checkfs">checkfs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="cleanfs-bootscripts">
+        <term><command>cleanfs</command></term>
+        <listitem>
+          <para>Removes files that should not be preserved between reboots, such
+          as those in <filename class="directory">/var/run/</filename> and
+          <filename class="directory">/var/lock/</filename>; it re-creates
+          <filename>/var/run/utmp</filename> and removes the possibly present
+          <filename>/etc/nologin</filename>, <filename>/fastboot</filename>, and
+          <filename>/forcefsck</filename> files</para>
+          <indexterm zone="ch-scripts-bootscripts cleanfs-bootscripts">
+            <primary sortas="d-cleanfs">cleanfs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="console-bootscripts">
+        <term><command>console</command></term>
+        <listitem>
+          <para>Loads the correct keymap table for the desired keyboard layout;
+          it also sets the screen font</para>
+          <indexterm zone="ch-scripts-bootscripts console-bootscripts">
+            <primary sortas="d-console">console</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="functions-bootscripts">
+        <term><command>functions</command></term>
+        <listitem>
+          <para>Contains common functions, such as error and status checking,
+          that are used by several bootscripts</para>
+          <indexterm zone="ch-scripts-bootscripts functions-bootscripts">
+            <primary sortas="d-functions">functions</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="halt-bootscripts">
+        <term><command>halt</command></term>
+        <listitem>
+          <para>Halts the system</para>
+          <indexterm zone="ch-scripts-bootscripts halt-bootscripts">
+            <primary sortas="d-halt">halt</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ifdown-bootscripts">
+        <term><command>ifdown</command></term>
+        <listitem>
+          <para>Stops a network device</para>
+          <indexterm zone="ch-scripts-bootscripts ifdown-bootscripts">
+            <primary sortas="d-ifdown">ifdown</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ifup-bootscripts">
+        <term><command>ifup</command></term>
+        <listitem>
+          <para>Initializes a network device</para>
+          <indexterm zone="ch-scripts-bootscripts ifup-bootscripts">
+            <primary sortas="d-ifup">ifup</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="localnet-bootscripts">
+        <term><command>localnet</command></term>
+        <listitem>
+          <para>Sets up the system's hostname and local loopback device</para>
+          <indexterm zone="ch-scripts-bootscripts localnet-bootscripts">
+            <primary sortas="d-localnet">localnet</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="modules-bootscripts">
+        <term><command>modules</command></term>
+        <listitem>
+          <para>Loads kernel modules listed in
+          <filename>/etc/sysconfig/modules</filename>, using arguments
+          that are also given there</para>
+          <indexterm zone="ch-scripts-bootscripts modules-bootscripts">
+            <primary sortas="d-modules">modules</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mountfs-bootscripts">
+        <term><command>mountfs</command></term>
+        <listitem>
+          <para>Mounts all file systems, except ones that are marked
+          <emphasis>noauto</emphasis> or are network based</para>
+          <indexterm zone="ch-scripts-bootscripts mountfs-bootscripts">
+            <primary sortas="d-mountfs">mountfs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mountvirtfs-bootscripts">
+        <term><command>mountvirtfs</command></term>
+        <listitem>
+          <para>Mounts virtual kernel file systems, such as <systemitem
+          class="filesystem">proc</systemitem></para>
+          <indexterm zone="ch-scripts-bootscripts mountvirtfs-bootscripts">
+            <primary sortas="d-mountvirtfs">mountvirtfs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="network-bootscripts">
+        <term><command>network</command></term>
+        <listitem>
+          <para>Sets up network interfaces, such as network cards, and sets up
+          the default gateway (where applicable)</para>
+          <indexterm zone="ch-scripts-bootscripts network-bootscripts">
+            <primary sortas="d-network">network</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="rc-bootscripts">
+        <term><command>rc</command></term>
+        <listitem>
+          <para>The master run-level control script; it is responsible for
+          running all the other bootscripts one-by-one, in a sequence determined
+          by the name of the symbolic links being processed</para>
+          <indexterm zone="ch-scripts-bootscripts rc-bootscripts">
+            <primary sortas="d-rc">rc</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="reboot-bootscripts">
+        <term><command>reboot</command></term>
+        <listitem>
+          <para>Reboots the system</para>
+          <indexterm zone="ch-scripts-bootscripts reboot-bootscripts">
+            <primary sortas="d-reboot">reboot</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sendsignals-bootscripts">
+        <term><command>sendsignals</command></term>
+        <listitem>
+          <para>Makes sure every process is terminated before the system reboots
+          or halts</para>
+          <indexterm zone="ch-scripts-bootscripts sendsignals-bootscripts">
+            <primary sortas="d-sendsignals">sendsignals</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="setclock-bootscripts">
+        <term><command>setclock</command></term>
+        <listitem>
+          <para>Resets the kernel clock to local time in case the hardware clock
+          is not set to UTC time</para>
+          <indexterm zone="ch-scripts-bootscripts setclock-bootscripts">
+            <primary sortas="d-setclock">setclock</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ipv4-static-bootscripts">
+        <term><command>ipv4-static</command></term>
+        <listitem>
+          <para>Provides the functionality needed to assign a static Internet
+          Protocol (IP) address to a network interface</para>
+          <indexterm zone="ch-scripts-bootscripts ipv4-static-bootscripts">
+            <primary sortas="d-ipv4-static">ipv4-static</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="swap-bootscripts">
+        <term><command>swap</command></term>
+        <listitem>
+          <para>Enables and disables swap files and partitions</para>
+          <indexterm zone="ch-scripts-bootscripts swap-bootscripts">
+            <primary sortas="d-swap">swap</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sysctl-bootscripts">
+        <term><command>sysctl</command></term>
+        <listitem>
+          <para>Loads system configuration values from
+          <filename>/etc/sysctl.conf</filename>, if that file exists,
+          into the running kernel</para>
+          <indexterm zone="ch-scripts-bootscripts sysctl-bootscripts">
+            <primary sortas="d-sysctl">sysctl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sysklogd-bootscripts">
+        <term><command>sysklogd</command></term>
+        <listitem>
+          <para>Starts and stops the system and kernel log daemons</para>
+          <indexterm zone="ch-scripts-bootscripts sysklogd-bootscripts">
+            <primary sortas="d-sysklogd">sysklogd</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="template-bootscripts">
+        <term><command>template</command></term>
+        <listitem>
+          <para>A template to create custom bootscripts for other
+          daemons</para>
+          <indexterm zone="ch-scripts-bootscripts template-bootscripts">
+            <primary sortas="d-template">template</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="udev-bootscripts">
+        <term><command>udev</command></term>
+        <listitem>
+          <para>Prepares the <filename class="directory">/dev</filename>
+          directory and starts Udev</para>
+          <indexterm zone="ch-scripts-bootscripts udev-bootscripts">
+            <primary sortas="d-udev">udev</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="udev-retry-bootscripts">
+        <term><command>udev_retry</command></term>
+        <listitem>
+          <para>Retries failed udev uevents, and copies generated rules
+          files from <filename class="directory">/run/udev</filename> to
+          <filename class="directory">/etc/udev/rules.d</filename> if required</para>
+          <indexterm zone="ch-scripts-bootscripts udev-retry-bootscripts">
+            <primary sortas="d-udev-retry">udev_retry</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>
