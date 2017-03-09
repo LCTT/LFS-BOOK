@@ -19,21 +19,24 @@
       <firstname>编辑： Douglas R. Reno</firstname>
     </author>
     <author>
-      <firstname>翻译团队： <ulink url="http://lctt.github.io/">Linux.Cn Translation Team</ulink></firstname>
-      <firstname>翻译/校对/整理： <ulink url="https://github.com/dongfengweixiao">dongfengweixiao</ulink>，
-      <ulink url="https://github.com/H-mudcup">H-mudcup</ulink>，
-      <ulink url="https://github.com/ictlyh">ictlyh</ulink>，
-      <ulink url="https://github.com/kevinSJ">kevinSJ</ulink>，
-      <ulink url="https://github.com/martin2011qi">martin2011qi</ulink>，
-      <ulink url="https://github.com/strugglingyouth">strugglingyouth</ulink>，
-      <ulink url="https://github.com/vizv">vizv</ulink>，
-      <ulink url="https://github.com/wxy">wxy</ulink>，
-      <ulink url="https://github.com/Yuking-net">Yuking-net</ulink>，
-      <ulink url="https://github.com/zpl1025">zpl1025</ulink></firstname>
+      <firstname>翻译团队：<ulink url="http://lctt.github.io/">Linux.Cn Translation Team</ulink></firstname>
     </author>
+    <author>
+      <firstname>翻译/校对/整理： <ulink url="https://github.com/dongfengweixiao">dongfengweixiao</ulink>，
+        <ulink url="https://github.com/H-mudcup">H-mudcup</ulink>，
+        <ulink url="https://github.com/ictlyh">ictlyh</ulink>，
+        <ulink url="https://github.com/kevinSJ">kevinSJ</ulink>，
+        <ulink url="https://github.com/martin2011qi">martin2011qi</ulink>，
+        <ulink url="https://github.com/strugglingyouth">strugglingyouth</ulink>，
+        <ulink url="https://github.com/vizv">vizv</ulink>，
+        <ulink url="https://github.com/wxy">wxy</ulink>，
+        <ulink url="https://github.com/Yuking-net">Yuking-net</ulink>，
+        <ulink url="https://github.com/zpl1025">zpl1025</ulink>。
+        字母排序，排名不分先后。
+      </firstname>
+    </author>
+    <para>字母排序，排名不分先后。</para>
   </authorgroup>
-
-  <para>字母排序，排名不分先后。</para>
 
   <copyright id="copyright">
     <year>&copyrightdate;</year>
