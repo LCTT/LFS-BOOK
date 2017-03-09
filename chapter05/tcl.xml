@@ -40,13 +40,9 @@
   <sect2 role="installation">
     <title>安装 Tcl</title>
 
-    <para>此软件包和后面三个包（ Expect、 DejaGNU 和 Check）用来为 GCC 和 Binutils 还有其他的一些软件包的测试套件提供运行支持。
-        仅仅为了测试目的而安装 4 个软件包，看上去有点奢侈，虽然因为大部分重要的工具都能正常工作而并不需要去做测试。
-        尽管在本章中并没有执行测试套件（并不做要求），但是在<xref linkend="chapter-building-system"/>中都要求执行这些软件包自带的测试套件。</para>
+    <para>此软件包和后面三个包（ Expect、 DejaGNU 和 Check）用来为 GCC 和 Binutils 还有其他的一些软件包的测试套件提供运行支持。 仅仅为了测试目的而安装 4 个软件包，看上去有点奢侈，虽然因为大部分重要的工具都能正常工作而并不需要去做测试。尽管在本章中并没有执行测试套件（并不做要求），但是在 <xref linkend="chapter-building-system"/> 中都要求执行这些软件包自带的测试套件。</para>
 
-    <para>Note that the Tcl package used here is a minimal version needed
-    to run the LFS tests.  For the full package, see the  
-    <ulink url='&blfs-book;general/tcl.html'>BLFS Tcl procedures</ulink>.</para>
+    <para>注意，这里使用的 Tcl 包是运行 LFS 测试所需的最小版本。完整的软件包，请参阅 <ulink url='&blfs-book;general/tcl.html'>BLFS 的 Tcl 步骤 </ulink>。</para>
 
     <para>配置 Tcl 准备编译：</para>
 
@@ -57,15 +53,11 @@
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>现在编译已经完成。之前说过，不强求为本章中所构建的临时工具运行测试套件。
-        不过你仍然要测试Tcl的话可以用下面的命令：</para>
+    <para>现在编译已经完成。之前说过，不强求为本章中所构建的临时工具运行测试套件。不过你仍然要测试Tcl的话可以用下面的命令：</para>
 
 <screen><userinput remap="test">TZ=UTC make test</userinput></screen>
 
-    <para>Tcl 测试套件在宿主机某些特定条件下会失败，原因很难推测。 不过测试套件失败并不奇怪，
-        也不是什么严重的错误。 参数 <parameter>TZ=UTC</parameter> 设定了时区和相应的世界标准时间（ UTC），
-        但是只在测试套件运行期间才有效。这个可以保证时钟测试能正常运行。 
-        关于 <envar>TZ</envar> 环境变量的细节请参阅本手册 <xref linkend="chapter-bootscripts"/>。</para>
+    <para>Tcl 测试套件在宿主机某些特定条件下会失败，原因很难推测。不过测试套件失败并不奇怪，也不是什么严重的错误。参数 <parameter>TZ=UTC</parameter> 设定了时区和相应的世界标准时间（UTC）， 但是只在测试套件运行期间才有效。这个可以保证时钟测试能正常运行。关于 <envar>TZ</envar> 环境变量的细节请参阅本手册 <xref linkend="chapter-bootscripts"/>。</para>
 
     <para>安装软件包：</para>
 

@@ -18,7 +18,7 @@
 
   </sect2>
 
-  <sect2 id="ch-intro-maillists" xreflabel="Chapter 1 - Mailing Lists">
+  <sect2 id="ch-intro-maillists" xreflabel="第一章 - 邮件列表">
     <title>邮件列表</title>
 
     <para><uri>linuxfromscratch.org</uri> 的服务器上部署了一些和 LFS 项目开发工作相关的邮件列表。
@@ -63,7 +63,7 @@
 
   </sect2>  -->
 
-  <sect2 id="ch-intro-mirrors" xreflabel="Chapter 1 - Mirror sites">
+  <sect2 id="ch-intro-mirrors" xreflabel="第一章 - 镜像站点">
     <title>镜像站点</title>
 
     <para>LFS 项目在世界范围内有许多镜像站点,方便大家访问我们的网站以及下载所需文件。

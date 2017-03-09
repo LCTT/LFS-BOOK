@@ -60,7 +60,7 @@
       <varlistentry>
         <term><parameter>--enable-widec</parameter></term>
         <listitem>
-          <para>这个选项会编译宽字符库（例如 <filename class="libraryfile">libncursesw.so.&ncurses-version;</filename>）来代替普通字符库（例如 <filename class="libraryfile">libncurses.so.&ncurses-version;</filename>）。宽字符库可用于多字节和传统的 8 位本地字符， 而常规的库只能用于 8 位本地字符。宽字符库和常规的库是源文件兼容的，而不是二进制文件兼容的。</para>
+          <para>该选项会编译宽字符库（例如 <filename class="libraryfile">libncursesw.so.&ncurses-version;</filename>）来代替普通字符库（例如 <filename class="libraryfile">libncurses.so.&ncurses-version;</filename>）。宽字符库可用于多字节和传统的 8 位本地字符， 而常规的库只能用于 8 位本地字符。宽字符库和常规的库是源文件兼容的，而不是二进制文件兼容的。</para>
         </listitem>
       </varlistentry>
 
@@ -74,8 +74,7 @@
       <varlistentry>
         <term><parameter>--without-normal</parameter></term>
         <listitem>
-          <para>This switch disables building and installing most static libraries.
-          </para>
+          <para>该选项用于禁用构建和安装大多的数静态库。</para>
         </listitem>
       </varlistentry>
 
