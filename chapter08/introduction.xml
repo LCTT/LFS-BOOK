@@ -8,7 +8,7 @@
 <sect1 id="ch-bootable-introduction">
   <?dbhtml filename="introduction.html"?>
 
-  <title>Introduction</title>
+  <title>简介</title>
 
   <para>是时候该让 LFS 系统可以启动了。本章节将讨论以下内容：创建 <filename>fstab</filename> 文件、为新的 LFS
     系统编译内核、安装 GRUB 引导器。如此，就可以在电脑启动的时候选择启动 LFS 系统了。</para>
