@@ -17,3 +17,4 @@
 # Projects
 *.log
 .svn
+/lfs-bootscripts-*.tar.bz2
