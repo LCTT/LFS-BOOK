@@ -20,13 +20,13 @@
         <para><ulink url="http://pubs.opengroup.org/onlinepubs/9699919799/">POSIX.1-2008</ulink>.</para>
       </listitem>
       <listitem>
-        <para><ulink url="http://refspecs.linuxfoundation.org/fhs.shtml">文件系统层次结构标准（FHS）3.0 版本</ulink></para>
+        <para><ulink url="http://refspecs.linuxfoundation.org/fhs.shtml">文件系统层次结构标准（Filesystem Hierarchy Standard, FHS）3.0 版本</ulink></para>
 
       </listitem>
       <listitem>
-        <para><ulink url="http://refspecs.linuxfoundation.org/lsb.shtml">Linux 标准规范（LSB） 5.0 版本</ulink></para>
+        <para><ulink url="http://refspecs.linuxfoundation.org/lsb.shtml">Linux 标准规范（Linux Standard Base, LSB） 5.0 版本</ulink></para>
 
-        <para>LSB 有四个独立的标准：核心、桌面、运行时语言和成像。除了普通的要求，还有架构特定要求。此外还有两个领域在试行：分别是 Gtk3 和图形。LFS 试图遵从前一节中所讨论的架构要求。</para>
+        <para>LSB 有四个独立的标准：核心（Core）、桌面（Desktop）、运行时语言（Runtime Languages）和成像（Imaging）。除了普通的要求，还有架构特定要求。此外还有两个领域在试行：分别是 Gtk3 和图形（Graphics）。LFS 试图遵从前一节中所讨论的架构要求。</para>
 
         <note><para>很多人不认同 LSB 的要求。定义它的主要目的是确保私有软件能够在兼容的系统上安装并正常运行。由于 LFS 是基于源代码的，用户对于需要什么软件包有完全的控制权，很多人选择不安装 LSB 规范所要求的软件包。</para></note>
 
@@ -87,8 +87,8 @@
       <varlistentry>
         <term><emphasis>LSB 核心：</emphasis></term>
         <listitem>
-          <para>At, Batch (a part of At), Cpio, Ed, Fcrontab, Initd-tools,
-          Lsb_release, NSPR, NSS, PAM, Pax, Sendmail (or Postfix or Exim), time
+          <para>At, Batch (At 的一部分), Cpio, Ed, Fcrontab, Initd-tools,
+          Lsb_release, NSPR, NSS, PAM, Pax, Sendmail (或 Postfix 或 Exim), time
           </para>
         </listitem>
       </varlistentry>
