@@ -19,7 +19,7 @@
       <firstname>编辑： Douglas R. Reno</firstname>
     </author>
     <author>
-      <firstname>翻译团队：<ulink url="http://lctt.github.io/">Linux.Cn Translation Team</ulink></firstname>
+      <firstname>翻译团队： <ulink url="http://lctt.github.io/">Linux.Cn Translation Team</ulink></firstname>
     </author>
     <author>
       <firstname>翻译/校对/整理： <ulink url="https://github.com/dongfengweixiao">dongfengweixiao</ulink>，
@@ -35,7 +35,6 @@
         字母排序，排名不分先后。
       </firstname>
     </author>
-    <para>字母排序，排名不分先后。</para>
   </authorgroup>
 
   <copyright id="copyright">
