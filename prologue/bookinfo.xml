@@ -7,19 +7,33 @@
 
 <bookinfo>
   <title>Linux From Scratch</title>
-  <subtitle>Version &version;</subtitle>
+  <subtitle>Version &version; （简体中文版）</subtitle>
 
 
   <authorgroup>
     <author>
-      <firstname>Created by Gerard</firstname>
+      <firstname>创作： Gerard</firstname>
       <surname>Beekmans</surname>
     </author>
     <author>
-      <firstname>Edited by Douglas R. Reno</firstname>
+      <firstname>编辑： Douglas R. Reno</firstname>
+    </author>
+    <author>
+      <firstname>翻译团队： <ulink url="http://lctt.github.io/">Linux.Cn Translation Team</ulink></firstname>
+      <firstname>翻译/校对/整理： <ulink url="https://github.com/dongfengweixiao">dongfengweixiao</ulink>，
+      <ulink url="https://github.com/H-mudcup">H-mudcup</ulink>，
+      <ulink url="https://github.com/ictlyh">ictlyh</ulink>，
+      <ulink url="https://github.com/kevinSJ">kevinSJ</ulink>，
+      <ulink url="https://github.com/martin2011qi">martin2011qi</ulink>，
+      <ulink url="https://github.com/strugglingyouth">strugglingyouth</ulink>，
+      <ulink url="https://github.com/vizv">vizv</ulink>，
+      <ulink url="https://github.com/wxy">wxy</ulink>，
+      <ulink url="https://github.com/Yuking-net">Yuking-net</ulink>，
+      <ulink url="https://github.com/zpl1025">zpl1025</ulink></firstname>
     </author>
   </authorgroup>
 
+  <para>字母排序，排名不分先后。</para>
 
   <copyright id="copyright">
     <year>&copyrightdate;</year>
@@ -29,14 +43,13 @@
   <legalnotice>
     <para>Copyright &copy; &copyrightdate;, Gerard Beekmans</para>
 
-    <para>All rights reserved.</para>
+    <para>版权所有。</para>
 
-    <para>This book is licensed under a <xref linkend="CC"/>.</para>
-    <para>Computer instructions may be extracted from the book under the
-          <xref linkend="MIT"/>.</para>
+    <para>本手册基于 <xref linkend="CC"/> 授权。</para>
+    <para>本手册中包含的计算机指令可以基于 <xref linkend="MIT"/> 授权使用。</para>
 
-    <para><trademark class='registered'>Linux</trademark> is a registered trademark of
-    Linus Torvalds.</para>
+    <para><trademark class='registered'>Linux</trademark> &ndash;
+ Linus Torvalds 注册商标</para>
 
   </legalnotice>
 
