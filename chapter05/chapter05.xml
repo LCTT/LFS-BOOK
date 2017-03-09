@@ -5,11 +5,11 @@
   %general-entities;
 ]>
 
-<chapter id="chapter-temporary-tools" xreflabel="Chapter 5">
+<chapter id="chapter-temporary-tools" xreflabel="第五章">
   <?dbhtml dir="chapter05"?>
   <?dbhtml filename="chapter05.html"?>
 
-  <title>Constructing a Temporary System</title>
+  <title>构建临时文件系统</title>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="toolchaintechnotes.xml"/>
