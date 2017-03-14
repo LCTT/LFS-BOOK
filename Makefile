@@ -86,7 +86,7 @@ pdf: validate
 	@echo "Generating PDF file..."
 	$(Q)mkdir -p $(BASEDIR)
 
-	$(Q)fop -c fop.xconf \
+	$(Q)fop -c /usr/share/doc/fop/fop.xconf \
 	        -q  $(RENDERTMP)/lfs-pdf.fo $(BASEDIR)/$(PDF_OUTPUT) 2>fop.log
 	@echo "$(BASEDIR)/$(PDF_OUTPUT) created"
 	@echo "fop.log created"
