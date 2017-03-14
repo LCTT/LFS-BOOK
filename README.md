@@ -16,6 +16,14 @@
 * [7.7-to-8.0-rc1-diff][5]
 * [7.8-to-8.0-rc1-diff][6]
 
+当前最新版本：
+
+* Systemd
+  - [PDF][7]
+  - [HTML/单页][8]
+  - [HTML/分页][9]
+* SysV（暂未构建）
+
 ## 协作规范
 
 * 请参考 [CONTRIBUTING.md](CONTRIBUTING.md)
@@ -26,3 +34,6 @@
 [4]: https://github.com/LCTT/LFS-BOOK/tree/8.0-rc1-translating
 [5]: https://github.com/LCTT/LFS-BOOK/tree/7.7-to-8.0-rc1-diff
 [6]: https://github.com/LCTT/LFS-BOOK/tree/7.8-to-8.0-rc1-diff
+[7]: https://lctt.github.io/LFS-BOOK/LFS-SYSD-BOOK.pdf
+[8]: https://lctt.github.io/LFS-BOOK/LFS-SYSD-BOOK.html
+[9]: https://lctt.github.io/LFS-BOOK/index.html
