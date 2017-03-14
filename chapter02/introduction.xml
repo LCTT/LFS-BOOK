@@ -8,7 +8,7 @@
 <sect1 id="space-introduction">
   <?dbhtml filename="introduction.html"?>
 
-  <title>Introduction</title>
+  <title>简介</title>
 
   <para>In this chapter, the host tools needed for building LFS
   are checked and, if necessary, installed.  Then a partition which will 

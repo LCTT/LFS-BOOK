@@ -8,30 +8,24 @@
 <sect1 id="ch-intro-resources">
   <?dbhtml filename="resources.html"?>
 
-  <title>Resources</title>
+  <title>资源</title>
 
   <sect2 id="ch-intro-faq">
     <title>FAQ</title>
 
-    <para>If during the building of the LFS system you encounter any
-    errors, have any questions, or think there is a typo in the book,
-    please start by consulting the Frequently Asked Questions (FAQ)
-    that is located at <ulink url="&faq-root;"/>.</para>
+    <para>如果在构建 LFS 系统的过程中遇到任何的错误，或者是有任何的疑问，亦或者认为本手册存在任何的拼写错误，
+        请先阅读此常见问题列表（FAQ）：<ulink url="&faq-root;"/>。</para>
 
   </sect2>
 
   <sect2 id="ch-intro-maillists" xreflabel="Chapter 1 - Mailing Lists">
-    <title>Mailing Lists</title>
+    <title>邮件列表</title>
 
-    <para>The <uri>linuxfromscratch.org</uri> server hosts a number of mailing
-    lists used for the development of the LFS project. These lists include the
-    main development and support lists, among others. If the FAQ does not solve
-    the problem you are having, the next step would be to search the mailing
-    lists at <ulink url="&lfs-root;search.html"/>.</para>
+    <para><uri>linuxfromscratch.org</uri> 的服务器上部署了一些和 LFS 项目开发工作相关的邮件列表。
+        其中包括主要开发列表和支持列表，以及一些其他相关话题的讨论列表。如果 FAQ 不能解决您的问题，
+        那么您可以在此搜索邮件列表：<ulink url="&lfs-root;search.html"/>。</para>
 
-    <para>For information on the different lists, how to subscribe, archive
-    locations, and additional information, visit
-    <ulink url="&lfs-root;mail.html"/>.</para>
+    <para>关于这些列表的订阅、归档、和其他的信息，都可以访问 <ulink url="&lfs-root;mail.html"/> 获取。</para>
 
   </sect2>
 
@@ -51,13 +45,11 @@
   </sect2> -->
 
   <sect2 id="ch-intro-irc">
-    <title>IRC</title>
+    <title>IRC 频道</title>
 
-    <para>Several members of the LFS community offer assistance on Internet
-    Relay Chat (IRC). Before using this support, please make sure that your
-    question is not already answered in the LFS FAQ or the mailing list
-    archives. You can find the IRC network at <uri>irc.freenode.net</uri>.
-    The support channel is named #LFS-support.</para>
+    <para>有些 LFS 的社区成员也会在 IRC 上为别人提供帮助。在使用这种方法之前，请保证问题在 LFS 的
+        FAQ 或者是邮件列表中没有提及。您可以通过 <uri>irc.freenode.net</uri> 查找 #LFS-support
+        加入讨论。</para>
 
   </sect2>
 
@@ -72,20 +64,17 @@
   </sect2>  -->
 
   <sect2 id="ch-intro-mirrors" xreflabel="Chapter 1 - Mirror sites">
-    <title>Mirror Sites</title>
+    <title>镜像站点</title>
 
-    <para>The LFS project has a number of world-wide mirrors to make accessing
-    the website and downloading the required packages more convenient. Please
-    visit the LFS website at <ulink url="&lfs-root;mirrors.html"/> for a list
-    of current mirrors.</para>
+    <para>LFS 项目在世界范围内有许多镜像站点,方便大家访问我们的网站以及下载所需文件。
+        请访问 LFS 站点 <ulink url="&lfs-root;mirrors.html"/> 查看最新的镜像站点列表。</para>
 
   </sect2>
 
   <sect2 id="ch-intro-contactinfo">
-    <title>Contact Information</title>
+    <title>联系信息</title>
 
-    <para>Please direct all your questions and comments to one of the LFS
-    mailing lists (see above).</para>
+    <para>请直接通过某个 LFS 邮件列表（上文已列出）提出问题和评论。</para>
 
   </sect2>
 
