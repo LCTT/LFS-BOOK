@@ -105,4 +105,6 @@ $Date: 2013-10-16 15:55:24 -0300 (Wed, 16 Oct 2013) $
     <fo:block break-before='page'/>
   </xsl:template>
 
+  <!-- Viz: Chinese fonts fix -->
+  <xsl:include href="pdf/lctt-chinese-fonts.xsl"/>
 </xsl:stylesheet>

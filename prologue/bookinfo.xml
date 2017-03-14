@@ -6,7 +6,7 @@
 ]>
 
 <bookinfo>
-  <title>Linux From Scratch</title>
+  <title>Linux From Scratch 中文版</title>
   <subtitle revision='sysv'   >Version &version; </subtitle>
   <subtitle revision='systemd'>Version &versiond;</subtitle>
 
