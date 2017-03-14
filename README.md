@@ -1,4 +1,4 @@
-# LFS Book 翻译项目
+# LFS Book 翻译项目 [![Build Status](https://travis-ci.org/LCTT/LFS-BOOK.svg?branch=8.0-rc1-translating)](https://travis-ci.org/LCTT/LFS-BOOK)
 
 当前任务：
 
