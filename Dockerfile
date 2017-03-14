@@ -14,4 +14,4 @@ RUN useradd -m -s /bin/bash -u 1000 -U build \
 USER build
 WORKDIR /home/build/repo
 
-CMD ["make", "book", "pdf", "REV=systemd", "V=1"]
+CMD ["make", "book", "nochunks", "pdf", "REV=systemd", "V=1"]
