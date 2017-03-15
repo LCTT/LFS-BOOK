@@ -8,34 +8,17 @@
 <sect1 id="ch-tools-settingenviron">
   <?dbhtml filename="settingenvironment.html"?>
 
-  <title>Setting Up the Environment</title>
+  <title>设置环境</title>
 
-  <para>Set up a good working environment by creating two new startup files
-  for the <command>bash</command> shell. While logged in as user
-  <systemitem class="username">lfs</systemitem>, issue the following command
-  to create a new <filename>.bash_profile</filename>:</para>
+  <para>通过为 <command>bash</command> shell 创建两个开机启动的文件设置好工作环境。当以 <systemitem class="username">lfs</systemitem> 用户身份登录时，运行以下命令创建一个新的 <filename>.bash_profile</filename> 文件：</para>
 
 <screen><userinput>cat &gt; ~/.bash_profile &lt;&lt; "EOF"
 <literal>exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash</literal>
 EOF</userinput></screen>
 
-  <para>When logged on as user <systemitem class="username">lfs</systemitem>,
-  the initial shell is usually a <emphasis>login</emphasis> shell which reads
-  the <filename>/etc/profile</filename> of the host (probably containing some
-  settings and environment variables) and then <filename>.bash_profile</filename>.
-  The <command>exec env -i.../bin/bash</command> command in the
-  <filename>.bash_profile</filename> file replaces the running shell with a new
-  one with a completely empty environment, except for the <envar>HOME</envar>,
-  <envar>TERM</envar>, and <envar>PS1</envar> variables. This ensures that no
-  unwanted and potentially hazardous environment variables from the host system
-  leak into the build environment. The technique used here achieves the goal of
-  ensuring a clean environment.</para>
+  <para>当以 <systemitem class="username">lfs</systemitem> 用户身份登录时，初始 shell 通常是一个 <emphasis>login</emphasis> 的 shell，它先读取宿主机的 <filename>/etc/profile</filename> 文件（很可能包括一些设置和环境变量），然后是 <filename>.bash_profile</filename> 文件。<filename>.bash_profile</filename>中的命令<command>exec env -i.../bin/bash</command>用一个除了 <envar>HOME</envar>，<envar>TERM</envar>和<envar>PS1</envar>变量外环境完全为空的 shell 代替运行中的 shell。这确保了不会有潜在的和意想不到的危险环境变量从随宿主机流入构建的环境。这样做的主要目的就是为了确保一个干净的环境。</para>
 
-  <para>The new instance of the shell is a <emphasis>non-login</emphasis>
-  shell, which does not read the <filename>/etc/profile</filename> or
-  <filename>.bash_profile</filename> files, but rather reads the
-  <filename>.bashrc</filename> file instead. Create the
-  <filename>.bashrc</filename> file now:</para>
+  <para>新的 shell 实例是一个 <emphasis>non-login</emphasis> 的 shell, ，不会读取 <filename>/etc/profile</filename> 或者 <filename>.bash_profile</filename>  文件，而是读取 <filename>.bashrc</filename>。 现在创建 <filename>.bashrc</filename> 文件：</para>
 
 <screen><userinput>cat &gt; ~/.bashrc &lt;&lt; "EOF"
 <literal>set +h
@@ -47,47 +30,20 @@ PATH=/tools/bin:/bin:/usr/bin
 export LFS LC_ALL LFS_TGT PATH</literal>
 EOF</userinput></screen>
 
-  <para>The <command>set +h</command> command turns off
-  <command>bash</command>'s hash function. Hashing is ordinarily a useful
-  feature&mdash;<command>bash</command> uses a hash table to remember the
-  full path of executable files to avoid searching the <envar>PATH</envar>
-  time and again to find the same executable. However, the new tools should
-  be used as soon as they are installed. By switching off the hash function,
-  the shell will always search the <envar>PATH</envar> when a program is to
-  be run. As such, the shell will find the newly compiled tools in
-  <filename class="directory">$LFS/tools</filename> as soon as they are
-  available without remembering a previous version of the same program in a
-  different location.</para>
+  <para><command>set +h</command> 命令关闭了 <command>bash</command> 的哈希功能。 哈希通常是一个有用的功能，&mdash;<command>bash</command> 用一个哈希表来记录可执行文件的完整路径，以免去为寻找同一个执行文件反复搜索 <envar>PATH</envar> 所花费时间。然而，新工具安装后马上就会被使用。通过关闭哈希功能，程序执行的时候就会一直搜索 <envar>PATH</envar> 。如此，shell 能在新编译的工具可用时马上在文件夹 <filename class="directory">$LFS/tools</filename> 中找到，而不是曾在某个地方的同程序的前版本。</para>
 
-  <para>Setting the user file-creation mask (umask) to 022 ensures that newly
-  created files and directories are only writable by their owner, but are
-  readable and executable by anyone (assuming default modes are used by the
-  <function>open(2)</function> system call, new files will end up with permission
-  mode 644 and directories with mode 755).</para>
+  <para>设置用户文件新建时的掩码（umask）为 022，以确保新建的文件和目录只有其所有者可写，但任何人都可读和可执行（假设系统调用的 <function>open(2)</function> 使用的是默认模式，新文件将使用 664 许可模式、文件夹为 755 模式）。</para>
 
-  <para>The <envar>LFS</envar> variable should be set to the chosen mount
-  point.</para>
+  <para><envar>LFS</envar> 变量应设置成选定的挂载点。</para>
 
-  <para>The <envar>LC_ALL</envar> variable controls the localization of certain
-  programs, making their messages follow the conventions of a specified country.
-  Setting <envar>LC_ALL</envar> to <quote>POSIX</quote> or <quote>C</quote>
-  (the two are equivalent) ensures that everything will work as expected in
-  the chroot environment.</para>
+  <para><envar>LC_ALL</envar> 变量控制某些程序的本地化，使它们的消息遵循特定国家的惯例。设置 <envar>LC_ALL</envar> 为 <quote>POSIX</quote> 或 <quote>C</quote> （两者是等价的）确保在 chroot 环境中一切能如期望的那样进行。</para>
 
-  <para>The <envar>LFS_TGT</envar> variable sets a non-default, but compatible machine
-  description for use when building our cross compiler and linker and when cross
-  compiling our temporary toolchain. More information is contained in
-  <xref linkend="ch-tools-toolchaintechnotes" role=""/>.</para>
+  <para><envar>LFS_TGT</envar>变量设置了一个非默认，但是在生成我们的交叉编译器和连接器以及编译临时工作链时兼容的机器说明。<xref linkend="ch-tools-toolchaintechnotes" role=""/> 中包含更多信息</para>
 
-  <para>By putting <filename class="directory">/tools/bin</filename> ahead of the
-  standard <envar>PATH</envar>, all the programs installed in <xref
-  linkend="chapter-temporary-tools"/> are picked up by the shell immediately after
-  their installation. This, combined with turning off hashing, limits the risk
-  that old programs are used from the host when the same programs are available in
-  the chapter 5 environment.</para>
+  <para>把 <filename class="directory">/tools/bin</filename> 放在标准的 <envar>PATH</envar> 变量前面，所有在 <xref
+  linkend="chapter-temporary-tools"/> 中安装的程序，在安装完后 shell 马上就可以使用。结合关闭了哈希功能，限制了在第五章环境中程序可用的情况下使用宿主机中旧程序的风险。</para>
 
-  <para>Finally, to have the environment fully prepared for building the
-  temporary tools, source the just-created user profile:</para>
+  <para>最后，启用刚创建的用户配置，为生成临时工具完全准备好环境：</para>
 
 <screen><userinput>source ~/.bash_profile</userinput></screen>
 
