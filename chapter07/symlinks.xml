@@ -204,35 +204,23 @@
 
   <sect2>
 
-    <title>Dealing with duplicate devices</title>
+    <title>处理相似性质的设备</title>
 
-    <para>As explained in <xref linkend="ch-scripts-udev"/>, the order in
-    which devices with the same function appear in
-    <filename class="directory">/dev</filename> is essentially random.
-    E.g., if you have a USB web camera and a TV tuner, sometimes
-    <filename>/dev/video0</filename> refers to the camera and
-    <filename>/dev/video1</filename> refers to the tuner, and sometimes
-    after a reboot the order changes to the opposite one.
-    For all classes of hardware except sound cards and network cards, this is
-    fixable by creating Udev rules for custom persistent symlinks.
-    The case of network cards is covered separately in
-    <xref linkend="ch-scripts-network"/>, and sound card configuration can
-    be found in <ulink url="&blfs-book;postlfs/devices.html">BLFS</ulink>.</para>
+    <para>正如 <xref linkend="ch-scripts-udev"/> 中解释的，具有相同功能的设备出现在 <filename class="directory">/dev</filename>
+    目录下的顺序是随机的。假如你有一个 USB 摄像头和一个电视调谐器，<filename>/dev/video0</filename> 有可能是 USB 摄像头，
+    <filename>/dev/video1</filename> 是电视调谐器，有时候又可能是反过来的。对于除声卡和网卡外的设备，
+    都可以通过创建自定义持久性符号链接的 Udev 规则来固定。网卡如何设置请看 <xref linkend="ch-scripts-network"/>，
+    网卡的相关设置请看 <ulink url="&blfs-book;postlfs/devices.html">BLFS</ulink>。</para>
 
-    <para>For each of your devices that is likely to have this problem
-    (even if the problem doesn't exist in your current Linux distribution),
-    find the corresponding directory under
-    <filename class="directory">/sys/class</filename> or
-    <filename class="directory">/sys/block</filename>.
-    For video devices, this may be
-    <filename
-    class="directory">/sys/class/video4linux/video<replaceable>X</replaceable></filename>.
-    Figure out the attributes that identify the device uniquely (usually,
-    vendor and product IDs and/or serial numbers work):</para>
+    <para>对于你所有的硬件，都有可能遇到此问题（尽管此问题可能在你当前的 Linux 发行版上不存在），
+      在 <filename class="directory">/sys/class</filename> 或是
+    <filename class="directory">/sys/block</filename> 目录下找到对应目录，比如，
+    显卡可能的路径为 <filename class="directory">/sys/class/video4linux/video<replaceable>X</replaceable></filename>。
+    找到该设备的唯一设备标识（通常，厂商和产品 ID 以及/或 序列号会有用）：</para>
 
 <screen role="nodump"><userinput>udevadm info -a -p /sys/class/video4linux/video0</userinput></screen>
 
-    <para>Then write rules that create the symlinks, e.g.:</para>
+    <para>然后通过写入规则建立符号链接：</para>
 
 <screen role="nodump"><userinput>cat &gt; /etc/udev/rules.d/83-duplicate_devs.rules &lt;&lt; "EOF"
 <literal>
@@ -244,12 +232,8 @@ KERNEL=="video*", ATTRS{device}=="0x036f", ATTRS{vendor}=="0x109e", \
 </literal>
 EOF</userinput></screen>
 
-    <para>The result is that <filename>/dev/video0</filename> and
-    <filename>/dev/video1</filename> devices still refer randomly to the tuner
-    and the web camera (and thus should never be used directly), but there are
-    symlinks <filename>/dev/tvtuner</filename> and
-    <filename>/dev/webcam</filename> that always point to the correct
-    device.</para>
+    <para>最终，<filename>/dev/video0</filename> 和 <filename>/dev/video1</filename> 依旧会随机分配给 USB 摄像头和电视调谐器，
+    但是 <filename>/dev/tvtuner</filename> 和 <filename>/dev/webcam</filename> 将会固定的分配给正确的设备。</para>
 
  </sect2>
 

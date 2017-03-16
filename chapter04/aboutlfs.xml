@@ -8,32 +8,20 @@
 <sect1 id="prepare-aboutlfs">
   <?dbhtml filename="aboutlfs.html"?>
 
-  <title>About $LFS</title>
+  <title>设置 $LFS 变量</title>
 
-  <para>Throughout this book, the environment variable <envar>LFS</envar> will
-  be used. It is paramount that this variable is always defined.
-  It should be set to the mount point chosen for the LFS partition.
-  Check that the <envar>LFS</envar> variable is set up properly with:</para>
+  <para>在整本书中都会使用环境变量 <envar>LFS</envar> 。你应该确保这个变量在整个 LFS 构建过程中总是定义了的。它应该被设置为你将要构建的 LFS 系统的目录名。使用如下命令检查 <envar>LFS</envar> 变量是否正确设置:</para>
 
 <screen role="nodump"><userinput>echo $LFS</userinput></screen>
 
-  <para>Make sure the output shows the path to the LFS partition's mount
-  point, which is <filename class="directory">/mnt/lfs</filename> if the
-  provided example was followed. If the output is incorrect, the
-  variable can be set with:</para>
+  <para>请确保输出的是你构建 LFS 的那个目录的路径，如果你是按照例子设置的，那就是 <filename class="directory">/mnt/lfs</filename>。如果你输出的路径不正确，可以通过以下命令设置：</para>
 
 <screen role="nodump"><userinput>export LFS=/mnt/lfs</userinput></screen>
 
-  <para>Having this variable set is beneficial in that commands such as
-  <command>mkdir $LFS/tools</command> can be typed literally. The shell
-  will automatically replace <quote>$LFS</quote> with
-  <quote>/mnt/lfs</quote> (or whatever the variable was set to) when it
-  processes the command line.</para>
+  <para>设置这个变量的好处在于有些命令可以直接写成类似 <command>mkdir -v $LFS/tools</command>这样。在处理这条命令时，会自动替换 <quote>$LFS</quote> 为 <quote>/mnt/lfs</quote>（或任何这个变量所指的地方）。</para>
 
-  <para>Do not forget to check that <envar>$LFS</envar> is set whenever
-  you leave and reenter the current working environment (as when doing a
-  <command>su</command> to <systemitem class="username">root</systemitem>
-  or another user).</para>
+  <para>不论何时，当你离开又重新进入这个工作环境时都不要忘了检查 <envar>LFS</envar>是否设置（比如当你使用 <command>su</command> 切换到 <systemitem class="username">root</systemitem> 或是另一个用户时）。</para>
 
 </sect1>
+
 

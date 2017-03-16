@@ -8,30 +8,25 @@
 <sect1 id="ch-scripts-systemd-custom" revision="systemd">
   <?dbhtml filename="systemd-custom.html"?>
 
-  <title>Systemd Usage and Configuration</title>
+  <title>Systemd 的用法与配置</title>
 
   <indexterm zone="ch-scripts-systemd-custom">
-    <primary sortas="e-Systemd">Systemd Customization</primary>
+    <primary sortas="e-Systemd">Systemd 配置</primary>
   </indexterm>
 
   <sect2>
-    <title>Basic Configuration</title>
+    <title>基础配置</title>
 
-    <para>The <filename>/etc/systemd/system.conf</filename> file contains a set
-    of options to control basic systemd operations. The default file has all
-    entries commented out with the default settings indicated. This file is
-    where the log level may be changed as well as some basic logging settings.
-    See <filename>systemd-system.conf(5)</filename> manual page for details on
-    each configuration option.</para>
+    <para><filename>/etc/systemd/system.conf</filename> 文件包含了大量的 systemd 控制命令。
+    假如未作任何的更改，文件中的所有行应该都是注释掉的，这代表了 systemd 正使用默认的运行方式。
+    这个文件中可以设置日志级别，可以修改日志的基本设置。所有设置项都可以在 man 手册的 <filename>systemd-system.conf(5)</filename> 中查看。</para>
 
   </sect2>
 
   <sect2>
-    <title>Disabling Screen Clearing at Boot Time</title>
+    <title>禁用启动时清屏</title>
 
-    <para>The normal behavior for systemd is to clear the screen at
-    the end of the boot sequence. If desired, this behavior may be
-    changed by running the following command:</para>
+    <para>默认情况下，systemd 将会在系统启动快要结束的时候清屏。如不需要，使用以下操作禁用：</para>
 
 <screen role="nodump"><userinput>mkdir -pv /etc/systemd/system/getty@tty1.service.d
 
@@ -40,51 +35,42 @@ cat &gt; /etc/systemd/system/getty@tty1.service.d/noclear.conf &lt;&lt; EOF
 TTYVTDisallocate=no</literal>
 EOF</userinput></screen>
 
-    <para>The boot messages can always be revied by using the
-    <userinput>journalctl -b</userinput> command as the root user.</para>
+    <para>拥有 root 权限的账户总是可以通过 <userinput>journalctl -b</userinput> 查看启动信息。</para>
 
   </sect2>
 
   <sect2>
-    <title>Disabling tmpfs for /tmp</title>
+    <title>禁止 /tmp 使用 tmpfs</title>
 
-    <para>By default, <filename class="directory">/tmp</filename> is created as
-    a tmpfs. If this is not desired, it can be overridden by the following:</para>
+    <para>默认情况下，<filename class="directory">/tmp</filename> 使用 tmpfs 文件系统。如不需要，使用以下操作禁用：</para>
 
 <screen role="nodump"><userinput>ln -sfv /dev/null /etc/systemd/system/tmp.mount</userinput></screen>
 
-    <para>This is not necessary if there is a separate partition for
-    <filename class="directory">/tmp</filename> specified in
-    <filename>/etc/fstab</filename>.</para>
+    <para>如果已经为 <filename class="directory">/tmp</filename> 在 <filename>/etc/fstab</filename> 中指定了专门的分区，
+    那么此操作是多余的。</para>
 
   </sect2>
 
   <sect2>
-    <title>Configuring Automatic File Creation and Deletion</title>
+    <title>配置自动创建和删除文件</title>
 
-    <para>There are several services that create or delete files or
-    directories:</para>
+    <para>有这样几个服务可以建立或删除文件/目录：</para>
 
     <itemizedlist>
       <listitem><para>systemd-tmpfiles-clean.service</para></listitem>
       <listitem><para>systemd-tmpfiles-setup-dev.service</para></listitem>
       <listitem><para>systemd-tmpfiles-setup.service</para></listitem>
     </itemizedlist>
-  
-    <para>The system location for the configuration files is
-    <filename>/usr/lib/tmpfiles.d/*.conf</filename>. The local 
-    configuration files are in
-    <filename class="directory">/etc/tmpfiles.d</filename>. Files in
-    <filename class="directory">/etc/tmpfiles.d</filename> override
-    files with the same name in
-    <filename class="directory">/usr/lib/tmpfiles.d</filename>. See
-    <filename>tmpfiles.d(5)</filename> manual page  for file format
-    details.</para>
+
+    <para>系统配置文件在 <filename>/usr/lib/tmpfiles.d/*.conf</filename> 中。
+      本地配置文件在 <filename class="directory">/etc/tmpfiles.d</filename> 中。
+      <filename class="directory">/etc/tmpfiles.d</filename>中的文件会覆盖 <filename class="directory">/usr/lib/tmpfiles.d</filename> 中相同名称的文件。
+      （译者注：首先读取系统范围配置文件，再读取用户范围配置文件，用户范围配置文件会覆盖系统范围配置文件的相同部分。）可以在 man 手册的 <filename>tmpfiles.d(5)</filename> 中获取文件格式详情。</para>
 
   </sect2>
 
   <sect2>
-    <title>Overriding Default Services Behavior</title>
+    <title>覆盖默认服务的行为</title>
 
     <para>The parameter of a unit can be overriden by creating a directory
     and a configuration file in <filename
@@ -98,10 +84,7 @@ Restart=always
 RestartSec=30</literal>
 EOF</userinput></screen>
 
-     <para>See <filename>systemd.unit(5)</filename> manual page for more
-     information. After creating the configuration file, run
-     <userinput>systemctl daemon-reload</userinput> and <userinput>systemctl
-     restart foobar</userinput> to activate the changes to a service.</para>
+     <para>可以在 man 手册的 <filename>systemd.unit(5)</filename> 中查询更多信息。创建好文件之后，请运行 <userinput>systemctl daemon-reload</userinput> 和 <userinput>systemctl restart foobar</userinput> 激活所做更改。</para>
 
   </sect2>
 

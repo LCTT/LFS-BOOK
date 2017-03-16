@@ -9,7 +9,7 @@
   <?dbhtml dir="chapter09"?>
   <?dbhtml filename="chapter09.html"?>
 
-  <title>The End</title>
+  <title>尾声</title>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="theend.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="getcounted.xml"/>

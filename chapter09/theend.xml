@@ -22,11 +22,9 @@
     <primary sortas="e-/etc/os-release">/etc/os-release</primary>
   </indexterm>
 
-  <para>Well done! The new LFS system is installed! We wish you much
-  success with your shiny new custom-built Linux system.</para>
+  <para>哈哈，干的很不错！到这里，全新的 LFS 系统就已经安装完成了！我们也很期待你那闪闪发光的定制 Linux 系统呐。</para>
 
-  <para revision="systemd">Create an <filename>/etc/os-release</filename> 
-        file required by systemd:</para>
+  <para revision="systemd">创建一个 systemd 所需的 <filename>/etc/os-release</filename> 文件：</para>
 
 <screen revision="systemd"><userinput>cat &gt; /etc/os-release &lt;&lt; "EOF"
 NAME="Linux From Scratch"
@@ -52,9 +50,7 @@ EOF</userinput></screen>
 
 <screen revision="systemd"><userinput>echo &versiond; &gt; /etc/lfs-release</userinput></screen>
 
-  <para>It is also a good idea to create a file to show the status of your
-  new system with respect to the Linux Standards Base (LSB).  To create
-  this file, run:</para>
+  <para>为向 Linux Standards Base (LSB) 致敬，你可以建立文件来显示当前系统的完整信息。运行以下命令新建此文件：</para>
 
 <screen revision="sysv"><userinput>cat &gt; /etc/lsb-release &lt;&lt; "EOF"
 DISTRIB_ID="Linux From Scratch"
@@ -70,7 +66,6 @@ DISTRIB_CODENAME="&lt;your name here&gt;"
 DISTRIB_DESCRIPTION="Linux From Scratch"
 EOF</userinput></screen>
 
-  <para>Be sure to put some sort of customization for the field
-  'DISTRIB_CODENAME' to make the system uniquely yours.</para>
+  <para>你可以在 'DISTRIB_CODENAME' 字段填写一些特别的字符来彰显“你的”系统的与众不同！</para>
 
 </sect1>
