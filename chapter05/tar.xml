@@ -41,23 +41,21 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Tar</title>
+    <title>安装 Tar</title>
 
-    <para>Prepare Tar for compilation:</para>
+    <para>配置 Tar 准备编译：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/tools</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Compilation is now complete. As discussed earlier, running the test
-    suite is not mandatory for the temporary tools here in this chapter. To run
-    the Tar test suite anyway, issue the following command:</para>
+    <para>现在编译已经完成。之前说过，不要求为本章中所构建的临时工具运行测试套件。不过你仍然要测试 Tar 的话可以用下面的命令：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
@@ -66,7 +64,7 @@
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
+    <para>关于这个软件包的详细资料请参阅:
     <xref linkend="contents-tar" role="."/></para>
 
   </sect2>

@@ -9,7 +9,7 @@
   <?dbhtml dir="chapter05"?>
   <?dbhtml filename="chapter05.html"?>
 
-  <title>Constructing a Temporary System</title>
+  <title>构建临时系统</title>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="toolchaintechnotes.xml"/>
