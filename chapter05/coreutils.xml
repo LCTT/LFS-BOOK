@@ -41,41 +41,34 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Coreutils</title>
+    <title>安装 Coreutils</title>
 
-    <para>Prepare Coreutils for compilation:</para>
+    <para>配置 Coreutils 准备编译：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/tools --enable-install-program=hostname</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置脚本参数的含义：</title>
 
       <varlistentry>
         <term><envar>--enable-install-program=hostname</envar></term>
         <listitem>
-          <para>This enables the <command>hostname</command> binary to be built
-          and installed &ndash; it is disabled by default but is required by the
-          Perl test suite.</para>
+          <para>这个选项会允许编译和安装 <command>hostname</command>  程序 – 默认是不安装的但是 Perl 测试套件需要它。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Compilation is now complete. As discussed earlier, running the test
-    suite is not mandatory for the temporary tools here in this chapter. To run
-    the Coreutils test suite anyway, issue the following command:</para>
+    <para>现在编译已经完成。之前说过，不要求为本章中所构建的临时工具运行测试套件。不过你仍然要测试 Coreutils 的话可以用下面的命令：</para>
 
 <screen><userinput remap="test">make RUN_EXPENSIVE_TESTS=yes check</userinput></screen>
 
-    <para>The <parameter>RUN_EXPENSIVE_TESTS=yes</parameter> parameter tells the
-    test suite to run several additional tests that are considered
-    relatively expensive (in terms of CPU power and memory usage) on some
-    platforms, but generally are not a problem on Linux.</para>
+    <para>参数 <parameter>RUN_EXPENSIVE_TESTS=yes</parameter> 会告诉测试套件额外运行对某些系统开销相对大一些（主要是 CPU 运算能力和内存消耗）的测试用例，但是通常对 Linux 来说不是问题。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 <!--
@@ -91,7 +84,7 @@
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
+    <para>关于这个软件包的详细资料请参见:
     <xref linkend="contents-coreutils" role="."/></para>
 
   </sect2>
