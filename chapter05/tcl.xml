@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Tcl package contains the Tool Command Language.</para>
+    <para>Tcl软件包包含工具命令语言（Tool Command Language）相关程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,70 +38,53 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Tcl-core</title>
+    <title>安装 Tcl</title>
 
-    <para>This package and the next three (Expect, DejaGNU, and Check) are
-    installed to support running the test suites for GCC and Binutils and other
-    packages.  Installing four packages for testing purposes may seem
-    excessive, but it is very reassuring, if not essential, to know that the
-    most important tools are working properly. Even if the test suites are not
-    run in this chapter (they are not mandatory), these packages are required
-    to run the test suites in <xref linkend="chapter-building-system"/>.</para>
+    <para>此软件包和后面三个包（Expect、 DejaGNU 和 Check）用来为 GCC 和 Binutils 还有其他的一些软件包的测试套件提供运行支持。仅仅为了测试目的而安装 4 个软件包，看上去有点奢侈，虽然因为大部分重要的工具都能正常工作而并不需要去做测试。尽管在本章中并没有执行测试套件（并不做要求），但是在 <xref linkend="chapter-building-system"/> 中都要求执行这些软件包自带的测试套件。</para>
 
     <para>Note that the Tcl package used here is a minimal version needed
     to run the LFS tests.  For the full package, see the  
     <ulink url='&blfs-book;general/tcl.html'>BLFS Tcl procedures</ulink>.</para>
 
-    <para>Prepare Tcl for compilation:</para>
+    <para>配置 Tcl 准备编译：</para>
 
 <screen><userinput remap="configure">cd unix
 ./configure --prefix=/tools</userinput></screen>
 
-    <para>Build the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Compilation is now complete. As discussed earlier, running the test
-    suite is not mandatory for the temporary tools here in this chapter. To run
-    the Tcl test suite anyway, issue the following command:</para>
+    <para>现在编译已经完成。之前说过，不强求为本章中所构建的临时工具运行测试套件。不过你仍然要测试Tcl的话可以用下面的命令：</para>
 
 <screen><userinput remap="test">TZ=UTC make test</userinput></screen>
 
-    <para>The Tcl test suite may experience failures under certain host
-    conditions that are not fully understood. Therefore, test suite failures
-    here are not surprising, and are not considered critical. The
-    <parameter>TZ=UTC</parameter> parameter sets the time zone to Coordinated
-    Universal Time (UTC), but only
-    for the duration of the test suite run. This ensures that the clock tests
-    are exercised correctly. Details on the <envar>TZ</envar> environment
-    variable are provided in <xref linkend="chapter-bootscripts"/>.</para>
+    <para>Tcl 测试套件在宿主机某些特定条件下会失败，原因很难推测。 不过测试套件失败并不奇怪，也不是什么严重的错误。 参数 <parameter>TZ=UTC</parameter> 设定了时区和相应的世界标准时间（UTC），但是只在测试套件运行期间才有效。这个可以保证时钟测试能正常运行。关于 <envar>TZ</envar> 环境变量的细节请参阅本手册 <xref linkend="chapter-bootscripts"/>。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Make the installed library writable so debugging symbols can
-    be removed later:</para>
+    <para>让安装的库文件可写，这样之后可以删除调试符号。</para>
 
 <screen><userinput remap="install">chmod -v u+w /tools/lib/libtcl&tcl-major-version;.so</userinput></screen>
 
-    <para>Install Tcl's headers. The next package, Expect, requires them
-    to build.</para>
+    <para>安装Tcl的头文件。后面的Expect软件包在编译的时候要用到。</para>
 
 <screen><userinput remap="install">make install-private-headers</userinput></screen>
 
-    <para>Now make a necessary symbolic link:</para>
+    <para>现在创建几个必要的软链接：</para>
 
 <screen><userinput remap="install">ln -sv tclsh&tcl-major-version; /tools/bin/tclsh</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-tcl" role="content">
-    <title>Contents of Tcl-core</title>
+    <title>Tcl-core 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed library</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>tclsh (link to tclsh&tcl-major-version;) and tclsh&tcl-major-version;</seg>
@@ -110,14 +93,14 @@
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="tclsh&tcl-major-version;">
         <term><command>tclsh&tcl-major-version;</command></term>
         <listitem>
-          <para>The Tcl command shell</para>
+          <para>Tcl命令终端</para>
           <indexterm zone="ch-tools-tcl tclsh&tcl-major-version;">
             <primary sortas="b-tclsh&tcl-major-version;">tclsh&tcl-major-version;</primary>
           </indexterm>
@@ -127,7 +110,7 @@
       <varlistentry id="tclsh">
         <term><command>tclsh</command></term>
         <listitem>
-          <para>A link to tclsh&tcl-major-version;</para>
+          <para>软链接到  tclsh&tcl-major-version;</para>
           <indexterm zone="ch-tools-tcl tclsh">
             <primary sortas="b-tclsh">tclsh</primary>
           </indexterm>
@@ -137,7 +120,7 @@
       <varlistentry id="libtcl&tcl-major-version;.so">
         <term><filename class="libraryfile">libtcl&tcl-major-version;.so</filename></term>
         <listitem>
-          <para>The Tcl library</para>
+          <para>Tcl 库</para>
           <indexterm zone="ch-tools-tcl libtcl&tcl-major-version;.so">
             <primary sortas="c-libtcl&tcl-major-version;.so">libtcl&tcl-major-version;.so</primary>
           </indexterm>
@@ -147,7 +130,7 @@
       <varlistentry id="libtclstub&tcl-major-version;.a">
         <term><filename class="libraryfile">libtclstub&tcl-major-version;.a</filename></term>
         <listitem>
-          <para>The Tcl Stub library</para>
+          <para>Tcl Stub 库</para>
           <indexterm zone="ch-tools-tcl libtclstub&tcl-major-version;.a">
             <primary sortas="c-libtclstub&tcl-major-version;.a">libtclstub&tcl-major-version;.a</primary>
           </indexterm>
