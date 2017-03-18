@@ -24,7 +24,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Util-linux package contains miscellaneous utility programs.</para>
+    <para>Util-linux 软件包包含了各种各样的小工具。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,9 +39,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Util-linux</title>
+    <title>安装 Util-linux</title>
 
-    <para>Prepare Util-linux for compilation:</para>
+    <para>配置 Util-linux 准备编译：</para>
 
 <screen revision="sysv"><userinput remap="configure">./configure --prefix=/tools                \
             --without-python               \
@@ -57,54 +57,42 @@
             PKG_CONFIG=""</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure option:</title>
+      <title>配置脚本参数的含义：</title>
 
       <varlistentry>
         <term><parameter>--without-python</parameter></term>
         <listitem>
-          <para>This switch disables using <application>Python</application>
-          if it is installed on the host system.  It avoids trying to build
-          unneeded bindings.</para>
+          <para>这个选项会禁止使用宿主系统中可能安装了的 <application>Python</application>。这样可以避免构建一些不必要的捆绑应用。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-makeinstall-chown</parameter></term>
         <listitem>
-          <para>This switch disables using the <command>chown</command> command
-          during installation.  This is not needed when installing into the
-          /tools directory and avoids the necessity of installing as
-          root.</para>
+          <para>这个选项会禁止在安装的时候使用 <command>chown</command> 命令。这对我们安装到 /tools 目录没有意义而且可以避免使用 root 用户安装。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--without-systemdsystemunitdir</parameter></term>
         <listitem>
-          <para>On systems that use systemd, the package tries to install 
-          a systemd specific file to a non-existent directory in /tools.
-          This switch disables the unnecessary action.</para>
+          <para>对于使用 systemd 的系统，这个软件包会尝试安装 systemd 特定文件到 /tools 下一个不存在的目录里。这个选项可以避免这个不必要的动作。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><envar>PKG_CONFIG=""</envar></term>
         <listitem>
-          <para>Setting this environment variable prevents adding unneeded
-          features that may be available on the host. Note that the location
-          shown for setting this environment variable is different from other
-          LFS sections where variables are set preceding the command.  This
-          location is shown to demonstrate an alternative way of setting an
-          environment variable when using configure.</para>
+          <para>设定这个环境变量可以避免增加一些宿主机上存在却不必要的功能。请注意这里设定环境变量的方式和 LFS 其他部分放在命令前面的方式不同。在这里是为了展示一下使用 configure 脚本配置时设定环境变量的另一种方式。</para>
         </listitem>
       </varlistentry>
      </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
