@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Bc package contains an arbitrary precision numeric processing 
-    language.</para>
+    <para>Bc 软件包包括一个任意精度数值处理的语言。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,13 +38,13 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Bc</title>
+    <title>安装 Bc</title>
 
-    <para>First, fix some minor memory leaks in the code:</para>
+    <para>首先，修复代码中一些会造成内存泄露的小问题：</para>
 
-<screen><userinput remap="pre">patch -Np1 -i ../&bc-memory-leak-patch;</userinput></screen> 
+<screen><userinput remap="pre">patch -Np1 -i ../&bc-memory-leak-patch;</userinput></screen>
 
-    <para>Prepare Bc for compilation:</para>
+    <para>准备编译 Bc：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr           \
             --with-readline         \
@@ -53,57 +52,51 @@
             --infodir=/usr/share/info</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--with-readline</parameter></term>
         <listitem>
-          <para>This option tells Bc to use the <filename
-          class="libraryfile">readline</filename> library that is already
-          installed on the system rather than using its own readline
-          version.</para>
+          <para>该选项告诉 Bc 使用系统中已经安装的 <filename class="libraryfile">readline</filename> 库而不是使用自带的 readline 版本。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test bc, run the commands below. There is quite a bit of output,
-    so you may want to redirect it to a file. There are a very small percentage
-    of tests (10 of 12,144) that will indicate a round off error at the last
-    digit.</para>
+    <para>运行下面的命令来测试 bc。这会输出好多内容，因此你可能希望重定向到一个文件。测试中会有很小的比例(10 of 12,144)说最后一位数字有舍入误差。</para>
 
 <screen><userinput remap="test">echo "quit" | ./bc/bc -l Test/checklib.b</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-bc" role="content">
-    <title>Contents of Bc</title>
+    <title>Bc 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
-        <seg>bc and dc</seg>
+        <seg>bc 和 dc</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="bc">
         <term><command>bc</command></term>
         <listitem>
-          <para>is a command line calculator</para>
+          <para>一个命令行计算器</para>
           <indexterm zone="ch-system-bc bc">
             <primary sortas="b-bc">bc</primary>
           </indexterm>
@@ -113,7 +106,7 @@
       <varlistentry id="dc">
         <term><command>dc</command></term>
         <listitem>
-          <para>is a reverse-polish command line calculator</para>
+          <para>逆波兰命令行计算器</para>
           <indexterm zone="ch-system-bc dc">
             <primary sortas="b-dc">dc</primary>
           </indexterm>
