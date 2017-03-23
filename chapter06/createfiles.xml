@@ -231,11 +231,7 @@ chgrp -v utmp /var/log/lastlog
 chmod -v 664  /var/log/lastlog
 chmod -v 600  /var/log/btmp</userinput></screen>
 
-  <para>The <filename>/var/log/wtmp</filename> file records all logins and
-  logouts. The <filename>/var/log/lastlog</filename> file records when each
-  user last logged in. The <filename>/var/log/faillog</filename> file records
-  failed login attempts.  The <filename>/var/log/btmp</filename> file records
-  the bad login attempts.</para>
+  <para>文件 <filename>/var/log/wtmp</filename> 会记录所有的登录和登出动作。文件 <filename>/var/log/lastlog</filename> 会记录每个用户的最后一次登录时间。文件 <filename>/var/log/faillog</filename> 会记录失败的登录尝试。文件 <filename>/var/log/btmp</filename> 会记录非法的登录尝试。</para>
 
   <note><para>文件 <filename>/run/utmp</filename> 会记录当前已登录的用户。这个文件会在启动脚本中动态创建。</para></note>
 
