@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The File package contains a utility for determining the type of a given
-    file or files.</para>
+    <para>File 软件包包括一个判断给定的某个或某些文件文件类型的工具。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,21 +38,21 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of File</title>
+    <title>安装 File</title>
 
-    <para>Prepare File for compilation:</para>
+    <para>准备编译 File:</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包:</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>输入命令检查结果:</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包:</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
@@ -61,11 +60,11 @@
 
 
   <sect2 id="contents-file" role="content">
-    <title>Contents of File</title>
+    <title>File 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed library</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>file</seg>
@@ -74,16 +73,14 @@
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="file">
         <term><command>file</command></term>
         <listitem>
-          <para>Tries to classify each given file; it does this by performing
-          several tests&mdash;file system tests, magic number tests, and language
-          tests</para>
+          <para>为每个文件归类；这可以通过一些测试达到&mdash;文件系统测试，魔术数字测试还有语言测试。</para>
           <indexterm zone="ch-system-file file">
             <primary sortas="b-file">file</primary>
           </indexterm>
@@ -93,8 +90,7 @@
       <varlistentry id="libmagic">
         <term><filename class="libraryfile">libmagic</filename></term>
         <listitem>
-          <para>Contains routines for magic number recognition, used by the
-          <command>file</command> program</para>
+          <para>包含程序 <command>file</command> 进行魔术数字识别的例程。</para>
           <indexterm zone="ch-system-file libmagic">
             <primary sortas="c-libmagic">libmagic</primary>
           </indexterm>
