@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The GCC package contains the GNU compiler collection, which includes
-    the C and C++ compilers.</para>
+    <para>GCC 软件包包括 GNU 编译器集，其中有 C 和 C++ 的编译器。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,7 +38,7 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of GCC</title>
+    <title>安装 GCC</title>
 
     <para>If building on x86_64, change the default directory name for 64-bit
     libraries to <quote>lib</quote>:</para>
@@ -51,12 +50,12 @@
   ;;
 esac</userinput></screen>
 
-    <para>The GCC documentation recommends building GCC in a dedicated build directory:</para>
+    <para>GCC 的文档建议在源代码目录之外一个专用的编译目录中编译 GCC：</para>
 
 <screen><userinput remap="pre">mkdir -v build
 cd       build</userinput></screen>
 
-    <para>Prepare GCC for compilation:</para>
+    <para>准备编译 GCC：</para>
 
 <screen><userinput remap="configure">SED=sed                               \
 ../configure --prefix=/usr            \
@@ -65,68 +64,56 @@ cd       build</userinput></screen>
              --disable-bootstrap      \
              --with-system-zlib</userinput></screen>
 
-    <para>Note that for other languages, there are some prerequisites that
-    are not yet available. See the
-    <ulink url="&blfs-book;general/gcc.html">BLFS Book</ulink>
-    for instructions on how to build all of GCC's supported languages.</para>
+    <para>注意，对于其它的编程语言，现在还有一些前提条件没有准备好。可以查看 <ulink url="&blfs-book;general/gcc.html">BLFS Book</ulink> 了解如何编译 GCC 支持的所有语言的指令。</para>
 
     <variablelist>
-      <title>The meaning of the new configure parameters:</title>
+      <title>新配置选项的含义：</title>
 
       <varlistentry>
         <term><envar>SED=sed</envar></term>
         <listitem>
-          <para>Setting this environment variable prevents a hard-coded
-          path to /tools/bin/sed.</para>
+          <para>设置环境变量防止访问到硬编码的 /tools/bin/sed 路径。</para>
         </listitem>
       </varlistentry>
- 
+
       <varlistentry>
         <term><parameter>--with-system-zlib</parameter></term>
         <listitem>
-          <para>This switch tells GCC to link to the system installed copy of
-          the Zlib library, rather than its own internal copy.</para>
+          <para>这个选项告诉 GCC 链接系统安装的 Zlib 库，而不是它内部自带的库。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
     <important>
-      <para>In this section, the test suite for GCC is considered
-      critical. Do not skip it under any circumstance.</para>
+      <para>本章节中 GCC 的测试套件至关重要，任何情况下都不能跳过。</para>
     </important>
 
-   <para>One set of tests in the GCC test suite is known to exhaust the stack,
-   so increase the stack size prior to running the tests:</para>
+   <para>GCC 测试套件中一个测试集的会耗尽堆栈空间，因此运行测试之前要增加栈大小：</para>
 
 <screen><userinput remap="test">ulimit -s 32768</userinput></screen>
 
-    <para>Test the results, but do not stop at errors:</para>
+    <para>测试编译结果，但不要因为出现错误就停下来：</para>
 
 <screen><userinput remap="test">make -k check</userinput></screen>
 
-    <para>To receive a summary of the test suite results, run:</para>
+    <para>要查看测试套件结果的概要，运行：</para>
 
 <screen><userinput remap="test">../contrib/test_summary</userinput></screen>
 
-    <para>For only the summaries, pipe the output through
-    <userinput>grep -A7 Summ</userinput>.</para>
+    <para>如果只是查看概要，可以将输出通过管道送到 <userinput>grep -A7 Summ</userinput>。</para>
 
-    <para>Results can be compared with those located at <ulink
-    url="&test-results;"/> and
-    <ulink url="http://gcc.gnu.org/ml/gcc-testresults/"/>.</para>
+    <para>结果可以和 <ulink url="&test-results;"/> 以及 <ulink url="http://gcc.gnu.org/ml/gcc-testresults/"/> 上的相比较。</para>
 
-    <para>A few unexpected failures cannot always be avoided. The GCC developers
-    are usually aware of these issues, but have not resolved them yet.
-    In particular, five tests in the libstdc++ test suite are known to fail
-    when running as the root user as we do here.
-    Unless the test results are vastly different from those at the above URL,
-    it is safe to continue.</para>
+    <para>一些意料之外的错误总是难以避免。GCC 开发者通常意识到了这些问题，但还没有解决。
+      In particular, five tests in the libstdc++ test suite are known to fail
+      when running as the root user as we do here.
+    除非测试结果和上面 URL 中的相差很大，不然就可以安全继续。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
@@ -136,21 +123,17 @@ cd       build</userinput></screen>
 
 <screen><userinput remap="install">ln -sv ../usr/bin/cpp /lib</userinput></screen>
 
-    <para>Many packages use the name <command>cc</command> to call the C
-    compiler. To satisfy those packages, create a symlink:</para>
+    <para>很多软件包用命令 <command>cc</command> 调用 C 编译器。为了满足这些软件包，创建一个符号链接：</para>
 
 <screen><userinput remap="install">ln -sv gcc /usr/bin/cc</userinput></screen>
 
-    <para>Add a compatibility symlink to enable building programs with
-    Link Time Optimization (LTO):</para> 
+    <para>增加一个兼容符号链接启用编译程序时进行链接时间优化（Link Time Optimization，LTO）：</para>
 
 <screen><userinput remap="install">install -v -dm755 /usr/lib/bfd-plugins
 ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/&gcc-version;/liblto_plugin.so \
         /usr/lib/bfd-plugins/</userinput></screen>
 
-    <para>Now that our final toolchain is in place, it is important to again ensure
-    that compiling and linking will work as expected. We do this by performing
-    the same sanity checks as we did earlier in the chapter:</para>
+    <para>现在我们最终的工具链已经准备就绪了，再一次确认编译和链接都能像预期那样正常工作很重要。我们通过做和前面章节做过的相同的完整性检查做到这点：</para>
 
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
     href="adjusting.xml"
@@ -180,12 +163,7 @@ ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/&gcc-version;/liblto_plugin.so \
 /usr/lib/gcc/x86_64-pc-linux-gnu/&gcc-version;/../../../../lib/crti.o succeeded
 /usr/lib/gcc/x86_64-pc-linux-gnu/&gcc-version;/../../../../lib/crtn.o succeeded</computeroutput></screen>
 
-  <para>Depending on your machine architecture, the above may differ slightly,
-  the difference usually being the name of the directory
-  after <filename class="directory">/usr/lib/gcc</filename>. The important
-  thing to look for here is that <command>gcc</command> has found all three
-  <filename>crt*.o</filename> files under the
-  <filename class="directory">/usr/lib</filename> directory.</para>
+  <para>取决于你机器的架构，上面的结果可能有稍微不同，差异通常是 <filename class="directory">/usr/lib/gcc</filename> 后目录的名称。这里重要的一点是 <command>gcc</command> 能在 <filename>/usr/lib</filename> 目录下找到所有的三个 <filename class="directory">crt*.o</filename> 文件。</para>
 
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
     href="adjusting.xml"
@@ -203,13 +181,9 @@ ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/&gcc-version;/liblto_plugin.so \
  /usr/lib/gcc/x86_64-pc-linux-gnu/&gcc-version;/include-fixed
  /usr/include</computeroutput></screen>
 
-   <para>Again, note that the directory named after your target triplet may be
-   different than the above, depending on your architecture.</para>
+   <para>同时，注意你的目标系统三段式后面的目录名称可能和上面的不同，这取决于你的架构。</para>
 
-    <note><para>As of version 4.3.0, GCC now unconditionally installs the
-    <filename>limits.h</filename> file into the private
-    <filename class="directory">include-fixed</filename> directory, and that
-    directory is required to be in place.</para></note>
+    <note><para>在版本 4.3.0 中，GCC 无条件安装 <filename>limits.h</filename> 文件到私有 <filename class="directory">include-fixed</filename> 目录，要求这个目录已经存在。</para></note>
 
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
     href="adjusting.xml"
@@ -232,8 +206,7 @@ SEARCH_DIR("/usr/local/lib")
 SEARCH_DIR("/lib")
 SEARCH_DIR("/usr/lib");</computeroutput></screen>
 
-   <para>A 32-bit system may see a few different directories. For example, here
-   is the output from an i686 machine:</para>
+   <para>32 位的系统可能有一些不同的目录。例如，下面是一台 i686 机器的输出：</para>
 
 <screen><computeroutput>SEARCH_DIR("/usr/i686-pc-linux-gnu/lib32")
 SEARCH_DIR("/usr/local/lib32")
@@ -288,7 +261,7 @@ SEARCH_DIR("/usr/lib");</computeroutput></screen>
     href="adjusting.xml"
     xpointer="xpointer(//*[@os='v'])"/>
 
-    <para>Finally, move a misplaced file:</para>
+    <para>最后，移动位置放错的文件：</para>
 
 <screen><userinput remap="install">mkdir -pv /usr/share/gdb/auto-load/usr/lib
 mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
@@ -296,37 +269,37 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
   </sect2>
 
   <sect2 id="contents-gcc" role="content">
-    <title>Contents of GCC</title>
+    <title>GCC 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
-        <seg>c++, cc (link to gcc), cpp, g++, gcc,
-        gcc-ar, gcc-nm, gcc-ranlib, and gcov</seg>
+        <seg>c++, cc (链接到 gcc), cpp, g++, gcc,
+        gcc-ar, gcc-nm, gcc-ranlib, 和 gcov</seg>
 
         <seg>libasan.{a,so}, libatomic.{a,so}, libgcc.a, libgcc_eh.a, 
         libgcc_s.so, libgcov.a, libgomp.{a,so}, libiberty.a, libitm.{a,so},
         liblto_plugin.so, 
         libquadmath.{a,so}, libssp.{a,so},
-        libssp_nonshared.a, libstdc++.{a,so}, libsupc++.a, and libtsan.{a,so}</seg>
+        libssp_nonshared.a, libstdc++.{a,so}, libsupc++.a, 和 libtsan.{a,so}</seg>
 
-        <seg>/usr/include/c++, /usr/lib/gcc, /usr/libexec/gcc, and 
+        <seg>/usr/include/c++, /usr/lib/gcc, /usr/libexec/gcc, 和 
         /usr/share/gcc-&gcc-version;</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="c">
         <term><command>c++</command></term>
         <listitem>
-          <para>The C++ compiler</para>
+          <para>C++ 编译器</para>
           <indexterm zone="ch-system-gcc c">
             <primary sortas="b-c++">c++</primary>
           </indexterm>
@@ -336,7 +309,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="cc">
         <term><command>cc</command></term>
         <listitem>
-          <para>The C compiler</para>
+          <para>C 编译器</para>
           <indexterm zone="ch-system-gcc cc">
             <primary sortas="b-cc">cc</primary>
           </indexterm>
@@ -346,8 +319,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="cpp">
         <term><command>cpp</command></term>
         <listitem>
-          <para>The C preprocessor; it is used by the compiler to expand the
-          #include, #define, and similar statements in the source files</para>
+          <para>C 预处理器；编译器用来扩展源文件中 #include、#define 以及类似语句</para>
           <indexterm zone="ch-system-gcc cpp">
             <primary sortas="b-cpp">cpp</primary>
           </indexterm>
@@ -357,7 +329,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="g">
         <term><command>g++</command></term>
         <listitem>
-          <para>The C++ compiler</para>
+          <para>C++ 编译器</para>
           <indexterm zone="ch-system-gcc g">
             <primary sortas="b-g++">g++</primary>
           </indexterm>
@@ -367,7 +339,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="gcc">
         <term><command>gcc</command></term>
         <listitem>
-          <para>The C compiler</para>
+          <para>C 编译器</para>
           <indexterm zone="ch-system-gcc gcc">
             <primary sortas="b-gcc">gcc</primary>
           </indexterm>
@@ -377,10 +349,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="gcc-ar">
         <term><command>gcc-ar</command></term>
         <listitem>
-          <para>A wrapper around <command>ar</command> that adds a
-          plugin to the command line. This program is only used
-          to add "link time optimization" and is not useful with the
-          default build options</para>
+          <para>增加插件到命令行的 <command>ar</command> 的封装。这个程序只用于添加 "链接时间优化"，在使用默认编译选项时不起作用</para>
           <indexterm zone="ch-system-gcc gcc-ar">
             <primary sortas="b-gcc-ar">gc-ar</primary>
           </indexterm>
@@ -390,10 +359,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="gcc-nm">
         <term><command>gcc-nm</command></term>
         <listitem>
-          <para>A wrapper around <command>nm</command> that adds a
-          plugin to the command line. This program is only used
-          to add "link time optimization" and is not useful with the
-          default build options</para>
+          <para>增加插件到命令行的 <command>nm</command> 的封装。这个程序只用于添加 "链接时间优化"，在使用默认编译选项时不起作用</para>
           <indexterm zone="ch-system-gcc gcc-nm">
             <primary sortas="b-gcc-nm">gc-nm</primary>
           </indexterm>
@@ -403,10 +369,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="gcc-ranlib">
         <term><command>gcc-ranlib</command></term>
         <listitem>
-          <para>A wrapper around <command>ranlib</command> that adds a
-          plugin to the command line. This program is only used
-          to add "link time optimization" and is not useful with the
-          default build options</para>
+          <para>增加插件到命令行的 <command>ranlib</command> 的封装。这个程序只用于添加 "链接时间优化"，在使用默认编译选项时不起作用</para>
           <indexterm zone="ch-system-gcc gcc-ranlib">
             <primary sortas="b-gcc-ranlib">gc-ranlib</primary>
           </indexterm>
@@ -416,8 +379,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="gcov">
         <term><command>gcov</command></term>
         <listitem>
-          <para>A coverage testing tool; it is used to analyze programs to
-          determine where optimizations will have the most effect</para>
+          <para>一个覆盖测试工具；用于分析程序以决定在哪里进行优化有最大的效果</para>
           <indexterm zone="ch-system-gcc gcov">
             <primary sortas="b-gcov">gcov</primary>
           </indexterm>
@@ -427,7 +389,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="libasan">
         <term><command>libasan</command></term>
         <listitem>
-          <para>The Address Sanitizer runtime library</para>
+          <para>Address Sanitizer（地址消毒剂）运行时库。</para>
           <indexterm zone="ch-system-gcc libasan">
             <primary sortas="b-libasan">libasan</primary>
           </indexterm>
@@ -437,7 +399,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="libgcc">
         <term><filename class="libraryfile">libgcc</filename></term>
         <listitem>
-          <para>Contains run-time support for <command>gcc</command></para>
+          <para>包含用于 <command>gcc</command> 的运行时支持</para>
           <indexterm zone="ch-system-gcc libgcc">
             <primary sortas="c-libgcc">libgcc</primary>
           </indexterm>
@@ -447,8 +409,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="libgcov">
         <term><filename class="libraryfile">libgcov</filename></term>
         <listitem>
-          <para>This library is linked in to a program when GCC is instructed
-          to enable profiling</para>
+          <para>当指示 GCC 启用分析时该库会被链接到程序中</para>
           <indexterm zone="ch-system-gcc libgcov">
             <primary sortas="c-libgcov">libgcov</primary>
           </indexterm>
@@ -458,8 +419,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="libgomp">
         <term><filename class="libraryfile">libgomp</filename></term>
         <listitem>
-          <para>GNU implementation of the OpenMP API for multi-platform
-          shared-memory parallel programming in C/C++ and Fortran</para>
+          <para>用于 C/C++、Fortran 语言的多平台共享内存并行编程的 OpenMP API 的 GNU 实现</para>
           <indexterm zone="ch-system-gcc libgomp">
             <primary sortas="c-libgomp">libgomp</primary>
           </indexterm>
@@ -469,10 +429,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="libiberty">
         <term><filename class="libraryfile">libiberty</filename></term>
         <listitem>
-          <para>Contains routines used by various GNU programs, including
-          <command>getopt</command>, <command>obstack</command>,
-          <command>strerror</command>, <command>strtol</command>, and
-          <command>strtoul</command></para>
+          <para>包含多种 GNU 程序所使用的例程，包括 <command>getopt</command>, <command>obstack</command>, <command>strerror</command>, <command>strtol</command>, 和 <command>strtoul</command></para>
           <indexterm zone="ch-system-gcc libiberty">
             <primary sortas="c-libiberty">libiberty</primary>
           </indexterm>
@@ -482,8 +439,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="liblto_plugin">
         <term><filename class="libraryfile">liblto_plugin</filename></term>
         <listitem>
-          <para>GCC's Link Time Optimization (LTO) plugin allows GCC to perform
-          optimizations across compilation units</para>
+          <para>GCC 的链接时间优化（LTO）插件，允许 GCC 跨编译单元进行优化</para>
           <indexterm zone="ch-system-gcc liblto_plugin">
             <primary sortas="c-liblto_plugin">liblto_plugin</primary>
           </indexterm>
@@ -493,7 +449,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="libquadmath">
         <term><filename class="libraryfile">libquadmath</filename></term>
         <listitem>
-          <para>GCC Quad Precision Math Library API</para>
+          <para>GCC 四精度数学库 API</para>
           <indexterm zone="ch-system-gcc libquadmath">
             <primary sortas="c-libquadmath">libquadmath</primary>
           </indexterm>
@@ -503,8 +459,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="libssp">
         <term><filename class="libraryfile">libssp</filename></term>
         <listitem>
-          <para>Contains routines supporting GCC's stack-smashing protection
-          functionality</para>
+          <para>包含支持 GCC 堆栈溢出保护功能的例程</para>
           <indexterm zone="ch-system-gcc libssp">
             <primary sortas="c-libssp">libssp</primary>
           </indexterm>
@@ -514,7 +469,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="libstdc">
         <term><filename class="libraryfile">libstdc++</filename></term>
         <listitem>
-          <para>The standard C++ library</para>
+          <para>标准 C++ 库</para>
           <indexterm zone="ch-system-gcc libstdc">
             <primary sortas="c-libstdc++">libstdc++</primary>
           </indexterm>
@@ -524,8 +479,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="libsupc">
         <term><filename class="libraryfile">libsupc++</filename></term>
         <listitem>
-          <para>Provides supporting routines for the C++ programming
-          language</para>
+          <para>为 C++ 编程语言提供支持例程</para>
           <indexterm zone="ch-system-gcc libsupc">
             <primary sortas="c-libsupc++">libsupc++</primary>
           </indexterm>
@@ -535,7 +489,7 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
       <varlistentry id="libtsan">
         <term><filename class="libraryfile">libtsan</filename></term>
         <listitem>
-          <para>The Thread Sanitizer runtime library</para>
+          <para>Thread Sanitizer（数据速率检测工具） 运行时库</para>
           <indexterm zone="ch-system-gcc libtsan">
             <primary sortas="c-libtsan">libtsan</primary>
           </indexterm>
