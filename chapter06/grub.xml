@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The GRUB package contains the GRand Unified Bootloader.</para>
+    <para>GRUB 软件包包含多重启动管理器（GRand Unified Bootloader）。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,9 +38,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of GRUB</title>
+    <title>安装 GRUB</title>
 
-    <para>Prepare GRUB for compilation:</para>
+    <para>准备编译 GRUB：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr          \
             --sbindir=/sbin        \
@@ -49,47 +49,44 @@
             --disable-werror</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the new configure options:</title>
+      <title>新配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--disable-werror</parameter></term>
         <listitem>
-          <para>This allows the build to complete with warnings introduced
-          by more recent Flex versions.</para>
+          <para>允许忽视有更新 Flex 版本提示的警告以完成构建。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-efiemu</parameter></term>
         <listitem>
-          <para>This option minimizes what is built by disabling a feature and
-          testing programs not needed for LFS.</para>
+          <para>这些选项通过停用 LFS 不需要的功能和测试程序最小化构建。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>This package does not come with a test suite.</para>
+    <para>该软件包没有测试套件。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-  <para>Using GRUB to make your LFS system bootable will be discussed in
-  <xref linkend="ch-bootable-grub"/>.</para>
+  <para>会在 <xref linkend="ch-bootable-grub"/> 介绍通过 GRUB 启动你的 LFS 系统。</para>
 
   </sect2>
 
   <sect2 id="contents-gRUB" role="content">
-    <title>Contents of GRUB</title>
+    <title>GRUB 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
 
@@ -100,22 +97,22 @@
             grub-mkpasswd-pbkdf2, grub-mkrelpath,  grub-mkrescue,    grub-mkstandalone,
             grub-ofpathname,      grub-probe,      grub-reboot,      grub-render-label, 
             grub-script-check,
-            grub-set-default,     grub-sparc64-setup, and grub-syslinux2cfg</seg>
+            grub-set-default,     grub-sparc64-setup, 和 grub-syslinux2cfg</seg>
 
-        <seg>/usr/lib/grub, /etc/grub.d, /usr/share/grub, and boot/grub (when grub-install
+        <seg>/usr/lib/grub, /etc/grub.d, /usr/share/grub, 和 boot/grub (when grub-install
         is first run)</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="grub-bios-setup">
         <term><command>grub-bios-setup</command></term>
         <listitem>
-          <para>Is a helper program for grub-install</para>
+          <para>grub-install 的帮助程序</para>
           <indexterm zone="ch-system-grub grub-bios-setup">
             <primary sortas="b-grub-bios-setup">grub-bios-setup</primary>
           </indexterm>
@@ -125,7 +122,7 @@
       <varlistentry id="grub-editenv">
         <term><command>grub-editenv</command></term>
         <listitem>
-          <para>A tool to edit the environment block</para>
+          <para>编辑环境块的工具</para>
           <indexterm zone="ch-system-grub grub-editenv">
             <primary sortas="b-grub-editenv">grub-editenv</primary>
           </indexterm>
@@ -145,7 +142,7 @@
       <varlistentry id="grub-fstest">
         <term><command>grub-fstest</command></term>
         <listitem>
-          <para>Tool to debug the filesystem driver</para>
+          <para>调试文件系统驱动的工具</para>
           <indexterm zone="ch-system-grub grub-fstest">
             <primary sortas="b-grub-fstest">grub-fstest</primary>
           </indexterm>
@@ -166,7 +163,7 @@
       <varlistentry id="grub-install">
         <term><command>grub-install</command></term>
         <listitem>
-          <para>Install GRUB on your drive</para>
+          <para>在你的驱动器上安装 GRUB</para>
           <indexterm zone="ch-system-grub grub-install">
             <primary sortas="b-grub-install">grub-install</primary>
           </indexterm>
@@ -176,8 +173,7 @@
       <varlistentry id="grub-kbdcomp">
         <term><command>grub-kbdcomp</command></term>
         <listitem>
-          <para>Script that converts an xkb layout into one recognized by
-          GRUB</para>
+          <para>转换 xkb 布局为 GRUB 可识别样式的脚本</para>
           <indexterm zone="ch-system-grub grub-kbdcomp">
             <primary sortas="b-grub-kbdcomp">grub-kbdcomp</primary>
           </indexterm>
@@ -197,8 +193,7 @@
       <varlistentry id="grub-menulst2cfg">
         <term><command>grub-menulst2cfg</command></term>
         <listitem>
-          <para>Converts a GRUB Legacy <filename>menu.lst</filename>
-          into a <filename>grub.cfg</filename> for use with GRUB 2</para>
+          <para>为和 GRUB 2 一起使用，转换引导装载程序（GRUB Legacy）  <filename>menu.lst</filename> 为 <filename>grub.cfg</filename></para>
           <indexterm zone="ch-system-grub grub-menulst2cfg">
             <primary sortas="b-grub-menulst2cfg">grub-menulst2cfg</primary>
           </indexterm>
@@ -208,7 +203,7 @@
       <varlistentry id="grub-mkconfig">
         <term><command>grub-mkconfig</command></term>
         <listitem>
-          <para>Generate a grub config file</para>
+          <para>生成 grub 配置文件</para>
           <indexterm zone="ch-system-grub grub-mkconfig">
             <primary sortas="b-grub-mkconfig">grub-mkconfig</primary>
           </indexterm>
@@ -218,7 +213,7 @@
       <varlistentry id="grub-mkimage">
         <term><command>grub-mkimage</command></term>
         <listitem>
-          <para>Make a bootable image of GRUB</para>
+          <para>创建 GRUB 可启动镜像</para>
           <indexterm zone="ch-system-grub grub-mkimage">
             <primary sortas="b-grub-mkimage">grub-mkimage</primary>
           </indexterm>
@@ -228,7 +223,7 @@
       <varlistentry id="grub-mklayout">
         <term><command>grub-mklayout</command></term>
         <listitem>
-          <para>Generates a GRUB keyboard layout file</para>
+          <para>生成 GRUB 键盘布局文件</para>
           <indexterm zone="ch-system-grub grub-mklayout">
             <primary sortas="b-grub-mklayout">grub-mklayout</primary>
           </indexterm>
@@ -238,7 +233,7 @@
       <varlistentry id="grub-mknetdir">
         <term><command>grub-mknetdir</command></term>
         <listitem>
-          <para>Prepares a GRUB netboot directory</para>
+          <para>准备一个 GRUB 网络启动目录</para>
           <indexterm zone="ch-system-grub grub-mknetdir">
             <primary sortas="b-grub-mknetdir">grub-mknetdir</primary>
           </indexterm>
@@ -248,8 +243,7 @@
       <varlistentry id="grub-mkpasswd-pbkdf2">
         <term><command>grub-mkpasswd-pbkdf2</command></term>
         <listitem>
-          <para>Generates an encrypted PBKDF2 password for use in the boot
-          menu</para>
+          <para>生成一个用于启动菜单的加密 PBKDF2 密码</para>
           <indexterm zone="ch-system-grub grub-mkpasswd-pbkdf2">
             <primary sortas="b-grub-mkpasswd-pbkdf2">grub-mkpasswd-pbkdf2</primary>
           </indexterm>
@@ -259,7 +253,7 @@
       <varlistentry id="grub-mkrelpath">
         <term><command>grub-mkrelpath</command></term>
         <listitem>
-          <para>Makes a system pathname relative to its root</para>
+          <para>生成相对于根目录的系统路径名称</para>
           <indexterm zone="ch-system-grub grub-mkrelpath">
             <primary sortas="b-grub-mkrelpath">grub-mkrelpath</primary>
           </indexterm>
@@ -269,7 +263,7 @@
       <varlistentry id="grub-mkrescue">
         <term><command>grub-mkrescue</command></term>
         <listitem>
-          <para>Make a bootable image of GRUB suitable for a floppy disk or CDROM/DVD</para>
+          <para>创建适用于软盘或 CDROM/DVD 的可启动 GRUB 镜像</para>
           <indexterm zone="ch-system-grub grub-mkrescue">
             <primary sortas="b-grub-mkrescue">grub-mkrescue</primary>
           </indexterm>
@@ -279,7 +273,7 @@
       <varlistentry id="grub-mkstandalone">
         <term><command>grub-mkstandalone</command></term>
         <listitem>
-          <para>Generates a standalone image</para>
+          <para>生成一个单独镜像</para>
           <indexterm zone="ch-system-grub grub-mkstandalone">
             <primary sortas="b-grub-mkstandalone">grub-mkstandalone</primary>
           </indexterm>
@@ -289,7 +283,7 @@
       <varlistentry id="grub-ofpathname">
         <term><command>grub-ofpathname</command></term>
         <listitem>
-          <para>Is a helper program that prints the path of a GRUB device</para>
+          <para>打印 GRUB 设备路径的帮助程序</para>
           <indexterm zone="ch-system-grub grub-ofpathname">
             <primary sortas="b-grub-ofpathname">grub-ofpathname</primary>
           </indexterm>
@@ -299,7 +293,7 @@
       <varlistentry id="grub-probe">
         <term><command>grub-probe</command></term>
         <listitem>
-          <para>Probe device information for a given path or device</para>
+          <para>对指定路径或设备检测设备信息</para>
           <indexterm zone="ch-system-grub grub-probe">
             <primary sortas="b-grub-probe">grub-probe</primary>
           </indexterm>
@@ -309,7 +303,7 @@
       <varlistentry id="grub-reboot">
         <term><command>grub-reboot</command></term>
         <listitem>
-          <para>Sets the default boot entry for GRUB for the next boot only</para>
+          <para>只为下次启动设置默认 GRUB 启动选项</para>
           <indexterm zone="ch-system-grub grub-reboot">
             <primary sortas="b-grub-reboot">grub-reboot</primary>
           </indexterm>
@@ -329,7 +323,7 @@
       <varlistentry id="grub-script-check">
         <term><command>grub-script-check</command></term>
         <listitem>
-          <para>Checks GRUB configuration script for syntax errors</para>
+          <para>检查 GRUB 配置脚本是否有语法错误</para>
           <indexterm zone="ch-system-grub grub-script-check">
             <primary sortas="b-grub-script-check">grub-script-check</primary>
           </indexterm>
@@ -339,7 +333,7 @@
       <varlistentry id="grub-set-default">
         <term><command>grub-set-default</command></term>
         <listitem>
-          <para>Sets the default boot entry for GRUB</para>
+          <para>为 GRUB 设置默认启动选项</para>
           <indexterm zone="ch-system-grub grub-set-default">
             <primary sortas="b-grub-set-default">grub-set-default</primary>
           </indexterm>
@@ -349,7 +343,7 @@
       <varlistentry id="grub-sparc64-setup">
         <term><command>grub-sparc64-setup</command></term>
         <listitem>
-          <para>Is a helper program for grub-setup</para>
+          <para>grub-setup 的帮助程序</para>
           <indexterm zone="ch-system-grub grub-sparc64-setup">
             <primary sortas="b-grub-sparc64-setup">grub-setup</primary>
           </indexterm>
