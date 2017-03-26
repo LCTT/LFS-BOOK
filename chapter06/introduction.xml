@@ -8,75 +8,29 @@
 <sect1 id="ch-system-introduction">
   <?dbhtml filename="introduction.html"?>
 
-  <title>Introduction</title>
+  <title>简介</title>
 
-  <para>In this chapter, we enter the building site and start constructing the
-  LFS system in earnest. That is, we chroot into the temporary mini Linux system,
-  make a few final preparations, and then begin installing the packages.</para>
+  <para>在本章中，我们会进入构建环境然后开始认真地构建 LFS 系统了。就是说，我们会 chroot 进入之前准备好的临时迷你 Linux 系统，做一些最后的准备工作，然后就开始安装软件包。</para>
 
-  <para>The installation of this software is straightforward. Although in many
-  cases the installation instructions could be made shorter and more generic,
-  we have opted to provide the full instructions for every package to minimize
-  the possibilities for mistakes.  The key to learning what makes a Linux system
-  work is to know what each package is used for and why you (or the system)
-  may need it.</para>
+  <para>安装软件很简单。尽管很多时候安装指令能更短而且更具通用性，但我们还是选择为每个软件包都提供完整的指令，以减小引起错误的可能性。了解 Linux 系统如何工作的关键就是知道每个软件包的作用以及为什么你（或系统）需要它。</para>
 
-  <para>We do not recommend using optimizations.  They can make
-  a program run slightly faster, but they may also cause compilation
-  difficulties and problems when running the program.  If a package refuses to
-  compile when using optimization, try to compile it without optimization and
-  see if that fixes the problem. Even if the package does compile when using
-  optimization, there is the risk it may have been compiled incorrectly because
-  of the complex interactions between the code and build tools.  Also note that
-  the <option>-march</option> and <option>-mtune</option> options using values
-  not specified in the book have not been tested. This may cause problems with
-  the toolchain packages (Binutils, GCC and Glibc).  The small potential gains
-  achieved in using compiler optimizations are often outweighed by the risks.
-  First-time builders of LFS are encouraged to build without custom
-  optimizations. The subsequent system will still run very fast and be stable
-  at the same time.</para>
+  <para>我们不建议在编译时使用优化。这虽然可以让程序运行得快那么一点点，但是却也有可能增加编译难度以及在运行时出问题。如果在打开优化后编译失败，请试一下关闭优化编译看看。就算打开优化通过了编译，考虑到源代码和编译工具之间的复杂交互，仍然存在编译不正确的风险。还有需要注意 <option>-march</option> 和 <option>-mtune</option> 选项除了本书指定的值都未经测试。这有可能导致工具链软件包（Binutils、GCC 和 Glibc）发生问题。对比使用编译优化带来的好处与风险，这样做经常是得不偿失。第一次构建 LFS 系统还是推荐不要使用自定义优化。这样构建出来的系统一样会运行得很快于此同时还很稳定。 </para>
 
-  <para>The order that packages are installed in this chapter needs to be
-  strictly followed to ensure that no program accidentally acquires a path
-  referring to <filename class="directory">/tools</filename> hard-wired into
-  it.  For the same reason, do not compile separate packages in parallel.
-  Compiling in parallel may save time (especially on dual-CPU machines), but it
-  could result in a program containing a hard-wired path to <filename
-  class="directory">/tools</filename>, which will cause the program to stop
-  working when that directory is removed.</para>
+  <para>本章里安装软件包的顺序需要严格遵守，这是为了保证不会有程序意外地依赖与 <filename class="directory">/tools</filename> 路径的硬链相关的目录。同样的理由，不要同时编译不同的软件包。并行地编译也许能节省一点时间（特别是在双 CPU 电脑上），但是它可能会导致程序里存在包含到 <filename
+  class="directory">/tools</filename> 目录的硬链接，这样的话在这个目录移除后程序就不能正常工作了。</para>
 
-  <para>Before the installation instructions, each installation page provides
-  information about the package, including a concise description of what it
-  contains, approximately how long it will take to build, and how much disk
-  space is required during this building process. Following the installation
-  instructions, there is a list of programs and libraries (along with brief
-  descriptions of these) that the package installs.</para>
+  <para>在安装指令之前，每个页面都提供了关于软件包的信息，包括其中所包含内容的精确描述，构建需求的大致时间，以及在过程中需求磁盘空间的大小。在安装指令之后，是一个该软件包即将安装的程序和库（及概要说明）的列表。</para>
 
-  <note><para>The SBU values and required disk space includes
-  test suite data for all applicable packages in Chapter 6.</para></note>
+  <note><para>第六章里软件包的 SBU 数值和所需磁盘空间包含了可能存在的测试套件数据。</para></note>
 
   <sect2>
-    <title>About libraries</title>
+    <title>关于库</title>
 
-    <para>In general, the LFS editors discourage building and installing static
-    libraries.  The original purpose for most static libraries has been made
-    obsolete in a modern Linux system.  In addition linking a static library
-    into a program can be detrimental.  If an update to the library is needed
-    to remove a security problem, all programs that use the static library will
-    need to be relinked to the new library.  Since the use of static libraries
-    is not always obvious, the relevant programs (and the procedures needed to
-    do the linking) may not even be known.</para>
+    <para>总的来说，LFS 的编辑们并不推荐构建和安装静态库。许多静态库的初衷已经赶不上现在的 Linux 系统了。而且将静态库链接到程序还有不好之处。假设库更新需要移除一个安全问题，所有使用该静态库的程序都需要重新链接到新的库。由于静态库并不会总那么明显，有哪些相关的程序（以及需要链接的程序）很可能都不知道。</para>
 
-    <para>In the procedures in Chapter 6, we remove or disable installation of
-    most static libraries.  In a few cases, especially glibc and gcc, the use
-    of static libraries remains essential to the general package building
-    process.  Usually this is done by passing a
-    <option>--disable-static</option> option to <command>configure</command>.
-    In other cases, alternate means are needed.</para>
+    <para>第六章的程序，我们移出或禁止了大部分静态库的安装。当然也有少数情况，特殊如 glibc 和 gcc 使用的静态库在软件包的构建过程中是必不可少的。通过在 <command>configure</command> 命令中使用 <option>--disable-static</option> 项，并可以做到。有些情况下，可能用到其他代替的办法。</para>
 
-    <para>For a more complete discussion of libraries, see the discussion
-    <ulink url="&blfs-root;/view/&short-version;/introduction/libraries.html">
-    Libraries: Static or shared?</ulink> in the BLFS book.</para>
+    <para>更多关于库的讨论，请参考 BLFS 中<ulink url="&blfs-root;/view/&short-version;/introduction/libraries.html">库：静态还是共享？</ulink></para>
 
   </sect2>
 
