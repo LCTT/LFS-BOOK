@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Man-pages package contains over 2,200 man pages.</para>
+    <para>Man-pages 软件包里包含了超过 2,200 份 man 手册页面。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,35 +38,34 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Man-pages</title>
+    <title>安装 Man-pages</title>
 
-    <para>Install Man-pages by running:</para>
+    <para>运行下面的命令安装 Man-pages：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-manpages" role="content">
-    <title>Contents of Man-pages</title>
+    <title>Man-pages 内容</title>
 
     <segmentedlist>
-      <segtitle>Installed files</segtitle>
+      <segtitle>安装的文件</segtitle>
 
       <seglistitem>
-        <seg>various man pages</seg>
+        <seg>各种 man 手册页面</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="man-pages">
-        <term><filename>man pages</filename></term>
+        <term><filename>man 手册</filename></term>
         <listitem>
-          <para>Describe C programming language functions, important
-          device files, and significant configuration files</para>
+          <para>描述 C 编程语言函数，重要的设备文件，以及主要的配置文件</para>
           <indexterm zone="ch-system-man-pages man-pages">
             <primary sortas="e-man-pages">man pages</primary>
           </indexterm>
