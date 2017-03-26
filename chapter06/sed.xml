@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Sed package contains a stream editor.</para>
+    <para>Sed 软件包包含一个流编辑器。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,38 +38,38 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Sed</title>
+    <title>安装 Sed</title>
 
     <para>First fix an issue in the LFS environment and remove a failing test:</para>
 
 <screen><userinput remap="pre">sed -i 's/usr/tools/'       build-aux/help2man
 sed -i 's/panic-tests.sh//' Makefile.in</userinput></screen>
 
-    <para>Prepare Sed for compilation:</para>
+    <para>准备编译 Sed：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr --bindir=/bin</userinput></screen>
 <!--
     <variablelist>
-      <title>The meaning of the new configure option:</title>
+      <title>新配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>-i -htmldir</parameter></term>
         <listitem>
-          <para>This sets the installation directory for the HTML documentation.</para>
+          <para>为 HTML 文档指定安装目录。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 -->
-    <para>Compile the package and generate the HTML documentation:</para>
+    <para>编译软件包并生成 HTML 文档：</para>
 
 <screen><userinput remap="make">make
 make html</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>输入命令查看结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package and its documentation:</para>
+    <para>安装软件包和它的文档：</para>
 
 <screen><userinput remap="install">make install
 install -d -m755           /usr/share/doc/sed-&sed-version;
@@ -78,11 +78,11 @@ install -m644 doc/sed.html /usr/share/doc/sed-&sed-version;</userinput></screen>
   </sect2>
 
   <sect2 id="contents-sed" role="content">
-    <title>Contents of Sed</title>
+    <title>Sed 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed program</segtitle>
-      <segtitle>Installed directory</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>sed</seg>
@@ -91,14 +91,14 @@ install -m644 doc/sed.html /usr/share/doc/sed-&sed-version;</userinput></screen>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="sed">
         <term><command>sed</command></term>
         <listitem>
-          <para>Filters and transforms text files in a single pass</para>
+          <para>过滤器，一次性转换文本文件</para>
           <indexterm zone="ch-system-sed sed">
             <primary sortas="b-sed">sed</primary>
           </indexterm>
