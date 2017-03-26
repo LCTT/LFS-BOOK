@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The systemd package contains programs for controlling the startup,
-    running, and shutdown of the system.</para>
+    <para>Systemd 软件包包含用于控制启动、运行和关闭系统的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,10 +37,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of systemd</title>
+    <title>安装 systemd</title>
 
-    <para>First, fix a build error when using Util-Linux built in
-    Chapter 5:</para>
+    <para>首先，修复一个使用第五章中编译的 Util-Linux 时的编译错误：</para>
 
 <screen><userinput remap="pre">sed -i "s:blkid/::" $(grep -rl "blkid/blkid.h")</userinput></screen>
 
@@ -53,7 +51,7 @@
     -i  src/login/70-uaccess.rules</userinput></screen>
 -->
 
-    <para>Disable two tests that always fail:</para>
+    <para>停用两个总是失败的测试例程：</para>
 
 <screen><userinput remap="pre">sed -e 's@test/udev-test.pl @@'  \
     -e 's@test-copy$(EXEEXT) @@' \
@@ -84,12 +82,9 @@ SULOGIN="/sbin/sulogin"
 XSLTPROC="/usr/bin/xsltproc"</literal>
 EOF</userinput></screen>
 
-    <para>LTO is disabled by default because it causes
-    <command>systemd</command> and other auxiliary programs to link to
-    <filename class="libraryfile">libgcc_s.so</filename>, slows the build down
-    and makes the compiled code larger.</para>
+    <para>默认要停用 LTO 是因为它会使 <command>systemd</command> 以及其它辅助程序链接到  <filename class="libraryfile">libgcc_s.so</filename>、导致编译速度下降以及编译后代码量更大。</para>
 
-    <para>Prepare systemd for compilation:</para>
+    <para>准备编译 systemd：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr            \
             --sysconfdir=/etc        \
@@ -106,73 +101,54 @@ EOF</userinput></screen>
             --docdir=/usr/share/doc/systemd-&systemd-version;</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--config-cache</parameter></term>
         <listitem>
-          <para>This switch tells the build system to use
-          the <filename>config.cache</filename> file which
-          was created earlier.</para>
+          <para>该选项告诉编译系统使用之前创建的 <filename>config.cache</filename> 文件。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--with-root*</parameter></term>
         <listitem>
-          <para>These switches ensure that core programs and
-          shared libraries are installed in the subdirectories
-          of the root partition.</para>
+          <para>这些选项确保核心程序以及共享库安装到根目录的子目录中。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--enable-split-usr</parameter></term>
         <listitem>
-          <para>This switch ensures that systemd will work on
-          systems where /bin, /lib and /sbin directories are not
-          symlinks to their /usr counterparts.</para>
+          <para>该选项确保系统中 /bin、/lib 和 /sbin 目录没有到 /usr 对应位置的符号链接时 systemd 仍能正常工作。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--without-python</parameter></term>
         <listitem>
-          <para>This switch prevents <command>configure</command>
-          from trying to use Python which isn't built
-          in LFS.</para>
+          <para>该选项阻止了 <command>configure</command> 尝试使用 LFS 中未构建的 Python。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-firstboot</parameter></term>
         <listitem>
-          <para>This switch prevents installation of systemd
-          services responsible for setting up the system for
-          the first time. They are not useful for LFS because
-          everything is done manually.</para>
+          <para>该选项防止安装系统初次启动时会进行设置的 systemd 服务。由于 LFS 中所有都要手动设置，它们并无用处。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-ldconfig</parameter></term>
         <listitem>
-          <para>This switch prevents installation of a systemd
-          unit that runs <command>ldconfig</command> at
-          boot, making the boot time longer. Remove it if the
-          described feature is desired, even though it's not
-          useful for source distributions such as LFS.</para>
+          <para>该选项防止安装启动时会运行 <command>ldconfig</command> 而导致启动时间过长的 systemd 单元。尽管对于类似 LFS 之类的源发行版并无用处，如果需要该功能的话可以移除这个选项。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-sysusers</parameter></term>
         <listitem>
-          <para>This switch prevents installation of systemd
-          services responsible for setting up the
-          <filename>/etc/group</filename> and
-          <filename>/etc/passwd</filename> files. Both files
-          were created early in this chapter.</para>
+          <para>该选项防止安装设置 <filename>/etc/group</filename> 和  <filename>/etc/passwd</filename> 文件的 systemd 服务。本章前面章节中已经创建了这两个文件。</para>
         </listitem>
       </varlistentry>
 
@@ -185,29 +161,27 @@ EOF</userinput></screen>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make LIBRARY_PATH=/tools/lib</userinput></screen>
 
-    <para>This package has a test suite, but it can only be run after the
-    package has been installed.</para>
+    <para>该软件包有个测试套件，但只能在安装后运行。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make LD_LIBRARY_PATH=/tools/lib install</userinput></screen>
 
 <!-- These get installed into /lib now by default.
-    <para>Move the NSS libraries to <filename class="directory">/lib</filename>:</para>
+    <para>移动 NSS 库到 <filename class="directory">/lib</filename>:</para>
 
 <screen><userinput remap="install">mv -v /usr/lib/libnss_{myhostname,mymachines,resolve}.so.2 /lib</userinput></screen>
 -->
 
-    <para>Remove an unnecessary directory:</para>
+    <para>移除一个不必要的目录：</para>
 
 <screen><userinput remap="install">rm -rfv /usr/lib/rpm</userinput></screen>
 
-    <para>Create the Sysvinit compatibility symlinks, so systemd is used
-    as the default init system:</para>
+    <para>创建和 Sysvinit 兼容的符号链接，使得 systemd 作为默认的启动系统：</para>
 
 <screen><userinput remap="install">for tool in runlevel reboot shutdown poweroff halt telinit; do
      ln -sfv ../bin/systemctl /sbin/${tool}
@@ -215,20 +189,16 @@ done
 ln -sfv ../lib/systemd/systemd /sbin/init</userinput></screen>
 
 <!--
-    <para>Remove a reference to a non-existent group:</para>
+    <para>移除一个到不存在组的引用：</para>
 
 <screen><userinput remap="install">sed -i "s:0775 root lock:0755 root root:g" /usr/lib/tmpfiles.d/legacy.conf</userinput></screen>
 -->
 
-    <para>Create the <filename>/etc/machine-id</filename> file needed by
-    <command>systemd-journald</command>:</para>
+    <para>创建 <filename>/etc/machine-id</filename> 需要的  <command>systemd-journald</command> 文件：</para>
 
 <screen><userinput remap="install">systemd-machine-id-setup</userinput></screen>
 
-    <para>Since the testsuite largely depends on the host system kernel
-    configuration, some tests may fail. It also needs a modification in
-    order not to look for a program that will be installed by Util-Linux
-    package later in this chapter. To test the results, issue:</para>
+    <para>由于测试套件高度依赖于宿主系统的内核配置，一些测试很可能失败。另外还需要做些更改使得不会查找本章后面 Util-Linux 软件包安装的一个程序。用以下命令测试结果：</para>
 
 <screen><userinput remap="test">sed -i "s:minix:ext4:g" src/test/test-path-util.c
 make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
@@ -236,12 +206,12 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
   </sect2>
 
   <sect2 id="contents-systemd" role="content">
-    <title>Contents of systemd</title>
+    <title>systemd 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>bootctl, busctl, coredumpctl, halt, hostnamectl, init, journalctl,
@@ -253,30 +223,30 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
         systemd-notify, systemd-nspawn, systemd-path, systemd-resolve, 
         systemd-run, systemd-socket-activate,
         systemd-stdio-bridge, systemd-tmpfiles, systemd-tty-ask-password-agent,
-        telinit, timedatectl, and udevadm</seg>
+        telinit, timedatectl, 和 udevadm</seg>
         <seg>libnss_myhostname.so.2, libnss_mymachines.so.2,
         libnss_resolve.so.2, libnss_systemd.so.2, 
         libsystemd.so, libsystemd-shared-231.so,
-        and libudev.so</seg>
+        和 libudev.so</seg>
         <seg>/etc/binfmt.d, /etc/init.d, /etc/kernel, /etc/modules-load.d,
         /etc/sysctl.d, /etc/systemd, /etc/tmpfiles.d, /etc/udev,
         /etc/xdg/systemd, /lib/systemd, /lib/udev, /usr/include/systemd,
         /usr/lib/binfmt.d, /usr/lib/kernel, /usr/lib/modules-load.d,
         /usr/lib/sysctl.d, /usr/lib/systemd, /usr/lib/tmpfiles.d,
         /usr/share/doc/systemd-&systemd-version;, /usr/share/factory,
-        /usr/share/systemd, /var/lib/systemd, and /var/log/journal</seg>
+        /usr/share/systemd, /var/lib/systemd, 和 /var/log/journal</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="bootctl">
         <term><command>bootctl</command></term>
         <listitem>
-          <para>used to query the firmware and boot manager settings</para>
+          <para>用于查询固件和启动管理设置</para>
           <indexterm zone="ch-system-systemd bootctl">
             <primary sortas="b-bootctl">bootctl</primary>
           </indexterm>
@@ -286,7 +256,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="busctl">
         <term><command>busctl</command></term>
         <listitem>
-          <para>Used to introspect and monitor the D-Bus bus</para>
+          <para>用于自检和监控 D-Bus 总线</para>
           <indexterm zone="ch-system-systemd busctl">
             <primary sortas="b-busctl">busctl</primary>
           </indexterm>
@@ -296,7 +266,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="coredumpctl">
         <term><command>coredumpctl</command></term>
         <listitem>
-          <para>Used to retrieve coredumps from the systemd Journal</para>
+          <para>用于检索 systemd 日志生成的核心转储</para>
           <indexterm zone="ch-system-systemd coredumpctl">
             <primary sortas="b-coredumpctl">coredumpctl</primary>
           </indexterm>
@@ -306,11 +276,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="halt">
         <term><command>halt</command></term>
         <listitem>
-          <para>Normally invokes <command>shutdown</command> with the
-          <parameter>-h</parameter> option, except when already in run-level 0,
-          then it tells the kernel to halt the system; it notes in the
-          file <filename>/var/log/wtmp</filename> that the system is being
-          brought down</para>
+          <para>通常调用带 <parameter>-h</parameter> 参数的 <command>shutdown</command> 命令，除非已经是运行等级 0，然后告诉内核暂停系统；它会在  <filename>/var/log/wtmp</filename> 文件中标记正准备关闭系统。</para>
           <indexterm zone="ch-system-systemd halt">
             <primary sortas="b-halt">halt</primary>
           </indexterm>
@@ -320,8 +286,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="hostnamectl">
         <term><command>hostnamectl</command></term>
         <listitem>
-          <para>Used to query and change the system hostname and related
-          settings</para>
+          <para>用于查询或更改系统名称以及相关的设置</para>
           <indexterm zone="ch-system-systemd hostnamectl">
             <primary sortas="b-hostnamectl">hostnamectl</primary>
           </indexterm>
@@ -331,9 +296,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="init">
         <term><command>init</command></term>
         <listitem>
-          <para>The first process to be started when the kernel has initialized
-          the hardware which takes over the boot process and starts all the
-          proceses it is instructed to</para>
+          <para>内核初始化硬件后接管引导程序而启动的第一个进程，它会启动设置的其它进程</para>
           <indexterm zone="ch-system-systemd init">
             <primary sortas="b-init">init</primary>
           </indexterm>
@@ -343,7 +306,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="journalctl">
         <term><command>journalctl</command></term>
         <listitem>
-          <para>Used to query the contents of the systemd Journal</para>
+          <para>用于查询 systemd 日志的内容</para>
           <indexterm zone="ch-system-systemd journalctl">
             <primary sortas="b-journalctl">journalctl</primary>
           </indexterm>
@@ -353,8 +316,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="kernel-install">
         <term><command>kernel-install</command></term>
         <listitem>
-          <para>Used to add and remove kernel and initramfs images to and
-          from /boot</para>
+          <para>用于向和从 /boot 中添加或移除内核以及 initramfs 镜像</para>
           <indexterm zone="ch-system-systemd kernel-install">
             <primary sortas="b-kernel-install">kernel-install</primary>
           </indexterm>
@@ -364,8 +326,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="localectl">
         <term><command>localectl</command></term>
         <listitem>
-          <para>Used to query and change the system locale and keyboard layout
-          settings</para>
+          <para>用于查询和更改系统地区和键盘布局设置</para>
           <indexterm zone="ch-system-systemd localectl">
             <primary sortas="b-localectl">localectl</primary>
           </indexterm>
@@ -375,8 +336,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="loginctl">
         <term><command>loginctl</command></term>
         <listitem>
-          <para>Used to introspect and control the state of the systemd Login
-          Manager</para>
+          <para>用于自检和控制 systemd 登录管理器的状态</para>
           <indexterm zone="ch-system-systemd loginctl">
             <primary sortas="b-loginctl">loginctl</primary>
           </indexterm>
@@ -386,8 +346,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="machinectl">
         <term><command>machinectl</command></term>
         <listitem>
-          <para>Used to introspect and control the state of the systemd Virtual
-          Machine and Container Registration Manager</para>
+          <para>用于自检和控制 systemd 虚拟机和容器注册管理器的状态</para>
           <indexterm zone="ch-system-systemd machinectl">
             <primary sortas="b-machinectl">machinectl</primary>
           </indexterm>
@@ -397,8 +356,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="networkctl">
         <term><command>networkctl</command></term>
         <listitem>
-          <para>Used to introspect the state of the network links as seen by
-          systemd-networkd</para>
+          <para>用于检查 systemd-networkd 所看到的网络链接状态</para>
           <indexterm zone="ch-system-systemd networkctl">
             <primary sortas="b-networkctl">networkctl</primary>
           </indexterm>
@@ -408,8 +366,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="poweroff">
         <term><command>poweroff</command></term>
         <listitem>
-          <para>Tells the kernel to halt the system and switch off the computer
-          (see <command>halt</command>)</para>
+          <para>告诉内核暂停系统并关闭计算机 （查看 <command>halt</command>）</para>
           <indexterm zone="ch-system-systemd poweroff">
             <primary sortas="b-poweroff">poweroff</primary>
           </indexterm>
@@ -419,8 +376,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="reboot">
         <term><command>reboot</command></term>
         <listitem>
-          <para>Tells the kernel to reboot the system (see
-          <command>halt</command>)</para>
+          <para>告诉内核重启系统 （查看 <command>halt</command>）</para>
           <indexterm zone="ch-system-systemd reboot">
             <primary sortas="b-reboot">reboot</primary>
           </indexterm>
@@ -430,8 +386,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="runlevel">
         <term><command>runlevel</command></term>
         <listitem>
-          <para>Reports the previous and the current run-level, as noted in the
-          last run-level record in <filename>/var/run/utmp</filename></para>
+          <para>报告之前和当期的运行等级、即 <filename>/var/run/utmp</filename> 文件中的最后一个运行等级记录</para>
           <indexterm zone="ch-system-systemd runlevel">
             <primary sortas="b-runlevel">runlevel</primary>
           </indexterm>
@@ -441,8 +396,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="shutdown">
         <term><command>shutdown</command></term>
         <listitem>
-          <para>Brings the system down in a secure way, signaling all processes
-          and notifying all logged-in users</para>
+          <para>以安全的方式关闭系统、向所有进程发送信号并通知所有登录的用户</para>
           <indexterm zone="ch-system-systemd shutdown">
             <primary sortas="b-shutdown">shutdown</primary>
           </indexterm>
@@ -452,8 +406,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemctl">
         <term><command>systemctl</command></term>
         <listitem>
-          <para>Used to introspect and control the state of the systemd system
-          and service manager</para>
+          <para>用于自检和控制 systemd 系统和服务管理器的状态</para>
           <indexterm zone="ch-system-systemd systemctl">
             <primary sortas="b-systemctl">systemctl</primary>
           </indexterm>
@@ -463,8 +416,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-analyze">
         <term><command>systemd-analyze</command></term>
         <listitem>
-          <para>Used to determine system boot-up performance of the current
-          boot</para>
+          <para>用于确定当前引导中的系统启动性能</para>
           <indexterm zone="ch-system-systemd systemd-analyze">
             <primary sortas="b-systemd-analyze">systemd-analyze</primary>
           </indexterm>
@@ -474,8 +426,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-ask-password">
         <term><command>systemd-ask-password</command></term>
         <listitem>
-          <para>Used to query a system password or passphrase from the user,
-          using a question message specified on the command line</para>
+          <para>通过命令行中的问题消息用于向用户查询系统密码或口令</para>
           <indexterm zone="ch-system-systemd systemd-ask-password">
             <primary sortas="b-systemd-ask-password">systemd-ask-password</primary>
           </indexterm>
@@ -485,8 +436,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-cat">
         <term><command>systemd-cat</command></term>
         <listitem>
-          <para>Used to connect STDOUT and STDERR of a process with the Journal
-          </para>
+          <para>用于连接进程日志的 STDOUT 和 STDERR</para>
           <indexterm zone="ch-system-systemd systemd-cat">
             <primary sortas="b-systemd-cat">systemd-cat</primary>
           </indexterm>
@@ -496,8 +446,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-cgls">
         <term><command>systemd-cgls</command></term>
         <listitem>
-          <para>Recursively shows the contents of the selected Linux control
-          group hierarchy in a tree</para>
+          <para>以树的形式递归显示指定 Linux 控制组层次结构的内容</para>
           <indexterm zone="ch-system-systemd systemd-cgls">
             <primary sortas="b-systemd-cgls">systemd-cgls</primary>
           </indexterm>
@@ -507,8 +456,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-cgtop">
         <term><command>systemd-cgtop</command></term>
         <listitem>
-          <para>Shows the top control groups of the local Linux control group
-          hierarchy, ordered by their CPU, memory and disk I/O load</para>
+          <para>按照 CPU、内存和磁盘 I/O 负载的顺序显示本地 Linux 控制组层次结构的顶层控制组</para>
           <indexterm zone="ch-system-systemd systemd-cgtop">
             <primary sortas="b-systemd-cgtop">systemd-cgtop</primary>
           </indexterm>
@@ -518,9 +466,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-delta">
         <term><command>systemd-delta</command></term>
         <listitem>
-          <para>Used to identify and compare configuration files in
-          <filename class="directory">/etc</filename> that override default
-          counterparts in <filename class="directory">/usr</filename></para>
+          <para>用于识别和比较 <filename class="directory">/etc</filename> 中覆盖  <filename class="directory">/usr</filename> 对应部分的配置文件</para>
           <indexterm zone="ch-system-systemd systemd-delta">
             <primary sortas="b-systemd-delta">systemd-delta</primary>
           </indexterm>
@@ -530,7 +476,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-detect-virt">
         <term><command>systemd-detect-virt</command></term>
         <listitem>
-          <para>Detects execution in a virtualized environment</para>
+          <para>在虚拟化环境中检测执行情况</para>
           <indexterm zone="ch-system-systemd systemd-detect-virt">
             <primary sortas="b-systemd-detect-virt">systemd-detect-virt</primary>
           </indexterm>
@@ -540,8 +486,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-escape">
         <term><command>systemd-escape</command></term>
         <listitem>
-          <para>Used to escape strings for inclusion in systemd unit
-          names</para>
+          <para>用于在 systemd 单元名称中包含转义字符串</para>
           <indexterm zone="ch-system-systemd systemd-escape">
             <primary sortas="b-systemd-escape">systemd-escape</primary>
           </indexterm>
@@ -551,7 +496,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-hwdb">
         <term><command>systemd-hwdb</command></term>
         <listitem>
-          <para>Used to manage hardware database (hwdb)</para>
+          <para>用户管理硬件数据库（hwdb）</para>
           <indexterm zone="ch-system-systemd systemd-hwdb">
             <primary sortas="b-systemd-hwdb">systemd-hwdb</primary>
           </indexterm>
@@ -561,8 +506,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-inhibit">
         <term><command>systemd-inhibit</command></term>
         <listitem>
-          <para>Used to execute a program with a shutdown, sleep or idle
-          inhibitor lock taken</para>
+          <para>用于在关机、睡眠或空闲休眠锁时执行程序</para>
           <indexterm zone="ch-system-systemd systemd-inhibit">
             <primary sortas="b-systemd-inhibit">systemd-inhibit</primary>
           </indexterm>
@@ -572,9 +516,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-machine-id-setup">
         <term><command>systemd-machine-id-setup</command></term>
         <listitem>
-          <para>Used by system installer tools to initialize the machine ID
-          stored in <filename>/etc/machine-id</filename> at install time with a
-          randomly generated ID</para>
+          <para>启动时系统安装程序用随机生成的 ID 初始化保存到  <filename>/etc/machine-id</filename> 的机器 ID</para>
           <indexterm zone="ch-system-systemd systemd-machine-id-setup">
             <primary sortas="b-systemd-machine-id-setup">systemd-machine-id-setup</primary>
           </indexterm>
@@ -594,8 +536,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-notify">
         <term><command>systemd-notify</command></term>
         <listitem>
-          <para>Used by daemon scripts to notify the init system about status
-          changes</para>
+          <para>守护进程脚本用于通知 init 系统状态更改</para>
           <indexterm zone="ch-system-systemd systemd-notify">
             <primary sortas="b-systemd-notify">systemd-notify</primary>
           </indexterm>
@@ -605,8 +546,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-nspawn">
         <term><command>systemd-nspawn</command></term>
         <listitem>
-          <para>Used to run a command or OS in a light-weight namespace
-          container</para>
+          <para>用于在轻量级容器空间中运行命令或操作系统</para>
           <indexterm zone="ch-system-systemd systemd-nspawn">
             <primary sortas="b-systemd-nspawn">systemd-nspawn</primary>
           </indexterm>
@@ -616,7 +556,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-path">
         <term><command>systemd-path</command></term>
         <listitem>
-          <para>Used to query system and user paths</para>
+          <para>用于查询系统和用户路径</para>
           <indexterm zone="ch-system-systemd systemd-path">
             <primary sortas="b-systemd-path">systemd-path</primary>
           </indexterm>
@@ -637,8 +577,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-run">
         <term><command>systemd-run</command></term>
         <listitem>
-          <para>Used to create and start a transient .service or a .scope unit
-          and run the specified command in it</para>
+          <para>用于创建并运行一个临时 .service 或 .scope 单元并在其中运行指定命令</para>
           <indexterm zone="ch-system-systemd systemd-run">
             <primary sortas="b-systemd-run">systemd-run</primary>
           </indexterm>
@@ -669,10 +608,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-tmpfiles">
         <term><command>systemd-tmpfiles</command></term>
         <listitem>
-          <para>Creates, deletes and cleans up volatile and temporary files and
-          directories, based on the configuration file format and location
-          specified in
-          <filename class="directory">tmpfiles.d</filename> directories</para>
+          <para>基于配置文件格式和 <filename class="directory">tmpfiles.d</filename> 指定的位置创建、删除以及清理易变的和临时文件和目录</para>
           <indexterm zone="ch-system-systemd systemd-tmpfiles">
             <primary sortas="b-systemd-tmpfiles">systemd-tmpfiles</primary>
           </indexterm>
@@ -682,7 +618,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-tty-ask-password-agent">
         <term><command>systemd-tty-ask-password-agent</command></term>
         <listitem>
-          <para>Used to list or process pending systemd password requests</para>
+          <para>用于列出或执行正在等待的 systemd 密码请求</para>
           <indexterm zone="ch-system-systemd systemd-tty-ask-password-agent">
             <primary sortas="b-systemd-tty-ask-password-agent">systemd-tty-ask-password-agent</primary>
           </indexterm>
@@ -692,8 +628,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="telinit">
         <term><command>telinit</command></term>
         <listitem>
-          <para>Tells <command>init</command> which run-level to change
-          to</para>
+          <para>告诉 <command>init</command> 要更改的运行等级</para>
           <indexterm zone="ch-system-systemd telinit">
             <primary sortas="b-telinit">telinit</primary>
           </indexterm>
@@ -703,8 +638,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="timedatectl">
         <term><command>timedatectl</command></term>
         <listitem>
-          <para>Used to query and change the system clock and its settings
-          </para>
+          <para>用于查询和更改系统时间和设置</para>
           <indexterm zone="ch-system-systemd timedatectl">
             <primary sortas="b-timedatectl">timedatectl</primary>
           </indexterm>
@@ -714,10 +648,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="udevadm">
         <term><command>udevadm</command></term>
         <listitem>
-          <para>Generic Udev administration tool: controls the udevd daemon,
-          provides info from the Udev database, monitors uevents, waits for
-          uevents to finish, tests Udev configuration, and triggers uevents
-          for a given device</para>
+          <para>通用 Udev 管理工具：控制 udevd 守护进程、从 Udev 数据库提供信息、 监控 uevent、等待 uevent 完成、检测 Udev 配置、为指定设备触发 uevents</para>
           <indexterm zone="ch-system-systemd udevadm">
             <primary sortas="b-udevadm">udevadm</primary>
           </indexterm>
@@ -727,7 +658,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="libsystemd">
         <term><filename class="libraryfile">libsystemd</filename></term>
         <listitem>
-          <para>systemd utility library</para>
+          <para>systemd 工具库</para>
           <indexterm zone="ch-system-systemd libsystemd">
             <primary sortas="c-libsystemd">libsystemd</primary>
           </indexterm>
@@ -737,7 +668,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="libudev">
         <term><filename class="libraryfile">libudev</filename></term>
         <listitem>
-          <para>A library to access Udev device information</para>
+          <para>用于获取 Udev 设备信息的库</para>
           <indexterm zone="ch-system-systemd libudev">
             <primary sortas="c-libudev">libudev</primary>
           </indexterm>
