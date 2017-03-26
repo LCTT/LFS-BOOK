@@ -47,6 +47,7 @@
     the commands below. If the <command>arpd</command> binary is needed,
     instructions for compiling Berkeley DB can be found in the BLFS Book at
     <ulink url="&blfs-book;server/databases.html#db"/>.
+    </para>
 
 <screen><userinput remap="pre">sed -i /ARPD/d Makefile
 sed -i 's/arpd.8//' man/man8/Makefile
