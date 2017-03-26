@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Readline package is a set of libraries that offers command-line
-    editing and history capabilities.</para>
+    <para>Readline 软件包是提供命令行编辑和历史功能的库的集合。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,83 +38,76 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Readline</title>
+    <title>安装 Readline</title>
 
-    <para>Reinstalling Readline will cause the old libraries to be moved to
-    &lt;libraryname&gt;.old. While this is normally not a problem, in some cases
-    it can trigger a linking bug in <command>ldconfig</command>. This can be
-    avoided by issuing the following two seds:</para>
+    <para>重装 Readline 会使旧的库移动到 &lt;libraryname&gt;.old。通常来说这并不是什么问题，但一些情况下可能引起 <command>ldconfig</command> 链接错误。可以通过下面的两个 sed 命令避免这个问题：</para>
 
 <screen><userinput remap="pre">sed -i '/MV.*old/d' Makefile.in
 sed -i '/{OLDSUFF}/c:' support/shlib-install</userinput></screen>
 
-    <para>Prepare Readline for compilation:</para>
+    <para>准备编译 Readline：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr    \
             --disable-static \
             --docdir=/usr/share/doc/readline-&readline-version;</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make SHLIB_LIBS=-lncurses</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the make option:</title>
+      <title>make 选项的含义：</title>
 
       <varlistentry>
         <term><parameter>SHLIB_LIBS=-lncurses</parameter></term>
         <listitem>
-          <para>This option forces Readline to link against the
-          <filename class="libraryfile">libncurses</filename> (really,
-          <filename class="libraryfile">libncursesw</filename>) library.</para>
+          <para>该选项强制 Readline 链接到 <filename class="libraryfile">libncurses</filename> (实际上是 <filename class="libraryfile">libncursesw</filename>) 库。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>This package does not come with a test suite.</para>
+    <para>该软件包没有测试套件。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make SHLIB_LIBS=-lncurses install</userinput></screen>
 
-    <para>Now move the dynamic libraries to a more appropriate location
-    and fix up some symbolic links:</para>
+    <para>现在移动动态库到更合适的位置并修正一些符号链接：</para>
 
 <screen><userinput remap="install">mv -v /usr/lib/lib{readline,history}.so.* /lib
 ln -sfv ../../lib/$(readlink /usr/lib/libreadline.so) /usr/lib/libreadline.so
 ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so</userinput></screen>
 
-    <para>If desired, install the documentation:</para>
+    <para>如果需要的话，安装帮助文档：</para>
 
 <screen><userinput remap="install">install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-&readline-version;</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-readline" role="content">
-    <title>Contents of Readline</title>
+    <title>Readline 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
-        <seg>libhistory.so and libreadline.so</seg>
-        <seg>/usr/include/readline, /usr/share/readline, and
+        <seg>libhistory.so 和 libreadline.so</seg>
+        <seg>/usr/include/readline, /usr/share/readline, 和
         /usr/share/doc/readline-&readline-version;</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="libhistory">
         <term><filename class="libraryfile">libhistory</filename></term>
         <listitem>
-          <para>Provides a consistent user interface for recalling lines
-          of history</para>
+          <para>为重新查看历史行提供一致的用户界面</para>
           <indexterm zone="ch-system-readline libhistory">
             <primary sortas="c-libhistory">libhistory</primary>
           </indexterm>
@@ -125,8 +117,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so</us
       <varlistentry id="libreadline">
         <term><filename class="libraryfile">libreadline</filename></term>
         <listitem>
-          <para>Aids in the consistency of user interface across discrete
-          programs that need to provide a command line interface</para>
+          <para>在多种需要提供命令行接口的程序之间保持用户接口一致性</para>
           <indexterm zone="ch-system-readline libreadline">
             <primary sortas="c-libreadline">libreadline</primary>
           </indexterm>

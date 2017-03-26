@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Texinfo package contains programs for reading, writing, and
-    converting info pages.</para>
+    <para>Texinfo 软件包包含用于读、写以及转换信息页的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,14 +38,14 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Texinfo</title>
+    <title>安装 Texinfo</title>
 
-    <para>Prepare Texinfo for compilation:</para>
+    <para>准备编译 Texinfo：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr --disable-static</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>configure 参数的含义:</title>
 
       <varlistentry>
         <term><parameter>--disable-static</parameter></term>
@@ -61,44 +60,36 @@
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Optionally, install the components belonging in a TeX
-    installation:</para>
+    <para>可选地安装 TeX 中的组件：</para>
     <!-- FIXME: doesn't the TeX installation in BLFS overwrite files there? -->
 
 <screen><userinput remap="install">make TEXMF=/usr/share/texmf install-tex</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the make parameter:</title>
+      <title>make 参数的含义：</title>
 
       <varlistentry>
         <term><parameter>TEXMF=/usr/share/texmf</parameter></term>
         <listitem>
-          <para>The <envar>TEXMF</envar> makefile variable holds the location
-          of the root of the TeX tree if, for example, a TeX package will be
-          installed later.</para>
+          <para>如果后面会安装 TeX 软件包， <envar>TEXMF</envar> makefile 变量保存了作为 TeX 树的根位置。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>The Info documentation system uses a plain text file to hold its list of
-    menu entries. The file is located at <filename>/usr/share/info/dir</filename>.
-    Unfortunately, due to occasional problems in the Makefiles of various packages,
-    it can sometimes get out of sync with the info pages installed on the system.
-    If the <filename>/usr/share/info/dir</filename> file ever needs to be
-    recreated, the following optional commands will accomplish the task:</para>
+    <para>该信息文档系统使用一个纯文本文件来存放菜单条目清单。文件保存在  <filename>/usr/share/info/dir</filename>。不幸的是，由于不同软件包 Makefile 的偶然问题，有时候会和系统中安装的信息页不同步。如果需要重建 <filename>/usr/share/info/dir</filename> 文件，下面的可选命令能完成任务：</para>
 
 <screen role="nodump"><userinput>pushd /usr/share/info
 rm -v dir
@@ -110,33 +101,30 @@ popd</userinput></screen>
   </sect2>
 
   <sect2 id="contents-texinfo" role="content">
-    <title>Contents of Texinfo</title>
+    <title>Texinfo 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed library</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
-        <seg>info, install-info, makeinfo (link to texi2any),
-        pdftexi2dvi, pod2texi, texi2any, texi2dvi, texi2pdf, and texindex</seg>
+        <seg>info, install-info, makeinfo (链接到 texi2any),
+        pdftexi2dvi, pod2texi, texi2any, texi2dvi, texi2pdf, 和 texindex</seg>
         <seg>XSParagraph.so</seg>
-        <seg>/usr/share/texinfo and /usr/lib/texinfo</seg>
+        <seg>/usr/share/texinfo 和 /usr/lib/texinfo</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="info">
         <term><command>info</command></term>
         <listitem>
-          <para>Used to read info pages which are similar to man pages, but
-          often go much deeper than just explaining all the available command
-          line options [For example, compare <command>man bison</command> and
-          <command>info bison</command>.]</para>
+          <para>用于读取和 man 页面相似的信息页，但和只是解释所有可用命令行选项相比更加深入， [例如比较 <command>man bison</command> 和 <command>info bison</command>。]</para>
           <indexterm zone="ch-system-texinfo info">
             <primary sortas="b-info">info</primary>
           </indexterm>
@@ -146,8 +134,7 @@ popd</userinput></screen>
       <varlistentry id="install-info">
         <term><command>install-info</command></term>
         <listitem>
-          <para>Used to install info pages; it updates entries in the
-          <command>info</command> index file</para>
+          <para>用于安装信息页；它会更新 <command>info</command> 索引文件中的条目</para>
           <indexterm zone="ch-system-texinfo install-info">
             <primary sortas="b-install-info">install-info</primary>
           </indexterm>
@@ -157,8 +144,7 @@ popd</userinput></screen>
       <varlistentry id="makeinfo">
         <term><command>makeinfo</command></term>
         <listitem>
-          <para>Translates the given Texinfo source documents into
-          info pages, plain text, or HTML</para>
+          <para>翻译给定的 Texinfo 源文档为信息页、纯文本或 HTML</para>
           <indexterm zone="ch-system-texinfo makeinfo">
             <primary sortas="b-makeinfo">makeinfo</primary>
           </indexterm>
@@ -168,8 +154,7 @@ popd</userinput></screen>
       <varlistentry id="pdftexi2dvi">
         <term><command>pdftexi2dvi</command></term>
         <listitem>
-          <para>Used to format the given Texinfo document into a
-          Portable Document Format (PDF) file</para>
+          <para>用于格式化给定的 Texinfo 文档为 PDF 文件</para>
           <indexterm zone="ch-system-texinfo pdftexi2dvi">
             <primary sortas="b-pdftexi2dvi">pdftexi2dvi</primary>
           </indexterm>
@@ -179,7 +164,7 @@ popd</userinput></screen>
       <varlistentry id="pod2texi">
         <term><command>pod2texi</command></term>
         <listitem>
-          <para>Converts Pod to Texinfo format</para>
+          <para>转换 Pod 为 Texinfo 格式</para>
           <indexterm zone="ch-system-texinfo pod2texi">
             <primary sortas="b-pod2texi">pod2texi</primary>
           </indexterm>
@@ -189,8 +174,7 @@ popd</userinput></screen>
       <varlistentry id="texi2any">
         <term><command>texi2any</command></term>
         <listitem>
-          <para>Translate Texinfo source documentation to 
-          various other formats</para>
+          <para>翻译 Texinfo 源文档为多种其它格式</para>
           <indexterm zone="ch-system-texinfo texi2any">
             <primary sortas="b-texiany">texi2any</primary>
           </indexterm>
@@ -200,8 +184,7 @@ popd</userinput></screen>
       <varlistentry id="texi2dvi">
         <term><command>texi2dvi</command></term>
         <listitem>
-          <para>Used to format the given Texinfo document into a
-          device-independent file that can be printed</para>
+          <para>用于格式化给定 Texinfo 文档为可打印的设备无关文件</para>
           <indexterm zone="ch-system-texinfo texi2dvi">
             <primary sortas="b-texi2dvi">texi2dvi</primary>
           </indexterm>
@@ -211,8 +194,7 @@ popd</userinput></screen>
       <varlistentry id="texi2pdf">
         <term><command>texi2pdf</command></term>
         <listitem>
-          <para>Used to format the given Texinfo document into a
-          Portable Document Format (PDF) file</para>
+          <para>用于格式化给定 Texinfo 文档为 PDF 文件</para>
           <indexterm zone="ch-system-texinfo texi2pdf">
             <primary sortas="b-texi2pdf">texi2pdf</primary>
           </indexterm>
@@ -222,7 +204,7 @@ popd</userinput></screen>
       <varlistentry id="texindex">
         <term><command>texindex</command></term>
         <listitem>
-          <para>Used to sort Texinfo index files</para>
+          <para>用于对 Texinfo 索引文件进行排序</para>
           <indexterm zone="ch-system-texinfo texindex">
             <primary sortas="b-texindex">texindex</primary>
           </indexterm>
