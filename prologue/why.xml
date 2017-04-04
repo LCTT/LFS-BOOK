@@ -379,7 +379,7 @@
         <application>init</application> 程序以及一些其它的引导和系统控
         制功能。很多 Linux 商业发行版都用它。</para>
       </listitem>
-      
+
       <listitem revision="sysv">
         <para>Sysvinit</para>
 
