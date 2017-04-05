@@ -22,10 +22,10 @@
 
 <para>假如按照本文的默认方式构建，那么你将得到一个「纯」64 位系统————这意味着你仅能够执行 64 位的程序。构建「multi-lib」也并不是不可以，但是这意味着很多的程序都需要编译两次：一次编译为 32 位程序，一次编译为 64 位程序。不过，本文档并不涉及这部份的内容：这会干扰用户学习如何构建一份最基本的 Linux 系统。你可以通过阅读 <ulink url="http://trac.clfs.org/">Cross Linux From Scratch</ulink> 的相关内容获得有关本话题的更多帮助。</para>
 
-+<!-- This does not appear to be valid for LFS/BLFS any more
+<!-- This does not appear to be valid for LFS/BLFS any more
 <para>关于 64 位系统，还有一点需要说明。有一些异常老旧的包无法在「纯」64 位系统上构建，或者是需要专门的编译指令。通常出现这样的问题是因为这些包包含有一些与 32 位系统紧密相关的汇编指令。这些包括一些 Xorg 的视频卡驱动（<ulink url="http://xorg.freedesktop.org/releases/individual/driver/">
 http://xorg.freedesktop.org/releases/individual/driver/</ulink>），大多数类似的情况都有解决方案，但可能需要特别的方法或者是补丁。</para>
-+-->
+-->
 
 </sect1>
 
