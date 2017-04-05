@@ -9,33 +9,13 @@
   <?dbhtml dir="appendices"?>
   <?dbhtml filename="dependencies.html"?>
 
-  <title>Dependencies</title>
+  <title>依赖关系</title>
 
-  <para>Every package built in LFS relies on one or more other packages in
-  order to build and install properly. Some packages even participate in
-  circular dependencies, that is, the first package depends on the second which
-  in turn depends on the first. Because of these dependencies, the order in
-  which packages are built in LFS is very important. The purpose of this page
-  is to document the dependencies of each package built in LFS.</para>
+  <para>LFS 中构建或安装的每一个包或多或少都会依赖于其它的包，甚至有些包甚至是循环依赖关系：第一个包依赖于第二个包，反过来，第二个包的生成或者是安装又需要第 一个包。因为存在这些依赖关系，所以在构建 LFS 系统的时候，软件包的编译或安装的顺序是十分重要的。本章的目的就是告知用户在构建 LFS 时每一个包的依赖项。</para>
 
-  <para>For each package we build, we have listed three, and sometimes four,
-  types of dependencies.  The first lists what other packages need to be
-  available in order to compile and install the package in question. The second
-  lists what packages, in addition to those on the first list, need to be
-  available in order to run the test suites. The third list of dependencies are
-  packages that require this package to be built and installed in its final
-  location before they are built and installed. In most cases, this is because
-  these packages will hard code paths to binaries within their scripts. If not
-  built in a certain order, this could result in paths of /tools/bin/[binary]
-  being placed inside scripts installed to the final system. This is obviously
-  not desirable.</para>
+  <para>对于所有需要编译的软件包，我们列举出三种或者四种类型的依赖。第一种类型是 “安装必选依赖”，否则在编译和安装的时候会出现问题。第二类是 “测试套件依赖”，假如运行一些测试套件，除了第一类的必须安装外，第二类也需要安装。第三类是 “必须之前安装”，此类需要在编译和安装之前就安装。在大多数情况下，是因为它们软件包中的脚本包含有到二进制文件的硬编码。如果不按照顺序编译它们，将会导致 /tools/bin/[binary] 路径变为真实路径写入脚本，然后安装到最终系统中去，这显然是不合适的。 （译者注：这句话写的不是太清楚，大概解释一下：在真实系统中，可能会在某些脚本 中出现这样的路径信息：/usr/bin/vi，但是假如因为安装顺序的问题，这个路径就有可能变成 /tools/usr/bin/vi，最终导致脚本不能正常的运行，这显然是错误的。）</para>
 
-  <para>The last list of dependencies are optional packages that are not
-  addressed in LFS, but could be useful to the user.  These packages may have
-  additional mandatory or optional dependencies of their own.  For these
-  dependencies, the recommended practice is to install them after completion of
-  the LFS book and then go back and rebuild the LFS package.  In several cases,
-  re-installation is addressed in BLFS.</para>
+  <para>最后一类提及的 “可供选择依赖”，安装方法在此文档类并没有提及，但是这些程序往往对用户来说又都是极其有用。这些软件包可能又有属于自己的 “安装必选依赖” 或者是 “可用选择依赖”。对于这些依赖关系，推荐的做法是在学习完本书之后回到重建 LFS 包。在大多数情况下，重新安装的问题都记录在 BLFS 中。</para>
 
 <!-- Begin Acl dependency info -->
   <bridgehead renderas="sect2" id="acl-dep">acl</bridgehead>
@@ -45,7 +25,7 @@
 
         <seglistitem>
           <seg>Attr, Bash, Binutils, Coreutils, GCC, Gettext, Grep, M4, Make,
-          Perl, Sed, and Texinfo</seg>
+          Perl, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -53,7 +33,7 @@
         <segtitle>&testsuites;</segtitle>
 
         <seglistitem>
-          <seg>Automake, Diffutils, Findutils, and Libtool</seg>
+          <seg>Automake, Diffutils, Findutils, 和 Libtool</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -81,7 +61,7 @@
 
         <seglistitem>
           <seg>Bash, Binutils, Coreutils, GCC, Gettext, Grep, M4, Make,
-          Perl, Sed, and Texinfo</seg>
+          Perl, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -89,7 +69,7 @@
         <segtitle>&testsuites;</segtitle>
 
         <seglistitem>
-          <seg>Automake, Diffutils, Findutils, and Libtool</seg>
+          <seg>Automake, Diffutils, Findutils, 和 Libtool</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -116,7 +96,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-          <seg>Bash, Coreutils, Grep, M4, Make, Perl, Sed, and Texinfo</seg>
+          <seg>Bash, Coreutils, Grep, M4, Make, Perl, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -124,7 +104,7 @@
         <segtitle>&testsuites;</segtitle>
 
         <seglistitem>
-          <seg>Automake, Diffutils, Findutils, GCC, and Libtool</seg>
+          <seg>Automake, Diffutils, Findutils, GCC, 和 Libtool</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -152,7 +132,7 @@
 
         <seglistitem>
           <seg>Autoconf, Bash, Coreutils, Gettext, Grep, M4, Make, Perl,
-          Sed, and Texinfo</seg>
+          Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -161,7 +141,7 @@
 
         <seglistitem>
           <seg>Binutils, Bison, Bzip2, DejaGNU, Diffutils, Expect, Findutils,
-          Flex, GCC, Gettext, Gzip, Libtool, and Tar.</seg>
+          Flex, GCC, Gettext, Gzip, Libtool, 和 Tar.</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -189,7 +169,7 @@
 
         <seglistitem>
           <seg>Bash, Binutils, Bison, Coreutils, Diffutils, Gawk, GCC, Glibc,
-          Grep, Make, Ncurses, Patch, Readline, Sed, and Texinfo</seg>
+          Grep, Make, Ncurses, Patch, Readline, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -225,7 +205,7 @@
 
         <seglistitem>
           <seg>Bash, Binutils, Bison, Coreutils, GCC, Glibc,
-          Grep, Make, and Readline</seg>
+          Grep, Make, 和 Readline</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -297,7 +277,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, GCC, Gettext, Glibc,
-         Grep, M4, Make, Perl, and Sed</seg>
+         Grep, M4, Make, Perl, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -305,7 +285,7 @@
         <segtitle>&testsuites;</segtitle>
 
         <seglistitem>
-          <seg>Diffutils, Findutils, and Flex</seg>
+          <seg>Diffutils, Findutils, 和 Flex</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -368,7 +348,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>GCC, Grep, Make, Sed, and Texinfo</seg>
+         <seg>GCC, Grep, Make, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -404,7 +384,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, GCC, Gettext, Glibc, GMP, Grep, Make,
-         Patch, Perl, Sed, and Texinfo</seg>
+         Patch, Perl, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -412,7 +392,7 @@
         <segtitle>&testsuites;</segtitle>
 
         <seglistitem>
-          <seg>Diffutils, E2fsprogs, Findutils, Shadow, and Util-linux</seg>
+          <seg>Diffutils, E2fsprogs, Findutils, Shadow, 和 Util-linux</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -420,7 +400,7 @@
         <segtitle>&before;</segtitle>
 
         <seglistitem>
-          <seg>Bash, Diffutils, Findutils, Man-DB, and Eudev</seg>
+          <seg>Bash, Diffutils, Findutils, Man-DB, 和 Eudev</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -441,7 +421,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep,
-         Make, Sed, and Util-linux</seg>
+         Make, Sed, 和 Util-linux</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -476,7 +456,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Bash, Coreutils, Diffutils, GCC, Grep, Make, and Sed</seg>
+         <seg>Bash, Coreutils, Diffutils, GCC, Grep, Make, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -512,7 +492,7 @@
 
         <seglistitem>
           <seg>Bash, Binutils, Coreutils, Gawk, GCC, Gettext, Glibc, Grep,
-          Make, Sed, and Texinfo</seg>
+          Make, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -548,7 +528,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep, Gperf,
-         Make, and Sed</seg>
+         Make, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -584,7 +564,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep,
-         Make, and Sed</seg>
+         Make, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -620,7 +600,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Glibc, Grep, Make,
-         Patch, Sed, and Tcl</seg>
+         Patch, Sed, 和 Tcl</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -656,7 +636,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep,
-         Gzip, Make, Sed, Texinfo, and Util-linux</seg>
+         Gzip, Make, Sed, Texinfo, 和 Util-linux</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -692,7 +672,7 @@
 
         <seglistitem>
           <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep,
-          Make, Sed, and Zlib</seg>
+          Make, Sed, 和 Zlib</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -728,7 +708,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, GCC, Gettext, Glibc, Grep, Make,
-         Sed, and Texinfo</seg>
+         Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -736,7 +716,7 @@
         <segtitle>&testsuites;</segtitle>
 
         <seglistitem>
-          <seg>DejaGNU, Diffutils, and Expect</seg>
+          <seg>DejaGNU, Diffutils, 和 Expect</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -764,7 +744,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, GCC, Gettext, Glibc, Grep, M4, Make,
-         Patch, Sed, and Texinfo</seg>
+         Patch, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -780,7 +760,7 @@
         <segtitle>&before;</segtitle>
 
         <seglistitem>
-          <seg>IPRoute2, Kbd, and Man-DB</seg>
+          <seg>IPRoute2, Kbd, 和 Man-DB</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -874,7 +854,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Grep, Make, and Sed</seg>
+         <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Grep, Make, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -910,7 +890,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep, Make,
-         Sed, and Texinfo</seg>
+         Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -918,7 +898,7 @@
         <segtitle>&testsuites;</segtitle>
 
         <seglistitem>
-          <seg>Diffutils, Perl, and Tcl</seg>
+          <seg>Diffutils, Perl, 和 Tcl</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -946,7 +926,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Gettext,
-         Grep, Gzip, Linux API Headers, Make, Perl, Sed, and Texinfo</seg>
+         Grep, Gzip, Linux API Headers, Make, Perl, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1053,7 +1033,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Gettext, Glibc, Grep,
-         Make, Patch, Sed, and Texinfo</seg>
+         Make, Patch, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1089,7 +1069,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Bison, Coreutils,  Gawk, GCC, Glibc, Grep, Make,
-         Patch, Sed, and Texinfo</seg>
+         Patch, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1125,7 +1105,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Bison, Coreutils, Diffutils, GCC, Gettext, Glibc,
-         Grep, Make, Ncurses, Sed, Texinfo, and Xz</seg>
+         Grep, Make, Ncurses, Sed, Texinfo, 和 Xz</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1161,7 +1141,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, GCC, Glibc, Grep, Make,
-         Sed, and Texinfo</seg>
+         Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1196,7 +1176,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Coreutils, Gawk, and Make</seg>
+         <seg>Coreutils, Gawk, 和 Make</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1232,7 +1212,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, GCC, Glibc, Grep, Make, Ncurses,
-         Patch, Sed, Texinfo, and Zlib</seg>
+         Patch, Sed, Texinfo, 和 Zlib</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1267,7 +1247,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Bash, Gawk, Glibc, Make, Perl, Sed, and XML::Parser</seg>
+         <seg>Bash, Gawk, Glibc, Make, Perl, Sed, 和 XML::Parser</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1339,7 +1319,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Bison, Check, Coreutils, Flex, GCC, Gettext,
-         Glibc, Gzip, Make, Patch, and Sed</seg>
+         Glibc, Gzip, Make, Patch, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1411,7 +1391,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Glibc, Grep, Make,
-         Ncurses, and Sed</seg>
+         Ncurses, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1446,7 +1426,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Attr, Bash, Binutils, Coreutils, GCC, Glibc, Perl, Make, and Sed</seg>
+         <seg>Attr, Bash, Binutils, Coreutils, GCC, Glibc, Perl, Make, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1482,7 +1462,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep,
-         Make, Sed, and Texinfo</seg>
+         Make, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1518,7 +1498,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep,
-         Make, Sed, and Texinfo</seg>
+         Make, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1554,7 +1534,7 @@
 
         <seglistitem>
          <seg>Bash, Bc, Binutils, Coreutils, Diffutils, Findutils, GCC, Glibc, Grep,
-         Gzip, Kmod, Make, Ncurses, Perl, and Sed</seg>
+         Gzip, Kmod, Make, Ncurses, Perl, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1589,7 +1569,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Bash, Binutils, Coreutils, GCC, Glibc, Grep, Make, Sed, and
+         <seg>Bash, Binutils, Coreutils, GCC, Glibc, Grep, Make, Sed, 和
          Texinfo</seg>
         </seglistitem>
       </segmentedlist>
@@ -1626,7 +1606,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, GCC, Gettext, Glibc, Grep,
-         Make, Sed, and Texinfo</seg>
+         Make, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1662,7 +1642,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Bzip2, Coreutils, Flex, GCC, GDBM, Gettext,
-         Glibc, Grep, Groff, Gzip, Less, Libpipeline, Make, Sed, and Xz</seg>
+         Glibc, Grep, Groff, Gzip, Less, Libpipeline, Make, Sed, 和 Xz</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1697,7 +1677,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Bash, Coreutils, and Make</seg>
+         <seg>Bash, Coreutils, 和 Make</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1805,7 +1785,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep,
-         Make, Patch, and Sed</seg>
+         Make, Patch, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1822,7 +1802,7 @@
 
         <seglistitem>
           <seg>Bash, GRUB, Inetutils, Less, Procps-ng, Psmisc, Readline, Texinfo,
-          Util-linux, and Vim</seg>
+          Util-linux, 和 Vim</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1841,7 +1821,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Bash, Binutils, Coreutils, GCC, Glibc, Grep, Make, and Sed</seg>
+         <seg>Bash, Binutils, Coreutils, GCC, Glibc, Grep, Make, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1877,7 +1857,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Gawk, GCC, GDBM, Glibc, Grep,
-         Groff, Make, Sed, and Zlib</seg>
+         Groff, Make, Sed, 和 Zlib</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1913,7 +1893,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep, Make,
-         Popt, and Sed</seg>
+         Popt, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -1983,7 +1963,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Bash, Binutils, Coreutils, GCC, Glibc, Make, and Ncurses</seg>
+         <seg>Bash, Binutils, Coreutils, GCC, Glibc, Make, 和 Ncurses</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2055,7 +2035,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep, Make, Ncurses,
-         Patch, Sed, and Texinfo</seg>
+         Patch, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2091,7 +2071,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, GCC, Gettext, Glibc, Grep, Make,
-         Sed, and Texinfo</seg>
+         Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2107,7 +2087,7 @@
         <segtitle>&before;</segtitle>
 
         <seglistitem>
-          <seg>E2fsprogs, File, Libtool, and Shadow</seg>
+          <seg>E2fsprogs, File, Libtool, 和 Shadow</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2127,7 +2107,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, Findutils, Gawk, GCC,
-         Gettext, Glibc, Grep, Make, and Sed</seg>
+         Gettext, Glibc, Grep, Make, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2200,7 +2180,7 @@
         <seglistitem>
          <seg>Acl, Attr, Bash, Binutils, Coreutils, Diffutils, Expat, Gawk,
          GCC, Glibc, Gperf, Grep, Intltool, Libcap,
-         Make, Sed, and Util-linux</seg>
+         Make, Sed, 和 Util-linux</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2235,7 +2215,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Binutils, Coreutils, GCC, Glibc, Make, and Sed</seg>
+         <seg>Binutils, Coreutils, GCC, Glibc, Make, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2271,7 +2251,7 @@
 
         <seglistitem>
          <seg>Acl, Attr, Bash, Binutils, Bison, Coreutils, GCC, Gettext, Glibc,
-         Grep, Inetutils, Make, Sed, and Texinfo</seg>
+         Grep, Inetutils, Make, Sed, 和 Texinfo</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2279,7 +2259,7 @@
         <segtitle>&testsuites;</segtitle>
 
         <seglistitem>
-          <seg>Autoconf, Diffutils, Findutils, Gawk, and Gzip</seg>
+          <seg>Autoconf, Diffutils, Findutils, Gawk, 和 Gzip</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2307,7 +2287,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Glibc, Grep,
-         Make, and Sed</seg>
+         Make, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2343,7 +2323,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, GCC, Gettext, Glibc, Grep, Make,
-         Ncurses, Patch, and Sed</seg>
+         Ncurses, Patch, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2379,7 +2359,7 @@
 
         <seglistitem>
          <seg>Bash, Binutils, Coreutils, Diffutils, Findutils, Gawk, GCC,
-         Gettext, Glibc, Grep, Make, Ncurses, Sed, Eudev, and Zlib</seg>
+         Gettext, Glibc, Grep, Make, Ncurses, Sed, Eudev, 和 Zlib</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2415,7 +2395,7 @@
 
         <seglistitem>
          <seg>Acl, Attr, Bash, Binutils, Coreutils, Diffutils, GCC, Glibc,
-         Grep, Make, Ncurses, and Sed</seg>
+         Grep, Make, Ncurses, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2439,7 +2419,7 @@
         <segtitle>&external;</segtitle>
 
         <seglistitem>
-          <seg>Xorg, GTK+2, LessTif, Python, Tcl, Ruby, and GPM</seg>
+          <seg>Xorg, GTK+2, LessTif, Python, Tcl, Ruby, 和 GPM</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2450,7 +2430,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Bash, Binutils, Coreutils, Expat, GCC, Glibc, Make, and Perl</seg>
+         <seg>Bash, Binutils, Coreutils, Expat, GCC, Glibc, Make, 和 Perl</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2485,7 +2465,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Glibc, and Make.</seg>
+         <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Glibc, 和 Make.</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2520,7 +2500,7 @@
         <segtitle>&dependencies;</segtitle>
 
         <seglistitem>
-         <seg>Bash, Binutils, Coreutils, GCC, Glibc, Make, and Sed</seg>
+         <seg>Bash, Binutils, Coreutils, GCC, Glibc, Make, 和 Sed</seg>
         </seglistitem>
       </segmentedlist>
 
@@ -2536,7 +2516,7 @@
         <segtitle>&before;</segtitle>
 
         <seglistitem>
-          <seg>File, Kmod, Perl, and Util-linux</seg>
+          <seg>File, Kmod, Perl, 和 Util-linux</seg>
         </seglistitem>
       </segmentedlist>
 

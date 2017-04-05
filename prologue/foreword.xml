@@ -8,65 +8,23 @@
 <sect1 id="pre-foreword">
   <?dbhtml filename="foreword.html"?>
 
-  <title>Foreword</title>
+  <title>前言</title>
 
-<para>My journey to learn and better understand Linux began over a decade ago,
-back in 1998. I had just installed my first Linux distribution and had
-quickly become intrigued with the whole concept and philosophy behind
-Linux.</para>
+<para>自 1998 年始，我对 Linux 从学习到深入了解已十年有余。在安装好我的第一个 Linux 发行版后，我很快就为 Linux 所蕴含的整套理念及其背后的哲学思想所着迷。</para>
 
-<para>There are always many ways to accomplish a single task. The same can be
-said about Linux distributions. A great many have existed over the years.  Some
-still exist, some have morphed into something else, yet others have been
-relegated to our memories.  They all do things differently to suit the needs of
-their target audience.  Because so many different ways to accomplish the same
-end goal exist, I began to realize I no longer had to be limited by any one
-implementation. Prior to discovering Linux, we simply put up with issues in
-other Operating Systems as you had no choice. It was what it was, whether you
-liked it or not. With Linux, the concept of choice began to emerge.  If you
-didn't like something, you were free, even encouraged, to change it.</para>
+<para>做一件事总是有很多的方法。对于 Linux 发行版亦是如此。这么多年来已有了许多发行版。一些仍在，一些演变成其他的版本，还有些则只能活在记忆中了。所有这些发行版均有不同的特点，以满足不同受众的需求。条条大路通罗马，我开始意识到自己可以不再必须受限于别人做好的发行版。在发现 Linux 之前，我们只能忍受各种操作系统的问题，因为我们别无选择。无论你爱还是不爱，它就在那里。而在 Linux 下，你才有了选择的可能。如果不喜欢某个东西，就可以自由地改变它，Linux 甚至鼓励你这样做。</para>
 
-<para>I tried a number of distributions and could not decide on any one. They
-were great systems in their own right. It wasn't a matter of right and
-wrong anymore. It had become a matter of personal taste. With all that
-choice available, it became apparent that there would not be a single
-system that would be perfect for me. So I set out to create my own Linux
-system that would fully conform to my personal preferences.</para>
+<para>我尝试过很多发行版，但是无法确定该用哪个。从某个角度来说，它们都是很不错的系统。这并不是说某个系统好或不好的问题，而是个人习惯问题。在各种可用选择中，显然没有哪个单一的系统对我而言是完美的。于是我着手创建自己的 Linux 系统，以完全满足自己的喜好。</para>
 
-<para>To truly make it my own system, I resolved to compile everything from
-source code instead of using pre-compiled binary packages. This
-<quote>perfect</quote> Linux system would have the strengths of various
-systems without their perceived weaknesses. At first, the idea was rather
-daunting. I remained committed to the idea that such a system could be
-built.</para>
+<para>为了使系统真正属于我，我毅然决定从源代码编译所有东西，而不是使用预编译好的二进制包。这个<quote>完美</quote> 的 Linux 系统能具不同系统的优点，而没有它们与之俱来的不足。起初，这种想法相当让人想都不敢想，但我一直保持着可以构建出这样一个系统的信念。</para>
 
-<para>After sorting through issues such as circular dependencies and compile-time
-errors, I finally built a custom-built Linux system. It was fully
-operational and perfectly usable like any of the other Linux systems out
-there at the time. But it was my own creation. It was very satisfying to
-have put together such a system myself. The only thing better would have
-been to create each piece of software myself. This was the next best
-thing.</para>
+<para>在梳理了诸如循环依赖和编译错误之类的问题后，我最终构建出一个订制的 Linux 系统。它完全可以工作，并与当时已有的任何其它 Linux 系统一样完美可用。但它是我自己所创造的。能够亲手组装出这样一个系统让人很满意，而唯一一个能让人感觉更美妙的事是能够亲自创建软件的每个部分。</para>
 
-<para>As I shared my goals and experiences with other members of the Linux
-community, it became apparent that there was a sustained interest in these
-ideas. It quickly became plain that such custom-built Linux systems
-serve not only to meet user specific requirements, but also serve as an
-ideal learning opportunity for programmers and system administrators to
-enhance their (existing) Linux skills. Out of this broadened interest, the
-<emphasis>Linux From Scratch Project</emphasis> was born.</para>
+<para>当我将自己的目标和经验与 Linux 社区的其它成员分享时，引发了大家对这些想法的不断关注。很快人们就清楚地意识到，这样一个定制的 Linux 系统不仅仅可以满足用户的特定需求，还可为程序员和系统管理员提供一个理想的学习机会，以增强他们（已有）的 Linux 技能。正是由于这种广泛的兴趣，<emphasis>Linux From Scratch Project</emphasis> 诞生了。</para>
 
-<para>This Linux From Scratch book is the central core around that project. It
-provides the background and instructions necessary for you to design and
-build your own system. While this book provides a template that will result
-in a correctly working system, you are free to alter the instructions to
-suit yourself, which is, in part, an important part of this project. You
-remain in control; we just lend a helping hand to get you started on your
-own journey.</para>
+<para>这本 Linux From Scratch 手册是该项目的重中之重。它为您提供了设计和构建自己的系统所需的背景知识和指令。本手册给出了一个样板，可以由此得到一个能正常工作的系统，但您可自由改变指令以适合自己的需求，从某种程度上说，这是本项目的一个重要组成部分。您仍然可以控制一切，我们只是在你起航前助你一臂之力。</para>
 
-<para>I sincerely hope you will have a great time working on your own Linux From
-Scratch system and enjoy the numerous benefits of having a system that is
-truly your own.</para>
+<para>我真诚地希望您在自己的 Linux From Scratch 系统上能度过一段美好的时光，并能享受拥有一个真正属于自己的系统的众多好处。</para>
 
 <literallayout>--
 Gerard Beekmans
