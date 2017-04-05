@@ -38,6 +38,7 @@ book: validate profile-html
 	@echo "Generating chunked XHTML files at $(BASEDIR)/ ..."
 	$(Q)xsltproc --nonet                          \
       --stringparam chunk.quietly $(CHUNK_QUIET) \
+      --stringparam l10n.gentext.language zh     \
       --stringparam rootid "$(ROOT_ID)"          \
       --stringparam base.dir $(BASEDIR)/         \
       stylesheets/lfs-chunked.xsl                \
