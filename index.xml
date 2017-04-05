@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
   <!ENTITY % general-entities SYSTEM "general.ent">
   %general-entities;
@@ -12,13 +12,13 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="prologue/preface.xml"/>
 
 <part id="part1">
-<title>Introduction</title>
+<title>介绍</title>
 <?dbhtml filename="part1.html"?>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter01/chapter01.xml"/>
 </part>
 
 <part id="part2">
-<title>Preparing for the Build</title>
+<title>准备构建</title>
 <?dbhtml filename="part2.html"?>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter02/chapter02.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter03/chapter03.xml"/>
@@ -27,7 +27,7 @@
 </part>
 
 <part id="part3">
-<title>Building the LFS System</title>
+<title>构建 LFS 系统</title>
 <?dbhtml filename="part3.html"?>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter06/chapter06.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapter07/chapter07.xml"/>
@@ -36,7 +36,7 @@
 </part>
 
 <part id="part4">
-<title>Appendices</title>
+<title>附录</title>
 <?dbhtml filename="part4.html"?>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="appendices/acronymlist.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="appendices/acknowledgments.xml"/>

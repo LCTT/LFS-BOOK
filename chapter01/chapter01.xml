@@ -5,7 +5,7 @@
   %general-entities;
 ]>
 
-<chapter id="chapter-intro" xreflabel="Chapter 1">
+<chapter id="chapter-intro" xreflabel="第 1 章">
   <?dbhtml dir="chapter01"?>
   <?dbhtml filename="chapter01.html"?>
 
