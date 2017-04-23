@@ -16,7 +16,7 @@ $Date: 2013-10-08 17:03:29 -0300 (Tue, 08 Oct 2013) $
   <xsl:import href="docbook-xsl-1.78.1/xhtml/docbook.xsl"/>
 
   <!-- Fix encoding issues with default UTF-8 output of the xhtml stylesheet -->
-  <xsl:output method="html" encoding="ISO-8859-1" indent="no" />
+  <xsl:output method="html" encoding="UTF-8" indent="no" />
 
   <!-- Include our customized templates -->
   <xsl:include href="common.xsl"/>
