@@ -15,23 +15,23 @@
 ### 合并 7.8 整理内容
 
 * **已完成**   章节 1-9
-* **未实施**   序章 & 附录
+* **已完成**   序章 & 附录
 
 ### 翻译 8.0-rc1 新增内容
 
 需要重新翻译的小节：
 
-* **未实施**   chapter01/changelog.xml（改得太多）
-* **未实施**   chapter02/stages.xml（新章节）
+* **已完成**   chapter01/changelog.xml（改得太多）
+* **已完成**   chapter02/stages.xml（新章节）
 
 部分内容需要翻译的小节：
 
-* **未实施**   chapter01/aboutlfs.xml
-* **未实施**   chapter02/creatingpartition.xml
-* **未实施**   chapter02/introduction.xml
-* **未实施**   chapter03/packages.xml
-* **未实施**   chapter05/gcc-pass1.xml
-* **未实施**   chapter05/gcc-pass2.xml
+* **martin**   chapter01/aboutlfs.xml
+* **martin**   chapter02/creatingpartition.xml
+* **martin**   chapter02/introduction.xml
+* **martin**   chapter03/packages.xml
+* **martin**   chapter05/gcc-pass1.xml
+* **martin**   chapter05/gcc-pass2.xml
 * **未实施**   chapter05/tcl.xml
 * **未实施**   chapter05/texinfo.xml
 * **未实施**   chapter05/toolchaintechnotes.xml
