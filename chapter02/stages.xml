@@ -8,74 +8,59 @@
 <sect1 id="stages">
   <?dbhtml filename="stages.html"?>
 
-  <title>Building LFS in Stages</title>
+  <title>分阶段构建 LFS</title>
 
-  <para>LFS is designed to be built in one session.  That is, the
-  instructions assume that the system will not be shut down
-  during the process.  That does not mean that the system has to
-  be done in one sitting.  The issue is that certain procedures
-  have to be re-accomplished after a reboot if resuming LFS at
-  different points.</para>
+  <para>LFS 的设计是建立在一个会话中的。这也就是说假定系统在处理的过程中不会关机。
+  但是实际上这并不意味着 LFS 的构建需要一气呵成。但是如果 LFS 恢复时的状态和之前不同，
+  则某些程序必须在此之后重新构建。</para>
 
   <sect2>
-  <title>Chapters 1-4</title>
+  <title>1-4 节</title>
 
-    <para>These chapters are accomplished on the host system.  When
-    restarting, be careful of the following:</para>
+    <para>当在主机系统各种完成此章节的内容，重启时，需要注意一下的内容：</para>
   
     <itemizedlist>
       <listitem>
-         <para>Procedures done as the root user after Section 2.4 need to 
-         have the LFS environment variable set <emphasis>FOR THE ROOT
-         USER</emphasis>.</para>
+         <para>程序在 2.4 节以后都是以 root 用户完成的。所以需要重新将 LFS 的环境变量
+		 设置为 <emphasis>ROOT</emphasis>。</para>
       </listitem>
     </itemizedlist>
   </sect2>
   
   <sect2>
-  <title>Chapter 5</title>
+  <title>第 5 章</title>
 
     <itemizedlist>
       <listitem>
-         <para>The /mnt/lfs partition must be mounted.</para>
+         <para>/mnt/lfs 分区必须挂载。</para>
       </listitem>
 
       <listitem>
-         <para><emphasis>ALL</emphasis> instructions in Chapter 5 
-         must be done by user <emphasis>lfs</emphasis>.  
-         A  <command>su - lfs</command> needs to be done before any 
-         task in Chapter 5.</para>
+         <para>第 5 章涉及的<emphasis>所有</emphasis>指令都应该由 <emphasis>lfs</emphasis> 用户执行。
+		 所以在执行第 5 章的任务之前请先执行 <command>su - lfs</command>。</para>
       </listitem>
 
       <listitem>
-         <para>The procedures in <xref linkend='ch-tools-generalinstructions'/>
-         are critical.  If there is any
-         doubt about installing a package, ensure any previously expanded
-         tarballs are removed, re-extract the package files, and complete all
-         instructions in that section.</para>
+         <para><xref linkend='ch-tools-generalinstructions'/> 中提及的程序是十分重要的。如果在安装任何软件包时存在问题，请确保所有之前已经解压的软件包已经删除。重新将它们解压后再完成此章节中的所有命令。</para>
       </listitem>
     </itemizedlist>
   </sect2>
 
   <sect2>
-  <title>Chapters 6-8</title>
+  <title>6-8 节</title>
 
     <itemizedlist>
       <listitem>
-         <para>The /mnt/lfs partition must be mounted.</para>
+         <para> /mnt/lfs 分区必须挂载。</para>
       </listitem>
 
       <listitem>
-         <para> When entering chroot, the LFS environment variable must be set
-         for root.  The LFS variable is not used otherwise.</para>
+         <para> 当进入 chroot 环境，LFS 环境变量必须设置为 root 用户。否则 LFS 变量不使用。</para>
       </listitem>
 
       <listitem>
-         <para> The virtual file systems must be mounted.  This can be done
-         before or after entering chroot by changing to a host virtual terminal
-         and, as root, running the commands in 
-         <xref linkend='ch-system-bindmount'/> and 
-         <xref linkend='ch-system-kernfsmount'/>.</para>
+         <para> 必须挂载虚拟文件系统。这可以在进入 chroot 之前或者之后通过改变主机的虚拟终端，以 root 用户执行 <xref linkend='ch-system-bindmount'/> 和 
+         <xref linkend='ch-system-kernfsmount'/> 中的命令。</para>
       </listitem>
     </itemizedlist>
   </sect2>
