@@ -24,10 +24,6 @@
   <para>请确保输出的是你构建 LFS 的那个目录的路径，如果你是按照例子设置的，那就是 <filename class="directory">/mnt/lfs</filename>。如果你输出的路径不正确，请使用本页前一部分提供的命令把 <envar>$LFS</envar> 重新设置到正确的目录。</para>
   </caution>
 
-  <note><para>确保 <envar>LFS</envar> 变量一直为设置的一个方法是编辑你 home 目录下的 <filename>.bash_profile</filename> 文件和 <filename>/root/.bash_profile</filename>，并输入上述 export 命令。In addition, the shell specified in the
-  <filename>/etc/passwd</filename> file for all users that need the
-  <envar>LFS</envar> variable needs to be bash to ensure that the
-  <filename>/root/.bash_profile</filename> file is incorporated as a part of
-  the login process.</para></note>
+  <note><para>确保 <envar>LFS</envar> 变量一直为设置的一个方法是编辑你 home 目录下的 <filename>.bash_profile</filename> 文件和 <filename>/root/.bash_profile</filename>，并输入上述 export 命令。另外，在 <filename>/etc/passwd</filename> 文件中，为所有需要的用户指定 <envar>LFS</envar> 变量的 shell 需要是 bash，以确保 <filename>/root/.bash_profile</filename> 文件作为登录过程的一部分，并入其中。</para></note>
 
 </sect1>
