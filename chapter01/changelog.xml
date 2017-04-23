@@ -8,21 +8,14 @@
 <sect1 id="ch-scatter-changelog">
   <?dbhtml filename="changelog.html"?>
 
-  <title>Changelog</title>
+  <title>更新日志</title>
 
-  <para>This is version 
-        <phrase revision="sysv">&version;</phrase>
-        <phrase revision="systemd">&versiond;</phrase>
-  of the Linux From Scratch book, dated
-  &releasedate;. If this book is more than six months old, a newer and better
-  version is probably already available. To find out, please check one of the
-  mirrors via <ulink url="&lfs-root;mirrors.html"/>.</para>
+  <para>这是 Linux From Scratch 手册的 <phrase revision="sysv">&version;</phrase> <phrase revision="systemd">&versiond;</phrase> 版本，发布于 &releasedate;。如果距离这个时间已超过 6 个月，那么应该已经有更新和更好的版本了。你可以访问 <ulink url="&lfs-root;mirrors.html"/> 的任意镜像站点来获取他们。</para>
 
-  <para>Below is a list of changes made since the previous release of the
-  book.</para>
+  <para>下面是本书上一次发布之后的更新列表。</para>
 
   <itemizedlist>
-    <title>Changelog Entries:</title>
+    <title>更新日志条目：</title>
 
 <!-- Changelog template
 
@@ -46,7 +39,7 @@
       <para>2017-02-14</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - LFS-8.0-rc1 released.</para>
+          <para>[bdubbs] - LFS-8.0-rc1 发布。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -55,8 +48,7 @@
       <para>2017-02-13</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to file-5.30.  Fixes
-          <ulink url="&lfs-ticket-root;4047">#4047</ulink>.</para>
+          <para>[bdubbs] - 更新至 file-5.30。修复了 <ulink url="&lfs-ticket-root;4047">#4047</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -65,12 +57,10 @@
       <para>2017-02-10</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to grep-3.0.  Fixes
-          <ulink url="&lfs-ticket-root;4045">#4045</ulink>.</para>
+          <para>[bdubbs] - 更新至 grep-3.0。修复了 <ulink url="&lfs-ticket-root;4045">#4045</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.9.9.  Fixes
-          <ulink url="&lfs-ticket-root;4046">#4046</ulink>.</para>
+          <para>[bdubbs] - 更新至 linux-4.9.9。修复了 <ulink url="&lfs-ticket-root;4046">#4046</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -79,11 +69,10 @@
       <para>2017-02-08</para>
       <itemizedlist>
         <listitem>
-          <para>[dj] - Restore chapter 5 build of bison for binutils.</para>
+          <para>[dj] - 为了 binutils 恢复第 5 章 bison 的构建内容。</para>
         </listitem>
         <listitem>
-          <para>[dj] - Build gold linker with binutils. The bfd linker remains
-          default.</para>
+          <para>[dj] - 构建 binutils 的 gold linker。bfd linker 默认保留。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -92,7 +81,7 @@
       <para>2017-02-07</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Add bash-4.4 upstream fixes patch. </para>
+          <para>[bdubbs] - 追加 bash-4.4 上游修复补丁。 </para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -101,32 +90,25 @@
       <para>2017-02-05</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to glibc-2.25.  Fixes
-          <ulink url="&lfs-ticket-root;4043">#4043</ulink>.</para>
+          <para>[bdubbs] - 更新至 glibc-2.25。修复了 <ulink url="&lfs-ticket-root;4043">#4043</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Revert gperf to version 3.0.4. Fixes
-          <ulink url="&lfs-ticket-root;4044">#4044</ulink>.</para>
+          <para>[bdubbs] - 回退 gperf 的版本至 3.0.4。修复了 <ulink url="&lfs-ticket-root;4044">#4044</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.9.8.tar.xz. Fixes
-          <ulink url="&lfs-ticket-root;4036">#4036</ulink>.</para>
+          <para>[bdubbs] - 更新至 linux-4.9.8.tar.xz。修复了 <ulink url="&lfs-ticket-root;4036">#4036</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to check-0.11.0. Fixes
-          <ulink url="&lfs-ticket-root;4035">#4035</ulink>.</para>
+          <para>[bdubbs] - 更新至 check-0.11.0。修复了 <ulink url="&lfs-ticket-root;4035">#4035</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to shadow-4.4. Fixes
-          <ulink url="&lfs-ticket-root;4037">#4037</ulink>.</para>
+          <para>[bdubbs] -  更新至 shadow-4.4。修复了 <ulink url="&lfs-ticket-root;4037">#4037</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to e2fsprogs-1.43.4. Fixes
-          <ulink url="&lfs-ticket-root;4039">#4039</ulink>.</para>
+          <para>[bdubbs] - 更新至  e2fsprogs-1.43.4。修复了 <ulink url="&lfs-ticket-root;4039">#4039</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to sed-4.4. Fixes
-          <ulink url="&lfs-ticket-root;4041">#4041</ulink>.</para>
+          <para>[bdubbs] - 更新至 sed-4.4。修复了 <ulink url="&lfs-ticket-root;4041">#4041</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -135,24 +117,19 @@
       <para>2017-01-22</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.9.5.tar.xz. Fixes
-          <ulink url="&lfs-ticket-root;4030">#4030</ulink>.</para>
+          <para>[bdubbs] -  更新至 linux-4.9.5.tar.xz。修复了 <ulink url="&lfs-ticket-root;4030">#4030</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to kbd-2.0.4. Fixes
-          <ulink url="&lfs-ticket-root;4029">#4029</ulink>.</para>
+          <para>[bdubbs] -  更新至 kbd-2.0.4。修复了 <ulink url="&lfs-ticket-root;4029">#4029</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to perl-5.24.1. Fixes
-          <ulink url="&lfs-ticket-root;4031">#4031</ulink>.</para>
+          <para>[bdubbs] -  更新至 perl-5.24.1。修复了 <ulink url="&lfs-ticket-root;4031">#4031</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to zlib-1.2.11. Fixes
-          <ulink url="&lfs-ticket-root;4032">#4032</ulink>.</para>
+          <para>[bdubbs] -  更新至 zlib-1.2.11。修复了 <ulink url="&lfs-ticket-root;4032">#4032</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to util-linux-2.29.1. Fixes
-          <ulink url="&lfs-ticket-root;4034">#4034</ulink>.</para>
+          <para>[bdubbs] -  更新至 util-linux-2.29.1。修复了 <ulink url="&lfs-ticket-root;4034">#4034</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -161,16 +138,13 @@
       <para>2017-01-08</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.9.1.tar.xz. Fixes
-          <ulink url="&lfs-ticket-root;4028">#4028</ulink>.</para>
+          <para>[bdubbs] -  更新至 linux-4.9.1.tar.xz。修复了 <ulink url="&lfs-ticket-root;4028">#4028</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to sed-4.3.tar.xz. Fixes
-          <ulink url="&lfs-ticket-root;4025">#4025</ulink>.</para>
+          <para>[bdubbs] -  更新至 sed-4.3.tar.xz。修复了 <ulink url="&lfs-ticket-root;4025">#4025</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to gperf-3.1. Fixes
-          <ulink url="&lfs-ticket-root;4026">#4026</ulink>.</para>
+          <para>[bdubbs] -  更新至 gperf-3.1。修复了 <ulink url="&lfs-ticket-root;4026">#4026</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -179,16 +153,13 @@
       <para>2017-01-03</para>
       <itemizedlist>
         <listitem>
-          <para>[dj] - Update to zlib-1.2.10. Fixes
-          <ulink url="&lfs-ticket-root;4023">#4023</ulink>.</para>
+          <para>[dj] - 更新至 zlib-1.2.10。修复了 <ulink url="&lfs-ticket-root;4023">#4023</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[dj] - Update to m4-1.4.18. Fixes
-          <ulink url="&lfs-ticket-root;4022">#4022</ulink>.</para>
+          <para>[dj] - 更新至 m4-1.4.18。修复了<ulink url="&lfs-ticket-root;4022">#4022</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[dj] - Make binutils build against system zlib and enable
-          plugins for LTO.</para>
+          <para>[dj] - 针对系统 zlib 编译 binutils，并启用 LTO 插件。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -197,12 +168,10 @@
       <para>2017-01-01</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to flex-2.6.3. Fixes
-          <ulink url="&lfs-ticket-root;4020">#4020</ulink>.</para>
+          <para>[bdubbs] - 更新至 flex-2.6.3。修复了 <ulink url="&lfs-ticket-root;4020">#4020</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to xz-5.2.3. Fixes
-          <ulink url="&lfs-ticket-root;4021">#4021</ulink>.</para>
+          <para>[bdubbs] - 更新至 xz-5.2.3。修复了 <ulink url="&lfs-ticket-root;4021">#4021</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -211,32 +180,25 @@
       <para>2016-12-21</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to gcc-6.3.0. Fixes
-          <ulink url="&lfs-ticket-root;4018">#4018</ulink>.</para>
+          <para>[bdubbs] - 更新至 gcc-6.3.0。修复了 <ulink url="&lfs-ticket-root;4018">#4018</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to gmp-6.1.2. Fixes
-          <ulink url="&lfs-ticket-root;4017">#4017</ulink>.</para>
+          <para>[bdubbs] - 更新至 gmp-6.1.2。修复了 <ulink url="&lfs-ticket-root;4017">#4017</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to iproute2-4.9.0. Fixes
-          <ulink url="&lfs-ticket-root;4016">#4016</ulink>.</para>
+          <para>[bdubbs] - 更新至 iproute2-4.9.0。修复了 <ulink url="&lfs-ticket-root;4016">#4016</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to man-pages-4.09. Fixes
-          <ulink url="&lfs-ticket-root;4015">#4015</ulink>.</para>
+          <para>[bdubbs] - 更新至 man-pages-4.09。修复了 <ulink url="&lfs-ticket-root;4015">#4015</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to man-db-2.7.6.1. Fixes
-          <ulink url="&lfs-ticket-root;4014">#4014</ulink>.</para>
+          <para>[bdubbs] - 更新至 man-db-2.7.6.1。修复了 <ulink url="&lfs-ticket-root;4014">#4014</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.9. Fixes
-          <ulink url="&lfs-ticket-root;4013">#4013</ulink>.</para>
+          <para>[bdubbs] - 更新至 linux-4.9。修复了 <ulink url="&lfs-ticket-root;4013">#4013</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to eudev-3.2.1. Fixes
-          <ulink url="&lfs-ticket-root;4013">#4013</ulink>.</para>
+          <para>[bdubbs] - 更新至 eudev-3.2.1。修复了 <ulink url="&lfs-ticket-root;4013">#4013</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -245,8 +207,7 @@
       <para>2016-12-18</para>
       <itemizedlist>
         <listitem>
-          <para>[dj] - Update toolchain sanity checks to use values for
-          x86_64.</para>
+	          <para>[dj] - 更新 toolchain 智能检测针对 x86_64 使用的值。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -255,10 +216,7 @@
       <para>2016-12-17</para>
       <itemizedlist>
         <listitem>
-          <para>[dj] - Remove {,/usr}/lib64 symlinks for x86_64 builds. Add
-          /lib64 directory with symlinks to dynamic loader. Adjust installation
-          of glibc, gcc, and libcap to account for directory layout
-          changes.</para>
+          <para>[dj] - 移除为构建 x86_64 建立的链接 {,/usr}/lib64。追加 /lib64 目录及链接至动态加载器。调整 glibc，gcc，和 libcap 的安装，来解决目录布局的变化。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -267,17 +225,13 @@
       <para>2016-12-10</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.8.14. Fixes
-          <ulink url="&lfs-ticket-root;4012">#4012</ulink>.</para>
+          <para>[bdubbs] - 更新至 linux-4.8.14。修复了 <ulink url="&lfs-ticket-root;4012">#4012</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to grep-2.27. Fixes
-          <ulink url="&lfs-ticket-root;4011">#4011</ulink>.</para>
+          <para>[bdubbs] - 更新至 grep-2.27。修复了 <ulink url="&lfs-ticket-root;4011">#4011</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Add a note about a false Error in texinfo 
-          configure phase in Chapter 5. Fixes
-          <ulink url="&lfs-ticket-root;4004">#4004</ulink>.</para>
+          <para>[bdubbs] - 针对第 5 章 texinfo 会发生错误信息，在配置段落中追加注释。修复了 <ulink url="&lfs-ticket-root;4004">#4004</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -286,20 +240,16 @@
       <para>2016-12-03</para>
       <itemizedlist>
         <listitem>
-          <para>[dj] - Update to coreutils-8.26. Fixes
-          <ulink url="&lfs-ticket-root;4010">#4010</ulink>.</para>
+          <para>[dj] - 更新至 coreutils-8.26。修复了 <ulink url="&lfs-ticket-root;4010">#4010</ulink>。</para>
         </listitem>
         <listitem revision="systemd">
-          <para>[dj] - Update to dbus-1.10.14. Fixes
-          <ulink url="&lfs-ticket-root;4009">#4009</ulink>.</para>
+          <para>[dj] - 更新至 dbus-1.10.14。修复了 <ulink url="&lfs-ticket-root;4009">#4009</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[dj] - Update to linux-4.8.12 and fix recent OOM issue. Fixes
-          <ulink url="&lfs-ticket-root;4008">#4008</ulink>.</para>
+          <para>[dj] - 更新至 linux-4.8.12 并修复了近期的 OOM 问题。修复了 <ulink url="&lfs-ticket-root;4008">#4008</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[dj] - Update to tzdata-2016j. Fixes
-          <ulink url="&lfs-ticket-root;4007">#4007</ulink>.</para>
+          <para>[dj] - 更新至 tzdata-2016j。修复了 <ulink url="&lfs-ticket-root;4007">#4007</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -308,16 +258,13 @@
       <para>2016-11-22</para>
       <itemizedlist>
         <listitem>
-          <para>[dj] - Update to linux-4.8.10. Fixes
-          <ulink url="&lfs-ticket-root;4005">#4005</ulink>.</para>
+          <para>[dj] - 更新至 linux-4.8.10。修复了 <ulink url="&lfs-ticket-root;4005">#4005</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[dj] - Added flex-2.6.2-fixes-1.patch. Fixes
-          <ulink url="&lfs-ticket-root;4003">#4003</ulink>.</para>
+          <para>[dj] - 追加 flex-2.6.2-fixes-1.patch。修复了 <ulink url="&lfs-ticket-root;4003">#4003</ulink>。</para>
         </listitem>
         <listitem revision="systemd">
-          <para>[dj] - Fix issue with systemd and sulogin. Fixes
-          <ulink url="&lfs-ticket-root;4006">#4006</ulink>. Thanks to
+          <para>[dj] - 修复了 systemd 和 sulogin 的问题。修复了 <ulink url="&lfs-ticket-root;4006">#4006</ulink>. Thanks to
           Eric S. Stone for the report.</para>
         </listitem>
       </itemizedlist>
@@ -327,12 +274,10 @@
       <para>2016-11-17</para>
       <itemizedlist>
         <listitem>
-          <para>[renodr] - Update to linux-4.8.8. Fixes
-          <ulink url="&lfs-ticket-root;4002">#4002</ulink>.</para>
+          <para>[renodr] - 更新至 linux-4.8.8。修复了 <ulink url="&lfs-ticket-root;4002">#4002</ulink>。</para>
         </listitem>
         <listitem revision="systemd">
-          <para>[renodr] - Update to systemd-232. Fixes
-          <ulink url="&lfs-ticket-root;4000">#4000</ulink>.</para>
+          <para>[renodr] - 更新至 systemd-232。修复了 <ulink url="&lfs-ticket-root;4000">#4000</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -341,28 +286,22 @@
       <para>2016-11-09</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to vim-8.0.069. Fixes 
-          <ulink url="&lfs-ticket-root;4001">#4001</ulink>.</para>
+          <para>[bdubbs] - 更新至 vim-8.0.069。修复了 <ulink url="&lfs-ticket-root;4001">#4001</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to tzdata-2016i. Fixes 
-          <ulink url="&lfs-ticket-root;3999">#3999</ulink>.</para>
+          <para>[bdubbs] - 更新至 tzdata-2016i。修复了 <ulink url="&lfs-ticket-root;3999">#3999</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to file-5.29. Fixes 
-          <ulink url="&lfs-ticket-root;3909">#3998</ulink>.</para>
+          <para>[bdubbs] - 更新至 file-5.29。修复了 <ulink url="&lfs-ticket-root;3909">#3998</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to flex-2.6.2. Fixes 
-          <ulink url="&lfs-ticket-root;3997">#3997</ulink>.</para>
+          <para>[bdubbs] - 更新至 flex-2.6.2。修复了 <ulink url="&lfs-ticket-root;3997">#3997</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.8.6. Fixes 
-          <ulink url="&lfs-ticket-root;3996">#3996</ulink>.</para>
+          <para>[bdubbs] - 更新至 linux-4.8.6。修复了 <ulink url="&lfs-ticket-root;3996">#3996</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to util-linux-2.29. Fixes 
-          <ulink url="&lfs-ticket-root;3987">#3987</ulink>.</para>
+          <para>[bdubbs] - 更新至 util-linux-2.29。修复了 <ulink url="&lfs-ticket-root;3987">#3987</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -371,7 +310,7 @@
       <para>2016-11-07</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Clarified the function of /etc/inputrc.</para>
+          <para>[bdubbs] - 交待说明 /etc/inputrc 的功能。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -380,7 +319,7 @@
       <para>2016-10-27</para>
       <itemizedlist>
         <listitem>
-          <para>[dj] - Moved /etc/resolv.conf symlink to Chapter 7.</para>
+          <para>[dj] - 将 /etc/resolv.conf 的链接移至第 7 章。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -389,8 +328,7 @@
       <para>2016-10-23</para>
       <itemizedlist>
         <listitem>
-          <para>[renodr] - Update to dbus-1.10.12. Fixes
-          <ulink url="&lfs-ticket-root;3993">#3993</ulink>.</para>
+          <para>[renodr] - 更新至 dbus-1.10.12。修复了 <ulink url="&lfs-ticket-root;3993">#3993</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -399,16 +337,13 @@
       <para>2016-10-22</para>
       <itemizedlist>
         <listitem>
-          <para>[ken] - Update to iproute2-4.8.0. Fixes
-          <ulink url="&lfs-ticket-root;3992">#3992</ulink>.</para>
+          <para>[ken] - 更新至 iproute2-4.8.0。修复了 <ulink url="&lfs-ticket-root;3992">#3992</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[ken] - Update to tzdata-2016h. Fixes
-          <ulink url="&lfs-ticket-root;3995">#3995</ulink>.</para>
+          <para>[ken] - 更新至 tzdata-2016h。修复了 <ulink url="&lfs-ticket-root;3995">#3995</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[ken] - Update to linux-4.8.3. Fixes
-          <ulink url="&lfs-ticket-root;3994">#3994</ulink>.</para>
+          <para>[ken] - 更新至 linux-4.8.3。修复了 <ulink url="&lfs-ticket-root;3994">#3994</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -417,14 +352,10 @@
       <para>2016-10-10</para>
       <itemizedlist>
         <listitem>
-          <para>[renodr] - Added a note about using the
-          <application>systemd</application> source tarball generated by the
-          LFS systemd team.</para>
+          <para>[renodr] - 追加一处关于使用 LFS systemd 团队生成的 <application>systemd</application> 源码包的注释。</para>
         </listitem>
         <listitem>
-          <para>[renodr] - Fixed the symlink for /etc/resolv.conf in the
-          systemd page in Chapter 6. Thanks goes to DJ Lucas and
-          Wayne for reporting this.</para>
+          <para>[renodr] - 修复第 6 章 /etc/resolv.conf 的链接。非常感谢 DJ Lucas 和 Wayne 的指摘。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -433,24 +364,19 @@
       <para>2016-10-09</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.8.1. Fixes 
-          <ulink url="&lfs-ticket-root;3983">#3983</ulink>.</para>
+          <para>[bdubbs] - 更新至 linux-4.8.1。修复了 <ulink url="&lfs-ticket-root;3983">#3983</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to mpfr-3.1.5. Fixes 
-          <ulink url="&lfs-ticket-root;3984">#3984</ulink>.</para>
+          <para>[bdubbs] - 更新至 mpfr-3.1.5。修复了 <ulink url="&lfs-ticket-root;3984">#3984</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to tzdata-2016g. Fixes 
-          <ulink url="&lfs-ticket-root;3985">#3985</ulink>.</para>
+          <para>[bdubbs] - 更新至 tzdata-2016g。修复了 <ulink url="&lfs-ticket-root;3985">#3985</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to grep-2.26. Fixes 
-          <ulink url="&lfs-ticket-root;3988">#3988</ulink>.</para>
+          <para>[bdubbs] - 更新至 grep-2.26。修复了 <ulink url="&lfs-ticket-root;3988">#3988</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to man-pages-4.08. Fixes 
-          <ulink url="&lfs-ticket-root;3991">#3991</ulink>.</para>
+          <para>[bdubbs] - 更新至 man-pages-4.08。修复了 <ulink url="&lfs-ticket-root;3991">#3991</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -459,8 +385,7 @@
       <para>2016-09-29</para>
       <itemizedlist>
         <listitem>
-          <para>[renodr] - Added a security patch for systemd. Fixes
-          <ulink url="&lfs-ticket-root;3986">#3986</ulink>.</para>
+          <para>[renodr] - 为 systemd 追加一个安全补丁。修复了 <ulink url="&lfs-ticket-root;3986">#3986</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -469,16 +394,13 @@
       <para>2016-09-16</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to bash-4.4. Fixes 
-          <ulink url="&lfs-ticket-root;3981">#3981</ulink>.</para>
+          <para>[bdubbs] - 更新至 bash-4.4。修复了 <ulink url="&lfs-ticket-root;3981">#3981</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to readline-7.0. Fixes 
-          <ulink url="&lfs-ticket-root;3982">#3982</ulink>.</para>
+          <para>[bdubbs] - 更新至 readline-7.0。修复了 <ulink url="&lfs-ticket-root;3982">#3982</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.7.4. Fixes 
-          <ulink url="&lfs-ticket-root;3980">#3980</ulink>.</para>
+          <para>[bdubbs] - 更新至 linux-4.7.4。修复了 <ulink url="&lfs-ticket-root;3980">#3980</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -487,8 +409,7 @@
       <para>2016-09-14</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to vim-8.0. Fixes 
-          <ulink url="&lfs-ticket-root;3979">#3979</ulink>.</para>
+          <para>[bdubbs] - 更新至 vim-8.0。修复了 <ulink url="&lfs-ticket-root;3979">#3979</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -497,8 +418,7 @@
       <para>2016-09-12</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to texinfo-6.3. Fixes 
-          <ulink url="&lfs-ticket-root;3978">#3978</ulink>.</para>
+          <para>[bdubbs] - 更新至 texinfo-6.3。修复了 <ulink url="&lfs-ticket-root;3978">#3978</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -507,8 +427,7 @@
       <para>2016-09-10</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to e2fsprogs-1.43.3. Fixes 
-          <ulink url="&lfs-ticket-root;3977">#3977</ulink>.</para>
+          <para>[bdubbs] - 更新至 e2fsprogs-1.43.3。修复了 <ulink url="&lfs-ticket-root;3977">#3977</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -517,20 +436,16 @@
       <para>2016-09-09</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Update to gawk-4.1.4. Fixes 
-          <ulink url="&lfs-ticket-root;3973">#3973</ulink>.</para>
+          <para>[bdubbs] - 更新至 gawk-4.1.4。修复了 <ulink url="&lfs-ticket-root;3973">#3973</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to e2fsprogs-1.43.2. Fixes 
-          <ulink url="&lfs-ticket-root;3974">#3974</ulink>.</para>
+          <para>[bdubbs] - 更新至 e2fsprogs-1.43.2。修复了 <ulink url="&lfs-ticket-root;3974">#3974</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to linux-4.7.3. Fixes 
-          <ulink url="&lfs-ticket-root;3975">#3975</ulink>.</para>
+          <para>[bdubbs] - 更新至 linux-4.7.3。修复了 <ulink url="&lfs-ticket-root;3975">#3975</ulink>。</para>
         </listitem>
         <listitem>
-          <para>[bdubbs] - Update to util-linux-2.28.2. Fixes 
-          <ulink url="&lfs-ticket-root;3976">#3976</ulink>.</para>
+          <para>[bdubbs] - 更新至 util-linux-2.28.2。修复了 <ulink url="&lfs-ticket-root;3976">#3976</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -539,7 +454,7 @@
       <para>2016-09-07</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - LFS-7.10 released.</para>
+          <para>[bdubbs] - LFS-7.10 发布。</para>
         </listitem>
       </itemizedlist>
     </listitem>
