@@ -26,7 +26,7 @@
 
 部分内容需要翻译的小节：
 
-* **martin**   chapter01/aboutlfs.xml
+* **martin**   chapter02/aboutlfs.xml
 * **martin**   chapter02/creatingpartition.xml
 * **martin**   chapter02/introduction.xml
 * **martin**   chapter03/packages.xml
@@ -59,7 +59,7 @@
 * **未实施**   chapter06/util-linux.xml
 * **未实施**   chapter06/vim.xml
 * **未实施**   chapter07/udev.xml
-* **未实施**   chapter07/symlinks.xml （大段追加）
+* **已完成**   chapter07/symlinks.xml （大段追加）
 * **未实施**   chapter07/systemd-custom.xml（大段追加）
 * **未实施**   chapter08/kernel.xml
 * **未实施**   chapter08/grub.xml
