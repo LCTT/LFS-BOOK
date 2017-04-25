@@ -6,7 +6,7 @@
 ]>
 
 <sect1 id="ch-scripts-symlinks">
-  <?dbhtml filename="ch-symlinks.html"?>
+  <?dbhtml filename="symlinks.html"?>
 
   <title>设备管理</title>
 
@@ -14,20 +14,20 @@
 
     <title>网络设备</title>
 
-    <para>一般来说，Udev根据获取到的固件、BIOS 信息以及一些像总线号、插槽号或 MAC 地址等物理信息来命名网络设备。之所以采用这样的命名方式，是为了确保网络设备可以得到一个持久化的名称，而这个名称不会随着设备的发现时间而改变。例如在一台同时拥有 Intel 网卡和 Realtek 网卡的双网卡计算机上，Intel 网卡可能会被命名为 eth0 而 Realtek 网卡可能会被命名为 eth1；在某些情况下，命名结果可能会相反。采用持久命名方式就是为了防止此类情况的发生。</para>
+    <para>一般来说，Udev 根据获取到的固件/BIOS 信息或者一些像总线号、插槽号或 MAC 地址等物理信息来命名网络设备。之所以采用这样的命名方式，是为了确保网络设备可以得到一个持久化的名称，且这个名称不会随着设备的发现时间而改变。例如，在一台同时拥有 Intel 网卡和 Realtek 网卡的双网卡计算机上，Intel 网卡可能会被命名为 eth0 而 Realtek 网卡可能会被命名为 eth1。在某些情况下，可能是一次重启使网卡重新编号了。</para>
     
     <para>在持久化命名方式中，典型的网络设备名称看起来可能像 enp5s0 或者 wlp3s0 。如果你不希望采用这种命名方式，则还可以采用传统命名或者自定义的命名方式。</para>
 
     <sect3>
-      <title>通过内核命令行参数禁用持久命名</title>
+      <title>在内核命令行上禁用持久命名</title>
    
-      <para>可以通过传递给内核 <userinput>net.ifnames=0</userinput> 这一命令行参数来禁用持久命名，并采用传统命名方式，如 eth0、 eth1 等。 这对于那些拥有唯一同类型网络设备的系统是最合适的。 而笔记本计算机通常是拥有命名为 eth0 和 wlan0 的多网络系统，亦可以采用这种方法来使用传统命名。内核命令行参数通过修改 GRUB 配置文件的方式传递给内核。参见 <xref linkend="grub-cfg"/>。</para>
+      <para>可以在内核命令行上添加 <userinput>net.ifnames=0</userinput> 来恢复传统命名方式，采用 eth0、eth1 等来命名。 这种命名方式对于那些网络设备类型唯一的系统最为合适。笔记本电脑通常拥有多个以太网连接，常被命名为 eth0 和 wlan0，也同样适用这种命名方法。可通过修改 GRUB 配置文件命令行。参见 <xref linkend="grub-cfg"/>。</para>
     </sect3>
 
     <sect3>
-      <title>自定义Udev规则</title>
+      <title>创建自定义 Udev 规则</title>
    
-      <para>可以通过自定义 Udev 规则来改变网络设备命名方式。这里有一个脚本可以创建初始规则，运行：</para>
+      <para>可以通过创建自定义 Udev 规则来改变网络设备命名方式。这里有一个脚本可以创建初始规则，运行：</para>
 
 <screen role="install"><userinput>bash /lib/udev/init-net-rules.sh</userinput></screen>
 
@@ -35,34 +35,34 @@
 
 <screen role="nodump"><userinput>cat /etc/udev/rules.d/70-persistent-net.rules</userinput></screen>
 
-      <note><para>当某些特定情形下，如当一个 MAC 地址被手动指定给一个网卡或者如 Qemu 或 Xen 虚拟环境时，可能并不会生成上述的网络规则文件。这是由于手动指定的 MAC 地址并不是永久固定的。在这种情况下，不用采用持久化命名方式来确定设备名称。</para></note>
+      <note><para>当某些特定情形下，如当一个 MAC 地址被手动指定给一个网卡或者如 Qemu 或 Xen 这样的虚拟环境时，可能并不会生成上述的网络规则文件。这是由于手动指定的 MAC 地址并不是永久固定的。在这种情况下，不能采用持久化命名方式来确定设备名称。</para></note>
   
-      <para>这个文件应由一个注释段落开头。之后每个网卡都对应有两行信息。第一行以注释形式描述了该网卡的硬件信息（如果是 PCI 网卡，还有其 PCI 厂商标识和设备标识）。如果对应的驱动程序存在，还应在随后的括号中注明。要注意，该注释行中的硬件标识和驱动程序都不能决定其设备名，仅做参考作用。第二行则是网卡的 Udev 规则，根据该规则可以确定网卡的设备名称。</para>
+      <para>这个文件应由一个注释段落开头。之后每个网卡都对应有两行信息。第一行以注释形式描述了该网卡的硬件信息（如果是 PCI 网卡，还有其 PCI 厂商标识和设备标识），如果对应的驱动程序存在，还应在随后的括号中注明。要注意，该注释行中的硬件标识和驱动程序都不能决定其接口名，仅做参考作用。第二行则是网卡的 Udev 规则，根据该规则可以确定网卡的设备名称。</para>
   
-      <para>所有的 Udev 规则均由若干由逗号或空白符分割的键组成，解释如下：</para>
+      <para>所有的 Udev 规则均由若干的键组成，之间由逗号或空格分割，解释如下：</para>
   
       <itemizedlist>
         <listitem>
-          <para><literal>SUBSYSTEM=="net"</literal> - 让 Udev 忽略非网络设备。</para>
+          <para><literal>SUBSYSTEM=="net"</literal> - 让 Udev 忽略不是网卡的设备。</para>
         </listitem>
         <listitem>
-          <para><literal>ACTION=="add"</literal> - 只有在增加网卡这条规则才有效（注意：网卡的删除事件和改变事件都不会导致网络接口的重新命名）。</para>
+          <para><literal>ACTION=="add"</literal> - 让 Udev 对增加 uevent 以外的操作，忽略该规则（删除 uevent 和改变 uevent 也会发生，但都不会导致网络接口重新命名）。</para>
         </listitem>
         <listitem>
-          <para><literal>DRIVERS=="?*"</literal> - 让 Udev 忽略 VLAN 和桥接子设备。由于这些设备不使用独立的驱动程序，而且子设备的名称可能会与父设备的名字相冲突，因而会被忽略。</para>
+          <para><literal>DRIVERS=="?*"</literal> - 让 Udev 忽略 VLAN 和桥接子接口。（由于这些子接口没有独立的驱动程序）。而且子接口的名称可能会与父接口的名字相冲突，因而会被忽略。</para>
         </listitem>
         <listitem>
-          <para><literal>ATTR{address}</literal> - 该键值表示网卡的MAC地址。</para>
+          <para><literal>ATTR{address}</literal> - 该键值表示网卡的 MAC 地址。</para>
         </listitem>
         <listitem>
           <para><literal>ATTR{type}=="1"</literal> - 对于一些可能会产生多个虚拟接口的无线网卡驱动，该键用于确保规则只会应用于其首要接口。和之前的 VLAN 接口和桥接子接口的理由一样，次要接口会被忽略。</para>
         </listitem>
         <listitem>
-          <para><literal>NAME</literal> - 这个键中的值将是 Udev 指定给设备的名称。</para>
+          <para><literal>NAME</literal> - 这个键中的值将是 Udev 指定给接口的名称。</para>
         </listitem>
       </itemizedlist>
   
-      <para>以上各键中，重要的是 <literal>NAME</literal> 这一键。在进行操作之前，你应该为每一个网卡设备准备一个名称，并且在以后的配置文件中使用对应的 <literal>NAME</literal> 键值。</para>
+      <para><literal>NAME</literal> 的健值相当重要。在进行操作之前，你已经为每一个网卡设备准备了一个名称，并且在之后的配置文件中使用对应的 <literal>NAME</literal> 键值。</para>
 
     </sect3>
 
@@ -72,31 +72,31 @@
 
     <title>CD-ROM 符号链接</title>
 
-    <para>你之后可能会安装的一些应用程序（如各种媒体播放器）需要如下两个符号链接：<filename class="symlink">/dev/cdrom</filename> 和 <filename class="symlink">/dev/dvd</filename> 存在并正确指向一个 CD-ROM 或 DVD-ROM 设备。另外，最好也在 <filename>/etc/fstab</filename> 文件中添加对这些符号链接的引用。根据计算机中各设备之间的兼容性，Udev 使用了一个脚本来生成创建这些符号链接的规则文件。但是你仍需要决定脚本以下文中两种模式中的哪一种来运行。</para>
+    <para>你之后可能会安装的一些应用程序（如各种媒体播放器）需要如下两个符号链接：<filename class="symlink">/dev/cdrom</filename> 和 <filename class="symlink">/dev/dvd</filename> 存在并正确指向一个 CD-ROM 或 DVD-ROM 设备。另外，在 <filename>/etc/fstab</filename> 文件中添加对这些符号链接的引用，在用的时候会更方便。根据计算机中各设备之间的兼容性，Udev 使用了一个脚本来生成创建这些符号链接的规则文件，但是你仍需要决定脚本以两种模式中的哪一种来运行。</para>
 
-    <para>第一种方式是采用 <quote>by-path</quote> 模式（该模式通常默认被 USB 设备和 FireWire 设备使用），这种方式根据 CD 或 DVD 设备的物理路径来创建规则。而第二种方式则是 <quote>by-id</quote> 模式 (这是 IDE 设备和 SCSI 设备的默认方式)，这种方式根据存储在 CD 或 DVD 驱动器中的标识字符串来创建规则。设备的路径可以由 Udev 的 <command>path_id</command> 脚本来获取；而标识字符串则是根据不同的设备类型，使用设备驱动程序自带的 <command>ata_id</command> 或者 <command>scsi_id</command> 命令来获取。</para>
+    <para>第一种方式是采用 <quote>by-path</quote> 模式（该模式通常默认被 USB 设备和 FireWire 设备使用），这种方式根据 CD 或 DVD 设备的物理路径来创建规则。而第二种方式则是 <quote>by-id</quote> 模式 (这是 IDE 设备和 SCSI 设备的默认方式)，这种方式根据存储在 CD 或 DVD 驱动器中的标识字符串来创建规则。设备的路径可以由 Udev 的 <command>path_id</command> 脚本来获取，而标识字符串则是根据不同的设备类型，使用设备驱动程序自带的 <command>ata_id</command> 或者 <command>scsi_id</command> 命令来获取，具体是哪个取决于你的设备类型。</para>
 
-    <para>这两种命名方式各有其特定使用场景，应根据可能发生的硬件变化来选择所采用的命名方式。若设备的物理地址，即其插入的端口和（或）插槽可能发生改变，例如你计划把一个设备连接到另外一个 IDE 端口或另外一个 USB 连接器，那么应采用 <quote>by-id</quote> 模式来命名设备。 在另一方面，如果你仅仅允许设备的标识字符串改变而设备功能不变，则可以采用<quote>by-path</quote>方式。例如系统中某个设备发生了故障，在其所对应的物理接口上插入另一个功能完全兼容的同类型设备。</para>
+    <para>这两种命名方式各有其特定使用场景，应根据可能发生的硬件变化来选择所采用的命名方式。若你希望设备的物理地址（即，其插入的端口和/或插槽）发生改变，例如你计划把一个设备连接到另外一个 IDE 端口或另外一个 USB 连接器，那么应采用 <quote>by-id</quote> 模式来命名设备。在另一方面，如果你仅仅希望改变设备的标识字符串，则可以采用 <quote>by-path</quote> 方式。例如系统中某个设备发生了故障，在其所对应的物理接口上插入另一个功能完全兼容的同类型设备。</para>
 
     <para>如果任意一种模式都是可行的，那就根据更可能发生的场景来选择命名方式。</para>
 
 <!-- If you use by-id mode, the symlinks will survive even the transition
      to libata for IDE drives, but that is not for the book. -->
 
-    <important><para>外部设备 （例如一个通过 USB 连接的 CD 驱动器）不应该使用 <quote>by-path</quote> 模式来命名，因为这种设备一旦插入不同的物理接口，其地址就可能会发生改变。不仅仅是 CD 和 DVD 驱动器，其他所有外部连接的设备都会产生这种问题，所以在创建 Udev 规则的时候应该避免通过物理地址来识别外部设备。</para></important>
+    <important><para>外部设备（例如一个通过 USB 连接的 CD 驱动器）不应该使用 <quote>by-path</quote> 模式来命名，因为这种设备一旦插入不同的物理接口，其地址就可能会发生改变。不仅仅是 CD 和 DVD 驱动器，其他所有外部连接的设备都会产生这种问题，所以在创建 Udev 规则的时候应该避免通过物理地址来识别外部设备。</para></important>
 
     <para>如果你想查看 Udev 将要对一个特定的 CD-ROM 设备将要使用的脚本，应该在 <filename class="directory">/sys</filename> 文件夹下查找相应的设备文件（例如 <filename class="directory">/sys/block/hdd</filename>）并运行如下的相应命令：</para>
 
 <screen role="nodump"><userinput>udevadm test /sys/block/hdd</userinput></screen>
 
-    <para>通过调用 *_id 命令并检查输出内容，如果 ID_SERIAL 存在且内容非空，<quote>by-id</quote> 模式将采取这个值来命名设备，否则会将 ID_MODEL 和 ID_REVISION 的值字符串连接在一起用来命名设备。<quote>by-path</quote> 模式会采用 ID_PATH 的内容来命名设备。</para>
+    <para>查看包含各种 *_id 程序输出内容的行。如果 ID_SERIAL 存在且内容非空，<quote>by-id</quote> 模式将采取这个值来命名设备，否则会将 ID_MODEL 和 ID_REVISION 的值字符串连接在一起用来命名设备。<quote>by-path</quote> 模式会采用 ID_PATH 的内容来命名设备。</para>
 
-    <para>如果默认的命名模式不适合自己的情况，则使用如下命令修改 <filename>/etc/udev/rules.d/83-cdrom-symlinks.rules</filename> 文件，（<replaceable>mode</replaceable> 由 <quote>by-id</quote> 或者 <quote>by-path</quote> 替代）</para>
+    <para>如果默认的命名模式不适合自己的情况，可使用如下命令修改 <filename>/etc/udev/rules.d/83-cdrom-symlinks.rules</filename> 文件，（<replaceable>mode</replaceable> 由 <quote>by-id</quote> 或者 <quote>by-path</quote> 替代）</para>
 
 <screen role="nodump"><userinput>sed -i -e 's/"write_cd_rules"/"write_cd_rules <replaceable>mode</replaceable>"/' \
     /etc/udev/rules.d/83-cdrom-symlinks.rules</userinput></screen>
 
-    <para>注意，目前为止还并不需要创建相应的规则以及符号链接。因为现在你仍然将宿主机的 <filename class="directory">/dev</filename> 文件夹绑定挂载入 LFS 系统，而且我们假定这些符号连接存在于宿主机中。 当你首次引导进入 LFS 系统之后这些规则和符号链接都会被自动创建。</para>
+    <para>注意，目前为止还并不需要创建相应的规则以及符号链接。因为现在你仍然将宿主机的 <filename class="directory">/dev</filename> 文件夹绑定挂载入 LFS 系统，而且我们假定这些符号连接存在于宿主机中。当你首次引导进入 LFS 系统之后，这些规则和符号链接都会被自动创建。</para>
 
     <para>然而如果你有多个 CD-ROM 设备，在首次创建符号链接的时候，同一个符号链接所指向的设备可能与宿主机所中指向的设备不同。这是由于设备发现的顺序是不可预测的。首次引导进 LFS 系统并创建的符号连接已经可以认为是固定了的。所以这个问题仅会在你需求同一设备在不同的系统之间的符号链接相同时才会产生。如果有必要的话，你还可以在系统引导之后检查并修改生成的 <filename>/etc/udev/rules.d/70-persistent-cd.rules</filename> 文件，以确认系统创建的符号连接符合自己所期望的。</para>
 
