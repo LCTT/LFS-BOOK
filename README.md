@@ -26,26 +26,26 @@
 
 部分内容需要翻译的小节：
 
-* **martin**   chapter02/aboutlfs.xml
-* **martin**   chapter02/creatingpartition.xml
-* **martin**   chapter02/introduction.xml
-* **martin**   chapter03/packages.xml
-* **martin**   chapter05/gcc-pass1.xml
-* **martin**   chapter05/gcc-pass2.xml
-* **未实施**   chapter05/tcl.xml
-* **未实施**   chapter05/texinfo.xml
-* **未实施**   chapter05/toolchaintechnotes.xml
-* **未实施**   chapter06/adjusting.xml
-* **未实施**   chapter06/bash.xml
-* **未实施**   chapter06/binutils.xml
-* **未实施**   chapter06/bison.xml
-* **未实施**   chapter06/creatingdirs.xml
-* **未实施**   chapter06/flex.xml
-* **未实施**   chapter06/gcc.xml
-* **未实施**   chapter06/glibc.xml
-* **未实施**   chapter06/gmp.xml
-* **未实施**   chapter06/groff.xml
-* **未实施**   chapter06/grub.xml
+* **已完成**   chapter02/aboutlfs.xml
+* **已完成**   chapter02/creatingpartition.xml
+* **已完成**   chapter02/introduction.xml
+* **已完成**   chapter03/packages.xml
+* **已完成**   chapter05/gcc-pass1.xml
+* **已完成**   chapter05/gcc-pass2.xml
+* **已完成**   chapter05/tcl.xml
+* **已完成**   chapter05/texinfo.xml
+* **martin**   chapter05/toolchaintechnotes.xml
+* **martin**   chapter06/adjusting.xml
+* **martin**   chapter06/bash.xml
+* **martin**   chapter06/binutils.xml
+* **martin**   chapter06/bison.xml
+* **martin**   chapter06/creatingdirs.xml
+* **martin**   chapter06/flex.xml
+* **martin**   chapter06/gcc.xml
+* **martin**   chapter06/glibc.xml
+* **martin**   chapter06/gmp.xml
+* **martin**   chapter06/groff.xml
+* **martin**   chapter06/grub.xml
 * **未实施**   chapter06/iproute2.xml
 * **未实施**   chapter06/kdb.xml
 * **未实施**   chapter06/libcap.xml
