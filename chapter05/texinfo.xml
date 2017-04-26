@@ -48,9 +48,7 @@
 <screen><userinput remap="configure">./configure --prefix=/tools</userinput></screen>
 
     <note>
-      <para>As part of the configure process, a test is made that indicates an
-      error for TestXS_la-TestXS.lo.  This is not relevant for LFS and should be
-      ignored.</para>
+      <para>作为配制过程的一部分，有一个测试会指出 TestXS_la-TestXS.lo 有一处错误。这与 LFS 没有关系，可以忽略。</para>
     </note>
 
     <para>编译软件包：</para>
