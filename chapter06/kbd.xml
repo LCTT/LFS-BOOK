@@ -316,7 +316,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="setleds">
         <term><command>setleds</command></term>
         <listitem>
-          <para>设置键盘标记和发光二极管（Light Emitting Diodes,LEDs）</para>
+          <para>设置键盘标记和 LED 灯</para>
           <indexterm zone="ch-system-kbd setleds">
             <primary sortas="b-setleds">setleds</primary>
           </indexterm>
@@ -336,7 +336,7 @@ cp -R -v docs/doc/* /usr/share/doc/kbd-&kbd-version;</userinput></screen>
       <varlistentry id="setvtrgb">
         <term><command>setvtrgb</command></term>
         <listitem>
-          <para>Sets the console color map in all virtual terminals</para>
+          <para>设置所有虚拟终端中的控制台颜色映射</para>
           <indexterm zone="ch-system-kbd setvtrgb">
             <primary sortas="b-setvtrgb">setvtrgb</primary>
           </indexterm>
