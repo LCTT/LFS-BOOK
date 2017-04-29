@@ -46,7 +46,7 @@
 * **未实施**   chapter06/gmp.xml
 * **未实施**   chapter06/groff.xml
 * **未实施**   chapter06/grub.xml
-* **未实施**   chapter06/iproute2.xml
+* **dongfengweixiao 已翻译**   chapter06/iproute2.xml
 * **未实施**   chapter06/kdb.xml
 * **未实施**   chapter06/libcap.xml
 * **未实施**   chapter06/man-db.xml
