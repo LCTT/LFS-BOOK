@@ -48,7 +48,7 @@
 * **martin**   chapter06/grub.xml
 * **dongfengweixiao**   chapter06/iproute2.xml
 * **dongfengweixiao**   chapter06/kdb.xml
-* **未实施**   chapter06/libcap.xml
+* **dongfengweixiao**   chapter06/libcap.xml
 * **未实施**   chapter06/man-db.xml
 * **未实施**   chapter06/perl.xml
 * **未实施**   chapter06/pkgconfig.xml
