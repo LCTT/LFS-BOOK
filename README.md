@@ -50,7 +50,7 @@
 * **dongfengweixiao**   chapter06/kdb.xml
 * **dongfengweixiao**   chapter06/libcap.xml
 * **dongfengweixiao**   chapter06/man-db.xml
-* **未实施**   chapter06/perl.xml
+* **dongfengweixiao**   chapter06/perl.xml
 * **未实施**   chapter06/pkgconfig.xml
 * **未实施**   chapter06/sed.xml
 * **未实施**   chapter06/shadow.xml
