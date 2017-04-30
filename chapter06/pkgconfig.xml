@@ -61,16 +61,14 @@
       <varlistentry>
         <term><parameter>--disable-compile-warnings</parameter></term>
         <listitem>
-          <para>This option prevents the build system from using
-          compiler flags which cause build failure when building
-          with GCC 6.</para>
+          <para>此选项防止构建系统使用编译标志，这将会导致在使用 GCC 6 构建时失败。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-host-tool</parameter></term>
         <listitem>
-          <para>这个选项取消创建到 pkg-config 程序的不必要的硬链接。</para>
+          <para>此选项取消创建到 pkg-config 程序的不必要的硬链接。</para>
         </listitem>
       </varlistentry>
 

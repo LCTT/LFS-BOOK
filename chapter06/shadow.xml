@@ -44,10 +44,9 @@
       <para>如果你喜欢强制使用更强的密码，在编译 Shadow 之前可以根据 <ulink url="&blfs-book;postlfs/cracklib.html"/>安装 CrackLib。然后在下面的 <command>configure</command>  命令中增加 <parameter>--with-libcrack</parameter>。</para>
     </note>
 
-    <para>Disable the installation of the <command>groups</command> program
-    and its man pages, as Coreutils provides a better version. Also 
-    Prevent the installation of manual pages that were already installed by the
-    <xref linkend="man-pages"/> package:</para>
+    <para>禁止安装 <command>groups</command> 程序以及对应的 man 手册，
+	诸如 Coreutils 已经提供了很好的方法。当然，已经安装的 <xref linkend="man-pages"/>
+	包也提供了阻止安装 man 手册的方法：</para>
 
 <screen><userinput remap="pre">sed -i 's/groups$(EXEEXT) //' src/Makefile.in
 find man -name Makefile.in -exec sed -i 's/groups\.1 / /'   {} \;

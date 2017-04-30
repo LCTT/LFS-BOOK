@@ -63,9 +63,7 @@
 <screen><userinput remap="pre">patch -Np1 -i ../systemd-231-security_fix-1.patch</userinput></screen>
 -->
 
-    <para>Create a file to allow systemd to build when using Util-Linux
-    built in Chapter 5, to disable LTO by default, and to build without
-    xlstproc:</para>
+    <para>新建一个文件以允许使用第 5 章中构建的 Util-Linux 来构建 systemd 时，默认禁用 LTO，且不包含 xlstproc:</para>
 
 <screen><userinput remap="pre">cat &gt; config.cache &lt;&lt; "EOF"
 <literal>KILL=/bin/kill
@@ -155,7 +153,7 @@ EOF</userinput></screen>
       <varlistentry>
         <term><parameter>--with-default-dnssec=no</parameter></term>
         <listitem>
-          <para>This switch turns off the experimental DNSSEC suport.</para>
+          <para>此开关关闭实验性的 DNSSEC 支持。</para>
         </listitem>
       </varlistentry>
 

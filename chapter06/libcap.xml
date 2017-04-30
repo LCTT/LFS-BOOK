@@ -68,10 +68,8 @@ chmod -v 755 /usr/lib/libcap.so</userinput></screen>
       <varlistentry>
         <term><parameter>lib=lib</parameter></term>
         <listitem>
-          <para>This parameter installs the library in
-          <filename>$prefix/lib</filename> rather than
-          <filename>$prefix/lib64</filename> on x86_64. It has no effect on
-          x86.</para>
+          <para>此参数用于在 x86_64 位系统中，将库文件安装到 <filename>$prefix/lib</filename>
+		  而不是 <filename>$prefix/lib64</filename>。此参数不影响 x86 系统。</para>
         </listitem>
       </varlistentry>
 
@@ -145,7 +143,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libcap.so) /usr/lib/libcap.so</userinput><
       <varlistentry id="setcap">
         <term><command>setcap</command></term>
         <listitem>
-          <para>Sets file capabilities</para>
+          <para>设置文件的容量</para>
           <indexterm zone="ch-system-libcap setcap">
             <primary sortas="b-setcap">setcap</primary>
           </indexterm>
