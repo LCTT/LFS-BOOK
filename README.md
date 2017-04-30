@@ -53,7 +53,7 @@
 * **dongfengweixiao**   chapter06/perl.xml
 * **dongfengweixiao**   chapter06/pkgconfig.xml
 * **dongfengweixiao**   chapter06/sed.xml
-* **未实施**   chapter06/shadow.xml
+* **dongfengweixiao**   chapter06/shadow.xml
 * **未实施**   chapter06/systemd.xml
 * **未实施**   chapter06/texinfo.xml
 * **未实施**   chapter06/util-linux.xml
