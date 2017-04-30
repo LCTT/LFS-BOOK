@@ -17,7 +17,7 @@
   <note>
     <para>在继续前，请留心工作平台的名称，它时常被称为目标三元组。要确定目标三元组的名称有一个简单的法子，那就是运行许多软件包的源码附带的脚本 <command>config.guess</command>。解压 Binutils 的源码并运行脚本：<userinput>./config.guess</userinput> 并注意它的输出。举一个例子，Intel 的 32 位处理器输出会是 <emphasis>i686-pc-linux-gnu</emphasis>。而在一个 64 位系统上，则会是 <emphasis>x86_64-pc-linux-gnu</emphasis>。</para>
 
-    <para>也请留心平台的动态链接器的的名称，它时常被称为动态加载器（不要与 Binutils 中的标准链接器 <command>ld</command> 混为一谈）。动态链接器由 Glibc 提供，用于寻找和加载程序所需的共享库，为程序的运行做准备，和运行程序。32 位的 Intel 机器，动态链接器的名称是 <filename class="libraryfile">ld-linux.so.2</filename>（64 位系统则是 <filename class="libraryfile">ld-linux-x86-64.so.2</filename>）。确定动态链接名的一个确定的方法，就是检查随机二进制，通过在宿主机运行：<userinput>readelf -l
+    <para>也请留心平台的动态链接器的的名称，它时常被称为动态加载器（不要与 Binutils 中的标准链接器 <command>ld</command> 混为一谈）。动态链接器由 Glibc 提供，用于寻找和加载程序所需的共享库，为程序的运行做准备，和运行程序。32 位的 Intel 机器，动态链接器的名称是 <filename class="libraryfile">ld-linux.so.2</filename>（64 位系统则是 <filename class="libraryfile">ld-linux-x86-64.so.2</filename>）。确定动态链接名的一个确定的方法，就是检查随机二进制文件，通过在宿主机运行：<userinput>readelf -l
     &lt;name of binary&gt; | grep interpreter</userinput> 并注意它的输出。覆盖全平台的权威参考在 Glibc 源码树根目录的 <filename>shlib-versions</filename> 文件中。</para>
   </note>
 
