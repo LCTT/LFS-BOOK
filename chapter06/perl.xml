@@ -105,8 +105,7 @@ export BUILD_BZIP2=0</userinput></screen>
 
 <screen><userinput remap="test">make -k test</userinput></screen>
 
-    <note><para>Several tests related to zlib will fail due to using
-    the system version of zlib instead of the internal version.</para></note>
+    <note><para>集合 zlib 相关的测试因为使用系统中的而没有使用内置的 zlib 而失败。</para></note>
 
     <para>安装软件包并清理：</para>
 
@@ -193,7 +192,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="encguess">
         <term><command>encguess</command></term>
         <listitem>
-          <para>Guess the encoding type of one or several files</para>
+          <para>猜测一个或多个文件的编码类型</para>
           <indexterm zone="ch-system-perl encguess">
             <primary sortas="b-encguess">encguess</primary>
           </indexterm>

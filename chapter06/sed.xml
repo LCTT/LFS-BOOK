@@ -40,7 +40,7 @@
   <sect2 role="installation">
     <title>安装 Sed</title>
 
-    <para>First fix an issue in the LFS environment and remove a failing test:</para>
+    <para>首先修复 LFS 环境中的问题，然后移除一个失败的测试：</para>
 
 <screen><userinput remap="pre">sed -i 's/usr/tools/'       build-aux/help2man
 sed -i 's/panic-tests.sh//' Makefile.in</userinput></screen>

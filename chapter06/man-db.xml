@@ -64,8 +64,7 @@
       <varlistentry>
         <term><parameter>--enable-cache-owner=bin</parameter></term>
         <listitem>
-          <para>This makes the system-wide cache files be owned by user
-          bin.</para>
+          <para>用于将系统范围内的 cache 文件的拥有者设置为 bin 用户。</para>
         </listitem>
       </varlistentry>
 

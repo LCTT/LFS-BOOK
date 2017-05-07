@@ -56,21 +56,11 @@
     </sect3>
 
     <sect3>
-    <title>The Grub Bios Partition</title>
+    <title>Grub Bios 分区</title>
 
-    <para>If the <emphasis>boot disk</emphasis> has been partitioned with a
-    GUID Partition Table (GPT), then a small, typically 1 MB, partition must be
-    created if it does not already exist.  This partition is not formatted, but
-    must be available for GRUB to use during installation of the boot
-    loader. This partition will normally be labeled 'BIOS Boot' if using
-    <command>fdisk</command> or have a code of <emphasis>EF02</emphasis> if
-    using <command>gdisk</command>.</para>
+    <para>如果是在 GPT（GUID Partition Table，GUID 分区表）下分 <emphasis>boot 磁盘</emphasis>，那么必然会产生一个约 1 MB 左右的小分区，如果之前没有的话。这个分区可能还没有被格式化，但是它必须存在，GRUB 会在安装引导器的时候用到。如果使用 <command>fdisk</command>，该分区通常会被标记为'BIOS Boot'。而如果使用的是 <command>gdisk</command>，则分区代码应为 <emphasis>EF02</emphasis> 。</para>
 
-    <note><para>The Grub Bios partition must be on the drive that the BIOS 
-    uses to boot the system.  This is not necessarily the same drive where the 
-    LFS root partition is located. Disks on a system may use different
-    partition table types.  The requirment for this partition depends
-    only on the partition table type of the boot disk.</para></note>
+    <note><para>Grub Bios 分区必须位于 BIOS 用于引导系统的磁盘驱动器上。却不一定要和 LFS 的根分区位于同一个磁盘驱动器。一个系统里的磁盘可能会用到不同类型的分区表。该磁盘仅与 boot 磁盘的分区表类型有关。</para></note>
     </sect3>
 
     <sect3>

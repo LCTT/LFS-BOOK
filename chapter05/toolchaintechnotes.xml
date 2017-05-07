@@ -15,29 +15,10 @@
   <para><xref linkend="chapter-temporary-tools"/> 的总体目标是生成一个临时的系统，它包含一个已知的较好工具集，该工具集可与宿主系统分离。通过使用 <command>chroot</command>，其余各章中的命令将被包含在此环境中，以保证目标 LFS 系统能够洁净且无故障地生成。该构建过程的设计就是为了使得新读者有最少的风险，同时还能有最好的指导价值。</para>
 
   <note>
-    <para>Before continuing, be aware of the name of the working platform,
-    often referred to as the target triplet. A simple way to determine the
-    name of the target triplet is to run the <command>config.guess</command>
-    script that comes with the source for many packages. Unpack the Binutils
-    sources and run the script: <userinput>./config.guess</userinput> and note
-    the output. For example, for a 32-bit Intel processor the
-    output will be <emphasis>i686-pc-linux-gnu</emphasis>. On a 64-bit
-    system it will be <emphasis>x86_64-pc-linux-gnu</emphasis>.</para>
+    <para>在继续前，请留心工作平台的名称，它时常被称为目标三元组。要确定目标三元组的名称有一个简单的法子，那就是运行许多软件包的源码附带的脚本 <command>config.guess</command>。解压 Binutils 的源码并运行脚本：<userinput>./config.guess</userinput> 并注意它的输出。举一个例子，Intel 的 32 位处理器输出会是 <emphasis>i686-pc-linux-gnu</emphasis>。而在一个 64 位系统上，则会是 <emphasis>x86_64-pc-linux-gnu</emphasis>。</para>
 
-    <para>Also be aware of the name of the platform's dynamic linker, often
-    referred to as the dynamic loader (not to be confused with the standard
-    linker <command>ld</command> that is part of Binutils). The dynamic linker
-    provided by Glibc finds and loads the shared libraries needed by a program,
-    prepares the program to run, and then runs it. The name of the dynamic
-    linker for a 32-bit Intel machine will be <filename
-    class="libraryfile">ld-linux.so.2</filename> (<filename
-    class="libraryfile">ld-linux-x86-64.so.2</filename> for 64-bit systems).  A
-    sure-fire way to determine the name of the dynamic linker is to inspect a
-    random binary from the host system by running: <userinput>readelf -l
-    &lt;name of binary&gt; | grep interpreter</userinput> and noting the
-    output. The authoritative reference covering all platforms is in the
-    <filename>shlib-versions</filename> file in the root of the Glibc source
-    tree.</para>
+    <para>也请留心平台的动态链接器的的名称，它时常被称为动态加载器（不要与 Binutils 中的标准链接器 <command>ld</command> 混为一谈）。动态链接器由 Glibc 提供，用于寻找和加载程序所需的共享库，为程序的运行做准备，和运行程序。32 位的 Intel 机器，动态链接器的名称是 <filename class="libraryfile">ld-linux.so.2</filename>（64 位系统则是 <filename class="libraryfile">ld-linux-x86-64.so.2</filename>）。确定动态链接名的一个确定的方法，就是检查随机二进制文件，通过在宿主机运行：<userinput>readelf -l
+    &lt;name of binary&gt; | grep interpreter</userinput> 并注意它的输出。覆盖全平台的权威参考在 Glibc 源码树根目录的 <filename>shlib-versions</filename> 文件中。</para>
   </note>
 
   <para>下面是 <xref linkend="chapter-temporary-tools"/> 构建方法的几个关键技术点：</para>

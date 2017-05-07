@@ -8,109 +8,61 @@
 <sect1 id="ch-scripts-symlinks">
   <?dbhtml filename="symlinks.html"?>
 
-  <title>Managing Devices</title>
+  <title>设备管理</title>
 
   <sect2 revision="sysv">
 
-    <title>Network Devices</title>
+    <title>网络设备</title>
 
-    <para>Udev, by default, names network devices according to Firmware/BIOS
-    data or physical characteristics like the bus, slot, or MAC address.  The
-    purpose of this naming convention is to ensure that network devices are
-    named consistently and not based on the time the network card was
-    discovered.  For example, on a computer having two network cards made by
-    Intel and Realtek, the network card manufactured by Intel may become eth0
-    and the Realtek card becomes eth1. In some cases, after a reboot the cards
-    get renumbered the other way around.</para>
+    <para>一般来说，Udev 根据获取到的固件/BIOS 信息或者一些像总线号、插槽号或 MAC 地址等物理信息来命名网络设备。之所以采用这样的命名方式，是为了确保网络设备可以得到一个持久化的名称，且这个名称不会随着设备的发现时间而改变。例如，在一台同时拥有 Intel 网卡和 Realtek 网卡的双网卡计算机上，Intel 网卡可能会被命名为 eth0 而 Realtek 网卡可能会被命名为 eth1。在某些情况下，可能是一次重启使网卡重新编号了。</para>
     
-    <para>In the new naming scheme, typical network device names would then
-    be something like enp5s0 or wlp3s0.  If this naming convention is not
-    desired, the traditional naming scheme or a custom scheme can be
-    implemented.</para>
+    <para>在持久化命名方式中，典型的网络设备名称看起来可能像 enp5s0 或者 wlp3s0 。如果你不希望采用这种命名方式，则还可以采用传统命名或者自定义的命名方式。</para>
 
     <sect3>
-      <title>Disabling Persistent Naming on the Kernel Command Line</title>
+      <title>在内核命令行上禁用持久命名</title>
    
-      <para>The traditional naming scheme using eth0, eth1, etc can be
-      restored by adding <userinput>net.ifnames=0</userinput> on the 
-      kernel command line.  This is most appropriate for those systems
-      that have only one ethernet device of the same type.  Laptops
-      often have multiple ethernet connections that are named eth0 and 
-      wlan0 and are also candidates for this method.  The command line 
-      is passed in the GRUB configuration file. 
-      See <xref linkend="grub-cfg"/>.</para>
+      <para>可以在内核命令行上添加 <userinput>net.ifnames=0</userinput> 来恢复传统命名方式，采用 eth0、eth1 等来命名。 这种命名方式对于那些网络设备类型唯一的系统最为合适。笔记本电脑通常拥有多个以太网连接，常被命名为 eth0 和 wlan0，也同样适用这种命名方法。可通过修改 GRUB 配置文件命令行。参见 <xref linkend="grub-cfg"/>。</para>
     </sect3>
 
     <sect3>
-      <title>Creating Custom Udev Rules</title>
+      <title>创建自定义 Udev 规则</title>
    
-      <para>The naming scheme can be customized by creating custom Udev
-      rules.  A script has been included that generates the initial rules.
-      Generate these rules by running:</para>
+      <para>可以通过创建自定义 Udev 规则来改变网络设备命名方式。这里有一个脚本可以创建初始规则，运行：</para>
 
 <screen role="install"><userinput>bash /lib/udev/init-net-rules.sh</userinput></screen>
 
-      <para> Now, inspect the
-      <filename>/etc/udev/rules.d/70-persistent-net.rules</filename> file, to
-      find out which name was assigned to which network device:</para>
+      <para> 现在，可以检查 <filename>/etc/udev/rules.d/70-persistent-net.rules</filename> 文件, 来确定具体哪个名称配对了哪一个网络设备：</para>
 
 <screen role="nodump"><userinput>cat /etc/udev/rules.d/70-persistent-net.rules</userinput></screen>
 
-      <note><para>In some cases such as when MAC addresess have been assigned to
-      a network card manually or in a virtual environment such as Qemu or Xen,
-      the network rules file may not have been generated because addresses
-      are not consistently assigned.  In these cases, this method cannot
-      be used.</para></note>
+      <note><para>当某些特定情形下，如当一个 MAC 地址被手动指定给一个网卡或者如 Qemu 或 Xen 这样的虚拟环境时，可能并不会生成上述的网络规则文件。这是由于手动指定的 MAC 地址并不是永久固定的。在这种情况下，不能采用持久化命名方式来确定设备名称。</para></note>
   
-      <para>The file begins with a comment block followed by two lines for each
-      NIC. The first line for each NIC is a commented description showing its
-      hardware IDs (e.g. its PCI vendor and device IDs, if it's a PCI card),
-      along with its driver in parentheses, if the driver can be found. Neither
-      the hardware ID nor the driver is used to determine which name to give an
-      interface; this information is only for reference. The second line is the
-      Udev rule that matches this NIC and actually assigns it a name.</para>
+      <para>这个文件应由一个注释段落开头。之后每个网卡都对应有两行信息。第一行以注释形式描述了该网卡的硬件信息（如果是 PCI 网卡，还有其 PCI 厂商标识和设备标识），如果对应的驱动程序存在，还应在随后的括号中注明。要注意，该注释行中的硬件标识和驱动程序都不能决定其接口名，仅做参考作用。第二行则是网卡的 Udev 规则，根据该规则可以确定网卡的设备名称。</para>
   
-      <para>All Udev rules are made up of several keys, separated by commas and
-      optional whitespace. This rule's keys and an explanation of each of them
-      are as follows:</para>
+      <para>所有的 Udev 规则均由若干的键组成，之间由逗号或空格分割，解释如下：</para>
   
       <itemizedlist>
         <listitem>
-          <para><literal>SUBSYSTEM=="net"</literal> - This tells Udev to ignore
-          devices that are not network cards.</para>
+          <para><literal>SUBSYSTEM=="net"</literal> - 让 Udev 忽略不是网卡的设备。</para>
         </listitem>
         <listitem>
-          <para><literal>ACTION=="add"</literal> - This tells Udev to ignore this
-          rule for a uevent that isn't an add ("remove" and "change" uevents also
-          happen, but don't need to rename network interfaces).</para>
+          <para><literal>ACTION=="add"</literal> - 让 Udev 对增加 uevent 以外的操作，忽略该规则（删除 uevent 和改变 uevent 也会发生，但都不会导致网络接口重新命名）。</para>
         </listitem>
         <listitem>
-          <para><literal>DRIVERS=="?*"</literal> - This exists so that Udev will
-          ignore VLAN or bridge sub-interfaces (because these sub-interfaces do
-          not have drivers). These sub-interfaces are skipped because the name
-          that would be assigned would collide with their parent devices.</para>
+          <para><literal>DRIVERS=="?*"</literal> - 让 Udev 忽略 VLAN 和桥接子接口。（由于这些子接口没有独立的驱动程序）。而且子接口的名称可能会与父接口的名字相冲突，因而会被忽略。</para>
         </listitem>
         <listitem>
-          <para><literal>ATTR{address}</literal> - The value of this key is the
-          NIC's MAC address.</para>
+          <para><literal>ATTR{address}</literal> - 该键值表示网卡的 MAC 地址。</para>
         </listitem>
         <listitem>
-          <para><literal>ATTR{type}=="1"</literal> - This ensures the rule only
-          matches the primary interface in the case of certain wireless drivers,
-          which create multiple virtual interfaces. The secondary interfaces are
-          skipped for the same reason that VLAN and bridge sub-interfaces are
-          skipped: there would be a name collision otherwise.</para>
+          <para><literal>ATTR{type}=="1"</literal> - 对于一些可能会产生多个虚拟接口的无线网卡驱动，该键用于确保规则只会应用于其首要接口。和之前的 VLAN 接口和桥接子接口的理由一样，次要接口会被忽略。</para>
         </listitem>
         <listitem>
-          <para><literal>NAME</literal> - The value of this key is the name that
-          Udev will assign to this interface.</para>
+          <para><literal>NAME</literal> - 这个键中的值将是 Udev 指定给接口的名称。</para>
         </listitem>
       </itemizedlist>
   
-      <para>The value of <literal>NAME</literal> is the important part. Make sure
-      you know which name has been assigned to each of your network cards before
-      proceeding, and be sure to use that <literal>NAME</literal> value when
-      creating your configuration files below.</para>
+      <para><literal>NAME</literal> 的健值相当重要。在进行操作之前，你已经为每一个网卡设备准备了一个名称，并且在之后的配置文件中使用对应的 <literal>NAME</literal> 键值。</para>
 
     </sect3>
 
@@ -118,87 +70,35 @@
 
   <sect2 revision="sysv">
 
-    <title>CD-ROM symlinks</title>
+    <title>CD-ROM 符号链接</title>
 
-    <para>Some software that you may want to install later (e.g., various
-    media players) expect the <filename class="symlink">/dev/cdrom</filename>
-    and <filename class="symlink">/dev/dvd</filename> symlinks to exist, and
-    to point to a CD-ROM or DVD-ROM device. Also, it may be convenient to put
-    references to those symlinks into <filename>/etc/fstab</filename>. Udev
-    comes with a script that will generate rules files to create these symlinks
-    for you, depending on the capabilities of each device, but you need to
-    decide which of two modes of operation you wish to have the script use.</para>
+    <para>你之后可能会安装的一些应用程序（如各种媒体播放器）需要如下两个符号链接：<filename class="symlink">/dev/cdrom</filename> 和 <filename class="symlink">/dev/dvd</filename> 存在并正确指向一个 CD-ROM 或 DVD-ROM 设备。另外，在 <filename>/etc/fstab</filename> 文件中添加对这些符号链接的引用，在用的时候会更方便。根据计算机中各设备之间的兼容性，Udev 使用了一个脚本来生成创建这些符号链接的规则文件，但是你仍需要决定脚本以两种模式中的哪一种来运行。</para>
 
-    <para>First, the script can operate in <quote>by-path</quote> mode (used by
-    default for USB and FireWire devices), where the rules it creates depend on
-    the physical path to the CD or DVD device. Second, it can operate in
-    <quote>by-id</quote> mode (default for IDE and SCSI devices), where the
-    rules it creates depend on identification strings stored in the CD or DVD
-    device itself. The path is determined by Udev's <command>path_id</command>
-    script, and the identification strings are read from the hardware by its
-    <command>ata_id</command> or <command>scsi_id</command> programs, depending
-    on which type of device you have.</para>
+    <para>第一种方式是采用 <quote>by-path</quote> 模式（该模式通常默认被 USB 设备和 FireWire 设备使用），这种方式根据 CD 或 DVD 设备的物理路径来创建规则。而第二种方式则是 <quote>by-id</quote> 模式 (这是 IDE 设备和 SCSI 设备的默认方式)，这种方式根据存储在 CD 或 DVD 驱动器中的标识字符串来创建规则。设备的路径可以由 Udev 的 <command>path_id</command> 脚本来获取，而标识字符串则是根据不同的设备类型，使用设备驱动程序自带的 <command>ata_id</command> 或者 <command>scsi_id</command> 命令来获取，具体是哪个取决于你的设备类型。</para>
 
-    <para>There are advantages to each approach; the correct approach to use
-    will depend on what kinds of device changes may happen. If you expect the
-    physical path to the device (that is, the ports and/or slots that it plugs
-    into) to change, for example because you plan on moving the drive to a
-    different IDE port or a different USB connector, then you should use the
-    <quote>by-id</quote> mode. On the other hand, if you expect the device's
-    identification to change, for example because it may die, and you would
-    replace it with a different device with the same capabilities and which
-    is plugged into the same connectors, then you should use the
-    <quote>by-path</quote> mode.</para>
+    <para>这两种命名方式各有其特定使用场景，应根据可能发生的硬件变化来选择所采用的命名方式。若你希望设备的物理地址（即，其插入的端口和/或插槽）发生改变，例如你计划把一个设备连接到另外一个 IDE 端口或另外一个 USB 连接器，那么应采用 <quote>by-id</quote> 模式来命名设备。在另一方面，如果你仅仅希望改变设备的标识字符串，则可以采用 <quote>by-path</quote> 方式。例如系统中某个设备发生了故障，在其所对应的物理接口上插入另一个功能完全兼容的同类型设备。</para>
 
-    <para>If either type of change is possible with your drive, then choose a
-    mode based on the type of change you expect to happen more often.</para>
+    <para>如果任意一种模式都是可行的，那就根据更可能发生的场景来选择命名方式。</para>
 
 <!-- If you use by-id mode, the symlinks will survive even the transition
      to libata for IDE drives, but that is not for the book. -->
 
-    <important><para>External devices (for example, a USB-connected CD drive)
-    should not use by-path persistence, because each time the device is plugged
-    into a new external port, its physical path will change. All
-    externally-connected devices will have this problem if you write Udev rules
-    to recognize them by their physical path; the problem is not limited to CD
-    and DVD drives.</para></important>
+    <important><para>外部设备（例如一个通过 USB 连接的 CD 驱动器）不应该使用 <quote>by-path</quote> 模式来命名，因为这种设备一旦插入不同的物理接口，其地址就可能会发生改变。不仅仅是 CD 和 DVD 驱动器，其他所有外部连接的设备都会产生这种问题，所以在创建 Udev 规则的时候应该避免通过物理地址来识别外部设备。</para></important>
 
-    <para>If you wish to see the values that the Udev scripts will use, then
-    for the appropriate CD-ROM device, find the corresponding directory under
-    <filename class="directory">/sys</filename> (e.g., this can be
-    <filename class="directory">/sys/block/hdd</filename>) and
-    run a command similar to the following:</para>
+    <para>如果你想查看 Udev 将要对一个特定的 CD-ROM 设备将要使用的脚本，应该在 <filename class="directory">/sys</filename> 文件夹下查找相应的设备文件（例如 <filename class="directory">/sys/block/hdd</filename>）并运行如下的相应命令：</para>
 
 <screen role="nodump"><userinput>udevadm test /sys/block/hdd</userinput></screen>
 
-    <para>Look at the lines containing the output of various *_id programs.
-    The <quote>by-id</quote> mode will use the ID_SERIAL value if it exists and
-    is not empty, otherwise it will use a combination of ID_MODEL and
-    ID_REVISION. The <quote>by-path</quote> mode will use the ID_PATH value.</para>
+    <para>查看包含各种 *_id 程序输出内容的行。如果 ID_SERIAL 存在且内容非空，<quote>by-id</quote> 模式将采取这个值来命名设备，否则会将 ID_MODEL 和 ID_REVISION 的值字符串连接在一起用来命名设备。<quote>by-path</quote> 模式会采用 ID_PATH 的内容来命名设备。</para>
 
-    <para>If the default mode is not suitable for your situation, then the
-    following modification can be made to the
-    <filename>/etc/udev/rules.d/83-cdrom-symlinks.rules</filename> file,
-    as follows (where <replaceable>mode</replaceable> is one of
-    <quote>by-id</quote> or <quote>by-path</quote>):</para>
+    <para>如果默认的命名模式不适合自己的情况，可使用如下命令修改 <filename>/etc/udev/rules.d/83-cdrom-symlinks.rules</filename> 文件，（<replaceable>mode</replaceable> 由 <quote>by-id</quote> 或者 <quote>by-path</quote> 替代）</para>
 
 <screen role="nodump"><userinput>sed -i -e 's/"write_cd_rules"/"write_cd_rules <replaceable>mode</replaceable>"/' \
     /etc/udev/rules.d/83-cdrom-symlinks.rules</userinput></screen>
 
-    <para>Note that it is not necessary to create the rules files or symlinks
-    at this time, because you have bind-mounted the host's
-    <filename class="directory">/dev</filename> directory into the LFS system,
-    and we assume the symlinks exist on the host. The rules and symlinks will
-    be created the first time you boot your LFS system.</para>
+    <para>注意，目前为止还并不需要创建相应的规则以及符号链接。因为现在你仍然将宿主机的 <filename class="directory">/dev</filename> 文件夹绑定挂载入 LFS 系统，而且我们假定这些符号连接存在于宿主机中。当你首次引导进入 LFS 系统之后，这些规则和符号链接都会被自动创建。</para>
 
-    <para>However, if you have multiple CD-ROM devices, then the symlinks
-    generated at that time may point to different devices than they point to on
-    your host, because devices are not discovered in a predictable order. The
-    assignments created when you first boot the LFS system will be stable, so
-    this is only an issue if you need the symlinks on both systems to point to
-    the same device. If you need that, then inspect (and possibly edit) the
-    generated <filename>/etc/udev/rules.d/70-persistent-cd.rules</filename>
-    file after booting, to make sure the assigned symlinks match what you need.</para>
+    <para>然而如果你有多个 CD-ROM 设备，在首次创建符号链接的时候，同一个符号链接所指向的设备可能与宿主机所中指向的设备不同。这是由于设备发现的顺序是不可预测的。首次引导进 LFS 系统并创建的符号连接已经可以认为是固定了的。所以这个问题仅会在你需求同一设备在不同的系统之间的符号链接相同时才会产生。如果有必要的话，你还可以在系统引导之后检查并修改生成的 <filename>/etc/udev/rules.d/70-persistent-cd.rules</filename> 文件，以确认系统创建的符号连接符合自己所期望的。</para>
 
   </sect2>
 

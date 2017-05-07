@@ -71,8 +71,7 @@ do
   touch $file.orig
 done</userinput></screen>
 
-    <para>If building on x86_64, change the default directory name for 64-bit
-    libraries to <quote>lib</quote>:</para>
+    <para>如果If building on x86_64 环境上构建，为 64 位库改变默认目录名至 <quote>lib</quote>：</para>
 
 <screen><userinput remap="pre">case $(uname -m) in
   x86_64)

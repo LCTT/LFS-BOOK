@@ -40,21 +40,17 @@
   <sect2 role="installation">
     <title>安装 IPRoute2</title>
 
-    <para>The <command>arpd</command> program included in this package will not
-    be built since it is dependent on Berkeley DB, which is not installed in
-    LFS. However, documentation files and a directory for
-    <command>arpd</command> will still be installed. Prevent this by running
-    the commands below. If the <command>arpd</command> binary is needed,
-    instructions for compiling Berkeley DB can be found in the BLFS Book at
-    <ulink url="&blfs-book;server/databases.html#db"/>.
-    </para>
+    <para>此软件包中包含的 <command>arpd</command> 因为依赖于 Berkeley DB，
+	但是此软件并没有包含于 LFS 中，所以将不会进行编译。但是 <command>arpd</command>
+	 的文档文件和目录依旧会被安装。运行以下的命令来阻止这一动作。如果需要 <command>arpd</command>
+	 的二进制文件，请查看 BLFS Book 的网页 <ulink url="&blfs-book;server/databases.html#db"/> 
+	 以了解编译 Berkeley DB 都需要哪些指令。</para>
 
 <screen><userinput remap="pre">sed -i /ARPD/d Makefile
 sed -i 's/arpd.8//' man/man8/Makefile
 rm -v doc/arpd.sgml</userinput></screen>
 
-    <para>It is also necessary to disable building one module that 
-    requires <ulink url="&blfs-book;postlfs/iptables.html"/>.</para>
+    <para>此外，还需要禁用一个模块，它依赖于 <ulink url="&blfs-book;postlfs/iptables.html"/>.</para>
 
 <screen><userinput remap="pre">sed -i 's/m_ipt.o//' tc/Makefile</userinput></screen>
 
@@ -62,7 +58,7 @@ rm -v doc/arpd.sgml</userinput></screen>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>This package does not have a working test suite.</para>
+    <para>此软件包不包含可用的测试套件。</para>
 <!-- currently not useful, no tests actually run
     <para>该软件包有测试套件，由于它的前置要求，一般不可能在 chroot 环境中运行这些测试。如果你希望在进入你的 LFS 系统后再运行这些测试，确保在你的的内核 （&quot;常规设置&quot; -> &quot;通过 /proc/config.gz 启用到 .config 的访问&quot; [CONFIG_IKCONFIG_PROC]） 中启用了  <filename>/proc/config.gz</filename> 支持，然后在 <filename class="directory">testsuite/</filename> 子目录运行 'make alltests' 命令。</para>-->
 

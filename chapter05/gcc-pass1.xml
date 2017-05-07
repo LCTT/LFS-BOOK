@@ -71,8 +71,7 @@ done</userinput></screen>
 
     <para>如果上面的看起来难以理解，让我们分开来看一下吧。首先我们找到 <filename class="directory">gcc/config</filename> 文件夹下的所有命名为 <filename>linux.h</filename>，<filename>linux64.h</filename> 或 <filename>sysv4.h</filename> 的文件。对于找到的每个文件，我们把它复制到相同名称的文件，但增加了后缀 <quote>.orig</quote>。然后第一个 sed 表达式在每个 <quote>/lib/ld</quote>，<quote>/lib64/ld</quote> 或者 <quote>/lib32/ld</quote> 实例前面增加 <quote>/tools</quote>，第二个 sed 表达式替换 <quote>/usr</quote> 的硬编码实例。然后，我们添加这改变默认 startfile 前缀到文件末尾的定义语句。注意 <quote>/tools/lib/</quote> 后面的 <quote>/</quote> 是必须的。最后，我们用 <command>touch</command> 更新复制文件的时间戳。当与 <command>cp -u</command> 一起使用时，可以防止命令被无意中运行两次造成对原始文件意外的更改。</para>
 
-    <para>Finally, on x86_64 hosts, set the default directory name for
-    64-bit libraries to <quote>lib</quote>:</para>
+    <para>最后，在 x86_64 的主机上，为 64 位的库设置默认目录名至 <quote>lib</quote>：</para>
 
 <screen><userinput remap="pre">case $(uname -m) in
   x86_64)
