@@ -72,7 +72,7 @@
           <para>[dj] - 为了 binutils 恢复第 5 章 bison 的构建内容。</para>
         </listitem>
         <listitem>
-          <para>[dj] - 构建 binutils 的 gold linker。bfd linker 默认保留。</para>
+          <para>[dj] - 构建 binutils 的 gold 链接器。bfd 链接器默认保留。</para>
         </listitem>
       </itemizedlist>
     </listitem>

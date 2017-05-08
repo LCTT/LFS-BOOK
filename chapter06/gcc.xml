@@ -40,8 +40,7 @@
   <sect2 role="installation">
     <title>安装 GCC</title>
 
-    <para>If building on x86_64, change the default directory name for 64-bit
-    libraries to <quote>lib</quote>:</para>
+    <para>如果是在 x86_64 上实施构建，为了 64 位库，请将默认目录名改为 <quote>lib</quote>：</para>
 
 <screen><userinput remap="pre">case $(uname -m) in
   x86_64)
@@ -108,18 +107,13 @@ cd       build</userinput></screen>
 
     <para>结果可以和 <ulink url="&test-results;"/> 以及 <ulink url="http://gcc.gnu.org/ml/gcc-testresults/"/> 上的相比较。</para>
 
-    <para>一些意料之外的错误总是难以避免。GCC 开发者通常意识到了这些问题，但还没有解决。
-      In particular, five tests in the libstdc++ test suite are known to fail
-      when running as the root user as we do here.
-    除非测试结果和上面 URL 中的相差很大，不然就可以安全继续。</para>
+    <para>一些意料之外的错误总是难以避免。GCC 开发者通常会意识到这些问题，但还没有解决。特别是 libstdc++ 测试套件中的 5 个测试，已知在像我们这样使用 root 用户的情况下会失败。除非测试结果和上面 URL 中的相差很大，不然就可以安全继续。</para>
 
     <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Create a symlink required by the <ulink
-    url="http://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink>
-    for "historical" reasons.</para>
+    <para>创建 <ulink url="http://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink> 因为“历史”原因而需要的软链接。</para>
 
 <screen><userinput remap="install">ln -sv ../usr/bin/cpp /lib</userinput></screen>
 

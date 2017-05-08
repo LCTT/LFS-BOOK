@@ -132,7 +132,7 @@
       <varlistentry id="grub-file">
         <term><command>grub-file</command></term>
         <listitem>
-          <para>Checks if FILE is of the specified type.</para>
+          <para>检查 FILE 是否为指定的类型</para>
           <indexterm zone="ch-system-grub grub-file">
             <primary sortas="b-grub-file">grub-file</primary>
           </indexterm>
@@ -152,8 +152,7 @@
       <varlistentry id="grub-glue-efi">
         <term><command>grub-glue-efi</command></term>
         <listitem>
-          <para>Processes ia32 and amd64 EFI images and glues them
-          according to Apple format.</para>
+          <para>处理 ia32 和 amd64 的 EFI 镜像并按照 Apple 的格式将他们粘在一起</para>
           <indexterm zone="ch-system-grub grub-glue-efi">
             <primary sortas="b-grub-glue-efi">grub-glue-efi</primary>
           </indexterm>
@@ -183,7 +182,7 @@
       <varlistentry id="grub-macbless">
         <term><command>grub-macbless</command></term>
         <listitem>
-          <para>Mac-style bless on HFS or HFS+ files</para>
+          <para>以 Mac 的风格保护 HFS 或 HFS+ 文件</para>
           <indexterm zone="ch-system-grub grub-macbless">
             <primary sortas="b-grub-macbless">grub-macbless</primary>
           </indexterm>
@@ -313,7 +312,7 @@
       <varlistentry id="grub-render-label">
         <term><command>grub-render-label</command></term>
         <listitem>
-          <para>Render Apple .disk_label for Apple Macs</para>
+          <para>为 Apple Mac 赋予 Apple 的 .disk_label</para>
           <indexterm zone="ch-system-grub grub-render-label">
             <primary sortas="b-grub-render-label">grub-render-label</primary>
           </indexterm>
@@ -353,7 +352,7 @@
       <varlistentry id="grub-syslinux2cfg">
         <term><command>grub-syslinux2cfg</command></term>
         <listitem>
-          <para>Transform a syslinux config file into grub.cfg format</para>
+          <para>将 syslinux 的配置文件转换至 grub.cfg 格式</para>
           <indexterm zone="ch-system-grub grub-syslinux2cfg">
             <primary sortas="b-grub-syslinux2cfg">grub-syslinux2cfg</primary>
           </indexterm>

@@ -40,20 +40,13 @@
   <sect2 role="installation">
     <title>安装 Glibc</title>
 
-    <note><para>The Glibc build system is self-contained and will install
-    perfectly, even though the compiler specs file and linker are still
-    pointing to <filename class="directory">/tools</filename>. The specs
-    and linker cannot be adjusted before the Glibc install because the
-    Glibc autoconf tests would give false results and defeat the goal
-    of achieving a clean build.</para></note>
+    <note><para>Glibc 构建系统是独立的，并且会完美地安装，即使编译器指定的文件和链接器仍然指向 <filename class="directory">/tools</filename>。在 Glibc 安装之前，不能调整指定的文件和链接器，因为 Glibc 的 autoconf 测试会给出错误结果并阻碍目标实现干净的构建。</para></note>
 
     <para>有些 Glibc 程序会用到和 FHS 不兼容的 <filename class="directory">/var/db</filename> 目录来存储它们的运行时数据。打上如下的补丁让这些程序在 FHS 兼容的位置存储它们的运行时数据。</para>
  
 <screen><userinput remap="pre">patch -Np1 -i ../&glibc-fhs-patch;</userinput></screen>
 
-    <para>Create a symlink for LSB compliance and, for x86_64, a
-    compatibility symlink required for the dynamic loader to function
-    correctly:</para>
+    <para>为了符合 LSB 规范创建一个软链接，x86_64 情况下，为了使动态加载器正确运作，再创建一个兼容性的软链接：</para>
 
 <screen><userinput remap="pre">case $(uname -m) in
     x86) ln -s ld-linux.so.2 /lib/ld-lsb.so.3
@@ -105,9 +98,7 @@ cd       build</userinput></screen>
       </listitem>
 
       <listitem>
-        <para>The
-        <emphasis>nptl/tst-thread-affinity-{pthread,pthread2,sched}</emphasis>
-        tests may fail for reasons that have not been determined.  </para>
+        <para>测试 <emphasis>nptl/tst-thread-affinity-{pthread,pthread2,sched}</emphasis> 可能会因为尚未确定的原因而失败。</para>
       </listitem>
 
       <listitem>
@@ -134,10 +125,7 @@ mkdir -pv /var/cache/nscd</userinput></screen>
     <screen revision="systemd"><userinput remap="install">install -v -Dm644 ../nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf
 install -v -Dm644 ../nscd/nscd.service /lib/systemd/system/nscd.service</userinput></screen>
 
-    <para>Next, install the locales that can make the system respond in a
-    different language.  None of the locales are required, but if some of them
-    are missing, the test suites of future packages would skip important
-    testcases.</para>
+    <para>接着，安装可以使系统响应不同语言的地域设置。没有一个地域是必需的，但是如果缺少了其中的某些，可能会导致在未来的软件包测试套件中，跳过了重要的测试项目。</para>
 
     <para>单独的语言环境可以用 <command>localedef</command> 程序安装。例如，下面第一个 <command>localedef</command> 命令将 <filename>/usr/share/i18n/locales/cs_CZ</filename> 字符表定义组合在一起，并将结果附加到 <filename>/usr/share/i18n/charmaps/UTF-8.gz</filename> 文件末尾。下面的命令将安装能完美覆盖测试所需语言环境的最小集合：</para>
 

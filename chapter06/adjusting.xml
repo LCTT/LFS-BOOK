@@ -40,8 +40,7 @@ readelf -l a.out | grep ': /lib'</userinput></screen>
 
   <para>注意 <filename class="directory">/lib</filename> 现在是我们动态链接库的前缀。</para>
 
-  <note><para>On 32-bit systems the interpreter should be
-  /lib/ld-linux.so.2.</para></note>
+  <note><para>32 位系统的解释器应该是 /lib/ld-linux.so.2.</para></note>
 
   <para os="d">现在确保我们已经设置好了启动文件：</para>
 
