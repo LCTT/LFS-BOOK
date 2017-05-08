@@ -58,9 +58,7 @@
 <screen><userinput remap="test">make check</userinput></screen>
 -->
 
-    <para>There is a circular dependency between bison and flex with regard to
-    the checks.  If desired, after installing flex in the next section, the
-    bison checks can be run with <command>make check</command>.</para>
+    <para>考虑到 bison 和 flex 的检查有循环依赖。如果需要的话，在下一节安装 flex 之后，可以使用命令 <command>make check</command> 来检查 bison。</para>
 
     <para>安装软件包：</para>
 

@@ -146,8 +146,7 @@
       <varlistentry id="glilypond">
         <term><command>glilypond</command></term>
         <listitem>
-          <para>Transforms sheet music written in the lilypond language into
-          the groff language</para>
+          <para>将 lilypond 语言写成的乐谱转换至 groff语言</para>
           <indexterm zone="ch-system-groff glilypond">
             <primary sortas="b-glilypond">glilypond</primary>
           </indexterm>
@@ -157,8 +156,7 @@
       <varlistentry id="gperl">
         <term><command>gperl</command></term>
         <listitem>
-          <para>Preprocesor for groff, allowing addition of perl code
-          into groff files</para>
+          <para>Groff 的预处理器，允许在 groff 中添加 perl 代码</para>
           <indexterm zone="ch-system-groff gperl">
             <primary sortas="b-gperl">gperl</primary>
           </indexterm>
@@ -168,8 +166,7 @@
       <varlistentry id="gpinyin">
         <term><command>gpinyin</command></term>
         <listitem>
-          <para>Preprocesor for groff, allowing addition of Chinese
-          European-like language Pinyin into groff files.</para>
+          <para>Groff 的预处理器，允许在 groff 文件中添加类似欧洲语言的中文拼音。</para>
           <indexterm zone="ch-system-groff gpinyin">
             <primary sortas="b-gpinyin">gpinyin</primary>
           </indexterm>

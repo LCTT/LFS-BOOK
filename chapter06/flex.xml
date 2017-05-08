@@ -40,10 +40,7 @@
   <sect2 role="installation">
     <title>安装 Flex</title>
 
-    <para>The build procedure assumes the <application>help2man</application>
-    program is available to create a man page from the executable --help option.
-    This is not present, so we use an environment variable to skip this process.
-    Now, prepare Flex for compilation:</para>
+    <para>构建过程假设能使用程序 <application>help2man</application> 的 --help 选项来创建 man 手册。但这显然是不存在的，所以我们使用环境变量来跳过这步。现在，准备编译 Flex：</para>
 
 <screen><userinput remap="configure">HELP2MAN=/tools/bin/true \
 ./configure --prefix=/usr --docdir=/usr/share/doc/flex-&flex-version;</userinput></screen>
@@ -56,7 +53,7 @@
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>One test, <emphasis>cxx_restart</emphasis>, is known to fail.</para>
+    <para>有一个测试，<emphasis>cxx_restart</emphasis> 已知会失败。</para>
 
     <para>安装软件包：</para>
 

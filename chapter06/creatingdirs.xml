@@ -40,14 +40,8 @@ mkdir -pv /var/{opt,cache,lib/{color,misc,locate},local}</userinput></screen>
   <sect2>
     <title>关于 FHS 兼容性</title>
 
-    <para>The directory tree is based on the Filesystem Hierarchy Standard
-    (FHS) (available at <ulink
-    url="https://wiki.linuxfoundation.org/en/FHS"/>).  The FHS also stipulates
-    the optional existence some directories such as <filename
-    class="directory">/usr/local/games</filename> and <filename
-    class="directory">/usr/share/games</filename>.  We create only the
-    directories that are needed. However, feel free to create these
-    directories.  </para>
+    <para>这个目录树是基于文件系统目录结构标准（FHS）（参看 <ulink
+    url="https://wiki.linuxfoundation.org/en/FHS"/>）。FHS 标准还规定了要有 <filename class="directory">/usr/local/games</filename> 和 <filename class="directory">/usr/share/games</filename> 目录。我们只创建了我们需要的目录。然而，如果你更喜欢严格遵守 FHS 标准，创建这些目录也无妨。</para>
 
   </sect2>
 

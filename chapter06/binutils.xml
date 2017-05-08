@@ -68,36 +68,33 @@ cd       build</userinput></screen>
              --disable-werror    \
              --with-system-zlib</userinput></screen>
     <variablelist>
-      <title>The meaning of the configure parameters:</title>
+      <title>配置参数的意义：</title>
 
       <varlistentry>
         <term><parameter>--enable-gold</parameter></term>
         <listitem>
-          <para>Build the gold linker and install it as ld.gold (along side the
-          default linker).</para>
+          <para>构建 gold 链接器并将其安装为 ld.gold（紧挨着默认链接器）。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--enable-ld=default</parameter></term>
         <listitem>
-          <para>Build the original bdf linker and install it as both ld (the
-          default linker) and ld.bfd.</para>
+          <para>构建原来的 bdf 链接器并将其安装为 ld（默认链接器）和 ld.bfd。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--enable-plugins</parameter></term>
         <listitem>
-          <para>Enables plugin support for the linker.</para>
+          <para>为链接器启用插件支持。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--with-system-zlib</parameter></term>
         <listitem>
-          <para>Use the installed zlib library rather than building the
-          included version.</para>
+          <para>使用安装的 zlib 库替代自带的版本构建。</para>
         </listitem>
       </varlistentry>
 

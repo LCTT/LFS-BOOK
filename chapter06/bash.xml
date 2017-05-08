@@ -78,8 +78,7 @@
 
 <screen><userinput remap="test">su nobody -s /bin/bash -c "PATH=$PATH make tests"</userinput></screen>
 
-    <para>Install the package and move the main executable to
-    <filename class='directory'>/bin</filename>:</para>
+    <para>安装软件包并将主要的可执行文件移动至 <filename class='directory'>/bin</filename>：</para>
 
 <screen><userinput remap="install">make install
 mv -vf /usr/bin/bash /bin</userinput></screen>
