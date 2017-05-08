@@ -40,8 +40,7 @@
   <sect2 role="installation">
     <title>安装 GCC</title>
 
-    <para>If building on x86_64, change the default directory name for 64-bit
-    libraries to <quote>lib</quote>:</para>
+    <para>如果是在 x86_64 上实施构建，为了 64 位库，请将默认目录名改为 <quote>lib</quote>：</para>
 
 <screen><userinput remap="pre">case $(uname -m) in
   x86_64)

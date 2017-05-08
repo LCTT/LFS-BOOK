@@ -46,9 +46,7 @@
  
 <screen><userinput remap="pre">patch -Np1 -i ../&glibc-fhs-patch;</userinput></screen>
 
-    <para>Create a symlink for LSB compliance and, for x86_64, a
-    compatibility symlink required for the dynamic loader to function
-    correctly:</para>
+    <para>为了符合 LSB 规范创建一个软链接，x86_64 情况下，为了使动态加载器正确运作，再创建一个兼容性的软链接：</para>
 
 <screen><userinput remap="pre">case $(uname -m) in
     x86) ln -s ld-linux.so.2 /lib/ld-lsb.so.3
