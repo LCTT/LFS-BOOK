@@ -45,16 +45,12 @@
 <screen><userinput remap="configure">./configure --prefix=/usr --disable-static</userinput></screen>
 
     <variablelist>
-      <title>configure 参数的含义:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--disable-static</parameter></term>
         <listitem>
-          <para>In this case, the top-level configure script will complain that
-          this is an unrecognized option, but the configure script for
-          XSParagraph recognizes it and uses it to disable installing a static
-          <filename class="libraryfile">XSParagraph.a</filename> to <filename
-          class="directory">/usr/lib/texinfo</filename>.</para>
+          <para>顶级的配置脚本会告诉你这是一个未能识别的选项，但是 XSParagraph 的配置脚本能够识别它，并能用其禁用安装静态 <filename class="libraryfile">XSParagraph.a</filename> 至 <filename class="directory">/usr/lib/texinfo</filename> 的操作。</para>
         </listitem>
       </varlistentry>
 

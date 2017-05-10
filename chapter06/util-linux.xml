@@ -629,8 +629,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="lsipc">
         <term><command>lsipc</command></term>
         <listitem>
-          <para>Prints information on IPC facilities currently employed
-          in the system</para>
+          <para>打印目前使用的 IPC 设备的信息</para>
           <indexterm zone="ch-system-util-linux lsipc">
             <primary sortas="b-lsipc">lsipc</primary>
           </indexterm>
@@ -1040,7 +1039,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="uname26">
         <term><command>uname26</command></term>
         <listitem>
-          <para>A symbolic link to setarch</para>
+          <para>一个到 setarch 的软链接</para>
           <indexterm zone="ch-system-util-linux uname26">
             <primary sortas="b-uname26">uname26</primary>
           </indexterm>

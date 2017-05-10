@@ -101,11 +101,7 @@ endif
 " End /etc/vimrc</literal>
 EOF</userinput></screen>
 
-    <para><parameter>set nocompatible</parameter> 设置让 <command>vim</command> 比 vi 兼容模式更有用。删掉 <quote>no</quote> 以保留旧的 <command>vi</command> 特性。<parameter>set backspace=2</parameter> 设置让退格跨越换行、自动缩进和插入的开始。<parameter>syntax on</parameter> 参数使 vim 能高亮显示语法。
-    The <parameter>set mouse=r</parameter> setting enables
-    proper pasting of text with the mouse when working in chroot or over a
-    remote connection.
-    最后，带有 <parameter>set  background=dark</parameter> 的 <emphasis>if</emphasis> 语句矫正了 <command>vim</command> 对于某些终端模拟器的背景颜色的估算。这让某些写在黑色背景上的程序的高亮色能有更好的调色方案。</para>
+    <para>设置 <parameter>set nocompatible</parameter> 让 <command>vim</command> 比 vi 兼容模式更有用。删掉 <quote>no</quote> 以保留旧的 <command>vi</command> 特性。设置 <parameter>set backspace=2</parameter> 让退格跨越换行、自动缩进和插入的开始。<parameter>syntax on</parameter> 参数使 vim 能高亮显示语法。设置 <parameter>set mouse=r</parameter> 让你能在 chroot 和远程连接的时候用鼠标粘帖文本。最后，带有 <parameter>set  background=dark</parameter> 的 <emphasis>if</emphasis> 语句矫正了 <command>vim</command> 对于某些终端模拟器的背景颜色的估算。这让某些写在黑色背景上的程序的高亮色能有更好的调色方案。</para>
 
     <para>用下面的命令可以获得其它选项的文档：</para>
 

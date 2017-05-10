@@ -8,7 +8,7 @@
 <sect1 id="ch-finish-theend">
   <?dbhtml filename="theend.html"?>
 
-  <title>The End</title>
+  <title>最后的最后</title>
 
   <indexterm zone="ch-finish-theend">
     <primary sortas="e-/etc/lfs-release">/etc/lfs-release</primary>
@@ -34,19 +34,11 @@ PRETTY_NAME="Linux From Scratch &versiond;"
 VERSION_CODENAME="&lt;your name here&gt;"
 EOF</userinput></screen>
 
-  <para revision="sysv">It may be a good idea to create an
-  <filename>/etc/lfs-release</filename> file. By having this file, it is very
-  easy for you (and for us if you need to ask for help at some point) to find
-  out which LFS version is installed on the system. Create this file by
-  running:</para>
+  <para revision="sysv">创建 <filename>/etc/lfs-release</filename> 是个好主意。该文件能帮助你（和我们，如果你需要我们帮助的话）确定你当前使用的 LFS 版本。运行以下命令以创建该文件：</para>
 
 <screen revision="sysv"><userinput>echo &version; &gt; /etc/lfs-release</userinput></screen>
 
-  <para revision="systemd">Creating the file
-  <filename>/etc/lfs-release</filename> is recommended for compatibility with
-  the non-systemd branch. By having this file, it is very easy for you (and for
-  us if you need to ask for help at some point) to find out which LFS version
-  is installed on the system. Create this file by running:</para>
+  <para revision="systemd">建议和非 systemd 分支一样创建文件 <filename>/etc/lfs-release</filename>。该文件能帮助你（和我们，如果你需要我们帮助的话）确定你当前使用的 LFS 版本。运行以下命令以创建该文件：</para>
 
 <screen revision="systemd"><userinput>echo &versiond; &gt; /etc/lfs-release</userinput></screen>
 
