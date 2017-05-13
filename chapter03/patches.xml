@@ -96,7 +96,7 @@
 
 <!-- 
     <varlistentry revision="systemd">
-      <term>Systemd 安全补丁 - <token>&systemd-security-patch-size;</token>:</term>
+      <term>systemd 安全补丁 - <token>&systemd-security-patch-size;</token>:</term>
       <listitem>
         <para>下载： <ulink url="&patches-root;&systemd-security-patch;"/></para>
         <para>MD5 校验和： <literal>&systemd-security-patch-md5;</literal></para>

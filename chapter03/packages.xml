@@ -568,7 +568,7 @@
     </varlistentry>
 
     <varlistentry revision="systemd">
-      <term>Systemd (&systemd-version;) - <token>&systemd-size;</token>:</term>
+      <term>systemd (&systemd-version;) - <token>&systemd-size;</token>:</term>
       <listitem>
         <para>主页： <ulink url="&systemd-home;"/></para>
         <para>下载： <ulink url="&systemd-url;"/></para>

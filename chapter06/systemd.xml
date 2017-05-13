@@ -14,7 +14,7 @@
     <address>&systemd-url;</address>
   </sect1info>
 
-  <title>Systemd-&systemd-version;</title>
+  <title>systemd-&systemd-version;</title>
 
   <indexterm zone="ch-system-systemd">
     <primary sortas="a-systemd">systemd</primary>
@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Systemd 软件包包含用于控制启动、运行和关闭系统的程序。</para>
+    <para>systemd 软件包包含用于控制启动、运行和关闭系统的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
