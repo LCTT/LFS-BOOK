@@ -96,9 +96,9 @@
   </sect2>
 <!--
   <sect2 id='sysd-desc'>
-    <title>Systemd</title>
+    <title>systemd</title>
 
-    <para>Systemd is a group of interconnected programs that handles system and
+    <para>systemd is a group of interconnected programs that handles system and
     individual process requests.  It provides a dependency system between
     various entities called "units".  It automatically addresses dependencies
     between units and can execute several startup tasks in parallel.  It

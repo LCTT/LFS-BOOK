@@ -8,10 +8,10 @@
 <sect1 id="ch-scripts-systemd-custom" revision="systemd">
   <?dbhtml filename="systemd-custom.html"?>
 
-  <title>Systemd 的用法与配置</title>
+  <title>systemd 的用法与配置</title>
 
   <indexterm zone="ch-scripts-systemd-custom">
-    <primary sortas="e-Systemd">Systemd 配置</primary>
+    <primary sortas="e-systemd">systemd 配置</primary>
   </indexterm>
 
   <sect2>

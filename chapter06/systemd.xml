@@ -14,7 +14,7 @@
     <address>&systemd-url;</address>
   </sect1info>
 
-  <title>Systemd-&systemd-version;</title>
+  <title>systemd-&systemd-version;</title>
 
   <indexterm zone="ch-system-systemd">
     <primary sortas="a-systemd">systemd</primary>
@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Systemd 软件包包含用于控制启动、运行和关闭系统的程序。</para>
+    <para>systemd 软件包包含用于控制启动、运行和关闭系统的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -646,7 +646,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="udevadm">
         <term><command>udevadm</command></term>
         <listitem>
-          <para>通用 Udev 管理工具：控制 udevd 守护进程、从 Udev 数据库提供信息、 监控 uevent、等待 uevent 完成、检测 Udev 配置、为指定设备触发 uevents</para>
+          <para>通用 udev 管理工具：控制 udevd 守护进程、从 udev 数据库提供信息、 监控 uevent、等待 uevent 完成、检测 udev 配置、为指定设备触发 uevents</para>
           <indexterm zone="ch-system-systemd udevadm">
             <primary sortas="b-udevadm">udevadm</primary>
           </indexterm>
@@ -666,7 +666,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="libudev">
         <term><filename class="libraryfile">libudev</filename></term>
         <listitem>
-          <para>用于获取 Udev 设备信息的库</para>
+          <para>用于获取 udev 设备信息的库</para>
           <indexterm zone="ch-system-systemd libudev">
             <primary sortas="c-libudev">libudev</primary>
           </indexterm>

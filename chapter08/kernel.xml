@@ -122,15 +122,15 @@ File systems  ---&gt;
       <varlistentry>
         <term><parameter>Support for uevent helper</parameter></term>
         <listitem>
-          <para>打开这个选项会影响 Udev/Eudev 设备管理。</para>
+          <para>打开这个选项会影响 udev/Eudev 设备管理。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>Maintain a devtmpfs</parameter></term>
         <listitem>
-          <para>这个选项允许内核在 Udev 运行之前就创建自动设备节点。之后 Udev 在这个基础上运行，
-            管理权限以及增加软链接。对于所有 Udev/Eudev 用户，这个配置项是必须的。</para>
+          <para>这个选项允许内核在 udev 运行之前就创建自动设备节点。之后 udev 在这个基础上运行，
+            管理权限以及增加软链接。对于所有 udev/Eudev 用户，这个配置项是必须的。</para>
         </listitem>
       </varlistentry>
 

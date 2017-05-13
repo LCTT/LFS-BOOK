@@ -33,7 +33,7 @@ mknod -m 666 $LFS/dev/null c 1 3</userinput></screen>
   <sect2 id="ch-system-bindmount">
     <title>挂载和激活 /dev</title>
 
-      <para>通常激活 <filename class="directory">/dev</filename> 目录下设备的方式是在 <filename class="directory">/dev</filename> 目录挂载一个虚拟文件系统（比如 <systemitem class="filesystem">tmpfs</systemitem>）， 然后允许在检测到设备或打开设备时在这个虚拟文件系统里动态创建设备节点。这个通常是在启动过程中由 Udev 完成。 由于我们的新系统还没有 Udev，也没有被引导，有必要手动挂载和激活  <filename class="directory">/dev</filename>这可以通过绑定挂载宿主机系统的 <filename class="directory">/dev</filename> 目录来实现。绑定挂载是一种特殊的挂载模式，它允许在另外的位置创建某个目录或挂载点的镜像。运行下面的命令来实现：</para>
+      <para>通常激活 <filename class="directory">/dev</filename> 目录下设备的方式是在 <filename class="directory">/dev</filename> 目录挂载一个虚拟文件系统（比如 <systemitem class="filesystem">tmpfs</systemitem>）， 然后允许在检测到设备或打开设备时在这个虚拟文件系统里动态创建设备节点。这个通常是在启动过程中由 udev 完成。 由于我们的新系统还没有 udev，也没有被引导，有必要手动挂载和激活  <filename class="directory">/dev</filename>这可以通过绑定挂载宿主机系统的 <filename class="directory">/dev</filename> 目录来实现。绑定挂载是一种特殊的挂载模式，它允许在另外的位置创建某个目录或挂载点的镜像。运行下面的命令来实现：</para>
 
 <screen><userinput>mount -v --bind /dev $LFS/dev</userinput></screen>
 

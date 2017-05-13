@@ -373,7 +373,7 @@
       </listitem>
 
       <listitem revision="systemd">
-        <para>Systemd</para>
+        <para>systemd</para>
 
         <para>作为 Sysvinit 的替代品，这个包提供了一个
         <application>init</application> 程序以及一些其它的引导和系统控
