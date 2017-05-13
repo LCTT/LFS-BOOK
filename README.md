@@ -61,7 +61,7 @@
 * **未实施**   chapter07/network.xml
 * **已完成**   chapter07/udev.xml
 * **已完成**   chapter07/symlinks.xml （大段追加）
-* **未实施**   chapter07/systemd-custom.xml（大段追加）
+* **已完成**   chapter07/systemd-custom.xml（大段追加）
 * **已完成**   chapter08/kernel.xml
 * **已完成**   chapter08/grub.xml
 * **已完成**   chapter09/teend.xml

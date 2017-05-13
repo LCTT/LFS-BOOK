@@ -89,124 +89,67 @@ EOF</userinput></screen>
   </sect2>
 
   <sect2>
-    <title>Debugging the Boot Sequence</title>
+    <title>调试启动顺序</title>
 
-    <para>Rather than plain shell scripts used in SysVinit or BSD style init
-    systems, systemd uses a unified format for different types of startup
-    files (or units). The command <command>systemctl</command> is used to
-    enable, disable, controll state, and obtain status of unit files. Here 
-    are some examples of frequently used commands:</para>
+    <para>相较于 SysVinit 或 BSD 风格的初始化使用的是简单的 shell 脚本，而 systemd 对于不同类型的启动文件（或单元）使用的是统一的格式。<command>systemctl</command> 命令可用于用于，启用，禁用，控制状态，和获取单元文件的状态。以下是一些常用命令的示例：</para>
 
     <itemizedlist>
        <listitem>
-         <para><command>systemctl list-units -t <replaceable>&lt;service&gt;</replaceable> [--all]</command>:
-         lists loaded unit files of type service.</para>
+         <para><command>systemctl list-units -t <replaceable>&lt;service&gt;</replaceable> [--all]</command>：列出加载的服务类型的单元文件。</para>
        </listitem>
        <listitem>
-         <para><command>systemctl list-units -t <replaceable>&lt;target&gt;</replaceable> [--all]</command>:
-         lists loaded unit files of type target.</para>
+         <para><command>systemctl list-units -t <replaceable>&lt;target&gt;</replaceable> [--all]</command>：列出加载的目标类型的单元文件。</para>
        </listitem>
        <listitem>
-         <para><command>systemctl show -p Wants <replaceable>&lt;multi-user.target&gt;</replaceable></command>:
-         shows all units that depend on the multi-user target. Targets are
-         special unit files that are anogalous to runlevels under
-         SysVinit.</para>
+         <para><command>systemctl show -p Wants <replaceable>&lt;multi-user.target&gt;</replaceable></command>：显示所有依赖多用户的目标。目标是与 SysVinit 运行级不同的特殊单元文件。</para>
        </listitem>
        <listitem>
-         <para><command>systemctl status <replaceable>&lt;servicename.service&gt;</replaceable></command>:
-         shows the status of the servicename service. The .service extension
-         can be omitted if there are no other unit files with the same name,
-         such as .socket files (which create a listening socket that provides
-         similar functionality to inetd/xinetd).</para>
+         <para><command>systemctl status <replaceable>&lt;servicename.service&gt;</replaceable></command>：显示服务名称服务的状态。扩展名 .service 在没有同名单元文件，例如 .socket（创建监听套接字功能与 inetd/xinetd 相似的）文件，的情况下可以省略。</para>
        </listitem>
     </itemizedlist>
 
   </sect2>
 
   <sect2>
-    <title>Working with the Systemd Journal</title>
+    <title>使用 systemd 日志</title>
 
-    <para>Logging on a system booted with systemd is handled with
-    systemd-journald (by default), rather than a typical unix syslog daemon.
-    You can also add a normal syslog daemon and have both work side by
-    side if desired. The systemd-journald program stores journal entries in a
-    binary format rather than a plain text log file. To assist with
-    parsing the file, the command <command>journalctl</command> is provided.
-    Here are some examples of frequently used commands:</para>
+    <para>systemd 启动的系统上的日志记录（默认）由 systemd-journald 处理的，而不是传统的 unix syslog 守护程序。如果需要，你也可以添加 syslog 的守护进程与之并行运作。systemd-journald 程序使用二进制形式存储日志条目而非纯文本的日志文件。为了帮助解析文件，提供了 <command>journalctl</command> 命令。以下是一些常用命令的示例：</para>
 
     <itemizedlist>
        <listitem>
-         <para><command>journalctl -r</command>: shows all contents of the
-         journal in reverse chronological order.</para>
+         <para><command>journalctl -r</command>：按时间逆序现实所有的内容。</para>
        </listitem>
        <listitem>
-         <para><command>journalctl -u <replaceable>UNIT</replaceable></command>:
-         shows the journal entries associated with the specified UNIT
-         file.</para>
+         <para><command>journalctl -u <replaceable>UNIT</replaceable></command>：显示与指定 UNIT 相关的日志条目。</para>
        </listitem>
        <listitem>
-         <para><command>journalctl -b[=ID] -r</command>: shows the journal
-         entries since last successfull boot (or for boot ID) in reverse
-         chronological order.</para>
+         <para><command>journalctl -b[=ID] -r</command>：按时间逆序显示自上次成功启动（或启动 ID）的日志条目。</para>
        </listitem>
        <listitem>
-         <para><command>journalctl -f</command>: povides functionality similar
-         to tail -f (follow).</para>
+         <para><command>journalctl -f</command>：提供类似与 tail -f (follow) 类似的功能。</para>
        </listitem>
     </itemizedlist>
 
   </sect2>
 
   <sect2>
-    <title>Long Running Processes</title>
+    <title>长时间运行进程</title>
 
-    <para>Beginning with systemd-230, all user processes are killed when a
-    user session is ended, even if nohup is used, or the process uses
-    <function>daemon()</function> or <function>setsid()</function>. This is a
-    deliberate change from a historically permissive environment to a more
-    restrictive one. The new behavior may cause issues if you depend on long
-    running programs (e.g., <command>screen</command> or
-    <command>tmux</command>) to remain active after ending your user
-    session. There are three ways to enable lingering processes to remain after
-    a user session is ended.</para>
+    <para>自 systemd-230 开始，用户的所有进程都会随着用户会话的结束而被杀死，即使你用了 nohup，或进程使用了 <function>daemon()</function> 或是 <function>setsid()</function>。这是为了是让原先宽松的环境变得更为严格而故意为之的。如果你依赖长时间运行的程序（例如，<command>screen</command> 或是 <command>tmux</command>），需要在你结束用户会话后保持运作。有三个方法能让进程保持在用户会话结束后仍然逗留。</para>
 
     <itemizedlist>
       <listitem>
         <para>
-          <emphasis>Enable process lingering for only needed users</emphasis>:
-          normal users have permission to enable process lingering
-          with the command <command>loginctl enable-linger</command> for their
-          own user. System administrators can use the same command with a
-          <parameter>user</parameter> argument to enable for a user. That user
-          can then use the <command>systemd-run</command> command to start
-          long running processes. For example: <command>systemd-run --scope
-          --user /usr/bin/screen</command>. If you enable lingering for your
-          user, the user@.service will remain even after all login sessions are
-          closed, and will automatically start at system boot. This has the
-          advantage of explicitly allowing and disallowing processes to run
-          after the user session has ended, but breaks backwards compatibility
-          with tools like <command>nohup</command> and utilities that use
-          <function>deamon()</function>.
-        </para>
+          <emphasis>仅为需要的用户启用进程逗留</emphasis>：正常用户有权使用命令 <command>loginctl enable-linger</command> 来为其启用进程逗留。系统管理员可以使用相同的命令伴随着 <parameter>user</parameter> 参数，来帮某个用户实现。用户可以在之后使用命令 <command>systemd-run</command> 来启动长时间运行进程。举个例子：<command>systemd-run --scope
+          --user /usr/bin/screen</command>。如果你为你的用户启用了逗留，user@.service 会在所有的登录会话被关闭后仍然保留，并在系统启动后自动启动。这样做的好处是明确地表明是否允许进程在用户会话结束后继续运行，但却打破了对于类似于 <command>nohup</command> 之类工具和使用 <function>deamon()</function> 的公用方法的向后兼容。</para>
       </listitem>
       <listitem>
         <para>
-          <emphasis>Enable system-wide process lingering</emphasis>:
-          you can set <parameter>KillUserProcesses=no</parameter> in
-          <filename>/etc/logind.conf</filename> to enable process lingering
-          globally for all users. This has the benefit of leaving the old
-          method available to all users at the expense of explicit control.
-        </para>
+          <emphasis>启用系统范围的进程逗留</emphasis>：你可以在 <filename>/etc/logind.conf</filename> 中设置 <parameter>KillUserProcesses=no</parameter> 来全局地为每个用户启用进程逗留。这在牺牲明确控制的同时，带来了将旧方法提供给所有用户的好处。</para>
       </listitem>
       <listitem>
         <para>
-          <emphasis>Disable at build-time</emphasis>: You can enable
-          lingering by default while building systemd by adding the switch
-          <parameter>--without-kill-user-processes</parameter> to the
-          <command>configure</command> command for systemd. This completely
-          disables the ability of systemd to kill user processes at session
-          end.
-        </para>
+          <emphasis>在构建时禁用</emphasis>：你可以通过在构建 systemd 时向命令 <command>configure</command> 添加 <parameter>--without-kill-user-processes</parameter>，以此来默认启用逗留。这会使 systemd 完全丧失在用户会话结束后杀死进程的能力。</para>
       </listitem>
     </itemizedlist>
 
