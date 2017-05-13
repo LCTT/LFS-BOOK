@@ -29,16 +29,7 @@ grub-mkrescue --output=grub-img.iso
 xorriso -as cdrecord -v dev=/dev/cdrw blank=as_needed grub-img.iso</userinput></screen>
 
     <note>
-      <para>
-        To boot LFS on host systems that have UEFI enabled, the kernel needs to
-        have been built with the CONFIG_EFI_STUB capabality described in the
-        previous section.  However, LFS can be booted using GRUB2 without such
-        an addition. To do this, the UEFI Mode and Secure Boot capabilities in
-        the host system's BIOS need to be turned off.  For details, see <ulink
-        url="http://www.linuxfromscratch.org/hints/downloads/files/lfs-uefi.txt">
-        the lfs-uefi.txt hint</ulink> at
-        http://www.linuxfromscratch.org/hints/downloads/files/lfs-uefi.txt.
-      </para>
+      <para>想要在启用 UEFI 的宿主系统上引导 LFS，需要遵循上一节的描述在内核中构建 CONFIG_EFI_STUB 功能。也可以使用 GRUB2 来引导 LFS，这样就无需实施以上的额外操作了。但需要在宿主系统的 BIOS 中关闭 UEFI 模式和安全引导（Secure Boot）功能。详细参见文件 <ulink url="http://www.linuxfromscratch.org/hints/downloads/files/lfs-uefi.txt">lfs-uefi.txt</ulink>。</para>
     </note>
 
   </sect2>
@@ -59,7 +50,7 @@ xorriso -as cdrecord -v dev=/dev/cdrw blank=as_needed grub-img.iso</userinput></
   </sect2>
 
   <sect2>
-    <title>配置配置文件Setting Up the Configuration</title>
+    <title>配置配置文件</title>
 
     <para>GRUB 会将一些数据写入硬盘的第一个物理扇区。这一部分不属于任何一个操作系统，在启动时，
       该部分数据激活，然后寻找 Grub 的模块，Grub 模块的默认位置为 /boot/grub/。</para>

@@ -106,21 +106,14 @@ File systems  ---&gt;
     (&lfs-root;blfs/view/&short-version;/longindex.html#kernel-config-index).</para>
 
     <note>
-      <para>If your host hardware is using UEFI, then the 'make defconfig'
-      above should automatically add in some EFI-related kernel options.</para>
+      <para>如果你主机的硬件用的是 UEFI，那么上面的‘make defconfig’应该会自动添加一些 EFI 相关的内核选项。</para>
 
-      <para>In order to allow your LFS kernel to be booted from within your
-      host's UEFI boot environment, your kernel must have this option
-      selected:</para>
+      <para>为了让你的 LFS 内核，在你的主机是 UEFI 引导环境的情况下，能够被引导，你的内核必须要有这项：</para>
 
 <screen role="nodump">Processor type and features  ---&gt;
    [*]   EFI stub support  [CONFIG_EFI_STUB]</screen>
 
-      <para>A fuller description of managing UEFI environments from within LFS
-      is covered by the lfs-uefi.txt hint at
-      <ulink 
-        url="http://www.linuxfromscratch.org/hints/downloads/files/lfs-uefi.txt"/>.
-      </para>
+   <para>文件 lfs-uefi.txt 中包含了管理 UEFI 环境的完整描述，参见 <ulink url="http://www.linuxfromscratch.org/hints/downloads/files/lfs-uefi.txt"/>。</para>
     </note>
 
     <variablelist>
@@ -146,20 +139,14 @@ File systems  ---&gt;
 <screen role="nodump"><userinput>make menuconfig</userinput></screen>
 
     <variablelist>
-      <title>The meaning of optional make environment variables:</title>
+      <title>可选 make 环境变量的含义：</title>
 
       <varlistentry>
         <term><parameter>LANG=&lt;host_LANG_value&gt; LC_ALL=</parameter></term>
         <listitem>
-          <para>This establishes the locale setting to the one used on the
-          host.  This may be needed for a proper menuconfig ncurses interface
-          line drawing on a UTF-8 linux text console.</para>
+          <para>建立与宿主系统相同的地域设定。在 UTF-8 linux 文本命令行上逐行绘制适宜的 menuconfig ncurses 接口时可能需要这项配置。</para>
 
-          <para>If used, be sure to replace
-          <replaceable>&lt;host_LANG_value&gt;</replaceable> by the value of
-          the <envar>$LANG</envar> variable from your host.  You can
-          alternatively use instead the host's value of <envar>$LC_ALL</envar>
-          or <envar>$LC_CTYPE</envar>.</para>
+          <para>要使用的话，请我务必使用宿主系统中的变量 <envar>$LANG</envar> 去代替 <replaceable>&lt;host_LANG_value&gt;</replaceable>。你也可以用宿主系统中的 <envar>$LC_ALL</envar> 或 <envar>$LC_CTYPE</envar> 来代替。</para>
         </listitem>
       </varlistentry>
 

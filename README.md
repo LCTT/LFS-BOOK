@@ -55,15 +55,16 @@
 * **已完成**   chapter06/sed.xml
 * **已完成**   chapter06/shadow.xml
 * **已完成**   chapter06/systemd.xml
-* **martin**   chapter06/texinfo.xml
-* **martin**   chapter06/util-linux.xml
-* **martin**   chapter06/vim.xml
-* **martin**   chapter07/udev.xml
-* **未实施**   chapter07/symlinks.xml （大段追加）
-* **martin**   chapter07/systemd-custom.xml（大段追加）
-* **martin**   chapter08/kernel.xml
-* **martin**   chapter08/grub.xml
-* **martin**   chapter09/teend.xml
+* **已完成**   chapter06/texinfo.xml
+* **已完成**   chapter06/util-linux.xml
+* **已完成**   chapter06/vim.xml
+* **未实施**   chapter07/network.xml
+* **已完成**   chapter07/udev.xml
+* **已完成**   chapter07/symlinks.xml （大段追加）
+* **已完成**   chapter07/systemd-custom.xml（大段追加）
+* **已完成**   chapter08/kernel.xml
+* **已完成**   chapter08/grub.xml
+* **已完成**   chapter09/teend.xml
 
 ### 校对
 
