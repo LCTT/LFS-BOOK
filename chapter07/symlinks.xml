@@ -14,7 +14,7 @@
 
     <title>网络设备</title>
 
-    <para>一般来说，Udev 根据获取到的固件/BIOS 信息或者一些像总线号、插槽号或 MAC 地址等物理信息来命名网络设备。之所以采用这样的命名方式，是为了确保网络设备可以得到一个持久化的名称，且这个名称不会随着设备的发现时间而改变。例如，在一台同时拥有 Intel 网卡和 Realtek 网卡的双网卡计算机上，Intel 网卡可能会被命名为 eth0 而 Realtek 网卡可能会被命名为 eth1。在某些情况下，可能是一次重启使网卡重新编号了。</para>
+    <para>一般来说，udev 根据获取到的固件/BIOS 信息或者一些像总线号、插槽号或 MAC 地址等物理信息来命名网络设备。之所以采用这样的命名方式，是为了确保网络设备可以得到一个持久化的名称，且这个名称不会随着设备的发现时间而改变。例如，在一台同时拥有 Intel 网卡和 Realtek 网卡的双网卡计算机上，Intel 网卡可能会被命名为 eth0 而 Realtek 网卡可能会被命名为 eth1。在某些情况下，可能是一次重启使网卡重新编号了。</para>
     
     <para>在持久化命名方式中，典型的网络设备名称看起来可能像 enp5s0 或者 wlp3s0 。如果你不希望采用这种命名方式，则还可以采用传统命名或者自定义的命名方式。</para>
 
@@ -25,9 +25,9 @@
     </sect3>
 
     <sect3>
-      <title>创建自定义 Udev 规则</title>
+      <title>创建自定义 udev 规则</title>
    
-      <para>可以通过创建自定义 Udev 规则来改变网络设备命名方式。这里有一个脚本可以创建初始规则，运行：</para>
+      <para>可以通过创建自定义 udev 规则来改变网络设备命名方式。这里有一个脚本可以创建初始规则，运行：</para>
 
 <screen role="install"><userinput>bash /lib/udev/init-net-rules.sh</userinput></screen>
 
@@ -37,19 +37,19 @@
 
       <note><para>当某些特定情形下，如当一个 MAC 地址被手动指定给一个网卡或者如 Qemu 或 Xen 这样的虚拟环境时，可能并不会生成上述的网络规则文件。这是由于手动指定的 MAC 地址并不是永久固定的。在这种情况下，不能采用持久化命名方式来确定设备名称。</para></note>
   
-      <para>这个文件应由一个注释段落开头。之后每个网卡都对应有两行信息。第一行以注释形式描述了该网卡的硬件信息（如果是 PCI 网卡，还有其 PCI 厂商标识和设备标识），如果对应的驱动程序存在，还应在随后的括号中注明。要注意，该注释行中的硬件标识和驱动程序都不能决定其接口名，仅做参考作用。第二行则是网卡的 Udev 规则，根据该规则可以确定网卡的设备名称。</para>
+      <para>这个文件应由一个注释段落开头。之后每个网卡都对应有两行信息。第一行以注释形式描述了该网卡的硬件信息（如果是 PCI 网卡，还有其 PCI 厂商标识和设备标识），如果对应的驱动程序存在，还应在随后的括号中注明。要注意，该注释行中的硬件标识和驱动程序都不能决定其接口名，仅做参考作用。第二行则是网卡的 udev 规则，根据该规则可以确定网卡的设备名称。</para>
   
-      <para>所有的 Udev 规则均由若干的键组成，之间由逗号或空格分割，解释如下：</para>
+      <para>所有的 udev 规则均由若干的键组成，之间由逗号或空格分割，解释如下：</para>
   
       <itemizedlist>
         <listitem>
-          <para><literal>SUBSYSTEM=="net"</literal> - 让 Udev 忽略不是网卡的设备。</para>
+          <para><literal>SUBSYSTEM=="net"</literal> - 让 udev 忽略不是网卡的设备。</para>
         </listitem>
         <listitem>
-          <para><literal>ACTION=="add"</literal> - 让 Udev 对增加 uevent 以外的操作，忽略该规则（删除 uevent 和改变 uevent 也会发生，但都不会导致网络接口重新命名）。</para>
+          <para><literal>ACTION=="add"</literal> - 让 udev 对增加 uevent 以外的操作，忽略该规则（删除 uevent 和改变 uevent 也会发生，但都不会导致网络接口重新命名）。</para>
         </listitem>
         <listitem>
-          <para><literal>DRIVERS=="?*"</literal> - 让 Udev 忽略 VLAN 和桥接子接口。（由于这些子接口没有独立的驱动程序）。而且子接口的名称可能会与父接口的名字相冲突，因而会被忽略。</para>
+          <para><literal>DRIVERS=="?*"</literal> - 让 udev 忽略 VLAN 和桥接子接口。（由于这些子接口没有独立的驱动程序）。而且子接口的名称可能会与父接口的名字相冲突，因而会被忽略。</para>
         </listitem>
         <listitem>
           <para><literal>ATTR{address}</literal> - 该键值表示网卡的 MAC 地址。</para>
@@ -58,7 +58,7 @@
           <para><literal>ATTR{type}=="1"</literal> - 对于一些可能会产生多个虚拟接口的无线网卡驱动，该键用于确保规则只会应用于其首要接口。和之前的 VLAN 接口和桥接子接口的理由一样，次要接口会被忽略。</para>
         </listitem>
         <listitem>
-          <para><literal>NAME</literal> - 这个键中的值将是 Udev 指定给接口的名称。</para>
+          <para><literal>NAME</literal> - 这个键中的值将是 udev 指定给接口的名称。</para>
         </listitem>
       </itemizedlist>
   
@@ -72,9 +72,9 @@
 
     <title>CD-ROM 符号链接</title>
 
-    <para>你之后可能会安装的一些应用程序（如各种媒体播放器）需要如下两个符号链接：<filename class="symlink">/dev/cdrom</filename> 和 <filename class="symlink">/dev/dvd</filename> 存在并正确指向一个 CD-ROM 或 DVD-ROM 设备。另外，在 <filename>/etc/fstab</filename> 文件中添加对这些符号链接的引用，在用的时候会更方便。根据计算机中各设备之间的兼容性，Udev 使用了一个脚本来生成创建这些符号链接的规则文件，但是你仍需要决定脚本以两种模式中的哪一种来运行。</para>
+    <para>你之后可能会安装的一些应用程序（如各种媒体播放器）需要如下两个符号链接：<filename class="symlink">/dev/cdrom</filename> 和 <filename class="symlink">/dev/dvd</filename> 存在并正确指向一个 CD-ROM 或 DVD-ROM 设备。另外，在 <filename>/etc/fstab</filename> 文件中添加对这些符号链接的引用，在用的时候会更方便。根据计算机中各设备之间的兼容性，udev 使用了一个脚本来生成创建这些符号链接的规则文件，但是你仍需要决定脚本以两种模式中的哪一种来运行。</para>
 
-    <para>第一种方式是采用 <quote>by-path</quote> 模式（该模式通常默认被 USB 设备和 FireWire 设备使用），这种方式根据 CD 或 DVD 设备的物理路径来创建规则。而第二种方式则是 <quote>by-id</quote> 模式 (这是 IDE 设备和 SCSI 设备的默认方式)，这种方式根据存储在 CD 或 DVD 驱动器中的标识字符串来创建规则。设备的路径可以由 Udev 的 <command>path_id</command> 脚本来获取，而标识字符串则是根据不同的设备类型，使用设备驱动程序自带的 <command>ata_id</command> 或者 <command>scsi_id</command> 命令来获取，具体是哪个取决于你的设备类型。</para>
+    <para>第一种方式是采用 <quote>by-path</quote> 模式（该模式通常默认被 USB 设备和 FireWire 设备使用），这种方式根据 CD 或 DVD 设备的物理路径来创建规则。而第二种方式则是 <quote>by-id</quote> 模式 (这是 IDE 设备和 SCSI 设备的默认方式)，这种方式根据存储在 CD 或 DVD 驱动器中的标识字符串来创建规则。设备的路径可以由 udev 的 <command>path_id</command> 脚本来获取，而标识字符串则是根据不同的设备类型，使用设备驱动程序自带的 <command>ata_id</command> 或者 <command>scsi_id</command> 命令来获取，具体是哪个取决于你的设备类型。</para>
 
     <para>这两种命名方式各有其特定使用场景，应根据可能发生的硬件变化来选择所采用的命名方式。若你希望设备的物理地址（即，其插入的端口和/或插槽）发生改变，例如你计划把一个设备连接到另外一个 IDE 端口或另外一个 USB 连接器，那么应采用 <quote>by-id</quote> 模式来命名设备。在另一方面，如果你仅仅希望改变设备的标识字符串，则可以采用 <quote>by-path</quote> 方式。例如系统中某个设备发生了故障，在其所对应的物理接口上插入另一个功能完全兼容的同类型设备。</para>
 
@@ -83,9 +83,9 @@
 <!-- If you use by-id mode, the symlinks will survive even the transition
      to libata for IDE drives, but that is not for the book. -->
 
-    <important><para>外部设备（例如一个通过 USB 连接的 CD 驱动器）不应该使用 <quote>by-path</quote> 模式来命名，因为这种设备一旦插入不同的物理接口，其地址就可能会发生改变。不仅仅是 CD 和 DVD 驱动器，其他所有外部连接的设备都会产生这种问题，所以在创建 Udev 规则的时候应该避免通过物理地址来识别外部设备。</para></important>
+    <important><para>外部设备（例如一个通过 USB 连接的 CD 驱动器）不应该使用 <quote>by-path</quote> 模式来命名，因为这种设备一旦插入不同的物理接口，其地址就可能会发生改变。不仅仅是 CD 和 DVD 驱动器，其他所有外部连接的设备都会产生这种问题，所以在创建 udev 规则的时候应该避免通过物理地址来识别外部设备。</para></important>
 
-    <para>如果你想查看 Udev 将要对一个特定的 CD-ROM 设备将要使用的脚本，应该在 <filename class="directory">/sys</filename> 文件夹下查找相应的设备文件（例如 <filename class="directory">/sys/block/hdd</filename>）并运行如下的相应命令：</para>
+    <para>如果你想查看 udev 将要对一个特定的 CD-ROM 设备将要使用的脚本，应该在 <filename class="directory">/sys</filename> 文件夹下查找相应的设备文件（例如 <filename class="directory">/sys/block/hdd</filename>）并运行如下的相应命令：</para>
 
 <screen role="nodump"><userinput>udevadm test /sys/block/hdd</userinput></screen>
 
@@ -109,7 +109,7 @@
     <para>正如 <xref linkend="ch-scripts-udev"/> 中解释的，具有相同功能的设备出现在 <filename class="directory">/dev</filename>
     目录下的顺序是随机的。假如你有一个 USB 摄像头和一个电视调谐器，<filename>/dev/video0</filename> 有可能是 USB 摄像头，
     <filename>/dev/video1</filename> 是电视调谐器，有时候又可能是反过来的。对于除声卡和网卡外的设备，
-    都可以通过创建自定义持久性符号链接的 Udev 规则来固定。网卡如何设置请看 <xref linkend="ch-scripts-network"/>，
+    都可以通过创建自定义持久性符号链接的 udev 规则来固定。网卡如何设置请看 <xref linkend="ch-scripts-network"/>，
     网卡的相关设置请看 <ulink url="&blfs-book;postlfs/devices.html">BLFS</ulink>。</para>
 
     <para>对于你所有的硬件，都有可能遇到此问题（尽管此问题可能在你当前的 Linux 发行版上不存在），

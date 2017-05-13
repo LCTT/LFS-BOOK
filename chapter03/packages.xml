@@ -627,7 +627,7 @@
     </varlistentry>
 
     <varlistentry revision="sysv">
-      <term>Udev-lfs Tarball (&udev-lfs-version;) - <token>&udev-lfs-size;</token>:</term>
+      <term>udev-lfs Tarball (&udev-lfs-version;) - <token>&udev-lfs-size;</token>:</term>
       <listitem>
         <para>下载： <ulink url="&udev-lfs-url;"/></para>
         <para>MD5 校验和： <literal>&udev-lfs-md5;</literal></para>
