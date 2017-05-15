@@ -26,6 +26,8 @@
 
 部分内容需要翻译的小节：
 
+####systemd
+
 * **已完成**   chapter02/aboutlfs.xml
 * **已完成**   chapter02/creatingpartition.xml
 * **已完成**   chapter02/introduction.xml
@@ -58,13 +60,28 @@
 * **已完成**   chapter06/texinfo.xml
 * **已完成**   chapter06/util-linux.xml
 * **已完成**   chapter06/vim.xml
-* **未实施**   chapter07/network.xml
+* **已完成**   chapter07/networkd.xml
 * **已完成**   chapter07/udev.xml
 * **已完成**   chapter07/symlinks.xml （大段追加）
 * **已完成**   chapter07/systemd-custom.xml（大段追加）
 * **已完成**   chapter08/kernel.xml
 * **已完成**   chapter08/grub.xml
 * **已完成**   chapter09/teend.xml
+
+####sysv
+
+* **未实施**   chapter06/sysklogd.xml
+* **未实施**   chapter06/sysvinit.xml
+* **未实施**   chapter06/eudev.xml
+* **未实施**   chapter07/introduction.xml
+* **未实施**   chapter07/bootscripts.xml
+* **未实施**   chapter07/network.xml
+* **未实施**   chapter07/usage.xml
+* **未实施**   chapter07/profile.xml
+* **未实施**   appendices/scripts.xml
+* **未实施**   appendices/udev-rules.xml
+
+以上为 sysv 独立章节，混合章节内部缓步更新。
 
 ### 校对
 
