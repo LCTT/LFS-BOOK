@@ -76,6 +76,7 @@ pdf: validate
 
 	@echo "Generating FO file..."
 	$(Q)xsltproc --nonet                           \
+	            --stringparam l10n.gentext.language zh \
                  --stringparam rootid "$(ROOT_ID)" \
                  --output $(RENDERTMP)/lfs-pdf.fo  \
                  stylesheets/lfs-pdf.xsl           \
@@ -94,7 +95,8 @@ pdf: validate
 
 nochunks: validate profile-html
 	@echo "Generating non chunked XHTML file..."
-	$(Q)xsltproc --nonet                                \
+	$(Q)xsltproc --nonet                               \
+	            --stringparam l10n.gentext.language zh \
                 --stringparam rootid "$(ROOT_ID)"      \
                 --output $(BASEDIR)/$(NOCHUNKS_OUTPUT) \
                 stylesheets/lfs-nochunks.xsl           \

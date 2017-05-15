@@ -28,7 +28,7 @@ $Date: 2012-09-08 18:41:53 -0300 (Sat, 08 Sep 2012) $
           language="zh" english-language-name="Chinese">
 
     <l:gentext key="description" text="简要介绍"/>
-    <l:gentext key="Bootscripts" text=""/>
+    <l:gentext key="Bootscripts" text="启动脚本"/>
     <l:gentext key="Configuration Files" text="配置文件"/>
     <l:gentext key="Kernel Configuration" text="内核配置"/>
     <l:gentext key="Libraries" text="库"/>
