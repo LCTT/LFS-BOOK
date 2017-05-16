@@ -75,31 +75,26 @@
   <itemizedlist>
 
     <listitem>
-      <para><ulink url="https://lctt.github.io">Linux 中国 - 翻译组</ulink></para>
+      <para><ulink url="https://linux.cn/lctt/">Linux 中国 - LCTT - LFS 翻译小组</ulink></para>
 
       <itemizedlist>
 
         <listitem>
-          <para>LFS 翻译小组:
-            <ulink url="https://github.com/martin2011qi">martin2011qi</ulink>，
-            <ulink url="https://github.com/vizv">vizv</ulink>，
-            <ulink url="https://github.com/dongfengweixiao">dongfengweixiao</ulink>，
-            <ulink url="https://github.com/strugglingyouth">strugglingyouth</ulink>，
-            <ulink url="https://github.com/Athenacle">Athenacle</ulink>
-          </para>
-        </listitem>
-
-        <listitem>
-          <para>翻译初版（7.7）贡献成员:
+          <para>
             <ulink url="https://github.com/wxy">wxy</ulink>，
             <ulink url="https://github.com/ictlyh">ictlyh</ulink>，
             <ulink url="https://github.com/dongfengweixiao">dongfengweixiao</ulink>，
             <ulink url="https://github.com/zpl1025">zpl1025</ulink>，
             <ulink url="https://github.com/H-mudcup">H-mudcup</ulink>，
             <ulink url="https://github.com/Yuking-net">Yuking-net</ulink>，
-            <ulink url="https://github.com/kevinSJ">kevinSJ</ulink>
+            <ulink url="https://github.com/kevinSJ">kevinSJ</ulink>,
+            <ulink url="https://github.com/martin2011qi">martin2011qi</ulink>，
+            <ulink url="https://github.com/vizv">vizv</ulink>，
+            <ulink url="https://github.com/strugglingyouth">strugglingyouth</ulink>，
+            <ulink url="https://github.com/Athenacle">Athenacle</ulink>
           </para>
         </listitem>
+
       </itemizedlist>
     </listitem>
 
@@ -143,22 +138,22 @@
 
     <listitem>
       <para><ulink url="mailto:scott@osuosl.org">Scott Kveton</ulink>
-      &lt;scott@osuosl.org&gt; &ndash; lfs.oregonstate.edu mirror</para>
+      &lt;scott@osuosl.org&gt; &ndash; lfs.oregonstate.edu 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:lost@l-w.net">William Astle</ulink>
-      &lt;lost@l-w.net&gt; &ndash; ca.linuxfromscratch.org mirror</para>
+      &lt;lost@l-w.net&gt; &ndash; ca.linuxfromscratch.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:eujon.sellers@gmail.com">Eujon Sellers</ulink>
-      &lt;jpolen@rackspace.com&gt; &ndash; lfs.introspeed.com mirror</para>
+      &lt;jpolen@rackspace.com&gt; &ndash; lfs.introspeed.com 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:justin@knierim.org">Justin Knierim</ulink>
-      &lt;tim@idge.net&gt; &ndash; lfs-matrix.net mirror</para>
+      &lt;tim@idge.net&gt; &ndash; lfs-matrix.net 镜像</para>
     </listitem>
 
   </itemizedlist>
@@ -170,12 +165,12 @@
     <listitem>
       <para><ulink url="mailto:manuel@linuxfromscratch.org">Manuel
       Canales Esparcia</ulink> &lt;manuel@linuxfromscratch.org&gt; &ndash;
-      lfsmirror.lfs-es.info mirror</para>
+      lfsmirror.lfs-es.info 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:lfalcon@thymbra.com">Luis Falcon</ulink>
-      &lt;Luis Falcon&gt; &ndash; torredehanoi.org mirror</para>
+      &lt;Luis Falcon&gt; &ndash; torredehanoi.org 镜像</para>
     </listitem>
 
   </itemizedlist>
@@ -186,68 +181,68 @@
 
     <listitem>
       <para><ulink url="mailto:guido@primerelay.net">Guido Passet</ulink>
-      &lt;guido@primerelay.net&gt; &ndash; nl.linuxfromscratch.org mirror</para>
+      &lt;guido@primerelay.net&gt; &ndash; nl.linuxfromscratch.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:baafie@planet.nl">Bastiaan Jacques</ulink>
-      &lt;baafie@planet.nl&gt; &ndash; lfs.pagefault.net mirror</para>
+      &lt;baafie@planet.nl&gt; &ndash; lfs.pagefault.net 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:sven.cranshoff@lineo.be">Sven Cranshoff</ulink>
-      &lt;sven.cranshoff@lineo.be&gt; &ndash; lfs.lineo.be mirror</para>
+      &lt;sven.cranshoff@lineo.be&gt; &ndash; lfs.lineo.be 镜像</para>
     </listitem>
 
     <listitem>
-      <para>Scarlet Belgium &ndash; lfs.scarlet.be mirror</para>
+      <para>Scarlet Belgium &ndash; lfs.scarlet.be 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:info@aliensoft.org">Sebastian Faulborn</ulink>
-      &lt;info@aliensoft.org&gt; &ndash; lfs.aliensoft.org mirror</para>
+      &lt;info@aliensoft.org&gt; &ndash; lfs.aliensoft.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:stuart@dontuse.ms">Stuart Fox</ulink>
-      &lt;stuart@dontuse.ms&gt; &ndash; lfs.dontuse.ms mirror</para>
+      &lt;stuart@dontuse.ms&gt; &ndash; lfs.dontuse.ms 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:admin@realhost.de">Ralf Uhlemann</ulink>
-      &lt;admin@realhost.de&gt; &ndash; lfs.oss-mirror.org mirror</para>
+      &lt;admin@realhost.de&gt; &ndash; lfs.oss-mirror.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:Antonin.Sprinzl@tuwien.ac.at">Antonin
       Sprinzl</ulink> &lt;Antonin.Sprinzl@tuwien.ac.at&gt; &ndash;
-      at.linuxfromscratch.org mirror</para>
+      at.linuxfromscratch.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:fredan-lfs@fredan.org">Fredrik
       Danerklint</ulink> &lt;fredan-lfs@fredan.org&gt; &ndash;
-      se.linuxfromscratch.org mirror</para>
+      se.linuxfromscratch.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:franck@linuxpourtous.com">Franck</ulink>
-      &lt;franck@linuxpourtous.com&gt; &ndash; lfs.linuxpourtous.com mirror</para>
+      &lt;franck@linuxpourtous.com&gt; &ndash; lfs.linuxpourtous.com 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:baque@cict.fr">Philippe Baque</ulink>
-      &lt;baque@cict.fr&gt; &ndash; lfs.cict.fr mirror</para>
+      &lt;baque@cict.fr&gt; &ndash; lfs.cict.fr 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:gyouja@pilgrims.ru">Vitaly Chekasin</ulink>
-      &lt;gyouja@pilgrims.ru&gt; &ndash; lfs.pilgrims.ru mirror</para>
+      &lt;gyouja@pilgrims.ru&gt; &ndash; lfs.pilgrims.ru 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:kontakt@wankoo.org">Benjamin Heil</ulink>
-      &lt;kontakt@wankoo.org&gt; &ndash; lfs.wankoo.org mirror</para>
+      &lt;kontakt@wankoo.org&gt; &ndash; lfs.wankoo.org 镜像</para>
     </listitem>
 
   </itemizedlist>
@@ -258,17 +253,17 @@
 
     <listitem>
       <para><ulink url="mailto:satit@wbac.ac.th">Satit Phermsawang</ulink>
-      &lt;satit@wbac.ac.th&gt; &ndash; lfs.phayoune.org mirror</para>
+      &lt;satit@wbac.ac.th&gt; &ndash; lfs.phayoune.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:info@shizu-net.jp">Shizunet Co.,Ltd.</ulink>
-      &lt;info@shizu-net.jp&gt; &ndash; lfs.mirror.shizu-net.jp mirror</para>
+      &lt;info@shizu-net.jp&gt; &ndash; lfs.mirror.shizu-net.jp 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="http://www.initworld.com/">Init World</ulink>
-      &lt;http://www.initworld.com/&gt; &ndash; lfs.initworld.com mirror</para>
+      &lt;http://www.initworld.com/&gt; &ndash; lfs.initworld.com 镜像</para>
     </listitem>
 
   </itemizedlist>
@@ -279,7 +274,7 @@
 
     <listitem>
       <para><ulink url="mailto:jason@dstc.edu.au">Jason Andrade</ulink>
-      &lt;jason@dstc.edu.au&gt; &ndash; au.linuxfromscratch.org mirror</para>
+      &lt;jason@dstc.edu.au&gt; &ndash; au.linuxfromscratch.org 镜像</para>
     </listitem>
 
   </itemizedlist>
