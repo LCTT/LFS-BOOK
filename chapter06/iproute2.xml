@@ -43,7 +43,7 @@
     <para>此软件包中包含的 <command>arpd</command> 因为依赖于 Berkeley DB，
 	但是此软件并没有包含于 LFS 中，所以将不会进行编译。但是 <command>arpd</command>
 	 的文档文件和目录依旧会被安装。运行以下的命令来阻止这一动作。如果需要 <command>arpd</command>
-	 的二进制文件，请查看 BLFS Book 的网页 <ulink url="&blfs-book;server/databases.html#db"/> 
+	 的二进制文件，请查看 BLFS Book 的网页 <ulink url="&blfs-book;server/databases.html#db"/>
 	 以了解编译 Berkeley DB 都需要哪些指令。</para>
 
 <screen><userinput remap="pre">sed -i /ARPD/d Makefile
@@ -112,7 +112,7 @@ rm -v doc/arpd.sgml</userinput></screen>
       <varlistentry id="genl">
         <term><command>genl</command></term>
         <listitem>
-          <para>eneric netlink utility frontend</para>
+          <para>通用 netlink 多用途前端</para>
           <indexterm zone="ch-system-iproute2 genl">
             <primary sortas="b-genl">genl</primary>
           </indexterm>

@@ -41,21 +41,21 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Bison</title>
+    <title>安装 Bison</title>
 
-    <para>Prepare Bison for compilation:</para>
+    <para>配置 Bison 准备编译：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/tools</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>为了测试结果，输入：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
@@ -64,8 +64,7 @@
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
-    <xref linkend="contents-bison" role="."/></para>
+    <para>该软件包的详细信息参见 <xref linkend="contents-bison" role="."/>。</para>
 
   </sect2>
 

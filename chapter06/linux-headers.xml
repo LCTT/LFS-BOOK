@@ -24,8 +24,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Linux API 头文件（在 linux-&linux-version;.tar.xz 里）会将内核 API 导出给 Glibc 使用。
-    kernel's API for use by Glibc.</para>
+    <para>Linux API 头文件（在 linux-&linux-version;.tar.xz 里）会将内核 API 导出给 Glibc 使用。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>

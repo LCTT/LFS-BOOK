@@ -256,8 +256,7 @@
       <varlistentry id="gropdf">
         <term><command>gropdf</command></term>
         <listitem>
-          <para>Translates the output of GNU <command>troff</command> to
-          PDF</para>
+          <para>翻译 GNU <command>troff</command> 的输出至 PDF</para>
           <indexterm zone="ch-system-groff gropdf">
             <primary sortas="b-gropdf">gropdf</primary>
           </indexterm>
@@ -357,8 +356,7 @@
       <varlistentry id="pdfmom">
         <term><command>pdfmom</command></term>
         <listitem>
-          <para>Is a wrapper around groff that facilitates the production of PDF
-          documents from files formatted with the mom macros.</para>
+          <para>groff 周围的封装，用于简化从带有 mom 宏的文件格式生成 PDF 文件的过程。</para>
           <indexterm zone="ch-system-groff pdfmom">
             <primary sortas="b-pdfmom">pdfmom</primary>
           </indexterm>

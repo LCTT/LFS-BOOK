@@ -264,8 +264,7 @@
           <para>[dj] - 追加 flex-2.6.2-fixes-1.patch。修复了 <ulink url="&lfs-ticket-root;4003">#4003</ulink>。</para>
         </listitem>
         <listitem revision="systemd">
-          <para>[dj] - 修复了 systemd 和 sulogin 的问题。修复了 <ulink url="&lfs-ticket-root;4006">#4006</ulink>. Thanks to
-          Eric S. Stone for the report.</para>
+          <para>[dj] - 修复了 systemd 和 sulogin 的问题。修复了 <ulink url="&lfs-ticket-root;4006">#4006</ulink>. 感谢 Eric S. Stone 报告了这个问题。</para>
         </listitem>
       </itemizedlist>
     </listitem>

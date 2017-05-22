@@ -85,7 +85,7 @@ sed 's:/usr/local/bin:/bin:' configure.orig &gt; configure</userinput></screen>
 <screen><userinput remap="install">make SCRIPTS="" install</userinput></screen>
 
     <variablelist>
-      <title>make参数的含义：</title>
+      <title>make 参数的含义：</title>
 
       <varlistentry>
         <term><parameter>SCRIPTS=""</parameter></term>

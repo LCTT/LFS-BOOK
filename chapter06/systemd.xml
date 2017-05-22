@@ -524,7 +524,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-mount">
         <term><command>systemd-mount</command></term>
         <listitem>
-          <para>is a tool to temporarily mount or auto-mount a drive.</para>
+          <para>是临时挂载或自动挂载驱动器的工具。</para>
           <indexterm zone="ch-system-systemd systemd-mount">
             <primary sortas="b-systemd-mount">systemd-mount</primary>
           </indexterm>
@@ -564,8 +564,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-resolve">
         <term><command>systemd-resolve</command></term>
         <listitem>
-          <para>Used to resolve domain names, IPV4 and IPv6 addresses, DNS
-          resource records, and services</para>
+          <para>用于解析域名，IPv4 和 IPv6 地址，DNS 资源记录，以及服务</para>
           <indexterm zone="ch-system-systemd systemd-resolve">
             <primary sortas="b-systemd-resolve">systemd-resolve</primary>
           </indexterm>
@@ -595,8 +594,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="systemd-socket-activate">
         <term><command>systemd-socket-activate</command></term>
         <listitem>
-          <para>is a tool to listen on socket devices and launch a process upon
-          connection.</para>
+          <para>用于监听设备套接字并在连接时启动进程的工具。</para>
           <indexterm zone="ch-system-systemd systemd-socket-activate">
             <primary sortas="b-systemd-socket-activate">systemd-socket-activate</primary>
           </indexterm>

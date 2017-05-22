@@ -15,10 +15,10 @@
   则某些程序必须在此之后重新构建。</para>
 
   <sect2>
-  <title>1-4 节</title>
+  <title>第 1-4 章</title>
 
     <para>当在主机系统各种完成此章节的内容，重启时，需要注意一下的内容：</para>
-  
+
     <itemizedlist>
       <listitem>
          <para>程序在 2.4 节以后都是以 root 用户完成的。所以需要重新将 LFS 的环境变量
@@ -26,7 +26,7 @@
       </listitem>
     </itemizedlist>
   </sect2>
-  
+
   <sect2>
   <title>第 5 章</title>
 
@@ -47,7 +47,7 @@
   </sect2>
 
   <sect2>
-  <title>6-8 节</title>
+  <title>第 6-8 章</title>
 
     <itemizedlist>
       <listitem>
@@ -59,7 +59,7 @@
       </listitem>
 
       <listitem>
-         <para> 必须挂载虚拟文件系统。这可以在进入 chroot 之前或者之后通过改变主机的虚拟终端，以 root 用户执行 <xref linkend='ch-system-bindmount'/> 和 
+         <para> 必须挂载虚拟文件系统。这可以在进入 chroot 之前或者之后通过改变主机的虚拟终端，以 root 用户执行 <xref linkend='ch-system-bindmount'/> 和
          <xref linkend='ch-system-kernfsmount'/> 中的命令。</para>
       </listitem>
     </itemizedlist>

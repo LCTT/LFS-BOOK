@@ -26,7 +26,7 @@
 
 部分内容需要翻译的小节：
 
-####systemd
+#### systemd
 
 * **已完成**   chapter02/aboutlfs.xml
 * **已完成**   chapter02/creatingpartition.xml
@@ -68,7 +68,7 @@
 * **已完成**   chapter08/grub.xml
 * **已完成**   chapter09/teend.xml
 
-####sysv
+#### sysv
 
 * **未实施**   chapter06/sysklogd.xml
 * **未实施**   chapter06/sysvinit.xml
@@ -85,7 +85,7 @@
 
 ### 校对
 
-* **未实施**
+* **实施中**
 
 ## 分支介绍
 
