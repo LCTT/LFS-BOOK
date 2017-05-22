@@ -94,7 +94,7 @@
       </listitem>
     </varlistentry>
 
-<!-- 
+<!--
     <varlistentry revision="systemd">
       <term>systemd 安全补丁 - <token>&systemd-security-patch-size;</token>:</term>
       <listitem>

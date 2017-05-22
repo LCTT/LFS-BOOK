@@ -60,7 +60,7 @@
 
       <para>这是一种简单的软件包管理方式，不需要其他额外的软件来管理软件的安装。每一个软件包都被装到一个独立的目录里。例如，软件包 foo-1.1 安装到目录 <filename class='directory'>/usr/pkg/foo-1.1</filename> 中并创建一个软链接 <filename>/usr/pkg/foo</filename> 指向 <filename class='directory'>/usr/pkg/foo-1.1</filename>。在安装新版本 foo-1.2 的时候，它会被装到目录 <filename class='directory'>/usr/pkg/foo-1.2</filename> 中，然后用指向新版本的软链替代之前的软链接。</para>
 
-      <para>类似Environment variables such as <envar>PATH</envar>、<envar>LD_LIBRARY_PATH</envar>、<envar>MANPATH</envar>、<envar>INFOPATH</envar> 和 <envar>CPPFLAGS</envar> 之类的环境变量变量需要包含 <filename>/usr/pkg/foo</filename> 目录。在管理大量软件包时，这种方式就不可行了。</para>
+      <para>类似 <envar>PATH</envar>、<envar>LD_LIBRARY_PATH</envar>、<envar>MANPATH</envar>、<envar>INFOPATH</envar> 和 <envar>CPPFLAGS</envar> 之类的环境变量变量需要包含 <filename>/usr/pkg/foo</filename> 目录。在管理大量软件包时，这种方式就不可行了。</para>
 
     </sect3>
 
@@ -75,7 +75,7 @@
 make
 make install</userinput></screen>
 
-      <para>安装本身倒是没有问题，但是可能一些依赖包不会像你期望的那样链接到 libfoo 库。如果你要编译一个链接 libfoo 的软件，你可能会注意到它实际上链接到的是 <filename class='libraryfile'>/usr/pkg/libfoo/1.1/lib/libfoo.so.1</filename> 而不是你所期望的 <filename class='libraryfile'>/usr/lib/libfoo.so.1</filename>。正确的方式是使用 <envar>DESTDIR</envar>策略来伪装软件包的安装过程。这种方式需要像下面这样操作：</para>
+      <para>安装本身倒是没有问题，但是可能一些依赖包不会像你期望的那样链接到 libfoo 库。如果你要编译一个链接 libfoo 的软件，你可能会注意到它实际上链接到的是 <filename class='libraryfile'>/usr/pkg/libfoo/1.1/lib/libfoo.so.1</filename> 而不是你所期望的 <filename class='libraryfile'>/usr/lib/libfoo.so.1</filename>。正确的方式是使用 <envar>DESTDIR</envar> 策略来伪装软件包的安装过程。这种方式需要像下面这样操作：</para>
 
 <screen role="nodump"><userinput>./configure --prefix=/usr
 make

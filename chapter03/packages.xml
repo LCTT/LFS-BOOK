@@ -568,7 +568,7 @@
     </varlistentry>
 
     <varlistentry revision="systemd">
-      <term>systemd (&systemd-version;) - <token>&systemd-size;</token>:</term>
+      <term>Systemd (&systemd-version;) - <token>&systemd-size;</token>:</term>
       <listitem>
         <para>主页： <ulink url="&systemd-home;"/></para>
         <para>下载： <ulink url="&systemd-url;"/></para>
@@ -627,7 +627,7 @@
     </varlistentry>
 
     <varlistentry revision="sysv">
-      <term>udev-lfs Tarball (&udev-lfs-version;) - <token>&udev-lfs-size;</token>:</term>
+      <term>Udev-lfs Tarball (&udev-lfs-version;) - <token>&udev-lfs-size;</token>:</term>
       <listitem>
         <para>下载： <ulink url="&udev-lfs-url;"/></para>
         <para>MD5 校验和： <literal>&udev-lfs-md5;</literal></para>
@@ -681,6 +681,6 @@
 
   </variablelist>
 
-  <para>Total size of these packages: about <returnvalue/></para>
+  <para>这些安装包的总计：约 <returnvalue/></para>
 
 </sect1>

@@ -41,7 +41,7 @@
     <title>安装 Shadow</title>
 
     <note>
-      <para>如果你喜欢强制使用更强的密码，在编译 Shadow 之前可以根据 <ulink url="&blfs-book;postlfs/cracklib.html"/>安装 CrackLib。然后在下面的 <command>configure</command>  命令中增加 <parameter>--with-libcrack</parameter>。</para>
+      <para>如果你喜欢强制使用更强的密码，在编译 Shadow 之前可以根据 <ulink url="&blfs-book;postlfs/cracklib.html"/> 安装 CrackLib。然后在下面的 <command>configure</command>  命令中增加 <parameter>--with-libcrack</parameter>。</para>
     </note>
 
     <para>禁用对 <command>groups</command> 程序以及相应 man 手册的安装，Coreutils 已经提供了更棒的版本。同时也避免了安装已由软件包 <xref linkend="man-pages"/> 安装过的手册页：</para>
@@ -67,7 +67,7 @@ find man -name Makefile.in -exec sed -i 's/passwd\.5 / /'   {} \;</userinput></s
 
 <screen><userinput remap="pre">sed -i 's/1000/999/' etc/useradd</userinput></screen>
 
-    <para>Fix a security issue identified upstream:</para>
+    <para>修复上游发现的安全问题：</para>
 
 <screen><userinput remap="pre">sed -i -e '47 d' -e '60,65 d' libmisc/myname.c</userinput></screen>
 

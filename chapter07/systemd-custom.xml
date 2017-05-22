@@ -72,9 +72,7 @@ EOF</userinput></screen>
   <sect2>
     <title>覆盖默认服务的行为</title>
 
-    <para>The parameter of a unit can be overriden by creating a directory
-    and a configuration file in <filename
-    class="directory">/etc/systemd/system</filename>. For example:</para>
+    <para>可以通过在 <filename class="directory">/etc/systemd/system</filename> 中创建目录和配置文件来覆盖单元的参数。例如：</para>
 
 <screen role="nodump"><userinput>mkdir -pv /etc/systemd/system/foobar.service.d
 

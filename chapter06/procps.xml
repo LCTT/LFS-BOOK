@@ -77,8 +77,7 @@
 <screen><userinput remap="test">sed -i -r 's|(pmap_initname)\\\$|\1|' testsuite/pmap.test/pmap.exp
 make check</userinput></screen>
 
-    <para>One ps test may fail, but passes if the tests are rerun at 
-    the end of Chapter 6.</para>
+    <para>ps 的测试会有一个失败，但是在第 6 章末了再运行，测试将会通过。</para>
 
     <para>安装软件包：</para>
 

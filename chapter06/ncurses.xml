@@ -74,8 +74,7 @@
       <varlistentry>
         <term><parameter>--without-normal</parameter></term>
         <listitem>
-          <para>This switch disables building and installing most static libraries.
-          </para>
+          <para>该选项用于禁用构建和安装大多数的静态库。</para>
         </listitem>
       </varlistentry>
 

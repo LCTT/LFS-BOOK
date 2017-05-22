@@ -32,7 +32,7 @@
     <tip>
       <title>Vim 的安装</title>
 
-      <para>如果你钟情于其它的编辑器&mdash;比如 Emacs、Joe， 或 Nano&mdash;请参考 <ulink url="&blfs-book;postlfs/editors.html"/> 里的安装指导。</para>
+      <para>如果你钟情于其它的编辑器&mdash;比如 Emacs、Joe， 或 Nano &mdash; 请参考 <ulink url="&blfs-book;postlfs/editors.html"/> 里的安装指导。</para>
     </tip>
 
   </sect2>
@@ -73,7 +73,7 @@ done</userinput></screen>
 
 <screen><userinput remap="install">ln -sv ../&vim-docdir;/doc /usr/share/doc/vim-&vim-version;</userinput></screen>
 
-    <para>如果要把一个 X Window 系统安装在 LFS 系统上，可能得在安装完 X 系统后再重新编译 Vim。Vim 带有一个 GUI 版本，这个版本需要安装 X 和一些额外的库。 想了解更多信息，请参考 Vim 文档和 BLFS<ulink url="&blfs-book;postlfs/vim.html"/>中 Vim 安装指导页。</para>
+    <para>如果要把一个 X Window 系统安装在 LFS 系统上，可能得在安装完 X 系统后再重新编译 Vim。Vim 带有一个 GUI 版本，这个版本需要安装 X 和一些额外的库。 想了解更多信息，请参考 Vim 文档和 BLFS <ulink url="&blfs-book;postlfs/vim.html"/> 中 Vim 安装指导页。</para>
 
   </sect2>
 
