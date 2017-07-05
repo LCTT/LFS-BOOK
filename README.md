@@ -6,7 +6,11 @@
 
 最新构建版本：
 
-* [https://lctt.github.io/LFS-BOOK/][4]
+* Systemd
+  - [PDF][4]
+  - [HTML/单页][5]
+  - [HTML/分页][6]
+* SysV（暂未构建）
 
 ### 合并 7.8 整理内容
 
@@ -124,7 +128,9 @@
 [1]: https://github.com/LCTT/LFS-BOOK-7.7-systemd
 [2]: https://github.com/LCTT/LFS-BOOK/tree/7.8-systemd-translating
 [3]: https://github.com/LCTT/LFS-BOOK/tree/8.0-rc1
-[4]: https://lctt.github.io/LFS-BOOK/
+[4]: https://lctt.github.io/LFS-BOOK/LFS-SYSD-BOOK.pdf
+[5]: https://lctt.github.io/LFS-BOOK/LFS-SYSD-BOOK.html
+[6]: https://lctt.github.io/LFS-BOOK/index.html
 [7]: https://github.com/LCTT/LFS-BOOK/tree/8.0-rc1-translating
 [8]: https://github.com/LCTT/LFS-BOOK/tree/7.7-to-8.0-rc1-diff
 [9]: https://github.com/LCTT/LFS-BOOK/tree/7.8-to-8.0-rc1-diff
