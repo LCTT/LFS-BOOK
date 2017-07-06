@@ -2,7 +2,7 @@
 ########################################################################
 # Begin udev_retry
 #
-# Description : Udev cold-plugging script (retry)
+# Description : udev cold-plugging script (retry)
 #
 # Authors     : Alexander E. Patrakov
 #               DJ Lucas - dj@linuxfromscratch.org
