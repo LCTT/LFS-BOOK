@@ -66,16 +66,16 @@
 
 #### sysv
 
-* **未实施**   chapter06/sysklogd.xml
-* **未实施**   chapter06/sysvinit.xml
-* **未实施**   chapter06/eudev.xml
-* **未实施**   chapter07/introduction.xml
-* **未实施**   chapter07/bootscripts.xml
-* **未实施**   chapter07/network.xml
-* **未实施**   chapter07/usage.xml
-* **未实施**   chapter07/profile.xml
-* **未实施**   appendices/scripts.xml
-* **未实施**   appendices/udev-rules.xml
+* **已完成**   chapter06/sysklogd.xml
+* **已完成**   chapter06/sysvinit.xml
+* **已完成**   chapter06/eudev.xml
+* **已完成**   chapter07/introduction.xml
+* **已完成**   chapter07/bootscripts.xml
+* **martin**   chapter07/network.xml
+* **martin**   chapter07/usage.xml
+* **martin**   chapter07/profile.xml
+* **已完成**   appendices/scripts.xml
+* **已完成**   appendices/udev-rules.xml
 
 以上为 sysv 独立章节，混合章节内部缓步更新。
 
