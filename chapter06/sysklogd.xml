@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Sysklogd package contains programs for logging system messages,
-    such as those given by the kernel when unusual things happen.</para>
+    <para>Sysklogd 软件包包含用于记录系统消息的程序，它们记录着，诸如，一些异乎寻常的事件发生时，内核给出的那些消息。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,28 +38,27 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Sysklogd</title>
+    <title>安装 Sysklogd</title>
 
-    <para>First, fix problems that causes a segmentation fault under
-    some conditions in klogd and fix an obsolete program construct:</para>
+    <para>首先，修复 klogd 在某些条件下会导致 “segmentation fault” 的问题，并修复一个过时的程序结构：</para>
 
 <screen><userinput remap="pre">sed -i '/Error loading kernel symbols/{n;n;d}' ksym_mod.c
 sed -i 's/union wait/int/' syslogd.c</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>This package does not come with a test suite.</para>
+    <para>该软件包没有测试套件。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make BINDIR=/sbin install</userinput></screen>
 
   </sect2>
 
   <sect2 id="conf-sysklogd" role="configuration">
-    <title>Configuring Sysklogd</title>
+    <title>配置 Sysklogd</title>
 
     <indexterm zone="conf-sysklogd">
       <primary sortas="a-Sysklogd">Sysklogd</primary>
@@ -71,8 +69,7 @@ sed -i 's/union wait/int/' syslogd.c</userinput></screen>
       <primary sortas="e-/etc/syslog.conf">/etc/syslog.conf</primary>
     </indexterm>
 
-    <para>Create a new <filename>/etc/syslog.conf</filename> file by running the
-    following:</para>
+    <para>运行以下命令新建 <filename>/etc/syslog.conf</filename> 文件：</para>
 
 <screen><userinput>cat &gt; /etc/syslog.conf &lt;&lt; "EOF"
 <literal># Begin /etc/syslog.conf
@@ -91,25 +88,25 @@ EOF</userinput></screen>
   </sect2>
 
   <sect2 id="contents-sysklogd" role="content">
-    <title>Contents of Sysklogd</title>
+    <title>Sysklogd 软件包的内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
-        <seg>klogd and syslogd</seg>
+        <seg>klogd 和 syslogd</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="klogd">
         <term><command>klogd</command></term>
         <listitem>
-          <para>A system daemon for intercepting and logging kernel messages</para>
+          <para>一个用于拦截和记录内核消息的系统守护进程</para>
           <indexterm zone="ch-system-sysklogd klogd">
             <primary sortas="b-klogd">klogd</primary>
           </indexterm>
@@ -119,10 +116,7 @@ EOF</userinput></screen>
       <varlistentry id="syslogd">
         <term><command>syslogd</command></term>
         <listitem>
-          <para>Logs the messages that system programs offer for logging [Every
-          logged message contains at least a date stamp and a hostname, and
-          normally the program's name too, but that depends on how trusting the
-          logging daemon is told to be.]</para>
+          <para>记录系统程序中需要记录的消息[记录的消息中至少会包含时间戳和主机名，程序名通常也会有，这要取决于记录守护进程的可信度。]</para>
           <indexterm zone="ch-system-sysklogd syslogd">
             <primary sortas="b-syslogd">syslogd</primary>
           </indexterm>
