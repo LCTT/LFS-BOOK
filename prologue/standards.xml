@@ -26,7 +26,7 @@
       <listitem>
         <para><ulink url="http://refspecs.linuxfoundation.org/lsb.shtml">Linux 标准规范（LSB） 5.0 版本</ulink></para>
 
-        <para>LSB 有四个独立的标准：核心、桌面、运行时语言和成像。除了普通的要求，还有架构特定要求。此外还有两个领域在试行：分别是 Gtk3 和图形。LFS 试图遵从前一节中所讨论的架构要求。</para>
+        <para>LSB 有四个独立的标准：核心、桌面、运行时语言和成像。除了通用要求，还有架构特定要求。此外还有两个领域在试行：分别是 Gtk3 和图形。LFS 试图遵从前一节中所讨论的架构要求。</para>
 
         <note><para>很多人不认同 LSB 的要求。定义它的主要目的是确保私有软件能够在兼容的系统上安装并正常运行。由于 LFS 是基于源代码的，用户对于需要什么软件包有完全的控制权，很多人选择不安装 LSB 规范所要求的软件包。</para></note>
 
@@ -71,7 +71,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Gtk3 和 LSB 图形（试行）：</emphasis></term>
+        <term><emphasis>LSB Gtk3 和 LSB 图形（试用）：</emphasis></term>
         <listitem>
           <para>无</para>
         </listitem>
@@ -117,7 +117,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><emphasis>LSB Gtk3 和 LSB 图形（试行）：</emphasis></term>
+        <term><emphasis>LSB Gtk3 和 LSB 图形（试用）：</emphasis></term>
         <listitem>
           <para>GTK+3</para>
         </listitem>
@@ -168,4 +168,3 @@
     </variablelist>
 
 </sect1>
-
