@@ -21,11 +21,11 @@
 <screen role="nodump"><userinput>CC="gcc -B/usr/bin/" ../binutils-2.18/configure \
   --prefix=/tools --disable-nls --disable-werror</userinput></screen>
 
-  <para>注意，反斜杠后面必须紧跟一个回车符。其它空格字符，例如空格和 tab 键会导致错误结果。</para>
+  <para>注意，反斜杠后面必须紧跟一个回车符。其它空格字符，例如空格和 Tab 会导致错误结果。</para>
 
 <screen><computeroutput>install-info: unknown option '--dir-file=/mnt/lfs/usr/info/dir'</computeroutput></screen>
 
-  <para>这种形式的文本（定宽文本）显示屏幕输出，通常是所运行命令的输出结果。 这种形式也用来显示文件名，例如： <filename>/etc/ld.so.conf</filename>。</para>
+  <para>这种形式的文本（等宽文本）显示屏幕输出，通常是所运行命令的输出结果。 这种形式也用来显示文件名，例如： <filename>/etc/ld.so.conf</filename>。</para>
 
   <para><emphasis>强调</emphasis></para>
 
@@ -57,4 +57,3 @@ EOF</userinput></screen>
   <filename>/usr/share/man/man1/passwd.1</filename>。在这个例子中，你需要执行 <command>man 5 passwd</command> 才能阅读指定的手册页面。应该注意的是，大部分的手册页面在不同部分不会有重复的页面名字。因此，<command>man <replaceable>&lt;program name&gt;</replaceable></command> 通常就足够了。</para>
 
 </sect1>
-
