@@ -13,6 +13,6 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  local_dir: $TRAVIS_BUILD_DIR/tmp/output
+  local_dir: /tmp/output
   on:
     all_branches: true
