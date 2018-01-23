@@ -8,7 +8,7 @@ script:
 - docker run --rm -it -v "$TRAVIS_BUILD_DIR:/home/build/repo" -v "$TRAVIS_BUILD_DIR/tmp/output/lfs-systemd:/home/build/lfs-systemd" lctt/lfs-book-build
 - docker run --rm -it -v "$TRAVIS_BUILD_DIR:/home/build/repo" -v "$TRAVIS_BUILD_DIR/tmp/output/lfs-sysv:/home/build/lfs-book" lctt/lfs-book-build make book nochunks pdf V=1
 - sudo rsync -a "$TRAVIS_BUILD_DIR/gh-pages/" "$TRAVIS_BUILD_DIR/tmp/output"
-- sudo chown -R travis:travis $TRAVIS_BUILD_DIR"
+- sudo chown -R travis:travis "$TRAVIS_BUILD_DIR"
 deploy:
   provider: pages
   skip_cleanup: true
