@@ -2,13 +2,13 @@ sudo: required
 services: docker
 before_install:
 - docker pull lctt/lfs-book-build
-- mkdir -p /tmp/output/{lfs-systemd,lfs-sysv}
-- sudo chown -R 1000:1000 /tmp/output "$TRAVIS_BUILD_DIR"
+- mkdir -p $TRAVIS_BUILD_DIR/tmp/output/{lfs-systemd,lfs-sysv}
+- sudo chown -R 1000:1000 "$TRAVIS_BUILD_DIR"
 script:
-- docker run --rm -it -v "$TRAVIS_BUILD_DIR:/home/build/repo" -v "/tmp/output/lfs-systemd:/home/build/lfs-systemd" lctt/lfs-book-build
-- docker run --rm -it -v "$TRAVIS_BUILD_DIR:/home/build/repo" -v "/tmp/output/lfs-sysv:/home/build/lfs-book" lctt/lfs-book-build make book nochunks pdf V=1
-- sudo rsync -a "$TRAVIS_BUILD_DIR/gh-pages/" "/tmp/output"
-- sudo chown -R travis:travis /tmp/output "$TRAVIS_BUILD_DIR"
+- docker run --rm -it -v "$TRAVIS_BUILD_DIR:/home/build/repo" -v "$TRAVIS_BUILD_DIR/tmp/output/lfs-systemd:/home/build/lfs-systemd" lctt/lfs-book-build
+- docker run --rm -it -v "$TRAVIS_BUILD_DIR:/home/build/repo" -v "$TRAVIS_BUILD_DIR/tmp/output/lfs-sysv:/home/build/lfs-book" lctt/lfs-book-build make book nochunks pdf V=1
+- sudo rsync -a "$TRAVIS_BUILD_DIR/gh-pages/" "$TRAVIS_BUILD_DIR/tmp/output"
+- sudo chown -R travis:travis "$TRAVIS_BUILD_DIR"
 deploy:
   provider: pages
   skip_cleanup: true
