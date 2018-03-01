@@ -76,7 +76,7 @@
       <varlistentry>
         <term><parameter>--enable-widec</parameter></term>
         <listitem>
-          <para>这个选项会控制编译宽字符库（比如， <filename class="libraryfile">libncursesw.so.&ncurses-version;</filename>）而不是默认的普通库（比如， <filename class="libraryfile">libncurses.so.&ncurses-version;</filename> ）。这些宽字符库在多字节和传统的 8 位环境下使用，而普通库只能用于 8 位环境。 宽字符库和普通库的源代码是兼容的，但并不是二进制兼容。</para>
+          <para>这个选项会控制编译宽字符库（比如，<filename class="libraryfile">libncursesw.so.&ncurses-version;</filename>）而不是默认的普通库（比如，<filename class="libraryfile">libncurses.so.&ncurses-version;</filename> ）。这些宽字符库在多字节和传统的 8 位环境下使用，而普通库只能用于 8 位环境。宽字符库和普通库的源代码是兼容的，但并不是二进制兼容。</para>
         </listitem>
       </varlistentry>
 
@@ -98,7 +98,7 @@
     <title/>
 
     <para>关于这个软件包的详细资料请参见：
-    <xref linkend="contents-ncurses" role="."/></para>
+    <xref linkend="contents-ncurses"/>。</para>
 
   </sect2>
 

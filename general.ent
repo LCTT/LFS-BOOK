@@ -34,7 +34,7 @@
 
 <!ENTITY anduin-sources  "http://anduin.linuxfromscratch.org/LFS">
 
-<!ENTITY buildtime       "大概编译时间">
+<!ENTITY buildtime       "大致构建用时">
 <!ENTITY diskspace       "所需磁盘空间">
 <!ENTITY dependencies    "安装必选依赖">
 <!ENTITY testsuites      "测试套件依赖">

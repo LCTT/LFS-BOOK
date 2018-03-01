@@ -25,7 +25,7 @@
     <title>建立网络接口配置文件</title>
 
     <para>到底使用哪个接口，一般依赖于 <filename class="directory">/etc/sysconfig/</filename> 下的文件。
-    此文件夹应该包含要配置接口的描述文件，例如 <filename>ifconfig.xyz</filename>，其中 <quote>xyz</quote>
+    此文件夹应该包含要配置接口的描述文件，例如 <filename>ifconfig.xyz</filename>，其中「xyz」
     是需要配置的网卡接口的名称（例如 eth0）。文件的内容是此接口的属性信息，例如 IP 地址、子网掩码等。
     另外，文件名只能是 <emphasis>ifconfig</emphasis>。</para>
 
@@ -49,8 +49,8 @@ EOF</userinput></screen>
 
     <para>其中的数值，应该根据实际情况，进行适当的更改。</para>
 
-    <para>如果变量 <envar>ONBOOT</envar> 设置为 <quote>yes</quote> 则 System V 网络脚本将在系统启动期间激活网卡，
-    如果设置为其他非 <quote>yes</quote> 值则不会自动激活网卡。但是你可以通过命令 <command>ifup</command> 和 
+    <para>如果变量 <envar>ONBOOT</envar> 设置为「yes」则 System V 网络脚本将在系统启动期间激活网卡，
+    如果设置为其他非「yes」值则不会自动激活网卡。但是你可以通过命令 <command>ifup</command> 和 
     <command>ifdown</command> 手动激活或者是禁用网卡。</para>
 
     <para>变量 <envar>IFACE</envar> 用于定义接口的名称，例如 eth0。所有的网络设备配置文件都依赖于它。</para>
@@ -199,7 +199,7 @@ EOF</userinput></screen>
    
 <screen><literal>IP_address myhost.example.org aliases</literal></screen>
 
-     <para>除非计算机在互联网中可见（例如拥有注册的域名且分配了有效的 IP 地址 &mdash; 大部分用户并不具备此条件），
+     <para>除非计算机在互联网中可见（例如拥有注册的域名且分配了有效的 IP 地址——大部分用户并不具备此条件），
      否则请确保 IP 地址位于有效的私有网络 IP 地址段。有效区间为：</para>
 
 <screen><literal>私有网络地址范围      常规前缀
@@ -224,7 +224,7 @@ EOF</userinput></screen>
 # End /etc/hosts (network card version)</literal>
 EOF</userinput></screen>
 
-     <para>其中， <replaceable>&lt;192.168.1.1&gt;</replaceable> 和
+     <para>其中，<replaceable>&lt;192.168.1.1&gt;</replaceable> 和
      <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> 这样的值应该根据用户和实际需要进行更改
      （如果已经通过网络/系统管理员获得了 IP 地址，那么设备就可以连接到已存在的网络）。其中可选的别名可以忽略。</para>
    

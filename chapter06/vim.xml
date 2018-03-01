@@ -32,7 +32,7 @@
     <tip>
       <title>Vim 的安装</title>
 
-      <para>如果你钟情于其它的编辑器&mdash;比如 Emacs、Joe， 或 Nano &mdash; 请参考 <ulink url="&blfs-book;postlfs/editors.html"/> 里的安装指导。</para>
+      <para>如果你钟情于其它的编辑器——比如 Emacs、Joe，或 Nano——请参考 <ulink url="&blfs-book;postlfs/editors.html"/> 里的安装指导。</para>
     </tip>
 
   </sect2>
@@ -56,24 +56,24 @@
 
 <screen><userinput remap="test">make -j1 test</userinput></screen>
 
-    <para>然而，这个测试会输出一堆二进制数据到屏幕上，这会导致当前设置下的终端出现问题。把输出重定向到一个日志文件就可以解决这个问题。测试成功的话就会输出 “ALL DONE”。</para>
+    <para>然而，这个测试会输出一堆二进制数据到屏幕上，这会导致当前设置下的终端出现问题。把输出重定向到一个日志文件就可以解决这个问题。测试成功的话就会输出「ALL DONE」。</para>
 
     <para>安装软件包:</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>许多用户习惯于使用 <command>vi</command> 而不是 <command>vim</command>。为了当人们在习惯性的输入 <command>vi</command> 时能执行 <command>vim</command>， 需要给二进制文件和 man 页建立符号连接：</para>
+    <para>许多用户习惯于使用 <command>vi</command> 而不是 <command>vim</command>。为了当人们在习惯性的输入 <command>vi</command> 时能执行 <command>vim</command>，需要给二进制文件和 man 页建立符号连接：</para>
 
 <screen><userinput remap="install">ln -sv vim /usr/bin/vi
 for L in  /usr/share/man/{,*/}man1/vim.1; do
     ln -sv vim.1 $(dirname $L)/vi.1
 done</userinput></screen>
 
-    <para>默认情况下，Vim 的说明文档被安装在 <filename class="directory">/usr/share/vim</filename> 里。 下面的这个符号链接使得可以通过 <filename class="directory">/usr/share/doc/vim-&vim-version;</filename> 访问该文档，让它的位置与其它软件包的文档位置保持一致：</para>
+    <para>默认情况下，Vim 的说明文档被安装在 <filename class="directory">/usr/share/vim</filename> 里。下面的这个符号链接使得可以通过 <filename class="directory">/usr/share/doc/vim-&vim-version;</filename> 访问该文档，让它的位置与其它软件包的文档位置保持一致：</para>
 
 <screen><userinput remap="install">ln -sv ../&vim-docdir;/doc /usr/share/doc/vim-&vim-version;</userinput></screen>
 
-    <para>如果要把一个 X Window 系统安装在 LFS 系统上，可能得在安装完 X 系统后再重新编译 Vim。Vim 带有一个 GUI 版本，这个版本需要安装 X 和一些额外的库。 想了解更多信息，请参考 Vim 文档和 BLFS <ulink url="&blfs-book;postlfs/vim.html"/> 中 Vim 安装指导页。</para>
+    <para>如果要把一个 X Window 系统安装在 LFS 系统上，可能得在安装完 X 系统后再重新编译 Vim。Vim 带有一个 GUI 版本，这个版本需要安装 X 和一些额外的库。想了解更多信息，请参考 Vim 文档和 BLFS <ulink url="&blfs-book;postlfs/vim.html"/> 中 Vim 安装指导页。</para>
 
   </sect2>
 
@@ -84,7 +84,7 @@ done</userinput></screen>
       <primary sortas="e-/etc/vimrc">/etc/vimrc</primary>
     </indexterm>
 
-    <para>默认情况下，<command>vim</command> 是以不兼容 vi 的模式运行的。这对于过去使用其它编辑器的用户可能是个新问题。下面列出了<quote>非兼容性</quote>设置以突出显示使用的新特性。它也提醒着那些想换成<quote>兼容</quote>模式的人，这是配置文件里第一个该被设置的地方。这非常有必要，因为它会改变其它的设置，而且覆写必须在这个设置之后。以下面的方式，创建一个默认的 <command>vim</command> 配置文件：</para>
+    <para>默认情况下，<command>vim</command> 是以不兼容 vi 的模式运行的。这对于过去使用其它编辑器的用户可能是个新问题。下面列出了「非兼容性」设置以突出显示使用的新特性。它也提醒着那些想换成「兼容」模式的人，这是配置文件里第一个该被设置的地方。这非常有必要，因为它会改变其它的设置，而且覆写必须在这个设置之后。以下面的方式，创建一个默认的 <command>vim</command> 配置文件：</para>
 
 <screen><userinput>cat &gt; /etc/vimrc &lt;&lt; "EOF"
 <literal>" Begin /etc/vimrc
@@ -101,14 +101,14 @@ endif
 " End /etc/vimrc</literal>
 EOF</userinput></screen>
 
-    <para>设置 <parameter>set nocompatible</parameter> 让 <command>vim</command> 比 vi 兼容模式更有用。删掉 <quote>no</quote> 以保留旧的 <command>vi</command> 特性。设置 <parameter>set backspace=2</parameter> 让退格跨越换行、自动缩进和插入的开始。<parameter>syntax on</parameter> 参数使 vim 能高亮显示语法。设置 <parameter>set mouse=r</parameter> 让你能在 chroot 和远程连接的时候用鼠标粘帖文本。最后，带有 <parameter>set  background=dark</parameter> 的 <emphasis>if</emphasis> 语句矫正了 <command>vim</command> 对于某些终端模拟器的背景颜色的估算。这让某些写在黑色背景上的程序的高亮色能有更好的调色方案。</para>
+    <para>设置 <parameter>set nocompatible</parameter> 让 <command>vim</command> 比 vi 兼容模式更有用。删掉「no」以保留旧的 <command>vi</command> 特性。设置 <parameter>set backspace=2</parameter> 让退格跨越换行、自动缩进和插入的开始。<parameter>syntax on</parameter> 参数使 vim 能高亮显示语法。设置 <parameter>set mouse=r</parameter> 让你能在 chroot 和远程连接的时候用鼠标粘帖文本。最后，带有 <parameter>set  background=dark</parameter> 的 <emphasis>if</emphasis> 语句矫正了 <command>vim</command> 对于某些终端模拟器的背景颜色的估算。这让某些写在黑色背景上的程序的高亮色能有更好的调色方案。</para>
 
     <para>用下面的命令可以获得其它选项的文档：</para>
 
 <screen role="nodump"><userinput>vim -c ':options'</userinput></screen>
 
     <note>
-      <para>默认情况下，Vim 只安装了英文的拼写检查文件。要想安装你想要的语言的拼写检查文件， 请从 <ulink url="ftp://ftp.vim.org/pub/vim/runtime/spell/"/> 下载你所用语言的  <filename>*.spl</filename>  文件，可下可不下的 <filename>*.sug</filename> 文件和文字编码。并把它们保存到 <filename  class='directory'>/usr/share/&vim-docdir;/spell/</filename>。</para>
+      <para>默认情况下，Vim 只安装了英文的拼写检查文件。要想安装你想要的语言的拼写检查文件，请从 <ulink url="ftp://ftp.vim.org/pub/vim/runtime/spell/"/> 下载你所用语言的  <filename>*.spl</filename>  文件，可下可不下的 <filename>*.sug</filename> 文件和文字编码。并把它们保存到 <filename  class='directory'>/usr/share/&vim-docdir;/spell/</filename>。</para>
 
       <para>要使用这些文件，需要设置 <filename>/etc/vimrc</filename> 里的某些项，例如：</para>
 

@@ -10,16 +10,16 @@
 
   <title>关于测试套件</title>
 
-  <para>很多软件包都提供相应的测试套件。为新构建的软件包运行测试套件是非常好的习惯，因为这样做可以<quote>保证</quote>所有功能都已编译正确。经由一系列的测试，套件往往能够检查出软件包的功能是否都如开发人员预想的那样。但是，并不能保证所测试的软件包一定没有问题。</para>
+  <para>很多软件包都提供相应的测试套件。为新构建的软件包运行测试套件是非常好的习惯，因为这样做可以「保证」所有功能都已编译正确。经由一系列的测试，套件往往能够检查出软件包的功能是否都如开发人员预想的那样。然而，这并不能保证所测试的软件包万无一失。</para>
 
-  <para>有一些测试套件要相较而言更为重要。例如，核心工具链软件包  &mdash;GCC, Binutils 和 Glibc&mdash; 对于对于一个系统的正常运转起到至关重要的作用。要完成 GCC 和 Glibc 的测试套件可能要花费很长的时间，特别是对于硬件比较慢的设备来说，但还是强烈推荐完成它们！</para>
+  <para>有一些测试套件要相较而言更为重要。例如，核心工具链软件包——GCC, Binutils 和 Glibc——对于对于一个系统的正常运转起到至关重要的作用。要完成 GCC 和 Glibc 的测试套件可能要花费很长的时间，特别是对于硬件比较慢的设备来说，但还是强烈推荐完成它们！</para>
 
   <note>
     <para>经验表明，在 <xref linkend="chapter-temporary-tools"/> 中运行测试套件并不是什么好主意。在那章有何无法回避的现实，就是宿主机或多或少会对测试产生影响，经常导致一些令人摸不着头脑的错误信息。因为在 <xref linkend="chapter-temporary-tools"/> 中构建的这些工具只是零时的，最终我们并不需要它们，所以我们并不推荐普通读者在 <xref linkend="chapter-temporary-tools"/> 中运行测试套件。虽然为测试者和开发者提供了测试套件的说明，但是这依旧是可选项。</para>
   </note>
 
-  <para>对 Binutils 和 GCC 执行测试套件时可能会使伪终端（PTYs）耗尽。造成大量的测试失败。造成问题的原因有很多，但最有可能的原因是宿主系统没能正确设置 <systemitem class="filesystem">devpts</systemitem> 文件系统。针对这个问题在 <ulink url="&lfs-root;lfs/faq.html#no-ptys"/> 有更详尽的讨论。</para>
+  <para>对 Binutils 和 GCC 执行测试套件时可能会使伪终端（PTYs）耗尽。造成大量的测试失败。造成问题的原因有很多，但最有可能的原因是宿主系统没能正确设置 <systemitem class="filesystem">devpts</systemitem> 文件系统。针对这个问题在 <ulink url="&lfs-root;lfs/faq.html#no-ptys"/> 中有更详尽的讨论。</para>
 
-  <para>还有一些测试套件运行错误，是开发人员已知且视为不重要的。查看 <ulink url="&test-results;"/> 中的日志，确认这些失败信息是否都是意料之中的。 此网址涉及的内容会贯穿全书所有的测试。</para>
+  <para>还有一些测试套件运行错误，是开发人员已知且视为不重要的。查看 <ulink url="&test-results;"/> 中的日志，确认这些失败信息是否都是意料之中的。该网址中涉及的内容会贯穿全书所有的测试。</para>
 
 </sect1>

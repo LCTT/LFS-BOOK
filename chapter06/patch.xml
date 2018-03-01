@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Patch 软件包包含一个通过打<quote>补丁</quote>创建或修改文件的程序，补丁文件通常由  <command>diff</command> 程序生成。</para>
+    <para>Patch 软件包包含一个通过打「补丁」创建或修改文件的程序，补丁文件通常由  <command>diff</command> 程序生成。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>

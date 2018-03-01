@@ -69,7 +69,7 @@
     <title/>
 
     <para>关于这个软件包的详细资料请参阅：
-    <xref linkend="contents-texinfo" role="."/></para>
+    <xref linkend="contents-texinfo"/>。</para>
 
   </sect2>
 

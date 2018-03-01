@@ -142,7 +142,7 @@
       <varlistentry id="ifnames">
         <term><command>ifnames</command> </term>
         <listitem>
-          <para>帮助为软件包写 <filename>configure.in</filename> 文件；打印软件包在 C 预处理器中使用的标识符[如果已经设置软件包具有某些可移植性， 该程序能帮助决定需要检查哪些  <command>configure</command>。还能填充 <filename>configure.in</filename> 生成的 <command>autoscan</command> 文件中的空格。]</para>
+          <para>帮助为软件包写 <filename>configure.in</filename> 文件；打印软件包在 C 预处理器中使用的标识符[如果已经设置软件包具有某些可移植性，该程序能帮助决定需要检查哪些  <command>configure</command>。还能填充 <filename>configure.in</filename> 生成的 <command>autoscan</command> 文件中的空格。]</para>
           <indexterm zone="ch-system-autoconf ifnames">
             <primary sortas="b-ifnames">ifnames</primary>
           </indexterm>

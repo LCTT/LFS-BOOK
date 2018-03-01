@@ -25,7 +25,7 @@
 人。</para>
 
   <caution>
-    <para>如果你想保留临时工具用来构建新的 LFS 系统， <emphasis>现在</emphasis>就要备份好。本书随后第六章中的指令将对当前的工具做些调整，导致在构建新系统时会失效。</para>
+    <para>如果你想保留临时工具用来构建新的 LFS 系统，<emphasis>现在</emphasis>就要备份好。本书随后第六章中的指令将对当前的工具做些调整，导致在构建新系统时会失效。</para>
   </caution>
 
 </sect1>

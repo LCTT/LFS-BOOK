@@ -18,7 +18,7 @@
   <para>本节将会讨论如何配置 <command>systemd-vconsole-setup</command> 系统服务，包括配置控制台字体和控制台的键盘映射。</para>
 
   <para><command>systemd-vconsole-setup</command> 服务读取 <filename>/etc/vconsole.conf</filename> 中的配置信息，
-  确定使用的键盘类型和屏幕的字体。<ulink url="http://www.tldp.org/HOWTO/HOWTO-INDEX/other-lang.html"/> 页面有很多其它语言的 “HOWTO” 内容可以给你很多帮助。
+  确定使用的键盘类型和屏幕的字体。<ulink url="http://www.tldp.org/HOWTO/HOWTO-INDEX/other-lang.html"/> 页面有很多其它语言的「HOWTO」内容可以给你很多帮助。
   <command>localectl list-keymaps</command> 可以列举出所有可用的终端键盘布局。<filename class="directory">/usr/share/consolefonts</filename> 目录提供了所有可用的字体。</para>
 
   <para><filename>/etc/vconsole.conf</filename> 的每一行都应该形如：VARIABLE="value"。以下列举了可用的 VARIABLE：</para>

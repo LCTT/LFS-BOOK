@@ -29,13 +29,13 @@
 
   <para>最小化的系统需要大约 6 GB 的分区，这足以存储所有的源码包及满足编译的需求。但如果要将 LFS 作为主要的 Linux 系统，可能需要安装其它附加的软件，这将需要额外的空间。考虑到了日后所需的空间，一个 20 GB 的分区是比较合理的。LFS 系统本身并不会占用这么多的空间，但大分区将能提供充裕的临时储存空间，并为完成 LFS 以后添加附加功能留有余地。编译软件包可能需要较大的磁盘空间，但这些空间可以在软件包安装后回收。</para>
 
-  <para>由于编译过程中所需的内存（RAM）可能不足，用一个小型的磁盘分区作为 <systemitem class="filesystem">swap</systemitem>空间是个不错的想法。内核会在此分区中储存较少使用的数据，从而为活动进程提供更多的内存。LFS 系统可以与宿主系统共用 <systemitem class="filesystem">swap</systemitem>  分区， 这样就没有必要再新建一个了。</para>
+  <para>由于编译过程中所需的内存（RAM）可能不足，用一个小型的磁盘分区作为 <systemitem class="filesystem">swap</systemitem> 空间是个不错的想法。内核会在此分区中储存较少使用的数据，从而为活动进程提供更多的内存。LFS 系统可以与宿主系统共用 <systemitem class="filesystem">swap</systemitem> 分区，这样就没有必要再新建一个了。</para>
 
-  <para>启动磁盘分区程序，通过如 <command>cfdisk</command> 或 <command>fdisk</command> 加上新分区所在的磁盘名&mdash;例如 <filename class="devicefile">/dev/sda</filename> 若是主盘为 IDE 的话。你需要创建一个 Linux 本地分区，并按需创建 <systemitem class="filesystem">swap</systemitem> 分区。如果你还不知道如何使用这些程序，请参考 <filename>cfdisk(8)</filename> 或 <filename>fdisk(8)</filename> 。</para>
+  <para>启动磁盘分区程序，通过如 <command>cfdisk</command> 或 <command>fdisk</command> 加上新分区所在的磁盘名——例如 <filename class="devicefile">/dev/sda</filename> 若是主盘为 IDE 的话。你需要创建一个 Linux 本地分区，并按需创建 <systemitem class="filesystem">swap</systemitem> 分区。如果你还不知道如何使用这些程序，请参考 <filename>cfdisk(8)</filename> 或 <filename>fdisk(8)</filename>。</para>
 
-  <note><para>对于有经验的用户，也可自行定制分区分案。 新版 LFS 系统支持软件 <ulink url="&blfs-book;postlfs/raid.html">RAID</ulink> 阵列或 <ulink url="&blfs-book;postlfs/aboutlvm.html">LVM</ulink> 然而，这些方案需要用到<ulink url="&blfs-book;postlfs/initramfs.html">initramfs</ulink>，这涉及到比较复杂的话题。并不建议首次尝试 LFS 的用户使用这样的分区方法。</para></note>
+  <note><para>对于有经验的用户，也可自行定制分区分案。新版 LFS 系统支持软件 <ulink url="&blfs-book;postlfs/raid.html">RAID</ulink> 阵列或 <ulink url="&blfs-book;postlfs/aboutlvm.html">LVM</ulink> 然而，这些方案需要用到 <ulink url="&blfs-book;postlfs/initramfs.html">initramfs</ulink>，这涉及到比较复杂的话题。并不建议首次尝试 LFS 的用户使用这样的分区方法。</para></note>
 
-  <para>请记住新分区的位置（例如， <filename class="devicefile">sda5</filename>）。 本书中将称其为 LFS 分区。还需要记住 <systemitem class="filesystem">swap</systemitem> 分区的位置。这些将会在  <filename>/etc/fstab</filename> 文件中用到。</para>
+  <para>请记住新分区的位置（例如，<filename class="devicefile">sda5</filename>）。本书中将称其为 LFS 分区。还需要记住 <systemitem class="filesystem">swap</systemitem> 分区的位置。这些将会在<filename>/etc/fstab</filename> 文件中用到。</para>
 
   <sect2>
   <title>其它分区问题</title>
@@ -79,13 +79,13 @@
       <listitem><para>/opt &ndash; 该目录常用于在 BLFS 中，安装多个像 Gnome 或 KDE 这样无需将文件嵌入 /usr 层次结构的大型软件包。如果使用的话，5 到 10 GB 的空间就足够了。</para>
       </listitem>
 
-      <listitem><para>/tmp &ndash;  独立的 /tmp 分区是比较少见的，但这在配置瘦客户端时会有用。如果使用的话，很少超过几 GB。</para></listitem>
+      <listitem><para>/tmp &ndash; 独立的 /tmp 分区是比较少见的，但这在配置瘦客户端时会有用。如果使用的话，很少超过几 GB。</para></listitem>
 
       <listitem><para>/usr/src &ndash; 该分区非常用于存储 BLFS 源文件并在构建不同版本的 LFS 中共享。它也可用于构建 BLFS 软件包。30-50 GB 的分区可以提供足够的空间。</para></listitem>
 
     </itemizedlist>
 
-    <para>任何你需要在启动时自动挂载的单独分区都需要写入到 <filename>/etc/fstab</filename> 文件中。有关如何指定分区的细节将在 <xref linkend="ch-bootable-fstab"/>中讨论 。</para>
+    <para>任何你需要在启动时自动挂载的单独分区都需要写入到 <filename>/etc/fstab</filename> 文件中。有关如何指定分区的细节将在 <xref linkend="ch-bootable-fstab"/> 中讨论 。</para>
 
     </sect3>
   </sect2>

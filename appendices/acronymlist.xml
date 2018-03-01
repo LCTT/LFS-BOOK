@@ -151,21 +151,21 @@
     <varlistentry>
       <term><emphasis role="bold">ext2</emphasis></term>
       <listitem>
-        <para>second extended file system (第二代可扩展文件系统)</para>
+        <para>second extended file system （第二代可扩展文件系统)</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><emphasis role="bold">ext3</emphasis></term>
       <listitem>
-        <para>third extended file system (第三代可扩展文件系统)</para>
+        <para>third extended file system （第三代可扩展文件系统)</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><emphasis role="bold">ext4</emphasis></term>
       <listitem>
-        <para>fourth extended file system (第四代可扩展文件系统)</para>
+        <para>fourth extended file system （第四代可扩展文件系统)</para>
       </listitem>
     </varlistentry>
 

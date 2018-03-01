@@ -10,18 +10,12 @@
 
   <title>帮助</title>
 
-  <para>如果在使用本书的过程中有疑问或碰到问题，可以先去看下 FAQ 页面<ulink url="&faq-root;#generalfaq"/>。
-      那里已经解决了很多经常遇到的问题。如果你的问题在那里找不到答案，可以先尝试找出问题的原因。下面页面里的提示
-      可以提供一些帮你定位问题的帮助：<ulink url="&hints-root;errors.txt"/>。
+  <para>如果在使用本书的过程中有疑问或碰到问题，可以先去看下 FAQ 页面<ulink url="&faq-root;#generalfaq"/>。那里已经解决了很多经常遇到的问题。如果你的问题在那里找不到答案，可以先尝试找出问题的原因。下面页面里的提示可以提供一些帮你定位问题的帮助：<ulink url="&hints-root;errors.txt"/>。
   </para>
 
-  <para>如果在 FAQ 里找不到你遇到的问题，还可以在这个邮件列表里搜索一
-      下：<ulink url="&lfs-root;search.html"/>。</para>
+  <para>如果在 FAQ 里找不到你遇到的问题，还可以在这个邮件列表里搜索一下：<ulink url="&lfs-root;search.html"/>。</para>
 
-  <para>我们还有一个很棒的 LFS 社区，大家都很乐意通过邮件列表和 IRC 提供协助（参看本书的 <xref linkend="ch-intro-resources"/>）。
-      不过，我们每天收到的支持问题中有很多其实可以通过查看 FAQ 和搜索邮件列表轻松解决。
-      所以为了让我们能最大可能地提供更好的协助，希望你碰到问题能自己先研究一下。这样可以让我们有精力去关注更罕见问题。
-      如果你自己搜索不到解决方式，请在你的帮助请求里收集所有相关信息（下面提到的）。</para>
+  <para>我们还有一个很棒的 LFS 社区，大家都很乐意通过邮件列表和 IRC 提供协助（参看本书的 <xref linkend="ch-intro-resources"/>）。不过，我们每天收到的支持问题中有很多其实可以通过查看 FAQ 和搜索邮件列表轻松解决。所以为了让我们能最大可能地提供更好的协助，希望你碰到问题能自己先研究一下。这样可以让我们有精力去关注更罕见问题。如果你自己搜索不到解决方式，请在你的帮助请求里收集所有相关信息（下面提到的）。</para>
 
   <sect2>
     <title>需要提供的信息</title>
@@ -52,9 +46,7 @@
     </itemizedlist>
 
     <note>
-      <para>脱离本手册的内容并<emphasis>不是</emphasis>说我们就一定不会帮你。
-          毕竟,LFS 还是属于个人爱好。坦率地告知别人对已验证流程作出的任何改动,
-          有助于我们评估和找到你问题的可能原因。</para>
+      <para>脱离本手册的内容并<emphasis>不</emphasis>意味着我们就一定不会帮你。毕竟，LFS 还是属于个人爱好。坦率地告知别人对已验证的流程作出的任何改动，有助于我们评估和找到你问题的可能原因。</para>
     </note>
 
   </sect2>
@@ -62,19 +54,14 @@
   <sect2>
     <title> 配置脚本问题</title>
 
-    <para>如果在运行 <command>configure</command> 脚本时遇到问题,
-        查看一下 <filename>config.log</filename> 文件。这个文件中可能会包
-        含 <command>configure</command> 脚本运行时没有输出到屏幕上的错误信息。
-        在寻求帮助的话请包含相关行。</para>
+    <para>如果在运行 <command>configure</command> 脚本时遇到问题，查看一下 <filename>config.log</filename> 文件。这个文件中可能会包含 <command>configure</command> 脚本运行时没有输出到屏幕上的错误信息。想寻求帮助的话请包含<emphasis>相关</emphasis>行。</para>
 
   </sect2>
 
   <sect2>
     <title>编译问题</title>
 
-    <para>屏幕上的显示输出和各个文件的内容都有助于定位编译发生问题的原因。<command>configure</command> 和
-        <command>make</command> 命令的输出信息都有用。然而通常并不需要在寻求帮助时将这些信息一股脑的贴出来，
-        但是一定要包含足够的相关信息。下面的例子就是在执行 <command>make</command> 命令出错后应该贴出来的输出信息：</para>
+    <para>屏幕上的显示输出和各个文件的内容都有助于定位编译发生问题的原因。<command>configure</command> 和 <command>make</command> 命令的输出信息都有用。然而通常并不需要在寻求帮助时将这些信息一股脑的贴出来，但是一定要包含足够的相关信息。下面的例子就是在执行 <command>make</command> 命令出错后应该贴出来的输出信息：</para>
 
 <screen><computeroutput>gcc -DALIASPATH=\"/mnt/lfs/usr/share/locale:.\"
 -DLOCALEDIR=\"/mnt/lfs/usr/share/locale\"
@@ -99,12 +86,9 @@ make: *** [all-recursive-am] Error 2</computeroutput></screen>
 
 <screen><computeroutput>make [2]: *** [make] Error 1</computeroutput></screen>
 
-    <para>这样的信息并不能用于诊断问题，实际上它仅仅是告知别人出了问题，却没有指出到底是哪里出现问题。
-        这也就是为什么要提供更加完整的信息。比如在上面的例子中，就告诉别人所执行的命令及相应的错误信息。</para>
+    <para>这样的信息并不能用于诊断问题，实际上它仅仅是告知别人出了问题，却没有指出到底是哪里出现问题。这也就是为什么要提供更加完整的信息。比如在上面的例子中，就告诉别人所执行的命令及相应的错误信息。</para>
 
-    <para>这个链接 <ulink
-    url="http://catb.org/~esr/faqs/smart-questions.html"/> 中的文章告知人们如何在互联网上寻求帮助，可以去看一下，
-        且遵循其中的提问原则进行提问，可以提高获得帮助的概率（亦让别人对你伸出援手更加方便）。</para>
+    <para>这个链接 <ulink url="http://catb.org/~esr/faqs/smart-questions.html"/> 中的文章告知人们如何在互联网上寻求帮助，可以去看一下，且遵循其中的提问原则进行提问，可以提高获得帮助的概率（亦让别人对你伸出援手更加方便）。</para>
 
   </sect2>
 

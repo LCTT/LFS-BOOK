@@ -85,7 +85,7 @@
     <title/>
 
     <para>关于这个软件包的详细资料请参见:
-    <xref linkend="contents-coreutils" role="."/></para>
+    <xref linkend="contents-coreutils"/>。</para>
 
   </sect2>
 

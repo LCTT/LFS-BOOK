@@ -19,11 +19,11 @@
     PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
     /tools/bin/bash --login +h</userinput></screen>
 
-  <para>给 <command>env</command> 命令传递 <parameter>-i</parameter> 选项会清除这个 chroot 切换进去的环境中的所有变量。 随后，只需重新设定 <envar>HOME</envar>、<envar>TERM</envar>、<envar>PS1</envar> 、和 <envar>PATH</envar> 变量。<parameter>TERM=$TERM</parameter> 将会把 <envar>TERM</envar> 设定成 chroot 外环境相同的值。许多程序需要这个变量才能正常工作，比如 <command>vim</command> 和 <command>less</command>。如果还需设定其他变量，如 <envar>CFLAGS</envar> 或 <envar>CXXFLAGS</envar>，正好在这一起设置了。</para>
+  <para>给 <command>env</command> 命令传递 <parameter>-i</parameter> 选项会清除这个 chroot 切换进去的环境中的所有变量。随后，只需重新设定 <envar>HOME</envar>、<envar>TERM</envar>、<envar>PS1</envar> 、和 <envar>PATH</envar> 变量。<parameter>TERM=$TERM</parameter> 将会把 <envar>TERM</envar> 设定成 chroot 外环境相同的值。许多程序需要这个变量才能正常工作，比如 <command>vim</command> 和 <command>less</command>。如果还需设定其他变量，如 <envar>CFLAGS</envar> 或 <envar>CXXFLAGS</envar>，正好在这一起设置了。</para>
 
   <para>在这之后，<envar>LFS</envar> 变量就不再需要了，因为后面所有工作都将被限定在 LFS 文件系统中。因为我们已经告诉 Bash 终端 <filename class="directory">$LFS</filename> 就是当前的根目录（<filename class="directory">/</filename>）目录。</para>
 
-  <para>注意要将 <filename class="directory">/tools/bin</filename> 放在 <envar>PATH</envar> 变量的最后。意思是在每个软件的最后版本编译安装好后就不再使用临时工具了。这还需要让 shell 不要 <quote>记住</quote> 每个可执行文件的位置&mdash;这样的话，还要给 <command>bash</command> 加上 <parameter>+h</parameter> 选项来关闭其哈希功能。</para>
+  <para>注意要将 <filename class="directory">/tools/bin</filename> 放在 <envar>PATH</envar> 变量的最后。意思是在每个软件的最后版本编译安装好后就不再使用临时工具了。这还需要让 shell 不要「记住」每个可执行文件的位置——这样的话，还要给 <command>bash</command> 加上 <parameter>+h</parameter> 选项来关闭其哈希功能。</para>
 
   <para>注意一下 <command>bash</command> 的提示符是 <computeroutput>I have no name!</computeroutput> 这是正常的，因为这个时候 <filename>/etc/passwd</filename> 文件还没有被创建。</para>
 

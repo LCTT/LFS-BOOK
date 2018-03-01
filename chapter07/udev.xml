@@ -17,7 +17,7 @@
 
   <para>在 <xref linkend="chapter-building-system"/> 我们构建 <phrase revision="sysv">eudev</phrase><phrase revision="systemd">systemd</phrase> 时，已经安装了 udev 包。在我们详细说明 udev 系统的用法之前，我们先大致了解早先的设备控制方式。</para>
 
-  <para>传统的 Linux 不管硬件是否真实存在，都以创建静态设备的方法来处理硬件，因此需要在 <filename class="directory">/dev</filename> 目录下创建大量的设备节点文件(有时会有上千个)。这通常由 <command>MAKEDEV</command> 脚本完成，它通过大量调用 <command>mknod</command> 程序为这个世界上可能存在的每一个设备建立对应的主设备号和次设备号。</para>
+  <para>传统的 Linux 不管硬件是否真实存在，都以创建静态设备的方法来处理硬件，因此需要在 <filename class="directory">/dev</filename> 目录下创建大量的设备节点文件（有时会有上千个）。这通常由 <command>MAKEDEV</command> 脚本完成，它通过大量调用 <command>mknod</command> 程序为这个世界上可能存在的每一个设备建立对应的主设备号和次设备号。</para>
 
   <para>而使用 udev 方法，只有当内核检测到硬件接入，才会建立对应的节点文件。因为需要在系统启动的时候重新建立设备节点文件，所以将它存储在 <systemitem class="filesystem">devtmpfs</systemitem> 文件系统中（完全存在于内存中的虚拟文件系统）。设备节点文件无需太多的空间，所以占用的内存也很小。</para>
 
@@ -28,7 +28,7 @@
 
     <para>问题存在于它处理设备的检测、创建和命令的方式。其中最大的问题莫过于它对设备节点的命名方式。大部分开发者的观点是：设备的命名应该由系统的所有者决定，而不是开发者。而且 <systemitem class="filesystem">devfs</systemitem> 存在严重的竞争条件(race condition)问题，如不对内核做大量的修改就无法修正这一问题。最终，因为缺乏有效的维护，在 2006 年 6 月终被移出内核源代码。</para>
 
-    <para>后来，有一种新的虚拟文件系统 <systemitem class="filesystem">sysfs</systemitem> 在 2.5 系列测试版本内核中引入，并且加入了 2.6 系列的稳定版本内核之中。  <systemitem class="filesystem">sysfs</systemitem> 系统的任务就是将系统中的硬件配置状态导出至用户空间，而这给开发一种运行于用户空间的新型 <systemitem class="filesystem">devfs</systemitem> 系统带来了可能。</para>
+    <para>后来，有一种新的虚拟文件系统 <systemitem class="filesystem">sysfs</systemitem> 在 2.5 系列测试版本内核中引入，并且加入了 2.6 系列的稳定版本内核之中。<systemitem class="filesystem">sysfs</systemitem> 系统的任务就是将系统中的硬件配置状态导出至用户空间，而这给开发一种运行于用户空间的新型 <systemitem class="filesystem">devfs</systemitem> 系统带来了可能。</para>
 
   </sect2>
 
@@ -47,16 +47,16 @@
 
       <para>设备文件是通过内核中的 <systemitem class="filesystem">devtmpfs</systemitem> 文件系统创建的。任何想要注册的设备都需要通过 <systemitem class="filesystem">devtmpfs</systemitem> （通过驱动程序核心）实现。每当一个 <systemitem class="filesystem">devtmpfs</systemitem> 实例挂载到 <filename class="directory">/dev</filename>，就会建立一个设备节点文件，它拥有固定的名称、权限以及所有者。</para>
 
-      <para>很短的时间之后，内核将给 <command> udevd</command> 一个 uevent。基于 <filename class="directory">/etc/udev/rules.d</filename>、<filename class="directory">/lib/udev/rules.d</filename> 和 <filename class="directory">/run/udev/rules.d</filename> 目录内文件指定的规则， <command> udevd</command> 将会建立到设备节点文件的额外符号链接，这有可能更改其权限、所有者和所在组，或者是更改 <command>udevd</command> 内建接口（名称）。</para>
+      <para>很短的时间之后，内核将给 <command> udevd</command> 一个 uevent。基于 <filename class="directory">/etc/udev/rules.d</filename>、<filename class="directory">/lib/udev/rules.d</filename> 和 <filename class="directory">/run/udev/rules.d</filename> 目录内文件指定的规则，<command> udevd</command> 将会建立到设备节点文件的额外符号链接，这有可能更改其权限、所有者和所在组，或者是更改 <command>udevd</command> 内建接口（名称）。</para>
 
-      <para>这三个文件夹中的规则文件都应以数字编号，并会被一起处理。当发现一个新的设备时， 若 <command>udevd</command> 无法找到对应的规则，将会使用 <systemitem class="filesystem">devtmpfs</systemitem> 中初始的权限以及所有者。 </para>
+      <para>这三个文件夹中的规则文件都应以数字编号，并会被一起处理。当发现一个新的设备时，若 <command>udevd</command> 无法找到对应的规则，将会使用 <systemitem class="filesystem">devtmpfs</systemitem> 中初始的权限以及所有者。</para>
 
     </sect3>
 
     <sect3>
       <title>加载模块</title>
 
-      <para>编译成模块的设备驱动可能会包含别名。别名可以通过 <command>modinfo</command> 命令查看， 一般是模块支持的特定总线的设备描述符。举个例子，驱动 <emphasis>snd-fm801</emphasis> 支持厂商ID 为 0x1319 以及设备 ID 为 0x0801 的设备，它包含一个 <quote>pci:v00001319d00000801sv*sd*bc04sc01i*</quote> 的别名，总线驱动导出该驱动别名并通过 <systemitem class="filesystem">sysfs</systemitem> 处理相关设备。例如，文件 <filename>/sys/bus/pci/devices/0000:00:0d.0/modalias</filename> 应该会包含字符串 <quote>pci:v00001319d00000801sv00001319sd00001319bc04sc01i00</quote>。udev 采用的默认规则会让 <command>udevd</command> 根据 uevent 环境变量 <envar>MODALIAS</envar> 的内容（它应该和 sysfs 里的 <filename>modalias</filename> 文件内容一样）调用 <command>/sbin/modprobe</command>，这样就可以加载在通配符扩展后能和这个字符串一致的所有模块。</para>
+      <para>编译成模块的设备驱动可能会包含别名。别名可以通过 <command>modinfo</command> 命令查看，一般是模块支持的特定总线的设备描述符。举个例子，驱动 <emphasis>snd-fm801</emphasis> 支持厂商ID 为 0x1319 以及设备 ID 为 0x0801 的设备，它包含一个「pci:v00001319d00000801sv*sd*bc04sc01i*」的别名，总线驱动导出该驱动别名并通过 <systemitem class="filesystem">sysfs</systemitem> 处理相关设备。例如，文件 <filename>/sys/bus/pci/devices/0000:00:0d.0/modalias</filename> 应该会包含字符串「pci:v00001319d00000801sv00001319sd00001319bc04sc01i00」。udev 采用的默认规则会让 <command>udevd</command> 根据 uevent 环境变量 <envar>MODALIAS</envar> 的内容（它应该和 sysfs 里的 <filename>modalias</filename> 文件内容一样）调用 <command>/sbin/modprobe</command>，这样就可以加载在通配符扩展后能和这个字符串一致的所有模块。</para>
 
       <para>在这个例子里，意味着，除了 <emphasis>snd-fm801</emphasis> 之外，一个已经废弃的（不是我们所希望的）驱动 <emphasis>forte</emphasis> 如果存在的话也会被加载。下面有几种可以避免加载多余驱动的方式。</para>
 
@@ -89,18 +89,18 @@
 
       <para>如果在 <filename class="directory">/sys/bus</filename> 下的相应目录里没有 <filename>modalias</filename> 的话，意味着内核开发人员还没有为这个总线类型增加 modalias 支持。使用 Linux-&linux-version; 内核，应该是 ISA 总线的问题。希望这个可以在后面的内核版本里得到解决。</para>
 
-      <para>udev 不会尝试加载类似 <emphasis>snd-pcm-oss</emphasis> 这样的 <quote>wrapper</quote> 驱动，也不会加载类似 <emphasis>loop</emphasis> 这样的非硬件驱动。</para>
+      <para>udev 不会尝试加载类似 <emphasis>snd-pcm-oss</emphasis> 这样的「wrapper」驱动，也不会加载类似 <emphasis>loop</emphasis> 这样的非硬件驱动。</para>
 
     </sect3>
 
     <sect3>
       <title>内核驱动没有自动加载，udev 也没有尝试加载</title>
 
-      <para>如果是 <quote>wrapper</quote> 模块只是强化其它模块的功能（比如，<emphasis>snd-pcm-oss</emphasis> 模块通过允许 OSS 应用直接访问声卡的方式加强了 <emphasis>snd-pcm</emphasis> 模块的功能），需要配置 <command>modprobe</command> 在 udev 加载硬件驱动模块后再加载相应的封装模块。可以在任意 <filename>/etc/modprobe.d/<replaceable>&lt;filename&gt;</replaceable>.conf</filename> 文件里增加一行 <quote>softdep</quote>，例如：</para>
+      <para>如果是「wrapper」模块只是强化其它模块的功能（比如，<emphasis>snd-pcm-oss</emphasis> 模块通过允许 OSS 应用直接访问声卡的方式加强了 <emphasis>snd-pcm</emphasis> 模块的功能），需要配置 <command>modprobe</command> 在 udev 加载硬件驱动模块后再加载相应的封装模块。可以在任意 <filename>/etc/modprobe.d/<replaceable>&lt;filename&gt;</replaceable>.conf</filename> 文件里增加一行「softdep」，例如：</para>
 
 <screen role="nodump"><literal>softdep snd-pcm post: snd-pcm-oss</literal></screen>
 
-      <para>请注意 <quote>softdep</quote> 也支持 <literal>pre:</literal> 的依赖方式，或者混合 <literal>pre:</literal> 和 <literal>post:</literal>。查看 <filename>modprobe.d(5)</filename> 手册了解更多关于 <quote>softdep</quote> 语法和功能的信息。</para>
+      <para>请注意「softdep」也支持 <literal>pre:</literal> 的依赖方式，或者混合 <literal>pre:</literal> 和 <literal>post:</literal>。查看 <filename>modprobe.d(5)</filename> 手册了解更多关于「softdep」语法和功能的信息。</para>
 
       <para>如果问题模块不是一个封装而且也是有用的，配置 <command>modules</command> 开机脚本在引导系统的时候加载模块。这样需要把模块名字添加到 <filename>/etc/sysconfig/modules</filename>文件里的单独一行。这个也可以用于封装模块，但是只是备用方式。</para>
 
@@ -136,14 +136,14 @@
 
       <para>后面的内容会假设驱动已经静态编译进内核或已经作为模块加载，而且你也已经确认 udev 没有创建相应的设备节点。</para>
 
-      <para>如果内核驱动没有将一个设备的信息导出至 <systemitem class="filesystem">sysfs</systemitem> 系统，则 udev 无法创建相应的设备结点。 这种情况经常会在内核树之外的第三方驱动程序中出现。其解决方法是在文件 <filename>/lib/udev/devices</filename> 中，使用正确的主设备号和次设备号创建一个静态设备结点（相应的设备号可以在内核文档中的 <filename>devices.txt</filename>文件或者由第三方驱动程序的文档中找到）。之后 <command>udev</command>会根据这些信息在 <filename class="directory">/dev</filename> 中创建一个静态设备结点。</para>
+      <para>如果内核驱动没有将一个设备的信息导出至 <systemitem class="filesystem">sysfs</systemitem> 系统，则 udev 无法创建相应的设备结点。这种情况经常会在内核树之外的第三方驱动程序中出现。其解决方法是在文件 <filename>/lib/udev/devices</filename> 中，使用正确的主设备号和次设备号创建一个静态设备结点（相应的设备号可以在内核文档中的 <filename>devices.txt</filename>文件或者由第三方驱动程序的文档中找到）。之后 <command>udev</command>会根据这些信息在 <filename class="directory">/dev</filename> 中创建一个静态设备结点。</para>
 
     </sect3>
 
     <sect3>
       <title>设备名称顺序在重启后随机改变</title>
 
-      <para>这是因为 udev 被设计成并行处理 uevents 并加载模块，所以是不可预期的顺序。这个不会被 <quote>修复</quote>。你不应该依赖稳定的内核模块名称。而是在检测到设备的稳定特征，比如序列号或 udev 安装的一些 *_id 应用的输出，来判断设备的稳定名称，之后创建自己的规则生成相应的软链接。可以参考 <xref linkend="ch-scripts-symlinks"/> 和 <xref linkend="ch-scripts-network"/>。</para>
+      <para>这是因为 udev 被设计成并行处理 uevents 并加载模块，所以是不可预期的顺序。这个不会被「修复」。你不应该依赖稳定的内核模块名称。而是在检测到设备的稳定特征，比如序列号或 udev 安装的一些 *_id 应用的输出，来判断设备的稳定名称，之后创建自己的规则生成相应的软链接。可以参考 <xref linkend="ch-scripts-symlinks"/> 和 <xref linkend="ch-scripts-network"/>。</para>
 
     </sect3>
 

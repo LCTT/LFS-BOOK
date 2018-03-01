@@ -19,7 +19,7 @@ mount -v -t ext4 /dev/<replaceable>&lt;xxx&gt;</replaceable> $LFS</userinput></s
 
   <para>请用 LFS 分区替代 <replaceable>&lt;xxx&gt;</replaceable> 。</para>
 
-  <para>如果 LFS 使用了多个分区（如， <filename class="directory">/</filename> 和 <filename class="directory">/usr</filename>)，需要挂载：</para>
+  <para>如果 LFS 使用了多个分区（如，<filename class="directory">/</filename> 和 <filename class="directory">/usr</filename>)，需要挂载：</para>
 
 <screen role="nodump"><userinput>mkdir -pv $LFS
 mount -v -t ext4 /dev/<replaceable>&lt;xxx&gt;</replaceable> $LFS

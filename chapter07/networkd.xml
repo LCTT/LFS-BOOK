@@ -154,7 +154,7 @@ EOF</userinput></screen>
 
 <screen><literal>IP_address myhost.example.org aliases</literal></screen>
 
-<para>除非电脑在互联网中可见（例如，拥有注册的域名且分配有有效的 IP 地址&mdash;大多数用户并没有这些），请确保 IP 地址位于有效的私有网络 IP 地址段。有效区间是：</para>
+<para>除非电脑在互联网中可见（例如，拥有注册的域名且分配有有效的 IP 地址——大多数用户并没有这些），请确保 IP 地址位于有效的私有网络 IP 地址段。有效区间是：</para>
 
 <screen><literal>Private Network Address Range      Normal Prefix
 10.0.0.1 - 10.255.255.254           8

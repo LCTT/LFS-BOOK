@@ -77,7 +77,7 @@ make clean</userinput></screen>
 
 <screen><userinput remap="install">make PREFIX=/usr install</userinput></screen>
 
-    <para>安装使用动态链接库的 <command>bzip2</command> 二进制文件到 <filename class="directory">/bin</filename> 目录， 创建一些必须的符号链接并清理：</para>
+    <para>安装使用动态链接库的 <command>bzip2</command> 二进制文件到 <filename class="directory">/bin</filename> 目录，创建一些必须的符号链接并清理：</para>
 
 <screen><userinput remap="install">cp -v bzip2-shared /bin/bzip2
 cp -av libbz2.so* /lib
@@ -183,7 +183,7 @@ ln -sv bzip2 /bin/bzcat</userinput></screen>
       <varlistentry id="bzip2">
         <term><command>bzip2</command></term>
         <listitem>
-          <para>使用哈夫曼编码的 Burrows-Wheeler 块排序文本压缩算法压缩文件；压缩率比传统的用 “Lempel-Ziv” 算法的压缩器要好，比如 <command>gzip</command>。</para>
+          <para>使用哈夫曼编码的 Burrows-Wheeler 块排序文本压缩算法压缩文件；压缩率比传统的用「Lempel-Ziv」算法的压缩器要好，比如 <command>gzip</command>。</para>
           <indexterm zone="ch-system-bzip2 bzip2">
             <primary sortas="b-bzip2">bzip2</primary>
           </indexterm>

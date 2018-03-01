@@ -76,7 +76,7 @@
 
 <screen><userinput remap="make">FORCE_UNSAFE_CONFIGURE=1 make</userinput></screen>
 
-    <para>如果不运行测试套件的话跳到<quote>安装软件包</quote></para>
+    <para>如果不运行测试套件的话跳到「安装软件包」</para>
 
     <para>现在可以运行测试套件了。首先，运行需要以 <systemitem class="username">root</systemitem> 用户运行的测试：</para>
 
@@ -569,7 +569,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="mkfifo">
         <term><command>mkfifo</command></term>
         <listitem>
-          <para>用指定的名称在 UNIX 中创建先进先出（FIFOs） 的 “命名管道”</para>
+          <para>用指定的名称在 UNIX 中创建先进先出（FIFO） 的「命名管道」</para>
           <indexterm zone="ch-system-coreutils mkfifo">
             <primary sortas="b-mkfifo">mkfifo</primary>
           </indexterm>
@@ -1159,7 +1159,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="yes">
         <term><command>yes</command></term>
         <listitem>
-          <para>重复输出 <quote>y</quote> 或指定的字符串直到被杀死</para>
+          <para>重复输出「y」或指定的字符串直到被杀死</para>
           <indexterm zone="ch-system-coreutils yes">
             <primary sortas="b-yes">yes</primary>
           </indexterm>

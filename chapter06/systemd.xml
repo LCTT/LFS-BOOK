@@ -644,7 +644,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
       <varlistentry id="udevadm">
         <term><command>udevadm</command></term>
         <listitem>
-          <para>通用 udev 管理工具：控制 udevd 守护进程、从 udev 数据库提供信息、 监控 uevent、等待 uevent 完成、检测 udev 配置、为指定设备触发 uevents</para>
+          <para>通用 udev 管理工具：控制 udevd 守护进程、从 udev 数据库提供信息、监控 uevent、等待 uevent 完成、检测 udev 配置、为指定设备触发 uevents</para>
           <indexterm zone="ch-system-systemd udevadm">
             <primary sortas="b-udevadm">udevadm</primary>
           </indexterm>

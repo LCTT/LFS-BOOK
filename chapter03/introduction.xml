@@ -10,27 +10,27 @@
 
   <title>简介</title>
 
-  <para>本章节包含一张软件包列表，下载并用其构建一个最基础的 linux 系统。列出的版本号对应的是该软件确保能正常工作的版本，而且本书根据对它们的使用做成。我们强烈建议不要使用更新的本版，因为某个版本的编译指令并不一定适用于更新的版本。最新的软件包会包含许多问题需要特别对应。这些对应方法会在本书的开放版本中解决并固定下来。</para>
+  <para>本章列出了一张软件包的清单，你需要下载它们来构建一个基础的 Linux 系统。列出的软件版本号便是该软件经过确认可以正常工作的版本，也是成书时我们使用的版本。我们强烈建议不要使用更新的本版，因为某个版本的编译指令并不一定适用于更新版本。最新的软件包会包含许多问题，需要特别对应。这些对应方法会在本书的开发版本中解决并固定下来。</para>
 
-  <para>下载位置可能不会一直有效。如果在本书发布后下载位置变了，Google （<ulink url="http://www.google.com/"/>）为绝大多数软件包提供了一个好用的搜索引擎。如果搜索失败，可以试试 <ulink url="&lfs-root;lfs/packages.html#packages"/> 中提到的其他下载地址。 </para>
+  <para>我们无法保证下载的地址是一直有效的。如果在本书发布后下载地址变了，大部分软件包可以用 Google （<ulink url="http://www.google.com/"/>）解决。如果连搜索也失败了，那不妨试一试 <ulink url="&lfs-root;lfs/packages.html#packages"/> 中提到的其他下载地址。</para>
 
-  <para>下载好的软件包和补丁需要保存在某个地方，以方便在整个构建过程中都能有效访问。另外还需要一个工作目录用于解压源代码并执行编译。 <filename class="directory">$LFS/sources</filename> 就可以同时作为软件包、补丁的存放所和工作目录。通过这个目录，所有需要的元素都将存储在 LFS 分区中，并且在整个构建过程中都可以访问。</para>
+  <para>下载好的软件包和补丁需要保存在某处，这个某处最好是一个在整个构建过程中都能便捷地访问到的地方。另外还需要一个工作目录，用于解压并构建源码。<filename class="directory">$LFS/sources</filename> 可以同时作为软件包、补丁的存放所和工作目录。通过这个目录，所有需要的元素都将存储在 LFS 分区中，并且在整个构建过程中都可以访问。</para>
 
-  <para>在开始下载任务之前，先用 <systemitem class="username">root</systemitem> 用户执行下面的命令来创建这个目录：</para>
+  <para>在开始下载任务之前，先用 <systemitem class="username">root</systemitem> 用户执行下面的命令，创建这个目录：</para>
 
 <screen role="nodump"><userinput>mkdir -v $LFS/sources</userinput></screen>
 
-  <para>设置目录的写权限和粘滞模式。<quote>粘滞模式</quote>是指即便有多个用户对某个目录有写权限，在粘滞目录里的文件仍旧只能被文件的所有者删除。下面的命令可以打开写权限和粘滞模式：</para>
+  <para>设置目录的写权限和粘滞模式。「粘滞模式」是指，即便多个用户对某个目录有写权限，但仅有文件的所有者，能在粘滞目录中删除该文件。运行以下命令将开启目录的写权限和粘滞模式：</para>
 
 <screen role="nodump"><userinput>chmod -v a+wt $LFS/sources</userinput></screen>
 
-  <para>下载所有软件包和补丁的一个简单方式是使用 <ulink url="../wget-list">wget-list</ulink> 作为 <command>wget</command> 的输入。例如：</para>
+  <para>一个简单的一口气下载所有软件包和补丁的方法是使用 <ulink url="../wget-list">wget-list</ulink> 作为 <command>wget</command> 的输入。例如：</para>
 
 <screen role="nodump"><userinput>wget --input-file=wget-list --continue --directory-prefix=$LFS/sources</userinput></screen>
 
-  <para>（LCTT 译注：由于这些文件都分布在国外的不同站点上，因此有些下载的会很慢。感谢中科大提供的镜像：wget-list-LFS7.7-systemd-USTC，感谢 Love-xuan 提供本文件。）</para>
+  <!-- <para>（LCTT 译注：由于这些文件都分布在国外的不同站点上，因此有些下载的会很慢。感谢中科大提供的镜像：wget-list-LFS7.7-systemd-USTC，感谢 Love-xuan 提供本文件。）</para> -->
 
-  <para>另外，从 LFS-7.0 开始，多了一个单独的文件 <ulink url="../md5sums">md5sums</ulink>，可以在正式开始前校验所有的文件是否都正确。将这个文件拷贝到 <filename class="directory">$LFS/sources</filename> 目录中并执行：</para>
+  <para>另外，从 LFS-7.0 开始，多了一个单独的文件 <ulink url="../md5sums">md5sums</ulink>，可以在正式开始前校验所有的文件是否都正确。将这个文件复制到 <filename class="directory">$LFS/sources</filename> 目录中并执行：</para>
 
 <screen role="nodump"><userinput>pushd $LFS/sources
 md5sum -c md5sums

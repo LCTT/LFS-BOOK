@@ -94,7 +94,7 @@ RANLIB=$LFS_TGT-ranlib         \
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>现在，为下一章的 <quote>Re-adjusting</quote> 阶段准备链接器：</para>
+    <para>现在，为下一章的「Re-adjusting」阶段准备链接器：</para>
 
 <screen><userinput remap="adjust">make -C ld clean
 make -C ld LIB_PATH=/usr/lib:/lib
@@ -113,7 +113,7 @@ cp -v ld/ld-new /tools/bin</userinput></screen>
       <varlistentry>
         <term><parameter>-C ld LIB_PATH=/usr/lib:/lib</parameter></term>
         <listitem>
-          <para>这个选项重新编译 <filename class="directory">ld</filename> 子目录中的所有文件。在命令行中指定 Makefile 的 <envar>LIB_PATH</envar> 变量可以使我们能够重写临时工具的默认值并指向正确的最终路径。该变量的值指定链接器的默认库搜索路径。 下一章中会用到这个准备。</para>
+          <para>这个选项重新编译 <filename class="directory">ld</filename> 子目录中的所有文件。在命令行中指定 Makefile 的 <envar>LIB_PATH</envar> 变量可以使我们能够重写临时工具的默认值并指向正确的最终路径。该变量的值指定链接器的默认库搜索路径。下一章中会用到这个准备。</para>
         </listitem>
       </varlistentry>
 
@@ -125,7 +125,7 @@ cp -v ld/ld-new /tools/bin</userinput></screen>
     <title/>
 
     <para>该软件包的详细信息请参见：
-    <xref linkend="contents-binutils" role="."/></para>
+    <xref linkend="contents-binutils"/>。</para>
 
   </sect2>
 

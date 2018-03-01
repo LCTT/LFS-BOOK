@@ -43,21 +43,21 @@
   <sect2 role="installation">
     <title>安装交叉编译的 Binutils</title>
 
-    <note><para>返回前面章节重新阅读注意事项。了解标记为重要的注意事项能在后面帮你节省很多问题。</para></note>
+    <note><para>返回前面章节重新阅读注意事项。了解标记为重要的注意事项能在后面帮你省去很多麻烦。</para></note>
 
-    <para>第一个编译 Binutils 软件包很重要，因为 Glibc 和 GCC 会对可用的链接器和汇编器执行各种测试以决定启用它们自己的哪些功能。</para>
+    <para>第一个编译的软件包是 Binutils 软件包，这点很重要，因为 Glibc 和 GCC 都会对可用的链接器和汇编器执行各种测试，以决定启用它们自身的哪些功能。</para>
 
-    <para>Binutils 手册建议在源码目录之外一个专门的编译目录里面编译 Binutils：</para>
+    <para>Binutils 手册建议，在源码目录之外一个专门的编译目录里面编译 Binutils：</para>
 
 <screen><userinput remap="pre">mkdir -v build
 cd       build</userinput></screen>
 
     <note>
-      <para>为了衡量在本书中其余部分所使用 SBU 值，我们要测量一下这个软件包从配置到包括第一次安装在内的编译时间。为了轻松的做到这点，用类似 <userinput>time { ./configure ... &amp;&amp; ...
-      &amp;&amp; make install; }</userinput> 的方式将命令包装在  <command>time</command> 命令中。</para>
+      <para>为了衡量在本书中其余部分所使用 SBU 值，我们要测量一下这个软件包从配置到包括第一次安装在内的编译时间。为了轻松的做到这点，会用类似 <userinput>time { ./configure ... &amp;&amp; ...
+      &amp;&amp; make install; }</userinput> 的方式将命令包裹在 <command>time</command> 命令中。</para>
     </note>
 
-    <note><para>第五章中大概编译的 SBU 值和所需磁盘空间不包括测试套件数据。</para></note>
+    <note><para>第五章中，大致的构建 SBU 值和所需磁盘空间不包括测试套件数据。</para></note>
 
     <para>现在准备编译 Binutils：</para>
 
@@ -96,7 +96,7 @@ cd       build</userinput></screen>
       <varlistentry>
         <term><envar>--target=$LFS_TGT</envar></term>
         <listitem>
-          <para>因为 <envar>LFS_TGT</envar> 变量中的机器描述和 <command>config.guess</command> 脚本返回的值略有不同，这个选项会告诉 <command>configure</command> 脚本调整 Binutils 的编译系统来编译一个交叉链接器。</para>
+          <para>因为 <envar>LFS_TGT</envar> 变量中的机器描述和 <command>config.guess</command> 脚本返回的值略有不同，这个选项会告诉 <command>configure</command> 脚本调整 Binutils 的构建系统来构建一个交叉链接器。</para>
         </listitem>
       </varlistentry>
 
@@ -120,9 +120,9 @@ cd       build</userinput></screen>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>现在编译完成了。通常现在我们会运行测试套件，但在这个初期阶段，测试套件框架（Tcl、Expect 和 DejaGNU）还没有就绪。在此进行测试的好处不多，因为第一遍编译的程序很快会被第二遍的代替。</para>
+    <para>现在编译完成了。通常现在我们会运行测试套件，但在这个初期阶段，测试套件框架（Tcl、Expect 和 DejaGNU）还没有就绪。在此进行测试的收效甚微，因为第一遍编译的程序很快会被第二遍的代替。</para>
 
-    <para>如果是在 x86_64 上编译，创建符号链接，以确保工具链的完整性：</para>
+    <para>如果是在 x86_64 上构建，创建符号链接，以确保工具链的完整性：</para>
 
 <screen><userinput remap="install">case $(uname -m) in
   x86_64) mkdir -v /tools/lib &amp;&amp; ln -sv lib /tools/lib64 ;;
@@ -137,7 +137,7 @@ esac</userinput></screen>
   <sect2 role="content">
     <title/>
 
-    <para>该软件包的详细信息在 <xref linkend="contents-binutils" role="."/> 中。</para>
+    <para>该软件包的详细信息位于 <xref linkend="contents-binutils"/>。</para>
 
   </sect2>
 
