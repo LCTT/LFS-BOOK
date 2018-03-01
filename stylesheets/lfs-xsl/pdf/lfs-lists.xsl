@@ -53,20 +53,23 @@ $Date: 2012-08-29 17:45:23 -0300 (Wed, 29 Aug 2012) $
       <xsl:when test="ancestor::variablelist/@role = 'materials'">
         <fo:block id="{$id}" xsl:use-attribute-sets="list.item.spacing"
                   keep-together.within-column="always" font-weight="bold"
-                  keep-with-next.within-column="always" text-align="left">
+                  keep-with-next.within-column="always" text-align="left"
+                  text-indent="0">
           <xsl:text>&#x2022;   </xsl:text>
           <xsl:apply-templates select="term"/>
         </fo:block>
         <fo:block text-align="left"
                   keep-together.within-column="always"
-                  keep-with-previous.within-column="always">
+                  keep-with-previous.within-column="always"
+                  text-indent="0">
           <xsl:apply-templates select="listitem"/>
         </fo:block>
       </xsl:when>
       <xsl:otherwise>
         <fo:block id="{$id}" xsl:use-attribute-sets="list.item.spacing"
                   keep-together.within-column="always"
-                  keep-with-next.within-column="always" margin-left="1em">
+                  keep-with-next.within-column="always" margin-left="1em"
+                  text-indent="0">
           <xsl:apply-templates select="term"/>
         </fo:block>
         <fo:block margin-left="2em">
@@ -104,6 +107,7 @@ $Date: 2012-08-29 17:45:23 -0300 (Wed, 29 Aug 2012) $
           <xsl:attribute name="space-after.optimum">0.4em</xsl:attribute>
           <xsl:attribute name="space-after.minimum">0.2em</xsl:attribute>
           <xsl:attribute name="space-after.maximum">0.6em</xsl:attribute>
+
         </xsl:otherwise>
       </xsl:choose>
       <xsl:apply-templates select="seglistitem/seg"/>

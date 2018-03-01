@@ -54,6 +54,7 @@ $Date: 2007-07-05 18:18:33 -0300 (Thu, 05 Jul 2007) $
     </xsl:variable>
     <xsl:variable name="content">
       <fo:inline xsl:use-attribute-sets="xref.properties">
+        <xsl:attribute name="color">blue</xsl:attribute>
         <xsl:choose>
           <xsl:when test="@endterm">
             <xsl:variable name="etargets" select="key('id',@endterm)"/>
