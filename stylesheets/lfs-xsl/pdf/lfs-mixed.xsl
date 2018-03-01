@@ -25,6 +25,8 @@ $Date: 2011-10-09 23:59:11 -0300 (Sun, 09 Oct 2011) $
     <!-- Properties associated with verbatim text. -->
   <xsl:attribute-set name="verbatim.properties">
     <xsl:attribute name="keep-with-previous.within-column">always</xsl:attribute>
+    <xsl:attribute name="font-size">8pt</xsl:attribute>
+    <xsl:attribute name="line-height">10pt</xsl:attribute>
     <xsl:attribute name="space-before.optimum">0.6em</xsl:attribute>
     <xsl:attribute name="space-before.minimum">0.4em</xsl:attribute>
     <xsl:attribute name="space-before.maximum">0.8em</xsl:attribute>

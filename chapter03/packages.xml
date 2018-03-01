@@ -412,9 +412,9 @@
         <para>MD5 校验和： <literal>&linux-md5;</literal></para>
 
         <note>
-          <para>Linux内核更新相对比较频繁，大多数时候是因为发现了安全漏洞。当前最新的 &linux-major-version;.&linux-minor-version;.x 内核版本应该都可以使用，除非在勘误页有其他说明。</para>
+          <para>Linux 内核更新相对比较频繁，大多数时候是因为发现了安全漏洞。当前最新的 &linux-major-version;.&linux-minor-version;.x 内核版本应该都可以使用，除非在勘误页有其他说明。</para>
 
-          <para>对于网速较慢或带宽费用较高的用户如果希望更新 Linux 内核，可以将基线版本的软件包和补丁分开下载。这样可以通过打上小版本发布中所附带的更新补丁的方式，节省一些时间或费用。</para>
+          <para>对于网速较慢或带宽费用较高的用户如果希望更新 Linux 内核，可以将基线版本的软件包和补丁分开下载。针对次要版本中一连串的补丁程度的更新，这种操作方式也许能让你少费些时间，或者说功夫。</para>
 
         </note>
       </listitem>

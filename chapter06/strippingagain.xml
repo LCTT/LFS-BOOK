@@ -14,7 +14,7 @@
 
   <para>大部分人使用下面提到的命令并不会感到任何困难。然而，很容易出现错误并导致新的系统不可用，因此在运行 <command>strip</command> 命令之前，对当前状态的 LFS 系统进行备份是个好主意。</para>
 
-  <para>在进行清理无用内容之前，格外注意确保要删除的二进制文件没有正在运行。如果用 <xref linkend="ch-system-chroot" role=","/> 的命令不确定用户是否进入了 chroot，首先从 chroot 退出：</para>
+  <para>在进行清理无用内容之前，格外注意确保要删除的二进制文件没有正在运行。如果用 <xref linkend="ch-system-chroot"/> 的命令，不确定用户是否进入了 chroot，首先从 chroot 退出：</para>
 
 <screen role="nodump"><userinput>logout</userinput></screen>
 

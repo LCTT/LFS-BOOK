@@ -21,7 +21,7 @@
     <sect3>
       <title>在内核命令行上禁用持久命名</title>
    
-      <para>可以在内核命令行上添加 <userinput>net.ifnames=0</userinput> 来恢复传统命名方式，采用 eth0、eth1 等来命名。 这种命名方式对于那些网络设备类型唯一的系统最为合适。笔记本电脑通常拥有多个以太网连接，常被命名为 eth0 和 wlan0，也同样适用这种命名方法。可通过修改 GRUB 配置文件命令行。参见 <xref linkend="grub-cfg"/>。</para>
+      <para>可以在内核命令行上添加 <userinput>net.ifnames=0</userinput> 来恢复传统命名方式，采用 eth0、eth1 等来命名。这种命名方式对于那些网络设备类型唯一的系统最为合适。笔记本电脑通常拥有多个以太网连接，常被命名为 eth0 和 wlan0，也同样适用这种命名方法。可通过修改 GRUB 配置文件命令行。参见 <xref linkend="grub-cfg"/>。</para>
     </sect3>
 
     <sect3>
@@ -74,24 +74,24 @@
 
     <para>你之后可能会安装的一些应用程序（如各种媒体播放器）需要如下两个符号链接：<filename class="symlink">/dev/cdrom</filename> 和 <filename class="symlink">/dev/dvd</filename> 存在并正确指向一个 CD-ROM 或 DVD-ROM 设备。另外，在 <filename>/etc/fstab</filename> 文件中添加对这些符号链接的引用，在用的时候会更方便。根据计算机中各设备之间的兼容性，udev 使用了一个脚本来生成创建这些符号链接的规则文件，但是你仍需要决定脚本以两种模式中的哪一种来运行。</para>
 
-    <para>第一种方式是采用 <quote>by-path</quote> 模式（该模式通常默认被 USB 设备和 FireWire 设备使用），这种方式根据 CD 或 DVD 设备的物理路径来创建规则。而第二种方式则是 <quote>by-id</quote> 模式 (这是 IDE 设备和 SCSI 设备的默认方式)，这种方式根据存储在 CD 或 DVD 驱动器中的标识字符串来创建规则。设备的路径可以由 udev 的 <command>path_id</command> 脚本来获取，而标识字符串则是根据不同的设备类型，使用设备驱动程序自带的 <command>ata_id</command> 或者 <command>scsi_id</command> 命令来获取，具体是哪个取决于你的设备类型。</para>
+    <para>第一种方式是采用「by-path」模式（该模式通常默认被 USB 设备和 FireWire 设备使用），这种方式根据 CD 或 DVD 设备的物理路径来创建规则。而第二种方式则是「by-id」模式 (这是 IDE 设备和 SCSI 设备的默认方式)，这种方式根据存储在 CD 或 DVD 驱动器中的标识字符串来创建规则。设备的路径可以由 udev 的 <command>path_id</command> 脚本来获取，而标识字符串则是根据不同的设备类型，使用设备驱动程序自带的 <command>ata_id</command> 或者 <command>scsi_id</command> 命令来获取，具体是哪个取决于你的设备类型。</para>
 
-    <para>这两种命名方式各有其特定使用场景，应根据可能发生的硬件变化来选择所采用的命名方式。若你希望设备的物理地址（即，其插入的端口和/或插槽）发生改变，例如你计划把一个设备连接到另外一个 IDE 端口或另外一个 USB 连接器，那么应采用 <quote>by-id</quote> 模式来命名设备。在另一方面，如果你仅仅希望改变设备的标识字符串，则可以采用 <quote>by-path</quote> 方式。例如系统中某个设备发生了故障，在其所对应的物理接口上插入另一个功能完全兼容的同类型设备。</para>
+    <para>这两种命名方式各有其特定使用场景，应根据可能发生的硬件变化来选择所采用的命名方式。若你希望设备的物理地址（即，其插入的端口和/或插槽）发生改变，例如你计划把一个设备连接到另外一个 IDE 端口或另外一个 USB 连接器，那么应采用「by-id」模式来命名设备。在另一方面，如果你仅仅希望改变设备的标识字符串，则可以采用「by-path」方式。例如系统中某个设备发生了故障，在其所对应的物理接口上插入另一个功能完全兼容的同类型设备。</para>
 
     <para>如果任意一种模式都是可行的，那就根据更可能发生的场景来选择命名方式。</para>
 
 <!-- If you use by-id mode, the symlinks will survive even the transition
      to libata for IDE drives, but that is not for the book. -->
 
-    <important><para>外部设备（例如一个通过 USB 连接的 CD 驱动器）不应该使用 <quote>by-path</quote> 模式来命名，因为这种设备一旦插入不同的物理接口，其地址就可能会发生改变。不仅仅是 CD 和 DVD 驱动器，其他所有外部连接的设备都会产生这种问题，所以在创建 udev 规则的时候应该避免通过物理地址来识别外部设备。</para></important>
+    <important><para>外部设备（例如一个通过 USB 连接的 CD 驱动器）不应该使用「by-path」模式来命名，因为这种设备一旦插入不同的物理接口，其地址就可能会发生改变。不仅仅是 CD 和 DVD 驱动器，其他所有外部连接的设备都会产生这种问题，所以在创建 udev 规则的时候应该避免通过物理地址来识别外部设备。</para></important>
 
     <para>如果你想查看 udev 将要对一个特定的 CD-ROM 设备将要使用的脚本，应该在 <filename class="directory">/sys</filename> 文件夹下查找相应的设备文件（例如 <filename class="directory">/sys/block/hdd</filename>）并运行如下的相应命令：</para>
 
 <screen role="nodump"><userinput>udevadm test /sys/block/hdd</userinput></screen>
 
-    <para>查看包含各种 *_id 程序输出内容的行。如果 ID_SERIAL 存在且内容非空，<quote>by-id</quote> 模式将采取这个值来命名设备，否则会将 ID_MODEL 和 ID_REVISION 的值字符串连接在一起用来命名设备。<quote>by-path</quote> 模式会采用 ID_PATH 的内容来命名设备。</para>
+    <para>查看包含各种 *_id 程序输出内容的行。如果 ID_SERIAL 存在且内容非空，「by-id」模式将采取这个值来命名设备，否则会将 ID_MODEL 和 ID_REVISION 的值字符串连接在一起用来命名设备。「by-path」模式会采用 ID_PATH 的内容来命名设备。</para>
 
-    <para>如果默认的命名模式不适合自己的情况，可使用如下命令修改 <filename>/etc/udev/rules.d/83-cdrom-symlinks.rules</filename> 文件，（<replaceable>mode</replaceable> 由 <quote>by-id</quote> 或者 <quote>by-path</quote> 替代）</para>
+    <para>如果默认的命名模式不适合自己的情况，可使用如下命令修改 <filename>/etc/udev/rules.d/83-cdrom-symlinks.rules</filename> 文件，（<replaceable>mode</replaceable> 由「by-id」或者「by-path」替代）</para>
 
 <screen role="nodump"><userinput>sed -i -e 's/"write_cd_rules"/"write_cd_rules <replaceable>mode</replaceable>"/' \
     /etc/udev/rules.d/83-cdrom-symlinks.rules</userinput></screen>

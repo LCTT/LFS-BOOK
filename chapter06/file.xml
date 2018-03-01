@@ -80,7 +80,7 @@
       <varlistentry id="file">
         <term><command>file</command></term>
         <listitem>
-          <para>为每个文件归类；这可以通过一些测试达到&mdash;文件系统测试，魔术数字测试还有语言测试。</para>
+          <para>为每个文件归类；这可以通过一些测试达到——文件系统测试，魔术数字测试还有语言测试。</para>
           <indexterm zone="ch-system-file file">
             <primary sortas="b-file">file</primary>
           </indexterm>

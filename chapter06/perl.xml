@@ -44,7 +44,7 @@
 
 <screen><userinput remap="pre">echo "127.0.0.1 localhost $(hostname)" &gt; /etc/hosts</userinput></screen>
 
-    <para>该版本的 Perl 会编译 Compress::Raw::Zlib 和 Compress::Raw::BZip2 模块。Perl 默认会使用内部的源码用于构建。 用以下的命令使 Perl 使用系统中已安装的库：</para>
+    <para>该版本的 Perl 会编译 Compress::Raw::Zlib 和 Compress::Raw::BZip2 模块。Perl 默认会使用内部的源码用于构建。用以下的命令使 Perl 使用系统中已安装的库：</para>
 
 <screen><userinput remap="pre">export BUILD_ZLIB=False
 export BUILD_BZIP2=0</userinput></screen>
@@ -54,7 +54,7 @@ export BUILD_BZIP2=0</userinput></screen>
 
 <screen><userinput remap="pre">patch -Np1 -i ../&perl-gcc5-fixes-patch;</userinput></screen>
 -->
-    <para>为了能完全控制 Perl 的设置，你可以在下面的命令中移除 <quote>-des</quote> 选项并手动设置编译该软件包的方式。相应的，用下面完全相同的命令使 Perl 使用自动检测到的：</para>
+    <para>为了能完全控制 Perl 的设置，你可以在下面的命令中移除「-des」选项并手动设置编译该软件包的方式。相应的，用下面完全相同的命令使 Perl 使用自动检测到的：</para>
 
 <screen><userinput remap="configure">sh Configure -des -Dprefix=/usr                 \
                   -Dvendorprefix=/usr           \

@@ -10,9 +10,7 @@
 
   <title>分阶段构建 LFS</title>
 
-  <para>LFS 的设计是建立在一个会话中的。这也就是说假定系统在处理的过程中不会关机。
-  但是实际上这并不意味着 LFS 的构建需要一气呵成。但是如果 LFS 恢复时的状态和之前不同，
-  则某些程序必须在此之后重新构建。</para>
+  <para>LFS 的设计是建立在一个会话中的。这也就是说假定系统在处理的过程中不会关机。但是实际上这并不意味着 LFS 的构建需要一气呵成。但是如果 LFS 恢复时的状态和之前不同，则某些程序必须在此之后重新构建。</para>
 
   <sect2>
   <title>第 1-4 章</title>
@@ -21,8 +19,7 @@
 
     <itemizedlist>
       <listitem>
-         <para>程序在 2.4 节以后都是以 root 用户完成的。所以需要重新将 LFS 的环境变量
-		 设置为 <emphasis>ROOT</emphasis>。</para>
+         <para>程序在 2.4 节以后都是以 root 用户完成的。所以需要重新将 LFS 的环境变量设置为 <emphasis>ROOT</emphasis>。</para>
       </listitem>
     </itemizedlist>
   </sect2>
@@ -36,8 +33,7 @@
       </listitem>
 
       <listitem>
-         <para>第 5 章涉及的<emphasis>所有</emphasis>指令都应该由 <emphasis>lfs</emphasis> 用户执行。
-		 所以在执行第 5 章的任务之前请先执行 <command>su - lfs</command>。</para>
+         <para>第 5 章涉及的<emphasis>所有</emphasis>指令都应该由 <emphasis>lfs</emphasis> 用户执行。所以在执行第 5 章的任务之前请先执行 <command>su - lfs</command>。</para>
       </listitem>
 
       <listitem>
@@ -55,12 +51,11 @@
       </listitem>
 
       <listitem>
-         <para> 当进入 chroot 环境，LFS 环境变量必须设置为 root 用户。否则 LFS 变量不使用。</para>
+         <para> 当进入 chroot 环境，LFS 环境变量必须设置为 root 用户。否则不得使用 LFS 变量。</para>
       </listitem>
 
       <listitem>
-         <para> 必须挂载虚拟文件系统。这可以在进入 chroot 之前或者之后通过改变主机的虚拟终端，以 root 用户执行 <xref linkend='ch-system-bindmount'/> 和
-         <xref linkend='ch-system-kernfsmount'/> 中的命令。</para>
+         <para> 必须挂载虚拟文件系统。这可以在进入 chroot 之前或者之后通过改变主机的虚拟终端，以 root 用户执行 <xref linkend='ch-system-bindmount'/> 和 <xref linkend='ch-system-kernfsmount'/> 中的命令。</para>
       </listitem>
     </itemizedlist>
   </sect2>

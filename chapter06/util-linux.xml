@@ -91,7 +91,7 @@
 
     <para>如果需要的话，以非 root 用户运行测试套件：</para>
 
-    <warning><para>以 root 用户运行测试套件会对系统有害。为了运行测试套件，必须保证当前运行 的系统中用于内核的 CONFIG_SCSI_DEBUG 选项可用，还必须保证以一个模块的方式编译。 把它构建到内核中可以防止启动。为了全面覆盖，还必须安装其它的 BLFS 软件包。 如果需要的话，可以在重启进入完整的 LFS 系统后用以下命令运行该测试：</para>
+    <warning><para>以 root 用户运行测试套件会对系统有害。为了运行测试套件，必须保证当前运行 的系统中用于内核的 CONFIG_SCSI_DEBUG 选项可用，还必须保证以一个模块的方式编译。把它构建到内核中可以防止启动。为了全面覆盖，还必须安装其它的 BLFS 软件包。如果需要的话，可以在重启进入完整的 LFS 系统后用以下命令运行该测试：</para>
 
     <screen role="nodump"><userinput>bash tests/run.sh --srcdir=$PWD --builddir=$PWD</userinput></screen>
     </warning>
@@ -1079,7 +1079,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="uuidgen">
         <term><command>uuidgen</command></term>
         <listitem>
-          <para>创建新的 UUID。在所有创建的 UUID 中，在本地系统或其它系统， 在之前和以后，每个新的 UUID 都可以被认为是唯一的</para>
+          <para>创建新的 UUID。在所有创建的 UUID 中，在本地系统或其它系统，在之前和以后，每个新的 UUID 都可以被认为是唯一的</para>
           <indexterm zone="ch-system-util-linux uuidgen">
             <primary sortas="b-uuidgen">uuidgen</primary>
           </indexterm>

@@ -19,7 +19,7 @@ mv -v /tools/$(uname -m)-pc-linux-gnu/bin/{ld,ld-old}
 mv -v /tools/bin/{ld-new,ld}
 ln -sv /tools/bin/ld /tools/$(uname -m)-pc-linux-gnu/bin/ld</userinput></screen>
 
-  <para>接下来，修改 GCC 参数文件，让它指向新的动态连接器。只需删除所有 <quote>/tools</quote> 的实例，这样应该可以留下到达动态链接器的正确路径。还要调整参数文件，这样 GCC 就知道怎样找到正确的头文件和 Glibc 启动文件。一个 <command>sed</command> 命令就能完成这些:</para>
+  <para>接下来，修改 GCC 参数文件，让它指向新的动态连接器。只需删除所有「/tools」的实例，这样应该可以留下到达动态链接器的正确路径。还要调整参数文件，这样 GCC 就知道怎样找到正确的头文件和 Glibc 启动文件。一个 <command>sed</command> 命令就能完成这些:</para>
 
 <screen><userinput>gcc -dumpspecs | sed -e 's@/tools@@g'                   \
     -e '/\*startfile_prefix_spec:/{n;s@.*@/usr/lib/ @}' \
@@ -28,7 +28,7 @@ ln -sv /tools/bin/ld /tools/$(uname -m)-pc-linux-gnu/bin/ld</userinput></screen>
 
   <para>直观地检查参数文件，来确认预期的变化确实完成了是个好的主意。</para>
 
-  <para>确保已调整的工具链的基本功能（编译和链接）都能如期进行是非常必要的。 怎样做呢？执行下面这条命令：</para>
+  <para>确保已调整的工具链的基本功能（编译和链接）都能如期进行是非常必要的。怎样做呢？执行下面这条命令：</para>
 
 <screen os="a"><userinput>echo 'int main(){}' &gt; dummy.c
 cc dummy.c -v -Wl,--verbose &amp;&gt; dummy.log

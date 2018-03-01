@@ -326,7 +326,7 @@ cd       build</userinput></screen>
       <varlistentry id="libopcodes">
         <term><filename class="libraryfile">libopcodes</filename></term>
         <listitem>
-          <para>一个库用于处理操作码&mdash;<quote>可读文本</quote>版的处理器指令；用于构建类似 <command>objdump</command> 的工具。</para>
+          <para>一个库用于处理操作码——「可读文本」版的处理器指令；用于构建类似 <command>objdump</command> 的工具。</para>
           <indexterm zone="ch-system-binutils libopcodes">
             <primary sortas="c-libopcodes">libopcodes</primary>
           </indexterm>

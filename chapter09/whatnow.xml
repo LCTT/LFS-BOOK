@@ -13,7 +13,7 @@
   <para>十分感谢你耐心的阅读这本 LFS 书，我们十分期待本书能够为你构建系统带来一点点的帮助。</para>
 
   <para>我猜，你现在一定很开心——LFS系统已经安装完成。
-  <quote>但是，下面该作些什么呢？</quote> 不用担心，我们早已经帮你准备好以下这些有益的信息了！</para>
+「但是，下面该作些什么呢？」不用担心，我们早已经帮你准备好以下这些有益的信息了！</para>
 
   <itemizedlist>
 
@@ -25,7 +25,7 @@
       <itemizedlist>
 
         <listitem>
-          <para><ulink url="http://www.cert.org/">CERT</ulink>(计算机应急响应小组)</para>
+          <para><ulink url="http://www.cert.org/">CERT</ulink>（计算机应急响应小组）</para>
 
           <para>CERT 有一个邮件列表，专门公示各种操作系统和应用程序的安全警报。订阅信息请点击此链接查看：<ulink
           url="http://www.us-cert.gov/cas/signup.html"/>.</para>

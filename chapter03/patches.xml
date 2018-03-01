@@ -106,8 +106,8 @@
 
   </variablelist>
 
-  <para>这些补丁文件总大小: 大约 <returnvalue/></para>
+  <para>这些补丁文件总大小: 约 <returnvalue/></para>
 
-  <para>除了以上所要求的补丁外，还有一些由 LFS 社区创建的可选补丁。这些可选补丁解决了一些小问题或者打开某个默认关闭的功能。请查阅补丁数据库 <ulink url="&lfs-root;patches/downloads/"/>，获取适合你系统需求的额外补丁。</para>
+  <para>除了以上所要求的补丁外，还有一些由 LFS 社区创建的可选补丁。这些可选补丁或是解决了一些小问题，或是打开某个默认关闭的功能。请查阅补丁数据库 <ulink url="&lfs-root;patches/downloads/"/>，获取适合你系统需求的额外补丁。</para>
 
 </sect1>

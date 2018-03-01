@@ -64,7 +64,7 @@
   <sect2 role="content">
     <title/>
 
-    <para>该软件包的详细信息参见 <xref linkend="contents-bison" role="."/>。</para>
+    <para>该软件包的详细信息参见： <xref linkend="contents-bison"/>。</para>
 
   </sect2>
 

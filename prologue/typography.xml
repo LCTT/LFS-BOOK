@@ -10,22 +10,22 @@
 
   <title>排版约定</title>
 
-  <para>为了能更轻松地阅读，这里有一些全书使用的排版约定。这个部分包括一些来自 Linux From Scratch 中的排版格式例子。</para>
+  <para>为了能更更容易理解，这里有一些全书使用的排版约定。本段，会包含一些来自 Linux From Scratch 中排版格式的示例。</para>
 
 <screen role="nodump"><userinput>./configure --prefix=/usr</userinput></screen>
 
-  <para>这种形式的文本被设计成完全按照看到的样子输入，除非在周围文本中另有说明。它也用在解释部分，用以指出引用的是哪个命令。</para>
+  <para>这种形式的文本，设计出来就是为了让你照着输入的，除非周围文本中另有说明。部分的解释段落和会用它，以指出引用的那条命令。（译注：由于文字排版原因，其中的内容即便是注释，也不会翻译，下同。）</para>
 
-  <para>某些情况下，一个逻辑行会通过在行末添加反斜杠被折叠为两个或者更多的物理行。</para>
+  <para>某些情况下，会在一行的行末添加反斜，将一个逻辑行的内容分写成两个或更多的物理行。</para>
 
 <screen role="nodump"><userinput>CC="gcc -B/usr/bin/" ../binutils-2.18/configure \
   --prefix=/tools --disable-nls --disable-werror</userinput></screen>
 
-  <para>注意，反斜杠后面必须紧跟一个回车符。其它空格字符，例如空格和 Tab 会导致错误结果。</para>
+  <para>注意，反斜杠的后面必须紧跟一个回车符。其它的空白字符，例如空格和 Tab 将导致错误的结果。</para>
 
 <screen><computeroutput>install-info: unknown option '--dir-file=/mnt/lfs/usr/info/dir'</computeroutput></screen>
 
-  <para>这种形式的文本（等宽文本）显示屏幕输出，通常是所运行命令的输出结果。 这种形式也用来显示文件名，例如： <filename>/etc/ld.so.conf</filename>。</para>
+  <para>这种形式的文本（等宽文本）用于显示屏幕输出，通常是所运行命令的输出结果。这种形式也用于文件名的显示，例如： <filename>/etc/ld.so.conf</filename>。</para>
 
   <para><emphasis>强调</emphasis></para>
 
@@ -41,11 +41,11 @@ bin:x:1:
 ......</literal>
 EOF</userinput></screen>
 
-  <para>这种格式在创建配置文件中会使用。第一个命令告诉系统新建一个文件  <filename>$LFS/etc/group</filename>，不论在后面的行中输入了什么，直到遇到文件终结符（EOF）。因此，这整个部分正如看到的那样输入。</para>
+  <para>这种格式在创建配置文件中会使用。第一个命令告诉系统新建一个文件 <filename>$LFS/etc/group</filename>，然后后面的行中不论在输入了什么都会输入到文件中，直至遇到文件终结符（EOF）。因此，这整个部分会如看到的那样输入。</para>
 
   <para><replaceable>&lt;需要替换的文本&gt;</replaceable></para>
 
-  <para>这种格式用来封装需要替换为合适内容的文本，以及复制粘贴操作。</para>
+  <para>这种格式用来封装需要替换为合适内容的文本，或者复制粘贴操作。</para>
 
   <para><replaceable>[可选的文本]</replaceable></para>
 
@@ -53,7 +53,6 @@ EOF</userinput></screen>
 
   <para><filename>passwd(5)</filename></para>
 
-  <para>这种格式用来表示特定的手册 (man) 页面。括号内的数字表示该手册的特定部分。例如  <command>passwd</command> 有两个手册页面。在 LFS 安装说明中，这两个手册页面会表示为 <filename>/usr/share/man/man1/passwd.1</filename> 以及  <filename>/usr/share/man/man5/passwd.5</filename>。当书中使用  <filename>passwd(5)</filename> 时它特指 <filename>/usr/share/man/man5/passwd.5</filename>。<command>man passwd</command> 会输出它找到匹配 “passwd” 的第一个手册页面，也就是 <quote>passwd</quote>, which will be
-  <filename>/usr/share/man/man1/passwd.1</filename>。在这个例子中，你需要执行 <command>man 5 passwd</command> 才能阅读指定的手册页面。应该注意的是，大部分的手册页面在不同部分不会有重复的页面名字。因此，<command>man <replaceable>&lt;program name&gt;</replaceable></command> 通常就足够了。</para>
+  <para>这种格式用来表示特定的手册 （man） 页面。括号内的数字表示该手册的特定部分。例如 <command>passwd</command> 有两个手册页面。在 LFS 安装说明中，这两个手册页面会表示为 <filename>/usr/share/man/man1/passwd.1</filename> 以及 <filename>/usr/share/man/man5/passwd.5</filename>。当书中使用 <filename>passwd(5)</filename> 时它特指 <filename>/usr/share/man/man5/passwd.5</filename>。<command>man passwd</command> 会输出它找到匹配「passwd」的第一个手册页面，也就是 <filename>/usr/share/man/man1/passwd.1</filename>。在这个例子中，你需要执行 <command>man 5 passwd</command> 才能阅读指定的手册页面。应该注意的是，大部分的手册页面在不同部分不会有重复的页面名字。因此，<command>man <replaceable>&lt;program name&gt;</replaceable></command> 通常就足够了。</para>
 
 </sect1>

@@ -30,7 +30,7 @@
 
   <para>Unless the computer is to be visible to the Internet (i.e.,
   there is a registered domain and a valid block of assigned IP
-  addresses&mdash;most users do not have this), make sure that the IP
+  addresses——most users do not have this), make sure that the IP
   address is in the private network IP address range. Valid ranges
   are:</para>
 

@@ -79,7 +79,7 @@
       <varlistentry>
         <term><parameter>TEXMF=/usr/share/texmf</parameter></term>
         <listitem>
-          <para>如果后面会安装 TeX 软件包， <envar>TEXMF</envar> makefile 变量保存了作为 TeX 树的根位置。</para>
+          <para>如果后面会安装 TeX 软件包，<envar>TEXMF</envar> makefile 变量保存了作为 TeX 树的根位置。</para>
         </listitem>
       </varlistentry>
 
@@ -120,7 +120,7 @@ popd</userinput></screen>
       <varlistentry id="info">
         <term><command>info</command></term>
         <listitem>
-          <para>用于读取和 man 页面相似的信息页，但和只是解释所有可用命令行选项相比更加深入， [例如比较 <command>man bison</command> 和 <command>info bison</command>。]</para>
+          <para>用于读取和 man 页面相似的信息页，但和只是解释所有可用命令行选项相比更加深入，[例如比较 <command>man bison</command> 和 <command>info bison</command>。]</para>
           <indexterm zone="ch-system-texinfo info">
             <primary sortas="b-info">info</primary>
           </indexterm>

@@ -89,7 +89,7 @@ make -C src xgettext</userinput></screen>
     <title/>
 
     <para>关于这个软件包的详细资料请参阅：
-    <xref linkend="contents-gettext" role="."/></para>
+    <xref linkend="contents-gettext"/>.</para>
 
   </sect2>
 

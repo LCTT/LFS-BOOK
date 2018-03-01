@@ -10,9 +10,9 @@
 
   <title>宿主系统需求</title>
 
-    <para>你的宿主机应该安装有以下的软件包，且软件包的版本不能低于标注的版本。对于大部分现代 Linux 来说应该不是什么问题。不少发行版可能会将开发用到的头文件单独打包，并且命名为 <quote>&lt;package-name&gt;-devel</quote> 或是  <quote>&lt;package-name&gt;-dev</quote>这样的形式。务必保证这样的包都已经装上！</para>
+    <para>你的宿主机应该安装有以下的软件包，且软件包的版本不能低于标注的版本。对于大部分现代 Linux 来说应该不是什么问题。不少发行版可能会将开发用到的头文件单独打包，并且命名为「&lt;package-name&gt;-devel」或是「&lt;package-name&gt;-dev」这样的形式。务必保证这样的包都已经装上！</para>
 
-   <para>可能某些软件包的版本低于以下标注的版本也可以工作，不过我们不能一一测试。</para>
+   <para>可能某些软件包的版本低于以下标注的版本也可以工作，不过我们没试过。</para>
 
   <itemizedlist spacing="compact">
 
@@ -25,7 +25,7 @@
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Bison-2.3</emphasis>（/usr/bin/yacc 应该是一个到 bison 的链接或者是一个执行 bison 的脚本）</para>
+      <para><emphasis role="strong">Bison-2.3</emphasis>（/usr/bin/yacc 应该是一个到 bison 的链接或者是一个执行 bison 的小型脚本）</para>
     </listitem>
 
     <listitem>
@@ -49,14 +49,14 @@
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">GCC-4.7</emphasis>包括 C++ 编译器、<command>g++</command>（不推荐安装 &gcc-version; 以上的版本，它们没有经过测试，并不敢保证没有问题）</para>
+      <para><emphasis role="strong">GCC-4.7</emphasis> 包括 C++ 编译器、<command>g++</command>（不推荐安装 &gcc-version; 以上的版本，没有经过测试，不敢保证没有问题）</para>
 
       <note><para>有报告称，部分发行版使用的 gcc 库存在缺失或者是不一致的情况。这一情况可能会干扰到一些 LFS 软件包的构建。请检查 /usr/lib 或是 /usr/lib64 下是否存在 libgmp.la、libmpfr.la 和 libmpc.la。这三个文件应该要么都存在，要么都没有，而不是只有一两个。假如你的系统有这样的问题，要么重命名或删除这些文件（并重新安装 GCC），要么安装缺少的软件包。</para></note>
 
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Glibc-2.11</emphasis>（不推荐安装  &glibc-version; 以上的版本，它们都没有经过测试，并不敢保证没有问题）</para>
+      <para><emphasis role="strong">Glibc-2.11</emphasis>（不推荐安装  &glibc-version; 以上的版本，没有经过测试，不敢保证没有问题）</para>
     </listitem>
 
     <listitem>
@@ -72,7 +72,7 @@
 
       <para>之所以指定使用这一版本的内核，是因为在第六章需要构建  <application>glibc</application>，开发人员有此建议。同时，编译 udev 也同样依赖于此版本的内核。</para>
 
-      <para>如果当前宿主机的内核版本早于 &min-kernel; ，也许需要先升级到更新的版本。升级方法有两种：假如你的系统维护者有提供更新版本的内核，那么直接升级就可以了；假如你的系统维护者没有提供 &min-kernel; 或更新版本的内核，或者你不想安装它，那么你需要自己编译内核。<xref linkend="chapter-bootable"/> 将指导你如何编译内核和设置系统的启动配置（这里假定你使用 GRUB）。</para>
+      <para>如果当前宿主机的内核版本早于 &min-kernel; ，也许需要先升级到更新的版本。升级方法有两种：假如你的系统维护者有提供更新版本的内核，那么直接升级就可以了；假如你的系统维护者没有提供 &min-kernel; 或更新版本的内核，或者你不想安装它，那么你需要自己编译内核。<xref linkend="chapter-bootable"/> 将指导你如何编译内核和设置系统的启动配置（这里假定宿主机使用的是 GRUB）。</para>
 
     </listitem>
 
@@ -111,7 +111,7 @@
   </itemizedlist>
 
   <important>
-  <para>需要注意的是，通过学习本文构建 LFS 系统，必须包含上文提及的所有文件链接。那些链接假如指向其它的软件（例如 dash，mawk 等） ，也许依旧可以构建系统，但是开发团队并没有做过系统的测试，而且可能会在执行一些命令或者应用某些补丁的时候出现问题。（译者注：这句话的本义是，本书建议构建 LFS 建议使用的 sh 应该是 bash，但是假如你喜欢 dash，这并不一定不行，但是假如出问题，那也是在情理之中的事情。）</para>
+  <para>需要注意的是，通过学习本文构建 LFS 系统，必须包含上文提及的所有文件链接。那些链接假如指向其它的软件（例如 dash，mawk 等），可能不会影响系统的构建，但是开发团队并没有做过系统的测试。并且这样可能导致在执行一些命令或者应用某些补丁的时候出现问题。</para>
   </important>
 
   <!-- Use an empty sect2 element to prevent a pdf warning.  -->

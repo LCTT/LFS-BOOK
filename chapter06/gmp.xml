@@ -84,7 +84,7 @@ make html</userinput></screen>
 
 <screen><userinput remap="test">make check 2>&amp;1 | tee gmp-check-log</userinput></screen>
  
-    <caution><para>Gmp 中的代码对于其构建的处理器进行了高度优化。有时，检测处理器的代码会误认系统的功能，并在测试中报错，或是在其他应用使用 gmp 库的时候显示消息“Illegal instruction（非法指令）”。在这种情况下，gmp 需要重新配置选项 --build=x86_64-unknown-linux-gnu 并重新构建。</para></caution>
+    <caution><para>Gmp 中的代码对于其构建的处理器进行了高度优化。有时，检测处理器的代码会误认系统的功能，并在测试中报错，或是在其他应用使用 gmp 库的时候显示消息「Illegal instruction（非法指令）」。在这种情况下，gmp 需要重新配置选项 --build=x86_64-unknown-linux-gnu 并重新构建。</para></caution>
 
     <para>确认测试套件中所有的 190 个测试都通过了。通过输入下面的命令检查结果：</para>
 

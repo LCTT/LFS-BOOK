@@ -40,7 +40,7 @@
   <sect2 role="installation">
     <title>安装 Kbd</title>
 
-    <para>在 Kbd 软件包中退格键（Backspace）和删除键（Delete）的行为和键映射并不一致。 下面的补丁修复了 i386 键映射中的这个问题：</para>
+    <para>在 Kbd 软件包中退格键（Backspace）和删除键（Delete）的行为和键映射并不一致。下面的补丁修复了 i386 键映射中的这个问题：</para>
 
 <screen><userinput remap="pre">patch -Np1 -i ../&kbd-backspace-patch;</userinput></screen>
 
@@ -89,7 +89,7 @@ sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in</userinput></screen>
 <screen><userinput remap="install">make install</userinput></screen>
 
     <note>
-      <para>由于通常使用的 CP1251 键映射假设使用 ISO-8859-5 编码，Kbd 软件包不能为某些语言（例如 Belarusian） 提供可用的键映射。 使用这样的语言需要单独下载能工作的键映射。</para>
+      <para>由于通常使用的 CP1251 键映射假设使用 ISO-8859-5 编码，Kbd 软件包不能为某些语言（例如 Belarusian） 提供可用的键映射。使用这样的语言需要单独下载能工作的键映射。</para>
     </note>
 
 <!--

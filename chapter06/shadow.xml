@@ -117,7 +117,7 @@ ln -sfv ../../lib/libshadow.so.0 /usr/lib/libshadow.so</userinput></screen> -->
       <secondary>configuring</secondary>
     </indexterm>
 
-    <para>该软件包包含增加、更改、以及删除用户和组的工具；设置和修改密码；执行其它特权级任务。软件包解压后的 <filename>doc/HOWTO</filename> 文件有关于 <emphasis>password shadowing</emphasis> 的完整解释。如果使用 Shadow 支持，记住需要验证密码（显示管理器、FTP 程序、pop3 守护进程等）的程序必须和 Shadow 兼容。 也就是说，它们要能使用 Shadow 加密的密码。</para>
+    <para>该软件包包含增加、更改、以及删除用户和组的工具；设置和修改密码；执行其它特权级任务。软件包解压后的 <filename>doc/HOWTO</filename> 文件有关于 <emphasis>password shadowing</emphasis> 的完整解释。如果使用 Shadow 支持，记住需要验证密码（显示管理器、FTP 程序、pop3 守护进程等）的程序必须和 Shadow 兼容。也就是说，它们要能使用 Shadow 加密的密码。</para>
 
     <para>运行下面的命令启用 shadow 密码:</para>
 
@@ -141,7 +141,7 @@ ln -sfv ../../lib/libshadow.so.0 /usr/lib/libshadow.so</userinput></screen> -->
       <varlistentry>
         <term><parameter>CREATE_MAIL_SPOOL=yes</parameter></term>
         <listitem>
-          <para>这个参数会为 <command>useradd</command> 新添加的用户创建邮箱文件。 <command>useradd</command> 会使组 <systemitem class="groupname">mail</systemitem> 拥有该文件的所有权，并赋予组 0660 的权限。如果你希望 <command>useradd</command> 不创建这些邮箱文件，你可以运行下面的命令：</para>
+          <para>这个参数会为 <command>useradd</command> 新添加的用户创建邮箱文件。<command>useradd</command> 会使组 <systemitem class="groupname">mail</systemitem> 拥有该文件的所有权，并赋予组 0660 的权限。如果你希望 <command>useradd</command> 不创建这些邮箱文件，你可以运行下面的命令：</para>
 
 <screen><userinput>sed -i 's/yes/no/' /etc/default/useradd</userinput></screen>
         </listitem>

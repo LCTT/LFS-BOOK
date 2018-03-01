@@ -39,7 +39,7 @@ xorriso -as cdrecord -v dev=/dev/cdrw blank=as_needed grub-img.iso</userinput></
 
     <para>GRUB 对于硬盘和分区自有一套命名规则 <emphasis>(hdn,m)</emphasis>，
     其中 <emphasis>n</emphasis> 是硬盘数，<emphasis>m</emphasis> 是分区号。
-    硬盘数 N 从 0 开始计数，分区数需要区别对待 —— 主分区从 1 开始计数而扩展分区从 5 开始计数。
+    硬盘数 N 从 0 开始计数，分区数需要区别对待——主分区从 1 开始计数而扩展分区从 5 开始计数。
     需要注意的是，和早期版本相比，计数方式都有所变化。例如，分区 <filename class="partition">sda1</filename> 是 <emphasis>(hd0,1)</emphasis>，
     <filename class="partition">sdb3</filename> 是 <emphasis>(hd1,3)</emphasis>。
     Linux 下，并不将 CD-ROM 设备假想为硬盘。例如，就算已有 CD 设备挂载为 <filename class="partition">hdb</filename>，
@@ -58,7 +58,7 @@ xorriso -as cdrecord -v dev=/dev/cdrw blank=as_needed grub-img.iso</userinput></
     <para>一种建议是使用一个独立的小分区（建议大小 100MB）专用于引导信息。那样的话，每一个发行版，
       不论是 LFS 还是其他的商业发行版，都能访问相同的引导文件而且任何已经启动的系统都能访问它。
       如果你选择这么做，你需要挂载这个独立分区，移动所有的文件从当前的 <filename class="directory">/boot</filename> 目录
-      (比如说你上一节刚编译的 Linux 内核)到新的分区。你然后要卸载这个新分区，重新挂载它为 <filename class="directory">/boot</filename>。
+      （比如说你上一节刚编译的 Linux 内核）到新的分区。你然后要卸载这个新分区，重新挂载它为 <filename class="directory">/boot</filename>。
       如果你这么做，一定要更新 <filename>/etc/fstab</filename>。</para>
 
     <para>使用当前的 lfs 分区也没有什么问题，但是在配置多系统启动的时候有些不同。</para>

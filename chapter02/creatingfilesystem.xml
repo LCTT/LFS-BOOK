@@ -20,7 +20,7 @@
     </varlistentry>
     <varlistentry>
       <term>ext3</term>
-      <listitem><para>是 ext2 的改进版本，其支持日志功能，能够帮助系统从非正常关机导致的异常中恢复。是常用作一般需求的文件系统。 </para>
+      <listitem><para>是 ext2 的改进版本，其支持日志功能，能够帮助系统从非正常关机导致的异常中恢复。是常用作一般需求的文件系统。</para>
       </listitem>
     </varlistentry>
     <varlistentry>
@@ -32,7 +32,7 @@
 
   <para>其它文件系统，包括 FAT32、NTFS、ReiserFS、JFS 和 XFS 等都在专门领域有其独到的作用。关于这些文件系统更多的信息可以参考<ulink url="http://en.wikipedia.org/wiki/Comparison_of_file_systems"/>。</para>
 
-  <para>LFS 假设要将根分区（/）的文件系统的类型设置为ext4。运行如下指令，为 LFS 分区创建 <systemitem class="filesystem">ext4</systemitem> 文件系统：</para>
+  <para>LFS 假设要将根分区（/）的文件系统的类型设置为 ext4。运行如下指令，为 LFS 分区创建 <systemitem class="filesystem">ext4</systemitem> 文件系统：</para>
 
 <screen role="nodump"><userinput>mkfs -v -t ext4 /dev/<replaceable>&lt;xxx&gt;</replaceable></userinput></screen>
 
@@ -46,8 +46,8 @@
     <para>Some host distributions use custom features in their filesystem
     creation tools (E2fsprogs). This can cause problems when booting into your new
     LFS in Chapter 9, as those features will not be supported by the LFS-installed
-    E2fsprogs; you will get an error similar to <quote>unsupported filesystem
-    features, upgrade your e2fsprogs</quote>. To check if your host system
+    E2fsprogs; you will get an error similar to「unsupported filesystem
+    features, upgrade your e2fsprogs」. To check if your host system
     uses custom enhancements, run the following command:</para>
 
 <screen role="nodump"><userinput>debugfs -R feature /dev/<replaceable>&lt;xxx&gt;</replaceable></userinput></screen>

@@ -71,7 +71,7 @@ do
   touch $file.orig
 done</userinput></screen>
 
-    <para>如果是在 x86_64 环境上构建，为 64 位库改变默认目录名至 <quote>lib</quote>：</para>
+    <para>如果是在 x86_64 环境上构建，为 64 位库改变默认目录名至「lib」：</para>
 
 <screen><userinput remap="pre">case $(uname -m) in
   x86_64)
@@ -80,7 +80,7 @@ done</userinput></screen>
   ;;
 esac</userinput></screen>
 
-    <para>和第一次编译 GCC 一样，它要求 GMP、 MPFR 和 MPC 软件包。 解压 tar 包并把它们重名为到所需的文件夹名称：</para>
+    <para>和第一次编译 GCC 一样，它要求 GMP、MPFR 和 MPC 软件包。解压 tar 包并把它们重名为到所需的文件夹名称：</para>
 
 <screen><userinput remap="pre">tar -xf ../mpfr-&mpfr-version;.tar.xz
 mv -v mpfr-&mpfr-version; mpfr
@@ -136,7 +136,7 @@ RANLIB=$LFS_TGT-ranlib                             \
       <varlistentry>
         <term><parameter>--disable-bootstrap</parameter></term>
         <listitem>
-          <para>对于原生编译的 GCC，默认是做一个“引导”构建。这不仅会编译 GCC，而且会多次编译。 它用第一次编译的程序去第二次编译自己，然后同样进行第三次。比较第二次和第三次迭代确保它可以完美复制自身。这也意味着已经成功编译。但是， LFS 的构建方法能够提供一个稳定的编译器，而不需要每次都重新引导。</para>
+          <para>对于原生编译的 GCC，默认是做一个「引导」构建。这不仅会编译 GCC，而且会多次编译。它用第一次编译的程序去第二次编译自己，然后同样进行第三次。比较第二次和第三次迭代确保它可以完美复制自身。这也意味着已经成功编译。但是，LFS 的构建方法能够提供一个稳定的编译器，而不需要每次都重新引导。</para>
         </listitem>
       </varlistentry>
 
@@ -167,7 +167,7 @@ readelf -l a.out | grep ': /tools'</userinput></screen>
 
     <para>注意 <filename class="directory">/tools/lib</filename>、或者 64 位机器的 <filename class="directory">/tools/lib64</filename> 会以动态链接器的前缀出现。</para>
 
-    <para>如果输出不是像上面那样或者根本就没有输出，那么可能某些地方出错了。 调查并回溯这些步骤，找出问题所在并改正它。在继续之前必须解决这个问题。 首先，使用 <command>gcc</command> 而不是 <command>cc</command> 再次进行全面的检查。如果能运行，就丢失了 <filename class="symlink">/tools/bin/cc</filename> 符号链接。 像上面介绍的那样新建符号链接。下一步，确认 <envar>PATH</envar> 是正常的。这能通过运行 <command>echo $PATH</command> 检验，验证 <filename class="directory">/tools/bin</filename> 在列表的前面。如果 <envar>PATH</envar> 是错误的，这意味着你可能不是以 <systemitem class="username">lfs</systemitem> 用户的身份登录或者在前面 <xref linkend="ch-tools-settingenviron" role="."/> 中某些地方出现了错误。</para>
+    <para>如果输出不是像上面那样或者根本就没有输出，那么可能某些地方出错了。调查并回溯这些步骤，找出问题所在并改正它。在继续之前必须解决这个问题。首先，使用 <command>gcc</command> 而不是 <command>cc</command> 再次进行全面的检查。如果能运行，就丢失了 <filename class="symlink">/tools/bin/cc</filename> 符号链接。像上面介绍的那样新建符号链接。下一步，确认 <envar>PATH</envar> 是正常的。这能通过运行 <command>echo $PATH</command> 检验，验证 <filename class="directory">/tools/bin</filename> 在列表的前面。如果 <envar>PATH</envar> 是错误的，这意味着你可能不是以 <systemitem class="username">lfs</systemitem> 用户的身份登录或者在前面 <xref linkend="ch-tools-settingenviron"/> 中某些地方出现了错误。</para>
 
     <para>一旦一切都顺利，清理测试文件：</para>
 
@@ -181,7 +181,7 @@ readelf -l a.out | grep ': /tools'</userinput></screen>
     <title/>
 
     <para>该软件包的详细信息请参见：
-    <xref linkend="contents-gcc" role="."/></para>
+    <xref linkend="contents-gcc"/>。</para>
 
   </sect2>
 

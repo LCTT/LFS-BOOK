@@ -56,6 +56,7 @@ $Date: 2007-07-05 18:18:33 -0300 (Thu, 05 Jul 2007) $
     <xsl:attribute name="font-weight">bold</xsl:attribute>
     <xsl:attribute name="hyphenate">false</xsl:attribute>
     <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
+    <xsl:attribute name="margin-top">0.1in</xsl:attribute>
     <xsl:attribute name="color">
       <xsl:choose>
         <xsl:when test="ancestor-or-self::important | ancestor-or-self::warning
@@ -67,7 +68,11 @@ $Date: 2007-07-05 18:18:33 -0300 (Thu, 05 Jul 2007) $
 
     <!-- Properties for admonitions text -->
   <xsl:attribute-set name="admonition.properties">
-    <xsl:attribute name="margin-right">5pt</xsl:attribute>
+    <xsl:attribute name="font-size">pt</xsl:attribute>
+    <xsl:attribute name="margin-top">0.1in</xsl:attribute>
+    <xsl:attribute name="margin-bottom">0.1in</xsl:attribute>
+    <xsl:attribute name="margin-left">-0.15in</xsl:attribute>
+    <xsl:attribute name="margin-right">0.25in</xsl:attribute>
   </xsl:attribute-set>
 
     <!-- admon.graphic.width:

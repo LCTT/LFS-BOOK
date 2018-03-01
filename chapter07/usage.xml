@@ -21,14 +21,14 @@
 
     <para>Linux 使用的是一个名为 SysVinit，基于<emphasis>运行级（run-levels）</emphasis>概念的特殊启动工具。每个系统之间总会有些许不同，所以在某个特定的 Linux 发行版上适用的东西，并不意味着在 LFS 上也适用。LFS 自有独到的解决之道，不过也会遵守普世的标准。</para>
   
-    <para>SysVinit（或称 <quote>init</quote>，下同）以运行级的方案运作。内含 7 个（数字 0-6）运行级，（事实上还有更多的运行级，但那些运行级情况特殊，且不常用。详情参见 <filename>init(8)</filename>），其中的每一个数字，都对应着一个计算机启动时的操作。默认的运行级是 3。下列为不同运行级所对应功能的描述：</para>
+    <para>SysVinit（或称「init」，下同）以运行级的方案运作。内含 7 个（数字 0-6）运行级，（事实上还有更多的运行级，但那些运行级情况特殊，且不常用。详情参见 <filename>init(8)</filename>），其中的每一个数字，都对应着一个计算机启动时的操作。默认的运行级是 3。下列为不同运行级所对应功能的描述：</para>
 
 <literallayout>0: 关闭计算机
 1: 单用户模式
 2: 多用户模式无网络
 3: 多用户模式含网络
 4: 预留模式，如无定制与 3 无异
-5: 与4 无异，常用作 GUI（X 的 <command>xdm</command> 或 KDE 的 <command>kdm</command>）的登录
+5: 与 4 无异，常用作 GUI（X 的 <command>xdm</command> 或 KDE 的 <command>kdm</command>）的登录
 6: 重启计算机</literallayout>
 
   </sect2>
@@ -143,14 +143,14 @@ EOF</userinput></screen>
   <sect2>
     <title>udev 启动脚本</title>
 
-      <para>启动脚本 <filename>/etc/rc.d/init.d/udev</filename> 启动 <command>udevd</command>，触发已经被内核创建好的“冷插拔（coldplug）”设备，并等待规则完成。该脚本还会解除 <filename>/sbin/hotplug</filename> 中默认的 uevent 处理。这是因为内核不再需要调用外部的二进制文件了。取而代之的是，<command>udevd</command> 会为内核引发的 uevent 去监听 netlink 的套接字。</para>
+      <para>启动脚本 <filename>/etc/rc.d/init.d/udev</filename> 启动 <command>udevd</command>，触发已经被内核创建好的「冷插拔（coldplug）」设备，并等待规则完成。该脚本还会解除 <filename>/sbin/hotplug</filename> 中默认的 uevent 处理。这是因为内核不再需要调用外部的二进制文件了。取而代之的是，<command>udevd</command> 会为内核引发的 uevent 去监听 netlink 的套接字。</para>
 
       <para>初始化脚本 <command>/etc/rc.d/init.d/udev_retry</command> 负责重新触发子系统的事件，这些子系统的规则，可能会依赖于直到 <command>mountfs</command> 脚本运行后才挂载的文件系统（特别是 <filename class="directory">/usr</filename> 和 <filename class="directory">/var</filename>）。该脚本会在 <command>mountfs</command> 脚本后运行，所以这些规则（若是被重新触发）应该会在第二次的时候成功。这些被配置在 <filename>/etc/sysconfig/udev_retry</filename> 文件中；这个文件中，除了注释以外的任何单词（word），都会被认为是在重试时触发的子系统名称。想要找到设备的子系统，使用 <command>udevadm info --attribute-walk &lt;device&gt;</command>，其中的 &lt;device&gt; 是 /dev 或 /sys 中的绝对路径，例如，/dev/sr0 或是 /sys/class/rtc。</para>
 
     <sect3>
       <title>载入模块</title>
 
-      <para>编译为模块的设备驱动程序可能会内置别名。别名可以通过 <command>modinfo</command> 程序的输出查看，且通常与模块支持的设备的总线特定标识符相关。例如，<emphasis>snd-fm801</emphasis> 驱动程序支持具有供应商 ID 为 0x1319 和设备 ID 为 0x0801 的 PCI 设备，并具有 <quote>pci:v00001319d00000801sv*sd*bc04sc01i*</quote> 的别名。对于大多数设备来说，总线驱动会导出通过 <systemitem class="filesystem">sysfs</systemitem> 处理设备的驱动别名。例如，文件 <filename>/sys/bus/pci/devices/0000:00:0d.0/modalias</filename> 中，可能包含字符串 <quote>pci:v00001319d00000801sv00001319sd00001319bc04sc01i00</quote>。udev 提供的默认规则会导致 <command>udevd</command> 使用 uevent 的环境变量 <envar>MODALIAS</envar> 中的内容（内容应与 sysfs 中的 <filename>modalias</filename> 文件一致），去调用 <command>/sbin/modprobe</command>，从而加载了所有模块，只要模块的别名匹配的了通配符扩展后的字符串。</para>
+      <para>编译为模块的设备驱动程序可能会内置别名。别名可以通过 <command>modinfo</command> 程序的输出查看，且通常与模块支持的设备的总线特定标识符相关。例如，<emphasis>snd-fm801</emphasis> 驱动程序支持具有供应商 ID 为 0x1319 和设备 ID 为 0x0801 的 PCI 设备，并具有「pci:v00001319d00000801sv*sd*bc04sc01i*」的别名。对于大多数设备来说，总线驱动会导出通过 <systemitem class="filesystem">sysfs</systemitem> 处理设备的驱动别名。例如，文件 <filename>/sys/bus/pci/devices/0000:00:0d.0/modalias</filename> 中，可能包含字符串「pci:v00001319d00000801sv00001319sd00001319bc04sc01i00」。udev 提供的默认规则会导致 <command>udevd</command> 使用 uevent 的环境变量 <envar>MODALIAS</envar> 中的内容（内容应与 sysfs 中的 <filename>modalias</filename> 文件一致），去调用 <command>/sbin/modprobe</command>，从而加载了所有模块，只要模块的别名匹配的了通配符扩展后的字符串。</para>
 
       <para>这意味着，在这个例子中，除了 <emphasis>snd-fm801</emphasis>，过时的（和不需要的） <emphasis>forte</emphasis> 驱动，没什么意外的话也会被加载。参考下面的方法可以帮你防止加载那些不需要的驱动。</para>
 
@@ -173,7 +173,7 @@ EOF</userinput></screen>
       <primary sortas="d-scripts-setclock">setclock</primary>
     <secondary>configuring</secondary></indexterm>
 
-    <para><command>setclock</command> 脚本从硬件时钟，或称 BIOS 或 CMOS(互补金属氧化物半导体)时钟中，读取时间。如果硬件时钟被设置为 UTC，该脚本会使用 <filename>/etc/localtime</filename> 文件（它会告知程序 <command>hwclock</command> 用户的时区）将硬件时钟的时间转换为本地时间。因为无法检测硬件时钟是否为 UTC，所以需要手动去配置。</para>
+    <para><command>setclock</command> 脚本从硬件时钟，或称 BIOS 或 CMOS（互补金属氧化物半导体）时钟中，读取时间。如果硬件时钟被设置为 UTC，该脚本会使用 <filename>/etc/localtime</filename> 文件（它会告知程序 <command>hwclock</command> 用户的时区）将硬件时钟的时间转换为本地时间。因为无法检测硬件时钟是否为 UTC，所以需要手动去配置。</para>
 
     <para>在内核的启动并检测硬件功能的时候，<command>setclock</command> 会通过 <application>udev</application> 运行。同样也可以通过 stop 参数手动地将系统时间存入 CMOS 时钟中。</para>
 
@@ -222,14 +222,14 @@ EOF</userinput></screen>
     <varlistentry>
       <term>LOGLEVEL</term>
       <listitem>
-        <para>该变量用于指定由 <command>dmesg</command> 设置的从内核发往控制台的消息的日志级别。有效的级别从“1”（没有消息）至“8”。默认的级别是“7”。</para>
+        <para>该变量用于指定由 <command>dmesg</command> 设置的从内核发往控制台的消息的日志级别。有效的级别从「1」（没有消息）至「8」。默认的级别是「7」。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term>KEYMAP</term>
       <listitem>
-        <para>该变量用于指定 <command>loadkeys</command> 程序的参数，通常是要加载的键盘映射的名称，例如,<quote>it</quote>。如果变量没有被设置，那么启动脚本将不会去运行 <command>loadkeys</command> 程序，而是使用内核默认的键盘映射。注意有一些键盘映射拥有多种版本，但是名字却是相同的（cz 和其变种存在于 qwerty/ 和 qwertz/ 中，es 存在于 olpc/ 和 qwerty/ 中，还有 trf 存在于 fgGIod/ 和 qwerty/ 中）。在这种情况下，其父目录也需要指定（例如，qwerty/es），以保证加载的键盘映射是恰当的。
+        <para>该变量用于指定 <command>loadkeys</command> 程序的参数，通常是要加载的键盘映射的名称，例如,「it」。如果变量没有被设置，那么启动脚本将不会去运行 <command>loadkeys</command> 程序，而是使用内核默认的键盘映射。注意有一些键盘映射拥有多种版本，但是名字却是相同的（cz 和其变种存在于 qwerty/ 和 qwertz/ 中，es 存在于 olpc/ 和 qwerty/ 中，还有 trf 存在于 fgGIod/ 和 qwerty/ 中）。在这种情况下，其父目录也需要指定（例如，qwerty/es），以保证加载的键盘映射是恰当的。
         </para>
       </listitem>
     </varlistentry>
@@ -237,14 +237,14 @@ EOF</userinput></screen>
     <varlistentry>
       <term>KEYMAP_CORRECTIONS</term>
       <listitem>
-        <para>这个（很少使用的）变量用于指定 <command>loadkeys</command> 程序的第二个参数。如果现有的键盘映射不能完全满足需求，并且需要进行细微调整时，该变量就非常有用了。例如，想要将欧元符号加入到原来不存在该符号的键盘映射中，将变量设置为“euro2”。</para>
+        <para>这个（很少使用的）变量用于指定 <command>loadkeys</command> 程序的第二个参数。如果现有的键盘映射不能完全满足需求，并且需要进行细微调整时，该变量就非常有用了。例如，想要将欧元符号加入到原来不存在该符号的键盘映射中，将变量设置为「euro2」。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term>FONT</term>
       <listitem>
-        <para>该变量用于指定 <command>setfont</command> 程序的参数。通常包括字体名，“-m”，和要加载的应用字符映射名。例如，为了让字体“lat1-16”和“8859-1”应用字符映射一起加载（美国常用设置），将变量设置为“lat1-16 -m 8859-1”。UTF-8 模式中，内核使用应用字符映射将 8 位的按键编码转化为 UTF-8，因此“-m”参数应被设置成键盘映射中组成按键编码的编码。</para>
+        <para>该变量用于指定 <command>setfont</command> 程序的参数。通常包括字体名，「-m」，和要加载的应用字符映射名。例如，为了让字体「lat1-16」和「8859-1」应用字符映射一起加载（美国常用设置），将变量设置为「lat1-16 -m 8859-1」。UTF-8 模式中，内核使用应用字符映射将 8 位的按键编码转化为 UTF-8，因此「-m」参数应被设置成键盘映射中组成按键编码的编码。</para>
 
       </listitem>
     </varlistentry>
@@ -252,7 +252,7 @@ EOF</userinput></screen>
     <varlistentry>
       <term>UNICODE</term>
       <listitem>
-        <para>将该变量设置为“1”，“yes”或“true”，使控制台进入 UTF-8 模式。这对基于 UTF-8 语言环境的地域十分有用，反之则可能产生危害。</para>
+        <para>将该变量设置为「1」，「yes」或「true」，使控制台进入 UTF-8 模式。这对基于 UTF-8 语言环境的地域十分有用，反之则可能产生危害。</para>
       </listitem>
     </varlistentry>
 
@@ -340,7 +340,7 @@ EOF</userinput></screen>
     </listitem>
 
     <listitem>
-      <para>有些键盘映射包含死键（比方说，一些键本身并不能产生一个字符，但是却可以给下一个键产生的字符加上音调），或是定义了组合规则（例如：在默认键盘映射中 “按 Ctrl+. A E 可以得到 &AElig;”。Linux-&linux-version; 只有在组合起来的字符不是多字节的时候，才能正确地辨识出键盘映射中死键和组合规则。这个缺陷并不会影响到欧文的键盘映射，因为有音节的字符要么已经加入到无音节的 ASCII 字符中了，要么两种 ASCII 字符已被结合在一起。然而在 UTF-8 模式下会出现问题，比方说，希腊语便时常需要在“字母”上添加音调。解决的方法便是，要么避免使用 UTF-8，要么安装 X Window 系统，这样就不会有这种输入处理中的限制了。</para>
+      <para>有些键盘映射包含死键（比方说，一些键本身并不能产生一个字符，但是却可以给下一个键产生的字符加上音调），或是定义了组合规则（例如：在默认键盘映射中「按 Ctrl+. A E 可以得到 &AElig;」。Linux-&linux-version; 只有在组合起来的字符不是多字节的时候，才能正确地辨识出键盘映射中死键和组合规则。这个缺陷并不会影响到欧文的键盘映射，因为有音节的字符要么已经加入到无音节的 ASCII 字符中了，要么两种 ASCII 字符已被结合在一起。然而在 UTF-8 模式下会出现问题，比方说，希腊语便时常需要在「字母」上添加音调。解决的方法便是，要么避免使用 UTF-8，要么安装 X Window 系统，这样就不会有这种输入处理中的限制了。</para>
     </listitem>
 
     <listitem>
@@ -365,7 +365,7 @@ EOF</userinput></screen>
       <secondary>configuring</secondary>
     </indexterm>
   
-    <para>有时，希望在启动时创建文件。 例如，<filename class="directory">/tmp/.ICE-unix</filename> 目录就可能需要创建。这可以通过在 <filename>/etc/sysconfig/createfiles</filename> 配置脚本中创建一个条目来达成。该文件的格式可以参考默认配置文件中的注释。</para>
+    <para>有时，希望在启动时创建文件。例如，<filename class="directory">/tmp/.ICE-unix</filename> 目录就可能需要创建。这可以通过在 <filename>/etc/sysconfig/createfiles</filename> 配置脚本中创建一个条目来达成。该文件的格式可以参考默认配置文件中的注释。</para>
   </sect2>
 
   <sect2 id="ch-scripts-sysklogd">

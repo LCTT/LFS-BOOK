@@ -10,7 +10,7 @@
 
   <title>重启系统</title>
 
-  <para>至此，所有的软件都已安装完毕，是时候重启你的电脑了。然而，你也应该注意一些事情。通过学习本书建立起来的系统属于最小系统，这也就意味着可能会缺失一些你需要的功能。就是说你还需要做些事情。当重启进入你的新 LFS 中时，这是一个在当前的 chroot 环境中安装一些 BLFS 书中的额外软件包的好时机。 以下给出了一些建议：</para>
+  <para>至此，所有的软件都已安装完毕，是时候重启你的电脑了。然而，你也应该注意一些事情。通过学习本书建立起来的系统属于最小系统，这也就意味着可能会缺失一些你需要的功能。就是说你还需要做些事情。当重启进入你的新 LFS 中时，这是一个在当前的 chroot 环境中安装一些 BLFS 书中的额外软件包的好时机。以下给出了一些建议：</para>
 
   <itemizedlist>
 
@@ -42,7 +42,7 @@
     url='&blfs-book;postlfs/parted.html'>parted</ulink> 。
     </para></listitem>
 
-    <listitem><para>最后，检查以下的配置文件是不是都是正确的吧。 </para>
+    <listitem><para>最后，检查以下的配置文件是不是都是正确的吧。</para>
 
       <itemizedlist>
         <listitem><para>/etc/bashrc                  </para></listitem>

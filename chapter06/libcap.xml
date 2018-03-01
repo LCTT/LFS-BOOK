@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Libcap 软件包实现了可用在 Linux 内核上的对 POSIX 1003.1e 功能的用户空间接口。 这些功能将所有强大 root 权限划分为不同的权限组合。</para>
+    <para>Libcap 软件包实现了可用在 Linux 内核上的对 POSIX 1003.1e 功能的用户空间接口。这些功能将所有强大 root 权限划分为不同的权限组合。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>

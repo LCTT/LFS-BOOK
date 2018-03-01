@@ -61,7 +61,7 @@
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>测试需要在支持扩展属性的文件系统上运行，例如 ext2、ext3、或者 ext4。 如果同时运行多个测试会导致测试失败(-j 选项大于 1)。输入命令检查结果：</para>
+    <para>测试需要在支持扩展属性的文件系统上运行，例如 ext2、ext3、或者 ext4。如果同时运行多个测试会导致测试失败（-j 选项大于 1）。输入命令检查结果：</para>
 
 <screen><userinput remap="test">make -j1 tests root-tests</userinput></screen>
 

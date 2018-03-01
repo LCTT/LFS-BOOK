@@ -212,7 +212,7 @@
       <varlistentry id="znew">
         <term><command>znew</command></term>
         <listitem>
-          <para>从 <command>compress</command> 格式到 <command>gzip</command> 格式重新压缩文件format&mdash;<filename class="extension">.Z</filename> 到 <filename class="extension">.gz</filename></para>
+          <para>从 <command>compress</command> 格式到 <command>gzip</command> 格式重新压缩文件format——<filename class="extension">.Z</filename> 到 <filename class="extension">.gz</filename></para>
           <indexterm zone="ch-system-gzip znew">
             <primary sortas="b-znew">znew</primary>
           </indexterm>

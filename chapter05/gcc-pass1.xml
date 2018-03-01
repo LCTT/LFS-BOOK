@@ -43,9 +43,9 @@
   <sect2 role="installation">
     <title>安装交叉编译的 GCC</title>
 
-    <para>现在 GCC 需要 GMP、 MPFR 和 MPC 软件包。在你的主机发行版中可能并不包括这些软件包，它们将和 GCC 一起编译。解压每个软件包到 GCC 源文件夹并重命名解压后的文件夹，以便 GCC 编译过程中能自动使用这些软件：</para>
+    <para>现在 GCC 需要 GMP、MPFR 和 MPC 软件包。在你的主机发行版中可能并不包括这些软件包，它们将和 GCC 一起编译。将每个解压软件包到 GCC 的目录下，并重命名解压后得到的目录，以便 GCC 编译过程中能自动使用这些软件：</para>
 
-    <note><para>有些读者对本章节内容存在误解。和之前章节 (<xref linkend='buildinstr'/>) 中一样，过程都是相同的。首先从源文件夹中解压 gcc tar 包，然后进入到创建的文件夹中。然后才可以执行下面的指令。</para></note>
+    <note><para>读者经常对本章节产生误解。过程与之前的章节（<xref linkend='buildinstr'/>）中提到的一样。首先从源目录中解压 gcc 的源码包，然后进入创建的目录中。接着才可以执行下面的指令。</para></note>
 
 <screen><userinput remap="pre">tar -xf ../mpfr-&mpfr-version;.tar.xz
 mv -v mpfr-&mpfr-version; mpfr
@@ -54,7 +54,7 @@ mv -v gmp-&gmp-version; gmp
 tar -xf ../mpc-&mpc-version;.tar.gz
 mv -v mpc-&mpc-version; mpc</userinput></screen>
 
-    <para>下面的指令将会修改 GCC 默认的动态链接器为安装在 <filename class="directory">/tools</filename> 文件夹中的。它也会从 GCC 的 include 搜索路径中移除 <filename class="directory">/usr/include</filename>。执行：</para>
+    <para>下面的指令将会修改 GCC 默认的动态链接器的位置，安装到 <filename class="directory">/tools</filename> 目录中的。并将 <filename class="directory">/usr/include</filename> 从 GCC 的 include 检索路径中移除。执行：</para>
 
 <screen><userinput remap="pre">for file in gcc/config/{linux,i386/linux{,64}}.h
 do
@@ -69,9 +69,9 @@ do
   touch $file.orig
 done</userinput></screen>
 
-    <para>如果上面的看起来难以理解，让我们分开来看一下吧。首先我们找到 <filename class="directory">gcc/config</filename> 文件夹下的所有命名为 <filename>linux.h</filename>，<filename>linux64.h</filename> 或 <filename>sysv4.h</filename> 的文件。对于找到的每个文件，我们把它复制到相同名称的文件，但增加了后缀 <quote>.orig</quote>。然后第一个 sed 表达式在每个 <quote>/lib/ld</quote>，<quote>/lib64/ld</quote> 或者 <quote>/lib32/ld</quote> 实例前面增加 <quote>/tools</quote>，第二个 sed 表达式替换 <quote>/usr</quote> 的硬编码实例。然后，我们添加这改变默认 startfile 前缀到文件末尾的定义语句。注意 <quote>/tools/lib/</quote> 后面的 <quote>/</quote> 是必须的。最后，我们用 <command>touch</command> 更新复制文件的时间戳。当与 <command>cp -u</command> 一起使用时，可以防止命令被无意中运行两次造成对原始文件意外的更改。</para>
+    <para>如果上面的内容看起来有些难以理解，那让我们慢慢消化吧。首先我们在 <filename class="directory">gcc/config</filename> 目录下所有的文件中检索命名为 <filename>linux.h</filename>，<filename>linux64.h</filename> 或 <filename>sysv4.h</filename> 的文件。将我们找到的每个文件，复制到文件名相同，并在文件名后增加「.orig」后缀。然后第一个 sed 表达式在每个「/lib/ld」，「/lib64/ld」或者「/lib32/ld」实例前面增加「/tools」，第二个 sed 表达式替换「/usr」的硬编码实例。然后，我们添加这改变默认 startfile 前缀到文件末尾的定义语句。注意「/tools/lib/」后面的「/」是必须的。最后，我们用 <command>touch</command> 更新复制文件的时间戳。当与 <command>cp -u</command> 一起使用时，可以防止命令被无意中运行两次造成对原始文件意外的更改。</para>
 
-    <para>最后，在 x86_64 的主机上，为 64 位的库设置默认目录名至 <quote>lib</quote>：</para>
+    <para>最后，在 x86_64 的主机上，为 64 位的库设置默认目录名至「lib」：</para>
 
 <screen><userinput remap="pre">case $(uname -m) in
   x86_64)
@@ -93,7 +93,7 @@ esac</userinput></screen>
 
 <screen><userinput remap="pre">sed -i 's/if \((code.*))\)/if (\1 \&amp;\&amp; \!DEBUG_INSN_P (insn))/' gcc/sched-deps.c</userinput></screen>
 -->
-    <para>GCC 手册建议在源文件夹之外一个专门的编译文件夹中编译 GCC：</para>
+    <para>GCC 手册建议在源目录之外一个专门的编译目录中编译 GCC：</para>
 
 <screen><userinput remap="pre">mkdir -v build
 cd       build</userinput></screen>
@@ -135,7 +135,7 @@ cd       build</userinput></screen>
       <varlistentry>
         <term><parameter>--without-headers</parameter></term>
         <listitem>
-          <para>创建一个完成的交叉编译器的时候， GCC 要求标准头文件和目标系统兼容。对于我们的目的来说，不需要这些头文件。这个选项可以防止 GCC 查找它们。</para>
+          <para>创建一个完成的交叉编译器的时候，GCC 要求标准头文件和目标系统兼容。对于我们的目的来说，不需要这些头文件。这个选项可以防止 GCC 查找它们。</para>
         </listitem>
       </varlistentry>
 
@@ -173,7 +173,7 @@ cd       build</userinput></screen>
       <varlistentry>
         <term><parameter>--disable-multilib</parameter></term>
         <listitem>
-          <para>在 x86_64 机器上， LFS 还不支持 multilib 配置。这个选项对 x86 来说无害。</para>
+          <para>在 x86_64 机器上，LFS 还不支持 multilib 配置。这个选项对 x86 来说无害。</para>
         </listitem>
       </varlistentry>
 
@@ -212,7 +212,7 @@ cd       build</userinput></screen>
     <title/>
 
     <para>该软件包的详细信息请参见：
-    <xref linkend="contents-gcc" role="."/></para>
+    <xref linkend="contents-gcc"/>。</para>
 
   </sect2>
 

@@ -10,18 +10,18 @@
 
   <title>添加 LFS 用户</title>
 
-  <para>当以 <systemitem class="username">root</systemitem> 用户登录时，犯一个小错误可能会破坏或摧毁整个系统。因此，我们建议在本章中以非特权用户编译软件包。你当然可以使用你自己的用户名，但为了使其更容易建立一个干净的工作环境，创建一个名为 <systemitem class="username">lfs</systemitem> 的新用户作为新组（名字也是 <systemitem class="groupname">lfs</systemitem> ）的成员，并在安装过程中使用这个用户。以<systemitem class="username">root</systemitem> 用户运行以下命令来添加新用户：</para>
+  <para>当以 <systemitem class="username">root</systemitem> 用户登录时，犯一个小错误可能会破坏或摧毁整个系统。因此，我们建议在本章中以非特权用户编译软件包。你当然可以使用你自己的用户名，但为了使其更容易建立一个干净的工作环境，创建一个名为 <systemitem class="username">lfs</systemitem> 的新用户作为新组（同样命名为 <systemitem class="groupname">lfs</systemitem>）的成员，并在安装过程中使用这个用户。以 <systemitem class="username">root</systemitem> 用户运行以下命令来添加新用户：</para>
 
 <screen><userinput>groupadd lfs
 useradd -s /bin/bash -g lfs -m -k /dev/null lfs</userinput></screen>
 
   <variablelist>
-    <title>命令行选项的意思：</title>
+    <title>命令行选项释义：</title>
 
     <varlistentry>
       <term><parameter>-s /bin/bash</parameter></term>
       <listitem>
-        <para>把 <command>bash</command> 设置为 <systemitem class="username">lfs</systemitem> 用户的默认 shell。</para>
+        <para>将 <command>bash</command> 设置为 <systemitem class="username">lfs</systemitem> 用户的默认 shell。</para>
       </listitem>
     </varlistentry>
 
@@ -42,7 +42,7 @@ useradd -s /bin/bash -g lfs -m -k /dev/null lfs</userinput></screen>
     <varlistentry>
       <term><parameter>-k /dev/null</parameter></term>
       <listitem>
-        <para>这个参数通过改变输入位置为特殊的空（null）设备，以防止可能从一个模版目录中（默认是（默认是 <filename class="directory">/etc/skel</filename>）复制文件。</para>
+        <para>这个参数通过改变输入位置为特殊的空（null）设备，以防止可能从框架目录（默认是 <filename class="directory">/etc/skel</filename>）复制文件。</para>
       </listitem>
     </varlistentry>
 
@@ -55,15 +55,15 @@ useradd -s /bin/bash -g lfs -m -k /dev/null lfs</userinput></screen>
 
   </variablelist>
 
-  <para>要以 <systemitem class="username">lfs</systemitem> 用户身份登录（以 <systemitem class="username">root</systemitem> 身份登录切换到 <systemitem class="username">lfs</systemitem> 用户时并不要求 <systemitem class="username">lfs</systemitem> 用户设置了密码），需要给 <systemitem class="username">lfs</systemitem> 用户一个密码：</para>
+  <para>要以 <systemitem class="username">lfs</systemitem> 用户身份登录（相较于以 <systemitem class="username">root</systemitem> 身份登录的情况下切换到 <systemitem class="username">lfs</systemitem> 用户时，无需为 <systemitem class="username">lfs</systemitem> 用户设置密码），需要给 <systemitem class="username">lfs</systemitem> 用户一个密码：</para>
 
 <screen role="nodump"><userinput>passwd lfs</userinput></screen>
 
-  <para>通过更改文件夹所有者为 <systemitem class="username">lfs</systemitem>，为用户 <filename class="directory">$LFS/tools</filename> 赋予了访问 <systemitem class="username">lfs</systemitem> 文件夹的所有权限：</para>
+  <para>通过更改目录所有者为 <systemitem class="username">lfs</systemitem>，为用户 <systemitem class="username">lfs</systemitem> 赋予了访问 <filename class="directory">$LFS/tools</filename> 目录的所有权限：</para>
 
 <screen><userinput>chown -v lfs $LFS/tools</userinput></screen>
 
-  <para>如果正如建议的一样创建了一个单独的工作目录，给 <systemitem class="username">lfs</systemitem> 用户赋予这个文件夹的所有权：</para>
+  <para>如果你按照建议创建了单独的工作目录，给 <systemitem class="username">lfs</systemitem> 用户赋予这个目录的所有权：</para>
 
 <screen><userinput>chown -v lfs $LFS/sources</userinput></screen>
 
@@ -71,6 +71,6 @@ useradd -s /bin/bash -g lfs -m -k /dev/null lfs</userinput></screen>
 
 <screen role="nodump"><userinput>su - lfs</userinput></screen>
 
-  <para>这个 <quote><parameter>-</parameter></quote> 授意 <command>su</command> 启动登录shell，而不是一个 non-login 的 shell。关于这两种 shell 类型的区别，可以在 <filename>bash(1)</filename> 和 <command>info bash</command> 中查看详细详情。</para>
+  <para>这个「<parameter>-</parameter>」授意 <command>su</command> 启动登录 shell，而非 non-login shell。关于这两种 shell 类型的区别，可以在 <filename>bash(1)</filename> 和 <command>info bash</command> 中查看详细详情。</para>
 
 </sect1>

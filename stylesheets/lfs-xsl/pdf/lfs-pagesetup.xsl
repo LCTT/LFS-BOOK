@@ -13,10 +13,10 @@ $Date: 2007-07-05 18:18:33 -0300 (Thu, 05 Jul 2007) $
        header content and titles size. -->
 
     <!-- The inner page margin. -->
-  <xsl:param name="page.margin.inner" select="'0.32in'"/>
+  <xsl:param name="page.margin.inner" select="'0.8in'"/>
 
     <!-- The outer page margin. -->
-  <xsl:param name="page.margin.outer" select="'0.32in'"/>
+  <xsl:param name="page.margin.outer" select="'0.8in'"/>
 
     <!-- The bottom margin of the page. -->
   <xsl:param name="page.margin.bottom" select="'0.35in'"/>
@@ -99,6 +99,7 @@ $Date: 2007-07-05 18:18:33 -0300 (Thu, 05 Jul 2007) $
         </xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
+    <xsl:attribute name="line-height">18pt</xsl:attribute>
   </xsl:attribute-set>
 
     <!-- part/partintro:

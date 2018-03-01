@@ -14,7 +14,7 @@
     <primary sortas="e-/etc/profile">/etc/profile</primary>
   </indexterm>
 
-  <para>shell 程序 <command>/bin/bash</command> （下文称为 <quote>shell</quote>）
+  <para>shell 程序 <command>/bin/bash</command> （下文称为「shell」）
   使用一系列的启动文件来帮助建立将要运行的环境。每一个文件都有特定的用途，它可能会影响登陆和交互环境。
   在 <filename class="directory">/etc</filename> 目录下的文件提供了全局的配置。如果等效的文件存在于用户文件夹，
   则可能会覆盖全局设置。</para>
@@ -37,7 +37,7 @@
     </listitem>
     <listitem>
       <para>修正字符在字母、数字和其它类的分类。对于非英语区域设置来说，
-      只有这样， <command>bash</command> 才能正常显示非 ASCII 字符</para>
+      只有这样，<command>bash</command> 才能正常显示非 ASCII 字符</para>
     </listitem>
     <listitem>
       <para>国家顺序可以按照字母顺序正常排序（译者注：这里所谓的正常排序，应该是首先将国家名称转换成本地语言的国家名称，
@@ -51,29 +51,29 @@
     </listitem>
   </itemizedlist>
 
-  <para>/etc/locale.conf 中 <replaceable>&lt;ll&gt;</replaceable> 使用语言代码代替（比如中文是 “zh”，英文是 “en”），
-   <replaceable>&lt;CC&gt;</replaceable> 使用国家代码代替（比如中国是 “CN”，中国香港是 “HK”，中国台湾是 “TW”，
-   美国是 “US”）， <replaceable>&lt;charmap&gt;</replaceable> 使用选定字符集指定的标准字符映射表替换。诸如 “@euro” 这样的可选修饰符也可使用。</para>
+  <para>/etc/locale.conf 中 <replaceable>&lt;ll&gt;</replaceable> 使用语言代码代替（比如中文是「zh」，英文是「en」），
+   <replaceable>&lt;CC&gt;</replaceable> 使用国家代码代替（比如中国是「CN」，中国香港是「HK」，中国台湾是「TW」，
+   美国是「US」），<replaceable>&lt;charmap&gt;</replaceable> 使用选定字符集指定的标准字符映射表替换。诸如「@euro」这样的可选修饰符也可使用。</para>
 
   <para>运行以下命令可以获得当前 Glibc 支持的本地字符集。</para>
 
 <screen role="nodump"><userinput>locale -a</userinput></screen>
 
-  <para>字符映射表可能存在很多的别名，比如 <quote>ISO-8859-1</quote> 可以写作 
-  <quote>iso8859-1</quote> 或 <quote>iso88591</quote>。 但是有一些程序不支持这些乱七八糟的写法
-  （比如 <quote>UTF-8</quote> 只能写作 <quote>UTF-8</quote>，<quote>utf8</quote> 它就不认识了）。 
+  <para>字符映射表可能存在很多的别名，比如「ISO-8859-1」可以写作 
+「iso8859-1」或「iso88591」。但是有一些程序不支持这些乱七八糟的写法
+  （比如「UTF-8」只能写作「UTF-8」，「utf8」它就不认识了）。
   所以，为了安全起见，在设置的时候还是尽量的使用特定区域设置的规范名称。可以通过以下命令，
   查询在特定区域下的字符映射表标准名称，<replaceable>&lt;locale name&gt;</replaceable> 为运行
-  <command>locale -a</command> 输出的首选区域设置（这里以 <quote>zh_CN.utf8</quote> 为例）。</para>
+  <command>locale -a</command> 输出的首选区域设置（这里以「zh_CN.utf8」为例）。</para>
 
 <screen role="nodump"><userinput>LC_ALL=<replaceable>&lt;locale name&gt;</replaceable> locale charmap</userinput></screen>
 
-  <para>对于 <quote>zh_CN.utf8</quote> 以上命令将会如下输出：</para>
+  <para>对于「zh_CN.utf8」以上命令将会如下输出：</para>
 
 <screen><computeroutput>UTF-8</computeroutput></screen>
 
-  <para>根据以上输出，我们再次修改 /etc/locale.conf， 将字符映射表设置为标准形式
-  （<quote>zh_CN.utf8</quote> 变为 <quote>zh_CN.UTF-8</quote>）。 同理，也可一并查询以下设置的标准命令，
+  <para>根据以上输出，我们再次修改 /etc/locale.conf，将字符映射表设置为标准形式
+  （「zh_CN.utf8」变为「zh_CN.UTF-8」）。同理，也可一并查询以下设置的标准命令，
   然后将其添加到 bash 的启动文件中 （译者注：对于 bash 来说，启动文件为 .bashrc）。</para>
 
 <screen role="nodump"><userinput>LC_ALL=&lt;locale name&gt; locale language
@@ -82,22 +82,22 @@ LC_ALL=&lt;locale name&gt; locale int_curr_symbol
 LC_ALL=&lt;locale name&gt; locale int_prefix</userinput></screen>
 
   <para>以上的命令将会打印当前区域设置的语言、字符编码、本地货币单位以及电话国际编码。
-  如果出现类似下文的错误输出， 可能是你没有严格按照第六章指导的方法操作或者是你当前所用的 Glibc 不支持。</para>
+  如果出现类似下文的错误输出，可能是你没有严格按照第六章指导的方法操作或者是你当前所用的 Glibc 不支持。</para>
 
 <screen><computeroutput>locale: Cannot set LC_* to default locale: No such file or directory</computeroutput></screen>
 
-  <para>如果这种情况真的发生，你应该使用 <command>localedef</command> 命令安装对应的系统区域， 
+  <para>如果这种情况真的发生，你应该使用 <command>localedef</command> 命令安装对应的系统区域，
   或者是考虑更改为其它的区域。假如没有出现错误提示，我们就可以继续进行下一步操作了！</para>
 
   <!-- FIXME: the xlib example will became obsolete real soon -->
   <para>有一些 LFS 之外的包可能出现对你设置的区域支持很差劲的情况。
-  比如 X 的库（X Windows System 的一部份）， 就可能在内部文件中输出以下消息：</para>
+  比如 X 的库（X Windows System 的一部份），就可能在内部文件中输出以下消息：</para>
 
 <screen><computeroutput>Warning: locale not supported by Xlib, locale set to C</computeroutput></screen>
 
   <para>在若干情况下，Xlib 希望以带规范破折号的大写形式列出字符映射表。比如 "ISO-8859-1" 
-  而不应该写作 "iso88591"。不过， 也可以通过去除区域规范中的字符映射部分找到合适的规范。
-  这可以通过运行 <command>locale charmap</command> 命令来检查。 例如，需要更改 "de_DE.ISO-8859-15@euro" 
+  而不应该写作 "iso88591"。不过，也可以通过去除区域规范中的字符映射部分找到合适的规范。
+  这可以通过运行 <command>locale charmap</command> 命令来检查。例如，需要更改 "de_DE.ISO-8859-15@euro" 
   为 "de_DE@euro" 以便 Xlib 能识别区域。</para>
 
   <para>即便如此，也可能遇到某些程序因为区域设置和它们预置的不同而导致功能异常（可能不会显示任何的错误消息）。
@@ -113,11 +113,11 @@ export LANG=<replaceable>&lt;ll&gt;_&lt;CC&gt;.&lt;charmap&gt;&lt;@modifiers&gt;
 # End /etc/profile</literal>
 EOF</userinput></screen>
 
-  <para><quote>C</quote> （默认）和 <quote>en_US</quote> （推荐美国英语用户使用）这两种区域设置有所不同。
-   <quote>C</quote>使用 US-ASCII 7 位字符集，并把设置了最高位的字节作为无效字符。
-   这就是为什么类似 <command>ls</command> 的命令本地化时会用疑问号代替。 同样，如果你想要使用 Mutt 或 Pine 
-   发送包含有类似字符的邮件，将会得到如下消息：非 RFC 兼容字符（发送邮件中的字符集为 <quote>unknown 8-bit</quote>）。 
-   所以，如果你一定以及肯定一定不会用到 8 位的字符，那你可以仅使用 <quote>C</quote>。</para>
+  <para>「C」（默认）和「en_US」（推荐美国英语用户使用）这两种区域设置有所不同。
+「C」使用 US-ASCII 7 位字符集，并把设置了最高位的字节作为无效字符。
+   这就是为什么类似 <command>ls</command> 的命令本地化时会用疑问号代替。同样，如果你想要使用 Mutt 或 Pine 
+   发送包含有类似字符的邮件，将会得到如下消息：非 RFC 兼容字符（发送邮件中的字符集为「unknown 8-bit」）。
+   所以，如果你一定以及肯定一定不会用到 8 位的字符，那你可以仅使用「C」。</para>
 
   <para>不少程序还不支持 UTF-8 区域设置。我们正在完善文档并修复类似问题，
   可以查看<ulink url="&blfs-book;introduction/locale-issues.html"/>.</para>

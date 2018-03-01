@@ -58,6 +58,6 @@ DISTRIB_CODENAME="&lt;your name here&gt;"
 DISTRIB_DESCRIPTION="Linux From Scratch"
 EOF</userinput></screen>
 
-  <para>你可以在 'DISTRIB_CODENAME' 字段填写一些特别的字符来彰显“你的”系统的与众不同！</para>
+  <para>你可以在「DISTRIB_CODENAME」字段填写一些特别的字符来彰显「你的」系统的与众不同！</para>
 
 </sect1>

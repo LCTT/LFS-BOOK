@@ -86,7 +86,7 @@ cd       build</userinput></screen>
       <varlistentry>
         <term><parameter>libc_cv_forced_unwind=yes</parameter></term>
         <listitem>
-          <para>在 <xref linkend="ch-tools-binutils-pass1"/>  中安装的链接器是交叉编译的，在安装完 Glibc 之前不能使用。由于依赖于工作的链接器，这意味着 force-unwind 支持的配置测试会失败。将 libc_cv_forced_unwind=yes 变量传递进去告诉 <command>configure</command> 命令 force-unwind 支持是可用的，不需要进行测试。</para>
+          <para>在 <xref linkend="ch-tools-binutils-pass1"/> 中安装的链接器是交叉编译的，在安装完 Glibc 之前不能使用。由于依赖于工作的链接器，这意味着 force-unwind 支持的配置测试会失败。将 libc_cv_forced_unwind=yes 变量传递进去告诉 <command>configure</command> 命令 force-unwind 支持是可用的，不需要进行测试。</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -147,7 +147,7 @@ readelf -l a.out | grep ': /tools'</userinput></screen>
 
   </caution>
 
-  <note><para>在后面的编译 Binutils 章节时会再一次检查工具链是否正确编译。如果 Binutils 编译失败，说明之前安装 Binutils、 GCC、或者 Glibc 时某些地方出现了错误。</para></note>
+  <note><para>在后面的编译 Binutils 章节时会再一次检查工具链是否正确编译。如果 Binutils 编译失败，说明之前安装 Binutils、GCC、或者 Glibc 时某些地方出现了错误。</para></note>
 
   </sect2>
 
@@ -155,7 +155,7 @@ readelf -l a.out | grep ': /tools'</userinput></screen>
     <title/>
 
     <para>该软件包的详细信息请参见：
-    <xref linkend="contents-glibc" role="."/></para>
+    <xref linkend="contents-glibc"/>。</para>
 
   </sect2>
 

@@ -31,11 +31,11 @@ ln -sv /run /var/run
 ln -sv /run/lock /var/lock
 mkdir -pv /var/{opt,cache,lib/{color,misc,locate},local}</userinput></screen>
 
-  <para>一般目录默认会按 755 的权限创建，但是这并不适用于所有的目录。在上面的命令里，有两个改动&mdash;一个是 <systemitem
+  <para>一般目录默认会按 755 的权限创建，但是这并不适用于所有的目录。在上面的命令里，有两个改动——一个是 <systemitem
   class="username">root</systemitem> 的 home 目录，另一个是存放临时文件的目录。</para>
 
-  <para>第一个模式改动能保证不是所有人都能进入 <filename class="directory">/root</filename> 目录&mdash;同样一般用户也需要为他/她的 home 目录设置这样的模式。第二个模式改动能保证所有用户对目录 <filename class="directory">/tmp</filename> 和 <filename
-  class="directory">/var/tmp</filename> 都是可写的，但又不能移除其他用户的文件。后面的这个限制是由所谓的 <quote>粘滞位</quote>实现的，即位掩码 1777 中的最高位（1）。</para>
+  <para>第一个模式改动能保证不是所有人都能进入 <filename class="directory">/root</filename> 目录——同样一般用户也需要为他/她的 home 目录设置这样的模式。第二个模式改动能保证所有用户对目录 <filename class="directory">/tmp</filename> 和 <filename
+  class="directory">/var/tmp</filename> 都是可写的，但又不能移除其他用户的文件。后面的这个限制是由所谓的「粘滞位」实现的，即位掩码 1777 中的最高位（1）。</para>
 
   <sect2>
     <title>关于 FHS 兼容性</title>

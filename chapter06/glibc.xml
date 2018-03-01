@@ -226,7 +226,7 @@ unset ZONEINFO</userinput></screen>
       <varlistentry>
         <term><parameter>zic -L /dev/null ...</parameter></term>
         <listitem>
-          <para>这会创建没有时间补偿的 posix 时区数据。一般将它们同时放在 <filename class="directory">zoneinfo</filename> 和 <filename class="directory">zoneinfo/posix</filename>。 另外需要将 POSIX 时区数据放到 <filename class="directory">zoneinfo</filename> 目录下，否则很多测试套件会报错。在嵌入式平台，如果存储空间紧张而且你也不准备更新时区，也可以不用 <filename class="directory">posix</filename> 目录从而节省 1.9MB，但是一些应用程序或测试套件也许会出错。</para>
+          <para>这会创建没有时间补偿的 posix 时区数据。一般将它们同时放在 <filename class="directory">zoneinfo</filename> 和 <filename class="directory">zoneinfo/posix</filename>。另外需要将 POSIX 时区数据放到 <filename class="directory">zoneinfo</filename> 目录下，否则很多测试套件会报错。在嵌入式平台，如果存储空间紧张而且你也不准备更新时区，也可以不用 <filename class="directory">posix</filename> 目录从而节省 1.9MB，但是一些应用程序或测试套件也许会出错。</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -763,7 +763,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libutil">
         <term><filename class="libraryfile">libutil</filename></term>
         <listitem>
-          <para>包含各种 Unix 应用程序中用到的“标准” 函数的代码</para>
+          <para>包含各种 Unix 应用程序中用到的「标准」函数的代码</para>
           <indexterm zone="ch-system-glibc libutil">
             <primary sortas="c-libutil">libutil</primary>
           </indexterm>

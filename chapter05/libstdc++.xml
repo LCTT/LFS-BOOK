@@ -74,7 +74,7 @@ cd       build</userinput></screen>
       <varlistentry>
         <term><parameter>--disable-libstdcxx-threads</parameter></term>
         <listitem>
-          <para>由于我们还没有编译 C 线程库， C++ 的也还不能编译。</para>
+          <para>由于我们还没有编译 C 线程库，C++ 的也还不能编译。</para>
         </listitem>
       </varlistentry>
 
@@ -108,7 +108,7 @@ cd       build</userinput></screen>
     <title/>
 
     <para>该软件包的详细信息请参见：
-    <xref linkend="contents-gcc" role="."/></para>
+    <xref linkend="contents-gcc"/>。</para>
 
   </sect2>
 

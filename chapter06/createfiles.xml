@@ -123,7 +123,7 @@ ln -sv bash /bin/sh</userinput></screen>
 
 <screen><userinput>ln -sv /proc/self/mounts /etc/mtab</userinput></screen>
 
-  <para>为了让 <systemitem class="username">root</systemitem> 用户能正常登录，而且 <quote>root</quote> 的名字能被正常识别，必须在文件 <filename>/etc/passwd</filename> 和 <filename>/etc/group</filename>  中写入相应的内容。</para>
+  <para>为了让 <systemitem class="username">root</systemitem> 用户能正常登录，而且「root」的名字能被正常识别，必须在文件 <filename>/etc/passwd</filename> 和 <filename>/etc/group</filename>  中写入相应的内容。</para>
 
   <para>运行下面的命令创建 <filename>/etc/passwd</filename> 文件：</para>
 
@@ -151,7 +151,7 @@ systemd-coredump:x:79:79:systemd Core Dumper:/:/bin/false
 nobody:x:99:99:Unprivileged User:/dev/null:/bin/false</literal>
 EOF</userinput></screen>
 
-  <para><systemitem class="username">root</systemitem>  用户的实际密码（这里的 <quote>x</quote> 只是占位符）将在后面创建。</para>
+  <para><systemitem class="username">root</systemitem>  用户的实际密码（这里的「x」只是占位符）将在后面创建。</para>
 
   <para>运行下面的命令创建 <filename>/etc/group</filename> 文件：</para>
 
@@ -215,10 +215,10 @@ nogroup:x:99:
 users:x:999:</literal>
 EOF</userinput></screen>
 
-  <para>这里创建的用户组没有参照任何标准 &mdash; 它们一部分是为了满足本章中配置 udev 的需要，还有一部分来自一些现存 Linux 发行版的通用设定。另外，某些测试套件也依赖特定用户或组。而 Linux 标准规范 （LSB，参见 <ulink url="http://www.linuxbase.org"/>）只要求以组 ID（GID）为 0 创建用户组 
+  <para>这里创建的用户组没有参照任何标准——它们一部分是为了满足本章中配置 udev 的需要，还有一部分来自一些现存 Linux 发行版的通用设定。另外，某些测试套件也依赖特定用户或组。而 Linux 标准规范 （LSB，参见 <ulink url="http://www.linuxbase.org"/>）只要求以组 ID（GID）为 0 创建用户组 
   <systemitem class="groupname">root</systemitem> 以及以 GID 为 1 创建用户组 <systemitem class="groupname">bin</systemitem>。系统管理员可以自由分配其它所有用户组名字和 GID，因为优秀的程序不会依赖 GID 数字，而是使用组名。</para>
 
-  <para>为了移除 <quote>I have no name!</quote> 的提示符，可以打开一个新 shell。由于完整的 Glibc 已经在 <xref linkend="chapter-temporary-tools"/> 里装好了，而且已经创建好了 <filename>/etc/passwd</filename> 和 <filename>/etc/group</filename> 文件，用户名和组名就可以正常解析了：</para>
+  <para>为了移除「I have no name!」的提示符，可以打开一个新 shell。由于完整的 Glibc 已经在 <xref linkend="chapter-temporary-tools"/> 里装好了，而且已经创建好了 <filename>/etc/passwd</filename> 和 <filename>/etc/group</filename> 文件，用户名和组名就可以正常解析了：</para>
 
 <screen role="nodump"><userinput>exec /tools/bin/bash --login +h</userinput></screen>
 

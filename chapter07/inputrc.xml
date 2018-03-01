@@ -22,7 +22,7 @@
   可以查看 <command>info bash</command> 中 <emphasis>Readline Init File</emphasis> 一节。
   其实查看 <command>info readline</command> 也可以获得不少有用的东西啦。</para>
 
-  <para>下面显示的就是通用的 <filename>inputrc</filename> 文件，其中包含有 “#” 的都是注释行（需要注意的是，此文件不支持在设置后跟随注释）。使用以下命令创建此文件：</para>
+  <para>下面显示的就是通用的 <filename>inputrc</filename> 文件，其中包含有「#」的都是注释行（需要注意的是，此文件不支持在设置后跟随注释）。使用以下命令创建此文件：</para>
 
 <screen><userinput>cat &gt; /etc/inputrc &lt;&lt; "EOF"
 <literal># Begin /etc/inputrc

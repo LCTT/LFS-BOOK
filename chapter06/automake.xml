@@ -109,7 +109,7 @@ make -j4 check</userinput></screen>
       <varlistentry id="automake">
         <term><command>automake</command></term>
         <listitem>
-          <para>一个从 <filename>Makefile.in</filename> 文件自动生成 <filename>Makefile.am</filename> 文件的工具 [要生成一个软件包里所有的 <filename>Makefile.in</filename> 文件，在最上层的目录运行这个程序。 通过扫描 <filename>configure.in</filename> 文件，它能自动找到每个对应的 <filename>Makefile.am</filename> 文件，并生成对应的 <filename>Makefile.in</filename> 文件。]</para>
+          <para>一个从 <filename>Makefile.in</filename> 文件自动生成 <filename>Makefile.am</filename> 文件的工具 [要生成一个软件包里所有的 <filename>Makefile.in</filename> 文件，在最上层的目录运行这个程序。通过扫描 <filename>configure.in</filename> 文件，它能自动找到每个对应的 <filename>Makefile.am</filename> 文件，并生成对应的 <filename>Makefile.in</filename> 文件。]</para>
           <indexterm zone="ch-system-automake automake">
             <primary sortas="b-automake">automake</primary>
           </indexterm>

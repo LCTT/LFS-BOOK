@@ -40,7 +40,7 @@
   <sect2 role="installation">
     <title>安装 GCC</title>
 
-    <para>如果是在 x86_64 上实施构建，为了 64 位库，请将默认目录名改为 <quote>lib</quote>：</para>
+    <para>如果是在 x86_64 上实施构建，为了 64 位库，请将默认目录名改为「lib」：</para>
 
 <screen><userinput remap="pre">case $(uname -m) in
   x86_64)
@@ -113,7 +113,7 @@ cd       build</userinput></screen>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>创建 <ulink url="http://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink> 因为“历史”原因而需要的软链接。</para>
+    <para>创建 <ulink url="http://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink> 因为「历史」原因而需要的软链接。</para>
 
 <screen><userinput remap="install">ln -sv ../usr/bin/cpp /lib</userinput></screen>
 

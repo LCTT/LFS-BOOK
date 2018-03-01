@@ -40,7 +40,7 @@
   <sect2 role="installation">
     <title>安装 Sysklogd</title>
 
-    <para>首先，修复 klogd 在某些条件下会导致 “segmentation fault” 的问题，并修复一个过时的程序结构：</para>
+    <para>首先，修复 klogd 在某些条件下会导致「segmentation fault」的问题，并修复一个过时的程序结构：</para>
 
 <screen><userinput remap="pre">sed -i '/Error loading kernel symbols/{n;n;d}' ksym_mod.c
 sed -i 's/union wait/int/' syslogd.c</userinput></screen>

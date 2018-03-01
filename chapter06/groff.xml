@@ -40,7 +40,7 @@
   <sect2 role="installation">
     <title>安装 Groff</title>
 
-    <para>Groff 希望环境变量 <envar>PAGE</envar>包含默认的页面大小，对于美国的用户，为  <parameter>PAGE=letter</parameter>，对于其它地方，<parameter>PAGE=A4</parameter> 更合适。尽管在编译的时候配置了默认页面大小，后面通过 echo <quote>A4</quote> 或 <quote>letter</quote> 到 <filename>/etc/papersize</filename> 文件仍然可以修改。</para>
+    <para>Groff 希望环境变量 <envar>PAGE</envar>包含默认的页面大小，对于美国的用户，为  <parameter>PAGE=letter</parameter>，对于其它地方，<parameter>PAGE=A4</parameter> 更合适。尽管在编译的时候配置了默认页面大小，后面通过 echo「A4」或「letter」到 <filename>/etc/papersize</filename> 文件仍然可以修改。</para>
 
     <para>准备编译 Groff：</para>
 
@@ -226,7 +226,7 @@
       <varlistentry id="grog">
         <term><command>grog</command></term>
         <listitem>
-          <para>读文件并猜测打印文件需要的 <command>groff</command> 选项  <option>-e</option>，<option>-man</option>，<option>-me</option>，<option>-mm</option>，<option>-ms</option>，<option>-p</option>，<option>-s</option>,以及 <option>-t</option>， 并报告包含这些选项的 <command>groff</command> 命令</para>
+          <para>读文件并猜测打印文件需要的 <command>groff</command> 选项  <option>-e</option>，<option>-man</option>，<option>-me</option>，<option>-mm</option>，<option>-ms</option>，<option>-p</option>，<option>-s</option>,以及 <option>-t</option>，并报告包含这些选项的 <command>groff</command> 命令</para>
           <indexterm zone="ch-system-groff grog">
             <primary sortas="b-grog">grog</primary>
           </indexterm>
