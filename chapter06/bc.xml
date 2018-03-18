@@ -67,7 +67,7 @@
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>运行下面的命令来测试 bc。这会输出好多内容，因此你可能希望重定向到一个文件。测试中会有很小的比例(10 of 12,144)说最后一位数字有舍入误差。</para>
+    <para>运行下面的命令来测试 bc。这会输出好多内容，因此你可能希望重定向到一个文件。测试中会有很小的比例（10 分之 12,144）最后一位数字会有舍入误差。</para>
 
 <screen><userinput remap="test">echo "quit" | ./bc/bc -l Test/checklib.b</userinput></screen>
 

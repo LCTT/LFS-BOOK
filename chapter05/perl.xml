@@ -53,7 +53,7 @@
 
     <para>虽然 Perl 软件包自带测试套件，最好还是等下一章中它被完整安装之后再运行。</para>
 
-    <para>这次我们只需要安装一小部分应用和库。</para>
+    <para>这次我们只需要安装一小部分的应用和库。</para>
 
 <screen><userinput remap="install">cp -v perl cpan/podlators/scripts/pod2man /tools/bin
 mkdir -pv /tools/lib/perl5/&perl-version;
@@ -64,7 +64,7 @@ cp -Rv lib/* /tools/lib/perl5/&perl-version;</userinput></screen>
   <sect2 role="content">
     <title/>
 
-    <para>关于这个软件包的详细资料请参阅:
+    <para>关于这个软件包的详细资料请参见：
     <xref linkend="contents-perl"/>。</para>
 
   </sect2>

@@ -12,21 +12,21 @@
 
   <para>现在最后的 C 语言库已经装好了，是时候调整工具链，让新编译的程序链接到这些新的库上。</para>
 
-  <para>首先,备份 <filename class="directory">/tools</filename> 链接器，然后用我们在第五章调整过的链接器代替它。我们还会创建一个链接，链接到 <filename class="directory">/tools/$(uname -m)-pc-linux-gnu/bin</filename> 的副本：</para>
+  <para>首先，备份 <filename class="directory">/tools</filename> 链接器，然后用我们在第五章调整过的链接器代替它。我们还会创建一个链接，链接到 <filename class="directory">/tools/$(uname -m)-pc-linux-gnu/bin</filename> 的副本：</para>
 
 <screen><userinput>mv -v /tools/bin/{ld,ld-old}
 mv -v /tools/$(uname -m)-pc-linux-gnu/bin/{ld,ld-old}
 mv -v /tools/bin/{ld-new,ld}
 ln -sv /tools/bin/ld /tools/$(uname -m)-pc-linux-gnu/bin/ld</userinput></screen>
 
-  <para>接下来，修改 GCC 参数文件，让它指向新的动态连接器。只需删除所有「/tools」的实例，这样应该可以留下到达动态链接器的正确路径。还要调整参数文件，这样 GCC 就知道怎样找到正确的头文件和 Glibc 启动文件。一个 <command>sed</command> 命令就能完成这些:</para>
+  <para>接下来，修改 GCC 参数文件，让它指向新的动态连接器。只需删除所有「/tools」的实例，这样应该可以留下到达动态链接器的正确路径。还要调整参数文件，这样 GCC 就知道怎样找到正确的头文件和 Glibc 启动文件。一个 <command>sed</command> 命令就能完成这些：</para>
 
 <screen><userinput>gcc -dumpspecs | sed -e 's@/tools@@g'                   \
     -e '/\*startfile_prefix_spec:/{n;s@.*@/usr/lib/ @}' \
     -e '/\*cpp:/{n;s@$@ -isystem /usr/include@}' &gt;      \
     `dirname $(gcc --print-libgcc-file-name)`/specs</userinput></screen>
 
-  <para>直观地检查参数文件，来确认预期的变化确实完成了是个好的主意。</para>
+  <para>直观地检查参数文件来确认预期的变化已确实完成是个好办法。</para>
 
   <para>确保已调整的工具链的基本功能（编译和链接）都能如期进行是非常必要的。怎样做呢？执行下面这条命令：</para>
 
@@ -70,7 +70,7 @@ readelf -l a.out | grep ': /lib'</userinput></screen>
 <screen><computeroutput>SEARCH_DIR("/usr/lib")
 SEARCH_DIR("/lib")</computeroutput></screen>
 
-  <para os="l">然后我们要确定我们使用的是正确的 libc:</para>
+  <para os="l">然后我们要确定我们使用的是正确的 libc：</para>
 
 <screen os="m"><userinput>grep "/lib.*/libc.so.6 " dummy.log</userinput></screen>
 
@@ -88,7 +88,7 @@ SEARCH_DIR("/lib")</computeroutput></screen>
 
   <para os="t">如果显示的结果不一样或者根本没有显示，那就出了大问题。检查并回溯之前的步骤，找到出错的地方并改正。最有可能的原因是参数文件的调整出了问题。在进行下一步之前所有的问题都要解决。</para>
 
-  <para os="u">一旦所有的事情都正常了，清除测试文件：</para>
+  <para os="u">确保一切正常之后，清除测试文件：</para>
 
 <screen os="v"><userinput>rm -v dummy.c a.out dummy.log</userinput></screen>
 

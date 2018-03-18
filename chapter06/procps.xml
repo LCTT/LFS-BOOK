@@ -83,8 +83,8 @@ make check</userinput></screen>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-<para>最后，移动重要文件到一个可以找到的位置，如果
-<filename class="directory">/usr</filename> 没有挂载的话。</para>
+<para>最后，如果
+<filename class="directory">/usr</filename> 没有挂载的话，移动重要文件到一个可以找到的位置。</para>
 
 <screen><userinput remap="install">mv -v /usr/lib/libprocps.so.* /lib
 ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</userinput></screen>

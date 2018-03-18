@@ -58,7 +58,7 @@
 make clean</userinput></screen>
 
     <variablelist>
-      <title>make 参数的含义:</title>
+      <title>make 参数的含义：</title>
 
       <varlistentry>
         <term><parameter>-f Makefile-libbz2_so</parameter></term>

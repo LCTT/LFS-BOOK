@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Sysvinit 的软件包包含控制系统启动，运行，以及关闭的程序。</para>
+    <para>Sysvinit 的软件包包含控制系统启动、运行和关闭的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>

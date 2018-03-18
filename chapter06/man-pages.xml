@@ -63,7 +63,7 @@
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="man-pages">
-        <term><filename>man 手册</filename></term>
+        <term><filename>man pages</filename></term>
         <listitem>
           <para>描述 C 编程语言函数，重要的设备文件，以及主要的配置文件</para>
           <indexterm zone="ch-system-man-pages man-pages">

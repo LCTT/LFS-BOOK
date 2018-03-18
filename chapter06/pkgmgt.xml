@@ -10,7 +10,7 @@
 
   <title>软件包管理</title>
 
-  <para>软件包管理经常被请求加入到 LFS 手册中。软件包管理器可以追踪安装的文件，方便软件包的移除和升级。不仅是二进制执行文件和库文件，包管理器还会处理配置文件的安装。在你想太多之前，NO——本节不讨论也不安利任何特定的软件包管理器，只是总结了一下关于软件包管理的常用技术和工作原理。对你而言最完美的软件包管理器可能就在这些技术之中，也可能由这些技术的其中几个组合而成。本节还简要的提了一些在升级软件包时可能遇到的问题。</para>
+  <para>软件包管理经常被请求加入到 LFS 手册中。软件包管理器可以追踪安装的文件，方便软件包的移除和升级。不仅是二进制执行文件和库文件，包管理器还会处理配置文件的安装。在你想太多之前，答案是不——本节不讨论也不安利任何特定的软件包管理器，只是总结了一下关于软件包管理的常用技术和工作原理。对你而言最完美的软件包管理器可能就在这些技术之中，也可能由这些技术的其中几个组合而成。本节还简要的提了一些在升级软件包时可能遇到的问题。</para>
 
   <para>为什么 LFS 或 BLFS 手册里不采用任何软件包管理器的一些原因：</para>
 
@@ -37,7 +37,7 @@
       </listitem>
 
       <listitem>
-        <para>如果某个包含的动态库的软件包升级了，而且库名字有所改变，那么所有动态链接到这个库的软件包都需要重新链接新的库。（请注意软件包版本和库名字并不存在相关性。）举个例子，说软件包  foo-1.2.3 安装了一个叫 <filename class='libraryfile'>libfoo.so.1</filename>  的动态库。然后你将软件包升级到了新版本 foo-1.2.4 安装的动态库叫 <filename class='libraryfile'>libfoo.so.2</filename> 了。在这种情况下，所有动态链接到 <filename class='libraryfile'>libfoo.so.1</filename> 的软件包都需要重新编译链接到 <filename class='libraryfile'>libfoo.so.2</filename>。注意在所有依赖软件包重新编译完成之前，请勿删除之前的库文件。</para>
+        <para>如果某个包含的动态库的软件包升级了，而且库名字有所改变，那么所有动态链接到这个库的软件包都需要重新链接新的库。（请注意软件包版本和库名字并不存在相关性）。举个例子，说软件包  foo-1.2.3 安装了一个叫 <filename class='libraryfile'>libfoo.so.1</filename>  的动态库。然后你将软件包升级到了新版本 foo-1.2.4 安装的动态库叫 <filename class='libraryfile'>libfoo.so.2</filename> 了。在这种情况下，所有动态链接到 <filename class='libraryfile'>libfoo.so.1</filename> 的软件包都需要重新编译链接到 <filename class='libraryfile'>libfoo.so.2</filename>。注意在所有依赖软件包重新编译完成之前，请勿删除之前的库文件。</para>
       </listitem>
     </itemizedlist>
 
@@ -109,7 +109,7 @@ make DESTDIR=/usr/pkg/libfoo/1.1 install</userinput></screen>
 
       <para>在这种方式里，像之前的软链接软件包管理方式里所描述的那样，软件包被伪装安装到一个独立的目录树里。在安装完成后，会将已安装文件打包成一个软件包存档。然后这个存档会用来在本地机器或其他机器上安装软件包。</para>
 
-      <para>这种方式为商业发行版中的大多数包管理器所采用。例子有 RPM （顺带提一下，这也是 <ulink url="http://refspecs.linuxfoundation.org/lsb.shtml">Linux 标准规范</ulink> 中指定的包管理器），pkg-utils，Debian 的 apt，和 Gentoo 的 Portage 系统。如何在 LFS 系统里采用这种包管理方式的简单描述，请参看 <ulink url="&hints-root;fakeroot.txt"/>.</para>
+      <para>这种方式为商业发行版中的大多数包管理器所采用。例子有 RPM（顺带提一下，这也是 <ulink url="http://refspecs.linuxfoundation.org/lsb.shtml">Linux 标准规范</ulink> 中指定的包管理器），pkg-utils，Debian 的 apt，和 Gentoo 的 Portage 系统。如何在 LFS 系统里采用这种包管理方式的简单描述，请参看 <ulink url="&hints-root;fakeroot.txt"/>.</para>
 
       <para>创建带有依赖关系的软件包存档非常复杂，已经超出 LFS 手册范围了。</para>
 

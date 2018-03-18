@@ -40,19 +40,19 @@
   <sect2 role="installation">
     <title>安装 File</title>
 
-    <para>准备编译 File:</para>
+    <para>准备编译 File：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>编译软件包:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>输入命令检查结果:</para>
+    <para>输入命令检查结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>安装软件包:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 

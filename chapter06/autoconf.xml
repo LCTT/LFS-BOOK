@@ -52,7 +52,7 @@
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>这需要很长一段时间，大概 &autoconf-ch6-sbu-tests; SBUs。另外，跳过了需要 Automake 的 若干测试。为了全面测试，Automake 安装完成后可以重新测试 Autoconf。另外，由于 libtool-2.4.3 及之后版本的变化，两个测试将会失败。</para>
+    <para>这需要很长一段时间，大概 &autoconf-ch6-sbu-tests; SBUs。另外，跳过了需要 Automake 的若干测试。为了全面测试，Automake 安装完成后可以重新测试 Autoconf。另外，由于 libtool-2.4.3 及之后版本的变化，两个测试将会失败。</para>
 
     <para>安装软件包：</para>
 
@@ -81,7 +81,7 @@
       <varlistentry id="autoconf">
         <term><command>autoconf</command></term>
         <listitem>
-          <para>生成能为多种类 Unix 系统自动配置软件源码包的 shell 脚本；它生成的配置脚本是独立的—运行脚本不需要 <command>autoconf</command> 程序</para>
+          <para>生成能为多种类 Unix 系统自动配置软件源码包的 shell 脚本；它生成的配置脚本是独立的——运行脚本不需要 <command>autoconf</command> 程序</para>
           <indexterm zone="ch-system-autoconf autoconf">
             <primary sortas="b-autoconf">autoconf</primary>
           </indexterm>

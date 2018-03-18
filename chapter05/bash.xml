@@ -58,7 +58,7 @@
       <varlistentry>
         <term><parameter>--without-bash-malloc</parameter></term>
         <listitem>
-          <para>这个选项会禁用 Bash 的内存分配功能（ <function>malloc</function> ），这个功能已知会导致段错误。而禁用这个功能后，Bash 将使用 Glibc 的 <function>malloc</function> 函数，这样会更稳定。</para>
+          <para>这个选项会禁用 Bash 的内存分配功能（<function>malloc</function>），这个功能已知会导致段错误。而禁用这个功能后，Bash 将使用 Glibc 的 <function>malloc</function> 函数，这样会更稳定。</para>
         </listitem>
       </varlistentry>
 
@@ -86,7 +86,7 @@
   <sect2 role="content">
     <title/>
 
-    <para>关于这个软件包的详细资料请参见:
+    <para>关于这个软件包的详细资料请参见：
     <xref linkend="contents-bash"/>。</para>
 
   </sect2>

@@ -50,7 +50,7 @@
       <varlistentry>
         <term><parameter>--disable-static</parameter></term>
         <listitem>
-          <para>顶级的配置脚本会告诉你这是一个未能识别的选项，但是 XSParagraph 的配置脚本能够识别它，并能用其禁用安装静态 <filename class="libraryfile">XSParagraph.a</filename> 至 <filename class="directory">/usr/lib/texinfo</filename> 的操作。</para>
+          <para>顶级的配置脚本会告诉你这是一个未能识别的选项，但是 XSParagraph 的配置脚本能够识别它，并能用其来禁用安装静态 <filename class="libraryfile">XSParagraph.a</filename> 至 <filename class="directory">/usr/lib/texinfo</filename> 的操作。</para>
         </listitem>
       </varlistentry>
 

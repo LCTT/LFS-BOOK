@@ -32,7 +32,7 @@
     <tip>
       <title>Vim 的安装</title>
 
-      <para>如果你钟情于其它的编辑器——比如 Emacs、Joe，或 Nano——请参考 <ulink url="&blfs-book;postlfs/editors.html"/> 里的安装指导。</para>
+      <para>如果你钟情于其它的编辑器，比如 Emacs、Joe，或 Nano。请参考 <ulink url="&blfs-book;postlfs/editors.html"/> 里的安装指导。</para>
     </tip>
 
   </sect2>
@@ -58,7 +58,7 @@
 
     <para>然而，这个测试会输出一堆二进制数据到屏幕上，这会导致当前设置下的终端出现问题。把输出重定向到一个日志文件就可以解决这个问题。测试成功的话就会输出「ALL DONE」。</para>
 
-    <para>安装软件包:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 

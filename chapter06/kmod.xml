@@ -72,7 +72,7 @@
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>这个软件包没有附带可在LFS chroot环境中运行测试套件。至少需要 git 程序并进行一些测试保证不会在 git 仓库外运行。</para>
+    <para>这个软件包没有附带可在 LFS chroot 环境中运行测试套件。至少需要 git 程序并进行一些测试保证不会在 git 仓库外运行。</para>
 
 <!--
     <para>To test the results, issue:</para>

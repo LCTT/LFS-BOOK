@@ -136,7 +136,7 @@ RANLIB=$LFS_TGT-ranlib                             \
       <varlistentry>
         <term><parameter>--disable-bootstrap</parameter></term>
         <listitem>
-          <para>对于原生编译的 GCC，默认是做一个「引导」构建。这不仅会编译 GCC，而且会多次编译。它用第一次编译的程序去第二次编译自己，然后同样进行第三次。比较第二次和第三次迭代确保它可以完美复制自身。这也意味着已经成功编译。但是，LFS 的构建方法能够提供一个稳定的编译器，而不需要每次都重新引导。</para>
+          <para>对于原生编译的 GCC，默认是做一个「引导」构建。这不仅会编译 GCC 一次，而是会编译很多次。使用初次编译的程序去编译其自身第二次，然后同样地进行第三次。比较第二次和第三次迭代确保其能完美地复制自身。这也能预示编译是正确地。但是，LFS 的构建方法能够提供一个稳定的编译器，避免每次都需要重新引导。</para>
         </listitem>
       </varlistentry>
 
@@ -150,12 +150,12 @@ RANLIB=$LFS_TGT-ranlib                             \
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>作为画龙点睛，这里创建一个符号链接。很多程序和脚本执行 <command>cc</command> 而不是 <command>gcc</command> 来保证程序的通用性，因而在所有并不总是安装了 GNU C 编译器的 Unix 类型的系统上都可以使用。运行 <command>cc</command> 使得系统管理员不用考虑要安装那种 C 编译器：</para>
+    <para>作为画龙点睛，这里创建一个符号链接。很多程序和脚本执行 <command>cc</command> 而不是 <command>gcc</command> 来保证程序的通用性，并且在所有的 Unix 类型的系统上都能用，而非仅局限于安装了 GCC 的 Unix 类型的系统。运行 <command>cc</command> 使得系统管理员不用考虑要安装那种 C 编译器：</para>
 
 <screen><userinput remap="install">ln -sv gcc /tools/bin/cc</userinput></screen>
 
   <caution>
-    <para>到了这里，必须停下来确认新工具链的基本功能(编译和链接)都是像预期的那样正常工作。运行下面的命令进行全面的检查：</para>
+    <para>到了这里，必须停下来确认新工具链的基本功能（编译和链接）都是像预期的那样正常工作。运行下面的命令进行全面的检查：</para>
 
 <screen><userinput>echo 'int main(){}' &gt; dummy.c
 cc dummy.c
@@ -167,7 +167,7 @@ readelf -l a.out | grep ': /tools'</userinput></screen>
 
     <para>注意 <filename class="directory">/tools/lib</filename>、或者 64 位机器的 <filename class="directory">/tools/lib64</filename> 会以动态链接器的前缀出现。</para>
 
-    <para>如果输出不是像上面那样或者根本就没有输出，那么可能某些地方出错了。调查并回溯这些步骤，找出问题所在并改正它。在继续之前必须解决这个问题。首先，使用 <command>gcc</command> 而不是 <command>cc</command> 再次进行全面的检查。如果能运行，就丢失了 <filename class="symlink">/tools/bin/cc</filename> 符号链接。像上面介绍的那样新建符号链接。下一步，确认 <envar>PATH</envar> 是正常的。这能通过运行 <command>echo $PATH</command> 检验，验证 <filename class="directory">/tools/bin</filename> 在列表的前面。如果 <envar>PATH</envar> 是错误的，这意味着你可能不是以 <systemitem class="username">lfs</systemitem> 用户的身份登录或者在前面 <xref linkend="ch-tools-settingenviron"/> 中某些地方出现了错误。</para>
+    <para>如果输出不是像上面那样或者根本就没有输出，那么可能某些地方出错了。调查并回溯这些步骤，找出问题所在并改正它。在继续之前必须解决这个问题。首先，使用 <command>gcc</command> 而不是 <command>cc</command> 再次进行全面的检查。如果能运行，就符号链接 <filename class="symlink">/tools/bin/cc</filename> 就不见了。像上面介绍的那样新建符号链接。下一步，确认 <envar>PATH</envar> 是正确的。这能通过运行 <command>echo $PATH</command> 检验，验证 <filename class="directory">/tools/bin</filename> 在列表的前面。如果 <envar>PATH</envar> 是错误的，这意味着你可能不是以 <systemitem class="username">lfs</systemitem> 用户的身份登录或者在前面 <xref linkend="ch-tools-settingenviron"/> 中某些地方出现了错误。</para>
 
     <para>一旦一切都顺利，清理测试文件：</para>
 

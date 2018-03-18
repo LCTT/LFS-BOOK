@@ -23,6 +23,6 @@
 
 <screen><userinput>rm -rf /tools/{,share}/{info,man,doc}</userinput></screen>
 
-  <para>这个时候，你应该在 <envar>$LFS</envar> 分区中为下个阶段编译安装 Glibc 和 Gcc 预留至少 3GB 剩余空间。如果你可以编译安装 Glibc，那其他的就不会有问题了。</para>
+  <para>这个时候，你应该在 <envar>$LFS</envar> 分区中为下个阶段编译安装 Glibc 和 GCC 预留至少 3GB 剩余空间。如果你可以编译安装 Glibc，那其他的就不会有问题了。</para>
 
 </sect1>

@@ -65,7 +65,7 @@
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>用以下命令测试结果(大概 1 SBU)：</para>
+    <para>用以下命令测试结果（大概 1 SBU）：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 

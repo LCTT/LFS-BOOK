@@ -54,7 +54,7 @@ export BUILD_BZIP2=0</userinput></screen>
 
 <screen><userinput remap="pre">patch -Np1 -i ../&perl-gcc5-fixes-patch;</userinput></screen>
 -->
-    <para>为了能完全控制 Perl 的设置，你可以在下面的命令中移除「-des」选项并手动设置编译该软件包的方式。相应的，用下面完全相同的命令使 Perl 使用自动检测到的：</para>
+    <para>为了能完全控制 Perl 的设置，你可以在下面的命令中移除「-des」选项并手动设置编译该软件包的方式。相应的，用下面的命令来使用 Perl 自动检测到的默认值：</para>
 
 <screen><userinput remap="configure">sh Configure -des -Dprefix=/usr                 \
                   -Dvendorprefix=/usr           \
@@ -69,14 +69,14 @@ export BUILD_BZIP2=0</userinput></screen>
       <varlistentry>
         <term><parameter>-Dvendorprefix=/usr</parameter></term>
         <listitem>
-          <para>这确保 <command>perl</command> 知道如何通知软件包它们应该在哪里安装它们的 perl 模块。</para>
+          <para>这能确保 <command>perl</command> 知道，该如何告知软件包应该将它们的 perl 模块安装在哪里。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>-Dpager="/usr/bin/less -isR"</parameter></term>
         <listitem>
-          <para>这确保使用 <userinput>less</userinput> 而不是 <userinput>more</userinput>。</para>
+          <para>这能确保使用的是 <userinput>less</userinput> 而非 <userinput>more</userinput>。</para>
         </listitem>
       </varlistentry>
 
@@ -84,7 +84,7 @@ export BUILD_BZIP2=0</userinput></screen>
         <term><parameter>-Dman1dir=/usr/share/man/man1
         -Dman3dir=/usr/share/man/man3</parameter></term>
         <listitem>
-          <para>由于 Groff 还没有安装，<command>Configure</command> 会认为我们不希望为 Perl 安装 man 手册。用这些参数重写该决策。</para>
+          <para>由于 Groff 还没有安装，<command>Configure</command> 会认为我们不希望为 Perl 安装 man 手册。用这些参数更改这个判断。</para>
         </listitem>
       </varlistentry>
 
@@ -105,7 +105,7 @@ export BUILD_BZIP2=0</userinput></screen>
 
 <screen><userinput remap="test">make -k test</userinput></screen>
 
-    <note><para>集合 zlib 相关的测试因为使用系统中的而没有使用内置的 zlib 而失败。</para></note>
+    <note><para>与 zlib 相关的测试，会因为使用地是系统中的而非内置的 zlib 而失败。</para></note>
 
     <para>安装软件包并清理：</para>
 

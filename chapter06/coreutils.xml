@@ -82,7 +82,7 @@
 
 <screen><userinput remap="test">make NON_ROOT_USERNAME=nobody check-root</userinput></screen>
 
-    <para>我们会以 <systemitem class="username">nobody</systemitem> 用户运行剩下的测试。但是，一些测试要求用户属于多个组。由于不跳过这些测试，我们会添加一个临时的组并添加用户 <systemitem class="username">nobody</systemitem> 作为它的成员：</para>
+    <para>我们会以 <systemitem class="username">nobody</systemitem> 用户运行剩下的测试。但是，一些测试要求用户属于多个组。为了不跳过这些测试，我们会添加一个临时的组并添加用户 <systemitem class="username">nobody</systemitem> 作为它的成员：</para>
 
 <screen><userinput remap="test">echo "dummy:x:1000:nobody" &gt;&gt; /etc/group</userinput></screen>
 
@@ -114,11 +114,7 @@ mv -v /usr/bin/chroot /usr/sbin
 mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8
 sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
 
-    <para revision="sysv">Some of the scripts in the LFS-Bootscripts package
-    depend on <command>head</command>, <command>sleep</command>, and
-    <command>nice</command>.  As <filename class="directory">/usr</filename>
-    may not be available during the early stages of booting, those binaries
-    need to be on the root partition:</para>
+    <para revision="sysv">LFS-Bootscripts 包中的一些脚本依赖于 <command>head</command>、<command>sleep</command> 和 <command>nice</command>。由于 <filename class="directory">/usr</filename> 在启动的早期阶段并不可用，这些二进制文件需要被放置在根分区上：</para>
 
     <para revision="systemd">BLFS 以及上游中的一些软件包希望如下的程序放在 <filename class="directory">/bin</filename> 中，确保把它们放到了那里：</para>
 

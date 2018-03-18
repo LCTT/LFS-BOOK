@@ -52,7 +52,7 @@
       <varlistentry>
         <term><parameter>--without-guile</parameter></term>
         <listitem>
-          <para>这个选项会保证 Make-&make-version; 不会链接宿主系统上可能存在的 Guile 库，而在下一章里通过 <command>chroot</command> 切换环境后就不再可用。</para>
+          <para>这个选项会保证 Make-&make-version; 不会链接宿主系统上可能存在的 Guile 库，而在下一章里通过 <command>chroot</command> 切换环境后便不再有效了。</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -74,7 +74,7 @@
   <sect2 role="content">
     <title/>
 
-    <para>关于这个软件包的详细资料请参阅：
+    <para>关于这个软件包的详细资料请参见：
     <xref linkend="contents-make"/>。</para>
 
   </sect2>

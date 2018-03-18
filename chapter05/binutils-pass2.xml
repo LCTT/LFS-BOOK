@@ -48,7 +48,7 @@
 <screen><userinput remap="pre">mkdir -v build
 cd       build</userinput></screen>
 
-    <para>准备编译 Binutils:</para>
+    <para>准备编译 Binutils：</para>
 
 <screen><userinput remap="configure">CC=$LFS_TGT-gcc                \
 AR=$LFS_TGT-ar                 \
@@ -101,7 +101,7 @@ make -C ld LIB_PATH=/usr/lib:/lib
 cp -v ld/ld-new /tools/bin</userinput></screen>
 
     <variablelist>
-      <title>make 参数的含义:</title>
+      <title>make 参数的含义：</title>
 
       <varlistentry>
         <term><parameter>-C ld clean</parameter></term>

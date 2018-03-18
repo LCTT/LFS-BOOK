@@ -44,7 +44,7 @@
 
 <screen><userinput remap="pre">sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in</userinput></screen>
 
-    <para>准备编译 Ncurses:</para>
+    <para>准备编译 Ncurses：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr           \
             --mandir=/usr/share/man \
@@ -55,7 +55,7 @@
             --enable-widec</userinput></screen>
 
     <variablelist>
-      <title>新配置选项的含义:</title>
+      <title>新配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--enable-widec</parameter></term>

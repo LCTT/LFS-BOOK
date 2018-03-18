@@ -119,7 +119,7 @@ ln -sfv ../../lib/libshadow.so.0 /usr/lib/libshadow.so</userinput></screen> -->
 
     <para>该软件包包含增加、更改、以及删除用户和组的工具；设置和修改密码；执行其它特权级任务。软件包解压后的 <filename>doc/HOWTO</filename> 文件有关于 <emphasis>password shadowing</emphasis> 的完整解释。如果使用 Shadow 支持，记住需要验证密码（显示管理器、FTP 程序、pop3 守护进程等）的程序必须和 Shadow 兼容。也就是说，它们要能使用 Shadow 加密的密码。</para>
 
-    <para>运行下面的命令启用 shadow 密码:</para>
+    <para>运行下面的命令启用 shadow 密码：</para>
 
 <screen><userinput>pwconv</userinput></screen>
 

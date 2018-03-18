@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Sysklogd 软件包包含用于记录系统消息的程序，它们记录着，诸如，一些异乎寻常的事件发生时，内核给出的那些消息。</para>
+    <para>Sysklogd 软件包包含用于记录系统消息的程序，它们记录着，诸如一些异乎寻常的事件发生时，内核给出的那些消息。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
