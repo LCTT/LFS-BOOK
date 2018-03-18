@@ -24,12 +24,12 @@
   <para>这样做的原因是不再需要 <filename class="directory">/tools</filename> 中的程序。由于不再需要，你可以删除 <filename class="directory">/tools</filename> 目录。</para>
 
   <note>
-    <para>移除 <filename class="directory">/tools</filename> 也会删除用于运行工具链测试的 Tcl、Expect、和 DejaGNU 的临时复制。如果你在后面还需要这些程序，需要重新编译并安装它们。BLFS 手册有关于这些的指令（请查看<ulink url="&blfs-root;"/>）。</para>
+    <para>移除 <filename class="directory">/tools</filename> 也会删除用于运行工具链测试的 Tcl、Expect和 DejaGNU 的临时复制。如果你在后面还需要这些程序，需要重新编译并安装它们。BLFS 手册有关于这些的指令（请查看<ulink url="&blfs-root;"/>）。</para>
   </note>
 
   <para>如果通过手动或者重启卸载了虚拟内核文件系统，重新进入 chroot 的时候确保挂载了虚拟内核文件系统。在 <xref linkend="ch-system-bindmount"/> 和 <xref linkend="ch-system-kernfsmount"/> 中介绍了该过程。</para>
 
-  <para>最后，还有一些此章之前为了一些软件包的回归测试而留下的静态库。这些库来自 binutils，bzip2，e2fsprogs，flex，libtool，和 zlib。如果想删的话，现在就删：</para>
+  <para>最后，还有一些此章之前为了一些软件包的回归测试而留下的静态库。这些库来自 binutils、bzip2、e2fsprogs、flex、libtool 和 zlib。如果想删的话，现在就删：</para>
 
 <screen><userinput>rm -f /usr/lib/lib{bfd,opcodes}.a
 rm -f /usr/lib/libbz2.a

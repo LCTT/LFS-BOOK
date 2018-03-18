@@ -53,7 +53,7 @@
       <varlistentry>
         <term><envar>--enable-install-program=hostname</envar></term>
         <listitem>
-          <para>这个选项会允许编译和安装 <command>hostname</command>  程序 – 默认是不安装的但是 Perl 测试套件需要它。</para>
+          <para>这个选项会允许构建和安装 <command>hostname</command> 程序——默认是不安装的，但是 Perl 测试套件需要它。</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -84,7 +84,7 @@
   <sect2 role="content">
     <title/>
 
-    <para>关于这个软件包的详细资料请参见:
+    <para>关于这个软件包的详细资料请参见：
     <xref linkend="contents-coreutils"/>。</para>
 
   </sect2>

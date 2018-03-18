@@ -76,7 +76,7 @@ PKG_CONFIG_PATH=/tools/lib/pkgconfig \
       <varlistentry>
         <term><parameter>--with-root-prefix=""</parameter> 和 <parameter>--bindir=/bin</parameter></term>
         <listitem>
-          <para>有些程序（例如 <command>e2fsck</command>) 属于重要程序。比如，当 <filename class="directory">/usr</filename> 没有挂载的时候，仍然要求这些程序可用。它们放在类似 <filename class="directory">/lib</filename> 和 <filename class="directory">/sbin</filename> 的目录中。如果没有传递这个参数到 E2fsprogs 的配置参数中，程序就会被安装在 <filename class="directory">/usr</filename>  目录。</para>
+          <para>有些程序（例如 <command>e2fsck</command>）属于重要程序。比如，当 <filename class="directory">/usr</filename> 没有挂载的时候，仍然要求这些程序可用。它们放在类似 <filename class="directory">/lib</filename> 和 <filename class="directory">/sbin</filename> 的目录中。如果没有传递这个参数到 E2fsprogs 的配置参数中，程序就会被安装在 <filename class="directory">/usr</filename>  目录。</para>
         </listitem>
       </varlistentry>
 

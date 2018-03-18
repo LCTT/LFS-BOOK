@@ -68,12 +68,7 @@
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para revision="sysv">Some of the scripts in the LFS-Bootscripts package
-    depend on <command>find</command>.  As <filename
-    class="directory">/usr</filename> may not be available during the early
-    stages of booting, this program needs to be on the root partition.  The
-    <command>updatedb</command> script also needs to be modified to correct an
-    explicit path:</para>
+    <para revision="sysv">LFS-Bootscripts 包中的部分脚本依赖于 <command>find</command>。由于 <filename class="directory">/usr</filename> 在启动的早期阶段可能不可用，该程序需要被放置在根分区。<command>updatedb</command> 脚本也需要修改，以明确的路径更正：</para>
 
     <para revision="systemd">一些 BLFS 及之上的软件包希望 <command>find</command> 程序在 <filename class="directory">/bin</filename>，因此确保位置正确：</para>
 

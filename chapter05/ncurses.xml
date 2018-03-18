@@ -43,7 +43,7 @@
   <sect2 role="installation">
     <title>安装 Ncurses</title>
 
-    <para>在安装之前,须要确保 <command>gawk</command> 在第一次配置时已经找到：</para>
+    <para>在安装之前，须要确保 <command>gawk</command> 在第一次配置时已经找到：</para>
 
 <screen><userinput remap="pre">sed -i s/mawk// configure</userinput></screen>
 
@@ -69,7 +69,7 @@
       <varlistentry>
         <term><parameter>--enable-overwrite</parameter></term>
         <listitem>
-          <para>这个选项会告诉 Ncurses 安装它的头文件到 <filename class="directory">/tools/include</filename> 目录，而不是 <filename class="directory">/tools/include/ncurses</filename>目录，保证其他软件包可以正常找到 Ncurses 的头文件。</para>
+          <para>这个选项会告诉 Ncurses 安装它的头文件到 <filename class="directory">/tools/include</filename> 目录，而不是 <filename class="directory">/tools/include/ncurses</filename> 目录，保证其他软件包可以正常找到 Ncurses 的头文件。</para>
         </listitem>
       </varlistentry>
 

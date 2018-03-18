@@ -158,7 +158,7 @@ localedef -i zh_CN -f GB18030 zh_CN.GB18030</userinput></screen>
 
 <screen><userinput remap="locale-full">make localedata/install-locales</userinput></screen>
 
-    <para>你需要的语言环境几乎不大可能没列在 <filename>glibc-&glibc-version;/localedata/SUPPORTED</filename> 文件中，但如果真的没有可以使用 <command>localedef</command> 命令创建和安装。</para>
+    <para>你需要的语言环境几乎不太可能没有列在 <filename>glibc-&glibc-version;/localedata/SUPPORTED</filename> 文件中，但如果真的没有可以使用 <command>localedef</command> 命令创建和安装。</para>
 
   </sect2>
 

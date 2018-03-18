@@ -75,7 +75,7 @@
       <segtitle>安装目录</segtitle>
 
       <seglistitem>
-        <seg>bison and yacc</seg>
+        <seg>bison 和 yacc</seg>
         <seg>liby.a</seg>
         <seg>/usr/share/bison</seg>
       </seglistitem>
@@ -99,8 +99,7 @@
       <varlistentry id="yacc">
         <term><command>yacc</command></term>
         <listitem>
-          <para><command>bison</command> 的封装，用于仍然调用 <command>yacc</command> 而不是 <command>bison</command> 的程序；它用 <command>bison</command> 选项调用 <parameter>-y</parameter>
-          option</para>
+          <para><command>bison</command> 的封装，用于仍然调用 <command>yacc</command> 而不是 <command>bison</command> 的程序；它会调用带有 <parameter>-y</parameter> 选项的 <command>bison</command></para>
           <indexterm zone="ch-system-bison yacc">
             <primary sortas="b-yacc">yacc</primary>
           </indexterm>

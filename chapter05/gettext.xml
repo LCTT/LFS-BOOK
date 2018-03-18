@@ -77,9 +77,9 @@ make -C src msgfmt
 make -C src msgmerge
 make -C src xgettext</userinput></screen>
 
-    <para>因为只编译了 3 个程序，不编译 Gettext 的额外支持库的话测试套件不可能成功运行。所以在这个阶段不建议尝试运行测试套件。</para>
+    <para>因为只编译了 3 个程序，在不编译 Gettext 的额外支持库的情况下，测试套件是不可能成功运行的。所以在这个阶段建议不要尝试运行测试套件。</para>
 
-    <para>安装 <command>msgfmt</command>, <command>msgmerge</command> 和 <command>xgettext</command> 程序：</para>
+    <para>安装 <command>msgfmt</command>、<command>msgmerge</command> 和 <command>xgettext</command> 程序：</para>
 
 <screen><userinput remap="install">cp -v src/{msgfmt,msgmerge,xgettext} /tools/bin</userinput></screen>
 
@@ -88,7 +88,7 @@ make -C src xgettext</userinput></screen>
   <sect2 role="content">
     <title/>
 
-    <para>关于这个软件包的详细资料请参阅：
+    <para>关于这个软件包的详细资料请参见：
     <xref linkend="contents-gettext"/>.</para>
 
   </sect2>

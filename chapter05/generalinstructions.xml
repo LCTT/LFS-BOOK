@@ -62,7 +62,7 @@
           <para>进入到源文件目录。</para>
         </listitem>
         <listitem id='buildinstr' xreflabel='软件包构建说明'>
-          <para>对于每个软件包:</para>
+          <para>对于每个软件包：</para>
           <orderedlist numeration="loweralpha" spacing="compact">
             <listitem>
               <para>用 <command>tar</command> 程序解压要编译的软件包。在第五章中，确保解压软件包时你使用的是 <emphasis>lfs</emphasis> 用户。</para>

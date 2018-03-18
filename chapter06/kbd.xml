@@ -46,7 +46,7 @@
 
     <para>打补丁后，退格键生成编码为 127 的字符，删除键会生成一个著名的转义序列。</para>
 
-    <para>移除冗余的 <command>resizecons</command> 程序（它要求功能不全的 svglib 提供视频模式文件 - 用于正常使用 <command>setfont</command> 设置控制台字体大小）以及帮助手册。</para>
+    <para>移除冗余的 <command>resizecons</command> 程序（它要求功能不全的 svglib 提供视频模式文件——用于正常使用 <command>setfont</command> 设置控制台字体大小）以及帮助手册。</para>
 
 <screen><userinput remap="pre">sed -i 's/\(RESIZECONS_PROGS=\)yes/\1no/g' configure
 sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in</userinput></screen>
@@ -89,7 +89,7 @@ sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in</userinput></screen>
 <screen><userinput remap="install">make install</userinput></screen>
 
     <note>
-      <para>由于通常使用的 CP1251 键映射假设使用 ISO-8859-5 编码，Kbd 软件包不能为某些语言（例如 Belarusian） 提供可用的键映射。使用这样的语言需要单独下载能工作的键映射。</para>
+      <para>由于通常使用的 CP1251 键映射假设使用 ISO-8859-5 编码，Kbd 软件包不能为某些语言（例如，白俄罗斯） 提供可用的键映射。使用这样的语言需要单独下载能工作的键映射。</para>
     </note>
 
 <!--

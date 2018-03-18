@@ -62,7 +62,7 @@ cd       build</userinput></screen>
     --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/&gcc-version;</userinput></screen>
 
     <variablelist>
-      <title>配置选项的含义:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--host=...</parameter></term>

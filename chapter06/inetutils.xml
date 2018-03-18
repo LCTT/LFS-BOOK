@@ -79,7 +79,7 @@
       <varlistentry>
         <term><parameter>--disable-servers</parameter></term>
         <listitem>
-          <para>禁用安装作为 Inetutils 软件包一部分的多种网络服务程序。这些服务程序被认为不适用于基础的 LFS 系统。一些本来就不安全，只在可信网络中才认为安全。注意这些服务程序有更好的可用替代品。</para>
+          <para>禁用安装作为 Inetutils 软件包一部分的多种网络服务程序。这些服务程序被认为不适用于基础的 LFS 系统。其中的一些本来就不安全，或者说仅在可信网络中才被认为安全。注意这些服务程序有更好的可用替代品。</para>
         </listitem>
       </varlistentry>
 
@@ -97,7 +97,7 @@
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>移动一些程序使得 <filename class='directory'>/usr</filename> 不可访问时仍保持可用：</para>
+    <para>移动一些程序使得 <filename class='directory'>/usr</filename> 在不可访问时仍保持可用：</para>
 
 <screen><userinput remap="install">mv -v /usr/bin/{hostname,ping,ping6,traceroute} /bin
 mv -v /usr/bin/ifconfig /sbin</userinput></screen>

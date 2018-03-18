@@ -16,13 +16,13 @@
 
   <itemizedlist>
     <listitem>
-      <para>一个有调试符号的二进制 <command>bash</command>: 1200 KB</para>
+      <para>一个有调试符号的二进制 <command>bash</command>：1200 KB</para>
     </listitem>
     <listitem>
-      <para>一个无调试符号的二进制 <command>bash</command>: 480 KB</para>
+      <para>一个无调试符号的二进制 <command>bash</command>：480 KB</para>
     </listitem>
     <listitem>
-      <para>有调试符号的 Glibc 和 GCC 文件（<filename class="directory">/lib</filename> 和 <filename class="directory">/usr/lib</filename>）:87 MB</para>
+      <para>有调试符号的 Glibc 和 GCC 文件（<filename class="directory">/lib</filename> 和 <filename class="directory">/usr/lib</filename>）：87 MB</para>
     </listitem>
     <listitem>
       <para>无调试符号的 Glibc 和 GCC 文件：16 MB</para>

@@ -10,7 +10,7 @@
 
   <title>设置 $LFS 变量</title>
 
-  <para>在整本书中都会使用环境变量 <envar>LFS</envar> 。你应该确保这个变量在整个 LFS 构建过程中总是定义了的。它应该被设置为你将要构建的 LFS 系统的目录名。使用如下命令检查 <envar>LFS</envar> 变量是否正确设置:</para>
+  <para>在整本书中都会使用环境变量 <envar>LFS</envar> 。你应该确保这个变量在整个 LFS 构建过程中总是定义了的。它应该被设置为你将要构建的 LFS 系统的目录名。使用如下命令检查 <envar>LFS</envar> 变量是否正确设置：</para>
 
 <screen role="nodump"><userinput>echo $LFS</userinput></screen>
 

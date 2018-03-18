@@ -40,7 +40,7 @@
   <sect2 role="installation">
     <title>安装 Pkg-config</title>
 
-    <para>准备编译 Pkg-config:</para>
+    <para>准备编译 Pkg-config：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr              \
             --with-internal-glib       \
@@ -49,7 +49,7 @@
             --docdir=/usr/share/doc/pkg-config-&pkgconfig-version;</userinput></screen>
 
     <variablelist>
-      <title>新配置选项的含义:</title>
+      <title>新配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--with-internal-glib</parameter></term>
@@ -76,7 +76,7 @@
 
 
 
-    <para>编译软件包:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 

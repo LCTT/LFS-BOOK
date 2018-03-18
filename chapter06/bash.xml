@@ -68,7 +68,7 @@
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>如果不需要运行测试套件的话跳转到「Install the package」。</para>
+    <para>如果不需要运行测试套件的话跳转到「安装软件包」。</para>
 
     <para>准备测试，确保 <systemitem class="username">nobody</systemitem> 用户可以写源文件树：</para>
 
