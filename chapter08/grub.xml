@@ -22,7 +22,7 @@
     <warning><para>对 GRUB 进行错误的配置可能会导致在没有外置启动设备（某些USB设备，某些 CD-ROM 等）的情况下无法正常的启动。你可能仅仅需要修改当前正在使用的引导器（比如：Grub-Legacy，GRUB2 或 LILO 等）的配置。</para></warning>
 
 
-    <para>一定要确保你有一个可以引导的光盘或者是 U 盘以备不时之需，否则万一电脑真的不能启动谁都救不了你。如果你需要建立可引导的设备，可以按照以下方法操作（跳转到 BLFS 从 <ulink url="&blfs-book;multimedia/libisoburn.html"> libisoburn</ulink>软件包安装 <userinput>xorriso</userinput>）。</para>
+    <para>一定要确保你有一个可以引导的光盘或者是 U 盘以备不时之需，否则万一电脑真的不能启动谁都救不了你。如果你需要建立可引导的设备，可以按照以下方法操作（跳转到 BLFS 从 <ulink url="&blfs-book;multimedia/libisoburn.html">libisoburn</ulink> 软件包安装 <userinput>xorriso</userinput>）。</para>
 
 <screen role="nodump"><userinput>cd /tmp
 grub-mkrescue --output=grub-img.iso
@@ -37,34 +37,20 @@ xorriso -as cdrecord -v dev=/dev/cdrw blank=as_needed grub-img.iso</userinput></
   <sect2>
     <title>GRUB 命名约定</title>
 
-    <para>GRUB 对于硬盘和分区自有一套命名规则 <emphasis>(hdn,m)</emphasis>，
-    其中 <emphasis>n</emphasis> 是硬盘数，<emphasis>m</emphasis> 是分区号。
-    硬盘数 N 从 0 开始计数，分区数需要区别对待——主分区从 1 开始计数而扩展分区从 5 开始计数。
-    需要注意的是，和早期版本相比，计数方式都有所变化。例如，分区 <filename class="partition">sda1</filename> 是 <emphasis>(hd0,1)</emphasis>，
-    <filename class="partition">sdb3</filename> 是 <emphasis>(hd1,3)</emphasis>。
-    Linux 下，并不将 CD-ROM 设备假想为硬盘。例如，就算已有 CD 设备挂载为 <filename class="partition">hdb</filename>，
-    第二块硬盘挂载为 <filename class="partition">hdc</filename>，GRUB 依旧将第二块硬盘称为 <emphasis>(hd1)</emphasis>。</para>
-
-    <para>（译者注：为什么这里扩展分区从 5 计数，可以查看 mbr 的相关知识。早期版本的 GRUB 是什么计算磁盘和分区数，我忘记了，不过，大家就记住新的就好啦。）</para>
+    <para>GRUB 对于硬盘和分区自有一套命名规则 <emphasis>(hdn,m)</emphasis>，其中 <emphasis>n</emphasis> 是硬盘数，<emphasis>m</emphasis> 是分区号。硬盘数 N 从 0 开始计数，分区数需要区别对待——主分区从 1 开始计数而扩展分区从 5 开始计数。需要注意的是，和早期版本相比，计数方式都有所变化。例如，分区 <filename class="partition">sda1</filename> 是 <emphasis>(hd0,1)</emphasis>，<filename class="partition">sdb3</filename> 是 <emphasis>(hd1,3)</emphasis>。Linux 下，并不将 CD-ROM 设备假想为硬盘。例如，就算已有 CD 设备挂载为 <filename class="partition">hdb</filename>，第二块硬盘挂载为 <filename class="partition">hdc</filename>，GRUB 依旧将第二块硬盘称为 <emphasis>(hd1)</emphasis>。</para>
 
   </sect2>
 
   <sect2>
     <title>配置配置文件</title>
 
-    <para>GRUB 会将一些数据写入硬盘的第一个物理扇区。这一部分不属于任何一个操作系统，在启动时，
-      该部分数据激活，然后寻找 Grub 的模块，Grub 模块的默认位置为 /boot/grub/。</para>
+    <para>GRUB 会将一些数据写入硬盘的第一个物理扇区。这一部分不属于任何一个操作系统，在启动时，该部分数据激活，然后寻找 Grub 的模块，Grub 模块的默认位置为 /boot/grub/。</para>
 
-    <para>一种建议是使用一个独立的小分区（建议大小 100MB）专用于引导信息。那样的话，每一个发行版，
-      不论是 LFS 还是其他的商业发行版，都能访问相同的引导文件而且任何已经启动的系统都能访问它。
-      如果你选择这么做，你需要挂载这个独立分区，移动所有的文件从当前的 <filename class="directory">/boot</filename> 目录
-      （比如说你上一节刚编译的 Linux 内核）到新的分区。你然后要卸载这个新分区，重新挂载它为 <filename class="directory">/boot</filename>。
-      如果你这么做，一定要更新 <filename>/etc/fstab</filename>。</para>
+    <para>一种建议是使用一个独立的小分区（建议大小 100MB）专用于引导信息。那样的话，每一个发行版，不论是 LFS 还是其他的商业发行版，都能访问相同的引导文件而且任何已经启动的系统都能访问它。如果你选择这么做，你需要挂载这个独立分区，移动所有的文件从当前的 <filename class="directory">/boot</filename> 目录（比如说你上一节刚编译的 Linux 内核）到新的分区。你然后要卸载这个新分区，重新挂载它为 <filename class="directory">/boot</filename>。如果你这么做，一定要更新 <filename>/etc/fstab</filename>。</para>
 
     <para>使用当前的 lfs 分区也没有什么问题，但是在配置多系统启动的时候有些不同。</para>
 
-    <para>从以上信息可知，需要确定根分区的磁盘位置（如果使用单独的分区，则需要知道引导分区的磁盘位置），
-      以下假定根分区（或者是磁盘分区）是 <filename class="partition">sda2</filename>。</para>
+    <para>从以上信息可知，需要确定根分区的磁盘位置（如果使用单独的分区，则需要知道引导分区的磁盘位置），以下假定根分区（或者是磁盘分区）是 <filename class="partition">sda2</filename>。</para>
 
     <para>将 GRUB 文件安装到 <filename class="directory">/boot/grub</filename> 然后设置启动扇区：</para>
 
@@ -89,14 +75,6 @@ xorriso -as cdrecord -v dev=/dev/cdrw blank=as_needed grub-img.iso</userinput></
 
   <sect2 id="grub-cfg">
     <title>创建 GRUB 配置文件</title>
-    <note>
-      <para>译者注：</para>
-      <para>如果实在不知道怎么编写 grub.cfg 文件，或者担心误操作导致系统遭到破坏，可以在宿主系统中安装旧版本的内核，
-        如果有新版本内核也可以直接更新，安装内核的时候它会自动寻找可启动的操作系统，并把它们添加到 fstab 文件中，
-        这样，如果 LFS 配置都正确的话就会找到这个 LFS 系统并添加到 fstab 文件中，重启之后就可以发现 GRUB 菜单中已有 LFS 条目。
-        之后可以再删除这里安装的内核。
-      </para>
-    </note>
 
     <para>创建 <filename>/boot/grub/grub.cfg</filename>:</para>
 
@@ -127,16 +105,11 @@ menuentry "GNU/Linux, Linux &linux-version;-lfs-&versiond;" {
 EOF</userinput></screen>
 
 
-    <note><para>从 <application>GRUB</application> 的角度看，内核文件相当于一个分区，
-    所以假如你使用单独的 /boot 分区，请不要在 <emphasis>linux</emphasis> 行添加 /boot。
-    此外还需要将 <emphasis>set root</emphasis> 行指向 /boot 所在的实际分区。</para></note>
+    <note><para>从 <application>GRUB</application> 的角度看，内核文件相当于一个分区，所以假如你使用单独的 /boot 分区，请不要在 <emphasis>linux</emphasis> 行添加 /boot。此外还需要将 <emphasis>set root</emphasis> 行指向 /boot 所在的实际分区。</para></note>
 
-    <para>GRUB 功能十分强大，它提供了大量的用于从种类繁多的设备和操作系统以及不同的分区类型启动的选项。
-      此外还可以定制溅射屏幕、播放声音或者是鼠标等。很遗憾的是，这些功能超出本文的范畴，我们一概不予讨论。</para>
+    <para>GRUB 功能十分强大，它提供了大量的用于从种类繁多的设备和操作系统、以及不同的分区类型启动的选项。此外还可以定制启动页、播放声音或者是鼠标等。很遗憾的是，这些功能超出本文的范畴，我们一概不予讨论。</para>
 
-    <caution><para><application>grub-mkconfig</application> 命令可以自动建立配置文件。
-    它使用位于 /etc/grub.d/ 下的一组脚本且将会忽略用户的设置。这些命令主要用于那些非源码编译的发行版，
-    所以不建议 LFS 用户使用此命令。如果你使用商业发行版，你可以试着运行这个命令（运行之前记得备份原来的 grub.cfg文件）。</para></caution>
+    <caution><para><application>grub-mkconfig</application> 命令可以自动建立配置文件。它使用位于 /etc/grub.d/ 下的一组脚本且将会忽略用户的设置。这些命令主要用于那些非源码编译的发行版，所以不建议 LFS 用户使用此命令。如果你使用商业发行版，你可以试着运行这个命令（运行之前记得备份原来的 grub.cfg 文件）。</para></caution>
 
    </sect2>
 

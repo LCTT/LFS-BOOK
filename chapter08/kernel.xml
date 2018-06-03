@@ -40,7 +40,7 @@
   <sect2 role="installation">
     <title>安装内核</title>
 
-    <para>编译内核包括以下步骤—配置、编译和安装。阅读内核源码树中的 <filename>README</filename> 可以获得替代本手册配置的方法。</para>
+    <para>编译内核包括以下步骤——配置、编译和安装。阅读内核源码树中的 <filename>README</filename> 可以获得替代本手册配置的方法。</para>
 
     <para>运行以下命令准备编译：</para>
 
@@ -95,15 +95,11 @@ File systems  ---&gt;
     </note>
 
     <note revision="systemd">
-      <para>尽管 "The IPv6 Protocol" 不是必须打开，但它是 systemd 开发人员强烈推荐的。</para>
+      <para>尽管 "The IPv6 Protocol" 不是必须打开，但是 systemd 开发人员强烈推荐打开。</para>
     </note>
 
-    <para revision="sysv">There are several other options that may be desired
-    depending on the requirements for the system. For a list of options needed
-    for BLFS packages, see the <ulink
-    url="&lfs-root;blfs/view/&short-version;/longindex.html#kernel-config-index">BLFS
-    Index of Kernel Settings</ulink>
-    (&lfs-root;blfs/view/&short-version;/longindex.html#kernel-config-index).</para>
+    <para revision="sysv">根据对系统的不同需求，可能需要这些选项。BLFS 软件包需要的选项列表，参考 <ulink
+    url="&lfs-root;blfs/view/&short-version;/longindex.html#kernel-config-index">BLFS 的内核设定索引</ulink>(&lfs-root;blfs/view/&short-version;/longindex.html#kernel-config-index).</para>
 
     <note>
       <para>如果你主机的硬件用的是 UEFI，那么上面的‘make defconfig’应该会自动添加一些 EFI 相关的内核选项。</para>
@@ -154,7 +150,7 @@ File systems  ---&gt;
 
     <para>另外，<command>make oldconfig</command> 在某些情况下可能更合适。查看 <filename>README</filename> 文件了解更多信息。</para>
 
-    <para>想偷懒的话，可以拷贝主机系统的内核配置文件 <filename>.config</filename>（如果有的话）
+    <para>想偷懒的话，可以拷贝宿主系统的内核配置文件 <filename>.config</filename>（如果有的话）
     到解压后的 <filename class="directory">linux-&linux-version;</filename> 目录下来跳过内核配置。
     不过，我们不建议这样做。最好是探索一下整个内核配置菜单，从最开始配置内核。</para>
 
@@ -173,28 +169,22 @@ File systems  ---&gt;
     <para>在内核编译完成后，还需要一个额外步骤来完成安装。有些文件需要拷贝到 <filename class="directory">/boot</filename> 目录下。</para>
 
     <caution>
-      <para>If the host system has a separate /boot partition, the
-      files copied below should go there. The easiest way to do that 
-      is to bind /boot on the host to /mnt/lfs/boot before proceeding.
-      As the root user in the <emphasis>host system</emphasis>:</para>
+      <para>如果宿主系统拥有单独的 /boot 分区，那么文件就应该复制到那里。简单的解决方法就是在执行前将 /boot 绑定到宿主的 /mnt/lfs/boot。以<emphasis>宿主系统</emphasis>中的 root 用户运行：</para>
 
 <screen role="nodump"><userinput>mount --bind /boot /mnt/lfs/boot</userinput></screen>
     </caution>
 
-    <para>内核映像文件所在的实际目录根据主机系统架构可能会不一样。下面的文件名你也可以改成你喜欢的，
-      不过开头最好是 <emphasis>vmlinuz</emphasis> 才可以兼容下一节要讲的配置引导过程的自动设定。下面的命令假设主机是 x86 架构：</para>
+    <para>内核映像文件所在的实际目录根据主机系统架构可能会不一样。下面的文件名你也可以改成你喜欢的，不过开头最好是 <emphasis>vmlinuz</emphasis> 才可以兼容下一节要讲的配置引导过程的自动设定。下面的命令假设主机是 x86 架构：</para>
 
 <screen revision="sysv"><userinput remap="install">cp -v arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&version;</userinput></screen>
 
 <screen revision="systemd"><userinput remap="install">cp -v arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&versiond;</userinput></screen>
 
-    <para><filename>System.map</filename> 是内核的符号文件。它映射了每一个内核 API 函数的入口，
-    以及内核运行时的数据结构地址。是调试内核问题时的资源。运行下面的命令安装映射文件：</para>
+    <para><filename>System.map</filename> 是内核的符号文件。它映射了每一个内核 API 函数的入口，以及内核运行时的数据结构地址。是调查内核问题时的资源。运行下面的命令安装映射文件：</para>
 
 <screen><userinput remap="install">cp -v System.map /boot/System.map-&linux-version;</userinput></screen>
 
-    <para>在之前命令 <command>make menuconfig</command> 里生成的内核配置文件 <filename>.config</filename>
-    包含了当前编译的内核的所有配置。最好能保存下来留作参考：</para>
+    <para>在之前命令 <command>make menuconfig</command> 里生成的内核配置文件 <filename>.config</filename> 包含了当前编译的内核的所有配置。最好能保存下来留作参考：</para>
 
 <screen><userinput remap="install">cp -v .config /boot/config-&linux-version;</userinput></screen>
 
@@ -208,8 +198,7 @@ cp -r Documentation/* /usr/share/doc/linux-&linux-version;</userinput></screen>
     <note>
       <para>在很多情况下，内核的配置信息需要在稍后安装来自于 BLFS 的软件包后更新。这和其他的软件包不同，在安装完成编译好的内核后不需要将内核源码树删除。</para>
 
-      <para>如果想要保留内核的源码树，在 <filename class="directory">linux-&linux-version;</filename>
-      下运行 <command>chown -R 0:0</command> 来确保所有文件的所有者都 <emphasis>root</emphasis>。</para>
+      <para>如果想要保留内核的源码树，在 <filename class="directory">linux-&linux-version;</filename> 下运行 <command>chown -R 0:0</command> 来确保所有文件的所有者都 <emphasis>root</emphasis>。</para>
     </note>
 
     <warning>
@@ -229,10 +218,7 @@ cp -r Documentation/* /usr/share/doc/linux-&linux-version;</userinput></screen>
       <primary sortas="e-/etc/modprobe.d/usb.conf">/etc/modprobe.d/usb.conf</primary>
     </indexterm>
 
-    <para>虽然大多数情况下，Linux 模块自动加载就好，但是有时候需要特别指定加载顺序。<command>modprobe</command>
-    或 <command>insmod</command> 在加载模块时会读取 <filename>/etc/modprobe.d/usb.conf</filename> 。
-    如果将 USB 设备（ehci_hcd、ohci_hcd 和 uhci_hcd） 编译为模块，则需要此文件，这样它们就会以正确的顺序加载。
-    ehci_hcd 需要在 ohci_hcd 和 uhci_hcd 之前加载，否则在系统启动过程中将会输出警告。</para>
+    <para>虽然大多数情况下，Linux 模块会被自动加载，但是有时候需要特别指定加载顺序。<command>modprobe</command> 或 <command>insmod</command> 在加载模块时会读取 <filename>/etc/modprobe.d/usb.conf</filename>。如果将 USB 设备（ehci_hcd、ohci_hcd 和 uhci_hcd） 编译为模块，则需要此文件，这样它们就会以正确的顺序加载。ehci_hcd 需要在 ohci_hcd 和 uhci_hcd 之前加载，否则在系统启动过程中将会输出警告。</para>
 
     <para>运行以下命令建立 <filename>/etc/modprobe.d/usb.conf</filename> 文件：</para>
 

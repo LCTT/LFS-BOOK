@@ -20,7 +20,7 @@
     <title>System V 的启动脚本是如何工作的呢？</title>
 
     <para>Linux 使用的是一个名为 SysVinit，基于<emphasis>运行级（run-levels）</emphasis>概念的特殊启动工具。每个系统之间总会有些许不同，所以在某个特定的 Linux 发行版上适用的东西，并不意味着在 LFS 上也适用。LFS 自有独到的解决之道，不过也会遵守普世的标准。</para>
-  
+
     <para>SysVinit（或称「init」，下同）以运行级的方案运作。内含 7 个（数字 0-6）运行级，（事实上还有更多的运行级，但那些运行级情况特殊，且不常用。详情参见 <filename>init(8)</filename>），其中的每一个数字，都对应着一个计算机启动时的操作。默认的运行级是 3。下列为不同运行级所对应功能的描述：</para>
 
 <literallayout>0: 关闭计算机
@@ -213,8 +213,7 @@ EOF</userinput></screen>
 
   <para>本段讨论如何配置 <command>console</command> 的启动脚本，用它设置键盘映射，控制台字体和控制台内核的日志级别。如果非 ASCII 字符（例如，版权标志，英镑符号和欧元符号）不会用到且键盘是 U.S. 的情况下，那本段的多数内容可以跳过。没有配置文件（，或是与 <filename>rc.site</filename> 的设置一样），<command>console</command> 启动脚本就不会执行任何操作。</para>
 
-  <para><command>console</command> 脚本读取 <filename>/etc/sysconfig/console</filename> 文件以获取配置信息。决定使用的键盘映射和屏幕字体。特定的语言各种各样，可以查看 HOWTO 获取帮助，详见 <ulink
-  url="http://www.tldp.org/HOWTO/HOWTO-INDEX/other-lang.html"/>。如果好心存疑惑，不妨检索 <filename class="directory">/usr/share/keymaps</filename> 和 <filename class="directory">/usr/share/consolefonts</filename> 目录下的有效键盘映射和屏幕字体。查阅 <filename>loadkeys(1)</filename> 和 <filename>setfont(8)</filename> 手册，为这些程序选择正确的参数。</para>
+  <para><command>console</command> 脚本读取 <filename>/etc/sysconfig/console</filename> 文件以获取配置信息。决定使用的键盘映射和屏幕字体。特定的语言各种各样，可以查看 HOWTO 获取帮助，详见 <ulink url="http://www.tldp.org/HOWTO/HOWTO-INDEX/other-lang.html"/>。如果好心存疑惑，不妨检索 <filename class="directory">/usr/share/keymaps</filename> 和 <filename class="directory">/usr/share/consolefonts</filename> 目录下的有效键盘映射和屏幕字体。查阅 <filename>loadkeys(1)</filename> 和 <filename>setfont(8)</filename> 手册，为这些程序选择正确的参数。</para>
 
   <para><filename>/etc/sysconfig/console</filename> 文件中的一行一行的格式应该像 VARIABLE="value" 这样。下面介绍几个常见变量：</para>
   <variablelist>
