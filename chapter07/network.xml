@@ -14,25 +14,16 @@
     <primary sortas="d-network">network</primary>
   <secondary>configuring</secondary></indexterm>
 
-  <para>仅在已经配置网卡的情况下才需应用此章节内容。</para>
+  <para>仅在已经配置网卡的情况下才需实施此章节的内容。</para>
 
-  <para>如果设备没有使用网卡，则没有必要建立任何和网卡相关的配置文件。在这种情况下，
-  你应该从运行等级文件夹中 (<filename class="directory">/etc/rc.d/rc*.d</filename>)
-  移除 <xref linkend="ch-scripts-bootscripts"/> 中启动脚本创建的 
-  <filename class="symlink">network</filename> 符号链接。</para>
+  <para>如果设备没有使用网卡，则没有必要建立任何和网卡相关的配置文件。在这种情况下，你应该从运行等级文件夹中（<filename class="directory">/etc/rc.d/rc*.d</filename>）移除 <xref linkend="ch-scripts-bootscripts"/> 中启动脚本创建的 <filename class="symlink">network</filename> 符号链接。</para>
 
   <sect2>
     <title>建立网络接口配置文件</title>
 
-    <para>到底使用哪个接口，一般依赖于 <filename class="directory">/etc/sysconfig/</filename> 下的文件。
-    此文件夹应该包含要配置接口的描述文件，例如 <filename>ifconfig.xyz</filename>，其中「xyz」
-    是需要配置的网卡接口的名称（例如 eth0）。文件的内容是此接口的属性信息，例如 IP 地址、子网掩码等。
-    另外，文件名只能是 <emphasis>ifconfig</emphasis>。</para>
+    <para>到底使用哪个接口，一般依赖于 <filename class="directory">/etc/sysconfig/</filename> 下的文件。此文件夹应该包含要配置接口的描述文件，例如 <filename>ifconfig.xyz</filename>，其中「xyz」是需要配置的网卡接口的名称（例如 eth0）。文件的内容是此接口的属性信息，例如 IP 地址、子网掩码等。另外，文件名只能是 <emphasis>ifconfig</emphasis>。</para>
 
-    <note><para>如果没有应用上一节的内容，那么 udev 将会根据网卡的物理属性分配适当的名称。
-    如果你不确定网卡接口的名称，则可以在系统启动之后执行 <command>ip link</command> 命令得到
-    （命令 <command>ip link list</command> 将会输出当前设备所有可用的网络接口）。确认名称是否正确非常重要
-    （如是 ifconfig.enp2s1 还是 ifconfig.eth0），ifconfig.xyz 的命名错误将会让你的网卡无法在系统启动时初始化。</para></note>
+    <note><para>如果没有实施过上一节的内容，那么 udev 将会根据网卡的物理属性分配适当的名称。如果你不确定网卡接口的名称，则可以在系统启动之后执行 <command>ip link</command> 命令得到（命令 <command>ip link list</command> 将会输出当前设备所有可用的网络接口）。确认名称是否正确非常重要（如是 ifconfig.enp2s1 还是 ifconfig.eth0），ifconfig.xyz 的命名错误将会让你的网卡无法在系统启动时初始化。</para></note>
 
     <para>以下命令将会为 <emphasis>eth0</emphasis> 设备建立启用静态 IP 的示例文件：</para>
 
@@ -49,23 +40,15 @@ EOF</userinput></screen>
 
     <para>其中的数值，应该根据实际情况，进行适当的更改。</para>
 
-    <para>如果变量 <envar>ONBOOT</envar> 设置为「yes」则 System V 网络脚本将在系统启动期间激活网卡，
-    如果设置为其他非「yes」值则不会自动激活网卡。但是你可以通过命令 <command>ifup</command> 和 
-    <command>ifdown</command> 手动激活或者是禁用网卡。</para>
+    <para>如果变量 <envar>ONBOOT</envar> 设置为「yes」则 System V 网络脚本将在系统启动期间激活网卡，如果设置为其他非「yes」值则不会自动激活网卡。但是你可以通过命令 <command>ifup</command> 和 <command>ifdown</command> 手动激活或者是禁用网卡。</para>
 
     <para>变量 <envar>IFACE</envar> 用于定义接口的名称，例如 eth0。所有的网络设备配置文件都依赖于它。</para>
 
-    <para>变量 <envar>SERVICE</envar> 定义了获取 IP 地址的方式。LFS-Bootscripts 包中有模块化的 IP 分配格式，
-    且在文件夹 <filename class="directory">/lib/services/</filename> 中建立文件以允许其他的 IP 获取方式。
-    在 BLFS 书中，通常它被设置为动态主机配置协议（DHCP）。</para>
+    <para>变量 <envar>SERVICE</envar> 定义了获取 IP 地址的方式。LFS-Bootscripts 包中有模块化的 IP 分配格式，且在文件夹 <filename class="directory">/lib/services/</filename> 中建立文件以允许其他的 IP 获取方式。在 BLFS 书中，通常它被设置为动态主机配置协议（DHCP）。</para>
 
     <para>变量 <envar>GATEWAY</envar> 应该包括默认的网关 IP 地址。如果不需要，应该直接将这行注释掉。</para>
 
-    <para>变量 <envar>PREFIX</envar> 表示子网所用的位数。IP 地址中每一个字节是 8 位。
-    如果子网掩码是 255.255.255.0，那么就会使用最前面的 3 个字节（24位）表达网络号。如果子网掩码是
-    255.255.255.240，则使用最开始的 28 位。前缀如果大于 24 位，一般都用于 DSL 或者是有线 ISP。
-    在此示例中（PREFIX=24），子网掩码是 255.255.255.0。根据你实际的指望调整此字段，
-    如果省略此字段，则默认为 24。</para>
+    <para>变量 <envar>PREFIX</envar> 表示子网所用的位数。IP 地址中每一个字节是 8 位。如果子网掩码是 255.255.255.0，那么就会使用最前面的 3 个字节（24位）表达网络号。如果子网掩码是 255.255.255.240，则使用最开始的 28 位。前缀如果大于 24 位，一般都用于 DSL 或者是有线 ISP。在此示例中（PREFIX=24），子网掩码是 255.255.255.0。根据你实际的指望调整此字段，如果省略此字段，则默认为 24。</para>
 
     <para>如欲获得更多信息，请浏览 <command>ifup</command> 的 man 手册。</para>
 
@@ -135,8 +118,7 @@ EOF</userinput></screen>
       <primary sortas="e-/etc/resolv.conf">/etc/resolv.conf</primary>
     </indexterm>
 
-    <para>如果系统连接到互联网，则需要通过 DNS 服务将域名和 IP 地址进行相互的转换。你可以从 ISP 或者是网络管理员处
-    获得可用的 DNS 服务器，并填入 <filename>/etc/resolv.conf</filename> 文件。可以通过以下命令建立此文件：</para>
+    <para>如果系统连接到互联网，则需要通过 DNS 服务将域名和 IP 地址进行相互的转换。你可以从 ISP 或者是网络管理员处获得可用的 DNS 服务器，并填入 <filename>/etc/resolv.conf</filename> 文件。可以通过以下命令建立此文件：</para>
 
 <screen><userinput>cat &gt; /etc/resolv.conf &lt;&lt; "EOF"
 <literal># Begin /etc/resolv.conf
@@ -148,12 +130,9 @@ nameserver <replaceable>&lt;IP address of your secondary nameserver&gt;</replace
 # End /etc/resolv.conf</literal>
 EOF</userinput></screen>
 
-    <para>字段 <varname>domain</varname> 可以忽略或者是使用 <varname>search</varname> 字段替代。
-    参考 man 手册的 resolv.conf 部分获得更多信息。</para>
+    <para>字段 <varname>domain</varname> 可以忽略或者是使用 <varname>search</varname> 字段替代。参考 man 手册的 resolv.conf 部分获得更多信息。</para>
 
-    <para>其中，<replaceable>&lt;IP address of the nameserver&gt;</replaceable> 应该替换为合适的 DNS
-    服务器的 IP 地址。通常来说，一般会有多个 DNS 地址可供填写（需要备选服务器具有相关兼容性）。如果你只想要填写一个 DNS 服务器，那么从文件中将
-    第二行 <emphasis>nameserver</emphasis> 不用输入即可。该 IP 地址也可能是本地网络中的路由。</para>
+    <para>其中，<replaceable>&lt;IP address of the nameserver&gt;</replaceable> 应该替换为合适的 DNS 服务器的 IP 地址。通常来说，一般会有多个 DNS 地址可供填写（需要备选服务器具有相关兼容性）。如果你只想要填写一个 DNS 服务器，那么将文件中的第二行 <emphasis>nameserver</emphasis> 移除即可。该 IP 地址也可能是本地网络中的路由。</para>
 
     <note><para>Google 公共 IPv4 DNS 的服务器地址是 8.8.8.8 和 8.8.4.4。</para></note>
 
@@ -173,8 +152,7 @@ EOF</userinput></screen>
 
 <screen><userinput>echo "<replaceable>&lt;lfs&gt;</replaceable>" &gt; /etc/hostname</userinput></screen>
 
-     <para>其中，<replaceable>&lt;lfs&gt;</replaceable> 更改为想要为主机设置的名称。这里请不要输入完全限定域名
-     （Fully Qualified Domain Name - FQDN）。FQDN 应该在文件 <filename>/etc/hosts</filename> 中设置。</para>
+     <para>其中，<replaceable>&lt;lfs&gt;</replaceable> 更改为想要为主机设置的名称。这里请不要输入完全限定域名（Fully Qualified Domain Name - FQDN）。FQDN 应该在文件 <filename>/etc/hosts</filename> 中设置。</para>
   </sect2>
 
   <sect2 id="ch-scripts-hosts">
@@ -194,13 +172,11 @@ EOF</userinput></screen>
        <secondary>/etc/hosts</secondary>
      </indexterm>
    
-     <para>文件 <filename>/etc/hosts</filename> 用于 IP 地址和完全限定域名（FQDN）及可能的别名的对应。
-     它的语法如下：</para>
+     <para>文件 <filename>/etc/hosts</filename> 用于 IP 地址和完全限定域名（FQDN）及可能的别名的对应。它的语法如下：</para>
    
 <screen><literal>IP_address myhost.example.org aliases</literal></screen>
 
-     <para>除非计算机在互联网中可见（例如拥有注册的域名且分配了有效的 IP 地址——大部分用户并不具备此条件），
-     否则请确保 IP 地址位于有效的私有网络 IP 地址段。有效区间为：</para>
+     <para>除非计算机在互联网中可见（例如拥有注册的域名且分配了有效的 IP 地址——大部分用户并不具备此条件），否则请确保 IP 地址位于有效的私有网络 IP 地址段。有效区间为：</para>
 
 <screen><literal>私有网络地址范围      常规前缀
 10.0.0.1 - 10.255.255.254           8
@@ -208,11 +184,11 @@ EOF</userinput></screen>
 192.168.y.1 - 192.168.y.254         24</literal></screen>
 
      <para>x 可以是 16-31 中的任何数字，y 可以是 0-255 中的任何数字。</para>
-   
+
      <para>有效的私有 IP 地址可以是 192.168.1.1，有效的完全限定域名可以是 lfs.example.org。</para>
-   
+
      <para>即使不需要使用网卡，也应该需要有效的完全限定域名。它的存在可以确保程序能正常运行。</para>
-   
+
      <para>通过以下命令建立 <filename>/etc/hosts</filename> 文件：</para>
 
 <screen><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
@@ -224,10 +200,8 @@ EOF</userinput></screen>
 # End /etc/hosts (network card version)</literal>
 EOF</userinput></screen>
 
-     <para>其中，<replaceable>&lt;192.168.1.1&gt;</replaceable> 和
-     <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> 这样的值应该根据用户和实际需要进行更改
-     （如果已经通过网络/系统管理员获得了 IP 地址，那么设备就可以连接到已存在的网络）。其中可选的别名可以忽略。</para>
-   
+     <para>其中，<replaceable>&lt;192.168.1.1&gt;</replaceable> 和 <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> 这样的值应该根据用户和实际需要进行更改（如果已经通过网络/系统管理员获得了 IP 地址，那么设备就可以连接到已存在的网络）。其中可选的别名可以忽略。</para>
+
      <para>如果网卡还没有配置，则通过以下命令建立 <filename>/etc/hosts</filename> 文件：</para>
 
 <screen role="nodump"><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"

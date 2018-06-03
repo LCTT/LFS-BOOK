@@ -12,30 +12,27 @@
 
   <para>十分感谢你耐心的阅读这本 LFS 书，我们十分期待本书能够为你构建系统带来一点点的帮助。</para>
 
-  <para>我猜，你现在一定很开心——LFS系统已经安装完成。
-「但是，下面该作些什么呢？」不用担心，我们早已经帮你准备好以下这些有益的信息了！</para>
+  <para>我猜，你现在一定很开心——LFS系统已经安装完成。「但是，下面该作些什么呢？」不用担心，我们早已经帮你准备好以下资源！</para>
 
   <itemizedlist>
 
     <listitem>
       <para>维护</para>
 
-      <para>定期检查软件的 bug 和安全公告。因为在从源码构建出 LFS之后，你便应该养成经常去查看这些报告的好习惯。有关查询的去处，网上倒是有一些不错的资源，这里列举几个：</para>
+      <para>定期检查软件的 bug 和安全公告。因为在从源码构建出 LFS 之后，你便应该养成经常去查看这些报告的好习惯。有关查询的去处，网上倒是有一些不错的资源，这里列举几个：</para>
 
       <itemizedlist>
 
         <listitem>
           <para><ulink url="http://www.cert.org/">CERT</ulink>（计算机应急响应小组）</para>
 
-          <para>CERT 有一个邮件列表，专门公示各种操作系统和应用程序的安全警报。订阅信息请点击此链接查看：<ulink
-          url="http://www.us-cert.gov/cas/signup.html"/>.</para>
+          <para>CERT 有一个邮件列表，专门公示各种操作系统和应用程序的安全警报。订阅信息请点击此链接查看：<ulink url="http://www.us-cert.gov/cas/signup.html"/>.</para>
         </listitem>
 
         <listitem>
           <para>Bugtraq</para>
 
-          <para>Bugtraq 是一个专门公示计算机安全的邮件列表。它公示新发现的安全问题，偶尔还会尽可能的提出修补方案。订阅信息请点击此链接查看：<ulink
-          url="http://www.securityfocus.com/archive"/>.</para>
+          <para>Bugtraq 是一个专门公示计算机安全的邮件列表。它公示新发现的安全问题，偶尔还会尽可能的提出修补方案。订阅信息请点击此链接查看：<ulink url="http://www.securityfocus.com/archive"/>.</para>
         </listitem>
 
       </itemizedlist>
@@ -56,15 +53,13 @@
     <listitem>
       <para>邮件列表</para>
 
-      <para>有几个 LFS 相关的邮件列表，在你需要的时候可以订阅，也可通过它获得最新的发展动态，对项目作出力所能及的贡献等等。查看<xref
-      linkend="ch-intro-maillists"/> 可以获得更多的信息。</para>
+      <para>有几个 LFS 相关的邮件列表，在你需要的时候可以订阅，也可通过它获得最新的发展动态，对项目作出力所能及的贡献等等。查看 <xref linkend="ch-intro-maillists"/> 可以获得更多的信息。</para>
     </listitem>
 
     <listitem>
       <para>The Linux Documentation Project（TLDP，Linux 文档项目）</para>
 
-      <para>Linux 文档项目（TLDP）的目标是通过协作来完善 Linux 文档中的所有不足。TLDP 已经完成了大量的 HOWTO、指南和 man 帮助页。它的网站是：
-      <ulink url="http://www.tldp.org/"/>.</para>
+      <para>Linux 文档项目（TLDP）的目标是通过协作来完善 Linux 文档中的所有不足。TLDP 已经完成了大量的 HOWTO、指南和 man 帮助页。它的网站是：<ulink url="http://www.tldp.org/"/>.</para>
     </listitem>
 
   </itemizedlist>

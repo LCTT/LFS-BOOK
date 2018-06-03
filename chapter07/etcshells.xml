@@ -20,7 +20,7 @@
     <primary sortas="e-etc-shells">/etc/shells</primary>
   </indexterm>
 
-  <para><filename>shells</filename> 文件是当前系统所有可用 shell 的列表文件。应用程序通过读取它可以知道需要使用的 shell 是否有效。每行指定一个可用的 shell，且需要为绝对路径，也即从根目录（/）开始的路径。</para>
+  <para><filename>shells</filename> 文件是当前系统所有可用 shell 的列表文件。应用程序通过读取它可以知道需要使用的 shell 是否有效。每行指定一个 shell 的绝对路径，即从根目录（/）开始的路径。</para>
 
   <para>例如，当非特权用户想要使用 <command>chsh</command> 命令更改自己登录所用的 shell 时。如果命令没有在 /etc/shell 中找到，那么将会拒绝更改。</para>
 

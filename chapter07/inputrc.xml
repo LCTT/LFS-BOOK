@@ -18,9 +18,7 @@
 
   <para>大多数人不需要用户指定这一功能，因此下面的命令仅创建了文件 <filename>/etc/inputrc</filename>，供所有登录的用户全局使用。如果你以后想要以此为基础，覆盖掉一些默认设置，你可以在自己的 home 目录下创建 <filename>.inputrc</filename> 文件，并更改映射。</para>
 
-  <para>如果需要了解更多有关如何编辑 <filename>inputrc</filename> 文件的信息，
-  可以查看 <command>info bash</command> 中 <emphasis>Readline Init File</emphasis> 一节。
-  其实查看 <command>info readline</command> 也可以获得不少有用的东西啦。</para>
+  <para>如果需要了解更多有关如何编辑 <filename>inputrc</filename> 文件的信息，可以查看 <command>info bash</command> 中 <emphasis>Readline Init File</emphasis> 一节。其实查看 <command>info readline</command> 也可以获得不少有用的东西。</para>
 
   <para>下面显示的就是通用的 <filename>inputrc</filename> 文件，其中包含有「#」的都是注释行（需要注意的是，此文件不支持在设置后跟随注释）。使用以下命令创建此文件：</para>
 

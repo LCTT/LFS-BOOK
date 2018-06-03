@@ -21,18 +21,18 @@
   <sect2 id='sysv-desc'>
     <title>System V</title>
 
-    <para>1983 年以来，System V 便是在 Unix 和类 Unix 的例如 Linux 系统中，所使用的经典启动过程。它包括一个小程序，<command>init</command>，用于启动诸如 <command>login</command> （由 getty 启动）这样的基础程序并运行着这样的一个脚本。该脚本，通常被命名为 <command>rc</command>，控制着一众附加脚本的执行，而那些附加脚本便是实施系统初始化所需要的任务的脚本。</para>
+    <para>1983 年以来，System V 便是 Unix 和类 Unix （例如 Linux）系统中的经典启动过程。它包括一个小程序，<command>init</command> 用于启动诸如 <command>login</command> （由 getty 启动）这样的基础程序，并运行着这样的一个名为 <command>rc</command> 的脚本。该脚本，控制着一众附加脚本的执行，而那些附加脚本便是实施系统初始化所需要的任务的脚本。</para>
 
     <para>程序 <command>init</command> 由文件 <filename>/etc/inittab</filename> 控制着，并且被组织成用户能够运行的运行级别形式：</para>
 
 <literallayout>
-0 &mdash; halt（终止）
-1 &mdash; Single user mode （单用户模式）
-2 &mdash; Multiuser, without networking（多用户，无网络）
-3 &mdash; Full multiuser mode（完整的多用户模式）
-4 &mdash; User definable（用户可定义）
-5 &mdash; Full multiuser mode with display manager（完整的多用户模式，带显示管理）
-6 &mdash; reboot（重启）
+0 &mdash; 停止
+1 &mdash; 单用户模式
+2 &mdash; 多用户，无网络
+3 &mdash; 完整的多用户模式
+4 &mdash; 用户可定义
+5 &mdash; 完整的多用户模式，附带显示管理
+6 &mdash; 重启
 </literallayout>
 
     <para>常用的默认运行级为 3 或 5。</para>
@@ -41,11 +41,11 @@
 
     <itemizedlist>
       <listitem>
-          <para>是既存良久，容易理解的体系。</para>
+          <para>公认的，容易理解的体系。</para>
       </listitem>
 
       <listitem>
-          <para>易于自定义。</para>
+          <para>方便定制。</para>
       </listitem>
 
     </itemizedlist>
@@ -63,11 +63,11 @@
       </listitem>
 
       <listitem>
-          <para>不支持控制组群（control groups，缩写为 cgroups）这样的新特性，每个用户公平地分享调度。</para>
+          <para>不支持控制组群（control groups，缩写为 cgroups）这样的新特性，根据每个用户公平地分享调度。</para>
       </listitem>
 
       <listitem>
-          <para>添加脚本需手动，静态的排序决策。</para>
+          <para>添加脚本需手动的、静态的排序决策。</para>
       </listitem>
 
     </itemizedlist>

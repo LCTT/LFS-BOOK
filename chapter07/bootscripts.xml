@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>软件包 LFS-Bootscripts 包含一套在启动/关机时开始/停止 LFS 系统的脚本。自定以启动过程所需的配置文件和程序将在随后的段落中交代。</para>
+    <para>软件包 LFS-Bootscripts 包含一套在启动/关机时开始/停止 LFS 系统的脚本。自定义启动过程所需的配置文件和程序将在随后的段落中交代。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>

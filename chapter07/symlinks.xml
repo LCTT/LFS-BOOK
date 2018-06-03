@@ -35,11 +35,11 @@
 
 <screen role="nodump"><userinput>cat /etc/udev/rules.d/70-persistent-net.rules</userinput></screen>
 
-      <note><para>当某些特定情形下，如当一个 MAC 地址被手动指定给一个网卡或者如 Qemu 或 Xen 这样的虚拟环境时，可能并不会生成上述的网络规则文件。这是由于手动指定的 MAC 地址并不是永久固定的。在这种情况下，不能采用持久化命名方式来确定设备名称。</para></note>
+      <note><para>在某些特定情形下，如当一个 MAC 地址被手动指定给一个网卡或者如 Qemu 或 Xen 这样的虚拟环境时，可能并不会生成上述的网络规则文件。这是由于手动指定的 MAC 地址并不是永久固定的。在这种情况下，不能采用持久化命名方式来确定设备名称。</para></note>
   
       <para>这个文件应由一个注释段落开头。之后每个网卡都对应有两行信息。第一行以注释形式描述了该网卡的硬件信息（如果是 PCI 网卡，还有其 PCI 厂商标识和设备标识），如果对应的驱动程序存在，还应在随后的括号中注明。要注意，该注释行中的硬件标识和驱动程序都不能决定其接口名，仅做参考作用。第二行则是网卡的 udev 规则，根据该规则可以确定网卡的设备名称。</para>
   
-      <para>所有的 udev 规则均由若干的键组成，之间由逗号或空格分割，解释如下：</para>
+      <para>udev 规则总的来说是由逗号或空格分割的若干键值对组成的，规则中的每一个键的解释如下所示：</para>
   
       <itemizedlist>
         <listitem>
@@ -96,9 +96,9 @@
 <screen role="nodump"><userinput>sed -i -e 's/"write_cd_rules"/"write_cd_rules <replaceable>mode</replaceable>"/' \
     /etc/udev/rules.d/83-cdrom-symlinks.rules</userinput></screen>
 
-    <para>注意，目前为止还并不需要创建相应的规则以及符号链接。因为现在你仍然将宿主机的 <filename class="directory">/dev</filename> 文件夹绑定挂载入 LFS 系统，而且我们假定这些符号连接存在于宿主机中。当你首次引导进入 LFS 系统之后，这些规则和符号链接都会被自动创建。</para>
+    <para>注意，目前为止还并不需要创建相应的规则以及符号链接。因为现在你仍然将宿主机的 <filename class="directory">/dev</filename> 文件夹绑定挂载在 LFS 系统，而且我们推测这些符号链接于宿主机中已经存在了。当你首次引导进入 LFS 系统之后，这些规则和符号链接都会被自动创建。</para>
 
-    <para>然而如果你有多个 CD-ROM 设备，在首次创建符号链接的时候，同一个符号链接所指向的设备可能与宿主机所中指向的设备不同。这是由于设备发现的顺序是不可预测的。首次引导进 LFS 系统并创建的符号连接已经可以认为是固定了的。所以这个问题仅会在你需求同一设备在不同的系统之间的符号链接相同时才会产生。如果有必要的话，你还可以在系统引导之后检查并修改生成的 <filename>/etc/udev/rules.d/70-persistent-cd.rules</filename> 文件，以确认系统创建的符号连接符合自己所期望的。</para>
+    <para>然而如果你有多个 CD-ROM 设备，在首次创建符号链接的时候，同一个符号链接所指向的设备可能与宿主机中指向的设备不同。这是由于设备发现的顺序是不可预测的。首次引导进 LFS 系统并创建的符号连接已经可以认为是固定了的。所以这个问题仅会在你需求同一设备在不同的系统之间的符号链接相同时才会产生。如果有必要的话，你还可以在系统引导之后检查并修改生成的 <filename>/etc/udev/rules.d/70-persistent-cd.rules</filename> 文件，以确认系统创建的符号连接符合自己所期望的。</para>
 
   </sect2>
 
@@ -106,17 +106,9 @@
 
     <title>处理相似性质的设备</title>
 
-    <para>正如 <xref linkend="ch-scripts-udev"/> 中解释的，具有相同功能的设备出现在 <filename class="directory">/dev</filename>
-    目录下的顺序是随机的。假如你有一个 USB 摄像头和一个电视调谐器，<filename>/dev/video0</filename> 有可能是 USB 摄像头，
-    <filename>/dev/video1</filename> 是电视调谐器，有时候又可能是反过来的。对于除声卡和网卡外的设备，
-    都可以通过创建自定义持久性符号链接的 udev 规则来固定。网卡如何设置请看 <xref linkend="ch-scripts-network"/>，
-    网卡的相关设置请看 <ulink url="&blfs-book;postlfs/devices.html">BLFS</ulink>。</para>
+    <para>正如 <xref linkend="ch-scripts-udev"/> 中解释的，具有相同功能的设备出现在 <filename class="directory">/dev</filename> 目录下的顺序是随机的。假如你有一个 USB 摄像头和一个电视调谐器，<filename>/dev/video0</filename> 有可能是 USB 摄像头， <filename>/dev/video1</filename> 是电视调谐器，有时候又可能是反过来的。对于除声卡和网卡外的设备， 都可以通过创建自定义持久性符号链接的 udev 规则来固定。网卡如何设置请看 <xref linkend="ch-scripts-network"/>，网卡的相关设置请看 <ulink url="&blfs-book;postlfs/devices.html">BLFS</ulink>。</para>
 
-    <para>对于你所有的硬件，都有可能遇到此问题（尽管此问题可能在你当前的 Linux 发行版上不存在），
-      在 <filename class="directory">/sys/class</filename> 或是
-    <filename class="directory">/sys/block</filename> 目录下找到对应目录，比如，
-    显卡可能的路径为 <filename class="directory">/sys/class/video4linux/video<replaceable>X</replaceable></filename>。
-    找到该设备的唯一设备标识（通常，厂商和产品 ID 以及/或 序列号会有用）：</para>
+    <para>对于你所有的硬件，都有可能遇到此问题（尽管此问题可能在你当前的 Linux 发行版上不存在），在 <filename class="directory">/sys/class</filename> 或是 <filename class="directory">/sys/block</filename> 目录下找到对应目录，比如，显卡可能的路径为 <filename class="directory">/sys/class/video4linux/video<replaceable>X</replaceable></filename>。找到该设备的唯一设备标识（通常，厂商和产品 ID 以及/或 序列号会有用）：</para>
 
 <screen role="nodump"><userinput>udevadm info -a -p /sys/class/video4linux/video0</userinput></screen>
 
@@ -132,8 +124,7 @@ KERNEL=="video*", ATTRS{device}=="0x036f", ATTRS{vendor}=="0x109e", \
 </literal>
 EOF</userinput></screen>
 
-    <para>最终，<filename>/dev/video0</filename> 和 <filename>/dev/video1</filename> 依旧会随机分配给 USB 摄像头和电视调谐器，
-    但是 <filename>/dev/tvtuner</filename> 和 <filename>/dev/webcam</filename> 将会固定的分配给正确的设备。</para>
+    <para>最终，<filename>/dev/video0</filename> 和 <filename>/dev/video1</filename> 依旧会随机分配给 USB 摄像头和电视调谐器，但是 <filename>/dev/tvtuner</filename> 和 <filename>/dev/webcam</filename> 将会固定的分配给正确的设备。</para>
 
  </sect2>
 

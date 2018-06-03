@@ -22,7 +22,7 @@
     <primary sortas="e-/etc/os-release">/etc/os-release</primary>
   </indexterm>
 
-  <para>哈哈，干的很不错！到这里，全新的 LFS 系统就已经安装完成了！我们也很期待你那闪闪发光的定制 Linux 系统呐。</para>
+  <para>干的很棒嘛！至此，全新的 LFS 系统就已经安装完成啦！我们衷心地祝愿，你亲手定制的崭新 Linux 系统能陪着你乘风破浪。</para>
 
   <para revision="systemd">创建一个 systemd 所需的 <filename>/etc/os-release</filename> 文件：</para>
 
@@ -42,7 +42,7 @@ EOF</userinput></screen>
 
 <screen revision="systemd"><userinput>echo &versiond; &gt; /etc/lfs-release</userinput></screen>
 
-  <para>为向 Linux Standards Base (LSB) 致敬，你可以建立文件来显示当前系统的完整信息。运行以下命令新建此文件：</para>
+  <para>推荐遵守 Linux Standards Base (LSB)，建立文件以显示当前系统的完整信息。运行以下命令新建此文件：</para>
 
 <screen revision="sysv"><userinput>cat &gt; /etc/lsb-release &lt;&lt; "EOF"
 DISTRIB_ID="Linux From Scratch"
