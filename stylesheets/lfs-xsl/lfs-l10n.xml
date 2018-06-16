@@ -23,6 +23,21 @@ $Date: 2012-09-08 14:41:53 -0700 (Sat, 08 Sep 2012) $
 
   </l:l10n>
 
+    <!-- Chinese -->
+  <l:l10n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
+          language="zh" english-language-name="Chinese">
+
+    <l:gentext key="description" text="简要介绍"/>
+    <l:gentext key="Bootscripts" text="启动脚本"/>
+    <l:gentext key="Configuration Files" text="配置文件"/>
+    <l:gentext key="Kernel Configuration" text="内核配置"/>
+    <l:gentext key="Libraries" text="库"/>
+    <l:gentext key="Others" text="其他"/>
+    <l:gentext key="Packages" text="软件包"/>
+    <l:gentext key="Programs" text="可执行程序"/>
+    <l:gentext key="Scripts" text="脚本"/>
+
+  </l:l10n>
 
     <!-- English -->
   <l:l10n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
