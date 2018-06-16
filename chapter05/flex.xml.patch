@@ -1,0 +1,24 @@
+diff --git a/chapter05/flex.xml b/chapter05/flex.xml
+index 730fd73..2033db5 100644
+--- a/chapter05/flex.xml
++++ b/chapter05/flex.xml
+@@ -42,7 +42,7 @@
+ 
+   <sect2 role="installation">
+     <title>Installation of Flex</title>
+-
++<!--
+     <para>Flex contains several known bugs. These can be fixed with the
+     following patch:</para>
+ 
+@@ -54,8 +54,8 @@
+     fine, so make sure it does not get regenerated:</para>
+ 
+ <screen><userinput remap="pre">touch doc/flex.1</userinput></screen>
+-
+-    <para>Now prepare Flex for compilation:</para>
++-->
++    <para>Prepare Flex for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/tools</userinput></screen>
+ 

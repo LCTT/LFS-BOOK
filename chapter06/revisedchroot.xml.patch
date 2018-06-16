@@ -1,0 +1,43 @@
+diff --git a/chapter06/revisedchroot.xml b/chapter06/revisedchroot.xml
+index 7c7e6f0..db361a6 100644
+--- a/chapter06/revisedchroot.xml
++++ b/chapter06/revisedchroot.xml
+@@ -17,9 +17,10 @@
+   <para>From now on, when reentering the chroot environment after
+   exiting, use the following modified chroot command:</para>
+ 
+-<screen role="nodump"><userinput>chroot "$LFS" /usr/bin/env -i              \
+-    HOME=/root TERM="$TERM" PS1='\u:\w\$ ' \
+-    PATH=/bin:/usr/bin:/sbin:/usr/sbin     \
++<screen role="nodump"><userinput>chroot "$LFS" /usr/bin/env -i          \
++    HOME=/root TERM="$TERM"            \
++    PS1='(lfs chroot) \u:\w\$ '        \
++    PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+     /bin/bash --login</userinput></screen>
+ 
+   <para>The reason for this is that the programs in <filename
+@@ -41,7 +42,7 @@
+   linkend="ch-system-bindmount"/> and <xref
+   linkend="ch-system-kernfsmount"/>.</para>
+ 
+-  <para>Finally, there were several static libraries that were not suppressed earlier
++  <para>There were several static libraries that were not suppressed earlier
+   in the chapter in order to satisfy the regression tests in several packages. These 
+   libraries are from binutils, bzip2, e2fsprogs, flex, libtool, and zlib.  If desired,
+   remove them now:</para>
+@@ -54,4 +55,15 @@ rm -f /usr/lib/libfl.a
+ rm -f /usr/lib/libfl_pic.a
+ rm -f /usr/lib/libz.a</userinput></screen>
+ 
++  <para>There are also several files installed in the /usr/lib directory with a
++  file name extention of .la.  These are "libtool archive" files and generally
++  unneeded on a linux system.  None of these are necessary at this point.  To
++  remove them, run:</para>
++
++<screen><userinput>find /usr/lib -name \*.la -delete</userinput></screen>
++
++   <para>For more information about libtool archive files, see the <ulink
++   url="&blfs-book;/introduction/la-files.html">BLFS section "About Libtool
++   Archive (.la) files"</ulink>.</para>
++
+ </sect1>

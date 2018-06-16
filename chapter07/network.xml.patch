@@ -1,0 +1,193 @@
+diff --git a/chapter07/network.xml b/chapter07/network.xml
+index f95f0e2..b5202fb 100644
+--- a/chapter07/network.xml
++++ b/chapter07/network.xml
+@@ -13,7 +13,7 @@
+   <indexterm zone="ch-scripts-network">
+     <primary sortas="d-network">network</primary>
+   <secondary>configuring</secondary></indexterm>
+-
++<!--
+   <para>This section only applies if a network card is to be
+   configured.</para>
+ 
+@@ -23,7 +23,7 @@
+   from all run-level directories (<filename
+   class="directory">/etc/rc.d/rc*.d</filename>) after the bootscripts are
+   installed in <xref linkend="ch-scripts-bootscripts"/>.</para>
+-
++-->
+   <sect2>
+     <title>Creating Network Interface Configuration Files</title>
+ 
+@@ -31,20 +31,18 @@
+     usually depends on the files in <filename
+     class="directory">/etc/sysconfig/</filename>.  This directory should
+     contain a file for each interface to be configured, such as
+-    <filename>ifconfig.xyz</filename>, where <quote>xyz</quote> is required to
+-    be a Network Card Interface name (e.g. eth0).  Inside this file are
+-    attributes to this interface, such as its IP address(es), subnet masks, and
+-    so forth.  It is necessary that the stem of the filename be
+-    <emphasis>ifconfig</emphasis>.</para>
++    <filename>ifconfig.xyz</filename>, where <quote>xyz</quote> should describe
++    the network card.  The interface name (e.g. eth0) is usually appropriate.
++    Inside this file are attributes to this interface, such as its IP
++    address(es), subnet masks, and so forth.  It is necessary that the stem of
++    the filename be <emphasis>ifconfig</emphasis>.</para>
+ 
+     <note><para>If the procedure in the previous section was not used, Udev
+     will assign network card interface names based on system physical
+     characteristics such as enp2s1. If you are not sure what your interface
+-    name is, you can always run <command>ip link</command>  after you have
+-    booted your system.  Again, it is important that ifconfig.xyz is named
+-    after correct network card interface name (e.g. ifconfig.enp2s1 or
+-    ifconfig.eth0) or your network interface will not be initialized during
+-    the boot process.</para></note>
++    name is, you can always run <command>ip link</command> or <command>ls
++    /sys/class/net</command> after you have booted your system.  
++    </para></note>
+ 
+     <para>The following command creates a sample file for the
+     <emphasis>eth0</emphasis> device with a static IP address:</para>
+@@ -98,64 +96,6 @@ EOF</userinput></screen>
+     <para>For more information see the <command>ifup</command> man page.</para>
+ 
+   </sect2>
+-<!--
+-  <sect2 id="systemd-net-enable">
+-    <title>Configuring the Network Interface Card at boot (systemd)</title>
+-
+-    <para>Enabling of the network interface card configuration 
+-    in systemd is done per interface. To enable network interface card
+-    configuration at boot, run:</para>
+-
+-<screen><userinput>systemctl enable ifupdown@eth0</userinput></screen>
+-
+-    <para>To disable a previously enabled network interface
+-    card configuration at boot, run:</para>
+-
+-<screen role="nodump"><userinput>systemctl disable ifupdown@eth0</userinput></screen>
+-
+-    <para>To manually start the network interface card configuration,
+-    run:</para>
+-
+-<screen role="nodump"><userinput>systemctl start ifupdown@eth0</userinput></screen>
+-
+-    <para>Replace eth0 with the correct network interface card
+-    name as described on the beginning of this page.</para>
+-
+-    <note><para>These procedures require the configuration files as specified
+-    in the previous section.</para></note>
+-
+-    <note><para>The network card can also be started or stopped
+-    with the traditional <command>ifup &lt;device&gt;</command> or
+-    <command>ifdown &lt;device&gt;</command> commands.</para></note>
+-
+-  </sect2>
+-
+-  <sect2 id="systemd2-net-enable">
+-    <title>Configuring the Network Interface Card for systemd-networkd</title>
+-
+-    <para>An alternative way to configure a NIC when booting with with
+-    systemd is to create a configuration file recognized by the
+-    systemd-networkd daemon.  To configure the device create a file similar
+-    to this:</para>
+-
+-<screen role="nodump"><userinput>cat &gt; /etc/systemd/network/10-static-eth0.network &lt;&lt; "EOF"
+-[Match]
+-Name=eth0
+-
+-[Network]
+-Address=192.168.0.2/24
+-Gateway=192.168.0.1
+-EOF</userinput></screen>
+-
+-    <para>You can use multiple .network files if desired.  You can also specify
+-    DHCP=yes instead of the Address and Gateway settings.  See the man page for
+-    systemd.network for more details,</para>
+-
+-    <note><para>If this method is used, be sure to disable ifupdown@eth0 as 
+-    described in the previous section (if it was enabled).</para></note>
+-
+-  </sect2>
+--->
+   <sect2 id="resolv.conf">
+     <title>Creating the /etc/resolv.conf File</title>
+ 
+@@ -163,11 +103,10 @@ EOF</userinput></screen>
+       <primary sortas="e-/etc/resolv.conf">/etc/resolv.conf</primary>
+     </indexterm>
+ 
+-    <para>If the system is going to be connected to the Internet, it will
+-    need some means of Domain Name Service (DNS) name resolution to
+-    resolve Internet domain names to IP addresses, and vice versa. This is
+-    best achieved by placing the IP address of the DNS server, available
+-    from the ISP or network administrator, into
++    <para>The system will need some means of obtaining Domain Name Service
++    (DNS) name resolution to resolve Internet domain names to IP addresses, and
++    vice versa. This is best achieved by placing the IP address of the DNS
++    server, available from the ISP or network administrator, into
+     <filename>/etc/resolv.conf</filename>. Create the file by running the
+     following:</para>
+ 
+@@ -192,7 +131,9 @@ EOF</userinput></screen>
+     second <emphasis>nameserver</emphasis> line from the file. The IP address
+     may also be a router on the local network.</para>
+ 
+-    <note><para>The Google Public IPv4 DNS addresses are 8.8.8.8 and 8.8.4.4.</para></note>
++    <note>
++      <para>The Google Public IPv4 DNS addresses are 8.8.8.8 and 8.8.4.4.</para>
++    </note>
+ 
+   </sect2>
+ 
+@@ -264,30 +205,41 @@ EOF</userinput></screen>
+      <para>Create the  <filename>/etc/hosts</filename> file by running:</para>
+ 
+ <screen><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
+-<literal># Begin /etc/hosts (network card version)
++<literal># Begin /etc/hosts
+ 
+ 127.0.0.1 localhost
+-<replaceable>&lt;192.168.1.1&gt;</replaceable> <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> <replaceable>[alias1] [alias2 ...]</replaceable>
++127.0.1.1 <replaceable>&lt;FQDN&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable>
++<replaceable>&lt;192.168.1.1&gt;</replaceable> <replaceable>&lt;FQDN&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable> <replaceable>[alias1] [alias2 ...]</replaceable>
++::1       localhost ip6-localhost ip6-loopback
++ff02::1   ip6-allnodes
++ff02::2   ip6-allrouters
+ 
+-# End /etc/hosts (network card version)</literal>
++# End /etc/hosts</literal>
+ EOF</userinput></screen>
+ 
+-     <para>The <replaceable>&lt;192.168.1.1&gt;</replaceable> and
+-     <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> values need to be
++     <para>The <replaceable>&lt;192.168.1.1&gt;</replaceable>,
++     <replaceable>&lt;FQDN&gt;</replaceable>, and 
++     <replaceable>&lt;HOSTNAME&gt;</replaceable> values need to be
+      changed for specific uses or requirements (if assigned an IP address by a
+      network/system administrator and the machine will be connected to an
+      existing network). The optional alias name(s) can be omitted.</para>
+-   
++
++<!--  This is not very useful
++
+      <para>If a network card is not going to be configured, create the
+      <filename>/etc/hosts</filename> file by running:</para>
+ 
+ <screen role="nodump"><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
+ <literal># Begin /etc/hosts (no network card version)
+ 
+-127.0.0.1 <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable> localhost
++127.0.0.1 localhost
++127.0.1.1 <replaceable>&lt;FQDN&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable>
++::1       localhost ip6-localhost ip6-loopback
++ff02::1   ip6-allnodes
++ff02::2   ip6-allrouters
+ 
+ # End /etc/hosts (no network card version)</literal>
+-EOF</userinput></screen>
++EOF</userinput></screen> -->
+ 
+    </sect2>
+ 

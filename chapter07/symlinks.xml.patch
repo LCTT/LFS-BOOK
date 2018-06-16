@@ -1,0 +1,13 @@
+diff --git a/chapter07/symlinks.xml b/chapter07/symlinks.xml
+index f633695..4da4c90 100644
+--- a/chapter07/symlinks.xml
++++ b/chapter07/symlinks.xml
+@@ -56,7 +56,7 @@
+ 
+ <screen role="nodump"><userinput>cat /etc/udev/rules.d/70-persistent-net.rules</userinput></screen>
+ 
+-      <note><para>In some cases such as when MAC addresess have been assigned to
++      <note><para>In some cases such as when MAC addresses have been assigned to
+       a network card manually or in a virtual environment such as Qemu or Xen,
+       the network rules file may not have been generated because addresses
+       are not consistently assigned.  In these cases, this method cannot

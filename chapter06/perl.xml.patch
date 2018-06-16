@@ -1,0 +1,37 @@
+diff --git a/chapter06/perl.xml b/chapter06/perl.xml
+index 76b0af2..f48ce59 100644
+--- a/chapter06/perl.xml
++++ b/chapter06/perl.xml
+@@ -71,7 +71,8 @@ export BUILD_BZIP2=0</userinput></screen>
+                   -Dman1dir=/usr/share/man/man1 \
+                   -Dman3dir=/usr/share/man/man3 \
+                   -Dpager="/usr/bin/less -isR"  \
+-                  -Duseshrplib</userinput></screen>
++                  -Duseshrplib                  \
++                  -Dusethreads</userinput></screen>
+ 
+     <variablelist>
+       <title>The meaning of the configure options:</title>
+@@ -109,6 +110,13 @@ export BUILD_BZIP2=0</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry>
++        <term><parameter>-Dusethreads</parameter></term>
++        <listitem>
++          <para>Build perl with support for threads.</para>
++        </listitem>
++      </varlistentry>
++
+     </variablelist>
+ 
+     <para>Compile the package:</para>
+@@ -234,7 +242,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
+         <term><command>instmodsh</command></term>
+         <listitem>
+           <para>Shell script for examining installed Perl modules,
+-          and can even create a tarball from an installed module</para>
++          and can create a tarball from an installed module</para>
+           <indexterm zone="ch-system-perl instmodsh">
+             <primary sortas="b-instmodsh">instmodsh</primary>
+           </indexterm>

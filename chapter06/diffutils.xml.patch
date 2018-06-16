@@ -1,0 +1,15 @@
+diff --git a/chapter06/diffutils.xml b/chapter06/diffutils.xml
+index d98bc50..0d8bd5c 100644
+--- a/chapter06/diffutils.xml
++++ b/chapter06/diffutils.xml
+@@ -41,10 +41,6 @@
+   <sect2 role="installation">
+     <title>Installation of Diffutils</title>
+ 
+-    <para>First fix a file so locale files are installed:</para>
+-
+-<screen><userinput remap="pre">sed -i 's:= @mkdir_p@:= /bin/mkdir -p:' po/Makefile.in.in</userinput></screen>
+-
+     <para>Prepare Diffutils for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>

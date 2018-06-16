@@ -1,0 +1,37 @@
+diff --git a/general.ent b/general.ent
+index fff9ccc..9e5a0a1 100644
+--- a/general.ent
++++ b/general.ent
+@@ -1,15 +1,16 @@
+-<!ENTITY version         "8.0-rc1">
+-<!ENTITY short-version   "svn">  <!-- Used below in &blfs-book; 
++<!ENTITY version         "8.2">
++<!ENTITY short-version   "8.2">  <!-- Used below in &blfs-book; 
+                                       Change to x.y for release but not -rc releases -->
+-<!ENTITY generic-version "8.0-rc1"> <!-- Use "development"  or "x.y[-pre{x}]" -->
++<!ENTITY generic-version "8.2"> <!-- Use "development"  or "x.y[-pre{x}]" -->
+ 
+-<!ENTITY versiond        "8.0-rc1-systemd">
++<!ENTITY versiond        "8.2-systemd">
+ <!ENTITY short-versiond  "systemd">
+ <!ENTITY generic-versiond "systemd"> 
+ 
+-<!ENTITY releasedate     "February 14, 2016">
+-<!ENTITY copyrightdate   "1999-2017"><!-- jhalfs needs a literal dash, not &ndash; -->
+-<!ENTITY milestone       "8.0">
++<!ENTITY releasedate     "March 2, 2018">
++
++<!ENTITY copyrightdate   "1999-2018"><!-- jhalfs needs a literal dash, not &ndash; -->
++<!ENTITY milestone       "8.2">
+ 
+ <!ENTITY lfs-root        "http://www.linuxfromscratch.org/">
+ <!ENTITY blfs-root       "&lfs-root;blfs/">
+@@ -23,7 +24,7 @@
+ <!ENTITY test-results    "&lfs-root;lfs/build-logs/&generic-version;/">
+ <!ENTITY errata          "&lfs-root;lfs/errata/&generic-version;/">
+ <!ENTITY erratad         "&lfs-root;lfs/errata/&generic-versiond;/">
+-<!ENTITY min-kernel      "2.6.32">
++<!ENTITY min-kernel      "3.2">
+ 
+ <!ENTITY patches-rootd   "&lfs-root;patches/lfs/&generic-versiond;/">
+ <!ENTITY downloads-rootd "&lfs-root;lfs/downloads/&generic-versiond;/">

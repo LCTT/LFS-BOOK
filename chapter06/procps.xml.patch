@@ -1,0 +1,42 @@
+diff --git a/chapter06/procps.xml b/chapter06/procps.xml
+index 3e5331b..0df21e4 100644
+--- a/chapter06/procps.xml
++++ b/chapter06/procps.xml
+@@ -40,7 +40,7 @@
+   <sect2 role="installation">
+     <title>Installation of Procps-ng</title>
+ 
+-    <para>Now prepare procps-ng for compilation:</para>
++    <para>Prepare procps-ng for compilation:</para>
+ 
+ <screen revision="sysv"><userinput remap="configure">./configure --prefix=/usr                            \
+             --exec-prefix=                           \
+@@ -74,14 +74,17 @@
+ <screen><userinput remap="make">make</userinput></screen>
+ 
+     <para>The test suite needs some custom modifications for LFS.
+-    Remove the test that fails when scripting does not use a tty device.
++    Remove a test that fails when scripting does not use a tty device and
++    fix two others.
+     To run the test suite, run the following commands:</para>
+ 
+ <screen><userinput remap="test">sed -i -r 's|(pmap_initname)\\\$|\1|' testsuite/pmap.test/pmap.exp
++sed -i '/set tty/d' testsuite/pkill.test/pkill.exp
++rm testsuite/pgrep.test/pgrep.exp
+ make check</userinput></screen>
+ 
+     <para>One ps test may fail, but passes if the tests are rerun at 
+-    the end of Chapter 6.</para>
++    the end of Chapter&nbsp;6.</para>
+ 
+     <para>Install the package:</para>
+ 
+@@ -190,7 +193,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</useri
+       <varlistentry id="slabtop">
+         <term><command>slabtop</command></term>
+         <listitem>
+-          <para>Displays detailed kernel slap cache information in real time</para>
++          <para>Displays detailed kernel slab cache information in real time</para>
+           <indexterm zone="ch-system-procps slabtop">
+             <primary sortas="b-slabtop">slabtop</primary>
+           </indexterm>

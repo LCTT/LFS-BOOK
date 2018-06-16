@@ -1,0 +1,16 @@
+diff --git a/chapter05/tcl.xml b/chapter05/tcl.xml
+index ce13656..716cc63 100644
+--- a/chapter05/tcl.xml
++++ b/chapter05/tcl.xml
+@@ -40,9 +40,9 @@
+   <sect2 role="installation">
+     <title>Installation of Tcl-core</title>
+ 
+-    <para>This package and the next three (Expect, DejaGNU, and Check) are
++    <para>This package and the next two (Expect and DejaGNU) are
+     installed to support running the test suites for GCC and Binutils and other
+-    packages.  Installing four packages for testing purposes may seem
++    packages.  Installing three packages for testing purposes may seem
+     excessive, but it is very reassuring, if not essential, to know that the
+     most important tools are working properly. Even if the test suites are not
+     run in this chapter (they are not mandatory), these packages are required

@@ -1,0 +1,21 @@
+diff --git a/chapter06/gmp.xml b/chapter06/gmp.xml
+index 2950b67..d7e13e2 100644
+--- a/chapter06/gmp.xml
++++ b/chapter06/gmp.xml
+@@ -50,6 +50,16 @@
+ <screen role="nodump"><userinput><parameter>ABI=32</parameter> ./configure ...</userinput></screen></para>
+     </note>
+ 
++    <note>
++      <para>The default settings of GMP produce libraries optimized for
++      the host processor.  If libraries suitable for processors less
++      capable than the host's CPU are desired, generic libraries can be 
++      created by running the following:
++
++<screen role="nodump"><userinput>cp -v configfsf.guess config.guess
++cp -v configfsf.sub   config.sub</userinput></screen></para>
++    </note>
++
+     <para>Prepare GMP for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr    \

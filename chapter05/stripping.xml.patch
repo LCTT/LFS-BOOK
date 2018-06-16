@@ -1,0 +1,15 @@
+diff --git a/chapter05/stripping.xml b/chapter05/stripping.xml
+index ad2cb3a..10879d2 100644
+--- a/chapter05/stripping.xml
++++ b/chapter05/stripping.xml
+@@ -31,6 +31,10 @@
+ 
+ <screen><userinput>rm -rf /tools/{,share}/{info,man,doc}</userinput></screen>
+ 
++  <para>Remove unneeded files:</para>
++
++<screen><userinput>find /tools/{lib,libexec} -name \*.la -delete</userinput></screen>
++
+   <para>At this point, you should have at least 3 GB of free space in
+   <envar>$LFS</envar> that can be used to build and install Glibc and Gcc in
+   the next phase. If you can build and install Glibc, you can build and install

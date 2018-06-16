@@ -1,0 +1,12 @@
+diff --git a/bootscripts/lfs/lib/services/init-functions b/bootscripts/lfs/lib/services/init-functions
+index 87f0bc6..4e1c635 100644
+--- a/bootscripts/lfs/lib/services/init-functions
++++ b/bootscripts/lfs/lib/services/init-functions
+@@ -53,6 +53,7 @@ SKIP_SUFFIX="${BRACKET}[${INFO} SKIP ${BRACKET}]${NORMAL}"
+ 
+ BOOTLOG=/run/bootlog
+ KILLDELAY=3
++SCRIPT_STAT="0"
+ 
+ # Set any user specified environment variables e.g. HEADLESS
+ [ -r /etc/sysconfig/rc.site ]  && . /etc/sysconfig/rc.site

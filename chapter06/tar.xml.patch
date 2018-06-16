@@ -1,0 +1,13 @@
+diff --git a/chapter06/tar.xml b/chapter06/tar.xml
+index afb1a5a..10d76de 100644
+--- a/chapter06/tar.xml
++++ b/chapter06/tar.xml
+@@ -72,6 +72,8 @@
+ 
+ <screen><userinput remap="test">make check</userinput></screen>
+ 
++    <para>One test, link mismatch, is known to fail.</para>
++
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install

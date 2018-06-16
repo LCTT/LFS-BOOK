@@ -1,0 +1,49 @@
+diff --git a/chapter02/hostreqs.xml b/chapter02/hostreqs.xml
+index 5e92f8a..8217898 100644
+--- a/chapter02/hostreqs.xml
++++ b/chapter02/hostreqs.xml
+@@ -64,7 +64,7 @@
+       <para><emphasis role="strong">GCC-4.7</emphasis> including the C++
+       compiler, <command>g++</command> (Versions greater than &gcc-version; are
+       not recommended as they have not been tested)</para>
+-
++<!--
+       <note><para>On some distributions, there have been reports that some
+       libraries used by gcc can be in an inconsistent state and that this
+       interferes with building some LFS packages.  To check this, look in
+@@ -73,7 +73,7 @@
+       one or two.  If the problem exists on your system, either rename or
+       delete the .la files or install the appropriate missing
+       package.</para></note>
+-
++-->
+     </listitem>
+ 
+     <listitem>
+@@ -94,7 +94,7 @@
+       <para><emphasis role="strong">Linux Kernel-&min-kernel;</emphasis></para>
+ 
+       <para>The reason for the kernel version requirement is that we specify
+-      that version when building <application>glibc</application> in Chapter 6
++      that version when building <application>glibc</application> in Chapter&nbsp;6
+       at the recommendation of the developers.  It is also required by
+       udev.</para>
+ 
+@@ -221,7 +221,7 @@ rm -f dummy.c dummy</literal>
+ EOF
+ 
+ bash version-check.sh</userinput></screen>
+-
++<!--
+   <para>Also check for some library consistency:</para>
+ 
+ <screen role="nodump"><userinput>cat &gt; library-check.sh &lt;&lt; "EOF"
+@@ -237,7 +237,6 @@ bash library-check.sh</userinput></screen>
+ 
+ <para>The files identified by this script should be all present
+ or all absent, but not only one or two present.</para>
++-->
+ 
+-
+-<!--</sect2>-->
+ </sect1>

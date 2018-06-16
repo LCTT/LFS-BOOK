@@ -1,0 +1,13 @@
+diff --git a/chapter04/creatingtoolsdir.xml b/chapter04/creatingtoolsdir.xml
+index 636b3e5..6e79f92 100644
+--- a/chapter04/creatingtoolsdir.xml
++++ b/chapter04/creatingtoolsdir.xml
+@@ -41,7 +41,7 @@
+ 
+   <para>The created symlink enables the toolchain to be compiled so that it
+   always refers to <filename class="directory">/tools</filename>, meaning
+-  that the compiler, assembler, and linker will work both in Chapter 5
++  that the compiler, assembler, and linker will work both in Chapter&nbsp;5
+   (when we are still using some tools from the host) and in the next (when
+   we are <quote>chrooted</quote> to the LFS partition).</para>
+ 

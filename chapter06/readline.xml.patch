@@ -1,0 +1,45 @@
+diff --git a/chapter06/readline.xml b/chapter06/readline.xml
+index 98be029..da1eb34 100644
+--- a/chapter06/readline.xml
++++ b/chapter06/readline.xml
+@@ -57,17 +57,16 @@ sed -i '/{OLDSUFF}/c:' support/shlib-install</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 
+-<screen><userinput remap="make">make SHLIB_LIBS=-lncurses</userinput></screen>
++<screen><userinput remap="make">make SHLIB_LIBS="-L/tools/lib -lncursesw"</userinput></screen>
+ 
+     <variablelist>
+       <title>The meaning of the make option:</title>
+ 
+       <varlistentry>
+-        <term><parameter>SHLIB_LIBS=-lncurses</parameter></term>
++        <term><parameter>SHLIB_LIBS="-L/tools/lib -lncursesw"</parameter></term>
+         <listitem>
+           <para>This option forces Readline to link against the
+-          <filename class="libraryfile">libncurses</filename> (really,
+-          <filename class="libraryfile">libncursesw</filename>) library.</para>
++          <filename class="libraryfile">libncursesw</filename> library.</para>
+         </listitem>
+       </varlistentry>
+ 
+@@ -77,7 +76,7 @@ sed -i '/{OLDSUFF}/c:' support/shlib-install</userinput></screen>
+ 
+     <para>Install the package:</para>
+ 
+-<screen><userinput remap="install">make SHLIB_LIBS=-lncurses install</userinput></screen>
++<screen><userinput remap="install">make SHLIB_LIBS="-L/tools/lib -lncurses" install</userinput></screen>
+ 
+     <para>Now move the dynamic libraries to a more appropriate location
+     and fix up some symbolic links:</para>
+@@ -125,8 +124,8 @@ ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so</us
+       <varlistentry id="libreadline">
+         <term><filename class="libraryfile">libreadline</filename></term>
+         <listitem>
+-          <para>Aids in the consistency of user interface across discrete
+-          programs that need to provide a command line interface</para>
++          <para>Provides a set of commands for manipulating text entered in an
++          interactive session of a program.</para>
+           <indexterm zone="ch-system-readline libreadline">
+             <primary sortas="c-libreadline">libreadline</primary>
+           </indexterm>

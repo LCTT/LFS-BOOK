@@ -1,0 +1,13 @@
+diff --git a/chapter07/introduction.xml b/chapter07/introduction.xml
+index 810c927..9bc8131 100644
+--- a/chapter07/introduction.xml
++++ b/chapter07/introduction.xml
+@@ -18,7 +18,7 @@
+     process must be organized to ensure the tasks are performed in the correct
+     order but, at the same time, be executed as fast as possible.</para>
+ 
+-<!--    <para>In the packages that were installed in Chapter 6, there were two
++<!--    <para>In the packages that were installed in Chapter&nbsp;6, there were two
+     different boot systems installed.  LFS provides the ability to easily
+     select which system the user wants to use and to compare and contrast the
+     two systems by actually running each system on the local computer.  The

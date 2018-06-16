@@ -1,0 +1,25 @@
+diff --git a/chapter06/adjusting.xml b/chapter06/adjusting.xml
+index b8cd5b5..5852d29 100644
+--- a/chapter06/adjusting.xml
++++ b/chapter06/adjusting.xml
+@@ -52,8 +52,9 @@ readelf -l a.out | grep ': /lib'</userinput></screen>
+ 
+ <screen os="c"><computeroutput>[Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]</computeroutput></screen>
+ 
+-  <para>Note that <filename class="directory">/lib</filename> is now
+-  the prefix of our dynamic linker.</para>
++  <para>Note that on 64-bit systems <filename class="directory">/lib</filename> is
++  the location of our dynamic linker, but is accessed via a symbolic link
++  in /lib64.</para>
+ 
+   <note><para>On 32-bit systems the interpreter should be
+   /lib/ld-linux.so.2.</para></note>
+@@ -109,7 +110,7 @@ SEARCH_DIR("/lib")</computeroutput></screen>
+   at all, then something is seriously wrong. Investigate and retrace the
+   steps to find out where the problem is and correct it. The most likely
+   reason is that something went wrong with the specs file adjustment. Any
+-  issues will need to be resolved before continuing on with the process.</para>
++  issues will need to be resolved before continuing with the process.</para>
+ 
+   <para os="u">Once everything is working correctly, clean up the test files:</para>
+ 

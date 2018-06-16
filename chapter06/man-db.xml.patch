@@ -1,0 +1,42 @@
+diff --git a/chapter06/man-db.xml b/chapter06/man-db.xml
+index c32a990..dd2fb17 100644
+--- a/chapter06/man-db.xml
++++ b/chapter06/man-db.xml
+@@ -43,7 +43,7 @@
+ 
+     <para>Prepare Man-DB for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr                        \
++<screen revision="systemd"><userinput remap="configure">./configure --prefix=/usr                        \
+             --docdir=/usr/share/doc/man-db-&man-db-version; \
+             --sysconfdir=/etc                    \
+             --disable-setuid                     \
+@@ -52,6 +52,16 @@
+             --with-vgrind=/usr/bin/vgrind        \
+             --with-grap=/usr/bin/grap</userinput></screen>
+ 
++<screen revision="sysv"><userinput remap="configure">./configure --prefix=/usr                        \
++            --docdir=/usr/share/doc/man-db-&man-db-version; \
++            --sysconfdir=/etc                    \
++            --disable-setuid                     \
++            --enable-cache-owner=bin             \
++            --with-browser=/usr/bin/lynx         \
++            --with-vgrind=/usr/bin/vgrind        \
++            --with-grap=/usr/bin/grap            \
++            --with-systemdtmpfilesdir=</userinput></screen>
++
+     <variablelist>
+       <title>The meaning of the configure options:</title>
+ 
+@@ -100,9 +110,9 @@
+ 
+ <screen><userinput remap="install">make install</userinput></screen>
+ 
+-    <para>Remove a reference to a non-existent user:</para>
++    <para revision="systemd">Remove a reference to a non-existent user:</para>
+ 
+-<screen><userinput remap="install">sed -i "s:man root:root root:g" /usr/lib/tmpfiles.d/man-db.conf</userinput></screen>
++<screen revision="systemd"><userinput remap="install">sed -i "s:man man:root root:g" /usr/lib/tmpfiles.d/man-db.conf</userinput></screen>
+ 
+   </sect2>
+ 

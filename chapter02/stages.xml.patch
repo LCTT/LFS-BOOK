@@ -1,0 +1,44 @@
+diff --git a/chapter02/stages.xml b/chapter02/stages.xml
+index fd5792f..7d04e6c 100644
+--- a/chapter02/stages.xml
++++ b/chapter02/stages.xml
+@@ -18,7 +18,7 @@
+   different points.</para>
+ 
+   <sect2>
+-  <title>Chapters 1-4</title>
++  <title>Chapters&nbsp;1&ndash;4</title>
+ 
+     <para>These chapters are accomplished on the host system.  When
+     restarting, be careful of the following:</para>
+@@ -33,7 +33,7 @@
+   </sect2>
+   
+   <sect2>
+-  <title>Chapter 5</title>
++  <title>Chapter&nbsp;5</title>
+ 
+     <itemizedlist>
+       <listitem>
+@@ -41,10 +41,10 @@
+       </listitem>
+ 
+       <listitem>
+-         <para><emphasis>ALL</emphasis> instructions in Chapter 5 
++         <para><emphasis>ALL</emphasis> instructions in Chapter&nbsp;5 
+          must be done by user <emphasis>lfs</emphasis>.  
+          A  <command>su - lfs</command> needs to be done before any 
+-         task in Chapter 5.</para>
++         task in Chapter&nbsp;5.</para>
+       </listitem>
+ 
+       <listitem>
+@@ -58,7 +58,7 @@
+   </sect2>
+ 
+   <sect2>
+-  <title>Chapters 6-8</title>
++  <title>Chapters&nbsp;6&ndash;8</title>
+ 
+     <itemizedlist>
+       <listitem>

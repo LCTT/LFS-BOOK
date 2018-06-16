@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/lfs-l10n.xml b/stylesheets/lfs-xsl/lfs-l10n.xml
+index b608c6e..3b07295 100644
+--- a/stylesheets/lfs-xsl/lfs-l10n.xml
++++ b/stylesheets/lfs-xsl/lfs-l10n.xml
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: bdubbs $
+-$Date: 2012-09-08 18:41:53 -0300 (Sat, 08 Sep 2012) $
++$Date: 2012-09-08 14:41:53 -0700 (Sat, 08 Sep 2012) $
+ -->
+ 
+ <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0">

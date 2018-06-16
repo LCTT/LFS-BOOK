@@ -1,0 +1,81 @@
+diff --git a/chapter08/kernel.xml b/chapter08/kernel.xml
+index 635b67d..89cc8dd 100644
+--- a/chapter08/kernel.xml
++++ b/chapter08/kernel.xml
+@@ -72,14 +72,17 @@
+       configuration to a good state that takes your current system architecture
+       into account.</para>
+ 
+-      <para>Be sure to enable or disable following features or the system might
++      <para>Be sure to enable/disable/set the following features or the system might
+       not work correctly or boot at all:</para>
+ 
+       <screen role="nodump" revision="sysv">
+ Device Drivers  ---&gt;
+   Generic Driver Options  ---&gt;
+    [ ] Support for uevent helper [CONFIG_UEVENT_HELPER]
+-   [*] Maintain a devtmpfs filesystem to mount at /dev [CONFIG_DEVTMPFS]</screen>
++   [*] Maintain a devtmpfs filesystem to mount at /dev [CONFIG_DEVTMPFS]
++
++Kernel hacking  ---&gt;
++       Choose kernel unwinder (Frame pointer unwinder)  ---&gt; [CONFIG_UNWINDER_FRAME_POINTER]</screen>
+ 
+       <screen role="nodump" revision="systemd">
+ General setup -->
+@@ -105,8 +108,9 @@ File systems  ---&gt;
+    &lt;*&gt; Kernel automounter version 4 support (also supports v3) [CONFIG_AUTOFS4_FS]
+   Pseudo filesystems  ---&gt;
+    [*] Tmpfs POSIX Access Control Lists [CONFIG_TMPFS_POSIX_ACL]
+-   [*] Tmpfs extended attributes [CONFIG_TMPFS_XATTR]</screen>
+-
++   [*] Tmpfs extended attributes [CONFIG_TMPFS_XATTR]
++Kernel hacking  ---&gt;
++       Choose kernel unwinder (Frame pointer unwinder)  ---&gt; [CONFIG_UNWINDER_FRAME_POINTER]</screen>
+     </note>
+ 
+     <note revision="systemd">
+@@ -217,10 +221,10 @@ File systems  ---&gt;
+     the <filename class="directory">/boot</filename> directory.</para>
+ 
+     <caution>
+-      <para>If the host system has a separate /boot partition, the
+-      files copied below should go there. The easiest way to do that 
+-      is to bind /boot on the host to /mnt/lfs/boot before proceeding.
+-      As the root user in the <emphasis>host system</emphasis>:</para>
++      <para>If the host system has a separate /boot partition, the files copied
++      below should go there. The easiest way to do that is to bind /boot on the
++      host (outside chroot) to /mnt/lfs/boot before proceeding.  As the root
++      user in the <emphasis>host system</emphasis>:</para>
+ 
+ <screen role="nodump"><userinput>mount --bind /boot /mnt/lfs/boot</userinput></screen>
+     </caution>
+@@ -231,9 +235,9 @@ File systems  ---&gt;
+     the automatic setup of the boot process described in the next section.  The
+     following command assumes an x86 architecture:</para>
+ 
+-<screen revision="sysv"><userinput remap="install">cp -v arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&version;</userinput></screen>
++<screen revision="sysv"><userinput remap="install">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&version;</userinput></screen>
+ 
+-<screen revision="systemd"><userinput remap="install">cp -v arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&versiond;</userinput></screen>
++<screen revision="systemd"><userinput remap="install">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&versiond;</userinput></screen>
+ 
+     <para><filename>System.map</filename> is a symbol file for the kernel.
+     It maps the function entry points of every function in the kernel API,
+@@ -241,7 +245,7 @@ File systems  ---&gt;
+     kernel.  It is used as a resource when investigating kernel problems.
+     Issue the following command to install the map file:</para>
+ 
+-<screen><userinput remap="install">cp -v System.map /boot/System.map-&linux-version;</userinput></screen>
++<screen><userinput remap="install">cp -iv System.map /boot/System.map-&linux-version;</userinput></screen>
+ 
+     <para>The kernel configuration file <filename>.config</filename>
+     produced by the <command>make menuconfig</command> step
+@@ -249,7 +253,7 @@ File systems  ---&gt;
+     that was just compiled. It is a good idea to keep this file for future
+     reference:</para>
+ 
+-<screen><userinput remap="install">cp -v .config /boot/config-&linux-version;</userinput></screen>
++<screen><userinput remap="install">cp -iv .config /boot/config-&linux-version;</userinput></screen>
+ 
+     <para>Install the documentation for the Linux kernel:</para>
+ 

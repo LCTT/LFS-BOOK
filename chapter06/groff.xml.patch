@@ -1,0 +1,16 @@
+diff --git a/chapter06/groff.xml b/chapter06/groff.xml
+index 821a3e5..aad0cbf 100644
+--- a/chapter06/groff.xml
++++ b/chapter06/groff.xml
+@@ -53,9 +53,9 @@
+ 
+ <screen><userinput remap="configure">PAGE=<replaceable>&lt;paper_size&gt;</replaceable> ./configure --prefix=/usr</userinput></screen>
+ 
+-    <para>Compile the package:</para>
++    <para>This package does not support parallel build. Compile the package:</para>
+ 
+-<screen><userinput remap="make">make</userinput></screen>
++<screen><userinput remap="make">make -j1</userinput></screen>
+ 
+     <para>This package does not come with a test suite.</para>
+ 

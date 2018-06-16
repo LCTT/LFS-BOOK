@@ -1,0 +1,41 @@
+diff --git a/chapter06/acl.xml b/chapter06/acl.xml
+index 7d448c1..df058f7 100644
+--- a/chapter06/acl.xml
++++ b/chapter06/acl.xml
+@@ -51,6 +51,10 @@
+ 
+ <screen><userinput remap="pre">sed -i "s:| sed.*::g" test/{sbits-restore,cp,misc}.test</userinput></screen>
+ 
++    <para>Fix a problem in the test procedures caused by changes in perl-5.26:</para>
++
++<screen><userinput remap="pre">sed -i 's/{(/\\{(/' test/run</userinput></screen>
++
+     <para>Additionally, fix a bug that causes <command>getfacl -e</command>
+     to segfault on overly long group name:</para>
+ 
+@@ -102,7 +106,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so</userinput><
+       <segtitle>Installed directories</segtitle>
+ 
+       <seglistitem>
+-        <seg>chacl, getfacl, and setacl</seg>
++        <seg>chacl, getfacl, and setfacl</seg>
+         <seg>libacl.so</seg>
+         <seg>/usr/include/acl and /usr/share/doc/acl-&acl-version;</seg>
+       </seglistitem>
+@@ -134,12 +138,12 @@ ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so</userinput><
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="setacl">
+-        <term><command>setacl</command></term>
++      <varlistentry id="setfacl">
++        <term><command>setfacl</command></term>
+         <listitem>
+           <para>Sets file access control lists</para>
+-          <indexterm zone="ch-system-acl setacl">
+-            <primary sortas="b-setacl">setacl</primary>
++          <indexterm zone="ch-system-acl setfacl">
++            <primary sortas="b-setfacl">setfacl</primary>
+           </indexterm>
+         </listitem>
+       </varlistentry>

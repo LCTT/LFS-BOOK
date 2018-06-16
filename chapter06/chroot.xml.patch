@@ -1,0 +1,13 @@
+diff --git a/chapter06/chroot.xml b/chapter06/chroot.xml
+index d946e56..c4a66bf 100644
+--- a/chapter06/chroot.xml
++++ b/chapter06/chroot.xml
+@@ -18,7 +18,7 @@
+ <screen role="nodump"><userinput>chroot "$LFS" /tools/bin/env -i \
+     HOME=/root                  \
+     TERM="$TERM"                \
+-    PS1='\u:\w\$ '              \
++    PS1='(lfs chroot) \u:\w\$ ' \
+     PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
+     /tools/bin/bash --login +h</userinput></screen>
+ 

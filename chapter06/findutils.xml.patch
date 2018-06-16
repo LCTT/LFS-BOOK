@@ -1,0 +1,18 @@
+diff --git a/chapter06/findutils.xml b/chapter06/findutils.xml
+index 8eb46d5..151088d 100644
+--- a/chapter06/findutils.xml
++++ b/chapter06/findutils.xml
+@@ -43,6 +43,13 @@
+   <sect2 role="installation">
+     <title>Installation of Findutils</title>
+ 
++   <!-- this has been fixed in upstream gnulib, when a new version of
++   findutils is released, please check #4055 to see if the change has been
++   picked up in this package -->
++   <para>First, suppress a test which on some machines can loop forever:</para>
++
++<screen><userinput remap="pre">sed -i 's/test-lock..EXEEXT.//' tests/Makefile.in</userinput></screen>
++
+     <para>Prepare Findutils for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr --localstatedir=/var/lib/locate</userinput></screen>

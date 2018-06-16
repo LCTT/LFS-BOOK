@@ -1,0 +1,13 @@
+diff --git a/chapter04/chapter04.xml b/chapter04/chapter04.xml
+index fe3cdbd..3e44ce9 100644
+--- a/chapter04/chapter04.xml
++++ b/chapter04/chapter04.xml
+@@ -5,7 +5,7 @@
+   %general-entities;
+ ]>
+ 
+-<chapter id="chapter-final-preps" xreflabel="Chapter 4">
++<chapter id="chapter-final-preps" xreflabel="Chapter&nbsp;4">
+   <?dbhtml dir="chapter04"?>
+   <?dbhtml filename="chapter04.html"?>
+ 

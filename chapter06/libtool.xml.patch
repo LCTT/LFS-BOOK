@@ -1,0 +1,17 @@
+diff --git a/chapter06/libtool.xml b/chapter06/libtool.xml
+index d4a69c3..5de045f 100644
+--- a/chapter06/libtool.xml
++++ b/chapter06/libtool.xml
+@@ -54,6 +54,12 @@
+ 
+ <screen><userinput remap="test">make check</userinput></screen>
+ 
++    <note><para>The test time for libtool can be reduced significantly on a
++    system with multiple cores.  To do this, append
++    <command>TESTSUITEFLAGS=-j&lt;N&gt;</command> to the line above.  For
++    instance, using -j4 can reduce the test time by over 60
++    percent.</para></note>
++
+     <para>Five tests are known to fail in the LFS build environment due
+     to a circular dependency, but all tests pass if rechecked after 
+     automake is installed.</para>

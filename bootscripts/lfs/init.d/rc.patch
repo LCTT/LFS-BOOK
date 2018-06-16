@@ -1,0 +1,41 @@
+diff --git a/bootscripts/lfs/init.d/rc b/bootscripts/lfs/init.d/rc
+index 3e928a8..f27f546 100644
+--- a/bootscripts/lfs/init.d/rc
++++ b/bootscripts/lfs/init.d/rc
+@@ -37,12 +37,12 @@ check_script_status()
+    # $i is set when called
+    if [ ! -f ${i} ]; then
+       log_warning_msg "${i} is not a valid symlink." 
+-      continue
++      SCRIPT_STAT="1"
+    fi
+ 
+    if [ ! -x ${i} ]; then
+       log_warning_msg "${i} is not executable, skipping."
+-      continue
++      SCRIPT_STAT="1"
+    fi
+ }
+ 
+@@ -150,6 +150,10 @@ if [ "${previous}" != "N" ]; then
+    for i in $(ls -v /etc/rc.d/rc${runlevel}.d/K* 2> /dev/null)
+    do
+       check_script_status
++      if [ "${SCRIPT_STAT}" == "1" ]; then
++         SCRIPT_STAT="0"
++         continue
++      fi
+ 
+       suffix=${i#/etc/rc.d/rc$runlevel.d/K[0-9][0-9]}
+       prev_start=/etc/rc.d/rc$previous.d/S[0-9][0-9]$suffix
+@@ -192,6 +196,10 @@ do
+    fi
+ 
+    check_script_status
++      if [ "${SCRIPT_STAT}" == "1" ]; then
++         SCRIPT_STAT="0"
++         continue
++      fi
+ 
+    case ${runlevel} in
+       0|6)

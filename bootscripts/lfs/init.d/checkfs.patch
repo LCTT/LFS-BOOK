@@ -1,0 +1,45 @@
+diff --git a/bootscripts/lfs/init.d/checkfs b/bootscripts/lfs/init.d/checkfs
+index c711e4a..2ab1bf1 100644
+--- a/bootscripts/lfs/init.d/checkfs
++++ b/bootscripts/lfs/init.d/checkfs
+@@ -69,7 +69,7 @@ case "${1}" in
+       fi
+ 
+       if [ -f /forcefsck ]; then
+-         msg="\n/forcefsck found, forcing file" 
++         msg="/forcefsck found, forcing file" 
+          msg="${msg} system checks as requested."
+          log_success_msg "$msg"
+          options="-f"
+@@ -94,7 +94,7 @@ case "${1}" in
+       if [ "${error_value}" = 1 ]; then
+          msg="\nWARNING:\n\nFile system errors "
+          msg="${msg}were found and have been corrected.\n"
+-         msg="${msg}You may want to double-check that "
++         msg="${msg}     You may want to double-check that "
+          msg="${msg}everything was fixed properly."
+          log_warning_msg "$msg"
+       fi
+@@ -116,7 +116,7 @@ case "${1}" in
+       if [ "${error_value}" -gt 3 -a "${error_value}" -lt 16 ]; then
+          msg="\nFAILURE:\n\nFile system errors "
+          msg="${msg}were encountered that could not be "
+-         msg="${msg}fixed automatically.  This system "
++         msg="${msg}fixed automatically.\nThis system "
+          msg="${msg}cannot continue to boot and will "
+          msg="${msg}therefore be halted until those "
+          msg="${msg}errors are fixed manually by a "
+@@ -131,10 +131,10 @@ case "${1}" in
+       fi
+ 
+       if [ "${error_value}" -ge 16 ]; then
+-         msg="\nFAILURE:\n\nUnexpected Failure "
++         msg="FAILURE:\n\nUnexpected failure "
+          msg="${msg}running fsck.  Exited with error "
+-         msg="${msg} code: ${error_value}."
+-         log_failure_msg $msg
++         msg="${msg} code: ${error_value}.\n"
++         log_info_msg $msg
+          exit ${error_value}
+       fi
+ 

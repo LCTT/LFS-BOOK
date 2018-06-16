@@ -1,0 +1,23 @@
+diff --git a/chapter02/aboutlfs.xml b/chapter02/aboutlfs.xml
+index 7193794..93f885e 100644
+--- a/chapter02/aboutlfs.xml
++++ b/chapter02/aboutlfs.xml
+@@ -51,6 +51,17 @@
+   <filename>/etc/passwd</filename> file for all users that need the
+   <envar>LFS</envar> variable needs to be bash to ensure that the
+   <filename>/root/.bash_profile</filename> file is incorporated as a part of
+-  the login process.</para></note>
++  the login process.</para>
++  
++  <para>Another consideration is the method that is used to log into the
++  host system.  If logging in through a graphical display manager, the
++  user's <filename>.bash_profile</filename> is not normally used when
++  a virtual terminal is started.  In this case, add the export command to
++  the <filename>.bashrc</filename> file for the user and root.  In addition, 
++  some distributions have instructions to not run the <filename>.bashrc</filename> 
++  instructions in a non-interactive bash invocation.  Be sure to add the
++  export command before the test for non-interactive use.</para>
++  
++  </note>
+ 
+ </sect1>

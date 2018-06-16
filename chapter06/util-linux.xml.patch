@@ -1,0 +1,46 @@
+diff --git a/chapter06/util-linux.xml b/chapter06/util-linux.xml
+index b5163ce..5973081 100644
+--- a/chapter06/util-linux.xml
++++ b/chapter06/util-linux.xml
+@@ -60,6 +60,10 @@
+ <screen><userinput remap="pre">sed -e 's/2^64/(2^64/' -e 's/E &lt;/E) &lt;=/' -e 's/ne /eq /' \
+     -i tests/ts/ipcs/limits2</userinput></screen>
+ -->
++    <para revision="systemd">Remove the earlier created symlinks:</para>
++
++<screen revision="systemd"><userinput remap="pre">rm -vf /usr/include/{blkid,libmount,uuid}</userinput></screen>
++
+     <para>Prepare Util-linux for compilation:</para>
+ 
+ <screen revision="sysv"><userinput remap="configure">./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
+@@ -86,8 +90,7 @@
+             --disable-runuser    \
+             --disable-pylibmount \
+             --disable-static     \
+-            --without-python     \
+-            --enable-libmount-force-mountinfo</userinput></screen>
++            --without-python</userinput></screen>
+ 
+     <para>The --disable and --without options prevent warnings about
+     building components that require packages not in LFS or are 
+@@ -112,8 +115,9 @@
+     <screen><userinput remap="test">chown -Rv nobody .
+ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+ 
+-    <note><para>One test above, tests/ts/ipcs/limits2, will fail when the host 
+-    is using a recent kernel.  The failure can safely be ignored.</para></note>
++    <note><para>One test, fincore/count, may fail in the initial chroot
++    environment but will pass if the test is rerun after the LFS system
++    is complete.</para></note>
+ 
+     <para>Install the package:</para>
+ 
+@@ -1120,7 +1124,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+         <term><command>uuidd</command></term>
+         <listitem>
+           <para>A daemon used by the UUID library to generate time-based
+-          UUIDs in a secure and guranteed-unique fashion</para>
++          UUIDs in a secure and guaranteed-unique fashion</para>
+           <indexterm zone="ch-system-util-linux uuidd">
+             <primary sortas="b-uuidd">uuidd</primary>
+           </indexterm>

@@ -1,0 +1,37 @@
+diff --git a/chapter07/locale.xml b/chapter07/locale.xml
+index 3e6c2aa..24e7df8 100644
+--- a/chapter07/locale.xml
++++ b/chapter07/locale.xml
+@@ -80,7 +80,7 @@ LC_ALL=&lt;locale name&gt; locale int_prefix</userinput></screen>
+   encoding used by the locale, the local currency, and the prefix to dial
+   before the telephone number in order to get into the country. If any of the
+   commands above fail with a message similar to the one shown below, this means
+-  that your locale was either not installed in Chapter 6 or is not supported by
++  that your locale was either not installed in Chapter&nbsp;6 or is not supported by
+   the default installation of Glibc.</para>
+ 
+ <screen><computeroutput>locale: Cannot set LC_* to default locale: No such file or directory</computeroutput></screen>
+@@ -118,9 +118,9 @@ LC_ALL=&lt;locale name&gt; locale int_prefix</userinput></screen>
+ <literal>LANG=<replaceable>&lt;ll&gt;_&lt;CC&gt;.&lt;charmap&gt;&lt;@modifiers&gt;</replaceable></literal>
+ EOF</userinput></screen>
+ 
+-  <para>Note that you can modify <filename>/etc/locale.conf</filename> with
+-  systemd <command>localectl</command> utility. To use <command>localectl</command>
+-  for the example above, run:</para>
++  <para>Note that you can modify <filename>/etc/locale.conf</filename> with the
++  systemd <command>localectl</command> utility. To use
++  <command>localectl</command> for the example above, run:</para>
+ 
+ <screen role="nodump"><userinput>localectl set-locale LANG="<replaceable>&lt;ll&gt;_&lt;CC&gt;.&lt;charmap&gt;&lt;@modifiers&gt;</replaceable>"</userinput></screen>
+ 
+@@ -132,8 +132,8 @@ EOF</userinput></screen>
+ 
+ <screen role="nodump"><userinput>localectl set-locale LANG="en_US.UTF-8" LC_CTYPE="en_US"</userinput></screen>
+ 
+-  <note><para>Please note that <command>localectl</command> command can
+-  be used  only on a system booted with systemd.</para></note>
++  <note><para>Please note that the <command>localectl</command> command can
++  be used only on a system booted with systemd.</para></note>
+ 
+   <para>The <quote>C</quote> (default) and <quote>en_US</quote> (the recommended
+   one for United States English users) locales are different. <quote>C</quote>

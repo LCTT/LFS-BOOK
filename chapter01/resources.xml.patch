@@ -1,0 +1,22 @@
+diff --git a/chapter01/resources.xml b/chapter01/resources.xml
+index d5083e8..b3074d2 100644
+--- a/chapter01/resources.xml
++++ b/chapter01/resources.xml
+@@ -20,7 +20,7 @@
+ 
+   </sect2>
+ 
+-  <sect2 id="ch-intro-maillists" xreflabel="Chapter 1 - Mailing Lists">
++  <sect2 id="ch-intro-maillists" xreflabel="Chapter&nbsp;1 - Mailing Lists">
+     <title>Mailing Lists</title>
+ 
+     <para>The <uri>linuxfromscratch.org</uri> server hosts a number of mailing
+@@ -71,7 +71,7 @@
+ 
+   </sect2>  -->
+ 
+-  <sect2 id="ch-intro-mirrors" xreflabel="Chapter 1 - Mirror sites">
++  <sect2 id="ch-intro-mirrors" xreflabel="Chapter&nbsp;1 - Mirror sites">
+     <title>Mirror Sites</title>
+ 
+     <para>The LFS project has a number of world-wide mirrors to make accessing

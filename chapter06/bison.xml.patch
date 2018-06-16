@@ -1,0 +1,14 @@
+diff --git a/chapter06/bison.xml b/chapter06/bison.xml
+index 79f556d..31e9570 100644
+--- a/chapter06/bison.xml
++++ b/chapter06/bison.xml
+@@ -60,7 +60,8 @@
+ 
+     <para>There is a circular dependency between bison and flex with regard to
+     the checks.  If desired, after installing flex in the next section, the
+-    bison checks can be run with <command>make check</command>.</para>
++    bison checks can be run with <command>make check</command>.  Three
++    tests related to lalr1.cc fail for unknown reasons.</para>
+ 
+     <para>Install the package:</para>
+ 

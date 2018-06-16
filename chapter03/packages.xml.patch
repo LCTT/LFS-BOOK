@@ -1,0 +1,153 @@
+diff --git a/chapter03/packages.xml b/chapter03/packages.xml
+index 1bc7bc5..979c22e 100644
+--- a/chapter03/packages.xml
++++ b/chapter03/packages.xml
+@@ -157,6 +157,15 @@
+       </listitem>
+     </varlistentry>
+ 
++    <varlistentry>
++      <term>Elfutils (&elfutils-version;) - <token>&elfutils-size;</token>:</term>
++      <listitem>
++        <para>Home page: <ulink url="&elfutils-home;"/></para>
++        <para>Download: <ulink url="&elfutils-url;"/></para>
++        <para>MD5 sum: <literal>&elfutils-md5;</literal></para>
++      </listitem>
++    </varlistentry>
++
+     <varlistentry>
+       <term>Expat (&expat-version;) - <token>&expat-size;</token>:</term>
+       <listitem>
+@@ -253,6 +262,11 @@
+         <para>Home page: <ulink url="&glibc-home;"/></para>
+         <para>Download: <ulink url="&glibc-url;"/></para>
+         <para>MD5 sum: <literal>&glibc-md5;</literal></para>
++        <note>
++          <para>This version of glibc addresses a security issue 
++          not yet in the latest stable release.  
++          </para>
++        </note>
+       </listitem>
+     </varlistentry>
+ 
+@@ -391,6 +405,15 @@
+       </listitem>
+     </varlistentry>
+ 
++    <varlistentry>
++      <term>Libffi (&libffi-version;) - <token>&libffi-size;</token>:</term>
++      <listitem>
++        <para>Home page: <ulink url="&libffi-home;"/></para>
++        <para>Download: <ulink url="&libffi-url;"/></para>
++        <para>MD5 sum: <literal>&libffi-md5;</literal></para>
++      </listitem>
++    </varlistentry>
++
+     <varlistentry>
+       <term>Libpipeline (&libpipeline-version;) - <token>&libpipeline-size;</token>:</term>
+       <listitem>
+@@ -468,6 +491,15 @@
+       </listitem>
+     </varlistentry>
+ 
++    <varlistentry>
++      <term>Meson (&meson-version;) - <token>&meson-size;</token>:</term>
++      <listitem>
++        <para>Home page: <ulink url="&meson-home;"/></para>
++        <para>Download: <ulink url="&meson-url;"/></para>
++        <para>MD5 sum: <literal>&meson-md5;</literal></para>
++      </listitem>
++    </varlistentry>
++
+     <varlistentry>
+       <term>MPC (&mpc-version;) - <token>&mpc-size;</token>:</term>
+       <listitem>
+@@ -486,6 +518,15 @@
+       </listitem>
+     </varlistentry>
+ 
++    <varlistentry>
++      <term>Ninja (&ninja-version;) - <token>&ninja-size;</token>:</term>
++      <listitem>
++        <para>Home page: <ulink url="&ninja-home;"/></para>
++        <para>Download: <ulink url="&ninja-url;"/></para>
++        <para>MD5 sum: <literal>&ninja-md5;</literal></para>
++      </listitem>
++    </varlistentry>
++
+     <varlistentry>
+       <term>Ncurses (&ncurses-version;) - <token>&ncurses-size;</token>:</term>
+       <listitem>
+@@ -495,6 +536,15 @@
+       </listitem>
+     </varlistentry>
+ 
++    <varlistentry>
++      <term>OpenSSL (&openssl-version;) - <token>&openssl-size;</token>:</term>
++      <listitem>
++        <para>Home page: <ulink url="&openssl-home;"/></para>
++        <para>Download: <ulink url="&openssl-url;"/></para>
++        <para>MD5 sum: <literal>&openssl-md5;</literal></para>
++      </listitem>
++    </varlistentry>
++
+     <varlistentry>
+       <term>Patch (&patch-version;) - <token>&patch-size;</token>:</term>
+       <listitem>
+@@ -540,6 +590,23 @@
+       </listitem>
+     </varlistentry>
+ 
++    <varlistentry>
++      <term>Python (&python-version;) - <token>&python-size;</token>:</term>
++      <listitem>
++        <para>Home page: <ulink url="&python-home;"/></para>
++        <para>Download: <ulink url="&python-url;"/></para>
++        <para>MD5 sum: <literal>&python-md5;</literal></para>
++      </listitem>
++    </varlistentry>
++
++    <varlistentry>
++      <term>Python Documentation (&python-version;) - <token>&python-docs-size;</token>:</term>
++      <listitem>
++        <para>Download: <ulink url="&python-docs-url;"/></para>
++        <para>MD5 sum: <literal>&python-docs-md5;</literal></para>
++      </listitem>
++    </varlistentry>
++
+     <varlistentry>
+       <term>Readline (&readline-version;) - <token>&readline-size;</token>:</term>
+       <listitem>
+@@ -585,19 +652,25 @@
+         <para>Home page: <ulink url="&systemd-home;"/></para>
+         <para>Download: <ulink url="&systemd-url;"/></para>
+         <para>MD5 sum: <literal>&systemd-md5;</literal></para>
++      </listitem>
++    </varlistentry>
++
++    <varlistentry revision="systemd">
++      <term>Systemd Man Pages(&systemd-version;) - <token>&systemd-man-size;</token>:</term>
++      <listitem>
++        <para>Home page: <ulink url="&systemd-home;"/></para>
++        <para>Download: <ulink url="&systemd-man-url;"/></para>
++        <para>MD5 sum: <literal>&systemd-man-md5;</literal></para>
+ 
+         <note>
+-          <para>The Linux From Scratch systemd team generates its own tarball
+-          of the systemd source. This is done in order to generate the manual
+-          pages and documentation, as well as prevent unnecessary files from
+-          the <application>systemd</application> git repo from being installed
+-          on the system. Please use the version generated by the Linux From
+-          Scratch team.</para>
++          <para>The Linux From Scratch team generates its own tarball of the
++          man pages using the systemd source. This is done in order to avoid
++          unnecessary dependencies.</para>
+         </note>
+-
+       </listitem>
+     </varlistentry>
+ 
++
+     <varlistentry revision="sysv">
+       <term>Sysvinit (&sysvinit-version;) - <token>&sysvinit-size;</token>:</term>
+       <listitem>

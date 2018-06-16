@@ -1,0 +1,25 @@
+diff --git a/chapter06/libpipeline.xml b/chapter06/libpipeline.xml
+index 117b571..2ad05de 100644
+--- a/chapter06/libpipeline.xml
++++ b/chapter06/libpipeline.xml
+@@ -43,7 +43,10 @@
+ 
+     <para>Prepare Libpipeline for compilation:</para>
+ 
+-<screen><userinput remap="configure">PKG_CONFIG_PATH=/tools/lib/pkgconfig ./configure --prefix=/usr</userinput></screen>
++<screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
++
++<!--
++<screen><userinput remap="configure">PKG_CONFIG_PATH=/tools/lib/pkgconfig ./configure - -prefix=/usr</userinput></screen>
+ 
+     <variablelist>
+       <title>The meaning of the configure options:</title>
+@@ -57,7 +60,7 @@
+       </varlistentry>
+ 
+     </variablelist>
+-
++-->
+     <para>Compile the package:</para>
+ 
+ <screen><userinput remap="make">make</userinput></screen>

@@ -1,0 +1,39 @@
+diff --git a/chapter05/gcc-pass1.xml b/chapter05/gcc-pass1.xml
+index e7b324e..e4c8882 100644
+--- a/chapter05/gcc-pass1.xml
++++ b/chapter05/gcc-pass1.xml
+@@ -82,10 +82,9 @@ do
+ done</userinput></screen>
+ 
+     <para>In case the above seems hard to follow, let's break it down a bit.
+-    First we find all the files under the <filename
+-    class="directory">gcc/config</filename> directory that are named either
+-    <filename>linux.h</filename>, <filename>linux64.h</filename> or
+-    <filename>sysv4.h</filename>.  For each file found, we copy it to a file of
++    First we copy the files <filename>gcc/config/linux.h</filename>,
++    <filename>gcc/config/i386/linux.h</filename>, and
++    <filename>gcc/config/i368/linux64.h</filename> to a file of
+     the same name but with an added suffix of <quote>.orig</quote>. Then the
+     first sed expression prepends <quote>/tools</quote> to every instance of
+     <quote>/lib/ld</quote>, <quote>/lib64/ld</quote> or
+@@ -186,12 +185,14 @@ cd       build</userinput></screen>
+       <varlistentry>
+         <term><parameter>--with-native-system-header-dir=/tools/include</parameter></term>
+         <listitem>
+-          <para>By default GCC searches <filename>/usr/include</filename> for system
+-          headers. In conjunction with the sysroot switch, this would translate normally
+-          to <filename>$LFS/usr/include</filename>. However the headers that will be installed
+-          in the next two sections will go to <filename>$LFS/tools/include</filename>. This
+-          switch ensures that gcc will find them correctly. In the second pass of GCC, this
+-          same switch will ensure that no headers from the host system are found.</para>
++          <para>By default GCC searches <filename>/usr/include</filename> for
++          system headers. In conjunction with the sysroot switch, this would
++          normally translate to <filename>$LFS/usr/include</filename>. However
++          the headers that will be installed in the next two sections will go
++          to <filename>$LFS/tools/include</filename>. This switch ensures that
++          gcc will find them correctly. In the second pass of GCC, this same
++          switch will ensure that no headers from the host system are
++          found.</para>
+         </listitem>
+       </varlistentry>
+ 

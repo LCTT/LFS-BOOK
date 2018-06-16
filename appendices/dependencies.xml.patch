@@ -1,0 +1,252 @@
+diff --git a/appendices/dependencies.xml b/appendices/dependencies.xml
+index 9f5929b..3b34951 100644
+--- a/appendices/dependencies.xml
++++ b/appendices/dependencies.xml
+@@ -1474,6 +1474,41 @@
+         </seglistitem>
+       </segmentedlist>
+ 
++<!-- Begin Libffi dependency info -->
++  <bridgehead renderas="sect2" id="libffi-dep">Libffi</bridgehead>
++
++      <segmentedlist>
++        <segtitle>&dependencies;</segtitle>
++
++        <seglistitem>
++         <seg>Bash, Binutils, Coreutils, GCC, Glibc, Make, and Sed</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&testsuites;</segtitle>
++
++        <seglistitem>
++          <seg>DejaGnu</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&before;</segtitle>
++
++        <seglistitem>
++          <seg>Python</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&external;</segtitle>
++
++        <seglistitem>
++          <seg>None</seg>
++        </seglistitem>
++      </segmentedlist>
++
+ <!-- Begin Libpipeline dependency info -->
+   <bridgehead renderas="sect2" id="libpipeline-dep">Libpipeline</bridgehead>
+ 
+@@ -1554,7 +1589,7 @@
+ 
+         <seglistitem>
+          <seg>Bash, Bc, Binutils, Coreutils, Diffutils, Findutils, GCC, Glibc, Grep,
+-         Gzip, Kmod, Make, Ncurses, Perl, and Sed</seg>
++         Gzip, Kmod, Make, Ncurses, OpenSSL, Perl, and Sed</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1570,7 +1605,7 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>OpenSSL</seg>
++          <seg>None</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1725,6 +1760,41 @@
+         </seglistitem>
+       </segmentedlist>
+ 
++<!-- Begin Meson dependency info -->
++  <bridgehead renderas="sect2" id="meson-dep">Meson</bridgehead>
++
++      <segmentedlist>
++        <segtitle>&dependencies;</segtitle>
++
++        <seglistitem>
++         <seg>Ninja and Python</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&testsuites;</segtitle>
++
++        <seglistitem>
++          <seg>No test suite available</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&before;</segtitle>
++
++        <seglistitem>
++          <seg>None</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&external;</segtitle>
++
++        <seglistitem>
++          <seg>None</seg>
++        </seglistitem>
++      </segmentedlist>
++
+ <!-- Begin MPC dependency info -->
+   <bridgehead renderas="sect2" id="mpc-dep">MPC</bridgehead>
+ 
+@@ -1834,6 +1904,76 @@
+         </seglistitem>
+       </segmentedlist>
+ 
++<!-- Begin Ninja dependency info -->
++  <bridgehead renderas="sect2" id="ninja-dep">Ninja</bridgehead>
++
++      <segmentedlist>
++        <segtitle>&dependencies;</segtitle>
++
++        <seglistitem>
++         <seg>Binutils, Coreutils, Gcc, Python</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&testsuites;</segtitle>
++
++        <seglistitem>
++          <seg>None</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&before;</segtitle>
++
++        <seglistitem>
++          <seg>Meson</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&external;</segtitle>
++
++        <seglistitem>
++          <seg>Asciidoc, Doxygen, Emacs, and re2c</seg>
++        </seglistitem>
++      </segmentedlist>
++
++<!-- Begin Openssl dependency info -->
++  <bridgehead renderas="sect2" id="openssl-dep">Openssl</bridgehead>
++
++      <segmentedlist>
++        <segtitle>&dependencies;</segtitle>
++
++        <seglistitem>
++         <seg>Binutils, Coreutils, Gcc, Make, Perl</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&testsuites;</segtitle>
++
++        <seglistitem>
++          <seg>None</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&before;</segtitle>
++
++        <seglistitem>
++          <seg>Linux</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&external;</segtitle>
++
++        <seglistitem>
++          <seg>None</seg>
++        </seglistitem>
++      </segmentedlist>
++
+ <!-- Begin Patch dependency info -->
+   <bridgehead renderas="sect2" id="patch-dep">Patch</bridgehead>
+ 
+@@ -2047,6 +2187,42 @@
+         </seglistitem>
+       </segmentedlist>
+ 
++<!-- Begin Python dependency info -->
++  <bridgehead renderas="sect2" id="python-dep">Python</bridgehead>
++
++      <segmentedlist>
++        <segtitle>&dependencies;</segtitle>
++
++        <seglistitem>
++         <seg>Bash, Binutils, Coreutils, GCC, Gdbm, Gettext, Glibc, Grep, 
++         Libffi, Make, Ncurses, and Sed</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&testsuites;</segtitle>
++
++        <seglistitem>
++          <seg>GDB and Valgrind</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&before;</segtitle>
++
++        <seglistitem>
++          <seg>Ninja</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&external;</segtitle>
++
++        <seglistitem>
++          <seg>Berkeley DB, OpenSSL, SQLite, and Tk</seg>
++        </seglistitem>
++      </segmentedlist>
++
+ <!-- Begin Readline dependency info -->
+   <bridgehead renderas="sect2" id="readline-dep">Readline</bridgehead>
+ 
+@@ -2115,7 +2291,7 @@
+         <segtitle>&external;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Cracklib</seg>
++          <seg>None</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -2191,7 +2367,6 @@
+       </segmentedlist>
+ 
+ <!-- Begin systemd dependency info -->
+-<!--
+   <bridgehead renderas="sect2" id="systemd-dep">Systemd</bridgehead>
+ 
+       <segmentedlist>
+@@ -2227,7 +2402,7 @@
+           <seg>None</seg>
+         </seglistitem>
+       </segmentedlist>
+--->
++
+ <!-- Begin Sysvinit dependency info -->
+   <bridgehead renderas="sect2" id="sysvinit-dep">Sysvinit</bridgehead>
+ 

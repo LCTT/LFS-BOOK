@@ -1,0 +1,18 @@
+diff --git a/chapter05/glibc.xml b/chapter05/glibc.xml
+index 8002fae..09636a1 100644
+--- a/chapter05/glibc.xml
++++ b/chapter05/glibc.xml
+@@ -159,10 +159,10 @@ readelf -l a.out | grep ': /tools'</userinput></screen>
+     <para>If everything is working correctly, there should be no errors,
+     and the output of the last command will be of the form:</para>
+ 
+-<screen><computeroutput>[Requesting program interpreter: /tools/lib/ld-linux.so.2]</computeroutput></screen>
++<screen><computeroutput>[Requesting program interpreter: /tools/lib64/ld-linux-x86-64.so.2]</computeroutput></screen>
+ 
+-    <para>Note that for 64-bit machines, the interpreter name will be
+-    <filename>/tools/lib64/ld-linux-x86-64.so.2</filename>.</para>
++    <para>Note that for 32-bit machines, the interpreter name will be
++    <filename>/tools/lib/ld-linux.so.2</filename>.</para>
+ 
+     <para>If the output is not shown as above or there was no output at all,
+     then something is wrong. Investigate and retrace the steps to find out

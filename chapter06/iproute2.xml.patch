@@ -1,0 +1,25 @@
+diff --git a/chapter06/iproute2.xml b/chapter06/iproute2.xml
+index 0baf620..35d07b8 100644
+--- a/chapter06/iproute2.xml
++++ b/chapter06/iproute2.xml
+@@ -43,16 +43,15 @@
+ 
+     <para>The <command>arpd</command> program included in this package will not
+     be built since it is dependent on Berkeley DB, which is not installed in
+-    LFS. However, documentation files and a directory for
+-    <command>arpd</command> will still be installed. Prevent this by running
+-    the commands below. If the <command>arpd</command> binary is needed,
++    LFS. However, a directory for <command>arpd</command> and a man page will still 
++    be installed. Prevent this by running the commands below. 
++    If the <command>arpd</command> binary is needed,
+     instructions for compiling Berkeley DB can be found in the BLFS Book at
+     <ulink url="&blfs-book;server/databases.html#db"/>.
+     </para>
+ 
+ <screen><userinput remap="pre">sed -i /ARPD/d Makefile
+-sed -i 's/arpd.8//' man/man8/Makefile
+-rm -v doc/arpd.sgml</userinput></screen>
++rm -fv man/man8/arpd.8</userinput></screen>
+ 
+     <para>It is also necessary to disable building one module that 
+     requires <ulink url="&blfs-book;postlfs/iptables.html"/>.</para>

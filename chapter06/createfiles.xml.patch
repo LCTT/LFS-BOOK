@@ -1,0 +1,141 @@
+diff --git a/chapter06/createfiles.xml b/chapter06/createfiles.xml
+index 5f22646..5a44725 100644
+--- a/chapter06/createfiles.xml
++++ b/chapter06/createfiles.xml
+@@ -34,18 +34,40 @@
+     <primary sortas="e-/var/log/wtmp">/var/log/wtmp</primary>
+   </indexterm>
+ 
+-  <para>Some programs use hard-wired paths to programs which do not exist yet. In
+-  order to satisfy these programs, create a number of symbolic links which will be
+-  replaced by real files throughout the course of this chapter after the software
+-  has been installed:</para>
++  <para>Some programs use hard-wired paths to programs which do not exist yet.
++  In order to satisfy these programs, create a number of symbolic links which
++  will be replaced by real files throughout the course of this chapter after the
++  software has been installed:</para>
+ 
+-<screen><userinput>ln -sv /tools/bin/{bash,cat,echo,pwd,stty} /bin
+-ln -sv /tools/bin/perl /usr/bin
++<screen revision="sysv"><userinput>ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} /bin
++ln -sv /tools/bin/{install,perl} /usr/bin
+ ln -sv /tools/lib/libgcc_s.so{,.1} /usr/lib
+-ln -sv /tools/lib/libstdc++.so{,.6} /usr/lib
+-sed 's/tools/usr/' /tools/lib/libstdc++.la > /usr/lib/libstdc++.la
++ln -sv /tools/lib/libstdc++.{a,so{,.6}} /usr/lib
+ ln -sv bash /bin/sh</userinput></screen>
+ 
++<!--sed 's/tools/usr/' /tools/lib/libstdc++.la > /usr/lib/libstdc++.la -->
++
++<screen revision="systemd"><userinput>ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} /bin
++ln -sv /tools/bin/{env,install,perl} /usr/bin
++ln -sv /tools/lib/libgcc_s.so{,.1} /usr/lib
++ln -sv /tools/lib/libstdc++.{a,so{,.6}} /usr/lib
++for lib in blkid lzma mount uuid
++do
++    ln -sv /tools/lib/lib$lib.so* /usr/lib
++done
++ln -svf /tools/include/blkid    /usr/include
++ln -svf /tools/include/libmount /usr/include
++ln -svf /tools/include/uuid     /usr/include
++install -vdm755 /usr/lib/pkgconfig
++for pc in blkid mount uuid
++do
++    sed 's@tools@usr@g' /tools/lib/pkgconfig/${pc}.pc \
++        > /usr/lib/pkgconfig/${pc}.pc
++done
++ln -sv bash /bin/sh</userinput></screen>
++
++<!--sed 's/tools/usr/' /tools/lib/libstdc++.la > /usr/lib/libstdc++.la
++   sed 's/tools/usr/' /tools/lib/lib${lib}.la > /usr/lib/lib${lib}.la-->
+   <variablelist>
+     <title>The purpose of each link:</title>
+ 
+@@ -64,6 +86,14 @@ ln -sv bash /bin/sh</userinput></screen>
+       </listitem>
+     </varlistentry>
+ 
++    <varlistentry>
++      <term><parameter><filename>/bin/dd</filename></parameter></term>
++      <listitem>
++        <para>The path to <filename>dd</filename> will be hard-coded into the
++        <filename>/usr/bin/libtool</filename> utility.</para>
++      </listitem>
++    </varlistentry>
++
+     <varlistentry>
+       <term><parameter><filename>/bin/echo</filename></parameter></term>
+       <listitem>
+@@ -72,6 +102,23 @@ ln -sv bash /bin/sh</userinput></screen>
+       </listitem>
+     </varlistentry>
+ 
++    <varlistentry>
++      <term><parameter><filename>/usr/bin/install</filename></parameter></term>
++      <listitem>
++        <para>The path to <filename>install</filename> will be hard-coded into
++        the <filename>/usr/lib/bash/Makefile.inc</filename> file.</para>
++      </listitem>
++    </varlistentry>
++
++    <varlistentry>
++      <term><parameter><filename>/bin/ln</filename></parameter></term>
++      <listitem>
++        <para>The path to <filename>ln</filename> will be hard-coded into the
++        <filename>/usr/lib/perl5/&perl-version;/&lt;target-triplet&gt;/Config_heavy.pl</filename>
++         file.</para>
++      </listitem>
++    </varlistentry>
++
+     <varlistentry>
+       <term><parameter><filename>/bin/pwd</filename></parameter></term>
+       <listitem>
+@@ -80,6 +127,15 @@ ln -sv bash /bin/sh</userinput></screen>
+       </listitem>
+     </varlistentry>
+ 
++    <varlistentry>
++      <term><parameter><filename>/bin/rm</filename></parameter></term>
++      <listitem>
++        <para>The path to <filename>rm</filename> will be hard-coded into the
++        <filename>/usr/lib/perl5/&perl-version;/&lt;target-triplet&gt;/Config_heavy.pl</filename>
++         file.</para>
++      </listitem>
++    </varlistentry>
++
+     <varlistentry>
+       <term><parameter><filename>/bin/stty</filename></parameter></term>
+       <listitem>
+@@ -110,7 +166,7 @@ ln -sv bash /bin/sh</userinput></screen>
+         for C++ support in GMP.</para>
+       </listitem>
+     </varlistentry>
+-
++<!--
+     <varlistentry>
+       <term><parameter><filename>/usr/lib/libstdc++.la</filename></parameter></term>
+       <listitem>
+@@ -119,6 +175,15 @@ ln -sv bash /bin/sh</userinput></screen>
+         <filename>/usr/lib/libstdc++.la</filename> after GCC is installed.</para>
+       </listitem>
+     </varlistentry>
++-->
++    <varlistentry revision="systemd">
++      <term><parameter><filename>/usr/lib/lib{blkid,lzma,mount,uuid}.{a,la,so*}</filename></parameter></term>
++      <listitem>
++        <para>These links prevent systemd utilities from acquiring an
++        unnecessary reference to the
++        <filename class="directory">/tools</filename> directory.</para>
++      </listitem>
++    </varlistentry>
+ 
+     <varlistentry>
+       <term><parameter><filename>/bin/sh</filename></parameter></term>
+@@ -224,6 +289,7 @@ messagebus:x:18:
+ systemd-journal:x:23:
+ input:x:24:
+ mail:x:34:
++kvm:x:61:
+ systemd-bus-proxy:x:72:
+ systemd-journal-gateway:x:73:
+ systemd-journal-remote:x:74:

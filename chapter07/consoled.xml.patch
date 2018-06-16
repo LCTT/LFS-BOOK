@@ -1,0 +1,24 @@
+diff --git a/chapter07/consoled.xml b/chapter07/consoled.xml
+index f9d2ea0..c1bbf64 100644
+--- a/chapter07/consoled.xml
++++ b/chapter07/consoled.xml
+@@ -86,8 +86,8 @@ EOF</userinput></screen>
+ 
+ <screen role="nodump"><userinput>localectl set-keymap MAP</userinput></screen>
+ 
+-  <note><para>Please note that <command>localectl</command> command can
+-  be used  only on a system booted with systemd.</para></note>
++  <note><para>Please note that the <command>localectl</command> command can
++  be used only on a system booted with systemd.</para></note>
+ 
+   <para>You can also use <command>localectl</command> utility with the
+   corresponding parameters to change X11 keyboard layout, model, variant
+@@ -131,7 +131,7 @@ EOF</userinput></screen>
+ 
+   </variablelist>
+ 
+-  <note><para>Using any of the parameters listed above requires
++  <note><para>Using any of the parameters listed above requires the
+   XKeyboard Config package from BLFS.</para></note>
+ 
+ </sect1>

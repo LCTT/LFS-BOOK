@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/xhtml/lfs-mixed.xsl b/stylesheets/lfs-xsl/xhtml/lfs-mixed.xsl
+index 5ea70e0..396e8d6 100644
+--- a/stylesheets/lfs-xsl/xhtml/lfs-mixed.xsl
++++ b/stylesheets/lfs-xsl/xhtml/lfs-mixed.xsl
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: bdubbs $
+-$Date: 2012-08-29 17:45:23 -0300 (Wed, 29 Aug 2012) $
++$Date: 2012-08-29 13:45:23 -0700 (Wed, 29 Aug 2012) $
+ -->
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

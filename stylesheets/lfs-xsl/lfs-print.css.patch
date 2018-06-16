@@ -1,0 +1,12 @@
+diff --git a/stylesheets/lfs-xsl/lfs-print.css b/stylesheets/lfs-xsl/lfs-print.css
+index d970719..0552b4d 100644
+--- a/stylesheets/lfs-xsl/lfs-print.css
++++ b/stylesheets/lfs-xsl/lfs-print.css
+@@ -1,6 +1,6 @@
+ /*
+ $LastChangedBy: bdubbs $
+-$Date: 2015-08-10 14:53:57 -0300 (Mon, 10 Aug 2015) $
++$Date: 2015-08-10 10:53:57 -0700 (Mon, 10 Aug 2015) $
+ */
+ @import url(lfs.css);
+ 

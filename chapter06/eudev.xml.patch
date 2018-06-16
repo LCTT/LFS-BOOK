@@ -1,0 +1,63 @@
+diff --git a/chapter06/eudev.xml b/chapter06/eudev.xml
+index d55b6b6..9734eb1 100644
+--- a/chapter06/eudev.xml
++++ b/chapter06/eudev.xml
+@@ -43,11 +43,11 @@
+     <para>First, fix a test script:</para>
+ 
+ <screen><userinput remap="pre">sed -r -i 's|/usr(/bin/test)|\1|' test/udev-test.pl</userinput></screen>
+-
++<!--
+     <para>Next, remove an unneeded line that causes a build failure:</para>
+ 
+ <screen><userinput remap="pre">sed -i '/keyboard_lookup_key/d' src/udev/udev-builtin-keyboard.c</userinput></screen>
+-
++-->
+     <para>Next, add a workaround to prevent the /tools directory from being 
+     hard coded into Eudev binary files library locations:</para>
+ 
+@@ -71,20 +71,16 @@ EOF</userinput></screen>
+             --disable-static        \
+             --config-cache</userinput></screen>
+ 
+-<!-- Seems to be unneeded - but leave as a comment for a while
+-
+-            - -disable-gudev         \
+-            - -enable-split-usr      \
+-            - -enable-hwdb           \
+-            - -disable-introspection \
+-            - -disable-gtk-doc-html</userinput></screen>
+-
+--->
+-
+ <para>Compile the package:</para>
+ 
+ <screen><userinput remap="make">LIBRARY_PATH=/tools/lib make</userinput></screen>
+ 
++<note><para>The LIBRARY_PATH variable here and the LD_LIBRARY_PATH variable
++below are needed to allow the use of libraries that were installed in /tools,
++but have not yet been installed in the main system.  LIBRARY_PATH is
++used to find libraries during the linking process.  LD_LIBRARY_PATH is
++used to find libraries during program execution.</para></note>
++
+ <para>Create some directories now that are needed for tests, but
+ will also be used as a part of installation:</para>
+ 
+@@ -121,7 +117,7 @@ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
+ 
+     <para>Information about hardware devices is maintained in the
+     <filename class="directory">/etc/udev/hwdb.d</filename> and
+-    <filename class="directory">/usr/lib/udev/hwdb.d</filename> directories.
++    <filename class="directory">/lib/udev/hwdb.d</filename> directories.
+     <application>Eudev</application> needs that information to be compiled
+     into a binary database <filename>/etc/udev/hwdb.bin</filename>. Create the
+     initial database:</para>
+@@ -148,7 +144,7 @@ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
+ 
+         <seg>libudev.so</seg>
+ 
+-        <seg>/etc/udev, /lib/udev, and /usr/share/doc/udev-20140408</seg>
++        <seg>/etc/udev, /lib/udev, and /usr/share/doc/udev-&udev-lfs-version;</seg>
+       </seglistitem>
+     </segmentedlist>
+ 

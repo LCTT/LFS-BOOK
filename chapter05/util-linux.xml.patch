@@ -1,0 +1,40 @@
+diff --git a/chapter05/util-linux.xml b/chapter05/util-linux.xml
+index 287d78d..db0bc32 100644
+--- a/chapter05/util-linux.xml
++++ b/chapter05/util-linux.xml
+@@ -43,17 +43,11 @@
+ 
+     <para>Prepare Util-linux for compilation:</para>
+ 
+-<screen revision="sysv"><userinput remap="configure">./configure --prefix=/tools                \
++<screen><userinput remap="configure">./configure --prefix=/tools                \
+             --without-python               \
+             --disable-makeinstall-chown    \
+             --without-systemdsystemunitdir \
+-            PKG_CONFIG=""</userinput></screen>
+-
+-<screen revision="systemd"><userinput remap="configure">./configure --prefix=/tools                   \
+-            --without-python                  \
+-            --disable-makeinstall-chown       \
+-            --without-systemdsystemunitdir    \
+-            --enable-libmount-force-mountinfo \
++            --without-ncurses              \
+             PKG_CONFIG=""</userinput></screen>
+ 
+     <variablelist>
+@@ -78,6 +72,15 @@
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry>
++        <term><parameter>--without-ncurses</parameter></term>
++        <listitem>
++          <para>This switch disables using the ncurses library for
++          the build process. This is not needed when installing into the
++          /tools directory and avoids problems on some host distros.</para>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry>
+         <term><parameter>--without-systemdsystemunitdir</parameter></term>
+         <listitem>

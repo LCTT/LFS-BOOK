@@ -1,0 +1,13 @@
+diff --git a/chapter05/binutils-pass1.xml b/chapter05/binutils-pass1.xml
+index ec3861e..458d896 100644
+--- a/chapter05/binutils-pass1.xml
++++ b/chapter05/binutils-pass1.xml
+@@ -68,7 +68,7 @@ cd       build</userinput></screen>
+     </note>
+ 
+     <note><para>The approximate build SBU values and required disk space
+-    in Chapter 5 does not include test suite data.</para></note>
++    in Chapter&nbsp;5 does not include test suite data.</para></note>
+ 
+     <para>Now prepare Binutils for compilation:</para>
+ 

@@ -1,0 +1,39 @@
+diff --git a/chapter06/libcap.xml b/chapter06/libcap.xml
+index cabcb17..94fc944 100644
+--- a/chapter06/libcap.xml
++++ b/chapter06/libcap.xml
+@@ -140,17 +140,6 @@ ln -sfv ../../lib/$(readlink /usr/lib/libcap.so) /usr/lib/libcap.so</userinput><
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="libcap">
+-        <term><filename class="libraryfile">libcap</filename></term>
+-        <listitem>
+-          <para>Contains the library functions for manipulating POSIX 1003.1e
+-          capabilities</para>
+-          <indexterm zone="ch-system-libcap libcap">
+-            <primary sortas="c-libcap">libcap</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+       <varlistentry id="setcap">
+         <term><command>setcap</command></term>
+         <listitem>
+@@ -161,6 +150,16 @@ ln -sfv ../../lib/$(readlink /usr/lib/libcap.so) /usr/lib/libcap.so</userinput><
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="libcap">
++        <term><filename class="libraryfile">libcap</filename></term>
++        <listitem>
++          <para>Contains the library functions for manipulating POSIX 1003.1e
++          capabilities</para>
++          <indexterm zone="ch-system-libcap libcap">
++            <primary sortas="c-libcap">libcap</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
+ 
+     </variablelist>
+ 

@@ -1,0 +1,13 @@
+diff --git a/chapter06/m4.xml b/chapter06/m4.xml
+index 1bb55fe..9308347 100644
+--- a/chapter06/m4.xml
++++ b/chapter06/m4.xml
+@@ -78,7 +78,7 @@
+          <!-- Don't remove the extra space, it prevet a FOP warning. -->
+         <term><command>m4 </command></term>
+         <listitem>
+-          <para>copies the given files while expanding the macros that they
++          <para>Copies the given files while expanding the macros that they
+           contain [These macros are either built-in or user-defined and can
+           take any number of arguments. Besides performing macro expansion,
+           <command>m4</command> has built-in functions for including named

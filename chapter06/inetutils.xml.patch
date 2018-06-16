@@ -1,0 +1,15 @@
+diff --git a/chapter06/inetutils.xml b/chapter06/inetutils.xml
+index df6ffc3..c69bdf5 100644
+--- a/chapter06/inetutils.xml
++++ b/chapter06/inetutils.xml
+@@ -105,6 +105,10 @@
+ 
+ <screen><userinput remap="test">make check</userinput></screen>
+ 
++    <note><para>One test, libls.sh, may fail in the initial chroot
++    environment but will pass if the test is rerun after the LFS system
++    is complete.</para></note>
++
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install</userinput></screen>

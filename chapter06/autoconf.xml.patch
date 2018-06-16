@@ -1,0 +1,17 @@
+diff --git a/chapter06/autoconf.xml b/chapter06/autoconf.xml
+index bf3d9ac..f7af4d1 100644
+--- a/chapter06/autoconf.xml
++++ b/chapter06/autoconf.xml
+@@ -58,6 +58,12 @@
+     Autoconf can be re-tested after Automake has been installed.  In addition,
+     two tests fail due to changes in libtool-2.4.3 and later.</para>
+ 
++    <note><para>The test time for autoconf can be reduced significantly on a
++    system with multiple cores.  To do this, append
++    <command>TESTSUITEFLAGS=-j&lt;N&gt;</command> to the line above.  For
++    instance, using -j4 can reduce the test time by over 60
++    percent.</para></note>
++
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install</userinput></screen>

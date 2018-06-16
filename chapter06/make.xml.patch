@@ -1,0 +1,28 @@
+diff --git a/chapter06/make.xml b/chapter06/make.xml
+index 7919086..e52fff2 100644
+--- a/chapter06/make.xml
++++ b/chapter06/make.xml
+@@ -40,6 +40,9 @@
+   <sect2 role="installation">
+     <title>Installation of Make</title>
+ 
++    <para>Again, work around an error caused by glibc-2.27:</para>
++
++<screen><userinput remap="pre">sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c</userinput></screen>
+     <para>Prepare Make for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
+@@ -48,9 +51,11 @@
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+ 
+-    <para>To test the results, issue:</para>
++    <para>The test suite needs to know where supporting perl files are located.
++    We use an envronment variable to accomplish this.  To test the 
++    results, issue:</para>
+ 
+-<screen><userinput remap="test">make check</userinput></screen>
++<screen><userinput remap="test">make PERL5LIB=$PWD/tests/ check</userinput></screen>
+ 
+     <para>Install the package:</para>
+ 

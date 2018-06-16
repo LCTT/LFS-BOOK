@@ -1,0 +1,171 @@
+diff --git a/chapter07/networkd.xml b/chapter07/networkd.xml
+index fc74546..b446986 100644
+--- a/chapter07/networkd.xml
++++ b/chapter07/networkd.xml
+@@ -43,11 +43,67 @@
+     <filename>systemd-netdev(5)</filename> and
+     <filename>systemd-network(5)</filename> manual pages.</para>
+ 
+-    <note><para>Udev may assign network card interface names based
+-    on system physical characteristics such as enp2s1. If you are
+-    not sure what your interface name is, you can always run
+-    <command>ip link</command> after you have booted your system.
+-    </para></note>
++    <sect3 id="systemd-network-devices">
++      <title>Network Device Naming</title>
++
++      <para>
++        Udev normally assigns network card interface names based
++        on system physical characteristics such as enp2s1. If you are
++        not sure what your interface name is, you can always run
++        <command>ip link</command> after you have booted your system.
++      </para>
++
++      <para>
++        For most systems, there is only one network interface for
++        each type of connection.  For example, the classic interface
++        name for a wired connection is eth0.  A wireless connection
++        will usually have the name wifi0 or wlan0. 
++      </para>
++
++      <para>
++        If you prefer to use the classic or customized network interface names,
++        there are three alternative ways to do that:</para>
++
++      <itemizedlist>
++        <listitem>
++          <para>
++            Mask udev's .link file for the default policy:
++<screen role="nodump"><userinput>ln -s /dev/null /etc/systemd/network/99-default.link</userinput></screen>
++          </para>
++        </listitem>
++
++        <listitem>
++          <para>
++             Create a manual naming scheme, for example by naming the
++             interfaces something like "internet0", "dmz0", or "lan0". 
++             For that, create .link
++             files in /etc/systemd/network/, that choose an explicit name or a
++             better naming scheme for one, some, or all of your interfaces. 
++             For example:
++          </para>
++
++<screen role="nodump"><userinput>cat &gt; /etc/systemd/network/10-ether0.link &lt;&lt; "EOF"
++<literal>[Match]
++# Change the MAC address as appropriate for your network device
++MACAddress=12:34:45:78:90:AB
++
++[Link]
++Name=ether0</literal>
++EOF</userinput></screen>
++
++          <para>
++             See the man page systemd.link(5) for more information. 
++          </para>
++        </listitem>
++
++        <listitem>
++          <para>
++            In /boot/grub/grub.cfg, pass the option net.ifnames=0 on the 
++            kernel command line.
++          </para>
++        </listitem>
++      </itemizedlist>
++    </sect3>
+ 
+     <sect3 id="systemd-networkd-static">
+       <title>Static IP Configuration</title>
+@@ -56,9 +112,9 @@
+       Static IP setup (using both systemd-networkd and
+       systemd-resolved):</para>
+ 
+-<screen role="nodump"><userinput>cat &gt; /etc/systemd/network/10-eth0-static.network &lt;&lt; "EOF"
++<screen><userinput>cat &gt; /etc/systemd/network/10-eth-static.network &lt;&lt; "EOF"
+ <literal>[Match]
+-Name=eth0
++Name=&lt;network-device-name&gt;
+ 
+ [Network]
+ Address=192.168.0.2/24
+@@ -79,9 +135,9 @@ EOF</userinput></screen>
+       <para>The command below creates a basic configuration file for an IPv4
+       DHCP setup:</para>
+ 
+-<screen role="nodump"><userinput>cat &gt; /etc/systemd/network/10-eth0-dhcp.network &lt;&lt; "EOF"
++<screen role="nodump"><userinput>cat &gt; /etc/systemd/network/10-eth-dhcp.network &lt;&lt; "EOF"
+ <literal>[Match]
+-Name=eth0
++Name=&lt;network-device-name&gt;
+ 
+ [Network]
+ DHCP=ipv4
+@@ -108,7 +164,7 @@ EOF</userinput></screen>
+     from the ISP or network administrator, into
+     <filename>/etc/resolv.conf</filename>.</para>
+ 
+-    <sect3 id="resolv-conf-systemd-resoloved">
++    <sect3 id="resolv-conf-systemd-resolved">
+       <title>systemd-resolved Configuration</title>
+ 
+       <note><para>If using another means to configure your network
+@@ -121,9 +177,9 @@ EOF</userinput></screen>
+       <para>When using <command>systemd-resolved</command> for DNS
+       configuration, it creates the file
+       <filename>/run/systemd/resolve/resolv.conf</filename>. Create a
+-      symlink in <filename>/etc</filename> to use the generatd file:</para>
++      symlink in <filename>/etc</filename> to use the generated file:</para>
+ 
+-<screen><userinput remap="install">ln -sfv /run/systemd/resolve/resolv.conf /etc/resolv.conf</userinput></screen>
++<screen><userinput>ln -sfv /run/systemd/resolve/resolv.conf /etc/resolv.conf</userinput></screen>
+ 
+     </sect3>
+ 
+@@ -234,33 +290,40 @@ EOF</userinput></screen>
+      is not going to be configured, create the <filename>/etc/hosts</filename>
+      file by running the following command:</para>
+ 
+-<screen><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
++<screen role="nodump"><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
+ <literal># Begin /etc/hosts
+ 
+-127.0.0.1 <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable> localhost <replaceable>[alias1] [alias2] ...</replaceable>
+-::1       <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable> localhost <replaceable>[alias1] [alias2] ...</replaceable>
++127.0.0.1 localhost
++127.0.1.1 <replaceable>&lt;FQDN&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable>
++::1       localhost ip6-localhost ip6-loopback
++ff02::1   ip6-allnodes
++ff02::2   ip6-allrouters
+ 
+ # End /etc/hosts</literal>
+ EOF</userinput></screen>
+ 
+      <para>The ::1 entry is the IPv6 counterpart of 127.0.0.1 and represents
+-the IPv6 loopback interface.</para>
++     the IPv6 loopback interface. 127.0.1.1 is a loopback entry reserved
++     specifically for the FQDN.</para>
+ 
+      <para>If using a static address, create the <filename>/etc/hosts</filename>
+      file by running this command instead:</para>
+ 
+-<screen role="nodump"><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
++<screen><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
+ <literal># Begin /etc/hosts
+ 
+ 127.0.0.1 localhost
+-::1       localhost
+-<replaceable>&lt;192.168.0.2&gt;</replaceable> <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable> <replaceable>[alias1] [alias2] ...</replaceable>
++127.0.1.1 <replaceable>&lt;FQDN&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable>
++<replaceable>&lt;192.168.0.2&gt;</replaceable> <replaceable>&lt;FQDN&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable> <replaceable>[alias1] [alias2] ...</replaceable>
++::1       localhost ip6-localhost ip6-loopback
++ff02::1   ip6-allnodes
++ff02::2   ip6-allrouters
+ 
+ # End /etc/hosts</literal>
+ EOF</userinput></screen>
+ 
+      <para>The <replaceable>&lt;192.168.0.2&gt;</replaceable>,
+-     <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable>, and
++     <replaceable>&lt;FQDN&gt;</replaceable>, and
+      <replaceable>&lt;HOSTNAME&gt;</replaceable> values need to be
+      changed for specific uses or requirements (if assigned an IP address by a
+      network/system administrator and the machine will be connected to an

@@ -1,0 +1,31 @@
+diff --git a/chapter06/shadow.xml b/chapter06/shadow.xml
+index c9d63a4..c1f3b9a 100644
+--- a/chapter06/shadow.xml
++++ b/chapter06/shadow.xml
+@@ -67,7 +67,7 @@ find man -name Makefile.in -exec sed -i 's/passwd\.5 / /'   {} \;</userinput></s
+     for user mailboxes that Shadow uses by default to the <filename
+     class="directory">/var/mail</filename> location used currently:</para>
+ 
+-<screen><userinput remap="configure">sed -i -e 's@#ENCRYPT_METHOD DES@ENCRYPT_METHOD SHA512@' \
++<screen><userinput remap="pre">sed -i -e 's@#ENCRYPT_METHOD DES@ENCRYPT_METHOD SHA512@' \
+        -e 's@/var/spool/mail@/var/mail@' etc/login.defs</userinput></screen>
+ 
+     <note>
+@@ -76,15 +76,11 @@ find man -name Makefile.in -exec sed -i 's/passwd\.5 / /'   {} \;</userinput></s
+ <screen role="nodump"><userinput>sed -i 's@DICTPATH.*@DICTPATH\t/lib/cracklib/pw_dict@' etc/login.defs</userinput></screen>
+     </note>
+ 
+-    <para>Make a minor change to make the default useradd consistent with the LFS
+-    groups file:</para>
++    <para>Make a minor change to make the first group number generated
++    by useradd 1000:</para>
+ 
+ <screen><userinput remap="pre">sed -i 's/1000/999/' etc/useradd</userinput></screen>
+ 
+-    <para>Fix a security issue identified upstream:</para>
+-
+-<screen><userinput remap="pre">sed -i -e '47 d' -e '60,65 d' libmisc/myname.c</userinput></screen>
+-
+     <para>Prepare Shadow for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --sysconfdir=/etc --with-group-name-max-length=32</userinput></screen>

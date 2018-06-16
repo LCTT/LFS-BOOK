@@ -1,0 +1,98 @@
+diff --git a/chapter06/vim.xml b/chapter06/vim.xml
+index db5e904..a11068a 100644
+--- a/chapter06/vim.xml
++++ b/chapter06/vim.xml
+@@ -8,6 +8,12 @@
+ <sect1 id="ch-system-vim" role="wrap">
+   <?dbhtml filename="vim.html"?>
+ 
++  <sect1info condition="script">
++    <productname>vim</productname>
++    <productnumber>&vim-version;</productnumber>
++    <address>&vim-url;</address>
++  </sect1info>
++
+   <title>Vim-&vim-version;</title>
+ 
+   <indexterm zone="ch-system-vim">
+@@ -48,6 +54,10 @@
+ 
+ <screen><userinput remap="pre">echo '#define SYS_VIMRC_FILE "/etc/vimrc"' &gt;&gt; src/feature.h</userinput></screen>
+ 
++    <para>Disable a test that fails:</para>
++
++<screen><userinput remap="pre">sed -i '/call/{s/split/xsplit/;s/303/492/}' src/testdir/test_recover.vim</userinput></screen>
++
+     <para>Prepare Vim for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
+@@ -58,12 +68,13 @@
+ 
+     <para>To test the results, issue:</para>
+ 
+-<screen><userinput remap="test">make -j1 test</userinput></screen>
++<screen><userinput remap="test">make -j1 test &amp;&gt; vim-test.log</userinput></screen>
+ 
+-    <para>However, this test suite outputs a lot of binary data to the screen,
+-    which can cause issues with the settings of the current terminal. This can
+-    be resolved by redirecting the output to a log file.  A successful test
+-    will result in the words "ALL DONE" at completion.</para>
++    <para>The test suite outputs a lot of binary data to the screen.  This can
++    cause issues with the settings of the current terminal.  The problem can be
++    avoided by redirecting the output to a log file as shown above.  A
++    successful test will result in the words "ALL DONE" in the log file
++    at completion.</para>
+ 
+     <para>Install the package:</para>
+ 
+@@ -117,15 +128,18 @@ done</userinput></screen>
+ <screen><userinput>cat &gt; /etc/vimrc &lt;&lt; "EOF"
+ <literal>" Begin /etc/vimrc
+ 
++" Ensure defaults are set before customizing settings, not after
++source $VIMRUNTIME/defaults.vim
++let skip_defaults_vim=1 
++
+ set nocompatible
+ set backspace=2
+-set mouse=r
++set mouse=
+ syntax on
+ if (&amp;term == "xterm") || (&amp;term == "putty")
+   set background=dark
+ endif
+ 
+-
+ " End /etc/vimrc</literal>
+ EOF</userinput></screen>
+ 
+@@ -135,14 +149,18 @@ EOF</userinput></screen>
+     <command>vi</command> behavior. The <parameter>set backspace=2</parameter>
+     setting allows backspacing over line breaks, autoindents, and the start of
+     insert. The <parameter>syntax on</parameter> parameter enables vim's syntax
+-    highlighting.  The <parameter>set mouse=r</parameter> setting enables
++    highlighting.  The <parameter>set mouse=</parameter> setting enables
+     proper pasting of text with the mouse when working in chroot or over a
+     remote connection.  Finally, the <emphasis>if</emphasis> statement with the
+     <parameter>set background=dark</parameter> setting corrects
+     <command>vim</command>'s guess about the background color of some terminal
+     emulators. This gives the highlighting a better color scheme for use on the
+     black background of these programs.</para>
+-
++<!--
++    <para>Creating an empty <filename>~/.vimrc</filename> prevents vim from
++    overriding settings in <filename>/etc/vimrc</filename> by using
++    <filename>/usr/share/vim/vim80/defaults.vim</filename>.</para>
++-->
+     <para>Documentation for other available options can be obtained by
+     running the following command:</para>
+ 
+@@ -256,7 +274,7 @@ set spell</literal></screen>
+         <term><command>vimdiff</command></term>
+         <listitem>
+           <para>Edits two or three versions of a file with <command>vim</command>
+-          and show differences</para>
++          and shows differences</para>
+           <indexterm zone="ch-system-vim vimdiff">
+             <primary sortas="b-vimdiff">vimdiff</primary>
+           </indexterm>

@@ -1,0 +1,37 @@
+diff --git a/bootscripts/lfs/init.d/mountfs b/bootscripts/lfs/init.d/mountfs
+index 4605d60..2509f30 100644
+--- a/bootscripts/lfs/init.d/mountfs
++++ b/bootscripts/lfs/init.d/mountfs
+@@ -33,7 +33,7 @@
+ case "${1}" in
+    start)
+       log_info_msg "Remounting root file system in read-write mode..."
+-      mount -o remount,rw / >/dev/null
++      mount --options remount,rw / >/dev/null
+       evaluate_retval
+ 
+       # Remove fsck-related file system watermarks.
+@@ -46,7 +46,7 @@ case "${1}" in
+       # their option list.  _netdev denotes a network filesystem.
+ 
+       log_info_msg "Mounting remaining file systems..."
+-      mount -a -O no_netdev >/dev/null
++      mount --all --test-opts no_netdev >/dev/null
+       evaluate_retval
+       exit $failed
+       ;;
+@@ -54,11 +54,12 @@ case "${1}" in
+    stop)
+       # Don't unmount virtual file systems like /run
+       log_info_msg "Unmounting all other currently mounted file systems..."
+-      umount -a -d -r -t notmpfs,nosysfs,nodevtmpfs,noproc,nodevpts >/dev/null
++      umount --all --detach-loop --read-only \
++             --types notmpfs,nosysfs,nodevtmpfs,noproc,nodevpts >/dev/null
+       evaluate_retval
+ 
+       # Make sure / is mounted read only (umount bug)
+-      mount -o remount,ro /
++      mount --options remount,ro /
+ 
+       # Make all LVM volume groups unavailable, if appropriate
+       # This fails if swap or / are on an LVM partition

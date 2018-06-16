@@ -1,0 +1,31 @@
+diff --git a/chapter06/introduction.xml b/chapter06/introduction.xml
+index 4671662..8761127 100644
+--- a/chapter06/introduction.xml
++++ b/chapter06/introduction.xml
+@@ -53,7 +53,7 @@
+   descriptions of these) that the package installs.</para>
+ 
+   <note><para>The SBU values and required disk space includes
+-  test suite data for all applicable packages in Chapter 6.</para></note>
++  test suite data for all applicable packages in Chapter&nbsp;6.</para></note>
+ 
+   <sect2>
+     <title>About libraries</title>
+@@ -67,12 +67,12 @@
+     is not always obvious, the relevant programs (and the procedures needed to
+     do the linking) may not even be known.</para>
+ 
+-    <para>In the procedures in Chapter 6, we remove or disable installation of
+-    most static libraries.  In a few cases, especially glibc and gcc, the use
+-    of static libraries remains essential to the general package building
+-    process.  Usually this is done by passing a
++    <para>In the procedures in Chapter&nbsp;6, we remove or disable installation of
++    most static libraries. Usually this is done by passing a
+     <option>--disable-static</option> option to <command>configure</command>.
+-    In other cases, alternate means are needed.</para>
++    In other cases, alternate means are needed. In a few cases, especially
++    glibc and gcc, the use of static libraries remains essential to the general
++    package building process. </para>
+ 
+     <para>For a more complete discussion of libraries, see the discussion
+     <ulink url="&blfs-root;/view/&short-version;/introduction/libraries.html">

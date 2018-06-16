@@ -1,0 +1,13 @@
+diff --git a/chapter07/profile.xml b/chapter07/profile.xml
+index 8bbcb8e..104365f 100644
+--- a/chapter07/profile.xml
++++ b/chapter07/profile.xml
+@@ -103,7 +103,7 @@ LC_ALL=&lt;locale name&gt; locale int_prefix</userinput></screen>
+   encoding used by the locale, the local currency, and the prefix to dial
+   before the telephone number in order to get into the country. If any of the
+   commands above fail with a message similar to the one shown below, this means
+-  that your locale was either not installed in Chapter 6 or is not supported by
++  that your locale was either not installed in Chapter&nbsp;6 or is not supported by
+   the default installation of Glibc.</para>
+ 
+ <screen><computeroutput>locale: Cannot set LC_* to default locale: No such file or directory</computeroutput></screen>

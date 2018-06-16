@@ -1,0 +1,15 @@
+diff --git a/chapter06/sed.xml b/chapter06/sed.xml
+index c881c78..aa6ac17 100644
+--- a/chapter06/sed.xml
++++ b/chapter06/sed.xml
+@@ -42,8 +42,8 @@
+ 
+     <para>First fix an issue in the LFS environment and remove a failing test:</para>
+ 
+-<screen><userinput remap="pre">sed -i 's/usr/tools/'       build-aux/help2man
+-sed -i 's/panic-tests.sh//' Makefile.in</userinput></screen>
++<screen><userinput remap="pre">sed -i 's/usr/tools/'                 build-aux/help2man
++sed -i 's/testsuite.panic-tests.sh//' Makefile.in</userinput></screen>
+ 
+     <para>Prepare Sed for compilation:</para>
+ 

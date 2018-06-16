@@ -1,0 +1,59 @@
+diff --git a/chapter06/bc.xml b/chapter06/bc.xml
+index 7f9373e..e538c04 100644
+--- a/chapter06/bc.xml
++++ b/chapter06/bc.xml
+@@ -41,9 +41,34 @@
+   <sect2 role="installation">
+     <title>Installation of Bc</title>
+ 
+-    <para>First, fix some minor memory leaks in the code:</para>
++    <para>First, change an internal script to use <command>sed</command> instead 
++    of <command>ed</command>:</para>
+ 
+-<screen><userinput remap="pre">patch -Np1 -i ../&bc-memory-leak-patch;</userinput></screen> 
++<screen><userinput remap="pre">cat &gt; bc/fix-libmath_h &lt;&lt; "EOF"
++#! /bin/bash
++sed -e '1   s/^/{"/' \
++    -e     's/$/",/' \
++    -e '2,$ s/^/"/'  \
++    -e   '$ d'       \
++    -i libmath.h
++
++sed -e '$ s/$/0}/' \
++    -i libmath.h
++EOF</userinput></screen> 
++
++    <para>Create temporary symbolic links so the package can find
++    the readline library and confirm that its required libncurses
++    library is available. Even though the libraries are in /tools/lib
++    at this point, the system will use /usr/lib at the end of
++    this chapter.</para>
++
++<screen><userinput remap="pre">ln -sv /tools/lib/libncursesw.so.6 /usr/lib/libncursesw.so.6
++ln -sfv libncurses.so.6 /usr/lib/libncurses.so</userinput></screen>
++
++    <para>Fix an issue in <command>configure</command> due to missing
++    files in the early stages of LFS:</para>
++
++<screen><userinput remap="pre">sed -i -e '/flex/s/as_fn_error/: ;; # &amp;/' configure</userinput></screen>
+ 
+     <para>Prepare Bc for compilation:</para>
+ 
+@@ -103,7 +128,7 @@
+       <varlistentry id="bc">
+         <term><command>bc</command></term>
+         <listitem>
+-          <para>is a command line calculator</para>
++          <para>A command line calculator</para>
+           <indexterm zone="ch-system-bc bc">
+             <primary sortas="b-bc">bc</primary>
+           </indexterm>
+@@ -113,7 +138,7 @@
+       <varlistentry id="dc">
+         <term><command>dc</command></term>
+         <listitem>
+-          <para>is a reverse-polish command line calculator</para>
++          <para>A reverse-polish command line calculator</para>
+           <indexterm zone="ch-system-bc dc">
+             <primary sortas="b-dc">dc</primary>
+           </indexterm>

@@ -1,0 +1,40 @@
+diff --git a/chapter06/coreutils.xml b/chapter06/coreutils.xml
+index 065643e..b03e3e6 100644
+--- a/chapter06/coreutils.xml
++++ b/chapter06/coreutils.xml
+@@ -53,6 +53,13 @@
+       without this patch.</para>
+     </note>
+ 
++   <!-- this has been fixed in upstream gnulib, when a new version of
++   coreutils is released, please check #4055 to see if the change has been
++   picked up in this package -->
++   <para>Suppress a test which on some machines can loop forever:</para>
++
++<screen><userinput remap="pre">sed -i '/test.lock/s/^/#/' gnulib-tests/gnulib.mk</userinput></screen>
++
+     <para>Now prepare Coreutils for compilation:</para>
+ 
+ <screen><userinput remap="configure">FORCE_UNSAFE_CONFIGURE=1 ./configure \
+@@ -112,8 +119,10 @@
+ <screen><userinput remap="test">su nobody -s /bin/bash \
+           -c "PATH=$PATH make RUN_EXPENSIVE_TESTS=yes check"</userinput></screen>
+ 
+-    <para>The test-getlogin test is known to fail on a virtual console, but
+-    passes if run in a X terminal.</para>
++    <para>The test program test-getlogin is known to fail in a
++    partially built system environment like the chroot environment here, but
++    passes if run at the end of this chapter.  The test program tty.sh is
++    also known to fail.</para>
+ 
+     <para>Remove the temporary group:</para>
+ 
+@@ -142,7 +151,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
+     following programs in <filename class="directory">/bin</filename>, so make
+     sure they are placed there:</para>
+ 
+-<screen><userinput remap="install">mv -v /usr/bin/{head,sleep,nice,test,[} /bin</userinput></screen>
++<screen><userinput remap="install">mv -v /usr/bin/{head,sleep,nice} /bin</userinput></screen>
+ 
+   </sect2>
+ 

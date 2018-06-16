@@ -1,0 +1,58 @@
+diff --git a/chapter06/chapter06.xml b/chapter06/chapter06.xml
+index 34c0711..12a7617 100644
+--- a/chapter06/chapter06.xml
++++ b/chapter06/chapter06.xml
+@@ -5,7 +5,7 @@
+   %general-entities;
+ ]>
+ 
+-<chapter id="chapter-building-system" xreflabel="Chapter 6">
++<chapter id="chapter-building-system" xreflabel="Chapter&nbsp;6">
+   <?dbhtml dir="chapter06"?>
+   <?dbhtml filename="chapter06.html"?>
+ 
+@@ -23,6 +23,9 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="adjusting.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="zlib.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="file.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="readline.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="m4.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bc.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="binutils.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gmp.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="mpfr.xml"/>
+@@ -38,13 +41,10 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="shadow.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="psmisc.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iana-etc.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="m4.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bison.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="flex.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="grep.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="readline.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bash.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bc.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="libtool.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gdbm.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gperf.xml"/>
+@@ -58,6 +58,12 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="xz.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="kmod.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gettext.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="libelf.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="libffi.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="openssl.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="python.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ninja.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="meson.xml"/>
+ 
+   <!-- systemd only -->
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="systemd.xml"/>
+@@ -65,6 +71,7 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="procps.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="e2fsprogs.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="coreutils.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="check.xml"/> 
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="diffutils.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gawk.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="findutils.xml"/>

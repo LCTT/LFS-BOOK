@@ -1,0 +1,132 @@
+diff --git a/appendices/acknowledgments.xml b/appendices/acknowledgments.xml
+index 5ebcbfa..5f230a4 100644
+--- a/appendices/acknowledgments.xml
++++ b/appendices/acknowledgments.xml
+@@ -19,19 +19,13 @@
+     <listitem>
+       <para><ulink url="mailto:gerard@linuxfromscratch.org">Gerard
+       Beekmans</ulink> &lt;gerard@linuxfromscratch.org&gt; &ndash;
+-      LFS Creator, LFS Project Leader</para>
+-    </listitem>
+-
+-    <listitem>
+-      <para><ulink url="mailto:matthew@linuxfromscratch.org">Matthew
+-      Burgess</ulink> &lt;matthew@linuxfromscratch.org&gt; &ndash;
+-      LFS Project Leader, LFS Technical Writer/Editor</para>
++      LFS Creator</para>
+     </listitem>
+ 
+     <listitem>
+       <para><ulink url="mailto:bdubbs@linuxfromscratch.org">Bruce
+-      Dubbs</ulink> &lt;bdubbs@linuxfromscratch.org&gt; &ndash; LFS Release
+-      Manager, LFS Technical Writer/Editor</para>
++      Dubbs</ulink> &lt;bdubbs@linuxfromscratch.org&gt; &ndash; LFS Managing
++      Editor</para>
+     </listitem>
+ 
+     <listitem>
+@@ -41,15 +35,8 @@
+     </listitem>
+ 
+     <listitem>
+-      <para><ulink url="mailto:bryan@linuxfromscratch.org">Bryan
+-      Kadzban</ulink> &lt;bryan@linuxfromscratch.org&gt; &ndash; LFS
+-      Technical Writer</para>
+-    </listitem>
+-
+-    <listitem>
+-      <para><ulink url="mailto:randy@linuxfromscratch.org">Randy
+-      McMurchy</ulink> &lt;randy@linuxfromscratch.org&gt; &ndash; BLFS
+-      Project Leader, LFS Editor</para>
++      <para><ulink url="mailto:pierre@linuxfromscratch.org">Pierre Labastie</ulink>
++      &lt;pierre@linuxfromscratch.org&gt; &ndash; BLFS Editor and ALFS Lead</para>
+     </listitem>
+ 
+     <listitem>
+@@ -59,13 +46,7 @@
+ 
+     <listitem>
+       <para><ulink url="mailto:ken@linuxfromscratch.org">Ken Moffat</ulink>
+-      &lt;ken@linuxfromscratch.org&gt; &ndash; LFS and CLFS Editor</para>
+-    </listitem>
+-
+-    <listitem>
+-      <para><ulink url="mailto:ryan@linuxfromscratch.org">Ryan
+-      Oliver</ulink> &lt;ryan@linuxfromscratch.org&gt; &ndash; CLFS Project
+-      Co-Leader</para>
++      &lt;ken@linuxfromscratch.org&gt; &ndash; BLFS Editor</para>
+     </listitem>
+ 
+     <listitem>
+@@ -96,7 +77,13 @@
+     <listitem>
+       <para><ulink url="mailto:jmengual@linuxfromscratch.org">Jean-Philippe 
+       Mengual </ulink> &lt;jmengual@linuxfromscratch.org&gt; &ndash; French LFS
+-      translation project 2008-present</para>
++      translation project 2008-2016</para>
++    </listitem>
++
++    <listitem>
++      <para><ulink url="mailto:jlepiller@linuxfromscratch.org">Julien 
++      Lepiller </ulink> &lt;jlepiller@linuxfromscratch.org&gt; &ndash; French LFS
++      translation project 2017-present</para>
+     </listitem>
+ 
+     <listitem>
+@@ -279,6 +266,12 @@
+       Maintainer</para>
+     </listitem>
+ 
++    <listitem>
++      <para><ulink url="mailto:matthew@linuxfromscratch.org">Matthew
++      Burgess</ulink> &lt;matthew@linuxfromscratch.org&gt; &ndash;
++      LFS Project Leader, LFS Technical Writer/Editor</para>
++    </listitem>
++
+     <listitem>
+       <para><ulink url="mailto:nathan@linuxfromscratch.org">Nathan
+       Coulson</ulink> &lt;nathan@linuxfromscratch.org&gt; &ndash;
+@@ -323,6 +316,12 @@
+       Technical Writer, LFS LiveCD Maintainer</para>
+     </listitem>
+ 
++    <listitem>
++      <para><ulink url="mailto:bryan@linuxfromscratch.org">Bryan
++      Kadzban</ulink> &lt;bryan@linuxfromscratch.org&gt; &ndash; LFS
++      Technical Writer</para>
++    </listitem>
++
+     <listitem>
+       <para>Mark Hymers</para>
+     </listitem>
+@@ -341,6 +340,12 @@
+       Backend-Scripts Maintainer</para>
+     </listitem>
+ 
++    <listitem>
++      <para><ulink url="mailto:randy@linuxfromscratch.org">Randy
++      McMurchy</ulink> &lt;randy@linuxfromscratch.org&gt; &ndash; BLFS
++      Project Leader, LFS Editor</para>
++    </listitem>
++
+     <listitem>
+       <para><ulink url="mailto:dnicholson@linuxfromscratch.org">Dan
+       Nicholson</ulink> &lt;dnicholson@linuxfromscratch.org&gt; &ndash; LFS and
+@@ -364,6 +369,17 @@
+       Gateway Maintainer</para>
+     </listitem>
+ 
++    <listitem>
++      <para><ulink url="mailto:renodr@linuxfromscratch.org">Douglas R. Reno</ulink>
++      &lt;renodr@linuxfromscratch.org&gt; &ndash; Systemd Editor</para>
++    </listitem>
++
++    <listitem>
++      <para><ulink url="mailto:ryan@linuxfromscratch.org">Ryan
++      Oliver</ulink> &lt;ryan@linuxfromscratch.org&gt; &ndash; CLFS Project
++      Co-Leader</para>
++    </listitem>
++
+     <listitem>
+       <para><ulink url="mailto:gschafer@zip.com.au">Greg Schafer</ulink>
+       &lt;gschafer@zip.com.au&gt; &ndash; LFS Technical Writer and

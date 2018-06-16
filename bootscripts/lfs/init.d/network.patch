@@ -1,0 +1,14 @@
+diff --git a/bootscripts/lfs/init.d/network b/bootscripts/lfs/init.d/network
+index c341235..7cf0c70 100644
+--- a/bootscripts/lfs/init.d/network
++++ b/bootscripts/lfs/init.d/network
+@@ -45,6 +45,9 @@ case "${1}" in
+       ;;
+ 
+    stop)
++      # Unmount any network mounted file systems
++       umount --all --force --types nfs,cifs,nfs4 
++
+       # Reverse list
+       net_files=""
+       for file in  /etc/sysconfig/ifconfig.*

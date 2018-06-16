@@ -1,0 +1,98 @@
+diff --git a/chapter06/dbus.xml b/chapter06/dbus.xml
+index 8b7b6a5..06b6685 100644
+--- a/chapter06/dbus.xml
++++ b/chapter06/dbus.xml
+@@ -125,7 +125,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
+       <varlistentry id="dbus-cleanup-sockets">
+         <term><command>dbus-cleanup-sockets</command></term>
+         <listitem>
+-          <para>is used to clean up leftover sockets in a directory</para>
++          <para>Used to clean up leftover sockets in a directory</para>
+           <indexterm zone="ch-system-dbus dbus-cleanup-sockets">
+             <primary sortas="b-dbus-cleanup-sockets">dbus-cleanup-sockets</primary>
+           </indexterm>
+@@ -135,7 +135,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
+       <varlistentry id="dbus-daemon">
+         <term><command>dbus-daemon</command></term>
+         <listitem>
+-          <para>is the D-Bus message bus daemon</para>
++          <para>The D-Bus message bus daemon</para>
+           <indexterm zone="ch-system-dbus dbus-daemon">
+             <primary sortas="b-dbus-daemon">dbus-daemon</primary>
+           </indexterm>
+@@ -145,7 +145,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
+       <varlistentry id="dbus-launch">
+         <term><command>dbus-launch</command></term>
+         <listitem>
+-          <para>starts <command>dbus-daemon</command> from a shell
++          <para>Starts <command>dbus-daemon</command> from a shell
+           script</para>
+           <indexterm zone="ch-system-dbus dbus-launch">
+             <primary sortas="b-dbus-launch">dbus-launch</primary>
+@@ -156,7 +156,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
+       <varlistentry id="dbus-monitor">
+         <term><command>dbus-monitor</command></term>
+         <listitem>
+-          <para>monitors messages passing through a D-Bus message bus</para>
++          <para>Monitors messages passing through a D-Bus message bus</para>
+           <indexterm zone="ch-system-dbus dbus-monitor">
+             <primary sortas="b-dbus-monitor">dbus-monitor</primary>
+           </indexterm>
+@@ -166,7 +166,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
+       <varlistentry id="dbus-run-session">
+         <term><command>dbus-run-session</command></term>
+         <listitem>
+-          <para>starts a session bus instance of <command>dbus-daemon</command>
++          <para>Starts a session bus instance of <command>dbus-daemon</command>
+           from a shell script and starts a specified program in that
+           session</para>
+           <indexterm zone="ch-system-dbus dbus-run-session">
+@@ -178,7 +178,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
+       <varlistentry id="dbus-send">
+         <term><command>dbus-send</command></term>
+         <listitem>
+-          <para>sends a message to a D-Bus message bus</para>
++          <para>Sends a message to a D-Bus message bus</para>
+           <indexterm zone="ch-system-dbus dbus-send">
+             <primary sortas="b-dbus-send">dbus-send</primary>
+           </indexterm>
+@@ -188,8 +188,8 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
+       <varlistentry id="dbus-test-tool">
+         <term><command>dbus-test-tool</command></term>
+         <listitem>
+-          <para>is a tool to help packages test
+-          <application>D-Bus</application>.</para>
++          <para>A tool to help packages test
++          <application>D-Bus</application></para>
+           <indexterm zone="ch-system-dbus dbus-test-tool">
+             <primary sortas="b-dbus-test-tool">dbus-test-tool</primary>
+           </indexterm>
+@@ -200,8 +200,8 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
+       <varlistentry id="dbus-update-activation-environment">
+         <term><command>dbus-update-activation-environment</command></term>
+         <listitem>
+-          <para>updates environment variables that will be set for
+-          <application>D-Bus</application> session services.</para>
++          <para>Updates environment variables that will be set for
++          <application>D-Bus</application> session services</para>
+           <indexterm zone="ch-system-dbus dbus-update-activation-environment">
+             <primary sortas="b-dbus-update-activation-environment">dbus-update-activation-environment</primary>
+           </indexterm>
+@@ -211,7 +211,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
+       <varlistentry id="dbus-uuidgen">
+         <term><command>dbus-uuidgen</command></term>
+         <listitem>
+-          <para>generates a universally unique ID</para>
++          <para>Generates a universally unique ID</para>
+           <indexterm zone="ch-system-dbus dbus-uuidgen">
+             <primary sortas="b-dbus-uuidgen">dbus-uuidgen</primary>
+           </indexterm>
+@@ -221,7 +221,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
+       <varlistentry id="libdbus-1">
+         <term><filename class="libraryfile">libdbus-1</filename></term>
+         <listitem>
+-          <para>contains API functions used to communicate with the D-Bus
++          <para>Contains API functions used to communicate with the D-Bus
+           message bus</para>
+           <indexterm zone="ch-system-dbus libdbus-1">
+             <primary sortas="c-libdbus-1">libdbus-1</primary>

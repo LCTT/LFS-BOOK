@@ -1,0 +1,139 @@
+diff --git a/chapter07/systemd-custom.xml b/chapter07/systemd-custom.xml
+index 821ce38..8bf6699 100644
+--- a/chapter07/systemd-custom.xml
++++ b/chapter07/systemd-custom.xml
+@@ -21,8 +21,8 @@
+     of options to control basic systemd operations. The default file has all
+     entries commented out with the default settings indicated. This file is
+     where the log level may be changed as well as some basic logging settings.
+-    See <filename>systemd-system.conf(5)</filename> manual page for details on
+-    each configuration option.</para>
++    See the <filename>systemd-system.conf(5)</filename> manual page for details
++    on each configuration option.</para>
+ 
+   </sect2>
+ 
+@@ -40,7 +40,7 @@ cat &gt; /etc/systemd/system/getty@tty1.service.d/noclear.conf &lt;&lt; EOF
+ TTYVTDisallocate=no</literal>
+ EOF</userinput></screen>
+ 
+-    <para>The boot messages can always be revied by using the
++    <para>The boot messages can always be reviewed by using the
+     <userinput>journalctl -b</userinput> command as the root user.</para>
+ 
+   </sect2>
+@@ -53,9 +53,18 @@ EOF</userinput></screen>
+ 
+ <screen role="nodump"><userinput>ln -sfv /dev/null /etc/systemd/system/tmp.mount</userinput></screen>
+ 
+-    <para>This is not necessary if there is a separate partition for
+-    <filename class="directory">/tmp</filename> specified in
+-    <filename>/etc/fstab</filename>.</para>
++    <para>Alternatively, if a a separate partition for
++    <filename class="directory">/tmp</filename> is desired, specify that 
++    partition in an <filename>/etc/fstab</filename> entry.</para>
++
++    <warning>
++      <para>
++        Do not create the symbolic link above if a separate partition is used
++        for <filename class="directory">/tmp</filename>.  This will prvent the
++        root file system (/) from being remounted r/w and make the system
++        unusable when booted.
++      </para>
++    </warning>
+ 
+   </sect2>
+ 
+@@ -81,6 +90,32 @@ EOF</userinput></screen>
+     <filename>tmpfiles.d(5)</filename> manual page  for file format
+     details.</para>
+ 
++    <para>
++      Note that the syntax for the
++      <filename>/usr/lib/tmpfiles.d/*.conf</filename> files can be 
++      confusing.  For example, the default deletion of files in the /tmp directory
++      is located in <filename>/usr/lib/tmpfiles.d/tmp.conf</filename> with 
++      the line:
++
++<screen role="nodump">q /tmp 1777 root root 10d</screen>
++
++      The type field, q, discusses creating a subvolume with quotas which
++      is really only applicable to btrfs filesystems.  It references type v
++      which in turn references type d (directory). This then creates the
++      specified directory if is is not present and adjusts the permissions
++      and ownership as specified.  Contents of the directory will be
++      subject to time based cleanup if the age argument is specified.
++     </para>
++
++     <para>
++      If the default parameters are not desired, then the file should
++      be copied to <filename class="directory">/etc/tmpfiles.d</filename>
++      and edited as desired.  For example:
++
++<screen role="nodump"><userinput>mkdir -p /etc/tempfiles.d
++cp /usr/lib/tmpfiles.d/tmp.conf /etc/tempfiles.d</userinput></screen>
++     </para>
++
+   </sect2>
+ 
+   <sect2>
+@@ -111,7 +146,7 @@ EOF</userinput></screen>
+     <para>Rather than plain shell scripts used in SysVinit or BSD style init
+     systems, systemd uses a unified format for different types of startup
+     files (or units). The command <command>systemctl</command> is used to
+-    enable, disable, controll state, and obtain status of unit files. Here 
++    enable, disable, control state, and obtain status of unit files. Here 
+     are some examples of frequently used commands:</para>
+ 
+     <itemizedlist>
+@@ -163,7 +198,7 @@ EOF</userinput></screen>
+        </listitem>
+        <listitem>
+          <para><command>journalctl -b[=ID] -r</command>: shows the journal
+-         entries since last successfull boot (or for boot ID) in reverse
++         entries since last successful boot (or for boot ID) in reverse
+          chronological order.</para>
+        </listitem>
+        <listitem>
+@@ -177,21 +212,21 @@ EOF</userinput></screen>
+   <sect2>
+     <title>Long Running Processes</title>
+ 
+-    <para>Beginning with systemd-230, all user processes are killed when a
+-    user session is ended, even if nohup is used, or the process uses
+-    <function>daemon()</function> or <function>setsid()</function>. This is a
+-    deliberate change from a historically permissive environment to a more
+-    restrictive one. The new behavior may cause issues if you depend on long
+-    running programs (e.g., <command>screen</command> or
+-    <command>tmux</command>) to remain active after ending your user
+-    session. There are three ways to enable lingering processes to remain after
+-    a user session is ended.</para>
++    <para>Beginning with systemd-230, all user processes are killed when a user
++    session is ended, even if nohup is used, or the process uses the
++    <function>daemon()</function> or <function>setsid()</function> functions.
++    This is a deliberate change from a historically permissive environment to a
++    more restrictive one. The new behavior may cause issues if you depend on
++    long running programs (e.g., <command>screen</command> or
++    <command>tmux</command>) to remain active after ending your user session.
++    There are three ways to enable lingering processes to remain after a user
++    session is ended.</para>
+ 
+     <itemizedlist>
+       <listitem>
+         <para>
+-          <emphasis>Enable process lingering for only needed users</emphasis>:
+-          normal users have permission to enable process lingering
++          <emphasis>Enable process lingering for only selected users</emphasis>:
++          Normal users have permission to enable process lingering
+           with the command <command>loginctl enable-linger</command> for their
+           own user. System administrators can use the same command with a
+           <parameter>user</parameter> argument to enable for a user. That user
+@@ -209,7 +244,7 @@ EOF</userinput></screen>
+       <listitem>
+         <para>
+           <emphasis>Enable system-wide process lingering</emphasis>:
+-          you can set <parameter>KillUserProcesses=no</parameter> in
++          You can set <parameter>KillUserProcesses=no</parameter> in
+           <filename>/etc/logind.conf</filename> to enable process lingering
+           globally for all users. This has the benefit of leaving the old
+           method available to all users at the expense of explicit control.

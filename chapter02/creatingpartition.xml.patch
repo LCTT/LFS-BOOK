@@ -1,0 +1,13 @@
+diff --git a/chapter02/creatingpartition.xml b/chapter02/creatingpartition.xml
+index 5956f08..d612fb9 100644
+--- a/chapter02/creatingpartition.xml
++++ b/chapter02/creatingpartition.xml
+@@ -124,7 +124,7 @@
+     <note><para>The Grub Bios partition must be on the drive that the BIOS 
+     uses to boot the system.  This is not necessarily the same drive where the 
+     LFS root partition is located. Disks on a system may use different
+-    partition table types.  The requirment for this partition depends
++    partition table types.  The requirement for this partition depends
+     only on the partition table type of the boot disk.</para></note>
+     </sect3>
+ 

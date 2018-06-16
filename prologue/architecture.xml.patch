@@ -1,0 +1,29 @@
+diff --git a/prologue/architecture.xml b/prologue/architecture.xml
+index 1a7ad8a..a6a456c 100644
+--- a/prologue/architecture.xml
++++ b/prologue/architecture.xml
+@@ -22,9 +22,9 @@ computer.</para>
+ 
+ <para>Some other facts about 64-bit systems need to be added here. When
+ compared to a 32-bit system, the sizes of executable programs are slightly
+-larger and the execution speeds are only slightly faster. For example, in a
+-test build of LFS-6.5 on a Core2Duo CPU based system, the following statistics
+-were measured:</para>
++larger and the execution speeds of arbitrary programs are only slightly faster.
++For example, in a test build of LFS-6.5 on a Core2Duo CPU based system, the
++following statistics were measured:</para>
+ 
+ <screen><computeroutput>Architecture Build Time     Build Size
+ 32-bit       198.5 minutes  648 MB
+@@ -35,6 +35,11 @@ the 32-bit build.  The gain from going to a 64-bit system is relatively
+ minimal. Of course, if you have more than 4GB of RAM or want to manipulate
+ data that exceeds 4GB, the advantages of a 64-bit system are substantial.</para>
+ 
++<note><para>The above discussion is only appropriate when comparing 
++builds on the same hardware.  Modern 64-bit systems are considerably
++faster than older 64-bit systems and the LFS authors recommend building
++on a 64-bit system when given a choice.</para></note>
++
+ <para>The default 64-bit build that results from LFS is considered a "pure"
+ 64-bit system. That is, it supports 64-bit executables only. Building a
+ "multi-lib" system requires compiling many applications twice, once for a

@@ -1,0 +1,15 @@
+diff --git a/chapter06/attr.xml b/chapter06/attr.xml
+index 65d509f..1497ebf 100644
+--- a/chapter06/attr.xml
++++ b/chapter06/attr.xml
+@@ -51,6 +51,10 @@
+ 
+ <screen><userinput remap="pre">sed -i -e "/SUBDIRS/s|man[25]||g" man/Makefile</userinput></screen>
+ 
++    <para>Fix a problem in the test procedures caused by changes in perl-5.26:</para>
++
++<screen><userinput remap="pre">sed -i 's:{(:\\{(:' test/run</userinput></screen>
++
+     <para>Prepare Attr for compilation:</para>
+ 
+ <screen revision="sysv"><userinput remap="configure">./configure --prefix=/usr \

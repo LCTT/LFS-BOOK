@@ -1,0 +1,13 @@
+diff --git a/chapter07/etcshells.xml b/chapter07/etcshells.xml
+index 8d13ff0..8e4e862 100644
+--- a/chapter07/etcshells.xml
++++ b/chapter07/etcshells.xml
+@@ -11,7 +11,7 @@
+ <!--
+   <sect1info>
+     <othername>$LastChangedBy: bdubbs $</othername>
+-    <date>$Date: 2016-06-01 00:04:27 -0300 (Wed, 01 Jun 2016) $</date>
++    <date>$Date: 2016-05-31 20:04:27 -0700 (Tue, 31 May 2016) $</date>
+   </sect1info>
+ -->
+   <title>Creating the /etc/shells File</title>

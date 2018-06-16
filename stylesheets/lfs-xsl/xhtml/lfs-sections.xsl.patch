@@ -1,0 +1,30 @@
+diff --git a/stylesheets/lfs-xsl/xhtml/lfs-sections.xsl b/stylesheets/lfs-xsl/xhtml/lfs-sections.xsl
+index 00e5efa..b0f1eca 100644
+--- a/stylesheets/lfs-xsl/xhtml/lfs-sections.xsl
++++ b/stylesheets/lfs-xsl/xhtml/lfs-sections.xsl
+@@ -1,8 +1,8 @@
+ <?xml version='1.0' encoding='ISO-8859-1'?>
+ 
+ <!--
+-$LastChangedBy: manuel $
+-$Date: 2007-07-05 18:18:33 -0300 (Thu, 05 Jul 2007) $
++$LastChangedBy: bdubbs $
++$Date: 2017-12-31 08:56:07 -0800 (Sun, 31 Dec 2017) $
+ -->
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+@@ -134,11 +134,12 @@ $Date: 2007-07-05 18:18:33 -0300 (Thu, 05 Jul 2007) $
+     <!-- sect1info mode svn-keys:
+            Self-made template to process SVN keywords found in sect1info. -->
+   <xsl:template match="sect1info" mode="svn-keys">
+-    <p class="updated">Last updated <!-- by
++  <!--  <p class="updated">Last updated --><!-- by
+       <xsl:apply-templates select="othername" mode="svn-keys"/> -->
+-      on
++  <!--    on
+       <xsl:apply-templates select="date" mode="svn-keys"/>
+     </p>
++comment out entire template for now.  We do not use this.  bdubbs 2017/12/30  -->
+   </xsl:template>
+ 
+     <!-- othername mode svn-keys:

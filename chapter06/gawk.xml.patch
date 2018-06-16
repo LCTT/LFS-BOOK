@@ -1,0 +1,15 @@
+diff --git a/chapter06/gawk.xml b/chapter06/gawk.xml
+index 32b8165..f96fe5f 100644
+--- a/chapter06/gawk.xml
++++ b/chapter06/gawk.xml
+@@ -40,6 +40,10 @@
+   <sect2 role="installation">
+     <title>Installation of Gawk</title>
+ 
++    <para>First, ensure some unneeded files are not installed:</para>
++
++<screen><userinput remap="pre">sed -i 's/extras//' Makefile.in</userinput></screen>
++
+     <para>Prepare Gawk for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>

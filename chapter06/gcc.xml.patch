@@ -1,0 +1,51 @@
+diff --git a/chapter06/gcc.xml b/chapter06/gcc.xml
+index 47f96f7..e2b109c 100644
+--- a/chapter06/gcc.xml
++++ b/chapter06/gcc.xml
+@@ -51,6 +51,11 @@
+   ;;
+ esac</userinput></screen>
+ 
++    <para>Remove the symlink created earlier as the final gcc includes will be
++    installed here:</para>
++
++<screen><userinput remap="pre">rm -f /usr/lib/gcc</userinput></screen>
++
+     <para>The GCC documentation recommends building GCC in a dedicated build directory:</para>
+ 
+ <screen><userinput remap="pre">mkdir -v build
+@@ -121,11 +126,19 @@ cd       build</userinput></screen>
+ 
+     <para>A few unexpected failures cannot always be avoided. The GCC developers
+     are usually aware of these issues, but have not resolved them yet.
+-    In particular, five tests in the libstdc++ test suite are known to fail
++    In particular, six tests in the libstdc++ test suite are known to fail
+     when running as the root user as we do here.
+     Unless the test results are vastly different from those at the above URL,
+     it is safe to continue.</para>
+ 
++    <note><para>
++      On some combinations of kernel configuration and AMD processors
++      there may be more than 1100 failures in the gcc.target/i386/mpx
++      tests (which are designed to test the MPX option on recent
++      Intel processors). These can safely be ignored on AMD
++      processors.
++    </para></note>
++
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install</userinput></screen>
+@@ -206,10 +219,13 @@ ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/&gcc-version;/liblto_plugin.so \
+    <para>Again, note that the directory named after your target triplet may be
+    different than the above, depending on your architecture.</para>
+ 
++<!--  This appears to be obsolete
++
+     <note><para>As of version 4.3.0, GCC now unconditionally installs the
+     <filename>limits.h</filename> file into the private
+     <filename class="directory">include-fixed</filename> directory, and that
+     directory is required to be in place.</para></note>
++-->
+ 
+     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+     href="adjusting.xml"

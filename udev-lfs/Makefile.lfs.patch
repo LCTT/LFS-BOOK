@@ -1,0 +1,13 @@
+diff --git a/udev-lfs/Makefile.lfs b/udev-lfs/Makefile.lfs
+index 74833b7..851e0f0 100644
+--- a/udev-lfs/Makefile.lfs
++++ b/udev-lfs/Makefile.lfs
+@@ -3,7 +3,7 @@
+ 
+ # vim: tabstop=3
+ 
+-VERSION=20140408
++VERSION=20171102
+ SHELL=/bin/bash
+ 
+ ifeq ($(V),)

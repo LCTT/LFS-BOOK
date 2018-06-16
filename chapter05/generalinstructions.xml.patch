@@ -1,0 +1,22 @@
+diff --git a/chapter05/generalinstructions.xml b/chapter05/generalinstructions.xml
+index d2f5d61..0a6d341 100644
+--- a/chapter05/generalinstructions.xml
++++ b/chapter05/generalinstructions.xml
+@@ -48,7 +48,7 @@
+ 
+   <listitem>
+ 
+-    <para>Finally, two last important items must be emphasized:</para>
++    <para>Finally, two important items must be emphasized:</para>
+ 
+     <important>
+ 
+@@ -93,7 +93,7 @@
+           <orderedlist numeration="loweralpha" spacing="compact">
+             <listitem>
+               <para>Using the <command>tar</command> program, extract the package
+-              to be built.  In Chapter 5, ensure you are the <emphasis>lfs</emphasis>
++              to be built.  In Chapter&nbsp;5, ensure you are the <emphasis>lfs</emphasis>
+               user when extracting the package.</para>
+             </listitem>
+             <listitem>

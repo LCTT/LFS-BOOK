@@ -1,0 +1,13 @@
+diff --git a/prologue/audience.xml b/prologue/audience.xml
+index b333ff6..03f92dc 100644
+--- a/prologue/audience.xml
++++ b/prologue/audience.xml
+@@ -45,7 +45,7 @@ fixes the problem.</para>
+ 
+ <para>The goal of Linux From Scratch is to build a complete and usable
+ foundation-level system. If you do not wish to build your own Linux system
+-from scratch, you may not entirely benefit from the information in this
++from scratch, you may nevertheless benefit from the information in this
+ book.</para>
+ 
+ <para>There are too many other good reasons to build your own LFS system to

@@ -1,0 +1,196 @@
+diff --git a/chapter06/glibc.xml b/chapter06/glibc.xml
+index 4977518..95608d2 100644
+--- a/chapter06/glibc.xml
++++ b/chapter06/glibc.xml
+@@ -50,25 +50,41 @@
+     Glibc autoconf tests would give false results and defeat the goal
+     of achieving a clean build.</para></note>
+ 
+-    <para>Some of the Glibc programs use non-FHS compilant
++    <para>Some of the Glibc programs use the non-FHS compilant
+     <filename class="directory">/var/db</filename> directory to store
+     their runtime data. Apply the following patch to make such programs
+     store their runtime data in the FHS-compliant locations:</para>
+ 
+ <screen><userinput remap="pre">patch -Np1 -i ../&glibc-fhs-patch;</userinput></screen>
++<!--
++    <para>Fix a minor security issue with glob functions:</para>
+ 
+-    <para>Create a symlink for LSB compliance and, for x86_64, a
+-    compatibility symlink required for the dynamic loader to function
+-    correctly:</para>
++<screen><userinput remap="pre">patch -Np1 -i ../&glibc-glob-patch;</userinput></screen>
++-->
++    <para>First create a compatibility symlink to avoid references to /tools in
++    our final glibc:</para>
++
++<screen><userinput remap="pre">ln -sfv /tools/lib/gcc /usr/lib</userinput></screen>
++
++    <para>Determine the GCC include directory and create a symlink for LSB
++    compliance. Additionally, for x86_64, create a compatibility symlink
++    required for the dynamic loader to function correctly:</para>
+ 
+ <screen><userinput remap="pre">case $(uname -m) in
+-    x86) ln -s ld-linux.so.2 /lib/ld-lsb.so.3
++    i?86)    GCC_INCDIR=/usr/lib/gcc/$(uname -m)-pc-linux-gnu/&gcc-version;/include
++            ln -sfv ld-linux.so.2 /lib/ld-lsb.so.3
+     ;;
+-    x86_64) ln -s ../lib/ld-linux-x86-64.so.2 /lib64
+-            ln -s ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
++    x86_64) GCC_INCDIR=/usr/lib/gcc/x86_64-pc-linux-gnu/&gcc-version;/include
++            ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64
++            ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
+     ;;
+ esac</userinput></screen>
+ 
++    <para>Remove a file that may be left over from a previous build attempt:
++    </para>
++
++<screen><userinput remap="pre">rm -f /usr/include/limits.h</userinput></screen>
++
+     <para>The Glibc documentation recommends building Glibc 
+     in a dedicated build directory:</para>
+ 
+@@ -77,11 +93,51 @@ cd       build</userinput></screen>
+ 
+     <para>Prepare Glibc for compilation:</para>
+ 
+-<screen><userinput remap="configure">../configure --prefix=/usr                   \
+-             --enable-kernel=&min-kernel;          \
+-             --enable-obsolete-rpc           \
+-             --enable-stack-protector=strong \
+-             libc_cv_slibdir=/lib</userinput></screen>
++<screen><userinput remap="configure">CC="gcc -isystem $GCC_INCDIR -isystem /usr/include" \
++../configure --prefix=/usr                          \
++             --disable-werror                       \
++             --enable-kernel=&min-kernel;                    \
++             --enable-stack-protector=strong        \
++             libc_cv_slibdir=/lib
++unset GCC_INCDIR</userinput></screen>
++
++   <variablelist>
++      <title>The meaning of the options and new configure parameters:</title>
++
++      <varlistentry>
++        <term><parameter>CC="gcc -isystem $GCC_INCDIR -isystem /usr/include"</parameter></term>
++        <listitem>
++          <para>Setting the location of both gcc and system include directories
++          avoids introduction of invalid paths in debugging symbols.</para>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry>
++        <term><parameter>--disable-werror</parameter></term>
++        <listitem>
++          <para>This option disables the -Werror option passed to 
++          GCC.  This is necessary for running the test suite.</para>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry>
++        <term><parameter>--enable-stack-protector=strong</parameter></term>
++        <listitem>
++          <para>This option increases system security by adding 
++          extra code to check for buffer overflows, such as stack
++          smashing attacks.</para>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry>
++        <term><parameter>libc_cv_slibdir=/lib</parameter></term>
++        <listitem>
++          <para>This variable sets the correct library for all
++          systems.  We do not want lib64 to be used.</para>
++        </listitem>
++      </varlistentry>
++
++    </variablelist>
+ 
+     <para>Compile the package:</para>
+ 
+@@ -92,24 +148,28 @@ cd       build</userinput></screen>
+       Do not skip it under any circumstance.</para>
+     </important>
+ 
+-    <para>Generally a few tests do not pass, but you can generally ignore
+-    any of the test failures listed below. Now test the build results:</para>
++    <para>Generally a few tests do not pass. The test failures listed below
++    are usually safe to ignore.</para>
+ 
+ <screen><userinput remap="test">make check</userinput></screen>
+ 
+-    <para>You will probably see some test failures.  The Glibc test suite is
++    <para>You may see some test failures.  The Glibc test suite is
+     somewhat dependent on the host system.  This is a list of the most common
+-    issues seen for this version of LFS:</para>
++    issues seen for some versions of LFS:</para>
+ 
+     <itemizedlist>
+ 
+       <listitem>
+-        <para><emphasis>posix/tst-getaddrinfo4</emphasis> will always fail due
+-        to not having the necessary networking applications when the tests are
+-        run.  <emphasis>posix/tst-getaddrinfo5</emphasis> is also known
+-        to fail on some architectures.</para>
++        <para><emphasis>misc/tst-ttyname</emphasis> 
++        is known to fail in the LFS chroot environment.</para>
+       </listitem>
+ 
++      <listitem>
++        <para><emphasis>posix/tst-getaddrinfo4</emphasis> and
++        <emphasis>posix/tst-getaddrinfo5</emphasis>
++        may fail on some architectures.</para>
++      </listitem>
++<!--
+       <listitem>
+         <para>The <emphasis>rt/tst-cputimer1</emphasis> and 
+         <emphasis>rt/tst-cpuclock2</emphasis> tests have been known to
+@@ -133,7 +193,7 @@ cd       build</userinput></screen>
+         <para>Other tests known to fail on some architectures are
+         malloc/tst-malloc-usable and nptl/tst-cleanupx4. </para>
+       </listitem>
+-
++-->
+     </itemizedlist>
+ 
+     <para>Though it is a harmless message, the install stage of Glibc will
+@@ -142,6 +202,12 @@ cd       build</userinput></screen>
+ 
+ <screen><userinput remap="install">touch /etc/ld.so.conf</userinput></screen>
+ 
++    <para>Fix the generated Makefile to skip an unneeded sanity check
++    that fails in the LFS partial environment:
++    </para>
++
++<screen><userinput remap="install">sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile</userinput></screen>
++
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install</userinput></screen>
+@@ -397,7 +463,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
+       <seglistitem>
+         <seg>catchsegv, gencat, getconf, getent, iconv, iconvconfig, ldconfig,
+         ldd, lddlibc4, locale, localedef, makedb, mtrace, nscd, 
+-        pldd, rpcgen, sln, sotruss, sprof, tzselect, xtrace,
++        pldd, sln, sotruss, sprof, tzselect, xtrace,
+         zdump, and zic</seg>
+         <seg>ld-&glibc-version;.so, libBrokenLocale.{a,so}, libSegFault.so, libanl.{a,so},
+         libc.{a,so}, libc_nonshared.a, libcidn.so,
+@@ -580,17 +646,6 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="rpcgen">
+-        <term><command>rpcgen</command></term>
+-        <listitem>
+-          <para>Generates C code to implement the Remote Procedure Call (RPC)
+-          protocol</para>
+-          <indexterm zone="ch-system-glibc rpcgen">
+-            <primary sortas="b-rpcgen">rpcgen</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+       <varlistentry id="sln">
+         <term><command>sln</command></term>
+         <listitem>

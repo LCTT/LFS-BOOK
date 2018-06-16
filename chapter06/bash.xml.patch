@@ -1,0 +1,18 @@
+diff --git a/chapter06/bash.xml b/chapter06/bash.xml
+index 1d1e9fc..aeaada5 100644
+--- a/chapter06/bash.xml
++++ b/chapter06/bash.xml
+@@ -39,11 +39,11 @@
+ 
+   <sect2 role="installation">
+     <title>Installation of Bash</title>
+-
++<!--
+     <para>Incorporate some upstream fixes:</para>
+ 
+ <screen><userinput remap="pre">patch -Np1 -i ../&bash-fixes-patch;</userinput></screen>
+-
++-->
+     <para>Prepare Bash for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr                       \

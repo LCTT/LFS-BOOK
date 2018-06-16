@@ -1,0 +1,13 @@
+diff --git a/chapter02/creatingfilesystem.xml b/chapter02/creatingfilesystem.xml
+index 22a0947..ebdd79c 100644
+--- a/chapter02/creatingfilesystem.xml
++++ b/chapter02/creatingfilesystem.xml
+@@ -60,7 +60,7 @@
+   <note>
+     <para>Some host distributions use custom features in their filesystem
+     creation tools (E2fsprogs). This can cause problems when booting into your new
+-    LFS in Chapter 9, as those features will not be supported by the LFS-installed
++    LFS in Chapter&nbsp;9, as those features will not be supported by the LFS-installed
+     E2fsprogs; you will get an error similar to <quote>unsupported filesystem
+     features, upgrade your e2fsprogs</quote>. To check if your host system
+     uses custom enhancements, run the following command:</para>

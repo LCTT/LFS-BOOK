@@ -1,0 +1,24 @@
+diff --git a/chapter07/udev.xml b/chapter07/udev.xml
+index 9a18bc7..d3bbd85 100644
+--- a/chapter07/udev.xml
++++ b/chapter07/udev.xml
+@@ -209,12 +209,13 @@
+       <title>A kernel module is not loaded automatically, and Udev is not
+       intended to load it</title>
+ 
+-      <para>If the <quote>wrapper</quote> module only enhances the functionality
+-      provided by some other module (e.g., <emphasis>snd-pcm-oss</emphasis>
+-      enhances the functionality of <emphasis>snd-pcm</emphasis> by making the
+-      sound cards available to OSS applications), configure
+-      <command>modprobe</command> to load the wrapper after Udev loads the
+-      wrapped module. To do this, add a <quote>softdep</quote> line in any
++      <para>If the <quote>wrapper</quote> module only enhances the
++      functionality provided by some other module (e.g.,
++      <emphasis>snd-pcm-oss</emphasis> enhances the functionality of
++      <emphasis>snd-pcm</emphasis> by making the sound cards available to OSS
++      applications), configure <command>modprobe</command> to load the wrapper
++      after Udev loads the wrapped module. To do this, add a
++      <quote>softdep</quote> line to the corresponding
+       <filename>/etc/modprobe.d/<replaceable>&lt;filename&gt;</replaceable>.conf</filename>
+       file. For example:</para>
+ 

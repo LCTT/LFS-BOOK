@@ -1,0 +1,14 @@
+diff --git a/chapter06/gzip.xml b/chapter06/gzip.xml
+index e7dd7d2..09eebbd 100644
+--- a/chapter06/gzip.xml
++++ b/chapter06/gzip.xml
+@@ -53,6 +53,9 @@
+ 
+ <screen><userinput remap="test">make check</userinput></screen>
+ 
++    <para>Two tests are known to fail in the LFS environment:
++    help-version and zmore.</para>
++
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install</userinput></screen>

@@ -1,0 +1,350 @@
+diff --git a/chapter06/systemd.xml b/chapter06/systemd.xml
+index a6df5b8..92fa91c 100644
+--- a/chapter06/systemd.xml
++++ b/chapter06/systemd.xml
+@@ -40,146 +40,124 @@
+   <sect2 role="installation">
+     <title>Installation of systemd</title>
+ 
+-    <para>First, fix a build error when using Util-Linux built in
+-    Chapter 5:</para>
++    <para>Create a symlink to work around missing xsltproc:</para>
+ 
+-<screen><userinput remap="pre">sed -i "s:blkid/::" $(grep -rl "blkid/blkid.h")</userinput></screen>
++<screen><userinput remap="pre">ln -sf /tools/bin/true /usr/bin/xsltproc</userinput></screen>
+ 
+-<!-- Not needed as of 231. -renodr
+-    <para>Fix a potential security issue with framebuffer devices:</para>
++    <para>Set up the man pages:</para>
+ 
+-<screen><userinput remap="pre">sed -e 's@DRI and frame buffer@DRI@'                  \
+-    -e '/SUBSYSTEM==\"graphics\", KERNEL==\"fb\*\"/d' \
+-    -i  src/login/70-uaccess.rules</userinput></screen>
+--->
+-
+-    <para>Disable two tests that always fail:</para>
++<screen><userinput remap="pre">tar -xf ../systemd-man-pages-&systemd-version;.tar.xz</userinput></screen>
+ 
+-<screen><userinput remap="pre">sed -e 's@test/udev-test.pl @@'  \
+-    -e 's@test-copy$(EXEEXT) @@' \
+-    -i Makefile.in</userinput></screen>
++    <para>Remove tests that cannot be built in chroot:</para>
+ 
+-<!-- Not needed as of 232... anyone notice a pattern here? -renodr
+-    <para>Apply a patch to fix a security issue:</para>
++<screen><userinput remap="pre">sed '178,222d' -i src/resolve/meson.build</userinput></screen>
+ 
+-<screen><userinput remap="pre">patch -Np1 -i ../systemd-231-security_fix-1.patch</userinput></screen>
+--->
++    <para>Remove an unneeded group,
++    <systemitem class="groupname">render</systemitem>, from the default udev
++    rules:</para>
+ 
+-    <para>Create a file to allow systemd to build when using Util-Linux
+-    built in Chapter 5, to disable LTO by default, and to build without
+-    xlstproc:</para>
+-
+-<screen><userinput remap="pre">cat &gt; config.cache &lt;&lt; "EOF"
+-<literal>KILL=/bin/kill
+-MOUNT_PATH=/bin/mount
+-UMOUNT_PATH=/bin/umount
+-HAVE_BLKID=1
+-BLKID_LIBS="-lblkid"
+-BLKID_CFLAGS="-I/tools/include/blkid"
+-HAVE_LIBMOUNT=1
+-MOUNT_LIBS="-lmount"
+-MOUNT_CFLAGS="-I/tools/include/libmount"
+-cc_cv_CFLAGS__flto=no
+-SULOGIN="/sbin/sulogin"
+-XSLTPROC="/usr/bin/xsltproc"</literal>
+-EOF</userinput></screen>
+-
+-    <para>LTO is disabled by default because it causes
+-    <command>systemd</command> and other auxiliary programs to link to
+-    <filename class="libraryfile">libgcc_s.so</filename>, slows the build down
+-    and makes the compiled code larger.</para>
++<screen><userinput remap="pre">sed -i 's/GROUP="render", //' rules/50-udev-default.rules.in</userinput></screen>
+ 
+     <para>Prepare systemd for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr            \
+-            --sysconfdir=/etc        \
+-            --localstatedir=/var     \
+-            --config-cache           \
+-            --with-rootprefix=       \
+-            --with-rootlibdir=/lib   \
+-            --enable-split-usr       \
+-            --disable-firstboot      \
+-            --disable-ldconfig       \
+-            --disable-sysusers       \
+-            --without-python         \
+-            --with-default-dnssec=no \
+-            --docdir=/usr/share/doc/systemd-&systemd-version;</userinput></screen>
++    <screen><userinput remap="configure">mkdir -p build
++cd       build
++
++LANG=en_US.UTF-8                   \
++meson --prefix=/usr                \
++      --sysconfdir=/etc            \
++      --localstatedir=/var         \
++      -Dblkid=true                 \
++      -Dbuildtype=release          \
++      -Ddefault-dnssec=no          \
++      -Dfirstboot=false            \
++      -Dinstall-tests=false        \
++      -Dkill-path=/bin/kill        \
++      -Dkmod-path=/bin/kmod        \
++      -Dldconfig=false             \
++      -Dmount-path=/bin/mount      \
++      -Drootprefix=                \
++      -Drootlibdir=/lib            \
++      -Dsplit-usr=true             \
++      -Dsulogin-path=/sbin/sulogin \
++      -Dsysusers=false             \
++      -Dumount-path=/bin/umount    \
++      -Db_lto=false                \
++      ..</userinput></screen>
+ 
+     <variablelist>
+-      <title>The meaning of the configure options:</title>
++      <title>The meaning of the meson options:</title>
+ 
+       <varlistentry>
+-        <term><parameter>--config-cache</parameter></term>
++        <term><parameter>-D*-path=*</parameter></term>
+         <listitem>
+-          <para>This switch tells the build system to use
+-          the <filename>config.cache</filename> file which
+-          was created earlier.</para>
++          <para>These switches provide location of binaries needed by
++          systemd at runtime that have not yet been installed, or who's
++          pkgconfig files are currently only in
++          <filename>/tools/lib/pkgconfig</filename>.</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><parameter>--with-root*</parameter></term>
++        <term><parameter>-Ddefault-dnssec=no</parameter></term>
+         <listitem>
+-          <para>These switches ensure that core programs and
+-          shared libraries are installed in the subdirectories
+-          of the root partition.</para>
++          <para>This switch turns off the experimental DNSSEC support.</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><parameter>--enable-split-usr</parameter></term>
++        <term><parameter>-Dfirstboot=false</parameter></term>
+         <listitem>
+-          <para>This switch ensures that systemd will work on
+-          systems where /bin, /lib and /sbin directories are not
+-          symlinks to their /usr counterparts.</para>
++          <para>This switch prevents installation of systemd
++          services responsible for setting up the system for
++          the first time. They are not useful for LFS because
++          everything is done manually.</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><parameter>--without-python</parameter></term>
++        <term><parameter>-Dinstall-tests=false</parameter></term>
+         <listitem>
+-          <para>This switch prevents <command>configure</command>
+-          from trying to use Python which isn't built
+-          in LFS.</para>
++          <para>This switch prevents installation of the compiled tests.</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><parameter>--disable-firstboot</parameter></term>
++        <term><parameter>-Dldconfig=false</parameter></term>
+         <listitem>
+-          <para>This switch prevents installation of systemd
+-          services responsible for setting up the system for
+-          the first time. They are not useful for LFS because
+-          everything is done manually.</para>
++          <para>This switch prevents installation of a systemd unit that runs
++          <command>ldconfig</command> at boot, which is not useful for source
++          distributions such as LFS and makes the boot time longer. Remove it
++          if the described feature is desired.</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><parameter>--disable-ldconfig</parameter></term>
++        <term><parameter>-Droot*</parameter></term>
+         <listitem>
+-          <para>This switch prevents installation of a systemd
+-          unit that runs <command>ldconfig</command> at
+-          boot, making the boot time longer. Remove it if the
+-          described feature is desired, even though it's not
+-          useful for source distributions such as LFS.</para>
++          <para>These switches ensure that core programs and
++          shared libraries are installed in the subdirectories
++          of the root partition.</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><parameter>--disable-sysusers</parameter></term>
++        <term><parameter>-Dsplit-usr=true</parameter></term>
+         <listitem>
+-          <para>This switch prevents installation of systemd
+-          services responsible for setting up the
+-          <filename>/etc/group</filename> and
+-          <filename>/etc/passwd</filename> files. Both files
+-          were created early in this chapter.</para>
++          <para>This switch ensures that systemd will work on
++          systems where /bin, /lib and /sbin directories are not
++          symlinks to their /usr counterparts.</para>
+         </listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+-        <term><parameter>--with-default-dnssec=no</parameter></term>
++        <term><parameter>-Dsysusers=false</parameter></term>
+         <listitem>
+-          <para>This switch turns off the experimental DNSSEC suport.</para>
++          <para>This switch prevents installation of systemd
++          services responsible for setting up the
++          <filename>/etc/group</filename> and
++          <filename>/etc/passwd</filename> files. Both files
++          were created earlier in this chapter.</para>
+         </listitem>
+       </varlistentry>
+ 
+@@ -187,20 +165,15 @@ EOF</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 
+-<screen><userinput remap="make">make LIBRARY_PATH=/tools/lib</userinput></screen>
+-
+-    <para>This package has a test suite, but it can only be run after the
+-    package has been installed.</para>
++<screen><userinput remap="make">LANG=en_US.UTF-8 ninja</userinput></screen>
++<!--
++    <para>To test the package, execute the following command:</para>
+ 
++<screen><userinput remap="test">LANG=en_US.UTF-8 ninja test</userinput></screen>
++-->
+     <para>Install the package:</para>
+ 
+-<screen><userinput remap="install">make LD_LIBRARY_PATH=/tools/lib install</userinput></screen>
+-
+-<!-- These get installed into /lib now by default.
+-    <para>Move the NSS libraries to <filename class="directory">/lib</filename>:</para>
+-
+-<screen><userinput remap="install">mv -v /usr/lib/libnss_{myhostname,mymachines,resolve}.so.2 /lib</userinput></screen>
+--->
++<screen><userinput remap="install">LANG=en_US.UTF-8 ninja install</userinput></screen>
+ 
+     <para>Remove an unnecessary directory:</para>
+ 
+@@ -214,24 +187,24 @@ EOF</userinput></screen>
+ done
+ ln -sfv ../lib/systemd/systemd /sbin/init</userinput></screen>
+ 
+-<!--
+-    <para>Remove a reference to a non-existent group:</para>
++    <para>Remove our earlier created symlink for xsltproc:</para>
+ 
+-<screen><userinput remap="install">sed -i "s:0775 root lock:0755 root root:g" /usr/lib/tmpfiles.d/legacy.conf</userinput></screen>
+--->
++<screen><userinput remap="install">rm -f /usr/bin/xsltproc</userinput></screen>
+ 
+     <para>Create the <filename>/etc/machine-id</filename> file needed by
+     <command>systemd-journald</command>:</para>
+ 
+-<screen><userinput remap="install">systemd-machine-id-setup</userinput></screen>
++<screen><userinput remap="adjust">systemd-machine-id-setup</userinput></screen>
+ 
+-    <para>Since the testsuite largely depends on the host system kernel
+-    configuration, some tests may fail. It also needs a modification in
+-    order not to look for a program that will be installed by Util-Linux
+-    package later in this chapter. To test the results, issue:</para>
++    <para>Create the <filename>/lib/systemd/systemd-user-sessions</filename>
++    script to allow unprivileged user logins without
++    <application>systemd-logind</application>:</para>
+ 
+-<screen><userinput remap="test">sed -i "s:minix:ext4:g" src/test/test-path-util.c
+-make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
++<screen><userinput remap="adjust">cat &gt; /lib/systemd/systemd-user-sessions &lt;&lt; "EOF"
++#!/bin/bash
++rm -f /run/nologin
++EOF
++chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
+ 
+   </sect2>
+ 
+@@ -276,7 +249,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
+       <varlistentry id="bootctl">
+         <term><command>bootctl</command></term>
+         <listitem>
+-          <para>used to query the firmware and boot manager settings</para>
++          <para>Used to query the firmware and boot manager settings</para>
+           <indexterm zone="ch-system-systemd bootctl">
+             <primary sortas="b-bootctl">bootctl</primary>
+           </indexterm>
+@@ -332,8 +305,8 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
+         <term><command>init</command></term>
+         <listitem>
+           <para>The first process to be started when the kernel has initialized
+-          the hardware which takes over the boot process and starts all the
+-          proceses it is instructed to</para>
++          the hardware which takes over the boot process and starts all 
++          processes according to its configuration files</para>
+           <indexterm zone="ch-system-systemd init">
+             <primary sortas="b-init">init</primary>
+           </indexterm>
+@@ -343,7 +316,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
+       <varlistentry id="journalctl">
+         <term><command>journalctl</command></term>
+         <listitem>
+-          <para>Used to query the contents of the systemd Journal</para>
++          <para>Used to query the contents of the systemd journal</para>
+           <indexterm zone="ch-system-systemd journalctl">
+             <primary sortas="b-journalctl">journalctl</primary>
+           </indexterm>
+@@ -584,7 +557,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
+       <varlistentry id="systemd-mount">
+         <term><command>systemd-mount</command></term>
+         <listitem>
+-          <para>is a tool to temporarily mount or auto-mount a drive.</para>
++          <para>A tool to temporarily mount or auto-mount a drive.</para>
+           <indexterm zone="ch-system-systemd systemd-mount">
+             <primary sortas="b-systemd-mount">systemd-mount</primary>
+           </indexterm>
+@@ -658,7 +631,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
+       <varlistentry id="systemd-socket-activate">
+         <term><command>systemd-socket-activate</command></term>
+         <listitem>
+-          <para>is a tool to listen on socket devices and launch a process upon
++          <para>A tool to listen on socket devices and launch a process upon
+           connection.</para>
+           <indexterm zone="ch-system-systemd systemd-socket-activate">
+             <primary sortas="b-systemd-socket-activate">systemd-socket-activate</primary>
+@@ -714,9 +687,9 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
+       <varlistentry id="udevadm">
+         <term><command>udevadm</command></term>
+         <listitem>
+-          <para>Generic Udev administration tool: controls the udevd daemon,
++          <para>Generic udev administration tool: controls the udevd daemon,
+           provides info from the Udev database, monitors uevents, waits for
+-          uevents to finish, tests Udev configuration, and triggers uevents
++          uevents to finish, tests udev configuration, and triggers uevents
+           for a given device</para>
+           <indexterm zone="ch-system-systemd udevadm">
+             <primary sortas="b-udevadm">udevadm</primary>
+@@ -727,7 +700,7 @@ make LD_LIBRARY_PATH=/tools/lib -k check</userinput></screen>
+       <varlistentry id="libsystemd">
+         <term><filename class="libraryfile">libsystemd</filename></term>
+         <listitem>
+-          <para>systemd utility library</para>
++          <para>The main systemd utility library</para>
+           <indexterm zone="ch-system-systemd libsystemd">
+             <primary sortas="c-libsystemd">libsystemd</primary>
+           </indexterm>

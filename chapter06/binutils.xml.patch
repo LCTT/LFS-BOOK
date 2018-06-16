@@ -1,0 +1,63 @@
+diff --git a/chapter06/binutils.xml b/chapter06/binutils.xml
+index 36d303b..4435db7 100644
+--- a/chapter06/binutils.xml
++++ b/chapter06/binutils.xml
+@@ -71,6 +71,7 @@ cd       build</userinput></screen>
+              --enable-plugins    \
+              --enable-shared     \
+              --disable-werror    \
++             --enable-64-bit-bfd \
+              --with-system-zlib</userinput></screen>
+     <variablelist>
+       <title>The meaning of the configure parameters:</title>
+@@ -98,6 +99,14 @@ cd       build</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry>
++        <term><parameter>--enable-64-bit-bfd</parameter></term>
++        <listitem>
++           <para>Enables 64-bit support (on hosts with narrower word sizes).
++           May not be needed on 64-bit systems, but does no harm.</para>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry>
+         <term><parameter>--with-system-zlib</parameter></term>
+         <listitem>
+@@ -143,6 +152,8 @@ cd       build</userinput></screen>
+ 
+ <screen><userinput remap="test">make -k check</userinput></screen>
+ 
++    <para>One test, debug_msg.sh, is known to fail.</para>
++
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make tooldir=/usr install</userinput></screen>
+@@ -158,7 +169,7 @@ cd       build</userinput></screen>
+       <segtitle>Installed directory</segtitle>
+ 
+       <seglistitem>
+-        <seg>addr2line, ar, as, c++filt, elfedit, gprof, ld, ld.bfd, nm,
++        <seg>addr2line, ar, as, c++filt, elfedit, gprof, ld, ld.bfd, ld.gold, nm,
+         objcopy, objdump, ranlib, readelf, size, strings, and strip</seg>
+         <seg>libbfd.{a,so} and libopcodes.{a,so}</seg>
+         <seg>/usr/lib/ldscripts</seg>
+@@ -247,6 +258,17 @@ cd       build</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="ld.gold">
++        <term><command>ld.gold</command></term>
++        <listitem>
++          <para>A cut down version of ld that only supports the 
++          elf object file format</para>
++          <indexterm zone="ch-system-binutils ld.gold">
++            <primary sortas="b-ld.gold">ld.gold</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="ld.bfd">
+         <term><command>ld.bfd</command></term>
+         <listitem>

@@ -1,0 +1,24 @@
+diff --git a/chapter06/flex.xml b/chapter06/flex.xml
+index 5536772..4055d48 100644
+--- a/chapter06/flex.xml
++++ b/chapter06/flex.xml
+@@ -41,6 +41,10 @@
+   <sect2 role="installation">
+     <title>Installation of Flex</title>
+ 
++    <para>First, fix a problem introduced with glibc-2.26:</para>
++
++<screen><userinput remap="pre">sed -i "/math.h/a #include &lt;malloc.h&gt;" src/flexdef.h</userinput></screen>
++
+     <para>The build procedure assumes the <application>help2man</application>
+     program is available to create a man page from the executable --help option.
+     This is not present, so we use an environment variable to skip this process.
+@@ -57,8 +61,6 @@
+ 
+ <screen><userinput remap="test">make check</userinput></screen>
+ 
+-    <para>One test, <emphasis>cxx_restart</emphasis>, is known to fail.</para>
+-
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install</userinput></screen>
