@@ -555,7 +555,7 @@
           <ulink url="&lfs-ticket-root;4143">#4143</ulink>.</para>
         </listitem>
         <listitem revision="systemd">
-          <para>[dj] - Update to Systemd-235.  Fixes
+          <para>[dj] - Update to systemd-235.  Fixes
           <ulink url="&lfs-ticket-root;4147">#4147</ulink>.</para>
         </listitem>
         <listitem revision="systemd">

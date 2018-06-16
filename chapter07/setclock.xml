@@ -75,7 +75,7 @@ EOF</userinput></screen>
   </sect2>
 
   <sect2 id="ch-scripts-systemd-clock">
-    <title>Systemd Clock Configuration</title>
+    <title>systemd Clock Configuration</title>
 
   <indexterm zone="ch-scripts-clock">
     <primary sortas="d-clock">clock</primary>
@@ -125,7 +125,7 @@ EOF</userinput></screen>
 <screen role="nodump"><userinput>timedatectl list-timezones</userinput></screen>
 
     <note><para>Please note that <command>timedatectl</command> command can
-    be used only on a system booted with Systemd.</para></note>
+    be used only on a system booted with systemd.</para></note>
 
   </sect2>
 

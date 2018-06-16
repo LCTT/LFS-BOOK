@@ -14,7 +14,7 @@
 
     <title>Network Devices</title>
 
-    <para>Udev, by default, names network devices according to Firmware/BIOS
+    <para>udev, by default, names network devices according to Firmware/BIOS
     data or physical characteristics like the bus, slot, or MAC address.  The
     purpose of this naming convention is to ensure that network devices are
     named consistently and not based on the time the network card was
@@ -42,9 +42,9 @@
     </sect3>
 
     <sect3>
-      <title>Creating Custom Udev Rules</title>
+      <title>Creating Custom udev Rules</title>
    
-      <para>The naming scheme can be customized by creating custom Udev
+      <para>The naming scheme can be customized by creating custom udev
       rules.  A script has been included that generates the initial rules.
       Generate these rules by running:</para>
 
@@ -68,24 +68,24 @@
       along with its driver in parentheses, if the driver can be found. Neither
       the hardware ID nor the driver is used to determine which name to give an
       interface; this information is only for reference. The second line is the
-      Udev rule that matches this NIC and actually assigns it a name.</para>
+      udev rule that matches this NIC and actually assigns it a name.</para>
   
-      <para>All Udev rules are made up of several keys, separated by commas and
+      <para>All udev rules are made up of several keys, separated by commas and
       optional whitespace. This rule's keys and an explanation of each of them
       are as follows:</para>
   
       <itemizedlist>
         <listitem>
-          <para><literal>SUBSYSTEM=="net"</literal> - This tells Udev to ignore
+          <para><literal>SUBSYSTEM=="net"</literal> - This tells udev to ignore
           devices that are not network cards.</para>
         </listitem>
         <listitem>
-          <para><literal>ACTION=="add"</literal> - This tells Udev to ignore this
+          <para><literal>ACTION=="add"</literal> - This tells udev to ignore this
           rule for a uevent that isn't an add ("remove" and "change" uevents also
           happen, but don't need to rename network interfaces).</para>
         </listitem>
         <listitem>
-          <para><literal>DRIVERS=="?*"</literal> - This exists so that Udev will
+          <para><literal>DRIVERS=="?*"</literal> - This exists so that udev will
           ignore VLAN or bridge sub-interfaces (because these sub-interfaces do
           not have drivers). These sub-interfaces are skipped because the name
           that would be assigned would collide with their parent devices.</para>
@@ -103,7 +103,7 @@
         </listitem>
         <listitem>
           <para><literal>NAME</literal> - The value of this key is the name that
-          Udev will assign to this interface.</para>
+          udev will assign to this interface.</para>
         </listitem>
       </itemizedlist>
   
@@ -124,7 +124,7 @@
     media players) expect the <filename class="symlink">/dev/cdrom</filename>
     and <filename class="symlink">/dev/dvd</filename> symlinks to exist, and
     to point to a CD-ROM or DVD-ROM device. Also, it may be convenient to put
-    references to those symlinks into <filename>/etc/fstab</filename>. Udev
+    references to those symlinks into <filename>/etc/fstab</filename>. udev
     comes with a script that will generate rules files to create these symlinks
     for you, depending on the capabilities of each device, but you need to
     decide which of two modes of operation you wish to have the script use.</para>
@@ -134,7 +134,7 @@
     the physical path to the CD or DVD device. Second, it can operate in
     <quote>by-id</quote> mode (default for IDE and SCSI devices), where the
     rules it creates depend on identification strings stored in the CD or DVD
-    device itself. The path is determined by Udev's <command>path_id</command>
+    device itself. The path is determined by udev's <command>path_id</command>
     script, and the identification strings are read from the hardware by its
     <command>ata_id</command> or <command>scsi_id</command> programs, depending
     on which type of device you have.</para>
@@ -159,11 +159,11 @@
     <important><para>External devices (for example, a USB-connected CD drive)
     should not use by-path persistence, because each time the device is plugged
     into a new external port, its physical path will change. All
-    externally-connected devices will have this problem if you write Udev rules
+    externally-connected devices will have this problem if you write udev rules
     to recognize them by their physical path; the problem is not limited to CD
     and DVD drives.</para></important>
 
-    <para>If you wish to see the values that the Udev scripts will use, then
+    <para>If you wish to see the values that the udev scripts will use, then
     for the appropriate CD-ROM device, find the corresponding directory under
     <filename class="directory">/sys</filename> (e.g., this can be
     <filename class="directory">/sys/block/hdd</filename>) and
@@ -214,7 +214,7 @@
     <filename>/dev/video1</filename> refers to the tuner, and sometimes
     after a reboot the order changes to the opposite one.
     For all classes of hardware except sound cards and network cards, this is
-    fixable by creating Udev rules for custom persistent symlinks.
+    fixable by creating udev rules for custom persistent symlinks.
     The case of network cards is covered separately in
     <xref linkend="ch-scripts-network"/>, and sound card configuration can
     be found in <ulink url="&blfs-book;postlfs/devices.html">BLFS</ulink>.</para>

@@ -51,7 +51,7 @@ mknod -m 666 $LFS/dev/null c 1 3</userinput></screen>
       class="directory">/dev</filename> directory, and allow the devices to be
       created dynamically on that virtual filesystem as they are detected or
       accessed. Device creation is generally done during the boot process
-      by Udev. Since this new system does not yet have Udev and has not yet
+      by udev. Since this new system does not yet have udev and has not yet
       been booted, it is necessary to mount and populate <filename
       class="directory">/dev</filename> manually. This is accomplished by bind
       mounting the host system's <filename class="directory">/dev</filename>

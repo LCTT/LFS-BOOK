@@ -210,7 +210,7 @@
       <para>Sysklogd-&sysklogd-version;</para>
     </listitem>-->
     <listitem revision="systemd">
-      <para>Systemd-&systemd-version;</para>
+      <para>systemd-&systemd-version;</para>
     </listitem>
     <!--<listitem revision="sysv">
       <para>SysVinit-&sysvinit-version;</para>

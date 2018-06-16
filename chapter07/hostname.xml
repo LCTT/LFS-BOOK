@@ -15,7 +15,7 @@
     <secondary>configuring</secondary>
   </indexterm>
 
-  <para>During the boot process, both Systemd and System V use the same
+  <para>During the boot process, both systemd and System V use the same
   file for establishing the system's hostname.  This needs to be configured by
   creating <filename>/etc/hostname</filename>.</para>
 

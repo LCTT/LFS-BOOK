@@ -30,7 +30,7 @@
 
 2009-05-16	Matt Burgess <matthew@linuxfromscratch.org>
 	* 55-lfs.rules: Remove the block rule as it was only setting
-	  permissions that Udev will set by default
+	  permissions that udev will set by default
 	* 55-lfs.rules: Remove the rfcomm rule as the group it sets is already
 	  included in upstream's rule
 	* 55-lfs-rules: Remove the tape rules as the group they sets is already
@@ -120,8 +120,8 @@
 	  the SuSE rules file.  Thanks to Alexander Patrakov for the bugreport.
 
 2007-03-04  Matthew Burgess	<matthew@linuxfromscratch.org>
-	* Makefile: Use `udevd --version' to work out what version of Udev is
-	  installed (requires Udev >= 106)
+	* Makefile: Use `udevd --version' to work out what version of udev is
+	  installed (requires udev >= 106)
 
 2007-01-02  Bryan Kadzban  <bryan@linuxfromscratch.org>
 	* 25-lfs.rules: Change CPU devices (cpu, msr, microcode) to be in
@@ -152,7 +152,7 @@
 	* 25-lfs.rules: Remove duplicate rules (ttyS[0-9]* is also matched by
 	  tty[BC...S...][0-9]*, and ttyUSB[0-9]* is in there twice).
 
-	* 25-lfs.rules: Fix Alsa device KERNEL rules.  Udev uses shell-style
+	* 25-lfs.rules: Fix Alsa device KERNEL rules.  udev uses shell-style
 	  glob matching, not regular expressions, so the old rules would match
 	  nonsense device names like hw0asdf and pcmDzxcv.  As long as the first
 	  character after the "fixed" portion was in the list, the rule would

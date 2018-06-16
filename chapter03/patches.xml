@@ -118,7 +118,7 @@
 
 <!-- 
     <varlistentry revision="systemd">
-      <term>Systemd security patch - <token>&systemd-security-patch-size;</token>:</term>
+      <term>systemd security patch - <token>&systemd-security-patch-size;</token>:</term>
       <listitem>
         <para>Download: <ulink url="&patches-root;&systemd-security-patch;"/></para>
         <para>MD5 sum: <literal>&systemd-security-patch-md5;</literal></para>

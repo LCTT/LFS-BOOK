@@ -10,7 +10,7 @@
   <?dbhtml dir="scripts"?>
   <?dbhtml filename="eudev-rules.html"?>
 
-  <title>Udev configuration rules</title>
+  <title>udev configuration rules</title>
 
   <para>The rules in this appendix are listed for convenience.  Installation is
   normally done via instructions in <xref linkend='ch-system-eudev'/>.  </para>

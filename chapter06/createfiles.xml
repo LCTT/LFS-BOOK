@@ -303,7 +303,7 @@ users:x:999:</literal>
 EOF</userinput></screen>
 
   <para>The created groups are not part of any standard&mdash;they are groups
-  decided on in part by the requirements of the Udev configuration in this
+  decided on in part by the requirements of the udev configuration in this
   chapter, and in part by common convention employed by a number of existing
   Linux distributions. In addition, some test suites rely on specific users
   or groups.  The Linux Standard Base (LSB, available at <ulink

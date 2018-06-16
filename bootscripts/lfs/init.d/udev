@@ -2,7 +2,7 @@
 ########################################################################
 # Begin udev
 #
-# Description : Udev cold-plugging script
+# Description : udev cold-plugging script
 #
 # Authors     : Zack Winkles, Alexander E. Patrakov
 #               DJ Lucas - dj@linuxfromscratch.org

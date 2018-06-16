@@ -647,7 +647,7 @@
     </varlistentry>
 
     <varlistentry revision="systemd">
-      <term>Systemd (&systemd-version;) - <token>&systemd-size;</token>:</term>
+      <term>systemd (&systemd-version;) - <token>&systemd-size;</token>:</term>
       <listitem>
         <para>Home page: <ulink url="&systemd-home;"/></para>
         <para>Download: <ulink url="&systemd-url;"/></para>
@@ -656,7 +656,7 @@
     </varlistentry>
 
     <varlistentry revision="systemd">
-      <term>Systemd Man Pages(&systemd-version;) - <token>&systemd-man-size;</token>:</term>
+      <term>systemd Man Pages(&systemd-version;) - <token>&systemd-man-size;</token>:</term>
       <listitem>
         <para>Home page: <ulink url="&systemd-home;"/></para>
         <para>Download: <ulink url="&systemd-man-url;"/></para>
@@ -717,7 +717,7 @@
     </varlistentry>
 
     <varlistentry revision="sysv">
-      <term>Udev-lfs Tarball (&udev-lfs-version;) - <token>&udev-lfs-size;</token>:</term>
+      <term>udev-lfs Tarball (&udev-lfs-version;) - <token>&udev-lfs-size;</token>:</term>
       <listitem>
         <para>Download: <ulink url="&udev-lfs-url;"/></para>
         <para>MD5 sum: <literal>&udev-lfs-md5;</literal></para>

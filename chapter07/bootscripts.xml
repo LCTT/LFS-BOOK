@@ -305,7 +305,7 @@
         <term><command>udev</command></term>
         <listitem>
           <para>Prepares the <filename class="directory">/dev</filename>
-          directory and starts Udev</para>
+          directory and starts udev</para>
           <indexterm zone="ch-scripts-bootscripts udev-bootscripts">
             <primary sortas="d-udev">udev</primary>
           </indexterm>

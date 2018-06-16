@@ -167,8 +167,8 @@
      Add mounting of /run filesystem.
 
 2010-05-29  Matt Burgess <matthew@linuxfromscratch.org>
-   * lfs/init.d/udev: Only copy /lib/udev/devices/null, as Udev >= 155 copies
-     devices from /lib/udev/devices to /dev itself.  Udevd still needs /dev/null
+   * lfs/init.d/udev: Only copy /lib/udev/devices/null, as udev >= 155 copies
+     devices from /lib/udev/devices to /dev itself.  udevd still needs /dev/null
      present before starting up though.
 
 2010-04-20  Bryan Kadzban <bryan@linuxfromscratch.org>

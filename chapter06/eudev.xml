@@ -156,8 +156,8 @@ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
         <term><command>udevadm</command></term>
         <listitem>
           <para>Generic udev administration tool: controls the udevd daemon,
-          provides info from the Udev database, monitors uevents, waits for
-          uevents to finish, tests Udev configuration, and triggers uevents
+          provides info from the udev database, monitors uevents, waits for
+          uevents to finish, tests udev configuration, and triggers uevents
           for a given device</para>
           <indexterm zone="ch-system-eudev udevadm">
             <primary sortas="b-udevadm">udevadm</primary>
@@ -190,7 +190,7 @@ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
       <varlistentry id="etc-udev">
         <term><filename class="directory">/etc/udev</filename></term>
         <listitem>
-          <para>Contains Udev configuration files,
+          <para>Contains udev configuration files,
           device permissions, and rules for device naming</para>
           <indexterm zone="ch-system-eudev etc-udev">
             <primary sortas="e-/etc/udev">/etc/udev</primary>

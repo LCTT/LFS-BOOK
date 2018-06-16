@@ -240,7 +240,7 @@ EOF</userinput></screen>
   </sect2>
 
   <sect2 id="ch-scripts-systemd-console">
-    <title>Systemd</title>
+    <title>systemd</title>
 
   <indexterm zone="ch-scripts-systemd-console">
     <primary sortas="d-console">systemd console</primary>
@@ -318,7 +318,7 @@ EOF</userinput></screen>
 <screen role="nodump"><userinput>localectl set-keymap MAP</userinput></screen>
 
   <note><para>Please note that <command>localectl</command> command can
-  be used  only on a system booted with Systemd.</para></note>
+  be used  only on a system booted with systemd.</para></note>
 
   </sect2>
 
