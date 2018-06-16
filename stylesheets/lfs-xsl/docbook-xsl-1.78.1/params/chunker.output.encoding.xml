@@ -14,7 +14,7 @@
 </refnamediv>
 <refsynopsisdiv>
 <src:fragment xml:id="chunker.output.encoding.frag">
-<xsl:param name="chunker.output.encoding">ISO-8859-1</xsl:param>
+<xsl:param name="chunker.output.encoding">UTF-8</xsl:param>
 </src:fragment>
 </refsynopsisdiv>
 <refsection><info><title>Description</title></info>
