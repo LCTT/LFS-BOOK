@@ -35,12 +35,12 @@
 
 <!ENTITY anduin-sources  "http://anduin.linuxfromscratch.org/LFS">
 
-<!ENTITY buildtime       "Approximate build time">
-<!ENTITY diskspace       "Required disk space">
-<!ENTITY dependencies    "Installation depends on">
-<!ENTITY testsuites      "Test suite depends on">
-<!ENTITY before          "Must be installed before">
-<!ENTITY external        "Optional dependencies">
+<!ENTITY buildtime       "大致构建用时">
+<!ENTITY diskspace       "所需磁盘空间">
+<!ENTITY dependencies    "安装必选依赖">
+<!ENTITY testsuites      "测试套件依赖">
+<!ENTITY before          "必须预先安装">
+<!ENTITY external        "可供选择依赖">
                          
 <!ENTITY gnu             "http://ftp.gnu.org/gnu/">
 <!ENTITY gnu-software    "http://www.gnu.org/software/">
