@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-grep" role="wrap">
+  <?dbhtml filename="grep.html"?>
+
+  <sect1info condition="script">
+    <productname>grep</productname>
+    <productnumber>&grep-version;</productnumber>
+    <address>&grep-url;</address>
+  </sect1info>
+
+  <title>Grep-&grep-version;</title>
+
+  <indexterm zone="ch-system-grep">
+    <primary sortas="a-Grep">Grep</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Grep package contains programs for searching through files.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&grep-ch6-sbu;</seg>
+        <seg>&grep-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Grep</title>
+
+    <para>Prepare Grep for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr --bindir=/bin</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-grep" role="content">
+    <title>Contents of Grep</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+
+      <seglistitem>
+        <seg>egrep, fgrep, and grep</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="egrep">
+        <term><command>egrep</command></term>
+        <listitem>
+          <para>Prints lines matching an extended regular expression</para>
+          <indexterm zone="ch-system-grep egrep">
+            <primary sortas="b-egrep">egrep</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="fgrep">
+        <term><command>fgrep</command></term>
+        <listitem>
+          <para>Prints lines matching a list of fixed strings</para>
+          <indexterm zone="ch-system-grep fgrep">
+            <primary sortas="b-fgrep">fgrep</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="grep">
+        <term><command>grep</command></term>
+        <listitem>
+          <para>Prints lines matching a basic regular expression</para>
+          <indexterm zone="ch-system-grep grep">
+            <primary sortas="b-grep">grep</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

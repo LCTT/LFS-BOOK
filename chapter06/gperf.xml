@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-gperf" role="wrap">
+  <?dbhtml filename="gperf.html"?>
+
+  <sect1info condition="script">
+    <productname>gperf</productname>
+    <productnumber>&gperf-version;</productnumber>
+    <address>&gperf-url;</address>
+  </sect1info>
+
+  <title>Gperf-&gperf-version;</title>
+
+  <indexterm zone="ch-system-gperf">
+    <primary sortas="a-Gperf">Gperf</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>Gperf generates a perfect hash function from a key set.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&gperf-ch6-sbu;</seg>
+        <seg>&gperf-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Gperf</title>
+
+    <para>Prepare Gperf for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/gperf-&gperf-version;</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>The tests are known to fail if running multiple
+    simultaneous tests (-j option greater than 1). To test
+    the results, issue:</para>
+
+<screen><userinput remap="test">make -j1 check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-gperf" role="content">
+    <title>Contents of Gperf</title>
+
+    <segmentedlist>
+      <segtitle>Installed program</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>gperf</seg>
+        <seg>/usr/share/doc/gperf-&gperf-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="gperf">
+        <term><command>gperf</command></term>
+        <listitem>
+          <para>Generates a perfect hash from a key set</para>
+          <indexterm zone="ch-system-gperf gperf">
+            <primary sortas="b-gperf">gperf</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

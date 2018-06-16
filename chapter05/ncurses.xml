@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-ncurses" role="wrap">
+  <?dbhtml filename="ncurses.html"?>
+
+  <sect1info condition="script">
+    <productname>ncurses</productname>
+    <productnumber>&ncurses-version;</productnumber>
+    <address>&ncurses-url;</address>
+  </sect1info>
+
+  <title>Ncurses-&ncurses-version;</title>
+
+  <indexterm zone="ch-tools-ncurses">
+    <primary sortas="a-Ncurses">Ncurses</primary>
+    <secondary>tools</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/ncurses.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&ncurses-ch5-sbu;</seg>
+        <seg>&ncurses-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Ncurses</title>
+
+    <para>First, ensure that <command>gawk</command> is found first during configuration:</para>
+
+<screen><userinput remap="pre">sed -i s/mawk// configure</userinput></screen>
+
+    <para>Prepare Ncurses for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/tools \
+            --with-shared   \
+            --without-debug \
+            --without-ada   \
+            --enable-widec  \
+            --enable-overwrite</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--without-ada</parameter></term>
+        <listitem>
+          <para>This ensures that Ncurses does not build support for the Ada
+          compiler which may be present on the host but will not be available
+          once we enter the <command>chroot</command> environment.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--enable-overwrite</parameter></term>
+        <listitem>
+          <para>This tells Ncurses to install its header files into
+          <filename class="directory">/tools/include</filename>, instead of
+          <filename class="directory">/tools/include/ncurses</filename>, to
+          ensure that other packages can find the Ncurses headers
+          successfully.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--enable-widec</parameter></term>
+        <listitem>
+          <para>This switch causes wide-character libraries (e.g., <filename
+          class="libraryfile">libncursesw.so.&ncurses-version;</filename>)
+          to be built instead of normal ones (e.g., <filename
+          class="libraryfile">libncurses.so.&ncurses-version;</filename>).
+          These wide-character libraries are usable in both multibyte and
+          traditional 8-bit locales, while normal libraries work properly
+          only in 8-bit locales. Wide-character and normal libraries are
+          source-compatible, but not binary-compatible.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>This package has a test suite, but it can only be run after the
+    package has been installed.  The tests reside in the
+    <filename class="directory">test/</filename> directory.  See the
+    <filename>README</filename> file in that directory for further details.
+    </para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-ncurses" role="."/></para>
+
+  </sect2>
+
+</sect1>

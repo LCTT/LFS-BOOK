@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-linux-headers" role="wrap">
+  <?dbhtml filename="linux-headers.html"?>
+
+  <sect1info condition="script">
+    <productname>linux</productname>
+    <productnumber>&linux-version;</productnumber>
+    <address>&linux-url;</address>
+  </sect1info>
+
+  <title>Linux-&linux-version; API Headers</title>
+
+  <indexterm zone="ch-tools-linux-headers">
+    <primary sortas="a-Linux">Linux</primary>
+    <secondary>tools, API headers</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/linux-headers.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&linux-headers-ch5-sbu;</seg>
+        <seg>&linux-headers-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Linux API Headers</title>
+
+    <para>The Linux kernel needs to expose an Application Programming Interface
+    (API) for the system's C library (Glibc in LFS) to use.  This is done
+    by way of sanitizing various C header files that are shipped in the Linux
+    kernel source tarball.</para>
+
+    <para>Make sure there are no stale files embedded in the package:</para>
+
+<screen><userinput remap="pre">make mrproper</userinput></screen>
+
+    <para>Now extract the user-visible kernel headers from the source.
+    They are placed in an intermediate local directory and copied to the needed
+    location because the extraction process removes any existing files in
+    the target directory.</para>
+
+<screen><userinput remap="make">make INSTALL_HDR_PATH=dest headers_install
+</userinput><userinput remap="install">cp -rv dest/include/* /tools/include</userinput></screen>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-linux-headers" role="."/></para>
+
+  </sect2>
+
+</sect1>

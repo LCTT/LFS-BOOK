@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-gettext" role="wrap">
+  <?dbhtml filename="gettext.html"?>
+
+  <sect1info condition="script">
+    <productname>gettext</productname>
+    <productnumber>&gettext-version;</productnumber>
+    <address>&gettext-url;</address>
+  </sect1info>
+
+  <title>Gettext-&gettext-version;</title>
+
+  <indexterm zone="ch-tools-gettext">
+    <primary sortas="a-Gettext">Gettext</primary>
+    <secondary>tools</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/gettext.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&gettext-ch5-sbu;</seg>
+        <seg>&gettext-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Gettext</title>
+
+    <para>For our temporary set of tools, we only need to build and install
+    three programs from Gettext.</para>
+
+    <para>Prepare Gettext for compilation:</para>
+
+<screen><userinput remap="configure">cd gettext-tools
+EMACS="no" ./configure --prefix=/tools --disable-shared</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure option:</title>
+
+      <varlistentry>
+        <term><parameter>EMACS="no"</parameter></term>
+        <listitem>
+          <para>This prevents the configure script from determining where to
+          install Emacs Lisp files as the test is known to hang on some hosts.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-shared</parameter></term>
+        <listitem>
+          <para>We do not need to install any of the shared Gettext libraries at
+          this time, therefore there is no need to build them.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make -C gnulib-lib
+make -C intl pluralx.c
+make -C src msgfmt
+make -C src msgmerge
+make -C src xgettext</userinput></screen>
+
+    <para>As only three programs have been compiled, it is not possible to run the
+    test suite without compiling additional support libraries from the Gettext
+    package. It is therefore not recommended to attempt to run the test suite at
+    this stage.</para>
+
+    <para>Install the <command>msgfmt</command>, <command>msgmerge</command> and
+    <command>xgettext</command> programs:</para>
+
+<screen><userinput remap="install">cp -v src/{msgfmt,msgmerge,xgettext} /tools/bin</userinput></screen>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-gettext" role="."/></para>
+
+  </sect2>
+
+</sect1>

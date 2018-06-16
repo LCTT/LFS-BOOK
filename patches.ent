@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- Start of Common Patches -->
+<!--
+<!ENTITY bash-fixes-patch "bash-&bash-version;-upstream_fixes-1.patch">
+<!ENTITY bash-fixes-patch-md5 "e3d5bf23a4e5628680893d46e6ff286e">
+<!ENTITY bash-fixes-patch-size "17 KB">
+-->
+<!--
+<!ENTITY bc-memory-leak-patch "bc-&bc-version;-memory_leak-1.patch">
+<!ENTITY bc-memory-leak-patch-md5 "877e81fba316fe487ec23501059d54b8">
+<!ENTITY bc-memory-leak-patch-size "1.4 KB">
+-->
+
+<!ENTITY bzip2-docs-patch "bzip2-&bzip2-version;-install_docs-1.patch">
+<!ENTITY bzip2-docs-patch-md5 "6a5ac7e89b791aae556de0f745916f7f">
+<!ENTITY bzip2-docs-patch-size "1.6 KB">
+
+<!ENTITY coreutils-i18n-patch "coreutils-&coreutils-version;-i18n-1.patch">
+<!ENTITY coreutils-i18n-patch-md5 "a9404fb575dfd5514f3c8f4120f9ca7d">
+<!ENTITY coreutils-i18n-patch-size "168 KB">
+<!--
+<!ENTITY flex-fixes-patch "flex-&flex-version;-upstream_fixes-3.patch">
+<!ENTITY flex-fixes-patch-md5 "b46f6b0380e502a3dfb8b503227cd680">
+<!ENTITY flex-fixes-patch-size "3.4 KB">
+-->
+<!--
+<!ENTITY gcc-asan-patch "gcc-&gcc-version;-asan-1.patch">
+<!ENTITY gcc-asan-patch-md5 "c12ab2e323010fda83bfccc27f58f0b5">
+<!ENTITY gcc-asan-patch-size "2.8 KB">
+-->
+
+<!ENTITY glibc-fhs-patch "glibc-&glibc-version;-fhs-1.patch">
+<!ENTITY glibc-fhs-patch-md5 "9a5997c3452909b1769918c759eff8a2">
+<!ENTITY glibc-fhs-patch-size "2.8 KB">
+
+<!--
+<!ENTITY glibc-glob-patch "glibc-&glibc-version;-local_glob_exploits-2.patch">
+<!ENTITY glibc-glob-patch-md5 "1377e4f5422c6672ff48d430c07b245c">
+<!ENTITY glibc-glob-patch-size "2.3 KB">
+-->
+<!--
+<!ENTITY glibc-upstream-patch "glibc-&glibc-version;-upstream_fixes-1.patch">
+<!ENTITY glibc-upstream-patch-md5 "e602b6c3a332f4a06e2914e02ae2b295">
+<!ENTITY glibc-upstream-patch-size "16 KB">
+-->
+
+<!ENTITY kbd-backspace-patch "kbd-&kbd-version;-backspace-1.patch">
+<!ENTITY kbd-backspace-patch-md5 "f75cca16a38da6caa7d52151f7136895">
+<!ENTITY kbd-backspace-patch-size "12 KB">
+
+<!ENTITY ninja-limit-jobs-patch "ninja-&ninja-version;-add_NINJAJOBS_var-1.patch">
+<!ENTITY ninja-limit-jobs-patch-md5 "f537a633532492e805aa342fa869ca45">
+<!ENTITY ninja-limit-jobs-patch-size "2.5 KB">
+
+<!ENTITY sysvinit-consolidated-patch "sysvinit-&sysvinit-version;-consolidated-1.patch">
+<!ENTITY sysvinit-consolidated-patch-md5 "0b7b5ea568a878fdcc4057b2bf36e5cb">
+<!ENTITY sysvinit-consolidated-patch-size "3.9 KB">
+
+<!-- 
+<!ENTITY systemd-security-patch "systemd-&systemd-version;-security_fix-1.patch">
+<!ENTITY systemd-security-patch-md5 "aa9d81fec9a3875a54e63af86904513a">
+<!ENTITY systemd-security-patch-size "4 KB">
+-->

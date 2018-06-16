@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-coreutils" role="wrap">
+  <?dbhtml filename="coreutils.html"?>
+
+  <sect1info condition="script">
+    <productname>coreutils</productname>
+    <productnumber>&coreutils-version;</productnumber>
+    <address>&coreutils-url;</address>
+  </sect1info>
+
+  <title>Coreutils-&coreutils-version;</title>
+
+  <indexterm zone="ch-tools-coreutils">
+    <primary sortas="a-Coreutils">Coreutils</primary>
+    <secondary>tools</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/coreutils.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&coreutils-ch5-sbu;</seg>
+        <seg>&coreutils-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Coreutils</title>
+
+    <para>Prepare Coreutils for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/tools --enable-install-program=hostname</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><envar>--enable-install-program=hostname</envar></term>
+        <listitem>
+          <para>This enables the <command>hostname</command> binary to be built
+          and installed &ndash; it is disabled by default but is required by the
+          Perl test suite.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Compilation is now complete. As discussed earlier, running the test
+    suite is not mandatory for the temporary tools here in this chapter. To run
+    the Coreutils test suite anyway, issue the following command:</para>
+
+<screen><userinput remap="test">make RUN_EXPENSIVE_TESTS=yes check</userinput></screen>
+
+    <para>The <parameter>RUN_EXPENSIVE_TESTS=yes</parameter> parameter tells the
+    test suite to run several additional tests that are considered
+    relatively expensive (in terms of CPU power and memory usage) on some
+    platforms, but generally are not a problem on Linux.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+<!--
+    <para>The above command refuses to install <filename>su</filename>
+    because the program cannot be installed setuid root as a non-privileged
+    user. By manually installing it, we can use it for running tests in the
+    final system as a non-privileged user. Install it with:</para>
+
+<screen><userinput remap="install">cp -v src/su /tools/bin</userinput></screen>
+-->
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-coreutils" role="."/></para>
+
+  </sect2>
+
+</sect1>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-hostname">
+  <?dbhtml filename="hostname.html"?>
+
+  <title>Configuring the system hostname</title>
+
+  <indexterm zone="ch-scripts-hostname">
+    <primary sortas="d-hostname">hostname</primary>
+    <secondary>configuring</secondary>
+  </indexterm>
+
+  <para>During the boot process, both Systemd and System V use the same
+  file for establishing the system's hostname.  This needs to be configured by
+  creating <filename>/etc/hostname</filename>.</para>
+
+  <para>Create the <filename>/etc/hostname</filename> file and enter a
+  hostname by running:</para>
+
+<screen><userinput>echo "<replaceable>&lt;lfs&gt;</replaceable>" &gt; /etc/hostname</userinput></screen>
+
+  <para><replaceable>&lt;lfs&gt;</replaceable> needs to be replaced with the name given
+  to the computer. Do not enter the Fully Qualified Domain Name (FQDN) here. That
+  information is put in the <filename>/etc/hosts</filename> file.</para>
+
+</sect1>

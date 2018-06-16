@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-e2fsprogs" role="wrap">
+  <?dbhtml filename="e2fsprogs.html"?>
+
+  <sect1info condition="script">
+    <productname>e2fsprogs</productname>
+    <productnumber>&e2fsprogs-version;</productnumber>
+    <address>&e2fsprogs-url;</address>
+  </sect1info>
+
+  <title>E2fsprogs-&e2fsprogs-version;</title>
+
+  <indexterm zone="ch-system-e2fsprogs">
+    <primary sortas="a-E2fsprogs">E2fsprogs</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The E2fsprogs package contains the utilities for handling the
+    <systemitem class="filesystem">ext2</systemitem> file system. It also
+    supports the <systemitem class="filesystem">ext3</systemitem> and
+    <systemitem class="filesystem">ext4</systemitem> journaling
+    file systems.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&e2fsprogs-ch6-sbu;</seg>
+        <seg>&e2fsprogs-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of E2fsprogs</title>
+<!--
+    <para>First, fix a script that adjusts testing output:</para>
+
+<screen><userinput remap="pre">sed -i -e 's:\[\.-\]::' tests/filter.sed</userinput></screen>
+-->
+    <para>The E2fsprogs documentation recommends that the package be built in
+    a subdirectory of the source tree: </para>
+
+<screen><userinput remap="pre">mkdir -v build
+cd build</userinput></screen>
+
+    <para>Prepare E2fsprogs for compilation:</para>
+
+<screen><userinput remap="configure">LIBS=-L/tools/lib                    \
+CFLAGS=-I/tools/include              \
+PKG_CONFIG_PATH=/tools/lib/pkgconfig \
+../configure --prefix=/usr           \
+             --bindir=/bin           \
+             --with-root-prefix=""   \
+             --enable-elf-shlibs     \
+             --disable-libblkid      \
+             --disable-libuuid       \
+             --disable-uuidd         \
+             --disable-fsck</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the environment variable and configure options:</title>
+
+      <varlistentry>
+        <term><parameter>PKG_CONFIG_PATH, LIBS, CFLAGS</parameter></term>
+        <listitem>
+          <para>These variables enable e2fsprogs to be built using the 
+          <xref linkend="ch-tools-util-linux"/> package built earlier.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-root-prefix=""</parameter> and
+              <parameter>--bindir=/bin</parameter></term>
+        <listitem>
+          <para>Certain programs (such as the <command>e2fsck</command>
+          program) are considered essential programs.  When, for example,
+          <filename class="directory">/usr</filename> is not mounted, these
+          programs still need to be available. They belong in directories
+          like <filename class="directory">/lib</filename> and <filename
+          class="directory">/sbin</filename>. If this option is not passed
+          to E2fsprogs' configure, the programs are installed into the
+          <filename class="directory">/usr</filename> directory.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--enable-elf-shlibs</parameter></term>
+        <listitem>
+          <para>This creates the shared libraries which some programs
+          in this package use.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-*</parameter></term>
+        <listitem>
+          <para>This prevents E2fsprogs from building and installing the
+          <systemitem class="library">libuuid</systemitem> and
+          <systemitem class="library">libblkid</systemitem> libraries, the
+          <systemitem class="daemon">uuidd</systemitem> daemon, and the
+          <command>fsck</command> wrapper, as Util-Linux installs more
+          recent versions.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To set up and run the test suite we need to first link some 
+    libraries from /tools/lib to a location where the test programs look.
+    To run the tests, issue:</para>
+
+<screen><userinput remap="test">ln -sfv /tools/lib/lib{blk,uu}id.so.1 lib
+make LD_LIBRARY_PATH=/tools/lib check</userinput></screen>
+
+    <para>One of the E2fsprogs tests will attempt to allocate 256 MB of memory.
+    If you do not have significantly more RAM than this, be sure to enable
+    sufficient swap space for the test. See <xref
+    linkend="space-creatingfilesystem"/> and <xref linkend="space-mounting"/>
+    for details on creating and enabling swap space.</para>
+
+    <para>Install the binaries, documentation, and shared libraries:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>Install the static libraries and headers:</para>
+
+<screen><userinput remap="install">make install-libs</userinput></screen>
+
+    <para>Make the installed static libraries writable so debugging symbols can
+    be removed later:</para>
+
+<screen><userinput remap="install">chmod -v u+w /usr/lib/{libcom_err,libe2p,libext2fs,libss}.a</userinput></screen>
+
+    <para>This package installs a gzipped
+    <filename class="extension">.info</filename> file but doesn't update the
+    system-wide <filename>dir</filename> file. Unzip this file and then update
+    the system <filename>dir</filename> file using the following
+    commands.</para>
+
+<screen><userinput remap="install">gunzip -v /usr/share/info/libext2fs.info.gz
+install-info --dir-file=/usr/share/info/dir /usr/share/info/libext2fs.info</userinput></screen>
+
+    <para>If desired, create and install some additional documentation by
+    issuing the following commands:</para>
+
+<screen><userinput remap="install">makeinfo -o      doc/com_err.info ../lib/et/com_err.texinfo
+install -v -m644 doc/com_err.info /usr/share/info
+install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userinput></screen>
+  </sect2>
+
+  <sect2 id="contents-e2fsprogs" role="content">
+    <title>Contents of E2fsprogs</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed libraries</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>badblocks, chattr, compile_et, debugfs, dumpe2fs,e2freefrag,
+        e2fsck, e2image, e2label, e2undo, e4defrag, filefrag, fsck.ext2,
+        fsck.ext3, fsck.ext4, fsck.ext4dev, logsave, lsattr, mk_cmds, mke2fs,
+        mkfs.ext2, mkfs.ext3, mkfs.ext4, mkfs.ext4dev, mklost+found,
+        resize2fs, and tune2fs</seg>
+        <seg>libcom_err.so, libe2p.so, libext2fs.so, and libss.so</seg>
+        <seg>/usr/include/e2p, /usr/include/et, /usr/include/ext2fs,
+        /usr/include/ss, /usr/share/et, and /usr/share/ss</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="badblocks">
+        <term><command>badblocks</command></term>
+        <listitem>
+          <para>Searches a device (usually a disk partition) for bad
+          blocks</para>
+          <indexterm zone="ch-system-e2fsprogs badblocks">
+            <primary sortas="b-badblocks">badblocks</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="chattr">
+        <term><command>chattr</command></term>
+        <listitem>
+          <para>Changes the attributes of files on an <systemitem
+          class="filesystem">ext2</systemitem> file system; it also
+          changes <systemitem class="filesystem">ext3</systemitem>
+          file systems, the journaling version of <systemitem
+          class="filesystem">ext2</systemitem> file systems</para>
+          <indexterm zone="ch-system-e2fsprogs chattr">
+            <primary sortas="b-chattr">chattr</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="compile_et">
+        <term><command>compile_et</command></term>
+        <listitem>
+          <para>An error table compiler; it converts a table of error-code
+          names and messages into a C source file suitable for use with the
+          <filename class="libraryfile">com_err</filename> library</para>
+          <indexterm zone="ch-system-e2fsprogs compile_et">
+            <primary sortas="b-compile_et">compile_et</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="debugfs">
+        <term><command>debugfs</command></term>
+        <listitem>
+          <para>A file system debugger; it can be used to examine and change
+          the state of an <systemitem class="filesystem">ext2</systemitem>
+          file system</para>
+          <indexterm zone="ch-system-e2fsprogs debugfs">
+            <primary sortas="b-debugfs">debugfs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="dumpe2fs">
+        <term><command>dumpe2fs</command></term>
+        <listitem>
+          <para>Prints the super block and blocks group information for the
+          file system present on a given device</para>
+          <indexterm zone="ch-system-e2fsprogs dumpe2fs">
+            <primary sortas="b-dumpe2fs">dumpe2fs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="e2freefrag">
+        <term><command>e2freefrag</command></term>
+        <listitem>
+          <para>Reports free space fragmentation information</para>
+          <indexterm zone="ch-system-e2fsprogs e2freefrag">
+            <primary sortas="b-e2freefrag">e2freefrag</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="e2fsck">
+        <term><command>e2fsck</command></term>
+        <listitem>
+          <para>Is used to check, and optionally repair <systemitem
+          class="filesystem">ext2</systemitem> file systems and <systemitem
+          class="filesystem">ext3</systemitem> file systems</para>
+          <indexterm zone="ch-system-e2fsprogs e2fsck">
+            <primary sortas="b-e2fsck">e2fsck</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="e2image">
+        <term><command>e2image</command></term>
+        <listitem>
+          <para>Is used to save critical <systemitem
+          class="filesystem">ext2</systemitem> file system data to a file</para>
+          <indexterm zone="ch-system-e2fsprogs e2image">
+            <primary sortas="b-e2image">e2image</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="e2label">
+        <term><command>e2label</command></term>
+        <listitem>
+          <para>Displays or changes the file system label on the <systemitem
+          class="filesystem">ext2</systemitem> file system present on a given
+          device</para>
+          <indexterm zone="ch-system-e2fsprogs e2label">
+            <primary sortas="b-e2label">e2label</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="e2undo">
+        <term><command>e2undo</command></term>
+        <listitem>
+          <para>Replays the undo log undo_log for an ext2/ext3/ext4 filesystem
+          found on a device [This can be used to undo a failed operation by an
+          e2fsprogs program.]</para>
+          <indexterm zone="ch-system-e2fsprogs e2undo">
+            <primary sortas="b-e2undo">e2undo</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="e4defrag">
+        <term><command>e4defrag</command></term>
+        <listitem>
+          <para>Online defragmenter for ext4 filesystems</para>
+          <indexterm zone="ch-system-e2fsprogs e4defrag">
+            <primary sortas="b-e4defrag">e4defrag</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="filefrag">
+        <term><command>filefrag</command></term>
+        <listitem>
+          <para>Reports on how badly fragmented a particular file might be</para>
+          <indexterm zone="ch-system-e2fsprogs filefrag">
+            <primary sortas="b-filefrag">filefrag</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="fsck.ext2">
+        <term><command>fsck.ext2</command></term>
+        <listitem>
+          <para>By default checks <systemitem class="filesystem">ext2</systemitem>
+          file systems and is a hard link to <command>e2fsck</command></para>
+          <indexterm zone="ch-system-e2fsprogs fsck.ext2">
+            <primary sortas="b-fsck.ext2">fsck.ext2</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="fsck.ext3">
+        <term><command>fsck.ext3</command></term>
+        <listitem>
+          <para>By default checks <systemitem class="filesystem">ext3</systemitem>
+          file systems and is a hard link to <command>e2fsck</command></para>
+          <indexterm zone="ch-system-e2fsprogs fsck.ext3">
+            <primary sortas="b-fsck.ext3">fsck.ext3</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="fsck.ext4">
+        <term><command>fsck.ext4</command></term>
+        <listitem>
+          <para>By default checks <systemitem class="filesystem">ext4</systemitem>
+          file systems and is a hard link to <command>e2fsck</command></para>
+          <indexterm zone="ch-system-e2fsprogs fsck.ext4">
+            <primary sortas="b-fsck.ext4">fsck.ext4</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="fsck.ext4dev">
+        <term><command>fsck.ext4dev</command></term>
+        <listitem>
+          <para>By default checks <systemitem class="filesystem">ext4</systemitem>
+          development file systems and  is a hard link to
+          <command>e2fsck</command></para>
+          <indexterm zone="ch-system-e2fsprogs fsck.ext4dev">
+            <primary sortas="b-fsck.ext4dev">fsck.ext4dev</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="logsave">
+        <term><command>logsave</command></term>
+        <listitem>
+          <para>Saves the output of a command in a log file</para>
+          <indexterm zone="ch-system-e2fsprogs logsave">
+            <primary sortas="b-logsave">logsave</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="lsattr">
+        <term><command>lsattr</command></term>
+        <listitem>
+          <para>Lists the attributes of files on a second extended file
+          system</para>
+          <indexterm zone="ch-system-e2fsprogs lsattr">
+            <primary sortas="b-lsattr">lsattr</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mk_cmds">
+        <term><command>mk_cmds</command></term>
+        <listitem>
+          <para>Converts a table of command names and help messages into a C
+          source file suitable for use with the <filename
+          class="libraryfile">libss</filename> subsystem library</para>
+          <indexterm zone="ch-system-e2fsprogs mk_cmds">
+            <primary sortas="b-mk_cmds">mk_cmds</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mke2fs">
+        <term><command>mke2fs</command></term>
+        <listitem>
+          <para>Creates an <systemitem class="filesystem">ext2</systemitem>
+          or <systemitem class="filesystem">ext3</systemitem> file system on
+          the given device</para>
+          <indexterm zone="ch-system-e2fsprogs mke2fs">
+            <primary sortas="b-mke2fs">mke2fs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mkfs.ext2">
+        <term><command>mkfs.ext2</command></term>
+        <listitem>
+          <para>By default creates <systemitem class="filesystem">ext2</systemitem>
+          file systems and is a hard link to <command>mke2fs</command></para>
+          <indexterm zone="ch-system-e2fsprogs mkfs.ext2">
+            <primary sortas="b-mkfs.ext2">mkfs.ext2</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mkfs.ext3">
+        <term><command>mkfs.ext3</command></term>
+        <listitem>
+          <para>By default creates <systemitem class="filesystem">ext3</systemitem>
+          file systems and is a hard link to <command>mke2fs</command></para>
+          <indexterm zone="ch-system-e2fsprogs mkfs.ext3">
+            <primary sortas="b-mkfs.ext3">mkfs.ext3</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mkfs.ext4">
+        <term><command>mkfs.ext4</command></term>
+        <listitem>
+          <para>By default creates <systemitem class="filesystem">ext4</systemitem>
+          file systems and is a hard link to <command>mke2fs</command></para>
+          <indexterm zone="ch-system-e2fsprogs mkfs.ext4">
+            <primary sortas="b-mkfs.ext4">mkfs.ext4</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mkfs.ext4dev">
+        <term><command>mkfs.ext4dev</command></term>
+        <listitem>
+          <para>By default creates <systemitem class="filesystem">ext4</systemitem>
+          development file systems and is a hard link to <command>mke2fs</command></para>
+          <indexterm zone="ch-system-e2fsprogs mkfs.ext4dev">
+            <primary sortas="b-mkfs.ext4dev">mkfs.ext4dev</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="mklost-found">
+        <term><command>mklost+found</command></term>
+        <listitem>
+          <para>Used to create a <filename class="directory">lost+found</filename>
+          directory on an <systemitem class="filesystem">ext2</systemitem> file
+          system; it pre-allocates disk blocks to this directory to lighten the
+          task of <command>e2fsck</command></para>
+          <indexterm zone="ch-system-e2fsprogs mklost-found">
+            <primary sortas="b-mklost+found">mklost+found</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="resize2fs">
+        <term><command>resize2fs</command></term>
+        <listitem>
+          <para>Can be used to enlarge or shrink an <systemitem
+          class="filesystem">ext2</systemitem> file system</para>
+          <indexterm zone="ch-system-e2fsprogs resize2fs">
+            <primary sortas="b-resize2fs">resize2fs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tune2fs">
+        <term><command>tune2fs</command></term>
+        <listitem>
+          <para>Adjusts tunable file system parameters on an <systemitem
+          class="filesystem">ext2</systemitem> file system</para>
+          <indexterm zone="ch-system-e2fsprogs tune2fs">
+            <primary sortas="b-tune2fs">tune2fs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libcom_err">
+        <term><filename class="libraryfile">libcom_err</filename></term>
+        <listitem>
+          <para>The common error display routine</para>
+          <indexterm zone="ch-system-e2fsprogs libcom_err">
+            <primary sortas="c-libcom_err">libcom_err</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libe2p">
+        <term><filename class="libraryfile">libe2p</filename></term>
+        <listitem>
+          <para>Used by <command>dumpe2fs</command>, <command>chattr</command>,
+          and <command>lsattr</command></para>
+          <indexterm zone="ch-system-e2fsprogs libe2p">
+            <primary sortas="c-libe2p">libe2p</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libext2fs">
+        <term><filename class="libraryfile">libext2fs</filename></term>
+        <listitem>
+          <para>Contains routines to enable user-level programs to manipulate an
+          <systemitem class="filesystem">ext2</systemitem> file system</para>
+          <indexterm zone="ch-system-e2fsprogs libext2fs">
+            <primary sortas="c-libext2fs">libext2fs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libss">
+        <term><filename class="libraryfile">libss</filename></term>
+        <listitem>
+          <para>Used by <command>debugfs</command></para>
+          <indexterm zone="ch-system-e2fsprogs libss">
+            <primary sortas="c-libss">libss</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

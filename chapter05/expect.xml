@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-expect" role="wrap">
+  <?dbhtml filename="expect.html"?>
+
+  <sect1info condition="script">
+    <productname>expect</productname>
+    <productnumber>&expect-version;</productnumber>
+    <address>&expect-url;</address>
+  </sect1info>
+
+  <title>Expect-&expect-version;</title>
+
+  <indexterm zone="ch-tools-expect">
+    <primary sortas="a-Expect">Expect</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Expect package contains a program for carrying out scripted
+    dialogues with other interactive programs.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&expect-ch5-sbu;</seg>
+        <seg>&expect-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Expect</title>
+
+    <para>First, force Expect's configure script to use <filename>/bin/stty</filename>
+    instead of a <filename>/usr/local/bin/stty</filename> it may find on the host system.
+    This will ensure that our test suite tools remain sane for the final builds of our
+    toolchain:</para>
+
+<screen><userinput remap="pre">cp -v configure{,.orig}
+sed 's:/usr/local/bin:/bin:' configure.orig &gt; configure</userinput></screen>
+
+    <para>Now prepare Expect for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/tools       \
+            --with-tcl=/tools/lib \
+            --with-tclinclude=/tools/include</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--with-tcl=/tools/lib</parameter></term>
+        <listitem>
+          <para>This ensures that the configure script finds the Tcl
+          installation in the temporary tools location instead of possibly
+          locating an existing one on the host system.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--with-tclinclude=/tools/include</parameter></term>
+        <listitem>
+          <para>This explicitly tells Expect where to find Tcl's internal
+          headers. Using this option avoids conditions where
+          <command>configure</command> fails because it cannot automatically
+          discover the location of Tcl's headers.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Build the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Compilation is now complete. As discussed earlier, running the test
+    suite is not mandatory for the temporary tools here in this chapter. To run
+    the Expect test suite anyway, issue the following command:</para>
+
+<screen><userinput remap="test">make test</userinput></screen>
+
+    <para>Note that the Expect test suite is known to experience failures under
+    certain host conditions that are not within our control. Therefore,
+    test suite failures here are not surprising and are not considered
+    critical.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make SCRIPTS="" install</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the make parameter:</title>
+
+      <varlistentry>
+        <term><parameter>SCRIPTS=""</parameter></term>
+        <listitem>
+          <para>This prevents installation of the supplementary Expect
+          scripts, which are not needed.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+  <sect2 id="contents-expect" role="content">
+    <title>Contents of Expect</title>
+
+    <segmentedlist>
+      <segtitle>Installed program</segtitle>
+      <segtitle>Installed library</segtitle>
+
+      <seglistitem>
+        <seg>expect</seg>
+        <seg>libexpect-&expect-lib-version;.so</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="expect">
+        <term><command>expect</command></term>
+        <listitem>
+          <para>Communicates with other interactive programs according
+          to a script</para>
+          <indexterm zone="ch-tools-expect expect">
+            <primary sortas="b-expect">expect</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libexpect">
+        <term><filename class="libraryfile">libexpect-&expect-lib-version;.so</filename></term>
+        <listitem>
+          <para>Contains functions that allow Expect to be used as a Tcl
+          extension or to be used directly from C or C++ (without Tcl)</para>
+          <indexterm zone="ch-tools-expect libexpect">
+            <primary sortas="c-libexpect-&expect-lib-version;">libexpect-&expect-lib-version;</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

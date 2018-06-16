@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-mpfr" role="wrap">
+  <?dbhtml filename="mpfr.html"?>
+
+  <sect1info condition="script">
+    <productname>mpfr</productname>
+    <productnumber>&mpfr-version;</productnumber>
+    <address>&mpfr-url;</address>
+  </sect1info>
+
+  <title>MPFR-&mpfr-version;</title>
+
+  <indexterm zone="ch-system-mpfr">
+    <primary sortas="a-MPFR">MPFR</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The MPFR package contains functions for multiple precision
+    math.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&mpfr-ch6-sbu;</seg>
+        <seg>&mpfr-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of MPFR</title>
+
+    <para>Prepare MPFR for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr        \
+            --disable-static     \
+            --enable-thread-safe \
+            --docdir=/usr/share/doc/mpfr-&mpfr-version;</userinput></screen>
+
+    <para>Compile the package and generate the HTML documentation:</para>
+
+<screen><userinput remap="make">make
+make html</userinput></screen>
+
+    <important>
+      <para>The test suite for MPFR in this section is considered critical.
+      Do not skip it under any circumstances.</para>
+    </important>
+
+    <para>Test the results and ensure that all tests passed:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package and its documentation:</para>
+
+<screen><userinput remap="install">make install
+make install-html</userinput></screen>
+
+  </sect2>
+
+
+  <sect2 id="contents-mpfr" role="content">
+    <title>Contents of MPFR</title>
+
+    <segmentedlist>
+      <segtitle>Installed Libraries</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>libmpfr.so</seg>
+        <seg>/usr/share/doc/mpfr-&mpfr-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="libmpfr">
+        <term><filename class="libraryfile">libmpfr</filename></term>
+        <listitem>
+          <para>Contains multiple-precision math functions</para>
+          <indexterm zone="ch-system-mpfr libmpfr">
+            <primary sortas="c-libmpfr">libmpfr</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

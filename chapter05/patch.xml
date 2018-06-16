@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-patch" role="wrap">
+  <?dbhtml filename="patch.html"?>
+
+  <sect1info condition="script">
+    <productname>patch</productname>
+    <productnumber>&patch-version;</productnumber>
+    <address>&patch-url;</address>
+  </sect1info>
+
+  <title>Patch-&patch-version;</title>
+
+  <indexterm zone="ch-tools-patch">
+    <primary sortas="a-Patch">Patch</primary>
+    <secondary>tools</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/patch.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&patch-ch5-sbu;</seg>
+        <seg>&patch-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Patch</title>
+
+    <para>Prepare Patch for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/tools</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Compilation is now complete. As discussed earlier, running the test
+    suite is not mandatory for the temporary tools here in this chapter. To run
+    the Patch test suite anyway, issue the following command:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-patch" role="."/></para>
+
+  </sect2>
+
+</sect1>

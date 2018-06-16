@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scatter-changelog">
+  <?dbhtml filename="changelog.html"?>
+
+  <title>Changelog</title>
+
+  <para>This is version 
+        <phrase revision="sysv">&version;</phrase>
+        <phrase revision="systemd">&versiond;</phrase>
+  of the Linux From Scratch book, dated
+  &releasedate;. If this book is more than six months old, a newer and better
+  version is probably already available. To find out, please check one of the
+  mirrors via <ulink url="&lfs-root;mirrors.html"/>.</para>
+
+  <para>Below is a list of changes made since the previous release of the
+  book.</para>
+
+  <itemizedlist>
+    <title>Changelog Entries:</title>
+
+<!-- Changelog template
+
+    <listitem>
+      <para>Date</para>
+      <itemizedlist>
+        <listitem>
+          <para>[name] - New changelog entry.</para>
+        </listitem>
+        <listitem>
+          <para>[name] - Previous changelog entry.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    Note:  If a change is only specific to sysv or systemd, then use
+    <listitem revision="sysv"> or <listitem revision="systemd"> as
+    appropriate for the entry or if needed the entire day's listitem.
+-->
+    <listitem>
+      <para>2018-03-02</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - LFS-8.2 released.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-02-26</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to less-530. Fixes
+          <ulink url="&lfs-ticket-root;4220">#4220</ulink>.</para>
+        </listitem>
+        <listitem>
+           <para>[bdubbs] - Add an explanation of LIBRARY_PATH
+           and LD_LIBRARY_PATH used in the eudev instructions. Fixes 
+          <ulink url="&lfs-ticket-root;4224">#4224</ulink>.</para>
+        </listitem>
+        <listitem>
+           <para>[bdubbs] - Fix references to both 32-bit and 
+           64-bit systems to list 64-bit examples first. Fixes
+          <ulink url="&lfs-ticket-root;4225">#4225</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+    
+    <listitem>
+      <para>2018-02-14</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.15.3. Fixes
+          <ulink url="&lfs-ticket-root;4218">#4218</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+    
+    <listitem>
+      <para>2018-02-09</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to man-db-2.8.1. Fixes
+          <ulink url="&lfs-ticket-root;4216">#4216</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+    
+    <listitem>
+      <para>2018-02-09</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Move OpenSSL-1.1.0g from BLFS to LFS
+             to support wireless operations in the linux kernel.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to e2fsprogs-1.43.9. Fixes
+          <ulink url="&lfs-ticket-root;4215">#4215</ulink>.</para>
+        </listitem>
+        <listitem revision="systemd">
+          <para>[bdubbs] - Update to dbus-1.12.4. Fixes
+          <ulink url="&lfs-ticket-root;4214">#4214</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to mpfr-4.0.1. Fixes
+          <ulink url="&lfs-ticket-root;4213">#4213</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.15.2. Fixes
+          <ulink url="&lfs-ticket-root;4212">#4212</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to patch-2.7.6. Fixes
+          <ulink url="&lfs-ticket-root;4211">#4211</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-02-05</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to expect-5.45.4. Fixes
+          <ulink url="&lfs-ticket-root;4208">#4208</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.15.1. Fixes
+          <ulink url="&lfs-ticket-root;4209">#4209</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to man-db-2.8.0. Fixes
+          <ulink url="&lfs-ticket-root;4210">#4210</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-02-02</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to glibc-2.27. Fixes
+          <ulink url="&lfs-ticket-root;4207">#4207</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to man-pages-4.15. Fixes
+          <ulink url="&lfs-ticket-root;4206">#4206</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to bash-4.4.18. Fixes
+          <ulink url="&lfs-ticket-root;4205">#4205</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to iproute2-4.15.0. Fixes
+          <ulink url="&lfs-ticket-root;4204">#4204</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-01-30</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Make /etc/vimrc set defaults properly.</para>
+        </listitem>
+        <listitem revision="systemd">
+          <para>[dj] - Update to systemd-237. Fixes
+          <ulink url="&lfs-ticket-root;4203">#4203</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[dj] - Update to linux-4.15. Fixes
+          <ulink url="&lfs-ticket-root;4202">#4202</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[dj] - Update to ncurses-6.1. Fixes
+          <ulink url="&lfs-ticket-root;4201">#4201</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-01-28</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to binutils-2.30.0.  Fixes
+          <ulink url="&lfs-ticket-root;4200">#4200</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to gcc-7.3.0.  Fixes
+          <ulink url="&lfs-ticket-root;4199">#4199</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to tzdata-2018c.  Fixes
+          <ulink url="&lfs-ticket-root;4198">#4198</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.14.15.  Fixes
+          <ulink url="&lfs-ticket-root;4197">#4197</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-01-13</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Add warnings about mounting /mnt/lfs and
+          the export of $LFS if restarting the host system. Add
+          comments to automate those actions.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-01-13</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to mpfr-4.0.0.  Fixes
+          <ulink url="&lfs-ticket-root;4185">#4185</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to mpc-1.1.0.  Fixes
+          <ulink url="&lfs-ticket-root;4196">#4196</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-01-13</para>
+      <itemizedlist>
+        <listitem>
+          <para>[dj] - Simplify and correct Libelf instructions.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-01-12</para>
+      <itemizedlist>
+        <listitem>
+          <para>[dj] - Add Libelf (Elfutils) 0.170.</para>
+        </listitem>
+        <listitem>
+          <para>[dj] - Update to Linux-4.14.13. Fixes
+          <ulink url="&lfs-ticket-root;4195">#4195</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-01-11</para>
+      <itemizedlist>
+        <listitem>
+          <para>[dj] - Update to kmod-25.  Fixes
+          <ulink url="&lfs-ticket-root;4194">#4194</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[dj] - Update to gzip-1.9.  Fixes
+          <ulink url="&lfs-ticket-root;4193">#4193</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-01-06</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.14.12.  Fixes
+          <ulink url="&lfs-ticket-root;4192">#4192</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to gdbm-1.14.1.  Fixes
+          <ulink url="&lfs-ticket-root;4191">#4191</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to e2fsprogs-1.43.8.  Fixes
+          <ulink url="&lfs-ticket-root;4190">#4190</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2018-01-01</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Add comments to the kernel section
+          to change the unwinder option.  Fixes
+          <ulink url="&lfs-ticket-root;4186">#4186</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.14.10.  Fixes
+          <ulink url="&lfs-ticket-root;4184">#4184</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to coreutils-8.29.  Fixes
+          <ulink url="&lfs-ticket-root;4189">#4189</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Remove old footer from non-chunks book. Fixes
+          <ulink url="&lfs-ticket-root;4188">#4188</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Make spacing between "Chapter" and digit non breaking. Fixes
+          <ulink url="&lfs-ticket-root;4187">#4187</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-12-26</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to tcl-8.6.8. Fixes
+          <ulink url="&lfs-ticket-root;4183">#4183</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-12-25</para>
+      <itemizedlist>
+        <listitem>
+          <para>[dj] - Update to Python-3.6.4. Fixes
+          <ulink url="&lfs-ticket-root;4178">#4178</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[dj] - Add glibc-2.26-local_glob_exploits-2.patch. Fixes
+          <ulink url="&lfs-ticket-root;4157">#4157</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-12-22</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.14.8.  Fixes
+          <ulink url="&lfs-ticket-root;4177">#4177</ulink>.</para>
+        </listitem>
+        <listitem revision="systemd">
+          <para>[bdubbs] - Add discussion of ethernet device names. Fixes 
+          <ulink url="&lfs-ticket-root;4180">#4180</ulink>.</para>
+        </listitem>
+        <listitem revision="systemd">
+          <para>[bdubbs] - Add discussion of audo file deletion. Fixes 
+          <ulink url="&lfs-ticket-root;4181">#4181</ulink>.</para>
+        </listitem>
+        <listitem revision="systemd">
+          <para>[bdubbs] - Add discussion of separate /tmp. Fixes 
+          <ulink url="&lfs-ticket-root;4182">#4182</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-12-22</para>
+      <itemizedlist>
+        <listitem>
+          <para>[dj] - Update to util-linux-2.31.1.  Fixes
+          <ulink url="&lfs-ticket-root;4176">#4176</ulink>.</para>
+        </listitem>
+        <listitem revision="systemd">
+          <para>[dj] - Correct build issue with systemd-236 tests.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-12-19</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update tar-1.30.  Fixes
+          <ulink url="&lfs-ticket-root;4175">#4175</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update meson-0.44.0.  Fixes
+          <ulink url="&lfs-ticket-root;4173">#4173</ulink>.</para>
+        </listitem>
+        <listitem revision="systemd">
+          <para>[bdubbs] - Update to systemd-236.  Fixes
+          <ulink url="&lfs-ticket-root;4174">#4174</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.14.6.  Fixes
+          <ulink url="&lfs-ticket-root;4171">#4171</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-12-03</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to man-pages-4.14.  Fixes
+          <ulink url="&lfs-ticket-root;4170">#4170</ulink>.</para>
+        </listitem>
+        <listitem revision="sysv">
+          <para>[bdubbs] - Update to eudev-3.2.5.  Fixes
+          <ulink url="&lfs-ticket-root;4169">#4169</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.14.3.  Fixes
+          <ulink url="&lfs-ticket-root;4168">#4168</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-11-26</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Prevent installation of unneeded gawk files.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-11-17</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to libpipeline-1.5.0.  Fixes
+          <ulink url="&lfs-ticket-root;4167">#4167</ulink>.</para>
+        </listitem>
+        <listitem revision="systemd">
+          <para>[bdubbs] - Update to dbus-1.12.2.  Fixes
+          <ulink url="&lfs-ticket-root;4166">#4166</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to iproute2-4.14.1.  Fixes
+          <ulink url="&lfs-ticket-root;4164">#4164</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.14.  Fixes
+          <ulink url="&lfs-ticket-root;4165">#4165</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-11-11</para>
+      <itemizedlist>
+        <listitem>
+          <para>[dj] - Update to linux-4.13.12.  Fixes
+          <ulink url="&lfs-ticket-root;4163">#4163</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem revision="systemd">
+      <para>2017-11-09</para>
+      <itemizedlist>
+        <listitem>
+          <para>[dj] - Create additional symlinks to simplify build of systemd
+          and remove text references to
+          <filename class="directory">/tools/include</filename>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem revision="systemd">
+      <para>2017-11-08</para>
+      <itemizedlist>
+        <listitem>
+          <para>[dj] - Remove invalid links to util-linux static archives in
+          <filename class="directory">/tools/lib</filename>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-11-06</para>
+      <itemizedlist>
+        <listitem>
+          <para>[dj] - Update to linux-4.13.11.  Fixes
+          <ulink url="&lfs-ticket-root;4162">#4162</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[dj] - Update to expat-2.2.5. Fixes
+          <ulink url="&lfs-ticket-root;4161">#4161</ulink>.</para>
+        </listitem>
+        <listitem revision="systemd">
+          <para>[dj] - Update to dbus-1.12.0.  Fixes
+          <ulink url="&lfs-ticket-root;4160">#4160</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-10-28</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to tzdata-2017c.  Fixes
+          <ulink url="&lfs-ticket-root;4159">#4159</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.13.10.  Fixes
+          <ulink url="&lfs-ticket-root;4158">#4158</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to check-0.12.0.  Fixes
+          <ulink url="&lfs-ticket-root;4156">#4155</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem revision="sysv">
+      <para>2017-10-27</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update rule in 83-cdrom-symlinks.rules
+          in udev-lfs tarball.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-10-20</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to gawk-4.2.0.  Fixes
+          <ulink url="&lfs-ticket-root;4155">#4155</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to expect-5.45.3.  Fixes
+          <ulink url="&lfs-ticket-root;4154">#4154</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to e2fsprogs-1.43.7.  Fixes
+          <ulink url="&lfs-ticket-root;4152">#4152</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to dejagnu-1.6.1.  Fixes
+          <ulink url="&lfs-ticket-root;4151">#4151</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.13.8.  Fixes
+          <ulink url="&lfs-ticket-root;4153">#4153</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to util-linux v2.31.  Fixes
+          <ulink url="&lfs-ticket-root;4145">#4145</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-10-15</para>
+      <itemizedlist>
+        <listitem revision="systemd">
+          <para>[dj] - Update to D-Bus-1.10.24. Fixes
+          <ulink url="&lfs-ticket-root;4143">#4143</ulink>.</para>
+        </listitem>
+        <listitem revision="systemd">
+          <para>[dj] - Update to Systemd-235.  Fixes
+          <ulink url="&lfs-ticket-root;4147">#4147</ulink>.</para>
+        </listitem>
+        <listitem revision="systemd">
+          <para>[dj] - Create a simple replacement for
+          <filename>/lib/systemd/systemd-user-sessions</filename>, to enable
+          uprivileged user logins without
+          <application>systemd-logind</application>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Add optional patch to ninja.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-10-14</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to bash-4.4.12.  Fixes
+          <ulink url="&lfs-ticket-root;4149">#4149</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to meson-0.43.0.  Fixes
+          <ulink url="&lfs-ticket-root;4148">#4148</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to python3-3.6.3.  Fixes
+          <ulink url="&lfs-ticket-root;4146">#4146</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.13.7.  Fixes
+          <ulink url="&lfs-ticket-root;4144">#4144</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to binutils-2.29.1.  Fixes
+          <ulink url="&lfs-ticket-root;4142">#4142</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem revision="systemd">
+      <para>2017-09-24</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Reorder packages in Chapter&nbsp;6 so Python can use
+          gdbm.</para>
+        </listitem>
+        <listitem>
+          <para>[dj] - Use upstream systemd tarball with meson build system and
+          supply only prebuilt man pages.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-09-23</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to perl-5.26.1.  Fixes
+          <ulink url="&lfs-ticket-root;4141">#4141</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Add Meson-0.42.1.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Add Ninja-1.8.2.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Add Python-3.6.2.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Add libffi-3.2.1.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to eudev-3.2.4.  Fixes
+          <ulink url="&lfs-ticket-root;4140">#4140</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-09-22</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to util-linux 2.30.2.  Fixes
+          <ulink url="&lfs-ticket-root;4139">#4139</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to man-pages-4.13.  Fixes
+          <ulink url="&lfs-ticket-root;4138">#4138</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to texinfo-6.5.  Fixes
+          <ulink url="&lfs-ticket-root;4137">#4137</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to mpfr-3.1.6.  Fixes
+          <ulink url="&lfs-ticket-root;4136">#4136</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to iproute2-4.13.0.  Fixes
+          <ulink url="&lfs-ticket-root;4135">#4135</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to eudev-3.2.3.  Fixes
+          <ulink url="&lfs-ticket-root;4133">#4133</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.13.3.  Fixes
+          <ulink url="&lfs-ticket-root;4134">#4134</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-09-02</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - Update to file-5.32.  Fixes
+          <ulink url="&lfs-ticket-root;4132">#4132</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to coreutils-8.28.  Fixes
+          <ulink url="&lfs-ticket-root;4131">#4131</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to e2fsprogs-1.43.6.  Fixes
+          <ulink url="&lfs-ticket-root;4130">#4130</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to expat-2.2.4.  Fixes
+          <ulink url="&lfs-ticket-root;4127">#4127</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>[bdubbs] - Update to linux-4.12.10.  Fixes
+          <ulink url="&lfs-ticket-root;4126">#4126</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>2017-09-01</para>
+      <itemizedlist>
+        <listitem>
+          <para>[bdubbs] - LFS-8.1 released.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+  </itemizedlist>
+</sect1>
