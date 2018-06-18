@@ -8,36 +8,26 @@
 <sect1 id="pre-organization">
   <?dbhtml filename="organization.html"?>
 
-  <title>Structure</title>
+  <title>本书结构</title>
 
-  <para>This book is divided into the following parts.</para>
+  <para>本书分为以下几个部分。</para>
 
   <sect2>
-    <title>Part I - Introduction</title>
+    <title>第一部分 介绍</title>
 
-    <para>Part I explains a few important notes on how to proceed with the
-    LFS installation.  This section also provides meta-information about
-    the book.</para>
+    <para>第一部分解释了一些安装 LFS 时的重要注意事项。同时还提供了本书的基本信息。</para>
   </sect2>
 
   <sect2>
-    <title>Part II - Preparing for the Build</title>
+    <title>第二部分 构建的准备工作</title>
 
-    <para>Part II describes how to prepare for the building process&mdash;making
-    a partition, downloading the packages, and compiling temporary
-    tools.</para>
+    <para>第二部分描述了构建的一些准备工作，包括分区，下载软件包，编译一些临时工具。</para>
   </sect2>
 
   <sect2>
-    <title>Part III - Building the LFS System</title>
+    <title>第三部分 构建 LFS 系统</title>
 
-    <para>Part III guides the reader through the building of the LFS
-    system&mdash;compiling and installing all the packages one by one,
-    setting up the boot scripts, and installing the kernel. The resulting
-    Linux system is the foundation on which other software can be built to
-    expand the system as desired. At the end of this book, there is an
-    easy to use reference listing all of the programs, libraries, and
-    important files that have been installed.</para>
+    <para>第三部分引导用户开始 LFS 系统的构建——逐一的编译和安装所有的软件包，设置启动脚本，安装内核。生成的 Linux 系统是继续编译其它一系列软件的基础，通过那些软件来扩展系统，系统才能更好地满足我们的需求。在本书的最后，我们还给出了一个便于使用的引用列表，包括安装好的程序、库和一些重要文件。</para>
   </sect2>
 
 </sect1>

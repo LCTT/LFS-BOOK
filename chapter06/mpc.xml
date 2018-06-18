@@ -23,9 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The MPC package contains a library for the arithmetic of complex
-    numbers with arbitrarily high precision and correct rounding of the
-    result.</para>
+    <para>MPC 软件包包含一个能以任意高精度进行复数数值计算和对结果进行正确四舍五入的库。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -40,24 +38,24 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of MPC</title>
+    <title>安装 MPC</title>
 
-    <para>Prepare MPC for compilation:</para>
+    <para>准备编译 MPC：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr    \
             --disable-static \
             --docdir=/usr/share/doc/mpc-&mpc-version;</userinput></screen>
 
-    <para>Compile the package and generate the HTML documentation:</para>
+    <para>编译软件包并生成 HTML 文档：</para>
 
 <screen><userinput remap="make">make
 make html</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令检查结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package and its documentation:</para>
+    <para>安装软件包以及它的帮助文档：</para>
 
 <screen><userinput remap="install">make install
 make install-html</userinput></screen>
@@ -66,11 +64,11 @@ make install-html</userinput></screen>
 
 
   <sect2 id="contents-mpc" role="content">
-    <title>Contents of MPC</title>
+    <title>MPC 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed Libraries</segtitle>
-      <segtitle>Installed Directory</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>libmpc.so</seg>
@@ -79,14 +77,14 @@ make install-html</userinput></screen>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="libmpc">
         <term><filename class="libraryfile">libmpc</filename></term>
         <listitem>
-          <para>Contains complex math functions</para>
+          <para>包含复数数学函数</para>
           <indexterm zone="ch-system-mpc libmpc">
             <primary sortas="c-libmpc">libmpc</primary>
           </indexterm>

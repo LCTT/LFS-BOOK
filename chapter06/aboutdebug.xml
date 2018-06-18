@@ -8,45 +8,29 @@
 <sect1 id="ch-system-aboutdebug">
   <?dbhtml filename="aboutdebug.html"?>
 
-  <title>About Debugging Symbols</title>
+  <title>关于调试符号</title>
 
-  <para>Most programs and libraries are, by default, compiled with
-  debugging symbols included (with <command>gcc</command>'s
-  <parameter>-g</parameter> option). This means that when debugging a
-  program or library that was compiled with debugging information
-  included, the debugger can provide not only memory addresses, but also
-  the names of the routines and variables.</para>
+  <para>默认情况下大多数程序和库的编译带有调试符号。（类似 <command>gcc</command> 的 <parameter>-g</parameter> 选项。）这意味着当你调试一个包含调试信息的已编译的程序或库时，调试程序不仅能提供内存地址，还能提供变量和实例的名字。</para>
 
-  <para>However, the inclusion of these debugging symbols enlarges a
-  program or library significantly. The following is an example of the
-  amount of space these symbols occupy:</para>
+  <para>然而，包含这些调试符号明显的增大了程序或库。下面这个例子说明了这些符号有多么占地方：</para>
 
   <itemizedlist>
     <listitem>
-      <para>A <command>bash</command> binary with debugging symbols:
-      1200 KB</para>
+      <para>一个有调试符号的二进制 <command>bash</command>：1200 KB</para>
     </listitem>
     <listitem>
-      <para>A <command>bash</command> binary without debugging symbols:
-      480 KB</para>
+      <para>一个无调试符号的二进制 <command>bash</command>：480 KB</para>
     </listitem>
     <listitem>
-      <para>Glibc and GCC files (<filename class="directory">/lib</filename>
-      and <filename class="directory">/usr/lib</filename>) with debugging
-      symbols: 87 MB</para>
+      <para>有调试符号的 Glibc 和 GCC 文件（<filename class="directory">/lib</filename> 和 <filename class="directory">/usr/lib</filename>）：87 MB</para>
     </listitem>
     <listitem>
-      <para>Glibc and GCC files without debugging symbols: 16 MB</para>
+      <para>无调试符号的 Glibc 和 GCC 文件：16 MB</para>
     </listitem>
   </itemizedlist>
 
-  <para>Sizes may vary depending on which compiler and C library were used,
-  but when comparing programs with and without debugging symbols, the
-  difference will usually be a factor between two and five.</para>
+  <para>大小可能会因为所使用的编译器和 C 语言库的不同而改变，但是当比较有无调试符号的程序时，大小可能相差 2 到 5 倍。</para>
 
-  <para>Because most users will never use a debugger on their system software,
-  a lot of disk space can be regained by removing these symbols. The next
-  section shows how to strip all debugging symbols from the programs and
-  libraries.</para>
+  <para>因为大多数用户从来不会在他们的系统软件上使用调试器，没了这些调试符号可以省下很多磁盘空间。下一页将会告诉你如何剥离程序和库中所有的调试符号。</para>
 
 </sect1>

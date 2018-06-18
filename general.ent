@@ -7,7 +7,7 @@
 <!ENTITY short-versiond  "systemd">
 <!ENTITY generic-versiond "systemd"> 
 
-<!ENTITY releasedate     "March 2, 2018">
+<!ENTITY releasedate     "2018 年 3 月 2 日">
 
 <!ENTITY copyrightdate   "1999-2018"><!-- jhalfs needs a literal dash, not &ndash; -->
 <!ENTITY milestone       "8.2">

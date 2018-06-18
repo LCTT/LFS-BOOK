@@ -23,9 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Python 3 package contains the Python development environment. It
-    is useful for object-oriented programming, writing scripts, prototyping
-    large programs or developing entire applications.</para>
+    <para>软件包 Python 3 包含了 Python 的开发环境。对于面向对象编程，书写脚本，构建大型程序的原型，或者开发整个应用程序而言，非常有用。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -40,9 +38,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Python 3</title>
+    <title>安装 Python 3</title>
 
-    <para>Prepare Python for compilation:</para>
+    <para>编译 Python 前的准备：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr       \
             --enable-shared     \
@@ -51,61 +49,56 @@
             --with-ensurepip=yes</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
     <varlistentry>
       <term><parameter>--with-system-expat</parameter></term>
       <listitem>
-        <para>This switch enables linking against system version of
-        <application>Expat</application>.</para>
+        <para>该参数用于启用 <application>Expat</application> 系统版本的链接。</para>
        </listitem>
      </varlistentry>
 
     <varlistentry>
       <term><parameter>--with-system-ffi</parameter></term>
       <listitem>
-        <para>This switch enables linking against system version of
-        <application>libffi</application>.</para>
+        <para>该参数用于启用 <application>libffi</application> 系统版本的链接。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter>--with-ensurepip=yes</parameter></term>
       <listitem>
-        <para>This switch enables building <command>pip</command> and
-        <command>setuptools</command> packaging programs.</para>
+        <para>该参数用于启用 <command>pip</command> 和 <command>setuptools</command> 打包程序的构建。</para>
       </listitem>
     </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>The test suite requires TK and and X Windows session and cannot
-    be run until Python 3 is reinstalled in BLFS.</para>
+    <para>测试套件需要 TK 和 X Windows 会话，直至 BLFS 中重新安装 Python 3 之前都执行不了。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install
 chmod -v 755 /usr/lib/libpython3.6m.so
 chmod -v 755 /usr/lib/libpython3.so</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the install commands:</title>
+      <title>安装命令的含义：</title>
 
     <varlistentry>
       <term><command>chmod -v 755 /usr/lib/libpython3.{6m.,}so</command></term>
       <listitem>
-        <para>Fix permissions for libraries to be consistent with other
-        libraries.</para>
+        <para>修复库的权限问题，同其他库保持一致。</para>
       </listitem>
     </varlistentry>
 
     </variablelist>
 
-    <para>If desired, install the preformatted documentation:</para>
+    <para>如果需要，安装预格式化好的文档：</para>
 
 <screen><userinput remap="install">install -v -dm755 /usr/share/doc/python-&python-version;/html 
 
@@ -116,14 +109,12 @@ tar --strip-components=1  \
     -xvf ../python-&python-version;-docs-html.tar.bz2</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the documentation install commands:</title>
+      <title>文档安装命令的含义：</title>
 
     <varlistentry>
       <term><option>--no-same-owner</option> and --no-same-permissions</term>
       <listitem>
-        <para>Ensure the installed files have the correct ownership and 
-        prermissions.  Without these options, using <application>tar</application>
-        will install the package files with the upstream creator's values. 
+        <para>确保安装文件的归属和权限是正确的。没有这个选项的话，运行 <application>tar</application> 时会以上游创建者的身份安装软件包内的文件。
         </para>
       </listitem>
     </varlistentry>
@@ -133,29 +124,29 @@ tar --strip-components=1  \
   </sect2>
 
   <sect2 id="contents-python" role="content">
-    <title>Contents of Python 3</title>
+    <title>Python 3 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed Programs</segtitle>
-      <segtitle>Installed Library</segtitle>
-      <segtitle>Installed Directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>
           2to3, idle3, pydoc3, python3, python3-config, pyvenv
         </seg>
         <seg>
-          libpython3.6m.so and libpython3.so
+          libpython3.6m.so 和 libpython3.so
         </seg>
         <seg>
-          /usr/include/python3.6m, /usr/lib/python3 and
+          /usr/include/python3.6m, /usr/lib/python3 和
           /usr/share/doc/python-&python-version;
         </seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
@@ -163,10 +154,7 @@ tar --strip-components=1  \
         <term><command>2to3</command></term>
         <listitem>
           <para>
-            is a <application>Python</application> program that reads
-            <application>Python 2.x</application> source code and applies a
-            series of fixes to transform it into valid
-            <application>Python 3.x</application> code.
+            一个用于读取 <application>Python 2.x</application> 源代码并实施一系列的修复，将其转化称有效的 <application>Python 3.x</application> 代码的 <application>Python</application> 程序。
           </para>
           <indexterm zone="ch-system-Python">
             <primary sortas="b-2to3">2to3</primary>
@@ -178,10 +166,9 @@ tar --strip-components=1  \
         <term><command>idle3</command></term>
         <listitem>
           <para>
-            is a wrapper script that opens a <application>Python</application>
-            aware GUI editor. For this script to run, you must have installed
-            <application>Tk</application> before Python so that the Tkinter
-            Python module is built.
+            一个用于打开 <application>Python</application>
+            自带的 GUI 编辑器的封装脚本。为了让该脚本能运行，你必须在安装 Python 前先安装 <application>Tk</application>，这样 Tkinter
+            Python 模块才会构建。
           </para>
           <indexterm zone="ch-system-Python">
             <primary sortas="b-idle3">idle3</primary>
@@ -193,7 +180,7 @@ tar --strip-components=1  \
         <term><command>pydoc3</command></term>
         <listitem>
           <para>
-            is the <application>Python</application> documentation tool.
+            <application>Python</application> 的文档工具。
           </para>
           <indexterm zone="ch-system-Python">
             <primary sortas="b-pydoc3">pydoc3</primary>
@@ -205,8 +192,7 @@ tar --strip-components=1  \
         <term><command>python3</command></term>
         <listitem>
           <para>
-            is an interpreted, interactive, object-oriented programming
-            language.
+            一种解释性的，交互式的，面向对象的编程语言。
           </para>
           <indexterm zone="ch-system-Python">
             <primary sortas="b-python3">python3</primary>
@@ -218,8 +204,7 @@ tar --strip-components=1  \
         <term><command>pyvenv</command></term>
         <listitem>
           <para>
-            creates virtual <application>Python</application> environments in
-            one or more target directories.
+            在一个或多个目标目录中，创建虚拟 <application>Python</application> 环境。
           </para>
           <indexterm zone="ch-system-Python">
             <primary sortas="b-pyvenv">pyvenv</primary>

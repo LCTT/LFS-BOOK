@@ -8,36 +8,25 @@
 <sect1 id="ch-tools-stripping">
   <?dbhtml filename="stripping.html"?>
 
-  <title>Stripping</title>
+  <title>清理无用内容</title>
 
-  <para>The steps in this section are optional, but if the LFS partition is
-  rather small, it is beneficial to learn that unnecessary items can be removed.
-  The executables and libraries built so far contain about 70 MB of unneeded
-  debugging symbols. Remove those symbols with:</para>
+  <para>本小节里的步骤是可选的，但如果你的 LFS 分区容量比较小，知道有些不必要的内容可以被删除也是挺好的。目前编译好的可执行文件和库大概会有 70MB 左右不需要的调试符号。可以通过下面的命令移除这些符号：</para>
 
 <screen><userinput>strip --strip-debug /tools/lib/*
 /usr/bin/strip --strip-unneeded /tools/{,s}bin/*</userinput></screen>
 
-  <para>These commands will skip a number of files, reporting that it does not
-  recognize their file format. Most of these are scripts instead of binaries.
-  Also use the system strip command to include the strip binary in /tools.</para>
+  <para>这两个命令会跳过一些文件，并提示不可识别的文件格式。大多数是脚本文件而不是二进制文件。同样还可以用宿主系统里的 strip 命令为 /tools 目录下的 strip 二进制文件清理无用内容。</para>
 
-  <para>Take care <emphasis>not</emphasis> to use
-  <parameter>--strip-unneeded</parameter> on the libraries. The static
-  ones would be destroyed and the toolchain packages would need to be
-  built all over again.</para>
+  <para>注意<emphasis>不要</emphasis>对库文件使用 <parameter>--strip-unneeded</parameter> 选项。静态库会被损坏导致整个工具链将会需要全部重新编译。</para>
 
-  <para>To save more, remove the documentation:</para>
+  <para>更节省更多空间，还可以删除帮助文档：</para>
 
 <screen><userinput>rm -rf /tools/{,share}/{info,man,doc}</userinput></screen>
 
-  <para>Remove unneeded files:</para>
+  <para>删除不需要的文件：</para>
 
 <screen><userinput>find /tools/{lib,libexec} -name \*.la -delete</userinput></screen>
 
-  <para>At this point, you should have at least 3 GB of free space in
-  <envar>$LFS</envar> that can be used to build and install Glibc and Gcc in
-  the next phase. If you can build and install Glibc, you can build and install
-  the rest too.</para>
+  <para>这个时候，你应该在 <envar>$LFS</envar> 分区中为下个阶段编译安装 Glibc 和 GCC 预留至少 3GB 剩余空间。如果你可以编译安装 Glibc，那其他的就不会有问题了。</para>
 
 </sect1>

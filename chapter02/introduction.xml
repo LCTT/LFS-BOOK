@@ -8,11 +8,8 @@
 <sect1 id="space-introduction">
   <?dbhtml filename="introduction.html"?>
 
-  <title>Introduction</title>
+  <title>简介</title>
 
-  <para>In this chapter, the host tools needed for building LFS
-  are checked and, if necessary, installed.  Then a partition which will 
-  host the LFS system is prepared. We will create the partition 
-  itself, create a file system on it, and mount it.</para>
+  <para>本章将检查宿主机上用于构建 LFS 的工具，没有的话，安装它们。然后，会准备用于安装 LFS 的分区。包括建立分区、为分区设置文件系统，挂载分区。</para>
 
 </sect1>

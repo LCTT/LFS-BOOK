@@ -23,9 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Libffi library provides a portable, high level programming
-    interface to various calling conventions. This allows a programmer to call
-    any function specified by a call interface description at run time.</para>
+    <para>Libffi 库为各种调用规范提供了一个可移植的，高级编程接口。允许程序员在运行时，通过调用接口描述调用任意指定函数。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -40,11 +38,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Libffi</title>
+    <title>安装 Libffi</title>
 
-    <para>Modify the Makefile to install headers into the standard
-    <filename class="directory">/usr/include</filename> directory instead of
-    <filename class="directory">/usr/lib/libffi-3.2.1/include</filename>.</para>
+    <para>修改 Makefile 将头文件安装到标准的 <filename class="directory">/usr/include</filename> 目录，而非 <filename class="directory">/usr/lib/libffi-3.2.1/include</filename>。</para>
 
 <screen><userinput remap="pre">sed -e '/^includesdir/ s/$(libdir).*$/$(includedir)/' \
     -i include/Makefile.in
@@ -53,29 +49,29 @@ sed -e '/^includedir/ s/=.*$/=@includedir@/' \
     -e 's/^Cflags: -I${includedir}/Cflags:/' \
     -i libffi.pc.in</userinput></screen>
 
-    <para>Prepare libffi for compilation:</para>
+    <para>编译 libffi 前的准备：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr --disable-static</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>通过以下命令查看测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-libffi" role="content">
-    <title>Contents of Libffi</title>
+    <title>Libffi 的软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed library</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>libffi.so</seg>
@@ -83,14 +79,14 @@ sed -e '/^includedir/ s/=.*$/=@includedir@/' \
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="libffi">
         <term><filename class="libraryfile">libffi</filename></term>
         <listitem>
-          <para>contains the libffi API functions.</para>
+          <para>包含 libffi 的 API 函数。</para>
           <indexterm zone="ch-system-libffi">
             <primary sortas="c-libffi">libffi</primary>
           </indexterm>

@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Meson is an open source build system meant to be both extremely fast,
-    and, even more importantly, as user friendly as possible.</para>
+    <para>Meson 是一个开源代码构建系统，不仅速度非常快，而且更重要的是对用户极其友好。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,15 +37,15 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Meson</title>
+    <title>安装 Meson</title>
 
-    <para>Compile Meson with the following command:</para>
+    <para>通过下列命令编译 Meson：</para>
 
 <screen><userinput remap="make">python3 setup.py build</userinput></screen>
 
-    <para>This package does not come with a test suite.</para>
+    <para>这个软件包还没有测试套件。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">python3 setup.py install</userinput></screen>
 
@@ -54,11 +53,11 @@
 
 
   <sect2 id="contents-meson" role="content">
-    <title>Contents of Meson</title>
+    <title>Meson 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed Libraries</segtitle>
-      <segtitle>Installed directory</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>libmeson.so</seg>
@@ -67,14 +66,14 @@
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="libmeson">
         <term><filename class="libraryfile">libmeson</filename></term>
         <listitem>
-          <para>Contains multiple-precision math functions</para>
+          <para>包含多精度数学函数</para>
           <indexterm zone="ch-system-meson libmeson">
             <primary sortas="c-libmeson">libmeson</primary>
           </indexterm>

@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Sysvinit package contains programs for controlling the startup,
-    running, and shutdown of the system.</para>
+    <para>Sysvinit 的软件包包含控制系统启动、运行和关闭的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,7 +38,7 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Sysvinit</title>
+    <title>安装 Sysvinit</title>
 
 <!--
     <para>When run-levels are changed (for example, when halting the
@@ -67,45 +66,44 @@
         -e '/mesg/d'       \
         -e 's/= sulogin(\.8)?/=/' src/Makefile</userinput></screen>
 -->
-    <para>First, apply a patch that removes several programs installed by other
-    packages, clarifies a message, and fixes a compiler warning:</para>
+    <para>首先，打一个补丁移除一些其他软件包安装的程序，改正一个消息，并修复一个编译器的警告：</para>
 
 <screen><userinput remap="pre">patch -Np1 -i ../&sysvinit-consolidated-patch;</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make -C src</userinput></screen>
 
-    <para>This package does not come with a test suite.</para>
+    <para>该软件包没有测试套件。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make -C src install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-sysvinit" role="content">
-    <title>Contents of Sysvinit</title>
+    <title>Sysvinit 软件包的内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
-        <seg>bootlogd, fstab-decode, halt, init, killall5, 
-        poweroff (link to halt), reboot (link to halt), runlevel,
-        shutdown, and telinit (link to init)</seg>
+        <seg>bootlogd, fstab-decode, halt, init, killall5,
+        poweroff (链接到 halt), reboot (链接到 halt), runlevel,
+        shutdown, 和 telinit (链接到 init)</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="bootlogd">
         <term><command>bootlogd</command></term>
         <listitem>
-          <para>Logs boot messages to a log file</para>
+          <para>记录启动消息至日志文件</para>
           <indexterm zone="ch-system-sysvinit bootlogd">
             <primary sortas="b-bootlogd">bootlogd</primary>
           </indexterm>
@@ -115,7 +113,7 @@
       <varlistentry id="fstab-decode">
         <term><command>fstab-decode</command></term>
         <listitem>
-          <para>Run a command with fstab-encoded arguments</para>
+          <para>执行 fstab-encoded 参数的命令</para>
           <indexterm zone="ch-system-sysvinit fstab-decode">
             <primary sortas="b-fstab-decode">fstab-decode</primary>
           </indexterm>
@@ -125,11 +123,7 @@
       <varlistentry id="halt-sysv">
         <term><command>halt</command></term>
         <listitem>
-          <para>Normally invokes <command>shutdown</command> with the
-          <parameter>-h</parameter> option, except when already in run-level 0,
-          then it tells the kernel to halt the system; it notes in the
-          file <filename>/var/log/wtmp</filename> that the system is being
-          brought down</para>
+          <para>通常调用命令 <command>shutdown</command> 连带着它的 <parameter>-h</parameter> 选项，排除运行级别已为 0 的情况，吩咐内核关闭系统；将系统即将关闭的消息记录在 <filename>/var/log/wtmp</filename> 文件中。</para>
           <indexterm zone="ch-system-sysvinit halt-sysv">
             <primary sortas="b-halt">halt</primary>
           </indexterm>
@@ -139,9 +133,7 @@
       <varlistentry id="init-sysv">
         <term><command>init</command></term>
         <listitem>
-          <para>The first process to be started when the kernel has initialized
-          the hardware which takes over the boot process and starts all the
-          proceses specified in its configuration file</para>
+          <para>内核在初始化硬件时第一个启动的进程，用于接管启动过程并启动所有在配置文件中被指定的进程</para>
           <indexterm zone="ch-system-sysvinit init-sysv">
             <primary sortas="b-init">init</primary>
           </indexterm>
@@ -151,8 +143,7 @@
       <varlistentry id="killall5">
         <term><command>killall5</command></term>
         <listitem>
-          <para>Sends a signal to all processes, except the processes in its own
-          session so it will not kill its parent shell</para>
+          <para>给所有进程发送信号，除了其本身所处的会话的进程，所以并不会杀死自己的父 shell</para>
           <indexterm zone="ch-system-sysvinit killall5">
             <primary sortas="b-killall5">killall5</primary>
           </indexterm>
@@ -162,8 +153,7 @@
       <varlistentry id="poweroff-sysv">
         <term><command>poweroff</command></term>
         <listitem>
-          <para>Tells the kernel to halt the system and switch off the computer
-          (see <command>halt</command>)</para>
+          <para>吩咐内核终止系统并关闭计算机（参考 <command>halt</command>）</para>
           <indexterm zone="ch-system-sysvinit poweroff-sysv">
             <primary sortas="b-poweroff">poweroff</primary>
           </indexterm>
@@ -173,8 +163,7 @@
       <varlistentry id="reboot-sysv">
         <term><command>reboot</command></term>
         <listitem>
-          <para>Tells the kernel to reboot the system (see
-          <command>halt</command>)</para>
+          <para>吩咐内核重新启动系统（参考 <command>halt</command>）</para>
           <indexterm zone="ch-system-sysvinit reboot-sysv">
             <primary sortas="b-reboot">reboot</primary>
           </indexterm>
@@ -184,8 +173,7 @@
       <varlistentry id="runlevel-sysv">
         <term><command>runlevel</command></term>
         <listitem>
-          <para>Reports the previous and the current run-level, as noted in the
-          last run-level record in <filename>/var/run/utmp</filename></para>
+          <para>按照文件 <filename>/var/run/utmp</filename> 中记录的最后一个运行级别，汇报之前与当下的运行级别</para>
           <indexterm zone="ch-system-sysvinit runlevel-sysv">
             <primary sortas="b-runlevel">runlevel</primary>
           </indexterm>
@@ -195,8 +183,7 @@
       <varlistentry id="shutdown-sysv">
         <term><command>shutdown</command></term>
         <listitem>
-          <para>Brings the system down in a secure way, signaling all processes
-          and notifying all logged-in users</para>
+          <para>以一个安全的方式关闭计算机，给所有的进程发信号，并通知所有登录的用户。</para>
           <indexterm zone="ch-system-sysvinit shutdown-sysv">
             <primary sortas="b-shutdown">shutdown</primary>
           </indexterm>
@@ -206,7 +193,7 @@
       <varlistentry id="telinit-sysv">
         <term><command>telinit</command></term>
         <listitem>
-          <para>Tells <command>init</command> which run-level to change to</para>
+          <para>吩咐 <command>init</command> 切换到哪个运行级别</para>
           <indexterm zone="ch-system-sysvinit telinit-sysv">
             <primary sortas="b-telinit">telinit</primary>
           </indexterm>

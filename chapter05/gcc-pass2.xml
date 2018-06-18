@@ -14,7 +14,7 @@
     <address>&gcc-url;</address>
   </sect1info>
 
-  <title>GCC-&gcc-version; - Pass 2</title>
+  <title>GCC-&gcc-version; -  第 2 遍</title>
 
   <indexterm zone="ch-tools-gcc-pass2">
     <primary sortas="a-GCC">GCC</primary>
@@ -41,19 +41,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of GCC</title>
+    <title>安装 GCC</title>
 
-    <para>Our first build of GCC has installed a couple of internal system
-    headers.  Normally one of them, <filename>limits.h</filename>, will in turn
-    include the corresponding system <filename>limits.h</filename> header, in
-    this case, <filename>/tools/include/limits.h</filename>. However, at the
-    time of the first build of gcc <filename>/tools/include/limits.h</filename>
-    did not exist, so the internal header that GCC installed is a partial,
-    self-contained file and does not include the extended features of the
-    system header. This was adequate for building the temporary libc, but this
-    build of GCC now requires the full internal header.  Create a full version
-    of the internal header using a command that is identical to what the GCC
-    build system does in normal circumstances:</para>
+    <para>我们第一次编译 GCC 的时候安装了一些内部系统头文件。其中的一个 <filename>limits.h</filename> 会反过来包括对应的系统头文件 <filename>limits.h</filename>，在我们的例子中，是 <filename>/tools/include/limits.h</filename> 。但是，第一次编译 gcc 的时候 <filename>/tools/include/limits.h</filename> 并不存在，因此 GCC 安装的内部头文件只是部分的自包含文件，并不包括系统头文件的扩展功能。这足以编译临时 libc，但是这次编译 GCC 要求完整的内部头文件。使用和正常情况下 GCC 编译系统使用的相同的命令创建一个完整版本的内部头文件：</para>
 
 <screen><userinput remap="pre">cat gcc/limitx.h gcc/glimits.h gcc/limity.h &gt; \
   `dirname $($LFS_TGT-gcc -print-libgcc-file-name)`/include-fixed/limits.h</userinput></screen>
@@ -66,9 +56,7 @@
   i?86) sed -i 's/^T_CFLAGS =$/&amp; -fomit-frame-pointer/' gcc/Makefile.in ;;
 esac</userinput></screen>
 -->
-    <para>Once again, change the location of GCC's default dynamic linker to
-    use the one installed in <filename
-    class="directory">/tools</filename>.</para>
+    <para>再一次更改 GCC 的默认动态链接器的位置，使用安装在  <filename class="directory">/tools</filename> 的那个。</para>
 
 <screen><userinput remap="pre">for file in gcc/config/{linux,i386/linux{,64}}.h
 do
@@ -83,8 +71,7 @@ do
   touch $file.orig
 done</userinput></screen>
 
-    <para>If building on x86_64, change the default directory name for 64-bit
-    libraries to <quote>lib</quote>:</para>
+    <para>如果是在 x86_64 环境上构建，为 64 位库改变默认目录名至「lib」：</para>
 
 <screen><userinput remap="pre">case $(uname -m) in
   x86_64)
@@ -93,9 +80,7 @@ done</userinput></screen>
   ;;
 esac</userinput></screen>
 
-    <para>As in the first build of GCC it requires the GMP, MPFR and MPC
-    packages. Unpack the tarballs and move them into the required directory
-    names:</para>
+    <para>和第一次编译 GCC 一样，它要求 GMP、MPFR 和 MPC 软件包。解压 tar 包并把它们重名为到所需的文件夹名称：</para>
 
 <screen><userinput remap="pre">tar -xf ../mpfr-&mpfr-version;.tar.xz
 mv -v mpfr-&mpfr-version; mpfr
@@ -108,15 +93,14 @@ mv -v mpc-&mpc-version; mpc</userinput></screen>
 
 <screen><userinput remap="pre">sed -i 's/if \((code.*))\)/if (\1 \&amp;\&amp; \!DEBUG_INSN_P (insn))/' gcc/sched-deps.c</userinput></screen>
 -->
-    <para>Create a separate build directory again:</para>
+    <para>再次创建独立的编译文件夹：</para>
 
 <screen><userinput remap="pre">mkdir -v build
 cd       build</userinput></screen>
 
-    <para>Before starting to build GCC, remember to unset any environment
-    variables that override the default optimization flags.</para>
+    <para>在开始编译 GCC 之前，记住取消所有会覆盖默认优化选项的环境变量。</para>
 
-    <para>Now prepare GCC for compilation:</para>
+    <para>准备编译 GCC:</para>
 
 <screen><userinput remap="configure">CC=$LFS_TGT-gcc                                    \
 CXX=$LFS_TGT-g++                                   \
@@ -133,91 +117,59 @@ RANLIB=$LFS_TGT-ranlib                             \
     --disable-libgomp</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the new configure options:</title>
+      <title>新配置选项的含义:</title>
 
       <varlistentry>
         <term><parameter>--enable-languages=c,c++</parameter></term>
         <listitem>
-          <para>This option ensures that both the C and C++ compilers are
-          built.</para>
+          <para>这个选项确保编译了 C 和 C++ 编译器。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-libstdcxx-pch</parameter></term>
         <listitem>
-          <para>Do not build the pre-compiled header (PCH) for
-          <filename class="libraryfile">libstdc++</filename>. It takes up a
-          lot of space, and we have no use for it.</para>
+          <para>不为 <filename class="libraryfile">libstdc++</filename> 编译预编译的头文件(PCH)。这会花费很多时间，却对我们没有用处。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-bootstrap</parameter></term>
         <listitem>
-          <para>For native builds of GCC, the default is to do a "bootstrap"
-          build. This does not just compile GCC, but compiles it several times.
-          It uses the programs compiled in a first round to compile itself a
-          second time, and then again a third time.  The second and third
-          iterations are compared to make sure it can reproduce itself
-          flawlessly. This also implies that it was compiled correctly.
-          However, the LFS build method should provide a solid compiler
-          without the need to bootstrap each time.</para>
+          <para>对于原生编译的 GCC，默认是做一个「引导」构建。这不仅会编译 GCC 一次，而是会编译很多次。使用初次编译的程序去编译其自身第二次，然后同样地进行第三次。比较第二次和第三次迭代确保其能完美地复制自身。这也能预示编译是正确地。但是，LFS 的构建方法能够提供一个稳定的编译器，避免每次都需要重新引导。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包:</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包:</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>As a finishing touch, create a symlink. Many programs and scripts
-    run <command>cc</command> instead of <command>gcc</command>, which is
-    used to keep programs generic and therefore usable on all kinds of UNIX
-    systems where the GNU C compiler is not always installed. Running
-    <command>cc</command> leaves the system administrator free to decide
-    which C compiler to install:</para>
+    <para>作为画龙点睛，这里创建一个符号链接。很多程序和脚本执行 <command>cc</command> 而不是 <command>gcc</command> 来保证程序的通用性，并且在所有的 Unix 类型的系统上都能用，而非仅局限于安装了 GCC 的 Unix 类型的系统。运行 <command>cc</command> 使得系统管理员不用考虑要安装那种 C 编译器：</para>
 
 <screen><userinput remap="install">ln -sv gcc /tools/bin/cc</userinput></screen>
 
   <caution>
-    <para>At this point, it is imperative to stop and ensure that the basic
-    functions (compiling and linking) of the new toolchain are working as
-    expected. To perform a sanity check, run the following commands:</para>
+    <para>到了这里，必须停下来确认新工具链的基本功能（编译和链接）都是像预期的那样正常工作。运行下面的命令进行全面的检查：</para>
 
 <screen><userinput>echo 'int main(){}' &gt; dummy.c
 cc dummy.c
 readelf -l a.out | grep ': /tools'</userinput></screen>
 
-    <para>If everything is working correctly, there should be no errors,
-    and the output of the last command will be of the form:</para>
+    <para>如果一切工作正常的话，这里应该没有错误，最后一个命令的输出形式会是：</para>
 
 <screen><computeroutput>[Requesting program interpreter: /tools/lib64/ld-linux.so.2]</computeroutput></screen>
 
-    <para>Note that <filename class="directory">/tools/lib</filename> wiil
-    be the prefix of the dynamic linker for 32-bit machines.</para>
+    <para>注意 32 位机器的动态链接器的前缀是 <filename class="directory">/tools/lib</filename>。</para>
 
-    <para>If the output is not shown as above or there was no output at all,
-    then something is wrong. Investigate and retrace the steps to find out
-    where the problem is and correct it. This issue must be resolved before
-    continuing on. First, perform the sanity check again, using
-    <command>gcc</command> instead of <command>cc</command>. If this works,
-    then the <filename class="symlink">/tools/bin/cc</filename> symlink is
-    missing. Install the symlink as per above.
-    Next, ensure that the <envar>PATH</envar> is correct. This
-    can be checked by running <command>echo $PATH</command> and verifying that
-    <filename class="directory">/tools/bin</filename> is at the head of the
-    list. If the <envar>PATH</envar> is wrong it could mean that you are not
-    logged in as user <systemitem class="username">lfs</systemitem> or that
-    something went wrong back in <xref linkend="ch-tools-settingenviron"
-    role="."/></para>
+    <para>如果输出不是像上面那样或者根本就没有输出，那么可能某些地方出错了。调查并回溯这些步骤，找出问题所在并改正它。在继续之前必须解决这个问题。首先，使用 <command>gcc</command> 而不是 <command>cc</command> 再次进行全面的检查。如果能运行，就符号链接 <filename class="symlink">/tools/bin/cc</filename> 就不见了。像上面介绍的那样新建符号链接。下一步，确认 <envar>PATH</envar> 是正确的。这能通过运行 <command>echo $PATH</command> 检验，验证 <filename class="directory">/tools/bin</filename> 在列表的前面。如果 <envar>PATH</envar> 是错误的，这意味着你可能不是以 <systemitem class="username">lfs</systemitem> 用户的身份登录或者在前面 <xref linkend="ch-tools-settingenviron"/> 中某些地方出现了错误。</para>
 
-    <para>Once all is well, clean up the test files:</para>
+    <para>一旦一切都顺利，清理测试文件：</para>
 
 <screen><userinput>rm -v dummy.c a.out</userinput></screen>
 
@@ -228,8 +180,8 @@ readelf -l a.out | grep ': /tools'</userinput></screen>
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
-    <xref linkend="contents-gcc" role="."/></para>
+    <para>该软件包的详细信息请参见：
+    <xref linkend="contents-gcc"/>。</para>
 
   </sect2>
 

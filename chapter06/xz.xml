@@ -23,11 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Xz package contains programs for compressing and decompressing
-    files. It provides capabilities for the lzma and the newer xz compression
-    formats.  Compressing text files with <command>xz</command> yields a better
-    compression percentage than with the traditional <command>gzip</command> or
-    <command>bzip2</command> commands.</para>
+    <para>Xz 软件包包含用于压缩和解压文件的程序。它提供 lzma 和更新的 xz 压缩格式功能。和传统的 <command>gzip</command> 或 <command>bzip2</command> 命令相比，用 <command>xz</command> 压缩文本文件能获得更好的压缩率。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -42,24 +38,23 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Xz</title>
+    <title>安装 Xz</title>
 
-    <para>Prepare Xz for compilation with:</para>
+    <para>准备编译 Xz：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr    \
             --disable-static \
             --docdir=/usr/share/doc/xz-&xz-version;</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-  <para>Install the package and make sure that all essential files are in the
-  correct directory:</para>
+  <para>安装软件包并确保所需的文件都在正确目录中：</para>
 
 <screen><userinput remap="install">make install
 mv -v   /usr/bin/{lzma,unlzma,lzcat,xz,unxz,xzcat} /bin
@@ -69,57 +64,57 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
   </sect2>
 
   <sect2 id="contents-xz" role="content">
-    <title>Contents of Xz</title>
+    <title>Xz 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>
-          lzcat (link to xz), 
-          lzcmp (link to xzdiff), 
-          lzdiff (link to xzdiff), 
-          lzegrep (link to xzgrep), 
-          lzfgrep (link to xzgrep),
-          lzgrep (link to xzgrep), 
-          lzless (link to xzless), 
-          lzma (link to xz),
-          lzmadec, 
-          lzmainfo, 
-          lzmore (link to xzmore),
-          unlzma (link to xz), 
-          unxz (link to xz), 
-          xz, 
-          xzcat (link to xz),
-          xzcmp (link to xzdiff), 
-          xzdec, 
-          xzdiff, 
-          xzegrep (link to xzgrep),
-          xzfgrep (link to xzgrep), 
-          xzgrep, 
-          xzless, and 
+          lzcat (链接到 xz),
+          lzcmp (链接到 xzdiff),
+          lzdiff (链接到 xzdiff),
+          lzegrep (链接到 xzgrep),
+          lzfgrep (链接到 xzgrep),
+          lzgrep (链接到 xzgrep),
+          lzless (链接到 xzless),
+          lzma (链接到 xz),
+          lzmadec,
+          lzmainfo,
+          lzmore (链接到 xzmore),
+          unlzma (链接到 xz),
+          unxz (链接到 xz),
+          xz,
+          xzcat (链接到 xz),
+          xzcmp (链接到 xzdiff),
+          xzdec,
+          xzdiff,
+          xzegrep (链接到 xzgrep),
+          xzfgrep (链接到 xzgrep),
+          xzgrep,
+          xzless, 和
           xzmore</seg>
         <seg>
           liblzma.so
         </seg>
         <seg>
-          /usr/include/lzma and 
+          /usr/include/lzma 和
           /usr/share/doc/xz-&xz-version;
          </seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="lzcat">
         <term><command>lzcat</command></term>
         <listitem>
-          <para>Decompresses to standard output</para>
+          <para>解压标准输出</para>
           <indexterm zone="ch-system-xz lzcat">
             <primary sortas="b-lzcat">lzcat</primary>
           </indexterm>
@@ -129,7 +124,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="lzcmp">
         <term><command>lzcmp</command></term>
         <listitem>
-          <para>Runs <command>cmp</command> on LZMA compressed files</para>
+          <para>对 LZMA 压缩文件运行 <command>cmp</command> 命令</para>
           <indexterm zone="ch-system-xz lzcmp">
             <primary sortas="b-lzcmp">lzcmp</primary>
           </indexterm>
@@ -139,7 +134,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="lzdiff">
         <term><command>lzdiff</command></term>
         <listitem>
-          <para>Runs <command>diff</command> on LZMA compressed files</para>
+          <para>对 LZMA 压缩文件运行 <command>diff</command> 命令</para>
           <indexterm zone="ch-system-xz lzdiff">
             <primary sortas="b-lzdiff">lzdiff</primary>
           </indexterm>
@@ -149,7 +144,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="lzegrep">
         <term><command>lzegrep</command></term>
         <listitem>
-          <para>Runs <command>egrep</command> on LZMA compressed files</para>
+          <para>对 LZMA 压缩文件运行 <command>egrep</command> 命令</para>
           <indexterm zone="ch-system-xz lzegrep">
             <primary sortas="b-lzegrep">lzegrep</primary>
           </indexterm>
@@ -159,7 +154,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="lzfgrep">
         <term><command>lzfgrep</command></term>
         <listitem>
-          <para>Runs <command>fgrep</command> on LZMA compressed files</para>
+          <para>对 LZMA 压缩文件运行 <command>fgrep</command> 命令</para>
           <indexterm zone="ch-system-xz lzfgrep">
             <primary sortas="b-lzfgrep">lzfgrep</primary>
           </indexterm>
@@ -169,7 +164,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="lzgrep">
         <term><command>lzgrep</command></term>
         <listitem>
-          <para>Runs <command>grep</command> on LZMA compressed files</para>
+          <para>对 LZMA 压缩文件运行 <command>grep</command> 命令</para>
           <indexterm zone="ch-system-xz lzgrep">
             <primary sortas="b-lzgrep">lzgrep</primary>
           </indexterm>
@@ -179,7 +174,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="lzless">
         <term><command>lzless</command></term>
         <listitem>
-          <para>Runs <command>less</command> on LZMA compressed files</para>
+          <para>对 LZMA 压缩文件运行 <command>less</command> 命令</para>
           <indexterm zone="ch-system-xz lzless">
             <primary sortas="b-lzless">lzless</primary>
           </indexterm>
@@ -189,7 +184,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="lzma">
         <term><command>lzma</command></term>
         <listitem>
-          <para>Compresses or decompresses files using the LZMA format</para>
+          <para>用 LZMA 格式压缩或解压文件</para>
           <indexterm zone="ch-system-xz lzma">
             <primary sortas="b-lzma">lzma</primary>
           </indexterm>
@@ -199,7 +194,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="lzmadec">
         <term><command>lzmadec</command></term>
         <listitem>
-          <para>A small and fast decoder for LZMA compressed files</para>
+          <para>用于 LZMA 压缩文件的轻便解码器</para>
           <indexterm zone="ch-system-xz lzmadec">
             <primary sortas="b-lzmadec">lzmadec</primary>
           </indexterm>
@@ -209,7 +204,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="lzmainfo">
         <term><command>lzmainfo</command></term>
         <listitem>
-          <para>Shows information stored in the LZMA compressed file header</para>
+          <para>显示存储在 LZMA 压缩文件头部的信息</para>
           <indexterm zone="ch-system-xz lzmainfo">
             <primary sortas="b-lzmainfo">lzmainfo</primary>
           </indexterm>
@@ -219,7 +214,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="lzmore">
         <term><command>lzmore</command></term>
         <listitem>
-          <para>Runs <command>more</command> on LZMA compressed files</para>
+          <para>对 LZMA 压缩文件运行 <command>more</command> 命令</para>
           <indexterm zone="ch-system-xz lzmore">
             <primary sortas="b-lzmamore">lzmore</primary>
           </indexterm>
@@ -229,7 +224,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="unlzma">
         <term><command>unlzma</command></term>
         <listitem>
-          <para>Decompresses files using the LZMA format</para>
+          <para>用 LZMA 格式解压文件</para>
           <indexterm zone="ch-system-xz unlzma">
             <primary sortas="b-unlzma">unlzma</primary>
           </indexterm>
@@ -239,7 +234,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="unxz">
         <term><command>unxz</command></term>
         <listitem>
-          <para>Decompresses files using the XZ format</para>
+          <para>用 XZ 格式解压文件</para>
           <indexterm zone="ch-system-xz unxz">
             <primary sortas="b-unxz">unxz</primary>
           </indexterm>
@@ -249,7 +244,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="xz">
         <term><command>xz</command></term>
         <listitem>
-          <para>Compresses or decompresses files using the XZ format</para>
+          <para>用 XZ 格式压缩或解压文件</para>
           <indexterm zone="ch-system-xz xz">
             <primary sortas="b-xz">xz</primary>
           </indexterm>
@@ -259,7 +254,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="xzcat">
         <term><command>xzcat</command></term>
         <listitem>
-          <para>Decompresses to standard output</para>
+          <para>解压到标准输出</para>
           <indexterm zone="ch-system-xz xzcat">
             <primary sortas="b-xzcat">xzcat</primary>
           </indexterm>
@@ -269,7 +264,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="xzcmp">
         <term><command>xzcmp</command></term>
         <listitem>
-          <para>Runs <command>cmp</command> on XZ compressed files</para>
+          <para>对 XZ 压缩文件运行 <command>cmp</command> 命令</para>
           <indexterm zone="ch-system-xz xzcmp">
             <primary sortas="b-xzcmp">xzcmp</primary>
           </indexterm>
@@ -279,7 +274,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="xzdec">
         <term><command>xzdec</command></term>
         <listitem>
-          <para>A small and fast decoder for XZ compressed files</para>
+          <para>用于 XZ 压缩文件的轻便解码器</para>
           <indexterm zone="ch-system-xz xzdec">
             <primary sortas="b-xzdec">xzdec</primary>
           </indexterm>
@@ -289,7 +284,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="xzdiff">
         <term><command>xzdiff</command></term>
         <listitem>
-          <para>Runs <command>diff</command> on XZ compressed files</para>
+          <para>对 XZ 压缩文件运行 <command>diff</command> 命令</para>
           <indexterm zone="ch-system-xz xzdiff">
             <primary sortas="b-xzdiff">xzdiff</primary>
           </indexterm>
@@ -299,7 +294,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="xzegrep">
         <term><command>xzegrep</command></term>
         <listitem>
-          <para>Runs <command>egrep</command> on XZ compressed files files</para>
+          <para>对 XZ 压缩文件运行 <command>egrep</command> 命令</para>
           <indexterm zone="ch-system-xz xzegrep">
             <primary sortas="b-xzegrep">xzegrep</primary>
           </indexterm>
@@ -309,7 +304,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="xzfgrep">
         <term><command>xzfgrep</command></term>
         <listitem>
-          <para>Runs <command>fgrep</command> on XZ compressed files</para>
+          <para>对 XZ 压缩文件运行 <command>fgrep</command> 命令</para>
           <indexterm zone="ch-system-xz xzfgrep">
             <primary sortas="b-xzfgrep">xzfgrep</primary>
           </indexterm>
@@ -319,7 +314,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="xzgrep">
         <term><command>xzgrep</command></term>
         <listitem>
-          <para>Runs <command>grep</command> on XZ compressed files</para>
+          <para>对 XZ 压缩文件运行 <command>grep</command> 命令</para>
           <indexterm zone="ch-system-xz xzgrep">
             <primary sortas="b-xzgrep">xzgrep</primary>
           </indexterm>
@@ -329,7 +324,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="xzless">
         <term><command>xzless</command></term>
         <listitem>
-          <para>Runs <command>less</command> on XZ compressed files</para>
+          <para>对 XZ 压缩文件运行 <command>less</command> 命令</para>
           <indexterm zone="ch-system-xz xzless">
             <primary sortas="b-xzless">xzless</primary>
           </indexterm>
@@ -339,7 +334,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="xzmore">
         <term><command>xzmore</command></term>
         <listitem>
-          <para>Runs <command>more</command> on XZ compressed files</para>
+          <para>对 XZ 压缩文件运行 <command>more</command> 命令</para>
           <indexterm zone="ch-system-xz xzmore">
             <primary sortas="b-xzmore">xzmore</primary>
           </indexterm>
@@ -349,8 +344,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
       <varlistentry id="liblzma">
         <term><filename class="libraryfile">liblzma</filename></term>
         <listitem>
-          <para>The library implementing lossless, block-sorting data
-          compression, using the Lempel-Ziv-Markov chain algorithm</para>
+          <para>用 Lempel-Ziv-Markov 链算法实现无损块排序数据压缩的库</para>
           <indexterm zone="ch-system-xz liblzma">
             <primary sortas="c-liblzma">liblzma</primary>
           </indexterm>

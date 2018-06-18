@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Flex package contains a utility for generating programs that
-    recognize patterns in text.</para>
+    <para>Flex 软件包包括一个用于生成识别文本模式的程序的工具。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,68 +38,59 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Flex</title>
+    <title>安装 Flex</title>
 
-    <para>First, fix a problem introduced with glibc-2.26:</para>
+    <para>首先，修复一个 glibc-2.26 引入的问题：</para>
 
 <screen><userinput remap="pre">sed -i "/math.h/a #include &lt;malloc.h&gt;" src/flexdef.h</userinput></screen>
 
-    <para>The build procedure assumes the <application>help2man</application>
-    program is available to create a man page from the executable --help option.
-    This is not present, so we use an environment variable to skip this process.
-    Now, prepare Flex for compilation:</para>
+    <para>构建过程假设能使用程序 <application>help2man</application> 的 --help 选项来创建 man 手册。但这显然是不存在的，所以我们使用环境变量来跳过这步。现在，准备编译 Flex：</para>
 
 <screen><userinput remap="configure">HELP2MAN=/tools/bin/true \
 ./configure --prefix=/usr --docdir=/usr/share/doc/flex-&flex-version;</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results (about 0.5 SBU), issue:</para>
+    <para>用以下命令测试结果（大约 0.5 SBU）：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>A few programs do not know about <command>flex</command> yet and
-    try to run its predecessor, <command>lex</command>. To support those
-    programs, create a symbolic link named <filename>lex</filename> that
-    runs <filename>flex</filename> in <command>lex</command> emulation
-    mode:</para>
+    <para>一些程序还不知道 <command>flex</command> 并尝试运行它的预处理器 <command>lex</command>。为了支持这些程序，创建以 <filename>lex</filename> 仿真模式运行 <filename>flex</filename> 的符号链接 <command>lex</command>：</para>
 
 <screen><userinput remap="install">ln -sv flex /usr/bin/lex</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-flex" role="content">
-    <title>Contents of Flex</title>
+    <title>Flex 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directory</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
-        <seg>flex, flex++ (link to flex), and lex (link to flex)</seg>
-        <seg>libfl.so and libfl_pic.so</seg>
+        <seg>flex, flex++ (链接到 flex), 和 lex (链接到 flex)</seg>
+        <seg>libfl.so 和 libfl_pic.so</seg>
         <seg>/usr/share/doc/flex-&flex-version;</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="flex">
         <term><command>flex</command></term>
         <listitem>
-          <para>A tool for generating programs that recognize patterns in text;
-          it allows for the versatility to specify the rules for pattern-finding,
-          eradicating the need to develop a specialized program</para>
+          <para>一个用于生成能识别文本模式程序的工具；它允许指定多种用于模式发现的规则，从而消除了开发专门程序的需要</para>
           <indexterm zone="ch-system-flex flex">
             <primary sortas="b-flex">flex</primary>
           </indexterm>
@@ -110,8 +100,7 @@
       <varlistentry id="flexpp">
         <term><command>flex++</command></term>
         <listitem>
-          <para>An extension of flex, is used for generating C++ code
-          and classes. It is a symbolic link to <command>flex</command></para>
+          <para>flex 的扩展，用于生成 C++ 代码和类。是到 <command>flex</command> 的符号链接</para>
           <indexterm zone="ch-system-flex flexpp">
             <primary sortas="b-flex++">flex++</primary>
           </indexterm>
@@ -121,8 +110,7 @@
       <varlistentry id="lex">
         <term><command>lex</command></term>
         <listitem>
-          <para>A script that runs <command>flex</command> in
-          <command>lex</command> emulation mode</para>
+          <para>一个以 <command>flex</command> 仿真模式运行 <command>lex</command> 的脚本</para>
           <indexterm zone="ch-system-flex lex">
             <primary sortas="b-lex">lex</primary>
           </indexterm>
@@ -132,7 +120,7 @@
       <varlistentry id="libfl">
         <term><filename class="libraryfile">libfl</filename></term>
         <listitem>
-          <para>The <filename class="libraryfile">flex</filename> library</para>
+          <para><filename class="libraryfile">flex</filename> 库</para>
           <indexterm zone="ch-system-flex libfl">
             <primary sortas="c-libfl">libfl</primary>
           </indexterm>

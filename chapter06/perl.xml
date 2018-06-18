@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Perl package contains the Practical Extraction and Report
-    Language.</para>
+    <para>Perl 软件包包含实用信息抽取与报告语言。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,19 +38,13 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Perl</title>
+    <title>安装 Perl</title>
 
-    <para>First create a basic <filename>/etc/hosts</filename> file to be
-    referenced in one of Perl's configuration files as well as the optional
-    test suite:</para>
+    <para>首先创建其中一个 Perl 配置文件和可选测试套件引用的基本 <filename>/etc/hosts</filename> 文件：</para>
 
 <screen><userinput remap="pre">echo "127.0.0.1 localhost $(hostname)" &gt; /etc/hosts</userinput></screen>
 
-    <para>This version of Perl now builds the Compress::Raw::Zlib and 
-    Compress::Raw::BZip2 modules. By
-    default Perl will use an internal copy of the sources for the build.
-    Issue the following command so that Perl will use the libraries
-    installed on the system:</para>
+    <para>该版本的 Perl 会编译 Compress::Raw::Zlib 和 Compress::Raw::BZip2 模块。Perl 默认会使用内部的源码用于构建。用以下的命令使 Perl 使用系统中已安装的库：</para>
 
 <screen><userinput remap="pre">export BUILD_ZLIB=False
 export BUILD_BZIP2=0</userinput></screen>
@@ -61,10 +54,7 @@ export BUILD_BZIP2=0</userinput></screen>
 
 <screen><userinput remap="pre">patch -Np1 -i ../&perl-gcc5-fixes-patch;</userinput></screen>
 -->
-    <para>To have full control over the way Perl is set up, you can remove the
-    <quote>-des</quote> options from the following command and hand-pick the way
-    this package is built. Alternatively, use the command exactly as below to
-    use the defaults that Perl auto-detects:</para>
+    <para>为了能完全控制 Perl 的设置，你可以在下面的命令中移除「-des」选项并手动设置编译该软件包的方式。相应的，用下面的命令来使用 Perl 自动检测到的默认值：</para>
 
 <screen><userinput remap="configure">sh Configure -des -Dprefix=/usr                 \
                   -Dvendorprefix=/usr           \
@@ -75,21 +65,19 @@ export BUILD_BZIP2=0</userinput></screen>
                   -Dusethreads</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>-Dvendorprefix=/usr</parameter></term>
         <listitem>
-          <para>This ensures <command>perl</command> knows how to
-          tell packages where they should install their perl modules.</para>
+          <para>这能确保 <command>perl</command> 知道，该如何告知软件包应该将它们的 perl 模块安装在哪里。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>-Dpager="/usr/bin/less -isR"</parameter></term>
         <listitem>
-          <para>This ensures that <userinput>less</userinput> is used instead 
-          of <userinput>more</userinput>.</para>
+          <para>这能确保使用的是 <userinput>less</userinput> 而非 <userinput>more</userinput>。</para>
         </listitem>
       </varlistentry>
 
@@ -97,40 +85,37 @@ export BUILD_BZIP2=0</userinput></screen>
         <term><parameter>-Dman1dir=/usr/share/man/man1
         -Dman3dir=/usr/share/man/man3</parameter></term>
         <listitem>
-          <para>Since Groff is not installed yet, <command>Configure</command>
-          thinks that we do not want man pages for Perl.  Issuing these
-          parameters overrides this decision.</para>
+          <para>由于 Groff 还没有安装，<command>Configure</command> 会认为我们不希望为 Perl 安装 man 手册。用这些参数更改这个判断。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>-Duseshrplib</parameter></term>
         <listitem>
-          <para>Build a shared libperl needed by some perl modules.</para>
+          <para>构建某些 perl 模块需要的共享 libperl。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>-Dusethreads</parameter></term>
         <listitem>
-          <para>Build perl with support for threads.</para>
+          <para>构建支持线程的 perl。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results (approximately 2.5 SBU), issue:</para>
+    <para>用以下命令测试结果（大概 2.5 SBU）：</para>
 
 <screen><userinput remap="test">make -k test</userinput></screen>
 
-    <note><para>Several tests related to zlib will fail due to using
-    the system version of zlib instead of the internal version.</para></note>
+    <note><para>与 zlib 相关的测试，会因为使用地是系统中的而非内置的 zlib 而失败。</para></note>
 
-    <para>Install the package and clean up:</para>
+    <para>安装软件包并清理：</para>
 
 <screen><userinput remap="install">make install
 unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
@@ -138,35 +123,44 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
   </sect2>
 
   <sect2 id="contents-perl" role="content">
-    <title>Contents of Perl</title>
+    <title>Perl 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directory</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>c2ph, corelist, cpan, enc2xs, encguess, h2ph, h2xs, instmodsh,
-        json_pp, libnetcfg, perl, perl&perl-version; (hard link to perl),
-        perlbug, perldoc, perlivp, perlthanks (hard link to perlbug), piconv,
+        json_pp, libnetcfg, perl, perl&perl-version; (到 perl 的硬链接),
+        perlbug, perldoc, perlivp, perlthanks (到 perlbug 的硬链接), piconv,
         pl2pm, pod2html, pod2man, pod2text, pod2usage, podchecker, podselect,
-        prove, pstruct (hard link to c2ph), ptar, ptardiff, ptargrep, shasum,
-        splain, xsubpp, and zipdetails</seg>
-        <seg>Many which cannot all be listed here</seg>
+        prove, pstruct (到 c2ph 的硬链接), ptar, ptardiff, ptargrep, shasum,
+        splain, xsubpp, 和 zipdetails</seg>
+        <seg>过多，不能在这完整列出</seg>
         <seg>/usr/lib/perl5</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="a2p">
+        <term><command>a2p</command></term>
+        <listitem>
+          <para>转换 awk 到 Perl</para>
+          <indexterm zone="ch-system-perl a2p">
+            <primary sortas="b-a2p">a2p</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
 
       <varlistentry id="c2ph">
         <term><command>c2ph</command></term>
         <listitem>
-          <para>Dumps C structures as generated from
-          <command>cc -g -S</command></para>
+          <para>转储正如 <command>cc -g -S</command> 生成的 C 结构体</para>
           <indexterm zone="ch-system-perl c2ph">
             <primary sortas="b-c2ph">c2ph</primary>
           </indexterm>
@@ -176,7 +170,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="corelist">
         <term><command>corelist</command></term>
         <listitem>
-          <para>A commandline frontend to Module::CoreList</para>
+          <para>Module::CoreList 的命令行前端</para>
           <indexterm zone="ch-system-perl corelist">
             <primary sortas="b-corelist">corelist</primary>
           </indexterm>
@@ -186,8 +180,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="cpan">
         <term><command>cpan</command></term>
         <listitem>
-          <para>Interact with the Comprehensive Perl Archive Network (CPAN)
-          from the command line</para>
+          <para>用命令行与综合 Perl 归档网络（Comprehensive Perl Archive Network,CPAN）交互</para>
           <indexterm zone="ch-system-perl cpan">
             <primary sortas="b-cpan">cpan</primary>
           </indexterm>
@@ -197,8 +190,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="enc2xs">
         <term><command>enc2xs</command></term>
         <listitem>
-          <para>Builds a Perl extension for the Encode module from either
-          Unicode Character Mappings or Tcl Encoding Files</para>
+          <para>从 Unicode 字符映射或 Tcl 编码文件为 Encode 模块编译 Perl 扩展</para>
           <indexterm zone="ch-system-perl enc2xs">
             <primary sortas="b-enc2xs">enc2xs</primary>
           </indexterm>
@@ -208,7 +200,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="encguess">
         <term><command>encguess</command></term>
         <listitem>
-          <para>Guess the encoding type of one or several files</para>
+          <para>猜测一个或多个文件的编码类型</para>
           <indexterm zone="ch-system-perl encguess">
             <primary sortas="b-encguess">encguess</primary>
           </indexterm>
@@ -218,9 +210,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="h2ph">
         <term><command>h2ph</command></term>
         <listitem>
-          <para>Converts <filename class="extension">.h</filename> C header
-          files to <filename class="extension">.ph</filename> Perl header
-          files</para>
+          <para>转换 <filename class="extension">.h</filename> C 头文件为 <filename class="extension">.ph</filename> Perl 头文件</para>
           <indexterm zone="ch-system-perl h2ph">
             <primary sortas="b-h2ph">h2ph</primary>
           </indexterm>
@@ -230,8 +220,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="h2xs">
         <term><command>h2xs</command></term>
         <listitem>
-          <para>Converts <filename class="extension">.h</filename> C header
-          files to Perl extensions</para>
+          <para>转换 <filename class="extension">.h</filename> C 头文件为 Perl 扩展</para>
           <indexterm zone="ch-system-perl h2xs">
             <primary sortas="b-h2xs">h2xs</primary>
           </indexterm>
@@ -241,8 +230,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="instmodsh">
         <term><command>instmodsh</command></term>
         <listitem>
-          <para>Shell script for examining installed Perl modules,
-          and can create a tarball from an installed module</para>
+          <para>用于检查安装的 Perl 模块的 shell 脚本，并且能从一个安装的模块中创建 tar 包</para>
           <indexterm zone="ch-system-perl instmodsh">
             <primary sortas="b-instmodsh">instmodsh</primary>
           </indexterm>
@@ -252,7 +240,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="json_pp">
         <term><command>json_pp</command></term>
         <listitem>
-          <para>Converts data between certain input and output formats</para>
+          <para>在特定输入输出格式之间转换数据</para>
           <indexterm zone="ch-system-perl json_pp">
             <primary sortas="b-json_pp">json_pp</primary>
           </indexterm>
@@ -262,8 +250,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="libnetcfg">
         <term><command>libnetcfg</command></term>
         <listitem>
-          <para>Can be used to configure the
-          <filename class="libraryfile">libnet</filename> Perl module</para>
+          <para>可用于配置 <filename class="libraryfile">libnet</filename> Perl 模块</para>
           <indexterm zone="ch-system-perl libnetcfg">
             <primary sortas="b-libnetcfg">libnetcfg</primary>
           </indexterm>
@@ -273,9 +260,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="perl">
         <term><command>perl</command></term>
         <listitem>
-          <para>Combines some of the best features of C, <command>sed</command>,
-          <command>awk</command> and <command>sh</command> into a single
-          swiss-army language</para>
+          <para>将 C,<command>sed</command>，<command>awk</command> 以及 <command>sh</command> 一些最好的特性结合到一个单一的强大语言</para>
           <indexterm zone="ch-system-perl perl">
             <primary sortas="b-perl">perl</primary>
           </indexterm>
@@ -285,7 +270,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="perl-version">
         <term><command>perl&perl-version;</command></term>
         <listitem>
-          <para>A hard link to <command>perl</command></para>
+          <para>到 <command>perl</command> 的硬链接</para>
           <indexterm zone="ch-system-perl perl-version">
             <primary sortas="b-perl&perl-version;">perl&perl-version;</primary>
           </indexterm>
@@ -295,8 +280,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="perlbug">
         <term><command>perlbug</command></term>
         <listitem>
-          <para>Used to generate bug reports about Perl, or the modules that come
-          with it, and mail them</para>
+          <para>用于生成关于 Perl、或者一起发布的模块的 bug 报告，并用邮件通知</para>
           <indexterm zone="ch-system-perl perlbug">
             <primary sortas="b-perlbug">perlbug</primary>
           </indexterm>
@@ -306,8 +290,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="perldoc">
         <term><command>perldoc</command></term>
         <listitem>
-          <para>Displays a piece of documentation in pod format that is embedded
-          in the Perl installation tree or in a Perl script</para>
+          <para>用嵌入到 Perl 安装目录或 Perl 脚本中的 pod 格式显示文档</para>
           <indexterm zone="ch-system-perl perldoc">
             <primary sortas="b-perldoc">perldoc</primary>
           </indexterm>
@@ -317,9 +300,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="perlivp">
         <term><command>perlivp</command></term>
         <listitem>
-          <para>The Perl Installation Verification Procedure; it can be used to
-          verify that Perl and its libraries have been installed
-          correctly</para>
+          <para>Perl 安装验证程序；能用于验证 Perl 和它的库是否正确安装</para>
           <indexterm zone="ch-system-perl perlivp">
             <primary sortas="b-perlivp">perlivp</primary>
           </indexterm>
@@ -329,8 +310,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="perlthanks">
         <term><command>perlthanks</command></term>
         <listitem>
-          <para>Used to generate thank you messages to mail to the Perl
-          developers</para>
+          <para>用于生成发送到 Perl 开发者的感谢邮件</para>
           <indexterm zone="ch-system-perl perlthanks">
             <primary sortas="b-perlthanks">perlthanks</primary>
           </indexterm>
@@ -340,8 +320,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="piconv">
         <term><command>piconv</command></term>
         <listitem>
-          <para>A Perl version of the character encoding converter
-          <command>iconv</command></para>
+          <para>Perl 版本的字符编码转换程序 <command>iconv</command></para>
           <indexterm zone="ch-system-perl piconv">
             <primary sortas="b-piconv">piconv</primary>
           </indexterm>
@@ -351,9 +330,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="pl2pm">
         <term><command>pl2pm</command></term>
         <listitem>
-          <para>A rough tool for converting Perl4
-          <filename class="extension">.pl</filename> files to Perl5
-          <filename class="extension">.pm</filename> modules</para>
+          <para>用于将 Perl4 <filename class="extension">.pl</filename> 文件转换为 Perl5 <filename class="extension">.pm</filename> 模块的工具</para>
           <indexterm zone="ch-system-perl pl2pm">
             <primary sortas="b-pl2pm">pl2pm</primary>
           </indexterm>
@@ -363,7 +340,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="pod2html">
         <term><command>pod2html</command></term>
         <listitem>
-          <para>Converts files from pod format to HTML format</para>
+          <para>将文件从 pod 格式转换为 HTML 格式</para>
           <indexterm zone="ch-system-perl pod2html">
             <primary sortas="b-pod2html">pod2html</primary>
           </indexterm>
@@ -373,7 +350,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="pod2man">
         <term><command>pod2man</command></term>
         <listitem>
-          <para>Converts pod data to formatted *roff input</para>
+          <para>将 pod 格式数据转换为格式化的 *roff 输入</para>
           <indexterm zone="ch-system-perl pod2man">
             <primary sortas="b-pod2man">pod2man</primary>
           </indexterm>
@@ -383,7 +360,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="pod2text">
         <term><command>pod2text</command></term>
         <listitem>
-          <para>Converts pod data to formatted ASCII text</para>
+          <para>将 pod 数据转换为格式化的 ASCII 文本</para>
           <indexterm zone="ch-system-perl pod2text">
             <primary sortas="b-pod2text">pod2text</primary>
           </indexterm>
@@ -393,7 +370,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="pod2usage">
         <term><command>pod2usage</command></term>
         <listitem>
-          <para>Prints usage messages from embedded pod docs in files</para>
+          <para>从文件中嵌入的 pod 文档显示使用信息</para>
           <indexterm zone="ch-system-perl pod2usage">
             <primary sortas="b-pod2usage">pod2usage</primary>
           </indexterm>
@@ -403,7 +380,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="podchecker">
         <term><command>podchecker</command></term>
         <listitem>
-          <para>Checks the syntax of pod format documentation files</para>
+          <para>检查 pod 格式的文档文件语法</para>
           <indexterm zone="ch-system-perl podchecker">
             <primary sortas="b-podchecker">podchecker</primary>
           </indexterm>
@@ -413,7 +390,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="podselect">
         <term><command>podselect</command></term>
         <listitem>
-          <para>Displays selected sections of pod documentation</para>
+          <para>显示 pod 文档选中的章节</para>
           <indexterm zone="ch-system-perl podselect">
             <primary sortas="b-podselect">podselect</primary>
           </indexterm>
@@ -423,8 +400,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="prove">
         <term><command>prove</command></term>
         <listitem>
-          <para>Command line tool for running tests against the Test::Harness
-          module</para>
+          <para>运行对 Test::Harness 模块测试的命令行工具</para>
           <indexterm zone="ch-system-perl prove">
             <primary sortas="b-prove">prove</primary>
           </indexterm>
@@ -434,8 +410,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="pstruct">
         <term><command>pstruct</command></term>
         <listitem>
-          <para>Dumps C structures as generated from <command>cc -g -S</command>
-          stabs</para>
+          <para>转储正如 <command>cc -g -S</command> 生成的 C 结构体</para>
           <indexterm zone="ch-system-perl pstruct">
             <primary sortas="b-pstruct">pstruct</primary>
           </indexterm>
@@ -445,7 +420,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="ptar">
         <term><command>ptar</command></term>
         <listitem>
-          <para>A <command>tar</command>-like program written in Perl</para>
+          <para>用 Perl 写的类似 <command>tar</command> 的程序</para>
           <indexterm zone="ch-system-perl ptar">
             <primary sortas="b-ptar">ptar</primary>
           </indexterm>
@@ -455,8 +430,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="ptardiff">
         <term><command>ptardiff</command></term>
         <listitem>
-          <para>A Perl program that compares an extracted archive with an
-          unextracted one</para>
+          <para>用于比较提取的文档和未提取的 Perl 程序</para>
           <indexterm zone="ch-system-perl ptardiff">
             <primary sortas="b-ptardiff">ptardiff</primary>
           </indexterm>
@@ -466,8 +440,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="ptargrep">
         <term><command>ptargrep</command></term>
         <listitem>
-          <para>A Perl program that applies pattern matching to the contents
-          of files in a tar archive</para>
+          <para>用于对 tar 归档文件中的内容进行模式匹配的 Perl 程序</para>
           <indexterm zone="ch-system-perl ptargrep">
             <primary sortas="b-ptargrep">ptargrep</primary>
           </indexterm>
@@ -477,7 +450,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="shasum">
         <term><command>shasum</command></term>
         <listitem>
-          <para>Prints or checks SHA checksums</para>
+          <para>打印或检查 SHA 校验码</para>
           <indexterm zone="ch-system-perl shasum">
             <primary sortas="b-shasum">shasum</primary>
           </indexterm>
@@ -487,7 +460,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="splain">
         <term><command>splain</command></term>
         <listitem>
-          <para>Is used to force verbose warning diagnostics in Perl</para>
+          <para>用于 Perl 中的强制冗长警告诊断</para>
           <indexterm zone="ch-system-perl splain">
             <primary sortas="b-splain">splain</primary>
           </indexterm>
@@ -497,7 +470,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="xsubpp">
         <term><command>xsubpp</command></term>
         <listitem>
-          <para>Converts Perl XS code into C code</para>
+          <para>转换 Perl XS 代码为 C 代码</para>
           <indexterm zone="ch-system-perl xsubpp">
             <primary sortas="b-xsubpp">xsubpp</primary>
           </indexterm>
@@ -507,7 +480,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
       <varlistentry id="zipdetails">
         <term><command>zipdetails</command></term>
         <listitem>
-          <para>Displays details about the internal structure of a Zip file</para>
+          <para>显示 Zip 文件内部结构的详细信息</para>
           <indexterm zone="ch-system-perl zipdetails">
             <primary sortas="b-zipdetails">zipdetails</primary>
           </indexterm>

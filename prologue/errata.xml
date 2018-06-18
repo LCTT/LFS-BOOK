@@ -8,17 +8,11 @@
 <sect1 id="pre-errata">
   <?dbhtml filename="errata.html"?>
 
-  <title>Errata</title>
+  <title>勘误表</title>
 
-  <para>The software used to create an LFS system is constantly being updated
-  and enhanced. Security warnings and bug fixes may become available after
-  the LFS book has been released. To check whether the package versions or
-  instructions in this release of LFS need any modifications to accommodate
-  security vulnerabilities or other bug fixes, please visit
-  <ulink revision="sysv" url="&errata;"/>
-  <ulink revision="systemd" url="&erratad;"/>
-  before proceeding with your build. You should note any
-  changes shown and apply them to the relevant section of the book as you
-  progress with building the LFS system.</para>
+  <para>构建 LFS 系统的软件是在不断的更新和改进的，也许在这本 LFS 书发布以后就会出现一些安全警告或者是修复了一些 bug。请在着手构建之前访问 <ulink revision="sysv" url="&errata;"/> <ulink revision="systemd" url="&erratad;"/>，检查此版本 LFS 软件包的版本或说明，是否需要修改以解决安全漏洞或其它 bug。你应该关注本书的一切变化，且将其应用到 LFS 系统的构建中去。</para>
+
+  <para>如果 LFS 的中文手册翻译的有问题，或是你对 LFS 中文手册有自己的建议和意见。可以通过中文手册的 Github 库 LFS-BOOK <ulink url="https://github.com/LCTT/LFS-BOOK"/> 找到并告诉我们。</para>
+
 
 </sect1>

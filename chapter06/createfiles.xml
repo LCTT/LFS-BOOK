@@ -8,7 +8,7 @@
 <sect1 id="ch-system-createfiles">
   <?dbhtml filename="createfiles.html"?>
 
-  <title>Creating Essential Files and Symlinks</title>
+  <title>创建必要的文件和符号链接</title>
 
   <indexterm zone="ch-system-createfiles">
     <primary sortas="e-/etc/passwd">/etc/passwd</primary>
@@ -34,10 +34,7 @@
     <primary sortas="e-/var/log/wtmp">/var/log/wtmp</primary>
   </indexterm>
 
-  <para>Some programs use hard-wired paths to programs which do not exist yet.
-  In order to satisfy these programs, create a number of symbolic links which
-  will be replaced by real files throughout the course of this chapter after the
-  software has been installed:</para>
+  <para>有些程序里会使用写死的路径调用其它暂时还未安装的程序。为了满足这种类型程序的需要，我们将创建一些符号链接，在完成本章内容后这些软件会安装好，并替代之前的符号链接：</para>
 
 <screen revision="sysv"><userinput>ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} /bin
 ln -sv /tools/bin/{install,perl} /usr/bin
@@ -69,101 +66,89 @@ ln -sv bash /bin/sh</userinput></screen>
 <!--sed 's/tools/usr/' /tools/lib/libstdc++.la > /usr/lib/libstdc++.la
    sed 's/tools/usr/' /tools/lib/lib${lib}.la > /usr/lib/lib${lib}.la-->
   <variablelist>
-    <title>The purpose of each link:</title>
+    <title>每个链接的目的：</title>
 
     <varlistentry>
       <term><parameter><filename>/bin/bash</filename></parameter></term>
       <listitem>
-        <para>Many <command>bash</command> scripts specify
-        <filename>/bin/bash</filename>.</para>
+        <para>许多 <command>bash</command> 脚本指定了 <filename>/bin/bash</filename>.</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/bin/cat</filename></parameter></term>
       <listitem>
-        <para>This pathname is hard-coded into Glibc's configure script.</para>
+        <para>这个路径在 Glibc 的配置脚本里写死了。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/bin/dd</filename></parameter></term>
       <listitem>
-        <para>The path to <filename>dd</filename> will be hard-coded into the
-        <filename>/usr/bin/libtool</filename> utility.</para>
+        <para>到 <filename>dd</filename> 的路径将写死在<filename>/usr/bin/libtool</filename> 实用工具中。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/bin/echo</filename></parameter></term>
       <listitem>
-        <para>This is to satisfy one of the tests in Glibc's test suite, which
-        expects <filename>/bin/echo</filename>.</para>
+        <para>这个是为了满足 Glibc 测试套件里的一个测试用例，它会检测 <filename>/bin/echo</filename>。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/usr/bin/install</filename></parameter></term>
       <listitem>
-        <para>The path to <filename>install</filename> will be hard-coded into
-        the <filename>/usr/lib/bash/Makefile.inc</filename> file.</para>
+        <para>到 <filename>install</filename> 的路径将写死在 <filename>/usr/lib/bash/Makefile.inc</filename> 文件中。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/bin/ln</filename></parameter></term>
       <listitem>
-        <para>The path to <filename>ln</filename> will be hard-coded into the
-        <filename>/usr/lib/perl5/&perl-version;/&lt;target-triplet&gt;/Config_heavy.pl</filename>
-         file.</para>
+        <para>到 <filename>ln</filename> 的路径将写死在 <filename>/usr/lib/perl5/&perl-version;/&lt;target-triplet&gt;/Config_heavy.pl</filename> 文件中。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/bin/pwd</filename></parameter></term>
       <listitem>
-        <para>Some <command>configure</command> scripts, particularly Glibc's,
-        have this pathname hard-coded.</para>
+        <para>某些 <command>configure</command> 脚本，特别是 Glibc 的，写死了这个路径。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/bin/rm</filename></parameter></term>
       <listitem>
-        <para>The path to <filename>rm</filename> will be hard-coded into the
-        <filename>/usr/lib/perl5/&perl-version;/&lt;target-triplet&gt;/Config_heavy.pl</filename>
-         file.</para>
+        <para>到 <filename>rm</filename> 的路径将写死在 <filename>/usr/lib/perl5/&perl-version;/&lt;target-triplet&gt;/Config_heavy.pl</filename> 文件中。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/bin/stty</filename></parameter></term>
       <listitem>
-        <para>This pathname is hard-coded into Expect, therefore it is needed
-        for Binutils and GCC test suites to pass.</para>
+        <para>这个路径在 Expect 软件中写死了，所以在 Binutils 和 GCC 测试套件中会需要它。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/usr/bin/perl</filename></parameter></term>
       <listitem>
-        <para>Many Perl scripts hard-code this path to the
-        <command>perl</command> program.</para>
+        <para>许多 Perl 脚本写死了这个路径调用 <command>perl</command> 执行程序。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/usr/lib/libgcc_s.so{,.1}</filename></parameter></term>
       <listitem>
-        <para>Glibc needs this for the pthreads library to work.</para>
+        <para>Glibc 需要这个让 pthreads 库正常工作。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/usr/lib/libstdc++{,.6}</filename></parameter></term>
       <listitem>
-        <para>This is needed by several tests in Glibc's test suite, as well as
-        for C++ support in GMP.</para>
+        <para>在 Glibc 的一些测试套件和对于 GMP 的 C++ 支持中会需要。</para>
       </listitem>
     </varlistentry>
 <!--
@@ -179,37 +164,27 @@ ln -sv bash /bin/sh</userinput></screen>
     <varlistentry revision="systemd">
       <term><parameter><filename>/usr/lib/lib{blkid,lzma,mount,uuid}.{a,la,so*}</filename></parameter></term>
       <listitem>
-        <para>These links prevent systemd utilities from acquiring an
-        unnecessary reference to the
-        <filename class="directory">/tools</filename> directory.</para>
+        <para>这些链接可以防止 systemd 实用程序获取 <filename class="directory">/tools</filename> 目录中不必要的引用。</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
       <term><parameter><filename>/bin/sh</filename></parameter></term>
       <listitem>
-        <para>Many shell scripts hard-code <filename>/bin/sh</filename>.</para>
+        <para>许多 shell 脚本写死了位置 <filename>/bin/sh</filename>。</para>
       </listitem>
     </varlistentry>
 
   </variablelist>
 
-  <para>Historically, Linux maintains a list of the mounted file systems in the
-  file <filename>/etc/mtab</filename>. Modern kernels maintain this list
-  internally and exposes it to the user via the <filename
-  class="directory">/proc</filename> filesystem. To satisfy utilities that
-  expect the presence of <filename>/etc/mtab</filename>, create the following
-  symbolic link:</para>
+  <para>由于历史原因，Linux 在文件 <filename>/etc/mtab</filename> 中维护一个已挂载文件系统的列表。而现代内核改为在内部维护这个列表，并通过 <filename
+  class="directory">/proc</filename> 文件系统输出给用户。为了满足一些依赖 <filename>/etc/mtab</filename> 文件的应用程序，我们要创建下面的符号链接：</para>
 
 <screen><userinput>ln -sv /proc/self/mounts /etc/mtab</userinput></screen>
 
-  <para>In order for user <systemitem class="username">root</systemitem> to be
-  able to login and for the name <quote>root</quote> to be recognized, there
-  must be relevant entries in the <filename>/etc/passwd</filename> and
-  <filename>/etc/group</filename> files.</para>
+  <para>为了让 <systemitem class="username">root</systemitem> 用户能正常登录，而且「root」的名字能被正常识别，必须在文件 <filename>/etc/passwd</filename> 和 <filename>/etc/group</filename>  中写入相应的内容。</para>
 
-  <para>Create the <filename>/etc/passwd</filename> file by running the following
-  command:</para>
+  <para>运行下面的命令创建 <filename>/etc/passwd</filename> 文件：</para>
 
 <screen revision="sysv"><userinput>cat &gt; /etc/passwd &lt;&lt; "EOF"
 <literal>root:x:0:0:root:/root:/bin/bash
@@ -235,11 +210,9 @@ systemd-coredump:x:79:79:systemd Core Dumper:/:/bin/false
 nobody:x:99:99:Unprivileged User:/dev/null:/bin/false</literal>
 EOF</userinput></screen>
 
-  <para>The actual password for <systemitem class="username">root</systemitem>
-  (the <quote>x</quote> used here is just a placeholder) will be set later.</para>
+  <para><systemitem class="username">root</systemitem>  用户的实际密码（这里的「x」只是占位符）将在后面创建。</para>
 
-  <para>Create the <filename>/etc/group</filename> file by running the following
-  command:</para>
+  <para>运行下面的命令创建 <filename>/etc/group</filename> 文件：</para>
 
 <screen revision="sysv"><userinput>cat &gt; /etc/group &lt;&lt; "EOF"
 <literal>root:x:0:
@@ -302,54 +275,24 @@ nogroup:x:99:
 users:x:999:</literal>
 EOF</userinput></screen>
 
-  <para>The created groups are not part of any standard&mdash;they are groups
-  decided on in part by the requirements of the udev configuration in this
-  chapter, and in part by common convention employed by a number of existing
-  Linux distributions. In addition, some test suites rely on specific users
-  or groups.  The Linux Standard Base (LSB, available at <ulink
-  url="http://www.linuxbase.org"/>) recommends only that, besides the group
-  <systemitem class="groupname">root</systemitem> with a Group ID (GID) of 0,
-  a group <systemitem class="groupname">bin</systemitem> with a GID of 1 be
-  present. All other group names and GIDs can be chosen freely by the system
-  administrator since well-written programs do not depend on GID numbers, but
-  rather use the group's name.</para>
+  <para>这里创建的用户组没有参照任何标准——它们一部分是为了满足本章中配置 udev 的需要，还有一部分来自一些现存 Linux 发行版的通用设定。另外，某些测试套件也依赖特定用户或组。而 Linux 标准规范 （LSB，参见 <ulink url="http://www.linuxbase.org"/>）只要求以组 ID（GID）为 0 创建用户组 
+  <systemitem class="groupname">root</systemitem> 以及以 GID 为 1 创建用户组 <systemitem class="groupname">bin</systemitem>。系统管理员可以自由分配其它所有用户组名字和 GID，因为优秀的程序不会依赖 GID 数字，而是使用组名。</para>
 
-  <para>To remove the <quote>I have no name!</quote> prompt, start a new
-  shell. Since a full Glibc was installed in <xref
-  linkend="chapter-temporary-tools"/> and the
-  <filename>/etc/passwd</filename> and <filename>/etc/group</filename>
-  files have been created, user name and group name resolution will now
-  work:</para>
+  <para>为了移除「I have no name!」的提示符，可以打开一个新 shell。由于完整的 Glibc 已经在 <xref linkend="chapter-temporary-tools"/> 里装好了，而且已经创建好了 <filename>/etc/passwd</filename> 和 <filename>/etc/group</filename> 文件，用户名和组名就可以正常解析了：</para>
 
 <screen role="nodump"><userinput>exec /tools/bin/bash --login +h</userinput></screen>
 
-  <para>Note the use of the <parameter>+h</parameter> directive. This tells
-  <command>bash</command> not to use its internal path hashing. Without this
-  directive, <command>bash</command> would remember the paths to binaries it has
-  executed. To ensure the use of the newly compiled binaries as soon as they are
-  installed, the <parameter>+h</parameter> directive will be used for the duration
-  of this chapter.</para>
+  <para>注意这里使用了 <parameter>+h</parameter> 参数。这样会告诉 <command>bash</command> 不要使用它内建的路径哈希功能。而不加这个参数的话，<command>bash</command> 将会记住曾经执行过程序的路径。为了在新编译安装好程序后就能马上使用，参数 <parameter>+h</parameter> 将在本章中一直使用。</para>
 
-  <para>The <command>login</command>, <command>agetty</command>, and
-  <command>init</command> programs (and others) use a number of log
-  files to record information such as who was logged into the system and
-  when. However, these programs will not write to the log files if they
-  do not already exist. Initialize the log files and give them
-  proper permissions:</para>
+  <para>程序 <command>login</command>、<command>agetty</command> 和 <command>init</command>（还有一些其它的）会使用一些日志文件来记录信息，比如谁在什么时候登录了系统。不过，在日志文件不存在的时候这些程序一般不会写入。下面初始化一下日志文件并加上合适的权限：</para>
 
 <screen><userinput>touch /var/log/{btmp,lastlog,faillog,wtmp}
 chgrp -v utmp /var/log/lastlog
 chmod -v 664  /var/log/lastlog
 chmod -v 600  /var/log/btmp</userinput></screen>
 
-  <para>The <filename>/var/log/wtmp</filename> file records all logins and
-  logouts. The <filename>/var/log/lastlog</filename> file records when each
-  user last logged in. The <filename>/var/log/faillog</filename> file records
-  failed login attempts.  The <filename>/var/log/btmp</filename> file records
-  the bad login attempts.</para>
+  <para>文件 <filename>/var/log/wtmp</filename> 会记录所有的登录和登出动作。文件 <filename>/var/log/lastlog</filename> 会记录每个用户的最后一次登录时间。文件 <filename>/var/log/faillog</filename> 会记录失败的登录尝试。文件 <filename>/var/log/btmp</filename> 会记录非法的登录尝试。</para>
 
-  <note><para>The <filename>/run/utmp</filename> file records the users that
-  are currently logged in.  This file is created dynamically in the boot
-  scripts.</para></note>
+  <note><para>文件 <filename>/run/utmp</filename> 会记录当前已登录的用户。这个文件会在启动脚本中动态创建。</para></note>
 
 </sect1>
