@@ -8,71 +8,66 @@
 <sect1 id="materials-patches">
   <?dbhtml filename="patches.html"?>
 
-  <title>Needed Patches</title>
+  <title>需要的补丁</title>
 
-  <para>In addition to the packages, several patches are also required.
-  These patches correct any mistakes in the packages that should be
-  fixed by the maintainer.  The patches also make small modifications to
-  make the packages easier to work with. The following patches will be
-  needed to build an LFS system:</para>
+  <para>除了下载软件包外，还需要几个补丁。这些补丁修正了软件包中应该由维护者来解决的问题。补丁也会对软件包做一些小调整方便大家使用。构建 LFS 系统需要下面的补丁：</para>
 
   <variablelist role="materials">
 <!--
     <varlistentry>
-      <term>Bash Upstream Fixes Patch - <token>&bash-fixes-patch-size;</token>:</term>
+      <term>Bash 上游修复补丁 - <token>&bash-fixes-patch-size;</token>:</term>
       <listitem>
-        <para>Download: <ulink url="&patches-root;&bash-fixes-patch;"/></para>
-        <para>MD5 sum: <literal>&bash-fixes-patch-md5;</literal></para>
+        <para>下载： <ulink url="&patches-root;&bash-fixes-patch;"/></para>
+        <para>MD5 校验和： <literal>&bash-fixes-patch-md5;</literal></para>
       </listitem>
     </varlistentry>
 -->
 <!--
     <varlistentry>
-      <term>Bc Memory Leak Patch - <token>&bc-memory-leak-patch-size;</token>:</term>
+      <term>Bc 内存泄漏补丁 - <token>&bc-memory-leak-patch-size;</token>:</term>
       <listitem>
-        <para>Download: <ulink url="&patches-root;&bc-memory-leak-patch;"/></para>
-        <para>MD5 sum: <literal>&bc-memory-leak-patch-md5;</literal></para>
+        <para>下载： <ulink url="&patches-root;&bc-memory-leak-patch;"/></para>
+        <para>MD5 校验和： <literal>&bc-memory-leak-patch-md5;</literal></para>
       </listitem>
     </varlistentry>
 -->
     <varlistentry>
-      <term>Bzip2 Documentation Patch - <token>&bzip2-docs-patch-size;</token>:</term>
+      <term>Bzip2 文档补丁 - <token>&bzip2-docs-patch-size;</token>:</term>
       <listitem>
-        <para>Download: <ulink url="&patches-root;&bzip2-docs-patch;"/></para>
-        <para>MD5 sum: <literal>&bzip2-docs-patch-md5;</literal></para>
+        <para>下载： <ulink url="&patches-root;&bzip2-docs-patch;"/></para>
+        <para>MD5 校验和： <literal>&bzip2-docs-patch-md5;</literal></para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
-      <term>Coreutils Internationalization Fixes Patch - <token>&coreutils-i18n-patch-size;</token>:</term>
+      <term>Coreutils 国际化修复补丁  - <token>&coreutils-i18n-patch-size;</token>:</term>
       <listitem>
-        <para>Download: <ulink url="&patches-root;&coreutils-i18n-patch;"/></para>
-        <para>MD5 sum: <literal>&coreutils-i18n-patch-md5;</literal></para>
+        <para>下载： <ulink url="&patches-root;&coreutils-i18n-patch;"/></para>
+        <para>MD5 校验和： <literal>&coreutils-i18n-patch-md5;</literal></para>
       </listitem>
     </varlistentry>
 <!--
     <varlistentry>
-      <term>Flex Fixes Patch - <token>&flex-fixes-patch-size;</token>:</term>
+      <term>Flex 修复补丁 - <token>&flex-fixes-patch-size;</token>:</term>
       <listitem>
-        <para>Download: <ulink url="&patches-root;&flex-fixes-patch;"/></para>
-        <para>MD5 sum: <literal>&flex-fixes-patch-md5;</literal></para>
+        <para>下载： <ulink url="&patches-root;&flex-fixes-patch;"/></para>
+        <para>MD5 校验和： <literal>&flex-fixes-patch-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Gccc ASAN 补丁 - <token>&gcc-asan-patch-size;</token>:</term>
+      <listitem>
+        <para>下载： <ulink url="&patches-root;&gcc-asan-patch;"/></para>
+        <para>MD5 校验和： <literal>&gcc-asan-patch-md5;</literal></para>
       </listitem>
     </varlistentry>
 -->
-<!--
     <varlistentry>
-      <term>Gccc ASAN Patch - <token>&gcc-asan-patch-size;</token>:</term>
+      <term>Glibc FHS 补丁 - <token>&glibc-fhs-patch-size;</token>:</term>
       <listitem>
-        <para>Download: <ulink url="&patches-root;&gcc-asan-patch;"/></para>
-        <para>MD5 sum: <literal>&gcc-asan-patch-md5;</literal></para>
-      </listitem>
-    </varlistentry>
--->
-    <varlistentry>
-      <term>Glibc FHS Patch - <token>&glibc-fhs-patch-size;</token>:</term>
-      <listitem>
-        <para>Download: <ulink url="&patches-root;&glibc-fhs-patch;"/></para>
-        <para>MD5 sum: <literal>&glibc-fhs-patch-md5;</literal></para>
+        <para>下载： <ulink url="&patches-root;&glibc-fhs-patch;"/></para>
+        <para>MD5 校验和： <literal>&glibc-fhs-patch-md5;</literal></para>
       </listitem>
     </varlistentry>
 <!--
@@ -85,56 +80,51 @@
     </varlistentry>
 -->
     <varlistentry>
-      <term>Kbd Backspace/Delete Fix Patch - <token>&kbd-backspace-patch-size;</token>:</term>
+      <term>Kbd Backspace/Delete 键修复补丁 - <token>&kbd-backspace-patch-size;</token>:</term>
       <listitem>
-        <para>Download: <ulink url="&patches-root;&kbd-backspace-patch;"/></para>
-        <para>MD5 sum: <literal>&kbd-backspace-patch-md5;</literal></para>
+        <para>下载： <ulink url="&patches-root;&kbd-backspace-patch;"/></para>
+        <para>MD5 校验和： <literal>&kbd-backspace-patch-md5;</literal></para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
-      <term>Ninja Limit Jobs Patch - <token>&ninja-limit-jobs-patch-size;</token>:</term>
+      <term>Ninja Limit Jobs 补丁 - <token>&ninja-limit-jobs-patch-size;</token>:</term>
       <listitem>
-        <para>Download: <ulink url="&patches-root;&ninja-limit-jobs-patch;"/></para>
-        <para>MD5 sum: <literal>&ninja-limit-jobs-patch-md5;</literal></para>
+        <para>下载: <ulink url="&patches-root;&ninja-limit-jobs-patch;"/></para>
+        <para>MD5 校验和: <literal>&ninja-limit-jobs-patch-md5;</literal></para>
       </listitem>
     </varlistentry>
 <!--
     <varlistentry>
-      <term>Readline Upstream Fixes Patch - <token>&readline-fixes-patch-size;</token>:</term>
+      <term>Readline 上游修复补丁 - <token>&readline-fixes-patch-size;</token>:</term>
       <listitem>
-        <para>Download: <ulink url="&patches-root;&readline-fixes-patch;"/></para>
-        <para>MD5 sum: <literal>&readline-fixes-patch-md5;</literal></para>
+        <para>下载： <ulink url="&patches-root;&readline-fixes-patch;"/></para>
+        <para>MD5 校验和： <literal>&readline-fixes-patch-md5;</literal></para>
       </listitem>
     </varlistentry>
 -->
     <varlistentry revision="sysv">
-      <term>Sysvinit Consolidated Patch - <token>&sysvinit-consolidated-patch-size;</token>:</term>
+      <term>Sysvinit 合并补丁 - <token>&sysvinit-consolidated-patch-size;</token>:</term>
       <listitem>
-        <para>Download: <ulink url="&patches-root;&sysvinit-consolidated-patch;"/></para>
-        <para>MD5 sum: <literal>&sysvinit-consolidated-patch-md5;</literal></para>
+        <para>下载： <ulink url="&patches-root;&sysvinit-consolidated-patch;"/></para>
+        <para>MD5 校验和： <literal>&sysvinit-consolidated-patch-md5;</literal></para>
       </listitem>
     </varlistentry>
 
-<!-- 
+<!--
     <varlistentry revision="systemd">
-      <term>systemd security patch - <token>&systemd-security-patch-size;</token>:</term>
+      <term>systemd 安全补丁 - <token>&systemd-security-patch-size;</token>:</term>
       <listitem>
-        <para>Download: <ulink url="&patches-root;&systemd-security-patch;"/></para>
-        <para>MD5 sum: <literal>&systemd-security-patch-md5;</literal></para>
+        <para>下载： <ulink url="&patches-root;&systemd-security-patch;"/></para>
+        <para>MD5 校验和： <literal>&systemd-security-patch-md5;</literal></para>
       </listitem>
     </varlistentry>
 -->
 
   </variablelist>
 
-  <para>Total size of these patches: about <returnvalue/></para>
+  <para>这些补丁文件总大小: 约 <returnvalue/></para>
 
-  <para>In addition to the above required patches, there exist a number of
-  optional patches created by the LFS community. These optional patches
-  solve minor problems or enable functionality that is not enabled by
-  default. Feel free to peruse the patches database located at
-  <ulink url="&lfs-root;patches/downloads/"/> and acquire any additional
-  patches to suit your system needs.</para>
+  <para>除了以上所要求的补丁外，还有一些由 LFS 社区创建的可选补丁。这些可选补丁或是解决了一些小问题，或是打开某个默认关闭的功能。请查阅补丁数据库 <ulink url="&lfs-root;patches/downloads/"/>，获取适合你系统需求的额外补丁。</para>
 
 </sect1>

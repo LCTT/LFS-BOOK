@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Grep package contains programs for searching through files.</para>
+    <para>Grep 软件包包含用于在文件中搜索的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,46 +38,46 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Grep</title>
+    <title>安装 Grep</title>
 
-    <para>Prepare Grep for compilation:</para>
+    <para>准备编译 Grep ：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr --bindir=/bin</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-grep" role="content">
-    <title>Contents of Grep</title>
+    <title>Grep 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
-        <seg>egrep, fgrep, and grep</seg>
+        <seg>egrep, fgrep, 和 grep</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="egrep">
         <term><command>egrep</command></term>
         <listitem>
-          <para>Prints lines matching an extended regular expression</para>
+          <para>打印匹配扩展正则表达式的行</para>
           <indexterm zone="ch-system-grep egrep">
             <primary sortas="b-egrep">egrep</primary>
           </indexterm>
@@ -87,7 +87,7 @@
       <varlistentry id="fgrep">
         <term><command>fgrep</command></term>
         <listitem>
-          <para>Prints lines matching a list of fixed strings</para>
+          <para>打印匹配固定字符串列表的行</para>
           <indexterm zone="ch-system-grep fgrep">
             <primary sortas="b-fgrep">fgrep</primary>
           </indexterm>
@@ -97,7 +97,7 @@
       <varlistentry id="grep">
         <term><command>grep</command></term>
         <listitem>
-          <para>Prints lines matching a basic regular expression</para>
+          <para>打印匹配基本正则表达式的行</para>
           <indexterm zone="ch-system-grep grep">
             <primary sortas="b-grep">grep</primary>
           </indexterm>

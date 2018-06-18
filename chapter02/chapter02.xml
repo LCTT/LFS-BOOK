@@ -5,11 +5,11 @@
   %general-entities;
 ]>
 
-<chapter id="chapter-partitioning" xreflabel="Chapter&nbsp;2">
+<chapter id="chapter-partitioning" xreflabel="第 2 章">
   <?dbhtml dir="chapter02"?>
   <?dbhtml filename="chapter02.html"?>
 
-  <title>Preparing the Host System</title>
+  <title>准备宿主系统</title>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="hostreqs.xml"/>

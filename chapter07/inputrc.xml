@@ -8,32 +8,19 @@
 <sect1 id="ch-scripts-inputrc">
   <?dbhtml filename="inputrc.html"?>
 
-  <title>Creating the /etc/inputrc File</title>
+  <title>创建 /etc/inputrc 文件</title>
 
   <indexterm zone="ch-scripts-inputrc">
     <primary sortas="e-/etc/inputrc">/etc/inputrc</primary>
   </indexterm>
 
-  <para>The <filename>inputrc</filename> file is the configuration file for
-  then Readline library, which provides editing capabilities while the user is
-  entering  a line from the terminal. It works by tranlating keyboard inputs
-  into specific actions.  Readline is used by Bash and most other shells as
-  well as many other applications.</para>
+  <para><filename>inputrc</filename> 文件是 Readline 库的配置文件，为用户在终端输入的每一行提供编辑功能。工作方式即将键盘的输入转换成特定操作。Readline 被 Bash 和其他的 shell，以及许多的应用广泛使用。</para>
 
-  <para>Most people do not need user-specific functionality so the command
-  below creates a global <filename>/etc/inputrc</filename> used by everyone who
-  logs in. If you later decide you need to override the defaults on a per-user
-  basis, you can create a <filename>.inputrc</filename> file in the user's home
-  directory with the modified mappings.</para>
+  <para>大多数人不需要用户指定这一功能，因此下面的命令仅创建了文件 <filename>/etc/inputrc</filename>，供所有登录的用户全局使用。如果你以后想要以此为基础，覆盖掉一些默认设置，你可以在自己的 home 目录下创建 <filename>.inputrc</filename> 文件，并更改映射。</para>
 
-  <para>For more information on how to edit the <filename>inputrc</filename>
-  file, see <command>info bash</command> under the <emphasis>Readline Init
-  File</emphasis> section. <command>info readline</command> is also a good
-  source of information.</para>
+  <para>如果需要了解更多有关如何编辑 <filename>inputrc</filename> 文件的信息，可以查看 <command>info bash</command> 中 <emphasis>Readline Init File</emphasis> 一节。其实查看 <command>info readline</command> 也可以获得不少有用的东西。</para>
 
-  <para>Below is a generic global <filename>inputrc</filename> along with comments
-  to explain what the various options do. Note that comments cannot be on the same
-  line as commands. Create the file using the following command:</para>
+  <para>下面显示的就是通用的 <filename>inputrc</filename> 文件，其中包含有「#」的都是注释行（需要注意的是，此文件不支持在设置后跟随注释）。使用以下命令创建此文件：</para>
 
 <screen><userinput>cat &gt; /etc/inputrc &lt;&lt; "EOF"
 <literal># Begin /etc/inputrc

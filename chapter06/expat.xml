@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Expat package contains a stream oriented C library for
-    parsing XML.</para>
+    <para>Expat 软件包包含一个用于解析 XML 的面向流的 C 库。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,29 +38,29 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Expat</title>
+    <title>安装 Expat</title>
 
-    <para>First fix a problem with the regession tests in the LFS environment:</para>
+    <para>首先修复一个 LFS 环境中，回归测试的问题：</para>
 
 <screen><userinput remap="pre">sed -i 's|usr/bin/env |bin/|' run.sh.in</userinput></screen>
 
-    <para>Prepare Expat for compilation:</para>
+    <para>准备编译 Expat：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr --disable-static</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>If desired, install the documentation:</para>
+    <para>如果需要的话，安装帮助文档：</para>
 
 <screen><userinput remap="install">install -v -dm755 /usr/share/doc/expat-&expat-version;
 install -v -m644 doc/*.{html,png,css} /usr/share/doc/expat-&expat-version;</userinput></screen>
@@ -69,12 +68,12 @@ install -v -m644 doc/*.{html,png,css} /usr/share/doc/expat-&expat-version;</user
   </sect2>
 
   <sect2 id="contents-expat" role="content">
-    <title>Contents of Expat</title>
+    <title>Expat 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed program</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directory</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>xmlwf</seg>
@@ -84,15 +83,14 @@ install -v -m644 doc/*.{html,png,css} /usr/share/doc/expat-&expat-version;</user
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="xmlwf">
         <term><command>xmlwf </command></term>
         <listitem>
-          <para>Is a non-validating utility to check whether or not
-          XML documents are well formed</para>
+          <para>用于检查 XML 文档是否格式良好的非验证工具</para>
           <indexterm zone="ch-system-expat xmlwf">
             <primary sortas="b-xmlwf">xmlwf</primary>
           </indexterm>
@@ -102,7 +100,7 @@ install -v -m644 doc/*.{html,png,css} /usr/share/doc/expat-&expat-version;</user
       <varlistentry id="libexpat">
         <term><filename class="libraryfile">libexpat</filename></term>
         <listitem>
-          <para>Contains API functions for parsing XML</para>
+          <para>包含用于解析 XML 的 API 函数</para>
           <indexterm zone="ch-system-expat libexpat">
             <primary sortas="c-libexpat">libexpat</primary>
           </indexterm>

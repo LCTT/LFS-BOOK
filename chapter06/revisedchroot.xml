@@ -8,14 +8,13 @@
 <sect1 id="ch-system-revisedchroot">
   <?dbhtml filename="revisedchroot.html"?>
 
-  <title>Cleaning Up</title>
+  <title>清理</title>
 
-  <para>Finally, clean up some extra files left around from running tests:</para>
+  <para>最后，清除运行测试留下来的多余文件：</para>
 
 <screen><userinput>rm -rf /tmp/*</userinput></screen>
 
-  <para>From now on, when reentering the chroot environment after
-  exiting, use the following modified chroot command:</para>
+  <para>从现在开始，要在退出后重新进入 chroot 环境，用下面更改后的 chroot 命令：</para>
 
 <screen role="nodump"><userinput>chroot "$LFS" /usr/bin/env -i          \
     HOME=/root TERM="$TERM"            \
@@ -23,29 +22,15 @@
     PATH=/bin:/usr/bin:/sbin:/usr/sbin \
     /bin/bash --login</userinput></screen>
 
-  <para>The reason for this is that the programs in <filename
-  class="directory">/tools</filename> are no longer needed.  Since they are no
-  longer needed you can delete the <filename class="directory">/tools</filename>
-  directory if so desired.</para>
+  <para>这样做的原因是不再需要 <filename class="directory">/tools</filename> 中的程序。由于不再需要，你可以删除 <filename class="directory">/tools</filename> 目录。</para>
 
   <note>
-    <para>Removing <filename class="directory">/tools</filename> will also
-    remove the temporary copies of Tcl, Expect, and DejaGNU which were used
-    for running the toolchain tests. If you need these programs later on,
-    they will need to be recompiled and re-installed. The BLFS book has
-    instructions for this (see <ulink url="&blfs-root;"/>).</para>
+    <para>移除 <filename class="directory">/tools</filename> 也会删除用于运行工具链测试的 Tcl、Expect和 DejaGNU 的临时复制。如果你在后面还需要这些程序，需要重新编译并安装它们。BLFS 手册有关于这些的指令（请查看<ulink url="&blfs-root;"/>）。</para>
   </note>
 
-  <para>If the virtual kernel file systems have been unmounted, either manually
-  or through a reboot, ensure that the virtual kernel file systems are mounted
-  when reentering the chroot. This process was explained in <xref
-  linkend="ch-system-bindmount"/> and <xref
-  linkend="ch-system-kernfsmount"/>.</para>
+  <para>如果通过手动或者重启卸载了虚拟内核文件系统，重新进入 chroot 的时候确保挂载了虚拟内核文件系统。在 <xref linkend="ch-system-bindmount"/> 和 <xref linkend="ch-system-kernfsmount"/> 中介绍了该过程。</para>
 
-  <para>There were several static libraries that were not suppressed earlier
-  in the chapter in order to satisfy the regression tests in several packages. These 
-  libraries are from binutils, bzip2, e2fsprogs, flex, libtool, and zlib.  If desired,
-  remove them now:</para>
+  <para>还有一些此章之前为了一些软件包的回归测试而留下的静态库。这些库来自 binutils、bzip2、e2fsprogs、flex、libtool 和 zlib。如果想删的话，现在就删：</para>
 
 <screen><userinput>rm -f /usr/lib/lib{bfd,opcodes}.a
 rm -f /usr/lib/libbz2.a
@@ -55,15 +40,10 @@ rm -f /usr/lib/libfl.a
 rm -f /usr/lib/libfl_pic.a
 rm -f /usr/lib/libz.a</userinput></screen>
 
-  <para>There are also several files installed in the /usr/lib directory with a
-  file name extention of .la.  These are "libtool archive" files and generally
-  unneeded on a linux system.  None of these are necessary at this point.  To
-  remove them, run:</para>
+  <para>还有几个安装在 /usr/lib 目录下的文件，文件的扩展名为 .la。这些是「libtool 归档」文件，在 Linux 系统中通常不需要它们。这些都是没有必要的东西。想要删除的话，运行：</para>
 
 <screen><userinput>find /usr/lib -name \*.la -delete</userinput></screen>
 
-   <para>For more information about libtool archive files, see the <ulink
-   url="&blfs-book;/introduction/la-files.html">BLFS section "About Libtool
-   Archive (.la) files"</ulink>.</para>
+   <para>关于 libtool 归档文件的更多信息，参考 <ulink url="&blfs-book;/introduction/la-files.html">BLFS 段落「关于 Libtool 归档（.la）文件」</ulink>。</para>
 
 </sect1>

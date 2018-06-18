@@ -24,8 +24,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Libstdc++ is the standard C++ library. It is needed for the correct
-    operation of the g++ compiler.</para>
+    <para>Libstdc++ 是标准的 C++ 库。g++ 编译器正确运行需要它。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -40,20 +39,18 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Target Libstdc++</title>
+    <title>安装目标 Libstdc++</title>
 
     <note>
-      <para><application>Libstdc++</application> is part of the GCC sources.
-      You should first unpack the GCC tarball and change to the
-      <filename>gcc-&gcc-version;</filename> directory.</para>
+      <para><application>Libstdc++</application> 是 GCC 源文件的一部分。你首先应该解压 GCC 的压缩包，然后进入 <filename>gcc-&gcc-version;</filename> 文件夹。</para>
     </note>
 
-    <para>Create a separate build directory for Libstdc++ and enter it:</para>
+    <para>为 Libstdc++ 另外创建一个用于构建的文件夹并进入该文件夹：</para>
 
 <screen><userinput remap="pre">mkdir -v build
 cd       build</userinput></screen>
 
-    <para>Prepare Libstdc++ for compilation:</para>
+    <para>准备编译 Libstdc++：</para>
 
 <screen><userinput remap="configure">../libstdc++-v3/configure           \
     --host=$LFS_TGT                 \
@@ -65,50 +62,43 @@ cd       build</userinput></screen>
     --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/&gcc-version;</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--host=...</parameter></term>
         <listitem>
-          <para>Indicates to use the cross compiler we have just built
-          instead of the one in <filename>/usr/bin</filename>.</para>
+          <para>指示使用我们刚才编译的交叉编译器，而不是  <filename>/usr/bin</filename> 中的。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-libstdcxx-threads</parameter></term>
         <listitem>
-          <para>Since we have not yet built the C threads library, the C++
-          one cannot be built either.</para>
+          <para>由于我们还没有编译 C 线程库，C++ 的也还不能编译。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-libstdcxx-pch</parameter></term>
         <listitem>
-          <para>This switch prevents the installation of precompiled
-          include files, which are not needed at this stage.</para>
+          <para>此选项防止安装预编译文件，此步骤并不需要。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--with-gxx-include-dir=/tools/$LFS_TGT/include/c++/&gcc-version;</parameter></term>
         <listitem>
-          <para>This is the location where the standard include files are
-          searched by the C++ compiler. In a normal build, this information
-          is automatically passed to the Libstdc++ <command>configure</command>
-          options from the top level directory. In our case, this information
-          must be explicitly given.</para>
+          <para>这是 C++ 编译器搜索标准 include 文件的位置。在一般的编译中，这个信息自动从顶层文件夹中传入 Libstdc++ <command>configure</command> 选项。在我们的例子中，必须明确给出这信息。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile libstdc++ by running:</para>
+    <para>编译 libstdc++：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Install the library:</para>
+    <para>安装库：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
@@ -117,8 +107,8 @@ cd       build</userinput></screen>
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
-    <xref linkend="contents-gcc" role="."/></para>
+    <para>该软件包的详细信息请参见：
+    <xref linkend="contents-gcc"/>。</para>
 
   </sect2>
 

@@ -8,16 +8,13 @@
 <sect1 id="ch-bootable-fstab">
   <?dbhtml filename="fstab.html"?>
 
-  <title>Creating the /etc/fstab File</title>
+  <title>创建 /etc/fstab 文件</title>
 
   <indexterm zone="ch-bootable-fstab">
     <primary sortas="e-/etc/fstab">/etc/fstab</primary>
   </indexterm>
 
-  <para>The <filename>/etc/fstab</filename> file is used by some programs to
-  determine where file systems are to be mounted by default, in which order, and
-  which must be checked (for integrity errors) prior to mounting. Create a new
-  file systems table like this:</para>
+  <para><filename>/etc/fstab</filename> 文件的作用是让其它程序确定存储设备的默认挂载点、挂载参数和检查信息（例如完整性检测）。仿照以下格式新建一个文件系统列表（file system table，简称 fstab）文件：</para>
 
 <screen revision="sysv"><userinput>cat &gt; /etc/fstab &lt;&lt; "EOF"
 <literal># Begin /etc/fstab
@@ -48,67 +45,33 @@ EOF</userinput></screen>
 # End /etc/fstab</literal>
 EOF</userinput></screen>
 
-  <para>Replace <replaceable>&lt;xxx&gt;</replaceable>,
-  <replaceable>&lt;yyy&gt;</replaceable>, and <replaceable>&lt;fff&gt;</replaceable>
-  with the values appropriate for the system, for example, <filename
-  class="partition">sda2</filename>, <filename
-  class="partition">sda5</filename>, and <systemitem
-  class="filesystem">ext4</systemitem>. For details on the six
-  fields in this file, see <command>man 5 fstab</command>.</para>
+  <para>其中，<replaceable>&lt;xxx&gt;</replaceable>，<replaceable>&lt;yyy&gt;</replaceable> 和 <replaceable>&lt;fff&gt;</replaceable> 请使用适当的值替换。例如 <filename class="partition">sda2</filename>，<filename class="partition">sda5</filename> 和 <systemitem class="filesystem">ext4</systemitem>。关于文件中六个字段的含义，请查看 <command>man 5 fstab</command>（译者注：fsck 列的数值来决定需要检查的文件系统的检查顺序。允许的数字是0, 1, 和2。根目录应当获得最高的优先权 1, 其它所有需要被检查的设备设置为 2。0 表示设备不会被 fsck 所检查）。</para>
 
-  <para>Filesystems with MS-DOS or Windows origin (i.e.: vfat, ntfs, smbfs, cifs,
-  iso9660, udf) need the <quote>iocharset</quote> mount option in order for
-  non-ASCII characters in file names to be interpreted properly. The value
-  of this option should be the same as the character set of your locale,
-  adjusted in such a way that the kernel understands it. This works if the
-  relevant character set definition (found under File systems -&gt;
-  Native Language Support) has been compiled into the kernel
-  or built as a module. The <quote>codepage</quote> option is also needed for
-  vfat and smbfs filesystems. It should be set to the codepage number used
-  under MS-DOS in your country. E.g., in order to mount USB flash drives, a
-  ru_RU.KOI8-R user would need the following in the options portion of its
-  mount line in <filename>/etc/fstab</filename>:</para>
+  <para>基于 MS-DOS 或者是来源于 Windows 的文件系统（例如：vfat，ntfs，smbfs，cifs，iso9660，udf）需要在挂载选项中添加「iocharset」，才能让非 ASCII 字符的文件名正确解析。此选项的值应该与语言区域设置的值相同，以便让内核能正确处理。此选项在相关字符集定义已为内核内建或是编译为模块时生效（在文件系统 -> 本地语言支持中查看）。此外，vfat 和 smbfs 还需启用「codepage」支持。例如，想要挂载 USB 闪存设备，zh-CN.GBK 用户需要在 <filename>/etc/fstab</filename> 中添加以下的挂载选项：</para>
 
 <screen><literal>noauto,user,quiet,showexec,iocharset=koi8r,codepage=866</literal></screen>
 
-  <para>The corresponding options fragment for ru_RU.UTF-8 users is:</para>
+  <para>对于 zh_CN.UTF-8 用户的对应选项是：</para>
 
-<screen><literal>noauto,user,quiet,showexec,iocharset=utf8,codepage=866</literal></screen>
+<screen><literal>noauto,user,quiet,showexec,iocharset=utf8,codepage=936</literal></screen>
 
   <note>
-    <para>In the latter case, the kernel emits the following message:</para>
+    <para>在后一种情况下，内核将会输出以下的信息：</para>
 
 <screen><computeroutput>FAT: utf8 is not a recommended IO charset for FAT filesystems,
     filesystem will be case sensitive!</computeroutput></screen>
 
-    <para>This negative recommendation should be ignored, since all other values
-    of the <quote>iocharset</quote> option result in wrong display of filenames in
-    UTF-8 locales.</para>
+    <para>此提示信息其实是错误的，忽略它就好，因为在 UTF-8 模式下，「iocharset」的任何其它选项都会导致错误的文件名显示。</para>
   </note>
 
-  <para>It is also possible to specify default codepage and iocharset values for
-  some filesystems during kernel configuration. The relevant parameters
-  are named
-  <quote>Default NLS Option</quote> (<option>CONFIG_NLS_DEFAULT)</option>,
-  <quote>Default Remote NLS Option</quote> (<option>CONFIG_SMB_NLS_DEFAULT</option>),
-  <quote>Default codepage for FAT</quote> (<option>CONFIG_FAT_DEFAULT_CODEPAGE</option>), and
-  <quote>Default iocharset for FAT</quote> (<option>CONFIG_FAT_DEFAULT_IOCHARSET</option>).
-  There is no way to specify these settings for the
-  ntfs filesystem at kernel compilation time.</para>
+  <para>此外，还有可能在内核的配置过程中就指定一些文件系统的默认代码页和 iocharset 值。相关参数有「默认 NLS 选项 」（<option>CONFIG_NLS_DEFAULT</option>），「默认远程 NLS 选项」（<option>CONFIG_SMB_NLS_DEFAULT</option>)，「FAT 默认代码页」（<option>CONFIG_FAT_DEFAULT_CODEPAGE</option>），和「FAT 默认 IO 字符集」（<option>CONFIG_FAT_DEFAULT_IOCHARSET</option>）。不过，无法在内核编译阶段指定 ntfs 文件系统的设置。</para>
 
-  <para>It is possible to make the ext3 filesystem reliable across power
-  failures for some hard disk types.  To do this, add the
-  <option>barrier=1</option> mount option to the appropriate entry in
-  <filename>/etc/fstab</filename>.  To check if the disk drive supports
-  this option, run
-  <ulink url="&blfs-book;general/hdparm.html">hdparm</ulink>
-  on the applicable disk drive.  For example, if:</para>
+  <para>另外，一些硬盘类型在遇到电源故障时，假如在 <filename>/etc/fstab</filename> 中使用 <option>barrier=1</option> 这个挂载选项，则会让 ext3 文件系统的数据更加安全。如需检查磁盘是否支持此选项，请运行 <ulink url="&blfs-book;general/hdparm.html">hdparm</ulink>。例如：</para>
 
 <screen role="nodump"><userinput>hdparm -I /dev/sda | grep NCQ</userinput></screen>
 
-  <para>returns non-empty output, the option is supported.</para>
+  <para>如果有输出内容，则代表选项可用。</para>
 
-  <para>Note: Logical Volume Management (LVM) based partitions cannot use the
-  <option>barrier</option> option.</para>
+  <para>注意：基于 逻辑卷管理（LVM）的分区不可使用 <option>barrier</option> 选项。</para>
 
 </sect1>

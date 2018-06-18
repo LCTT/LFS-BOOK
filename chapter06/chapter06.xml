@@ -5,11 +5,11 @@
   %general-entities;
 ]>
 
-<chapter id="chapter-building-system" xreflabel="Chapter&nbsp;6">
+<chapter id="chapter-building-system" xreflabel="第 6 章">
   <?dbhtml dir="chapter06"?>
   <?dbhtml filename="chapter06.html"?>
 
-  <title>Installing Basic System Software</title>
+  <title>安装基本的系统软件</title>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="kernfs.xml"/>

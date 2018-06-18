@@ -29,7 +29,7 @@
 <!ENTITY autoconf-home "&gnu-software;autoconf/">
 <!ENTITY autoconf-ch6-du "17.3 MB">
 <!ENTITY autoconf-ch6-sbu-tests "3.2">
-<!ENTITY autoconf-ch6-sbu "少于 0.1 SBU (包含测试大于 &autoconf-ch6-sbu-tests; SBU)">
+<!ENTITY autoconf-ch6-sbu "少于 0.1 SBU （包含测试大于 &autoconf-ch6-sbu-tests; SBU）">
 
 <!ENTITY automake-version "1.15.1">
 <!ENTITY am-minor-version "1.15">
@@ -38,7 +38,7 @@
 <!ENTITY automake-md5 "24cd3501b6ad8cd4d7e2546f07e8b4d4">
 <!ENTITY automake-home "&gnu-software;automake/">
 <!ENTITY automake-ch6-du "109 MB">
-<!ENTITY automake-ch6-sbu "少于 0.1 SBU (包含测试大于 8.4 SBU)">
+<!ENTITY automake-ch6-sbu "少于 0.1 SBU （包含测试大于 8.4 SBU）">
 
 <!ENTITY bash-version "4.4.18">
 <!ENTITY bash-size "9,242 KB">
@@ -96,7 +96,7 @@
 <!ENTITY check-md5 "31b17c6075820a434119592941186f70">
 <!ENTITY check-home "https://libcheck.github.io/check">
 <!ENTITY check-ch5-du "12 MB">
-<!ENTITY check-ch5-sbu "0.1 SBU (包含测试大于 3.8 SBU)">
+<!ENTITY check-ch5-sbu "0.1 SBU （包含测试大于 3.8 SBU）">
 
 <!ENTITY coreutils-version "8.29">
 <!ENTITY coreutils-size "5,163 KB">
@@ -225,7 +225,7 @@
 <!ENTITY gcc-ch5p2-du "2.6 GB">
 <!ENTITY gcc-ch5p2-sbu "11 SBU">
 <!ENTITY gcc-ch6-du "3.1 GB ">
-<!ENTITY gcc-ch6-sbu "81 SBU (含测试)">
+<!ENTITY gcc-ch6-sbu "81 SBU （含测试）">
 <!ENTITY libquadmath-version "0.0.0">
 <!ENTITY libstdcpp-version   "6.0.24">
 <!ENTITY libitm-version      "1.0.0">
@@ -426,8 +426,8 @@
 <!-- measured for 4.8.3 / gcc-6.2.0 on x86_64 : minimum is
  allnoconfig extended for a hopefully-bootable build on desktop machine,
  max is allyesconfig which requires openssl -->
-<!ENTITY linux-ch8-du "960 - 4250 MB (typically about 1100 MB)">
-<!ENTITY linux-ch8-sbu "4.4 - 66.0 SBU (typically about 6 SBU)">
+<!ENTITY linux-ch8-du "960 - 4250 MB （通常约为 1100 MB）">
+<!ENTITY linux-ch8-sbu "4.4 - 66.0 SBU （通常约为 6 SBU）">
 
 <!ENTITY linux-headers-ch5-du "917 MB">
 <!ENTITY linux-headers-ch5-sbu "0.2 SBU">

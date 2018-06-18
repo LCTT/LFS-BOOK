@@ -23,11 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The GDBM package contains the GNU Database Manager.  It is a library
-    of database functions that use extensible hashing and work similar to the
-    standard UNIX dbm.  The library provides primitives for storing key/data
-    pairs, searching and retrieving the data by its key and deleting a key
-    along with its data. </para>
+    <para>GDBM 软件包包含 GNU 数据库管理器。是使用扩展散列，工作方法和标准 UNIX dbm 类似的数据库函数库。该库提供存储键/数据对、通过键搜索和检索数据、以及删除键和数据的原语。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -42,63 +38,61 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of GDBM</title>
+    <title>安装 GDBM</title>
 
-    <para>Prepare GDBM for compilation:</para>
+    <para>准备编译 GDBM：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr \
             --disable-static \
             --enable-libgdbm-compat</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure option:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><envar>--enable-libgdbm-compat</envar></term>
         <listitem>
-          <para>This switch enables the libgdbm compatibility library to be
-          built, as some packages outside of LFS may require the older DBM
-          routines it provides.</para>
+          <para>该选项启用编译 libgdbm 兼容性库，因为一些 LFS 之外的软件包可能需要它提供的旧的 DBM 例程。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-gdbm" role="content">
-    <title>Contents of GDBM</title>
+    <title>GDBM 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
-        <seg>gdbm_dump, gdbm_load, and gdbmtool</seg>
-        <seg>libgdbm.so and libgdbm_compat.so</seg>
+        <seg>gdbm_dump, gdbm_load, 和 gdbmtool</seg>
+        <seg>libgdbm.so 和 libgdbm_compat.so</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="gdbm_dump">
         <term><command>gdbm_dump</command></term>
         <listitem>
-          <para>Dumps a GDBM database to a file</para>
+          <para>转储 GDBM 数据库到文件</para>
           <indexterm zone="ch-system-gdbm gdbm_dump">
             <primary sortas="b-gdbm_dump">gdbm_dump</primary>
           </indexterm>
@@ -108,7 +102,7 @@
       <varlistentry id="gdbm_load">
         <term><command>gdbm_load</command></term>
         <listitem>
-          <para>Recreates a GDBM database from a dump file</para>
+          <para>从转储文件重建一个 GDBM 数据库</para>
           <indexterm zone="ch-system-gdbm gdbm_load">
             <primary sortas="b-gdbm_load">gdbm_load</primary>
           </indexterm>
@@ -118,7 +112,7 @@
       <varlistentry id="gdbmtool">
         <term><command>gdbmtool</command></term>
         <listitem>
-          <para>Tests and modifies a GDBM database</para>
+          <para>测试和更改 GDBM 数据库</para>
           <indexterm zone="ch-system-gdbm gdbmtool">
             <primary sortas="b-gdbmtool">gdbmtool</primary>
           </indexterm>
@@ -128,7 +122,7 @@
       <varlistentry id="libgdbm">
         <term><filename class="libraryfile">libgdbm</filename></term>
         <listitem>
-          <para>Contains functions to manipulate a hashed database</para>
+          <para>包含操作散列数据库的函数</para>
           <indexterm zone="ch-system-gdbm libgdbm">
             <primary sortas="c-libgdbm">libgdbm</primary>
           </indexterm>
@@ -138,7 +132,7 @@
       <varlistentry id="libgdbm_compat">
         <term><filename class="libraryfile">libgdbm_compat</filename></term>
         <listitem>
-          <para>Compatibility library containing older DBM functions</para>
+          <para>包含旧的 DBM 函数的兼容性库</para>
           <indexterm zone="ch-system-gdbm libgdbm_compat">
             <primary sortas="c-libgdbm_compat">libgdbm_compat</primary>
           </indexterm>

@@ -8,283 +8,149 @@
 <sect1 id="ch-system-pkgmgt">
   <?dbhtml filename="pkgmgt.html"?>
 
-  <title>Package Management</title>
+  <title>软件包管理</title>
 
-  <para>Package Management is an often requested addition to the LFS Book. A
-  Package Manager allows tracking the installation of files making it easy to
-  remove and upgrade packages. As well as the binary and library files, a
-  package manager will handle the installation of configuration files.  Before
-  you begin to wonder, NO&mdash;this section will not talk about nor recommend
-  any particular package manager. What it provides is a roundup of the more
-  popular techniques and how they work. The perfect package manager for you may
-  be among these techniques or may be a combination of two or more of these
-  techniques. This section briefly mentions issues that may arise when upgrading
-  packages.</para>
+  <para>软件包管理经常被请求加入到 LFS 手册中。软件包管理器可以追踪安装的文件，方便软件包的移除和升级。不仅是二进制执行文件和库文件，包管理器还会处理配置文件的安装。在你想太多之前，答案是不——本节不讨论也不安利任何特定的软件包管理器，只是总结了一下关于软件包管理的常用技术和工作原理。对你而言最完美的软件包管理器可能就在这些技术之中，也可能由这些技术的其中几个组合而成。本节还简要的提了一些在升级软件包时可能遇到的问题。</para>
 
-  <para>Some reasons why no package manager is mentioned in LFS or BLFS
-  include:</para>
+  <para>为什么 LFS 或 BLFS 手册里不采用任何软件包管理器的一些原因：</para>
 
   <itemizedlist>
     <listitem>
-      <para>Dealing with package management takes the focus away from the goals
-      of these books&mdash;teaching how a Linux system is built.</para>
+      <para>使用软件包管理偏离了本手册的主要目标——教大家 Linux 系统是如何构建出来的。</para>
     </listitem>
 
     <listitem>
-      <para>There are multiple solutions for package management, each having
-      its strengths and drawbacks.  Including one that satisfies all audiences
-      is difficult.</para>
+      <para>存在很多软件包管理的解决方案，每一个都有自己的长处和缺点。很难选择一种适合所有人的方式。</para>
     </listitem>
   </itemizedlist>
 
-  <para>There are some hints written on the topic of package management. Visit
-  the <ulink url="&hints-index;">Hints Project</ulink> and see if one of them
-  fits your need.</para>
+  <para>关于软件包管理有很多资料，可以访问 <ulink url="&hints-index;">Hints Project</ulink> 看看是否可以解决你的需求。</para>
 
   <sect2>
-    <title>Upgrade Issues</title>
+    <title>升级问题</title>
 
-    <para>A Package Manager makes it easy to upgrade to newer versions when they
-    are released. Generally the instructions in the LFS and BLFS Book can be
-    used to upgrade to the newer versions. Here are some points that you should
-    be aware of when upgrading packages, especially on a running system.</para>
+    <para>软件包管理器可以在软件新版本发布后轻松升级。一般来说 LFS 和 BLFS 手册里的指令是可以用来升级版本。下面是一些在你准备升级软件包时需要注意的事情，特别是运行中系统需更加注意。</para>
 
     <itemizedlist>
       <listitem>
-        <para>If Glibc needs to be upgraded to a newer version, (e.g.  from
-        glibc-2.19 to glibc-2.20, it is safer to rebuild LFS.  Though you
-        <emphasis>may</emphasis> be able to rebuild all the packages in their
-        dependency order, we do not recommend it.  </para>
+        <para>如果需要升级 Glibc 到新版本（比如，从 glibc-2.19 升级到 glibc-2.20），重新构建整个 LFS 会比较安全。虽然你 <emphasis>也许</emphasis> 能够按依赖关系重新编译所有的软件包，不过我们不建议这样做。</para>
       </listitem>
 
       <listitem>
-        <para>If a package containing a shared library is updated, and if the
-        name of the library changes, then all the packages dynamically linked
-        to the library need to be recompiled to link against the newer library.
-        (Note that there is no correlation between the package version and the
-        name of the library.) For example, consider a package foo-1.2.3 that
-        installs a shared library with name
-        <filename class='libraryfile'>libfoo.so.1</filename>. Say you upgrade
-        the package to a newer version foo-1.2.4 that installs a shared library
-        with name <filename class='libraryfile'>libfoo.so.2</filename>. In this
-        case, all packages that are dynamically linked to
-        <filename class='libraryfile'>libfoo.so.1</filename> need to be
-        recompiled to link against
-        <filename class='libraryfile'>libfoo.so.2</filename>. Note that you
-        should not remove the previous libraries until the dependent packages
-        are recompiled.</para>
+        <para>如果某个包含的动态库的软件包升级了，而且库名字有所改变，那么所有动态链接到这个库的软件包都需要重新链接新的库。（请注意软件包版本和库名字并不存在相关性）。举个例子，说软件包  foo-1.2.3 安装了一个叫 <filename class='libraryfile'>libfoo.so.1</filename>  的动态库。然后你将软件包升级到了新版本 foo-1.2.4 安装的动态库叫 <filename class='libraryfile'>libfoo.so.2</filename> 了。在这种情况下，所有动态链接到 <filename class='libraryfile'>libfoo.so.1</filename> 的软件包都需要重新编译链接到 <filename class='libraryfile'>libfoo.so.2</filename>。注意在所有依赖软件包重新编译完成之前，请勿删除之前的库文件。</para>
       </listitem>
     </itemizedlist>
 
   </sect2>
 
   <sect2>
-    <title>Package Management Techniques</title>
+    <title>软件包管理技术</title>
 
-    <para>The following are some common package management techniques. Before
-    making a decision on a package manager, do some research on the various
-    techniques, particularly the drawbacks of the particular scheme.</para>
+    <para>下面介绍一些常见的软件包管理技巧。在决定用哪种包管理方式之前，先研究一下各种不同的技术，特别是某些方案的不足之处。</para>
 
     <sect3>
-      <title>It is All in My Head!</title>
+      <title>所有一切都在我脑袋里！</title>
 
-      <para>Yes, this is a package management technique. Some folks do not find
-      the need for a package manager because they know the packages intimately
-      and know what files are installed by each package. Some users also do not
-      need any package management because they plan on rebuilding the entire
-      system when a package is changed.</para>
+      <para>是的，这也算一种软件包管理技术。有些人觉得不需要管理软件包，是因为他们非常熟悉软件包，知道每个包都安装了哪些文件。也有些用户不需要管理软件包，是因为他们会在某个软件包有更改后重建整个系统。</para>
 
     </sect3>
 
     <sect3>
-      <title>Install in Separate Directories</title>
+      <title>在独立目录里安装</title>
 
-      <para>This is a simplistic package management that does not need any extra
-      package to manage the installations. Each package is installed in a
-      separate directory. For example, package foo-1.1 is installed in
-      <filename class='directory'>/usr/pkg/foo-1.1</filename>
-      and a symlink is made from <filename>/usr/pkg/foo</filename> to
-      <filename class='directory'>/usr/pkg/foo-1.1</filename>. When installing
-      a new version foo-1.2, it is installed in
-      <filename class='directory'>/usr/pkg/foo-1.2</filename> and the previous
-      symlink is replaced by a symlink to the new version.</para>
+      <para>这是一种简单的软件包管理方式，不需要其他额外的软件来管理软件的安装。每一个软件包都被装到一个独立的目录里。例如，软件包 foo-1.1 安装到目录 <filename class='directory'>/usr/pkg/foo-1.1</filename> 中并创建一个软链接 <filename>/usr/pkg/foo</filename> 指向 <filename class='directory'>/usr/pkg/foo-1.1</filename>。在安装新版本 foo-1.2 的时候，它会被装到目录 <filename class='directory'>/usr/pkg/foo-1.2</filename> 中，然后用指向新版本的软链替代之前的软链接。</para>
 
-      <para>Environment variables such as <envar>PATH</envar>,
-      <envar>LD_LIBRARY_PATH</envar>, <envar>MANPATH</envar>,
-      <envar>INFOPATH</envar> and <envar>CPPFLAGS</envar> need to be expanded to
-      include <filename>/usr/pkg/foo</filename>. For more than a few packages,
-      this scheme becomes unmanageable.</para>
+      <para>类似 <envar>PATH</envar>、<envar>LD_LIBRARY_PATH</envar>、<envar>MANPATH</envar>、<envar>INFOPATH</envar> 和 <envar>CPPFLAGS</envar> 之类的环境变量变量需要包含 <filename>/usr/pkg/foo</filename> 目录。在管理大量软件包时，这种方式就不可行了。</para>
 
     </sect3>
 
     <sect3>
-      <title>Symlink Style Package Management</title>
+      <title>软链接方式软件包管理</title>
 
-      <para>This is a variation of the previous package management technique.
-      Each package is installed similar to the previous scheme. But instead of
-      making the symlink, each file is symlinked into the
-      <filename class='directory'>/usr</filename> hierarchy. This removes the
-      need to expand the environment variables. Though the symlinks can be
-      created by the user to automate the creation, many package managers have
-      been written using this approach. A few of the popular ones include Stow,
-      Epkg, Graft, and Depot.</para>
+      <para>这是前一种软件包管理技术的变种。每个软件包的安装方式都和之前的方式类似。但不是建立目录的软链接，而是把每个文件都链接到 <filename class='directory'>/usr</filename> 目录结构里。这样就不需要扩展环境变量了。通过自动创建这些可由用户自行创建的软链，许多软件包管理器就采用了这种方式进行管理的。其中比较流行的有  Stow、Epkg、Graft 和 Depot。</para>
 
-      <para>The installation needs to be faked, so that the package thinks that
-      it is installed in <filename class="directory">/usr</filename> though in
-      reality it is installed in the
-      <filename class="directory">/usr/pkg</filename> hierarchy. Installing in
-      this manner is not usually a trivial task. For example, consider that you
-      are installing a package libfoo-1.1. The following instructions may
-      not install the package properly:</para>
+      <para>这种安装方式需要伪装，这样软件包会认为自己被装到了 <filename class="directory">/usr</filename> 目录下，而实际上它被装到了 <filename class="directory">/usr/pkg</filename>  目录下。在这种方式下，安装并不是一件琐碎的小事。例如，假如你准备安装一个软件包 libfoo-1.1。下面的指令可能不会正确地安装：</para>
 
 <screen role="nodump"><userinput>./configure --prefix=/usr/pkg/libfoo/1.1
 make
 make install</userinput></screen>
 
-      <para>The installation will work, but the dependent packages may not link
-      to libfoo as you would expect. If you compile a package that links against
-      libfoo, you may notice that it is linked to
-      <filename class='libraryfile'>/usr/pkg/libfoo/1.1/lib/libfoo.so.1</filename>
-      instead of <filename class='libraryfile'>/usr/lib/libfoo.so.1</filename>
-      as you would expect. The correct approach is to use the
-      <envar>DESTDIR</envar> strategy to fake installation of the package. This
-      approach works as follows:</para>
+      <para>安装本身倒是没有问题，但是可能一些依赖包不会像你期望的那样链接到 libfoo 库。如果你要编译一个链接 libfoo 的软件，你可能会注意到它实际上链接到的是 <filename class='libraryfile'>/usr/pkg/libfoo/1.1/lib/libfoo.so.1</filename> 而不是你所期望的 <filename class='libraryfile'>/usr/lib/libfoo.so.1</filename>。正确的方式是使用 <envar>DESTDIR</envar> 策略来伪装软件包的安装过程。这种方式需要像下面这样操作：</para>
 
 <screen role="nodump"><userinput>./configure --prefix=/usr
 make
 make DESTDIR=/usr/pkg/libfoo/1.1 install</userinput></screen>
 
-      <para>Most packages support this approach, but there are some which do not.
-      For the non-compliant packages, you may either need to manually install the
-      package, or you may find that it is easier to install some problematic
-      packages into <filename class='directory'>/opt</filename>.</para>
+      <para>大多数软件包支持这种方式，但也有一些例外。对于不兼容的软件包，你可能需要自己手动安装，或许你会发现将这些有问题的包安装到 <filename class='directory'>/opt</filename> 目录下会更简单些。</para>
 
     </sect3>
 
     <sect3>
-      <title>Timestamp Based</title>
+      <title>基于时间戳</title>
 
-      <para>In this technique, a file is timestamped before the installation of
-      the package. After the installation, a simple use of the
-      <command>find</command> command with the appropriate options can generate
-      a log of all the files installed after the timestamp file was created. A
-      package manager written with this approach is install-log.</para>
+      <para>在这种方式里，在安装之前会创建一个时间戳文件。在安装之后，用一行简单的 <command>find</command> 命令加上合适的参数就可以生成在时间戳文件创建之后所安装的所有文件列表。有一个采用这种方式的包管理器叫做 install-log。</para>
 
-      <para>Though this scheme has the advantage of being simple, it has two
-      drawbacks. If, during installation, the files are installed with any
-      timestamp other than the current time, those files will not be tracked by
-      the package manager. Also, this scheme can only be used when one package
-      is installed at a time. The logs are not reliable if two packages are
-      being installed on two different consoles.</para>
+      <para>这种方式的优点是非常简单，但是它有两个缺陷。比如，在安装过程中，所安装文件采用的是其它时间戳而不是当前时间，那这些文件将不能被软件包管理器跟踪到。还有，这种方式只能在一次安装一个软件包的情况下使用。如果在不同的终端里同时安装两个不同的软件包，此时的安装日志就不可靠了。</para>
 
     </sect3>
 
     <sect3>
-      <title>Tracing Installation Scripts</title>
+      <title>追踪安装脚本</title>
 
-      <para>In this approach, the commands that the installation scripts perform
-      are recorded.  There are two techniques that one can use:</para>
+      <para>在这种方式里，安装脚本所使用的命令都会被记录下来。有两种技术，一种是：</para>
 
-      <para>The <envar>LD_PRELOAD</envar> environment variable can be set to
-      point to a library to be preloaded before installation.  During
-      installation, this library tracks the packages that are being installed by
-      attaching itself to various executables such as <command>cp</command>,
-      <command>install</command>, <command>mv</command> and tracking the system
-      calls that modify the filesystem. For this approach to work, all the
-      executables need to be dynamically linked without the suid or sgid bit.
-      Preloading the library may cause some unwanted side-effects during
-      installation. Therefore, it is advised that one performs some tests to
-      ensure that the package manager does not break anything and logs all the
-      appropriate files.</para>
+      <para>设定环境变量 <envar>LD_PRELOAD</envar> 指向一个在安装前预加载的库。在安装过程中，这个库会追踪软件包安装脚本里所包含的各种执行文件比如 <command>cp</command>、<command>install</command>、<command>mv</command>，以及追踪会修改文件系统的系统调用。要让这种方式有效的话，所有的执行文件需要动态链接到没有 suid 或 sgid 标志位的库。预加载这个库可能会引起安装过程中一些意外的副作用。因此，建议做一些测试以保证软件包管理器不会造成破坏并且记录了所有适当的文件。</para>
 
-      <para>The second technique is to use <command>strace</command>, which
-      logs all system calls made during the execution of the installation
-      scripts.</para>
+      <para>第二种技术是使用 <command>strace</command> 命令，它会记录下安装脚本执行过程中所有的系统调用。</para>
     </sect3>
 
     <sect3>
-      <title>Creating Package Archives</title>
+      <title>创建软件包存档</title>
 
-      <para>In this scheme, the package installation is faked into a separate
-      tree as described in the Symlink style package management. After the
-      installation, a package archive is created using the installed files.
-      This archive is then used to install the package either on the local
-      machine or can even be used to install the package on other machines.</para>
+      <para>在这种方式里，像之前的软链接软件包管理方式里所描述的那样，软件包被伪装安装到一个独立的目录树里。在安装完成后，会将已安装文件打包成一个软件包存档。然后这个存档会用来在本地机器或其他机器上安装软件包。</para>
 
-      <para>This approach is used by most of the package managers found in the
-      commercial distributions. Examples of package managers that follow this
-      approach are RPM (which, incidentally, is required by the <ulink
-      url="http://refspecs.linuxfoundation.org/lsb.shtml">Linux
-      Standard Base Specification</ulink>), pkg-utils, Debian's apt, and
-      Gentoo's Portage system.  A hint describing how to adopt this style of
-      package management for LFS systems is located at <ulink
-      url="&hints-root;fakeroot.txt"/>.</para>
+      <para>这种方式为商业发行版中的大多数包管理器所采用。例子有 RPM（顺带提一下，这也是 <ulink url="http://refspecs.linuxfoundation.org/lsb.shtml">Linux 标准规范</ulink> 中指定的包管理器），pkg-utils，Debian 的 apt，和 Gentoo 的 Portage 系统。如何在 LFS 系统里采用这种包管理方式的简单描述，请参看 <ulink url="&hints-root;fakeroot.txt"/>.</para>
 
-      <para>Creation of package files that include dependency information is
-      complex and is beyond the scope of LFS.</para>
+      <para>创建带有依赖关系的软件包存档非常复杂，已经超出 LFS 手册范围了。</para>
 
-      <para>Slackware uses a <command>tar</command> based system for package
-      archives.  This system purposely does not handle package dependencies
-      as more complex package managers do.  For details of Slackware package
-      management, see <ulink
-      url="http://www.slackbook.org/html/package-management.html"/>.</para>
+      <para>Slackware 使用一个基于 <command>tar</command> 的系统来创建软件包存档。这套系统不像那些更复杂的包管理器，有意地不处理包依赖关系。关于 Slackware 包管理器的详细信息，请参看 <ulink url="http://www.slackbook.org/html/package-management.html"/>。</para>
     </sect3>
 
     <sect3>
-      <title>User Based Management</title>
+      <title>基于用户的软件包管理</title>
 
-      <para>This scheme, unique to LFS, was devised by Matthias Benkmann, and is
-      available from the <ulink url="&hints-index;">Hints Project</ulink>. In
-      this scheme, each package is installed as a separate user into the
-      standard locations. Files belonging to a package are easily identified by
-      checking the user ID. The features and shortcomings of this approach are
-      too complex to describe in this section. For the details please see the
-      hint at <ulink url="&hints-root;more_control_and_pkg_man.txt"/>.</para>
+      <para>这种方式，是 LFS 特有的，由 Matthias Benkmann 所设计，可以在  <ulink url="&hints-index;">Hints Project</ulink> 中能找到。在这种方式里，每个软件包都由一个单独的用户安装到标准的位置。文件属于某个软件包可以通过检查用户 ID 轻松识别出来。关于这种方式的利弊比较复杂，就不再本节中赘述了。详细的信息请参看 <ulink url="&hints-root;more_control_and_pkg_man.txt"/>。</para>
 
     </sect3>
 
   </sect2>
 
   <sect2>
-    <title>Deploying LFS on Multiple Systems</title>
+    <title>在多个系统上部署 LFS</title>
 
-    <para>One of the advantages of an LFS system is that there are no files that
-    depend on the position of files on a disk system.  Cloning an LFS build to
-    another computer with the same architecture as the base system is as
-    simple as using <command>tar</command> on the LFS partition that contains
-    the root directory (about 250MB uncompressed for a base LFS build), copying
-    that file via network transfer or CD-ROM to the new system and expanding
-    it.  From that point, a few configuration files will have to be changed.
-    Configuration files that may need to be updated include:
+    <para>LFS 系统的一个优点是没有那种需要依赖其在磁盘系统中的位置的文件。克隆一份 LFS 到和宿主机器相似配置的机器上，简单到只要对包含根目录的 LFS 分区（对于一个基本的 LFS 构建不压缩的话大概有 250MB）使用 <command>tar</command> 命令打包，然后通过网络传输或光盘拷贝到新机器上展开即可。在这之后，需要调整一些配置文件。需要更新的配置文件包括：
     <filename>/etc/hosts</filename>,
     <filename>/etc/fstab</filename>,
     <filename>/etc/passwd</filename>,
     <filename>/etc/group</filename>,
     <phrase revision="systemd">
-      <filename>/etc/shadow</filename>, and
-      <filename>/etc/ld.so.conf</filename>.
+      <filename>/etc/shadow</filename>, 和
+      <filename>/etc/ld.so.conf</filename>。
     </phrase>
     <phrase revision="sysv">
       <filename>/etc/shadow</filename>,
       <filename>/etc/ld.so.conf</filename>,
       <filename>/etc/sysconfig/rc.site</filename>,
-      <filename>/etc/sysconfig/network</filename>, and
-      <filename>/etc/sysconfig/ifconfig.eth0</filename>.
+      <filename>/etc/sysconfig/network</filename>, 和
+      <filename>/etc/sysconfig/ifconfig.eth0</filename>。
     </phrase>
     </para>
 
-    <para>A custom kernel may need to be built for the new system depending on
-    differences in system hardware and the original kernel
-    configuration.</para>
+    <para>根据系统硬件和原始内核配置文件的差异，可能还需要重新编译一下内核。</para>
 
-    <note><para>There have been some reports of issues when copying between
-    similar but not identical architectures. For instance, the instruction set
-    for an Intel system is not identical with an AMD processor and later
-    versions of some processors may have instructions that are unavailable in
-    earlier versions.</para></note>
+    <note><para>据报告，当这样的复制发生在两个相近却又不完全相同的架构时会发生问题。例如，Intel 系统的指令集就和 AMD 处理器的不同，还有一些较新版的处理器可能会有一些在较早版本中不能支持的指令。</para></note>
 
-    <para>Finally the new system has to be made bootable via <xref
-    linkend="ch-bootable-grub"/>.</para>
+    <para>最后，通过 <xref linkend="ch-bootable-grub"/> 中介绍的方法来使新系统可以引导。</para>
 
   </sect2>
 
