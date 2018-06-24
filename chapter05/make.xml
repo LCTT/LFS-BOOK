@@ -42,9 +42,11 @@
   <sect2 role="installation">
     <title>安装 Make</title>
 
-    <para>配置 Make 准备编译：</para>
-
     <para>首先，解决一个 glibc-2.27 带来的问题：</para>
+
+    <screen><userinput remap="pre">sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c</userinput></screen>
+
+    <para>配置 Make 准备编译：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/tools --without-guile</userinput></screen>
 
