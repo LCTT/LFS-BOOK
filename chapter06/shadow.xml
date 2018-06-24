@@ -67,14 +67,6 @@ find man -name Makefile.in -exec sed -i 's/passwd\.5 / /'   {} \;</userinput></s
 
 <screen><userinput remap="pre">sed -i 's/1000/999/' etc/useradd</userinput></screen>
 
-    <para>做个小的改动使 useradd 的默认设置和 LFS 的组文件一致：</para>
-
-<screen><userinput remap="pre">sed -i 's/1000/999/' etc/useradd</userinput></screen>
-
-    <para>修复上游发现的安全问题：</para>
-
-<screen><userinput remap="pre">sed -i -e '47 d' -e '60,65 d' libmisc/myname.c</userinput></screen>
-
     <para>准备编译 Shadow：</para>
 
 <screen><userinput remap="configure">./configure --sysconfdir=/etc --with-group-name-max-length=32</userinput></screen>
