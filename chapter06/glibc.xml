@@ -50,7 +50,7 @@
 
 <screen><userinput remap="pre">patch -Np1 -i ../&glibc-glob-patch;</userinput></screen>
 -->
-    <para>首先船舰一个兼用的符号链接，以避免在最终的 glibc 中存在 /tool 中的引用：</para>
+    <para>首先创建一个兼容性符号链接，以避免在最终的 glibc 中存在 /tool 中的引用：</para>
 
 <screen><userinput remap="pre">ln -sfv /tools/lib/gcc /usr/lib</userinput></screen>
 
