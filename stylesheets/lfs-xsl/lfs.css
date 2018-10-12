@@ -1,0 +1,613 @@
+/*
+$LastChangedBy: bdubbs $
+$Date: 2012-11-27 11:21:28 +0800 (Tue, 27 Nov 2012) $
+*/
+/* Global settings */
+body {
+  font-family: verdana, tahoma, helvetica, arial, sans-serif;
+  text-align: left;
+  background: #fff;
+  color: #222;
+  margin: 1em;
+  padding: 0;
+  font-size: 1em;
+  line-height: 1.2em
+}
+
+
+/* Links */
+a:link { color: #22b; }
+a.ulink:link { font-weight: bold; color: #55f; }
+a:visited { color: #7e4988 ! important; }
+a:hover, a:focus { color: #d30e08 ! important; }
+a:active { color: #6b77b1 ! important;}
+
+
+/* Book titlepage */
+.book .titlepage {
+  background: #f5f6f7;
+  margin: 0px auto;
+  padding: 0 1em;
+}
+
+.book hr {
+  background: #dbddec;
+  height: .3em;
+  border: 0px;
+  margin: 0 -1em;
+  padding: 0;
+}
+
+div.dedication {
+  padding-left: 1em;
+}
+
+
+/* Sections */
+div.sect1, div.appendix {
+  padding-left: .3em;
+}
+
+div.important ul {
+  padding-left: 1.5em;
+  list-style-type: disc;
+}
+
+div.important ul li p {
+  margin: 0px;
+  padding: 0px 0.6em;
+}
+
+.package, .kernel, .installation, .commands, .testing, .configuration, .content {
+  padding: 0 .5em .2em 0;
+  margin: 0;
+}
+
+.lfs .package {
+  background: #f5f6f7;
+  border-bottom: 0.2em solid #dbddec;
+  padding-top: .1em;
+  margin-top: 0;
+}
+
+.lfs .configuration {
+  background:   #fefefe;
+  border-top: 0.2em solid #dbddec;
+}
+
+.lfs .content {
+  background: #f5f6f7;
+  border-top: 0.2em solid #dbddec;
+  padding-bottom: .1em;
+  margin-bottom: 0;
+}
+
+
+/* Headers */
+h1, h2, h3, h4, h5, h6, b, .strong {
+  color: #000;
+  font-weight: bold;
+  line-height: 1em;
+}
+
+h1 {
+  font-size: 173%;
+  text-align: center;
+}
+
+.book h1 {
+  margin: 0;
+  padding: 0.4em;
+}
+
+.preface h1, .part h1, .chapter h1, .appendix h1, .index h1, .sect1 h1 {
+  background: #f5f6f7;
+  border-bottom: .1em solid #dbddec;
+  margin-bottom: 1em;
+  margin-top: 0;
+  padding: .4em;
+}
+
+.sect1 h1, .appendix h1 {
+  margin-left: -.2em;
+}
+
+.wrap h1 {
+  background: #f5f6f7;
+  margin: 0;
+  padding: .4em;
+}
+
+h1.title sup {
+  font-size: small;
+}
+
+h2 {
+  font-size: 144%;
+}
+
+.book h2.subtitle {
+  text-align: center;
+  background: #dbddec;
+  margin: 0;
+  padding: 0.2em;
+}
+
+.appendix h2 {
+  font-size: 133%;
+  margin-top: .8em;
+  margin-bottom: 0.2em;
+}
+
+h3 {
+  font-size: 120%;
+}
+
+h4 {
+  font-size: 110%;
+}
+
+.package h4, h5, h6 {
+  font-size: 100%;
+  font-style: italic;
+}
+
+
+/* Navigation */
+div.navheader, div.navfooter {
+  background: #ecedef;
+  margin: 0;
+  padding: 0.1em .5em;
+}
+
+div.navheader {
+  border-bottom: 1px solid #dbddec;
+}
+
+div.navfooter {
+  border-top: 1px solid #dbddec;
+}
+
+div.navheader h4 {
+  margin-top: .4em;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+div.navheader h3 {
+  margin-top: .2em;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+div.navheader ul, div.navfooter ul {
+  padding: .2em .5em .5em 0;
+  margin: .5em 0;
+  position: relative;
+  background: #dbddec;
+}
+
+div.navheader ul li, div.navfooter ul li {
+  display: inline;
+  width: 40%;
+}
+
+div.navheader ul li.prev, div.navfooter ul li.prev {
+  position: absolute;
+  display: block;
+  left: 0;
+  text-align: left;
+  padding: 0.2em 1em;
+  margin-left: 6px;
+}
+
+div.navheader ul li.next, div.navfooter ul li.next {
+  position: absolute;
+  display: block;
+  text-align: right;
+  right: 5px;
+  padding: 0.2em 0.5em;
+  margin-right: 7px;
+}
+
+div.navheader ul li.prev p, div.navfooter ul li.prev p,
+div.navheader ul li.next p, div.navfooter ul li.next p {
+  padding: 0;
+  margin: 1px 0px;
+}
+
+div.navheader ul li.home, div.navheader ul li.up,
+div.navfooter ul li.home, div.navfooter ul li.up {
+  text-align: center;
+  padding: 0;
+  margin: 0px auto;
+  display: block;
+  color: #dbddec;
+}
+
+
+/* TOC */
+div.toc ul, div.index ul, div.navheader ul, div.navfooter ul {
+  list-style: none;
+}
+
+div.toc {
+  padding-left: 1em;
+}
+
+li.preface, .part li.appendix {
+  margin-left: 1em;
+}
+
+div.toc h3 {
+  margin: 1em 0 .3em 0;
+}
+
+li.appendix h3, li.glossary h3, li.index h3 {
+  margin: .5em
+}
+
+div.toc h4 {
+  margin: .6em 0 .2em 0;
+}
+
+li.chapter h4 a {
+  display: block;
+  margin-bottom: .4em
+}
+
+.dummy {
+  display: block;
+  font-weight: bold;
+  font-size: 110%;
+  margin: .6em 0 .2em 0;
+}
+
+
+/* Index */
+.item {
+    float: left;
+    margin-right: 1em
+}
+
+.secitem {
+    font-weight: normal;
+    float: left;
+    margin-right: 1em
+}
+
+.indexref {
+    display: block;
+}
+
+.item + .indexref {
+    margin-left: 20em;
+}
+
+.secitem + .indexref {
+    margin-left: 19em;
+}
+
+
+/* Admonitions */
+div.admon img {
+  padding: .3em;
+}
+
+div.admon h3 {
+  display: inline;
+  margin-left: 2em;
+}
+
+div.admon p {
+  margin-left: .5em;
+  padding-bottom: .4em;
+}
+
+div.admon pre {
+  margin: 0.5em 3em;
+}
+
+div.note, div.tip {
+  background-color: #fffff6;
+  border: 2px solid #dbddec;
+  width: 90%;
+  margin: .5em auto;
+}
+
+div.important, div.warning, div.caution {
+  background-color: #fffff6;
+  border: medium solid #400;
+  width: 90%;
+  margin: .5em auto;
+  color: #600;
+}
+
+div.important h3, div.warning h3, div.caution h3 {
+  color: #900;
+}
+
+div.important em, div.warning em, div.caution em {
+  color: #000;
+  font-weight: bold;
+}
+
+
+/* table */
+.table p.title {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: .3em;
+}
+
+.table table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table table th, .table table td {
+  padding: 0.2em 2em 0.2em 2em;
+  text-align: left;
+}
+
+.revhistory {
+  padding-left: 1em;
+}
+
+.revhistory th {
+  line-height: 2em;
+  text-align: left;
+}
+
+.revhistory td {
+  padding-right: 1em;
+}
+
+
+/* variablelist as table */
+.variablelist table {
+  width: auto;
+  margin: 0 1em 0 1em;
+}
+
+.variablelist td {
+  vertical-align: top;
+}
+
+.variablelist td span, td p {
+  margin: 0.25em;
+}
+
+
+/* variablelist as list */
+dl {
+  padding-left: 1em
+}
+
+dt {
+  font-weight: bold;
+  margin-left: 1em;
+}
+
+dd {
+  margin-bottom: .6em;
+  margin-left: 1em;
+}
+
+dd p {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+div.materials dt {
+  display: list-item;
+}
+
+div.materials dd {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+
+/* segmentedlist */
+.appendix .segmentedlist {
+  padding-left: 1em;
+}
+
+.package .seg {
+  margin-bottom: 0em;
+  margin-top: 0em;
+  clear: left;
+}
+
+.content .seg {
+  margin-bottom: .4em;
+  margin-top: .4em;
+  clear: left;
+}
+
+.segtitle {
+  float: left;
+}
+
+.package .segbody, .appendix .segbody {
+  display: block;
+  padding-left: 14em;
+}
+
+.content .segbody {
+  display: block;
+  padding-left: 12em;
+}
+
+
+/* itemizedlist */
+ul {
+  padding-left: 1em
+}
+
+.itemizedlist ul {
+  margin-left: 1em
+}
+
+.itemizedlist li ul {
+  margin-bottom: 1.2em;
+}
+
+.itemizedlist li ul li p {
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+.itemizedlist li ul li:first-child p:first-child {
+  margin-top: -.6em;
+}
+
+ul.compact {
+  list-style: none;
+}
+
+.blfs ul.compact {
+  list-style: disc;
+}
+
+ul.compact li {
+  margin: 0em;
+  padding: 0em;
+}
+
+ul.compact li p {
+  padding: 0.3em;
+  margin: 0em;
+}
+
+.blfs ul.compact li p {
+  background-color: #f0fff0;
+}
+
+/* orderedlist */
+ol {
+  list-style: decimal;
+}
+
+ol ol {
+  list-style: lower-alpha;
+}
+
+ol ol ol {
+  list-style: lower-roman;
+}
+
+ol.compact li {
+  margin: 0em;
+  padding: 0em;
+}
+
+ol.compact li p {
+  padding: 0.3em;
+  margin: 0em;
+}
+
+
+/* Indented blocks */
+p, blockquote {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+
+/* Monospaced elements */
+tt, code, kbd, pre, .command {
+  font-family: monospace;
+}
+
+.systemitem {
+  font-style: italic;
+}
+
+pre {
+  background-color: #e5e5e5;
+  border: 1px solid #050505;
+  padding: .5em 1em;
+  margin: 0 2em .5em 2em;
+  font-weight: bold;
+}
+
+pre.userinput {
+  color: #101310;
+}
+
+pre.root {
+  color: #101310;
+  border: 1px solid #11a;
+}
+
+pre.screen {
+  color: #000;
+  background-color: #e9e9e9;
+  font-weight: normal;
+}
+
+.literal, .prompt {
+  font-weight: normal;
+}
+
+
+/* Mixed tags */
+p.usernotes {
+  margin-left: -1em;
+  font-size: small;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.underlined {
+  text-decoration: underline;
+}
+
+
+/* Last edited info */
+p.updated {
+  font-size: small;
+  font-weight: bold;
+  font-style: italic;
+}
+
+
+/* Special colored blocks */
+  /* OrangeRed4 */
+.feature-ssp {
+  color: #8B2500;
+}
+
+  /* RoyalBlue3 */
+.feature-aslr {
+  color: #3A5FCD;
+}
+
+  /* NavyBlue */
+.feature-pax {
+  color: #000080;
+}
+
+  /* VioletRed */
+.feature-hardened_tmp {
+  color: #d02090;
+}
+
+  /* PaleTurquoise4 */
+.feature-warnings {
+  color: #668b8b;
+}
+
+  /* RosyBrown */
+.feature-misc {
+  color: #bc8f8f;
+}
+
+  /* Sienna*/
+.feature-blowfish {
+  color: #8E6B23
+}

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-settingenviron">
+  <?dbhtml filename="settingenvironment.html"?>
+
+  <title>Setting Up the Environment</title>
+
+  <para>Set up a good working environment by creating two new startup files
+  for the <command>bash</command> shell. While logged in as user
+  <systemitem class="username">lfs</systemitem>, issue the following command
+  to create a new <filename>.bash_profile</filename>:</para>
+
+<screen><userinput>cat &gt; ~/.bash_profile &lt;&lt; "EOF"
+<literal>exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash</literal>
+EOF</userinput></screen>
+
+  <para>When logged on as user <systemitem class="username">lfs</systemitem>,
+  the initial shell is usually a <emphasis>login</emphasis> shell which reads
+  the <filename>/etc/profile</filename> of the host (probably containing some
+  settings and environment variables) and then <filename>.bash_profile</filename>.
+  The <command>exec env -i.../bin/bash</command> command in the
+  <filename>.bash_profile</filename> file replaces the running shell with a new
+  one with a completely empty environment, except for the <envar>HOME</envar>,
+  <envar>TERM</envar>, and <envar>PS1</envar> variables. This ensures that no
+  unwanted and potentially hazardous environment variables from the host system
+  leak into the build environment. The technique used here achieves the goal of
+  ensuring a clean environment.</para>
+
+  <para>The new instance of the shell is a <emphasis>non-login</emphasis>
+  shell, which does not read the <filename>/etc/profile</filename> or
+  <filename>.bash_profile</filename> files, but rather reads the
+  <filename>.bashrc</filename> file instead. Create the
+  <filename>.bashrc</filename> file now:</para>
+
+<screen><userinput>cat &gt; ~/.bashrc &lt;&lt; "EOF"
+<literal>set +h
+umask 022
+LFS=/mnt/lfs
+LC_ALL=POSIX
+LFS_TGT=$(uname -m)-lfs-linux-gnu
+PATH=/tools/bin:/bin:/usr/bin
+export LFS LC_ALL LFS_TGT PATH</literal>
+EOF</userinput></screen>
+
+  <para>The <command>set +h</command> command turns off
+  <command>bash</command>'s hash function. Hashing is ordinarily a useful
+  feature&mdash;<command>bash</command> uses a hash table to remember the
+  full path of executable files to avoid searching the <envar>PATH</envar>
+  time and again to find the same executable. However, the new tools should
+  be used as soon as they are installed. By switching off the hash function,
+  the shell will always search the <envar>PATH</envar> when a program is to
+  be run. As such, the shell will find the newly compiled tools in
+  <filename class="directory">$LFS/tools</filename> as soon as they are
+  available without remembering a previous version of the same program in a
+  different location.</para>
+
+  <para>Setting the user file-creation mask (umask) to 022 ensures that newly
+  created files and directories are only writable by their owner, but are
+  readable and executable by anyone (assuming default modes are used by the
+  <function>open(2)</function> system call, new files will end up with permission
+  mode 644 and directories with mode 755).</para>
+
+  <para>The <envar>LFS</envar> variable should be set to the chosen mount
+  point.</para>
+
+  <para>The <envar>LC_ALL</envar> variable controls the localization of certain
+  programs, making their messages follow the conventions of a specified country.
+  Setting <envar>LC_ALL</envar> to <quote>POSIX</quote> or <quote>C</quote>
+  (the two are equivalent) ensures that everything will work as expected in
+  the chroot environment.</para>
+
+  <para>The <envar>LFS_TGT</envar> variable sets a non-default, but compatible machine
+  description for use when building our cross compiler and linker and when cross
+  compiling our temporary toolchain. More information is contained in
+  <xref linkend="ch-tools-toolchaintechnotes" role=""/>.</para>
+
+  <para>By putting <filename class="directory">/tools/bin</filename> ahead of the
+  standard <envar>PATH</envar>, all the programs installed in <xref
+  linkend="chapter-temporary-tools"/> are picked up by the shell immediately after
+  their installation. This, combined with turning off hashing, limits the risk
+  that old programs are used from the host when the same programs are available in
+  the chapter 5 environment.</para>
+
+  <para>Finally, to have the environment fully prepared for building the
+  temporary tools, source the just-created user profile:</para>
+
+<screen><userinput>source ~/.bash_profile</userinput></screen>
+
+</sect1>

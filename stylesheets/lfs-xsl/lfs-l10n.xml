@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+
+<!--
+$LastChangedBy: bdubbs $
+$Date: 2012-09-09 05:41:53 +0800 (Sun, 09 Sep 2012) $
+-->
+
+<l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0">
+
+    <!-- Template to add more languages -->
+  <l:l10n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
+          language="xx" english-language-name="xxxxx">
+
+    <l:gentext key="description" text=""/>
+    <l:gentext key="Bootscripts" text=""/>
+    <l:gentext key="Configuration Files" text=""/>
+    <l:gentext key="Kernel Configuration" text=""/>
+    <l:gentext key="Libraries" text=""/>
+    <l:gentext key="Others" text=""/>
+    <l:gentext key="Packages" text=""/>
+    <l:gentext key="Programs" text=""/>
+    <l:gentext key="Scripts" text=""/>
+
+  </l:l10n>
+
+
+    <!-- English -->
+  <l:l10n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
+          language="en" english-language-name="English">
+
+    <l:gentext key="description" text="description"/>
+    <l:gentext key="Bootscripts" text="Bootscripts"/>
+    <l:gentext key="Configuration Files" text="Configuration Files"/>
+    <l:gentext key="Kernel Configuration" text="Kernel Configuration"/>
+    <l:gentext key="Libraries" text="Libraries"/>
+    <l:gentext key="Others" text="Others"/>
+    <l:gentext key="Packages" text="Packages"/>
+    <l:gentext key="Programs" text="Programs"/>
+    <l:gentext key="Scripts" text="Scripts"/>
+
+  </l:l10n>
+
+    <!-- French -->
+  <l:l10n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
+          language="fr" english-language-name="French">
+
+    <l:gentext key="description" text="description"/>
+    <l:gentext key="Bootscripts" text="Scripts de démarrage"/>
+    <l:gentext key="Configuration Files" text="Fichiers de configuration"/>
+    <l:gentext key="Kernel Configuration" text="Configuration du noyau"/>
+    <l:gentext key="Libraries" text="Bibliothèques"/>
+    <l:gentext key="Others" text="Autres"/>
+    <l:gentext key="Packages" text="Paquets"/>
+    <l:gentext key="Programs" text="Programmes"/>
+    <l:gentext key="Scripts" text="Scripts"/>
+
+  </l:l10n>
+
+    <!-- Italian -->
+  <l:l10n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
+          language="it" english-language-name="Italian">
+
+    <l:gentext key="description" text="descrizione"/>
+    <l:gentext key="Bootscripts" text="Script di avvio"/>
+    <l:gentext key="Configuration Files" text="File di configurazione"/>
+    <l:gentext key="Kernel Configuration" text="Configurazione del kernel"/>
+    <l:gentext key="Libraries" text="Librerie"/>
+    <l:gentext key="Others" text="Altri"/>
+    <l:gentext key="Packages" text="Pacchetti"/>
+    <l:gentext key="Programs" text="Programmi"/>
+    <l:gentext key="Scripts" text="Script"/>
+
+  </l:l10n>
+
+    <!-- Spanish -->
+  <l:l10n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
+          language="es" english-language-name="Spanish">
+
+    <l:gentext key="description" text="descripci&#243;n"/>
+    <l:gentext key="Bootscripts" text="Guiones de arranque"/>
+    <l:gentext key="Configuration Files" text="Ficheros de configuraci&#243;n"/>
+    <l:gentext key="Kernel Configuration" text="Configuraci&#243;n del n&#250;cleo"/>
+    <l:gentext key="Libraries" text="Librer&#237;as"/>
+    <l:gentext key="Others" text="Otros"/>
+    <l:gentext key="Packages" text="Paquetes"/>
+    <l:gentext key="Programs" text="Programas"/>
+    <l:gentext key="Scripts" text="Guiones"/>
+
+  </l:l10n>
+
+    <!-- German -->
+  <l:l10n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
+          language="de" english-language-name="German">
+
+    <l:gentext key="description" text="Beschreibung"/>
+    <l:gentext key="Bootscripts" text="Bootskripte"/>
+    <l:gentext key="Configuration Files" text="Einrichtungsdateien"/>
+    <l:gentext key="Kernel Configuration" text="Kernel-Konfiguration"/>
+    <l:gentext key="Libraries" text="Bibliotheken"/>
+    <l:gentext key="Others" text="Sonstige"/>
+    <l:gentext key="Packages" text="Pakete"/>
+    <l:gentext key="Programs" text="Programme"/>
+    <l:gentext key="Scripts" text="Skripte"/>
+
+  </l:l10n>
+
+</l:i18n>

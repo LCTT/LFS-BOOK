@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="prepare-aboutlfs">
+  <?dbhtml filename="aboutlfs.html"?>
+
+  <title>About $LFS</title>
+
+  <para>Throughout this book, the environment variable <envar>LFS</envar> will
+  be used. It is paramount that this variable is always defined.
+  It should be set to the mount point chosen for the LFS partition.
+  Check that the <envar>LFS</envar> variable is set up properly with:</para>
+
+<screen role="nodump"><userinput>echo $LFS</userinput></screen>
+
+  <para>Make sure the output shows the path to the LFS partition's mount
+  point, which is <filename class="directory">/mnt/lfs</filename> if the
+  provided example was followed. If the output is incorrect, the
+  variable can be set with:</para>
+
+<screen role="nodump"><userinput>export LFS=/mnt/lfs</userinput></screen>
+
+  <para>Having this variable set is beneficial in that commands such as
+  <command>mkdir $LFS/tools</command> can be typed literally. The shell
+  will automatically replace <quote>$LFS</quote> with
+  <quote>/mnt/lfs</quote> (or whatever the variable was set to) when it
+  processes the command line.</para>
+
+  <para>Do not forget to check that <envar>$LFS</envar> is set whenever
+  you leave and reenter the current working environment (as when doing a
+  <command>su</command> to <systemitem class="username">root</systemitem>
+  or another user).</para>
+
+</sect1>
+

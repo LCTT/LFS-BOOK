@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-popt" role="wrap">
+  <?dbhtml filename="popt.html"?>
+
+  <sect1info condition="script">
+    <productname>popt</productname>
+    <productnumber>&popt-version;</productnumber>
+    <address>&popt-url;</address>
+  </sect1info>
+
+  <title>Popt-&popt-version;</title>
+
+  <indexterm zone="ch-system-popt">
+    <primary sortas="a-popt">popt</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Popt package contains a library used by some programs
+    to parse command-line options.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&popt-ch6-sbu;</seg>
+        <seg>&popt-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Popt</title>
+
+    <para>Prepare Popt4 for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+
+  <sect2 id="contents-popt" role="content">
+    <title>Contents of Popt</title>
+
+    <segmentedlist>
+      <segtitle>Installed libraries:</segtitle>
+
+      <seglistitem>
+        <seg>libpopt.{a,so}</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="libpopt">
+         <!-- Don't remove the extra space, it prevet a FOP warning. -->
+        <term><filename class="libraryfile">libpopt</filename></term>
+        <listitem>
+          <para>is used to parse command-line options</para>
+          <indexterm zone="ch-system-popt libpopt">
+            <primary sortas="b-libpopt">libpopt</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

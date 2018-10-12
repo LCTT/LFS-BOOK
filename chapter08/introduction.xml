@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-bootable-introduction">
+  <?dbhtml filename="introduction.html"?>
+
+  <title>Introduction</title>
+
+  <para>It is time to make the LFS system bootable. This chapter
+  discusses creating an <filename>fstab</filename> file, building a
+  kernel for the new LFS system, and installing the GRUB boot loader so
+  that the LFS system can be selected for booting at startup.</para>
+
+</sect1>

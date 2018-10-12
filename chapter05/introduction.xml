@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-introduction">
+  <?dbhtml filename="introduction.html"?>
+
+  <title>Introduction</title>
+
+  <para>This chapter shows how to build a minimal Linux system.
+  This system will contain just enough tools to start constructing the final
+  LFS system in <xref linkend="chapter-building-system"/> and allow a working
+  environment with more user convenience than a minimum environment would.</para>
+
+  <para>There are two steps in building this minimal system. The first step
+  is to build a new and host-independent toolchain (compiler, assembler,
+  linker, libraries, and a few useful utilities).  The second step uses this
+  toolchain to build the other essential tools.</para>
+
+  <para>The files compiled in this chapter will be installed under the
+  <filename class="directory">$LFS/tools</filename> directory to keep them
+  separate from the files installed in the next chapter and the host
+  production directories. Since the packages compiled here are temporary,
+  we do not want them to pollute the soon-to-be LFS system.</para>
+
+</sect1>

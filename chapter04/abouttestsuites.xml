@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="prepare-abouttestsuites">
+  <?dbhtml filename="abouttestsuites.html"?>
+
+  <title>About the Test Suites</title>
+
+  <para>Most packages provide a test suite. Running the test suite for a
+  newly built package is a good idea because it can provide a <quote>sanity
+  check</quote> indicating that everything compiled correctly. A test suite
+  that passes its set of checks usually proves that the package is
+  functioning as the developer intended. It does not, however, guarantee
+  that the package is totally bug free.</para>
+
+  <para>Some test suites are more important than others. For example,
+  the test suites for the core toolchain packages&mdash;GCC, Binutils, and
+  Glibc&mdash;are of the utmost importance due to their central role in a
+  properly functioning system. The test suites for GCC and Glibc can
+  take a very long time to complete, especially on slower hardware, but
+  are strongly recommended.</para>
+
+  <note>
+    <para>Experience has shown that there is little to be gained from running
+    the test suites in <xref linkend="chapter-temporary-tools"/>. There can be
+    no escaping the fact that the host system always exerts some influence on
+    the tests in that chapter, often causing inexplicable failures. Because
+    the tools built in <xref linkend="chapter-temporary-tools"/> are temporary
+    and eventually discarded, we do not recommend running the test suites in
+    <xref linkend="chapter-temporary-tools"/> for the average reader. The
+    instructions for running those test suites are provided for the benefit of
+    testers and developers, but they are strictly optional.</para>
+  </note>
+
+  <para>A common issue with running the test suites for Binutils and GCC
+  is running out of pseudo terminals (PTYs). This can result in a high
+  number of failing tests. This may happen for several reasons, but the
+  most likely cause is that the host system does not have the
+  <systemitem class="filesystem">devpts</systemitem> file system set up
+  correctly. This issue is discussed in greater detail at
+  <ulink url="&lfs-root;lfs/faq.html#no-ptys"/>.</para>
+
+  <para>Sometimes package test suites will fail, but for reasons which the
+  developers are aware of and have deemed non-critical. Consult the logs located
+  at <ulink url="&test-results;"/> to verify whether or not these failures are
+  expected. This site is valid for all tests throughout this book.</para>
+
+</sect1>

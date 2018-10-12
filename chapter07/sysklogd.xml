@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-sysklogd">
+  <?dbhtml filename="sysklogd.html"?>
+
+  <title>Configuring the sysklogd Script</title>
+
+  <indexterm zone="ch-scripts-sysklogd">
+    <primary sortas="d-sysklogd">sysklogd</primary>
+    <secondary>configuring</secondary>
+  </indexterm>
+
+  <para>The <filename>sysklogd</filename> script invokes the
+  <command>syslogd</command> program as a part of System V initialization.  The
+  <parameter>-m 0</parameter> option turns off the periodic timestamp mark that
+  <command>syslogd</command> writes to the log files every 20 minutes by
+  default.  If you want to turn on this periodic timestamp mark, edit
+  <filename>/etc/sysconfig/rc.site</filename> and define the variable
+  SYSKLOGD_PARMS to the desired value.  For instance, to remove all parameters,
+  set the variable to a null value:</para>
+
+<screen role="nodump">SYSKLOGD_PARMS=</screen>
+
+  <para>See <userinput>man syslogd</userinput> for more options.</para>
+
+</sect1>

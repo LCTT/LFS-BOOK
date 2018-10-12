@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-bzip2" role="wrap">
+  <?dbhtml filename="bzip2.html"?>
+
+  <sect1info condition="script">
+    <productname>bzip2</productname>
+    <productnumber>&bzip2-version;</productnumber>
+    <address>&bzip2-url;</address>
+  </sect1info>
+
+  <title>Bzip2-&bzip2-version;</title>
+
+  <indexterm zone="ch-system-bzip2">
+    <primary sortas="a-Bzip2">Bzip2</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Bzip2 package contains programs for compressing and decompressing
+    files. Compressing text files with <command>bzip2</command> yields a much
+    better compression percentage than with the traditional
+    <command>gzip</command>.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&bzip2-ch6-sbu;</seg>
+        <seg>&bzip2-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Bzip2</title>
+
+    <para>Apply a patch that will install the documentation for this package:</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&bzip2-docs-patch;</userinput></screen>
+
+   <para>The following command ensures installation of symbolic links are relative:</para>
+
+<screen><userinput remap="pre">sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile</userinput></screen>
+
+    <para>Ensure the man pages are installed into the correct location:</para>
+
+<screen><userinput remap="pre">sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile</userinput></screen>
+
+    <para>Prepare Bzip2 for compilation with:</para>
+
+<screen><userinput remap="make">make -f Makefile-libbz2_so
+make clean</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the make parameter:</title>
+
+      <varlistentry>
+        <term><parameter>-f Makefile-libbz2_so</parameter></term>
+        <listitem>
+          <para>This will cause Bzip2 to be built using a different
+          <filename>Makefile</filename> file, in this case the
+          <filename>Makefile-libbz2_so</filename> file, which creates a dynamic
+          <filename class="libraryfile">libbz2.so</filename> library and links
+          the Bzip2 utilities against it.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile and test the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Install the programs:</para>
+
+<screen><userinput remap="install">make PREFIX=/usr install</userinput></screen>
+
+    <para>Install the shared <command>bzip2</command> binary into the
+    <filename class="directory">/bin</filename> directory, make
+    some necessary symbolic links, and clean up:</para>
+
+<screen><userinput remap="install">cp -v bzip2-shared /bin/bzip2
+cp -av libbz2.so* /lib
+ln -sv ../../lib/libbz2.so.1.0 /usr/lib/libbz2.so
+rm -v /usr/bin/{bunzip2,bzcat,bzip2}
+ln -sv bzip2 /bin/bunzip2
+ln -sv bzip2 /bin/bzcat</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-bzip2" role="content">
+    <title>Contents of Bzip2</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed libraries</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>bunzip2 (link to bzip2), bzcat (link to bzip2), bzcmp (link to
+        bzdiff), bzdiff, bzegrep (link to bzgrep), bzfgrep (link to bzgrep),
+        bzgrep, bzip2, bzip2recover, bzless (link to bzmore), and bzmore</seg>
+        <seg>libbz2.{a,so}</seg>
+        <seg>/usr/share/doc/bzip2-&bzip2-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="bunzip2">
+        <term><command>bunzip2</command></term>
+        <listitem>
+          <para>Decompresses bzipped files</para>
+          <indexterm zone="ch-system-bzip2 bunzip2">
+            <primary sortas="b-bunzip2">bunzip2</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="bzcat">
+        <term><command>bzcat</command></term>
+        <listitem>
+          <para>Decompresses to standard output</para>
+          <indexterm zone="ch-system-bzip2 bzcat">
+            <primary sortas="b-bzcat">bzcat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="bzcmp">
+        <term><command>bzcmp</command></term>
+        <listitem>
+          <para>Runs <command>cmp</command> on bzipped files</para>
+          <indexterm zone="ch-system-bzip2 bzcmp">
+            <primary sortas="b-bzcmp">bzcmp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="bzdiff">
+        <term><command>bzdiff</command></term>
+        <listitem>
+          <para>Runs <command>diff</command> on bzipped files</para>
+          <indexterm zone="ch-system-bzip2 bzdiff">
+            <primary sortas="b-bzdiff">bzdiff</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="bzegrep">
+        <term><command>bzegrep</command></term>
+        <listitem>
+          <para>Runs <command>egrep</command> on bzipped files</para>
+          <indexterm zone="ch-system-bzip2 bzegrep">
+            <primary sortas="b-bzegrep">bzegrep</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="bzfgrep">
+        <term><command>bzfgrep</command></term>
+        <listitem>
+          <para>Runs <command>fgrep</command> on bzipped files</para>
+          <indexterm zone="ch-system-bzip2 bzfgrep">
+            <primary sortas="b-bzfgrep">bzfgrep</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="bzgrep">
+        <term><command>bzgrep</command></term>
+        <listitem>
+          <para>Runs <command>grep</command> on bzipped files</para>
+          <indexterm zone="ch-system-bzip2 bzgrep">
+            <primary sortas="b-bzgrep">bzgrep</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="bzip2">
+        <term><command>bzip2</command></term>
+        <listitem>
+          <para>Compresses files using the Burrows-Wheeler block sorting text
+          compression algorithm with Huffman coding; the compression rate is
+          better than that achieved by more conventional compressors using
+          <quote>Lempel-Ziv</quote> algorithms, like <command>gzip</command></para>
+          <indexterm zone="ch-system-bzip2 bzip2">
+            <primary sortas="b-bzip2">bzip2</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="bzip2recover">
+        <term><command>bzip2recover</command></term>
+        <listitem>
+          <para>Tries to recover data from damaged bzipped files</para>
+          <indexterm zone="ch-system-bzip2 bzip2recover">
+            <primary sortas="b-bzip2recover">bzip2recover</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="bzless">
+        <term><command>bzless</command></term>
+        <listitem>
+          <para>Runs <command>less</command> on bzipped files</para>
+          <indexterm zone="ch-system-bzip2 bzless">
+            <primary sortas="b-bzless">bzless</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="bzmore">
+        <term><command>bzmore</command></term>
+        <listitem>
+          <para>Runs <command>more</command> on bzipped files</para>
+          <indexterm zone="ch-system-bzip2 bzmore">
+            <primary sortas="b-bzmore">bzmore</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libbz2">
+        <term><filename class="libraryfile">libbz2</filename></term>
+        <listitem>
+          <para>The library implementing lossless, block-sorting data
+          compression, using the Burrows-Wheeler algorithm</para>
+          <indexterm zone="ch-system-bzip2 libbz2">
+            <primary sortas="c-libbz2">libbz2</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

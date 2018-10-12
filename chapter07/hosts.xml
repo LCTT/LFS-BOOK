@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-hosts">
+  <?dbhtml filename="hosts.html"?>
+
+  <title>Customizing the /etc/hosts File</title>
+
+  <indexterm zone="ch-scripts-hosts">
+    <primary sortas="e-/etc/hosts">/etc/hosts</primary>
+  </indexterm>
+
+  <indexterm zone="ch-scripts-hosts">
+    <primary sortas="d-localnet">localnet</primary>
+  <secondary>/etc/hosts</secondary></indexterm>
+
+  <indexterm zone="ch-scripts-hosts">
+    <primary sortas="d-network">network</primary>
+  <secondary>/etc/hosts</secondary></indexterm>
+
+  <para>If a network card is to be configured, decide on the IP address,
+  fully-qualified domain name (FQDN), and possible aliases for use in the
+  <filename>/etc/hosts</filename> file. The syntax is:</para>
+
+<screen><literal>IP_address myhost.example.org aliases</literal></screen>
+
+  <para>Unless the computer is to be visible to the Internet (i.e.,
+  there is a registered domain and a valid block of assigned IP
+  addresses&mdash;most users do not have this), make sure that the IP
+  address is in the private network IP address range. Valid ranges
+  are:</para>
+
+<screen><literal>Private Network Address Range      Normal Prefix
+10.0.0.1 - 10.255.255.254           8
+172.x.0.1 - 172.x.255.254           16
+192.168.y.1 - 192.168.y.254         24</literal></screen>
+
+  <para>x can be any number in the range 16-31. y can be any number in
+  the range 0-255.</para>
+
+  <para>A valid private IP address could be 192.168.1.1. A valid FQDN for this
+  IP could be lfs.example.org.</para>
+
+  <para>Even if not using a network card, a valid FQDN is still required.
+  This is necessary for certain programs to operate correctly.</para>
+
+  <para>Create the  <filename>/etc/hosts</filename> file by running:</para>
+
+<screen><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
+<literal># Begin /etc/hosts (network card version)
+
+127.0.0.1 localhost
+<replaceable>&lt;192.168.1.1&gt;</replaceable> <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> <replaceable>[alias1] [alias2 ...]</replaceable>
+
+# End /etc/hosts (network card version)</literal>
+EOF</userinput></screen>
+
+  <para>The <replaceable>&lt;192.168.1.1&gt;</replaceable> and
+  <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable>
+  values need to be changed for specific uses or requirements (if
+  assigned an IP address by a network/system administrator and the
+  machine will be connected to an existing network). The optional alias
+  name(s) can be omitted.</para>
+
+  <para>If a network card is not going to be configured, create the
+  <filename>/etc/hosts</filename> file by running:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
+<literal># Begin /etc/hosts (no network card version)
+
+127.0.0.1 <replaceable>&lt;HOSTNAME.example.org&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable> localhost
+
+# End /etc/hosts (no network card version)</literal>
+EOF</userinput></screen>
+
+</sect1>
