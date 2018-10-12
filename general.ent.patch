@@ -1,0 +1,59 @@
+diff --git a/general.ent b/general.ent
+index 9e5a0a1..312ce9c 100644
+--- a/general.ent
++++ b/general.ent
+@@ -1,16 +1,16 @@
+-<!ENTITY version         "8.2">
+-<!ENTITY short-version   "8.2">  <!-- Used below in &blfs-book; 
++<!ENTITY version         "8.3">
++<!ENTITY short-version   "8.3">  <!-- Used below in &blfs-book; 
+                                       Change to x.y for release but not -rc releases -->
+-<!ENTITY generic-version "8.2"> <!-- Use "development"  or "x.y[-pre{x}]" -->
++<!ENTITY generic-version "8.3"> <!-- Use "development"  or "x.y[-pre{x}]" -->
+ 
+-<!ENTITY versiond        "8.2-systemd">
+-<!ENTITY short-versiond  "systemd">
+-<!ENTITY generic-versiond "systemd"> 
++<!ENTITY versiond        "8.3-systemd">  <!-- systemd or x.y-systemd -->
++<!ENTITY short-versiond  "systemd">  <!-- No longer used -->
++<!ENTITY generic-versiond "systemd"> <!-- No longer used -->
+ 
+-<!ENTITY releasedate     "March 2, 2018">
++<!ENTITY releasedate     "September 1, 2018">
+ 
+ <!ENTITY copyrightdate   "1999-2018"><!-- jhalfs needs a literal dash, not &ndash; -->
+-<!ENTITY milestone       "8.2">
++<!ENTITY milestone       "8.3">
+ 
+ <!ENTITY lfs-root        "http://www.linuxfromscratch.org/">
+ <!ENTITY blfs-root       "&lfs-root;blfs/">
+@@ -23,13 +23,12 @@
+ <!ENTITY livecd-root     "&lfs-root;livecd/">
+ <!ENTITY test-results    "&lfs-root;lfs/build-logs/&generic-version;/">
+ <!ENTITY errata          "&lfs-root;lfs/errata/&generic-version;/">
+-<!ENTITY erratad         "&lfs-root;lfs/errata/&generic-versiond;/">
+ <!ENTITY min-kernel      "3.2">
+ 
+-<!ENTITY patches-rootd   "&lfs-root;patches/lfs/&generic-versiond;/">
+-<!ENTITY downloads-rootd "&lfs-root;lfs/downloads/&generic-versiond;/">
+-<!ENTITY test-resultsd   "&lfs-root;lfs/build-logs/&generic-versiond;/">
+-<!ENTITY erratad         "&lfs-root;lfs/errata/&generic-versiond;/">
++<!ENTITY patches-rootd   "&lfs-root;patches/lfs/&generic-version;/">
++<!ENTITY downloads-rootd "&lfs-root;lfs/downloads/&versiond;/">
++<!ENTITY test-resultsd   "&lfs-root;lfs/build-logs/&generic-version;/">
++<!ENTITY erratad         "&lfs-root;lfs/errata/&versiond;/">
+ 
+ <!ENTITY lfs-ticket-root "http://wiki.linuxfromscratch.org/lfs/ticket/">
+ 
+@@ -46,8 +45,10 @@
+ <!ENTITY gnu-software    "http://www.gnu.org/software/">
+ <!ENTITY alpha-gnu       "http://alpha.gnu.org/gnu/">
+ <!ENTITY kernel          "https://www.kernel.org/pub/">
+-<!ENTITY sourceforge     "http://prdownloads.sourceforge.net/">
++<!ENTITY sourceforge     "https://prdownloads.sourceforge.net/">
+ <!ENTITY savannah        "http://download.savannah.gnu.org">
++<!ENTITY savannah-nongnu "https://savannah.nongnu.org">
++<!ENTITY github          "https://github.com">
+ 
+ <!ENTITY % packages-entities SYSTEM "packages.ent">
+ %packages-entities;

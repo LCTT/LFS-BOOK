@@ -1,0 +1,108 @@
+diff --git a/chapter06/meson.xml b/chapter06/meson.xml
+index 5bc2fce..02cfdf8 100644
+--- a/chapter06/meson.xml
++++ b/chapter06/meson.xml
+@@ -48,21 +48,37 @@
+ 
+     <para>Install the package:</para>
+ 
+-<screen><userinput remap="install">python3 setup.py install</userinput></screen>
++<screen><userinput remap="install">python3 setup.py install --root=dest
++cp -rv dest/* /</userinput></screen>
+ 
+-  </sect2>
++    <variablelist>
++      <title>The meaning of the install parameters:</title>
++      
++      <varlistentry>
++        <term><parameter>--root=dest</parameter></term>
++        <listitem>
++          <para>By default <command>python3 setup.py install</command>
++          installs various files (such as man pages) into Python Eggs.
++          With a specified root location, <command>setup.py</command> installs
++          these files into a standard hierarchy.  Then we can just copy
++          the hierarchy so the files will be in the standard location.
++        </para>
++        </listitem>
++      </varlistentry>
+ 
++    </variablelist>
++  </sect2>
+ 
+   <sect2 id="contents-meson" role="content">
+     <title>Contents of Meson</title>
+ 
+     <segmentedlist>
+-      <segtitle>Installed Libraries</segtitle>
++      <segtitle>Installed programs</segtitle>
+       <segtitle>Installed directory</segtitle>
+ 
+       <seglistitem>
+-        <seg>libmeson.so</seg>
+-        <seg>/usr/share/doc/meson-&meson-version;</seg>
++        <seg>meson, mesonconf, mesonintrospect, mesontest, and wraptool</seg>
++		<seg>/usr/lib/python&python-minor;/site-packages/meson-&meson-version;-py&python-minor;.egg</seg>
+       </seglistitem>
+     </segmentedlist>
+ 
+@@ -71,16 +87,55 @@
+       <?dbfo list-presentation="list"?>
+       <?dbhtml list-presentation="table"?>
+ 
+-      <varlistentry id="libmeson">
+-        <term><filename class="libraryfile">libmeson</filename></term>
++      <varlistentry id="meson">
++		<term><command>meson</command></term>
++        <listitem>
++          <para>A high productivity build system</para>
++          <indexterm zone="ch-system-meson meson">
++            <primary sortas="b-meson">meson</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry id="mesonconf">
++		<term><command>mesonconf</command></term>
++        <listitem>
++          <para>A tool to configure Meson builds</para>
++          <indexterm zone="ch-system-meson mesonconf">
++            <primary sortas="b-mesonconf">mesonconf</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry id="mesonintrospect">
++		<term><command>mesonintrospect</command></term>
+         <listitem>
+-          <para>Contains multiple-precision math functions</para>
+-          <indexterm zone="ch-system-meson libmeson">
+-            <primary sortas="c-libmeson">libmeson</primary>
++          <para>A tool to extract information about a Meson build</para>
++          <indexterm zone="ch-system-meson mesonintrospect">
++            <primary sortas="b-mesonintrospect">mesonintrospect</primary>
+           </indexterm>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="mesontest">
++		<term><command>mesontest</command></term>
++        <listitem>
++          <para>Test tool for the Meson build system</para>
++          <indexterm zone="ch-system-meson mesontest">
++            <primary sortas="b-mesontest">mesontest</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry id="wraptool">
++		<term><command>wraptool</command></term>
++        <listitem>
++          <para>Source dependency downloader</para>
++          <indexterm zone="ch-system-meson wraptool">
++            <primary sortas="b-wraptool">wraptool</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
+     </variablelist>
+ 
+   </sect2>

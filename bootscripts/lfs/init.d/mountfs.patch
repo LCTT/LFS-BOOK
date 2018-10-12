@@ -1,0 +1,13 @@
+diff --git a/bootscripts/lfs/init.d/mountfs b/bootscripts/lfs/init.d/mountfs
+index 2509f30..ee7dcf5 100644
+--- a/bootscripts/lfs/init.d/mountfs
++++ b/bootscripts/lfs/init.d/mountfs
+@@ -54,6 +54,8 @@ case "${1}" in
+    stop)
+       # Don't unmount virtual file systems like /run
+       log_info_msg "Unmounting all other currently mounted file systems..."
++      # Ensure any loop devies are removed
++      losetup -D
+       umount --all --detach-loop --read-only \
+              --types notmpfs,nosysfs,nodevtmpfs,noproc,nodevpts >/dev/null
+       evaluate_retval

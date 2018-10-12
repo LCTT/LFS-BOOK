@@ -1,0 +1,41 @@
+diff --git a/chapter05/tcl.xml b/chapter05/tcl.xml
+index 716cc63..1558148 100644
+--- a/chapter05/tcl.xml
++++ b/chapter05/tcl.xml
+@@ -9,15 +9,15 @@
+   <?dbhtml filename="tcl.html"?>
+ 
+   <sect1info condition="script">
+-    <productname>tcl-core</productname>
++    <productname>tcl</productname>
+     <productnumber>&tcl-version;</productnumber>
+     <address>&tcl-url;</address>
+   </sect1info>
+ 
+-  <title>Tcl-core-&tcl-version;</title>
++  <title>Tcl-&tcl-version;</title>
+ 
+   <indexterm zone="ch-tools-tcl">
+-    <primary sortas="a-Tcl">Tcl-core</primary>
++    <primary sortas="a-Tcl">Tcl</primary>
+   </indexterm>
+ 
+   <sect2 role="package">
+@@ -38,7 +38,7 @@
+   </sect2>
+ 
+   <sect2 role="installation">
+-    <title>Installation of Tcl-core</title>
++    <title>Installation of Tcl</title>
+ 
+     <para>This package and the next two (Expect and DejaGNU) are
+     installed to support running the test suites for GCC and Binutils and other
+@@ -97,7 +97,7 @@
+   </sect2>
+ 
+   <sect2 id="contents-tcl" role="content">
+-    <title>Contents of Tcl-core</title>
++    <title>Contents of Tcl</title>
+ 
+     <segmentedlist>
+       <segtitle>Installed programs</segtitle>

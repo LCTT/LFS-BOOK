@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/xhtml/lfs-titles.xsl b/stylesheets/lfs-xsl/xhtml/lfs-titles.xsl
+index 0f7048a..2b674b9 100644
+--- a/stylesheets/lfs-xsl/xhtml/lfs-titles.xsl
++++ b/stylesheets/lfs-xsl/xhtml/lfs-titles.xsl
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: manuel $
+-$Date: 2007-07-05 14:18:33 -0700 (Thu, 05 Jul 2007) $
++$Date: 2007-07-06 05:18:33 +0800 (Fri, 06 Jul 2007) $
+ -->
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

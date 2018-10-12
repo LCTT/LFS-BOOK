@@ -1,0 +1,13 @@
+diff --git a/prologue/foreword.xml b/prologue/foreword.xml
+index 6a4c568..f3f2c44 100644
+--- a/prologue/foreword.xml
++++ b/prologue/foreword.xml
+@@ -10,7 +10,7 @@
+ 
+   <title>Foreword</title>
+ 
+-<para>My journey to learn and better understand Linux began over a decade ago,
++<para>My journey to learn and better understand Linux began 
+ back in 1998. I had just installed my first Linux distribution and had
+ quickly become intrigued with the whole concept and philosophy behind
+ Linux.</para>

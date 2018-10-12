@@ -1,0 +1,45 @@
+diff --git a/Makefile b/Makefile
+index 5ed4495..f237346 100644
+--- a/Makefile
++++ b/Makefile
+@@ -71,7 +71,7 @@ pdf: validate
+                 --stringparam profile.condition pdf \
+                 --output $(RENDERTMP)/lfs-pdf.xml   \
+                 stylesheets/lfs-xsl/profile.xsl     \
+-                $(RENDERTMP)/lfs-html2.xml
++                $(RENDERTMP)/lfs-full.xml
+ 
+ 	@echo "Generating FO file..."
+ 	$(Q)xsltproc --nonet                           \
+@@ -84,11 +84,10 @@ pdf: validate
+ 	$(Q)bash pdf-fixups.sh $(RENDERTMP)/lfs-pdf.fo
+ 
+ 	@echo "Generating PDF file..."
+-	$(Q)mkdir -p $(BASEDIR)
++	$(Q)mkdir -p $(RENDERTMP)/images
++	$(Q)cp images/*.png $(RENDERTMP)/images
+ 
+-	@echo "Copying images to destination..."
+-	$(Q)mkdir -p $(BASEDIR)/images
+-	$(Q)cp images/*.png $(BASEDIR)/images
++	$(Q)mkdir -p $(BASEDIR)
+ 
+ 	$(Q)fop -q  $(RENDERTMP)/lfs-pdf.fo $(BASEDIR)/$(PDF_OUTPUT) 2>fop.log
+ 	@echo "$(BASEDIR)/$(PDF_OUTPUT) created"
+@@ -159,11 +158,11 @@ $(BASEDIR)/wget-list: stylesheets/wget-list.xsl chapter03/chapter03.xml \
+ 	@echo "Generating consolidated wget list at $(BASEDIR)/wget-list ..."
+ 	$(Q)mkdir -p $(BASEDIR)
+ 
+-	$(Q)xsltproc --nonet --xinclude                    \
+-                --stringparam profile.revision $(REV) \
+-                --output $(RENDERTMP)/sysd-wget.xml   \
+-                stylesheets/lfs-xsl/profile.xsl       \
+-                chapter03/chapter03.xml
++#	$(Q)xsltproc --nonet --xinclude                    \
++#                --stringparam profile.revision $(REV) \
++#                --output $(RENDERTMP)/sysd-wget.xml   \
++#                stylesheets/lfs-xsl/profile.xsl       \
++#                chapter03/chapter03.xml
+ 
+ 	$(Q)xsltproc --xinclude --nonet            \
+                 --output $(BASEDIR)/wget-list \

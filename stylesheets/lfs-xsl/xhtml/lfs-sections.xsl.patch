@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/xhtml/lfs-sections.xsl b/stylesheets/lfs-xsl/xhtml/lfs-sections.xsl
+index b0f1eca..b97c5d0 100644
+--- a/stylesheets/lfs-xsl/xhtml/lfs-sections.xsl
++++ b/stylesheets/lfs-xsl/xhtml/lfs-sections.xsl
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: bdubbs $
+-$Date: 2017-12-31 08:56:07 -0800 (Sun, 31 Dec 2017) $
++$Date: 2018-01-01 00:56:07 +0800 (Mon, 01 Jan 2018) $
+ -->
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

@@ -1,0 +1,15 @@
+diff --git a/chapter06/texinfo.xml b/chapter06/texinfo.xml
+index 11a9eed..97a5a99 100644
+--- a/chapter06/texinfo.xml
++++ b/chapter06/texinfo.xml
+@@ -41,6 +41,10 @@
+   <sect2 role="installation">
+     <title>Installation of Texinfo</title>
+ 
++    <para>Fix a file that creates a lot of failures in the regression checks:</para>
++
++<screen><userinput remap="pre">sed -i '5481,5485 s/({/(\\{/' tp/Texinfo/Parser.pm</userinput></screen>
++
+     <para>Prepare Texinfo for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr --disable-static</userinput></screen>

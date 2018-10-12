@@ -1,0 +1,52 @@
+diff --git a/chapter06/revisedchroot.xml b/chapter06/revisedchroot.xml
+index db361a6..10e68da 100644
+--- a/chapter06/revisedchroot.xml
++++ b/chapter06/revisedchroot.xml
+@@ -14,18 +14,21 @@
+ 
+ <screen><userinput>rm -rf /tmp/*</userinput></screen>
+ 
+-  <para>From now on, when reentering the chroot environment after
+-  exiting, use the following modified chroot command:</para>
++  <para>Now log out and reenter the chroot environment with an updated
++  chroot command.  From now on, use this updated chroot command any time 
++  you need to reenter the chroot environment after exiting:</para>
+ 
+-<screen role="nodump"><userinput>chroot "$LFS" /usr/bin/env -i          \
++<screen role="nodump"><userinput>logout
++
++chroot "$LFS" /usr/bin/env -i          \
+     HOME=/root TERM="$TERM"            \
+     PS1='(lfs chroot) \u:\w\$ '        \
+     PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+     /bin/bash --login</userinput></screen>
+ 
+   <para>The reason for this is that the programs in <filename
+-  class="directory">/tools</filename> are no longer needed.  Since they are no
+-  longer needed you can delete the <filename class="directory">/tools</filename>
++  class="directory">/tools</filename> are no longer needed.  For this reason
++  you can delete the <filename class="directory">/tools</filename>
+   directory if so desired.</para>
+ 
+   <note>
+@@ -52,15 +55,14 @@ rm -f /usr/lib/libbz2.a
+ rm -f /usr/lib/lib{com_err,e2p,ext2fs,ss}.a
+ rm -f /usr/lib/libltdl.a
+ rm -f /usr/lib/libfl.a
+-rm -f /usr/lib/libfl_pic.a
+ rm -f /usr/lib/libz.a</userinput></screen>
+ 
+-  <para>There are also several files installed in the /usr/lib directory with a
+-  file name extention of .la.  These are "libtool archive" files and generally
+-  unneeded on a linux system.  None of these are necessary at this point.  To
+-  remove them, run:</para>
++  <para>There are also several files installed in the /usr/lib and /usr/libexec
++  directories with a file name extention of .la. These are "libtool archive"
++  files and generally unneeded on a linux system. None of these are necessary
++  at this point. To remove them, run:</para>
+ 
+-<screen><userinput>find /usr/lib -name \*.la -delete</userinput></screen>
++<screen><userinput>find /usr/lib /usr/libexec -name \*.la -delete</userinput></screen>
+ 
+    <para>For more information about libtool archive files, see the <ulink
+    url="&blfs-book;/introduction/la-files.html">BLFS section "About Libtool

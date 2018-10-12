@@ -1,0 +1,16 @@
+diff --git a/chapter05/gzip.xml b/chapter05/gzip.xml
+index 44b25fa..4b2cc58 100644
+--- a/chapter05/gzip.xml
++++ b/chapter05/gzip.xml
+@@ -43,6 +43,11 @@
+   <sect2 role="installation">
+     <title>Installation of Gzip</title>
+ 
++    <para>First, make some fixes required by glibc-2.28:</para>
++
++<screen><userinput remap="pre">sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' lib/*.c
++echo "#define _IO_IN_BACKUP 0x100" >> lib/stdio-impl.h</userinput></screen>
++
+     <para>Prepare Gzip for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/tools</userinput></screen>

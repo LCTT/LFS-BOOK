@@ -1,0 +1,16 @@
+diff --git a/chapter05/m4.xml b/chapter05/m4.xml
+index 4be3a0f..a4ed71b 100644
+--- a/chapter05/m4.xml
++++ b/chapter05/m4.xml
+@@ -43,6 +43,11 @@
+   <sect2 role="installation">
+     <title>Installation of M4</title>
+ 
++    <para>First, make some fixes required by glibc-2.28:</para>
++
++<screen><userinput remap="pre">sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' lib/*.c
++echo "#define _IO_IN_BACKUP 0x100" >> lib/stdio-impl.h</userinput></screen>
++
+     <para>Prepare M4 for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/tools</userinput></screen>

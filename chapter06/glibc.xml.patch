@@ -1,0 +1,55 @@
+diff --git a/chapter06/glibc.xml b/chapter06/glibc.xml
+index 95608d2..bf5a46d 100644
+--- a/chapter06/glibc.xml
++++ b/chapter06/glibc.xml
+@@ -165,10 +165,21 @@ unset GCC_INCDIR</userinput></screen>
+       </listitem>
+ 
+       <listitem>
++        <para><emphasis>inet/tst-idna_name_classify</emphasis> 
++        is known to fail in the LFS chroot environment.</para>
++      </listitem>
++
++      <listitem>
+         <para><emphasis>posix/tst-getaddrinfo4</emphasis> and
+         <emphasis>posix/tst-getaddrinfo5</emphasis>
+         may fail on some architectures.</para>
+       </listitem>
++
++      <listitem>
++        <para>The <emphasis>nss/tst-nss-files-hosts-multi</emphasis>
++        test may fail for reasons that have not been determined.</para>
++      </listitem>
++
+ <!--
+       <listitem>
+         <para>The <emphasis>rt/tst-cputimer1</emphasis> and 
+@@ -176,13 +187,13 @@ unset GCC_INCDIR</userinput></screen>
+         fail.  The reason is not completely understood, but indications are
+         that minor timing issues can trigger these failures.</para>
+       </listitem>
+-
++-->
+       <listitem>
+         <para>The math tests sometimes fail when running on
+         systems where the CPU is not a relatively new Intel or
+         AMD processor.</para>
+       </listitem>
+-
++<!--
+       <listitem>
+         <para>The
+         <emphasis>nptl/tst-thread-affinity-{pthread,pthread2,sched}</emphasis>
+@@ -278,6 +289,12 @@ localedef -i zh_CN -f GB18030 zh_CN.GB18030</userinput></screen>
+     <filename>glibc-&glibc-version;/localedata/SUPPORTED</filename> file
+     in the unlikely case you need them.</para>
+ 
++    <note><para>Glibc now uses libidn2 when resolving internationalized 
++    domain names.  This is a run time dependency.  If this capability
++    is needed, the instrucions for installing libidn2 are in the 
++    <ulink url="&blfs-book;general/libidn2.html">BLFS libidn2 page</ulink>.
++    </para></note>
++
+   </sect2>
+ 
+   <sect2 id="conf-glibc" role="configuration">

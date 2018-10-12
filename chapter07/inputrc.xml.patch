@@ -1,0 +1,13 @@
+diff --git a/chapter07/inputrc.xml b/chapter07/inputrc.xml
+index 1be3e09..c54048b 100644
+--- a/chapter07/inputrc.xml
++++ b/chapter07/inputrc.xml
+@@ -15,7 +15,7 @@
+   </indexterm>
+ 
+   <para>The <filename>inputrc</filename> file is the configuration file for
+-  then Readline library, which provides editing capabilities while the user is
++  the Readline library, which provides editing capabilities while the user is
+   entering  a line from the terminal. It works by tranlating keyboard inputs
+   into specific actions.  Readline is used by Bash and most other shells as
+   well as many other applications.</para>

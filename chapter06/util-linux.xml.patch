@@ -1,0 +1,27 @@
+diff --git a/chapter06/util-linux.xml b/chapter06/util-linux.xml
+index 5973081..6275c71 100644
+--- a/chapter06/util-linux.xml
++++ b/chapter06/util-linux.xml
+@@ -60,9 +60,9 @@
+ <screen><userinput remap="pre">sed -e 's/2^64/(2^64/' -e 's/E &lt;/E) &lt;=/' -e 's/ne /eq /' \
+     -i tests/ts/ipcs/limits2</userinput></screen>
+ -->
+-    <para revision="systemd">Remove the earlier created symlinks:</para>
++    <para>Remove the earlier created symlinks:</para>
+ 
+-<screen revision="systemd"><userinput remap="pre">rm -vf /usr/include/{blkid,libmount,uuid}</userinput></screen>
++<screen><userinput remap="pre">rm -vf /usr/include/{blkid,libmount,uuid}</userinput></screen>
+ 
+     <para>Prepare Util-linux for compilation:</para>
+ 
+@@ -115,10 +115,6 @@
+     <screen><userinput remap="test">chown -Rv nobody .
+ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+ 
+-    <note><para>One test, fincore/count, may fail in the initial chroot
+-    environment but will pass if the test is rerun after the LFS system
+-    is complete.</para></note>
+-
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install</userinput></screen>

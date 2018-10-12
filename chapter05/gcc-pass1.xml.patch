@@ -1,0 +1,13 @@
+diff --git a/chapter05/gcc-pass1.xml b/chapter05/gcc-pass1.xml
+index e4c8882..b4d39ee 100644
+--- a/chapter05/gcc-pass1.xml
++++ b/chapter05/gcc-pass1.xml
+@@ -5,7 +5,7 @@
+   %general-entities;
+ ]>
+ 
+-<sect1 id="ch-tools-gcc-pass1" role="wrap">
++<sect1 id="ch-tools-gcc-pass1" role="wrap" xreflabel="gcc-pass1">
+   <?dbhtml filename="gcc-pass1.html"?>
+ 
+   <sect1info condition="script">

@@ -1,0 +1,48 @@
+diff --git a/chapter06/systemd.xml b/chapter06/systemd.xml
+index 92fa91c..e5d89b8 100644
+--- a/chapter06/systemd.xml
++++ b/chapter06/systemd.xml
+@@ -50,7 +50,11 @@
+ 
+     <para>Remove tests that cannot be built in chroot:</para>
+ 
+-<screen><userinput remap="pre">sed '178,222d' -i src/resolve/meson.build</userinput></screen>
++<screen><userinput remap="pre">sed '166,$ d' -i src/resolve/meson.build</userinput></screen>
++
++    <para>Apply a patch to fix a build failure with glibc-2.28:</para>
++
++<screen><userinput remap="pre">patch -Np1 -i ../systemd-&systemd-version;-glibc_statx_fix-1.patch</userinput></screen>
+ 
+     <para>Remove an unneeded group,
+     <systemitem class="groupname">render</systemitem>, from the default udev
+@@ -177,8 +181,8 @@ meson --prefix=/usr                \
+ 
+     <para>Remove an unnecessary directory:</para>
+ 
+-<screen><userinput remap="install">rm -rfv /usr/lib/rpm</userinput></screen>
+-
++<screen><userinput remap="install">rm -rfv /usr/lib/rpm
++<!--
+     <para>Create the Sysvinit compatibility symlinks, so systemd is used
+     as the default init system:</para>
+ 
+@@ -188,8 +192,8 @@ done
+ ln -sfv ../lib/systemd/systemd /sbin/init</userinput></screen>
+ 
+     <para>Remove our earlier created symlink for xsltproc:</para>
+-
+-<screen><userinput remap="install">rm -f /usr/bin/xsltproc</userinput></screen>
++-->
++rm -f /usr/bin/xsltproc</userinput></screen>
+ 
+     <para>Create the <filename>/etc/machine-id</filename> file needed by
+     <command>systemd-journald</command>:</para>
+@@ -269,7 +273,7 @@ chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
+       <varlistentry id="coredumpctl">
+         <term><command>coredumpctl</command></term>
+         <listitem>
+-          <para>Used to retrieve coredumps from the systemd Journal</para>
++          <para>Used to retrieve coredumps from the systemd journal</para>
+           <indexterm zone="ch-system-systemd coredumpctl">
+             <primary sortas="b-coredumpctl">coredumpctl</primary>
+           </indexterm>

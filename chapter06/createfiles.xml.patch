@@ -1,0 +1,41 @@
+diff --git a/chapter06/createfiles.xml b/chapter06/createfiles.xml
+index 5a44725..cd90477 100644
+--- a/chapter06/createfiles.xml
++++ b/chapter06/createfiles.xml
+@@ -39,15 +39,20 @@
+   will be replaced by real files throughout the course of this chapter after the
+   software has been installed:</para>
+ 
++<!--
+ <screen revision="sysv"><userinput>ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} /bin
+ ln -sv /tools/bin/{install,perl} /usr/bin
+ ln -sv /tools/lib/libgcc_s.so{,.1} /usr/lib
+ ln -sv /tools/lib/libstdc++.{a,so{,.6}} /usr/lib
+-ln -sv bash /bin/sh</userinput></screen>
++ln -sv bash /bin/sh
++
+ 
++</userinput></screen>
++-->
+ <!--sed 's/tools/usr/' /tools/lib/libstdc++.la > /usr/lib/libstdc++.la -->
+ 
+-<screen revision="systemd"><userinput>ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} /bin
++<!--<screen revision="systemd"><userinput>ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} /bin-->
++<screen><userinput>ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} /bin
+ ln -sv /tools/bin/{env,install,perl} /usr/bin
+ ln -sv /tools/lib/libgcc_s.so{,.1} /usr/lib
+ ln -sv /tools/lib/libstdc++.{a,so{,.6}} /usr/lib
+@@ -176,10 +181,11 @@ ln -sv bash /bin/sh</userinput></screen>
+       </listitem>
+     </varlistentry>
+ -->
+-    <varlistentry revision="systemd">
++    <!--<varlistentry revision="systemd">-->
++    <varlistentry>
+       <term><parameter><filename>/usr/lib/lib{blkid,lzma,mount,uuid}.{a,la,so*}</filename></parameter></term>
+       <listitem>
+-        <para>These links prevent systemd utilities from acquiring an
++        <para>These links prevent <!--systemd--> utilities from acquiring an
+         unnecessary reference to the
+         <filename class="directory">/tools</filename> directory.</para>
+       </listitem>

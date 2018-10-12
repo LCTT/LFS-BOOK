@@ -1,0 +1,35 @@
+diff --git a/chapter06/automake.xml b/chapter06/automake.xml
+index edff95c..34c6d6d 100644
+--- a/chapter06/automake.xml
++++ b/chapter06/automake.xml
+@@ -49,17 +49,25 @@
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+ 
+-    <para>There are a couple of tests that incorrectly link to the 
++<!--<para>There are a couple of tests that incorrectly link to the 
+     wrong version of the flex library, so we temporarily work around
+     the problem.  Also, using the -j4 make option speeds up the tests, even on
+     systems with only one processor, due to internal delays in individual
+     tests.  To test the results, issue:</para>
++ -->
+ 
+-<screen><userinput remap="test">sed -i "s:./configure:LEXLIB=/usr/lib/libfl.a &amp;:" t/lex-{clean,depend}-cxx.sh
+-make -j4 check</userinput></screen>
++    <para> Using the -j4 make option speeds up the tests, even on systems with
++    only one processor, due to internal delays in individual tests.  To test
++    the results, issue:</para>
+ 
+-    <para>Two tests are known to fail in the LFS environment:
+-    check12.sh and check12-w.sh.</para>
++ <!--<screen><userinput remap="test">sed -i "s:./configure:LEXLIB=/usr/lib/libfl.a &amp;:" t/lex-{clean,depend}-cxx.sh
++       make -j4 check</userinput></screen>-->
++
++<screen><userinput remap="test">make -j4 check</userinput></screen>
++
++
++    <para>One test is known to fail in the LFS environment:
++    subobj.sh.</para>
+ 
+     <para>Install the package:</para>
+ 

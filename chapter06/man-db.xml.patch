@@ -1,0 +1,18 @@
+diff --git a/chapter06/man-db.xml b/chapter06/man-db.xml
+index dd2fb17..dcb08e1 100644
+--- a/chapter06/man-db.xml
++++ b/chapter06/man-db.xml
+@@ -109,11 +109,11 @@
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install</userinput></screen>
+-
++<!--
+     <para revision="systemd">Remove a reference to a non-existent user:</para>
+ 
+ <screen revision="systemd"><userinput remap="install">sed -i "s:man man:root root:g" /usr/lib/tmpfiles.d/man-db.conf</userinput></screen>
+-
++-->
+   </sect2>
+ 
+   <sect2>

@@ -1,0 +1,18 @@
+diff --git a/chapter05/gcc-pass2.xml b/chapter05/gcc-pass2.xml
+index 1ecdce9..b5c56c1 100644
+--- a/chapter05/gcc-pass2.xml
++++ b/chapter05/gcc-pass2.xml
+@@ -197,10 +197,10 @@ readelf -l a.out | grep ': /tools'</userinput></screen>
+     <para>If everything is working correctly, there should be no errors,
+     and the output of the last command will be of the form:</para>
+ 
+-<screen><computeroutput>[Requesting program interpreter: /tools/lib64/ld-linux.so.2]</computeroutput></screen>
++<screen><computeroutput>[Requesting program interpreter: /tools/lib64/ld-linux-x86-64.so.2]</computeroutput></screen>
+ 
+-    <para>Note that <filename class="directory">/tools/lib</filename> wiil
+-    be the prefix of the dynamic linker for 32-bit machines.</para>
++    <para>Note that the dynamic linker will be /tools/lib/ld-linux.so.2 
++    for 32-bit machines.</para>
+ 
+     <para>If the output is not shown as above or there was no output at all,
+     then something is wrong. Investigate and retrace the steps to find out

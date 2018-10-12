@@ -1,0 +1,32 @@
+diff --git a/chapter06/libffi.xml b/chapter06/libffi.xml
+index 5ebc272..c0aba3c 100644
+--- a/chapter06/libffi.xml
++++ b/chapter06/libffi.xml
+@@ -55,7 +55,26 @@ sed -e '/^includedir/ s/=.*$/=@includedir@/' \
+ 
+     <para>Prepare libffi for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr --disable-static</userinput></screen>
++<screen><userinput remap="configure">./configure --prefix=/usr --disable-static --with-gcc-arch=native</userinput></screen>
++
++    <variablelist>
++      <title>The meaning of the configure option:</title>
++
++      <varlistentry>
++        <term><parameter>--with-gcc-arch=native</parameter></term>
++        <listitem>
++          <para>Ensure gcc optimizes for the current system.  If this
++          is not specified, the system is guessed and the code generated
++          may not be correct for some systems.  If the generated code
++          will be copied from the native system to a less capable 
++          system, use the less capable system as a parameter. For details 
++          about alternative system types, see <ulink 
++          url='https://gcc.gnu.org/onlinedocs/gcc-8.1.0/gcc/x86-Options.html'>
++          the x86 options in the gcc manual</ulink>.</para>
++        </listitem>
++      </varlistentry>
++
++    </variablelist>
+ 
+     <para>Compile the package:</para>
+ 

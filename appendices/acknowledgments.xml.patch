@@ -1,0 +1,59 @@
+diff --git a/appendices/acknowledgments.xml b/appendices/acknowledgments.xml
+index 5f230a4..802f960 100644
+--- a/appendices/acknowledgments.xml
++++ b/appendices/acknowledgments.xml
+@@ -50,6 +50,11 @@
+     </listitem>
+ 
+     <listitem>
++      <para><ulink url="mailto:renodr@linuxfromscratch.org">Douglas Reno</ulink>
++      &lt;renodr@linuxfromscratch.org&gt; &ndash; systemd Editor</para>
++    </listitem>
++
++    <listitem>
+       <para>Countless other people on the various LFS and BLFS mailing lists
+       who helped make this book possible by giving their suggestions, testing
+       the book, and submitting bug reports, instructions, and their
+@@ -98,6 +103,18 @@
+       translation project</para>
+     </listitem>
+ 
++    <listitem>
++      <para><ulink url="mailto:info@linuxfromscratch.org.ru">Anton Maisak</ulink> 
++      &lt;info@linuxfromscratch.org.ru&gt; &ndash; Russian LFS
++      translation project</para>
++    </listitem>
++
++    <listitem>
++      <para><ulink url="mailto:helen@linuxfromscratch.org.ru">Elena Shevcova</ulink> 
++      &lt;helen@linuxfromscratch.org.ru&gt; &ndash; Russian LFS
++      translation project</para>
++    </listitem>
++
+   </itemizedlist>
+ 
+   <bridgehead renderas="sect2">Mirror Maintainers</bridgehead>
+@@ -215,6 +232,11 @@
+       &lt;kontakt@wankoo.org&gt; &ndash; lfs.wankoo.org mirror</para>
+     </listitem>
+ 
++    <listitem>
++      <para><ulink url="mailto:info@linuxfromscratch.org.ru">Anton Maisak</ulink>
++      &lt;info@linuxfromscratch.org.ru&gt; &ndash; linuxfromscratch.org.ru mirror</para>
++    </listitem>
++
+   </itemizedlist>
+ 
+   <bridgehead renderas="sect3">Asian Mirrors</bridgehead>
+@@ -370,11 +392,6 @@
+     </listitem>
+ 
+     <listitem>
+-      <para><ulink url="mailto:renodr@linuxfromscratch.org">Douglas R. Reno</ulink>
+-      &lt;renodr@linuxfromscratch.org&gt; &ndash; Systemd Editor</para>
+-    </listitem>
+-
+-    <listitem>
+       <para><ulink url="mailto:ryan@linuxfromscratch.org">Ryan
+       Oliver</ulink> &lt;ryan@linuxfromscratch.org&gt; &ndash; CLFS Project
+       Co-Leader</para>

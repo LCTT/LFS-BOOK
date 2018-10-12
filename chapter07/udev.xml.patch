@@ -1,0 +1,13 @@
+diff --git a/chapter07/udev.xml b/chapter07/udev.xml
+index d3bbd85..82c64f0 100644
+--- a/chapter07/udev.xml
++++ b/chapter07/udev.xml
+@@ -120,7 +120,7 @@
+       ownership at whatever <systemitem
+       class="filesystem">devtmpfs</systemitem> used initially.</para> </sect3>
+       
+-    <sect3>
++    <sect3 id="module-loading">
+       <title>Module Loading</title>
+ 
+       <para>Device drivers compiled as modules may have aliases built into them.

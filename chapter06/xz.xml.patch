@@ -1,0 +1,13 @@
+diff --git a/chapter06/xz.xml b/chapter06/xz.xml
+index 8d29b57..5a342b2 100644
+--- a/chapter06/xz.xml
++++ b/chapter06/xz.xml
+@@ -299,7 +299,7 @@ ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</userinput
+       <varlistentry id="xzegrep">
+         <term><command>xzegrep</command></term>
+         <listitem>
+-          <para>Runs <command>egrep</command> on XZ compressed files files</para>
++          <para>Runs <command>egrep</command> on XZ compressed files</para>
+           <indexterm zone="ch-system-xz xzegrep">
+             <primary sortas="b-xzegrep">xzegrep</primary>
+           </indexterm>

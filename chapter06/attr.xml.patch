@@ -1,0 +1,71 @@
+diff --git a/chapter06/attr.xml b/chapter06/attr.xml
+index 1497ebf..56c9fa8 100644
+--- a/chapter06/attr.xml
++++ b/chapter06/attr.xml
+@@ -41,44 +41,32 @@
+   <sect2 role="installation">
+     <title>Installation of Attr</title>
+ 
+-    <para>Modify the documentation directory so that it is a versioned
+-    directory:</para>
+-
+-<screen><userinput remap="pre">sed -i -e 's|/@pkg_name@|&amp;-@pkg_version@|' include/builddefs.in</userinput></screen>
+-
+-    <para>Prevent installation of manual pages that were already installed by
+-    the <xref linkend="man-pages"/> package:</para>
+-
+-<screen><userinput remap="pre">sed -i -e "/SUBDIRS/s|man[25]||g" man/Makefile</userinput></screen>
+-
+-    <para>Fix a problem in the test procedures caused by changes in perl-5.26:</para>
+-
+-<screen><userinput remap="pre">sed -i 's:{(:\\{(:' test/run</userinput></screen>
+-
+     <para>Prepare Attr for compilation:</para>
+ 
+-<screen revision="sysv"><userinput remap="configure">./configure --prefix=/usr \
+-            --bindir=/bin \
+-            --disable-static</userinput></screen>
++<screen revision="sysv"><userinput remap="configure">./configure --prefix=/usr     \
++            --bindir=/bin     \
++            --disable-static  \
++            --sysconfdir=/etc \
++            --docdir=/usr/share/doc/attr-&attr-version;</userinput></screen>
+ 
+-<screen revision="systemd"><userinput remap="configure">./configure --prefix=/usr \
+-            --disable-static</userinput></screen>
++<screen revision="systemd"><userinput remap="configure">./configure --prefix=/usr     \
++            --disable-static  \
++            --sysconfdir=/etc \
++            --docdir=/usr/share/doc/attr-&attr-version;</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+ 
+     <para>The tests need to be run on a filesystem that supports extended
+-    attributes such as the ext2, ext3, or ext4 filesystems. The tests are also
+-    known to fail if running multiple simultaneous tests (-j option greater than
+-    1).  To test the results, issue:</para>
++    attributes such as the ext2, ext3, or ext4 filesystems. 
++    To test the results, issue:</para>
+ 
+-<screen><userinput remap="test">make -j1 tests root-tests</userinput></screen>
++<screen><userinput remap="test">make check</userinput></screen>
+ 
+     <para>Install the package:</para>
+ 
+-<screen><userinput remap="install">make install install-dev install-lib
+-chmod -v 755 /usr/lib/libattr.so</userinput></screen>
++<screen><userinput remap="install">make install</userinput></screen>
+ 
+     <para>The shared library needs to be moved to
+     <filename class="directory">/lib</filename>, and as a result the
+@@ -143,7 +131,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</userinput
+       <varlistentry id="libattr">
+         <term><filename class="libraryfile">libattr</filename></term>
+         <listitem>
+-          <para>Contains the libbrary functions for manipulating extended attributes</para>
++          <para>Contains the library functions for manipulating extended attributes</para>
+           <indexterm zone="ch-system-attr libattr">
+             <primary sortas="c-libattr">libattr</primary>
+           </indexterm>

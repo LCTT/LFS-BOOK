@@ -1,0 +1,17 @@
+diff --git a/chapter06/iproute2.xml b/chapter06/iproute2.xml
+index 35d07b8..8b868df 100644
+--- a/chapter06/iproute2.xml
++++ b/chapter06/iproute2.xml
+@@ -53,10 +53,10 @@
+ <screen><userinput remap="pre">sed -i /ARPD/d Makefile
+ rm -fv man/man8/arpd.8</userinput></screen>
+ 
+-    <para>It is also necessary to disable building one module that 
++    <para>It is also necessary to disable building two modules that 
+     requires <ulink url="&blfs-book;postlfs/iptables.html"/>.</para>
+ 
+-<screen><userinput remap="pre">sed -i 's/m_ipt.o//' tc/Makefile</userinput></screen>
++<screen><userinput remap="pre">sed -i 's/.m_ipt.o//' tc/Makefile</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 

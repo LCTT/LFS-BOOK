@@ -1,0 +1,77 @@
+diff --git a/lfs-latest.php b/lfs-latest.php
+index 32267fa..845a345 100644
+--- a/lfs-latest.php
++++ b/lfs-latest.php
+@@ -11,13 +11,13 @@ $exceptions = array();
+ //$exceptions[ 'gmp' ] = "UPDIR=/.*(gmp-\d[\d\.-]*\d).*/:DOWNDIR=";
+ 
+ $regex = array();
+-$regex[ 'bzip2'    ] = "/^.*current version is ([\d\.]+).*$/";
++//$regex[ 'bzip2'    ] = "/^.*current version is ([\d\.]+).*$/";
+ $regex[ 'check'    ] = "/^.*Check (\d[\d\.]+\d).*$/";
+ $regex[ 'intltool' ] = "/^.*Latest version is (\d[\d\.]+\d).*$/";
+ $regex[ 'less'     ] = "/^.*current released version is less-(\d+).*$/";
+ $regex[ 'mpfr'     ] = "/^mpfr-([\d\.]+)\.tar.*$/";
+ $regex[ 'systemd'  ] = "/^.*v([\d]+).*$/";
+-$regex[ 'sysvinit' ] = "/^.*sysvinit-([\d\.]+)dsf\.tar.*$/";
++//$regex[ 'sysvinit' ] = "/^.*sysvinit-([\d\.]+)dsf\.tar.*$/";
+ $regex[ 'tzdata'   ] = "/^.*tzdata([\d]+[a-z]).*$/";
+ $regex[ 'xz'       ] = "/^.*xz-([\d\.]*\d).*$/";
+ $regex[ 'zlib'     ] = "/^.*zlib ([\d\.]*\d).*$/";
+@@ -109,13 +109,14 @@ function get_packages( $package, $dirpath )
+ if ( $package == "check"      ) $dirpath = "https://github.com/libcheck/check/releases";
+ if ( $package == "e2fsprogs"  ) $dirpath = "http://sourceforge.net/projects/e2fsprogs/files/e2fsprogs";
+ if ( $package == "expat"      ) $dirpath = "http://sourceforge.net/projects/expat/files";
++if ( $package == "elfutils"   ) $dirpath = "https://sourceware.org/ftp/elfutils";  
+ if ( $package == "expect"     ) $dirpath = "http://sourceforge.net/projects/expect/files";  
+ if ( $package == "file"       ) $dirpath = "https://github.com/file/file/releases";
+ if ( $package == "flex"       ) $dirpath = "https://github.com/westes/flex/releases";
+ if ( $package == "gcc"        ) $dirpath = max_parent( $dirpath, "gcc-" );
+ if ( $package == "intltool"   ) $dirpath = "https://launchpad.net/intltool/trunk";
+ if ( $package == "meson"      ) $dirpath = "https://github.com/mesonbuild/meson/releases";
+-if ( $package == "mpc"        ) $dirpath = "http://www.multiprecision.org/mpc/download.html";
++if ( $package == "mpc"        ) $dirpath = "https://ftp.gnu.org/gnu/mpc";
+ if ( $package == "mpfr"       ) $dirpath = "http://mpfr.loria.fr/mpfr-current";
+ if ( $package == "ninja"      ) $dirpath = "https://github.com/ninja-build/ninja/releases";
+ if ( $package == "procps-ng"  ) $dirpath = "http://sourceforge.net/projects/procps-ng/files";
+@@ -188,13 +189,13 @@ if ( $package == "vim"        ) $dirpath = "ftp://ftp.vim.org/pub/vim/unix";
+         $dirpath  = substr ( $dirpath, 0, $position );
+      }
+ 
+-     if ( $package == "bzip2" ) 
+-     {
+-        // Remove one directory
+-        $dirpath  = rtrim  ( $dirpath, "/" );    // Trim any trailing slash
+-        $position = strrpos( $dirpath, "/" );
+-        $dirpath  = substr ( $dirpath, 0, $position );
+-     }
++     //if ( $package == "bzip2" ) 
++     //{
++     //   // Remove one directory
++     //   $dirpath  = rtrim  ( $dirpath, "/" );    // Trim any trailing slash
++     //   $position = strrpos( $dirpath, "/" );
++     //   $dirpath  = substr ( $dirpath, 0, $position );
++     //}
+ 
+      $lines = http_get_file( $dirpath );
+      if ( ! is_array( $lines ) ) return -6;
+@@ -233,7 +234,7 @@ if ( $package == "vim"        ) $dirpath = "ftp://ftp.vim.org/pub/vim/unix";
+   if ( $package == "attr" ||  
+        $package == "acl"  )
+   {
+-     return find_max( $lines, "/$package/", "/^.*$package-([\d\.-]*\d)\.src.*$/" );
++     return find_max( $lines, "/$package/", "/^.*$package-([\d\.-]*\d).tar.*$/" );
+   }
+ 
+   if ( $package == "e2fsprogs" )
+@@ -242,8 +243,8 @@ if ( $package == "vim"        ) $dirpath = "ftp://ftp.vim.org/pub/vim/unix";
+   if ( $package == "expect" )
+      return find_max( $lines, "/expect/", "/^.*expect(\d[\d\.]+\d).tar.*$/" );
+ 
+-  if ( $package == "mpc" )
+-     return find_max( $lines, "/Version/", "/^.*Version (\d[\d\.]+\d)\\s*$/" );
++  if ( $package == "elfutils" )
++     return find_max( $lines, "/^\d/", "/^(\d[\d\.]+\d)\/.*$/" );
+ 
+   if ( $package == "XML-Parser" )
+   {

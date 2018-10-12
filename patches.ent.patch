@@ -1,0 +1,22 @@
+diff --git a/patches.ent b/patches.ent
+index 753d8f1..461646a 100644
+--- a/patches.ent
++++ b/patches.ent
+@@ -54,11 +54,15 @@
+ <!ENTITY ninja-limit-jobs-patch-size "2.5 KB">
+ 
+ <!ENTITY sysvinit-consolidated-patch "sysvinit-&sysvinit-version;-consolidated-1.patch">
+-<!ENTITY sysvinit-consolidated-patch-md5 "0b7b5ea568a878fdcc4057b2bf36e5cb">
+-<!ENTITY sysvinit-consolidated-patch-size "3.9 KB">
++<!ENTITY sysvinit-consolidated-patch-md5 "b7872b43a97a81bac4f9fc8ffaef4364">
++<!ENTITY sysvinit-consolidated-patch-size "2.5 KB">
+ 
+ <!-- 
+ <!ENTITY systemd-security-patch "systemd-&systemd-version;-security_fix-1.patch">
+ <!ENTITY systemd-security-patch-md5 "aa9d81fec9a3875a54e63af86904513a">
+ <!ENTITY systemd-security-patch-size "4 KB">
+ -->
++
++<!ENTITY systemd-glibc-patch "systemd-&systemd-version;-glibc_statx_fix-1.patch">
++<!ENTITY systemd-glibc-patch-md5 "a44057d6a6ca69760bafc126458d89e5">
++<!ENTITY systemd-glibc-patch-size "4 KB">

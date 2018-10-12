@@ -1,0 +1,26 @@
+diff --git a/README b/README
+index 08056d7..719fb53 100644
+--- a/README
++++ b/README
+@@ -10,7 +10,6 @@ various other formats.
+ In all examples, setting the parameter REV=systemd is needed to build the 
+ systemd version of the book.
+ 
+-
+ XML to XHTML:
+ -------------
+ make BASEDIR=/path/to/output/location
+@@ -20,13 +19,11 @@ XML to single file XHTML (nochunks):
+ ------------------------------------
+ make BASEDIR=/path/to/output/location nochunks
+ 
+-
+ XML to TXT
+ ----------
+ Follow the instructions for nochunks and then run:
+ lynx -dump /path/to/nochunks >/path/to/output
+ 
+-
+ XML to PDF:
+ -----------
+ make BASEDIR=/path/to/output/location pdf

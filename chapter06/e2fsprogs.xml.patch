@@ -1,0 +1,68 @@
+diff --git a/chapter06/e2fsprogs.xml b/chapter06/e2fsprogs.xml
+index c66254f..7b6a079 100644
+--- a/chapter06/e2fsprogs.xml
++++ b/chapter06/e2fsprogs.xml
+@@ -43,11 +43,7 @@
+ 
+   <sect2 role="installation">
+     <title>Installation of E2fsprogs</title>
+-<!--
+-    <para>First, fix a script that adjusts testing output:</para>
+ 
+-<screen><userinput remap="pre">sed -i -e 's:\[\.-\]::' tests/filter.sed</userinput></screen>
+--->
+     <para>The E2fsprogs documentation recommends that the package be built in
+     a subdirectory of the source tree: </para>
+ 
+@@ -56,10 +52,12 @@ cd build</userinput></screen>
+ 
+     <para>Prepare E2fsprogs for compilation:</para>
+ 
+-<screen><userinput remap="configure">LIBS=-L/tools/lib                    \
++<!--<screen><userinput remap="configure">LIBS=-L/tools/lib                    \
++CFLAGS=-I/tools/include              \
+ CFLAGS=-I/tools/include              \
+ PKG_CONFIG_PATH=/tools/lib/pkgconfig \
+-../configure --prefix=/usr           \
++../configure - -prefix=/usr           \-->
++<screen><userinput remap="configure">../configure --prefix=/usr           \
+              --bindir=/bin           \
+              --with-root-prefix=""   \
+              --enable-elf-shlibs     \
+@@ -70,7 +68,7 @@ PKG_CONFIG_PATH=/tools/lib/pkgconfig \
+ 
+     <variablelist>
+       <title>The meaning of the environment variable and configure options:</title>
+-
++<!--
+       <varlistentry>
+         <term><parameter>PKG_CONFIG_PATH, LIBS, CFLAGS</parameter></term>
+         <listitem>
+@@ -78,7 +76,7 @@ PKG_CONFIG_PATH=/tools/lib/pkgconfig \
+           <xref linkend="ch-tools-util-linux"/> package built earlier.</para>
+         </listitem>
+       </varlistentry>
+-
++-->
+       <varlistentry>
+         <term><parameter>--with-root-prefix=""</parameter> and
+               <parameter>--bindir=/bin</parameter></term>
+@@ -131,7 +129,8 @@ make LD_LIBRARY_PATH=/tools/lib check</userinput></screen>
+     If you do not have significantly more RAM than this, be sure to enable
+     sufficient swap space for the test. See <xref
+     linkend="space-creatingfilesystem"/> and <xref linkend="space-mounting"/>
+-    for details on creating and enabling swap space.</para>
++    for details on creating and enabling swap space.  Two tests, f_bigalloc_badinode
++    and f_bigalloc_orphan_list, are known ot fail.</para>
+ 
+     <para>Install the binaries, documentation, and shared libraries:</para>
+ 
+@@ -150,7 +149,7 @@ make LD_LIBRARY_PATH=/tools/lib check</userinput></screen>
+     <filename class="extension">.info</filename> file but doesn't update the
+     system-wide <filename>dir</filename> file. Unzip this file and then update
+     the system <filename>dir</filename> file using the following
+-    commands.</para>
++    commands:</para>
+ 
+ <screen><userinput remap="install">gunzip -v /usr/share/info/libext2fs.info.gz
+ install-info --dir-file=/usr/share/info/dir /usr/share/info/libext2fs.info</userinput></screen>

@@ -1,0 +1,32 @@
+diff --git a/chapter06/expat.xml b/chapter06/expat.xml
+index 7b71c84..df9f709 100644
+--- a/chapter06/expat.xml
++++ b/chapter06/expat.xml
+@@ -41,13 +41,15 @@
+   <sect2 role="installation">
+     <title>Installation of Expat</title>
+ 
+-    <para>First fix a problem with the regession tests in the LFS environment:</para>
++    <para>First fix a problem with the regression tests in the LFS environment:</para>
+ 
+ <screen><userinput remap="pre">sed -i 's|usr/bin/env |bin/|' run.sh.in</userinput></screen>
+ 
+     <para>Prepare Expat for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr --disable-static</userinput></screen>
++<screen><userinput remap="configure">./configure --prefix=/usr    \
++            --disable-static \
++            --docdir=/usr/share/doc/expat-&expat-version;</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 
+@@ -63,8 +65,7 @@
+ 
+     <para>If desired, install the documentation:</para>
+ 
+-<screen><userinput remap="install">install -v -dm755 /usr/share/doc/expat-&expat-version;
+-install -v -m644 doc/*.{html,png,css} /usr/share/doc/expat-&expat-version;</userinput></screen>
++<screen><userinput remap="install">install -v -m644 doc/*.{html,png,css} /usr/share/doc/expat-&expat-version;</userinput></screen>
+ 
+   </sect2>
+ 

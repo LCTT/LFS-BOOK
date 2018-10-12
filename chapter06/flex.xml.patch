@@ -1,0 +1,22 @@
+diff --git a/chapter06/flex.xml b/chapter06/flex.xml
+index 4055d48..2e12dab 100644
+--- a/chapter06/flex.xml
++++ b/chapter06/flex.xml
+@@ -85,7 +85,7 @@
+ 
+       <seglistitem>
+         <seg>flex, flex++ (link to flex), and lex (link to flex)</seg>
+-        <seg>libfl.so and libfl_pic.so</seg>
++        <seg>libfl.so</seg>
+         <seg>/usr/share/doc/flex-&flex-version;</seg>
+       </seglistitem>
+     </segmentedlist>
+@@ -121,7 +121,7 @@
+       <varlistentry id="lex">
+         <term><command>lex</command></term>
+         <listitem>
+-          <para>A script that runs <command>flex</command> in
++          <para>A symbolic link that runs <command>flex</command> in
+           <command>lex</command> emulation mode</para>
+           <indexterm zone="ch-system-flex lex">
+             <primary sortas="b-lex">lex</primary>

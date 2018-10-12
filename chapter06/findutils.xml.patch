@@ -1,0 +1,17 @@
+diff --git a/chapter06/findutils.xml b/chapter06/findutils.xml
+index 151088d..31fc1d2 100644
+--- a/chapter06/findutils.xml
++++ b/chapter06/findutils.xml
+@@ -50,6 +50,12 @@
+ 
+ <screen><userinput remap="pre">sed -i 's/test-lock..EXEEXT.//' tests/Makefile.in</userinput></screen>
+ 
++    <para>Next, make some fixes required by glibc-2.28:</para>
++
++<screen><userinput remap="pre">sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' gl/lib/*.c
++sed -i '/unistd/a #include &lt;sys/sysmacros.h&gt;' gl/lib/mountlist.c
++echo "#define _IO_IN_BACKUP 0x100" >> gl/lib/stdio-impl.h</userinput></screen>
++
+     <para>Prepare Findutils for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr --localstatedir=/var/lib/locate</userinput></screen>

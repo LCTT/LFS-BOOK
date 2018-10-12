@@ -1,0 +1,19 @@
+diff --git a/chapter03/patches.xml b/chapter03/patches.xml
+index ae7f7a7..f7e71bd 100644
+--- a/chapter03/patches.xml
++++ b/chapter03/patches.xml
+@@ -126,6 +126,14 @@
+     </varlistentry>
+ -->
+ 
++    <varlistentry revision="systemd">
++      <term>systemd glibc patch - <token>&systemd-glibc-patch-size;</token>:</term>
++      <listitem>
++        <para>Download: <ulink url="&patches-root;&systemd-glibc-patch;"/></para>
++        <para>MD5 sum: <literal>&systemd-glibc-patch-md5;</literal></para>
++      </listitem>
++    </varlistentry>
++
+   </variablelist>
+ 
+   <para>Total size of these patches: about <returnvalue/></para>

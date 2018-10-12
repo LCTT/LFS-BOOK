@@ -1,0 +1,14 @@
+diff --git a/chapter06/inetutils.xml b/chapter06/inetutils.xml
+index c69bdf5..c8fdd45 100644
+--- a/chapter06/inetutils.xml
++++ b/chapter06/inetutils.xml
+@@ -107,7 +107,8 @@
+ 
+     <note><para>One test, libls.sh, may fail in the initial chroot
+     environment but will pass if the test is rerun after the LFS system
+-    is complete.</para></note>
++    is complete. One test, ping-localhost.sh, will fail if the host
++    system does not have ipv6 capability.</para></note>
+ 
+     <para>Install the package:</para>
+ 

@@ -1,0 +1,17 @@
+diff --git a/chapter06/eudev.xml b/chapter06/eudev.xml
+index 9734eb1..8f66814 100644
+--- a/chapter06/eudev.xml
++++ b/chapter06/eudev.xml
+@@ -39,10 +39,11 @@
+ 
+   <sect2 role="installation">
+     <title>Installation of Eudev</title>
+-
++<!--
+     <para>First, fix a test script:</para>
+ 
+ <screen><userinput remap="pre">sed -r -i 's|/usr(/bin/test)|\1|' test/udev-test.pl</userinput></screen>
++-->
+ <!--
+     <para>Next, remove an unneeded line that causes a build failure:</para>
+ 

@@ -1,0 +1,67 @@
+diff --git a/chapter06/acl.xml b/chapter06/acl.xml
+index df058f7..cb5be40 100644
+--- a/chapter06/acl.xml
++++ b/chapter06/acl.xml
+@@ -42,35 +42,18 @@
+   <sect2 role="installation">
+     <title>Installation of Acl</title>
+ 
+-    <para>Modify the documentation directory so that it is a versioned
+-    directory:</para>
+-
+-<screen><userinput remap="pre">sed -i -e 's|/@pkg_name@|&amp;-@pkg_version@|' include/builddefs.in</userinput></screen>
+-
+-    <para>Fix some broken tests:</para>
+-
+-<screen><userinput remap="pre">sed -i "s:| sed.*::g" test/{sbits-restore,cp,misc}.test</userinput></screen>
+-
+-    <para>Fix a problem in the test procedures caused by changes in perl-5.26:</para>
+-
+-<screen><userinput remap="pre">sed -i 's/{(/\\{(/' test/run</userinput></screen>
+-
+-    <para>Additionally, fix a bug that causes <command>getfacl -e</command>
+-    to segfault on overly long group name:</para>
+-
+-<screen><userinput remap="pre">sed -i -e "/TABS-1;/a if (x > (TABS-1)) x = (TABS-1);" \
+-    libacl/__acl_to_any_text.c</userinput></screen>
+-
+     <para>Prepare Acl for compilation:</para>
+ 
+-<screen revision="sysv"><userinput remap="configure">./configure --prefix=/usr    \
+-            --bindir=/bin    \
+-            --disable-static \
+-            --libexecdir=/usr/lib</userinput></screen>
++<screen revision="sysv"><userinput remap="configure">./configure --prefix=/usr         \
++            --bindir=/bin         \
++            --disable-static      \
++            --libexecdir=/usr/lib \
++            --docdir=/usr/share/doc/acl-&acl-version;</userinput></screen>
+ 
+-<screen revision="systemd"><userinput remap="configure">./configure --prefix=/usr    \
+-            --disable-static \
+-            --libexecdir=/usr/lib</userinput></screen>
++<screen revision="systemd"><userinput remap="configure">./configure --prefix=/usr         \
++            --disable-static      \
++            --libexecdir=/usr/lib \
++            --docdir=/usr/share/doc/acl-&acl-version;</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 
+@@ -78,14 +61,13 @@
+ 
+     <para>The Acl tests need to be run on a filesystem that supports access
+     controls after <application>Coreutils</application> has been built with the
+-    Acl libraries.  If desired, return to this package and run <command>make -j1
+-    tests</command> after <application>Coreutils</application> has been built
++    Acl libraries.  If desired, return to this package and run <command>make
++    check</command> after <application>Coreutils</application> has been built
+     later in this chapter.</para>
+ 
+     <para>Install the package:</para>
+ 
+-<screen><userinput remap="install">make install install-dev install-lib
+-chmod -v 755 /usr/lib/libacl.so</userinput></screen>
++<screen><userinput remap="install">make install</userinput></screen>
+ 
+     <para>The shared library needs to be moved to
+     <filename class="directory">/lib</filename>, and as a result the

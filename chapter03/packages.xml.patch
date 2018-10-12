@@ -1,0 +1,25 @@
+diff --git a/chapter03/packages.xml b/chapter03/packages.xml
+index 979c22e..0316349 100644
+--- a/chapter03/packages.xml
++++ b/chapter03/packages.xml
+@@ -89,7 +89,7 @@
+     <varlistentry>
+       <term>Bzip2 (&bzip2-version;) - <token>&bzip2-size;</token>:</term>
+       <listitem>
+-        <para>Home page: <ulink url="&bzip2-home;"/></para>
++        <!--<para>Home page: <ulink url="&bzip2-home;"/></para>-->
+         <para>Download: <ulink url="&bzip2-url;"/></para>
+         <para>MD5 sum: <literal>&bzip2-md5;</literal></para>
+       </listitem>
+@@ -262,11 +262,6 @@
+         <para>Home page: <ulink url="&glibc-home;"/></para>
+         <para>Download: <ulink url="&glibc-url;"/></para>
+         <para>MD5 sum: <literal>&glibc-md5;</literal></para>
+-        <note>
+-          <para>This version of glibc addresses a security issue 
+-          not yet in the latest stable release.  
+-          </para>
+-        </note>
+       </listitem>
+     </varlistentry>
+ 

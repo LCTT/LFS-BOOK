@@ -1,0 +1,20 @@
+diff --git a/chapter06/perl.xml b/chapter06/perl.xml
+index f48ce59..d712fc2 100644
+--- a/chapter06/perl.xml
++++ b/chapter06/perl.xml
+@@ -123,12 +123,12 @@ export BUILD_BZIP2=0</userinput></screen>
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+ 
+-    <para>To test the results (approximately 2.5 SBU), issue:</para>
++    <para>To test the results (approximately 11 SBU), issue:</para>
+ 
+ <screen><userinput remap="test">make -k test</userinput></screen>
+ 
+-    <note><para>Several tests related to zlib will fail due to using
+-    the system version of zlib instead of the internal version.</para></note>
++    <note><para>One test fails due to using the most recent version of gdbm.
++    </para></note>
+ 
+     <para>Install the package and clean up:</para>
+ 

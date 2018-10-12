@@ -1,0 +1,78 @@
+diff --git a/chapter06/gcc.xml b/chapter06/gcc.xml
+index e2b109c..46d0d10 100644
+--- a/chapter06/gcc.xml
++++ b/chapter06/gcc.xml
+@@ -68,6 +68,7 @@ cd       build</userinput></screen>
+              --enable-languages=c,c++ \
+              --disable-multilib       \
+              --disable-bootstrap      \
++             --disable-libmpx         \
+              --with-system-zlib</userinput></screen>
+ 
+     <para>Note that for other languages, there are some prerequisites that
+@@ -87,6 +88,15 @@ cd       build</userinput></screen>
+       </varlistentry>
+  
+       <varlistentry>
++        <term><parameter>--disable-libmpx</parameter></term>
++        <listitem>
++          <para>This switch tells GCC to not build mpx (Memory Protection
++          Extensions) that can cause problems on some processors. It has
++          been removed from the next version of gcc.</para>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry>
+         <term><parameter>--with-system-zlib</parameter></term>
+         <listitem>
+           <para>This switch tells GCC to link to the system installed copy of
+@@ -109,9 +119,14 @@ cd       build</userinput></screen>
+ 
+ <screen><userinput remap="test">ulimit -s 32768</userinput></screen>
+ 
+-    <para>Test the results, but do not stop at errors:</para>
++    <para>Remove one test known to cause a problem:</para>
++
++<screen><userinput remap="test">rm ../gcc/testsuite/g++.dg/pr83239.C</userinput></screen>
++
++    <para>Test the results as a non-privileged user, but do not stop at errors:</para>
+ 
+-<screen><userinput remap="test">make -k check</userinput></screen>
++<screen><userinput remap="test">chown -Rv nobody . 
++su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+ 
+     <para>To receive a summary of the test suite results, run:</para>
+ 
+@@ -122,12 +137,10 @@ cd       build</userinput></screen>
+ 
+     <para>Results can be compared with those located at <ulink
+     url="&test-results;"/> and
+-    <ulink url="http://gcc.gnu.org/ml/gcc-testresults/"/>.</para>
++    <ulink url="https://gcc.gnu.org/ml/gcc-testresults/"/>.</para>
+ 
+     <para>A few unexpected failures cannot always be avoided. The GCC developers
+     are usually aware of these issues, but have not resolved them yet.
+-    In particular, six tests in the libstdc++ test suite are known to fail
+-    when running as the root user as we do here.
+     Unless the test results are vastly different from those at the above URL,
+     it is safe to continue.</para>
+ 
+@@ -136,7 +149,8 @@ cd       build</userinput></screen>
+       there may be more than 1100 failures in the gcc.target/i386/mpx
+       tests (which are designed to test the MPX option on recent
+       Intel processors). These can safely be ignored on AMD
+-      processors.
++      processors. These tests will also fail on Intel processors if MPX support
++      is not enabled in the kernel even though it is present on the CPU.
+     </para></note>
+ 
+     <para>Install the package:</para>
+@@ -144,7 +158,7 @@ cd       build</userinput></screen>
+ <screen><userinput remap="install">make install</userinput></screen>
+ 
+     <para>Create a symlink required by the <ulink
+-    url="http://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink>
++    url="https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink>
+     for "historical" reasons.</para>
+ 
+ <screen><userinput remap="install">ln -sv ../usr/bin/cpp /lib</userinput></screen>

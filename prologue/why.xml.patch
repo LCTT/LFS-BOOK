@@ -1,0 +1,45 @@
+diff --git a/prologue/why.xml b/prologue/why.xml
+index b852818..3cb365d 100644
+--- a/prologue/why.xml
++++ b/prologue/why.xml
+@@ -327,6 +327,16 @@
+       </listitem>
+ 
+       <listitem>
++        <para>Libelf</para>
++
++        <para>The elfutils project provides libraries and tools for ELF files
++        and DWARF data.  Most utilities in this package are available in
++        other packages, but the library is needed to build the Linux
++        kernel using the default (and most efficient) configuration.</para>
++
++      </listitem>
++
++      <listitem>
+         <para>Libffi</para>
+ 
+         <para>This package implements a portable, high level programming
+@@ -436,6 +446,14 @@
+       </listitem>
+ 
+       <listitem>
++        <para>Openssl</para>
++
++        <para>This package provides management tools and libraries relating to
++        cryptography. These are useful for providing cryptographic functions to
++        other packages, including the Linux kernel.</para>
++      </listitem>
++
++      <listitem>
+         <para>Patch</para>
+ 
+         <para>This package contains a program for modifying or creating files by
+@@ -516,7 +534,7 @@
+       <listitem revision="systemd">
+         <para>Systemd</para>
+ 
+-        <para>This package provides and <application>init</application> program
++        <para>This package provides an <application>init</application> program
+         and several additional boot and system control capabilities as an
+         alternative to Sysvinit.  It is used by many commercial distributions.
+         </para>

@@ -1,0 +1,38 @@
+diff --git a/prologue/standards.xml b/prologue/standards.xml
+index 8a79fbb..cda3014 100644
+--- a/prologue/standards.xml
++++ b/prologue/standards.xml
+@@ -23,13 +23,13 @@
+       </listitem>
+       <listitem>
+         <para><ulink 
+-        url="http://refspecs.linuxfoundation.org/fhs.shtml">
++        url="http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html">
+         Filesystem Hierarchy Standard (FHS) Version 3.0</ulink></para>
+ 
+       </listitem>
+       <listitem>
+         <para><ulink url="http://refspecs.linuxfoundation.org/lsb.shtml">Linux
+-        Standard Base (LSB) Version 5.0</ulink></para>
++        Standard Base (LSB) Version 5.0 (2015)</ulink></para>
+ 
+         <para>The LSB has four separate standards: Core, Desktop,
+         Runtime Languages, and Imaging. In addition to generic requirements
+@@ -117,7 +117,7 @@
+         <listitem>
+           <para>Alsa, ATK, Cairo, Desktop-file-utils, Freetype, Fontconfig,
+           Gdk-pixbuf, Glib2, GTK+2, Icon-naming-utils, Libjpeg-turbo, Libpng, Libtiff,
+-          Libxml2, MesaLib, Pango, Qt4, Xdg-utils, Xorg</para>
++          Libxml2, MesaLib, Pango, Xdg-utils, Xorg</para>
+         </listitem>
+       </varlistentry>
+ 
+@@ -160,7 +160,7 @@
+       <varlistentry>
+         <term><emphasis>LSB Desktop:</emphasis></term>
+         <listitem>
+-          <para>None</para>
++          <para>Qt4 (but Qt5 is provided)</para>
+         </listitem>
+       </varlistentry>
+ 

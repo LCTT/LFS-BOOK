@@ -1,0 +1,41 @@
+diff --git a/chapter06/strippingagain.xml b/chapter06/strippingagain.xml
+index db4a605..eef5531 100644
+--- a/chapter06/strippingagain.xml
++++ b/chapter06/strippingagain.xml
+@@ -44,8 +44,7 @@ for LIB in $save_lib; do
+ done    
+ 
+ save_usrlib="libquadmath.so.&libquadmath-version; libstdc++.so.&libstdcpp-version;
+-             libmpx.so.&libmpx-version; libmpxwrappers.so.&libmpxwrap-version; libitm.so.&libitm-version;
+-             libcilkrts.so.&libcilkrts-version; libatomic.so.&libatomic-version;"
++             libitm.so.&libitm-version; libatomic.so.&libatomic-version;" <!-- libcilkrts.so.&libcilkrts-version;-->
+ 
+ cd /usr/lib
+ 
+@@ -58,9 +57,15 @@ done
+ unset LIB save_lib save_usrlib</userinput></screen>
+ 
+   <para>Before performing the stripping, take special care to ensure that
+-  none of the binaries that are about to be stripped are running. If
++  none of the binaries that are about to be stripped are running:</para>
++
++<screen role="nodump"><userinput>exec /tools/bin/bash</userinput></screen>
++  
++  <!--
++  If
+   unsure whether the user entered chroot with the command given in
+-  <xref linkend="ch-system-chroot" role=","/> first exit from
++  <xref linkend="ch-system-chroot" role=","/> first use the version
++  of bash we created in 
+   chroot:</para>
+ 
+ <screen role="nodump"><userinput>logout</userinput></screen>
+@@ -71,7 +76,7 @@ unset LIB save_lib save_usrlib</userinput></screen>
+     HOME=/root TERM=$TERM              \
+     PS1='(lfs chroot) \u:\w\$ '        \
+     PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+-    /tools/bin/bash --login</userinput></screen>
++    /tools/bin/bash - -login</userinput></screen>-->
+ 
+   <para>Now the binaries and libraries can be safely stripped:</para>
+ 

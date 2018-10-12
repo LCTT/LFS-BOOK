@@ -1,0 +1,22 @@
+diff --git a/chapter07/usage.xml b/chapter07/usage.xml
+index b710e48..c75394b 100644
+--- a/chapter07/usage.xml
++++ b/chapter07/usage.xml
+@@ -233,6 +233,9 @@ EOF</userinput></screen>
+       &lt;device&gt; is an absolute path in /dev or /sys such as /dev/sr0 or
+       /sys/class/rtc.</para>
+ 
++      <para>For information on kernel module loading and udev, see 
++      <xref linkend="module-loading"/>.</para>
++<!--
+     <sect3>
+       <title>Module Loading</title>
+ 
+@@ -275,6 +278,7 @@ EOF</userinput></screen>
+       <command>udevd</command> as described above.</para>
+ 
+     </sect3>
++-->
+   </sect2>
+ 
+   <sect2 id="ch-scripts-clock">

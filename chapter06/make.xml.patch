@@ -1,0 +1,13 @@
+diff --git a/chapter06/make.xml b/chapter06/make.xml
+index e52fff2..bf57ce7 100644
+--- a/chapter06/make.xml
++++ b/chapter06/make.xml
+@@ -52,7 +52,7 @@
+ <screen><userinput remap="make">make</userinput></screen>
+ 
+     <para>The test suite needs to know where supporting perl files are located.
+-    We use an envronment variable to accomplish this.  To test the 
++    We use an environment variable to accomplish this.  To test the 
+     results, issue:</para>
+ 
+ <screen><userinput remap="test">make PERL5LIB=$PWD/tests/ check</userinput></screen>

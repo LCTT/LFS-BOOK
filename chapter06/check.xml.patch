@@ -1,0 +1,17 @@
+diff --git a/chapter06/check.xml b/chapter06/check.xml
+index cdbcafd..c65e803 100644
+--- a/chapter06/check.xml
++++ b/chapter06/check.xml
+@@ -56,9 +56,10 @@
+     <para>Note that the Check test suite may take a relatively long
+     (up to 4 SBU) time.</para>
+ 
+-    <para>Install the package:</para>
++    <para>Install the package and fix a script:</para>
+ 
+-<screen><userinput remap="install">make install</userinput></screen>
++<screen><userinput remap="install">make install
++sed -i '1 s/tools/usr/' /usr/bin/checkmk</userinput></screen>
+ 
+   </sect2>
+ 

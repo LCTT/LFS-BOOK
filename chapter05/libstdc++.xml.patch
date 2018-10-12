@@ -1,0 +1,28 @@
+diff --git a/chapter05/libstdc++.xml b/chapter05/libstdc++.xml
+index 7cf3e7f..d7b6eb9 100644
+--- a/chapter05/libstdc++.xml
++++ b/chapter05/libstdc++.xml
+@@ -14,7 +14,7 @@
+     <address>&gcc-url;</address>
+   </sect1info>
+ 
+-  <title>Libstdc++-&gcc-version;</title>
++  <title>Libstdc++ from GCC-&gcc-version;</title>
+ 
+   <indexterm zone="ch-tools-libstdcpp">
+     <primary sortas="a-GCC">GCC</primary>
+@@ -24,8 +24,12 @@
+   <sect2 role="package">
+     <title/>
+ 
+-    <para>Libstdc++ is the standard C++ library. It is needed for the correct
+-    operation of the g++ compiler.</para>
++    <para>Libstdc++ is the standard C++ library. It is needed 
++    to compile C++ code
++    (part of GCC is written in C++), but we had to defer its installation
++    when we built <xref linkend="ch-tools-gcc-pass1"/>
++    because it depends on glibc, which was not yet available in /tools.
++    </para>
+ 
+     <segmentedlist>
+       <segtitle>&buildtime;</segtitle>

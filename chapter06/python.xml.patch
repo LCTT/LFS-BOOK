@@ -1,0 +1,44 @@
+diff --git a/chapter06/python.xml b/chapter06/python.xml
+index 57a3967..e044f33 100644
+--- a/chapter06/python.xml
++++ b/chapter06/python.xml
+@@ -89,14 +89,14 @@
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install
+-chmod -v 755 /usr/lib/libpython3.6m.so
++chmod -v 755 /usr/lib/libpython&python-minor;m.so
+ chmod -v 755 /usr/lib/libpython3.so</userinput></screen>
+ 
+     <variablelist>
+       <title>The meaning of the install commands:</title>
+-
++<!-- ======  Change 7m if Python minor version changes ======= -->
+     <varlistentry>
+-      <term><command>chmod -v 755 /usr/lib/libpython3.{6m.,}so</command></term>
++      <term><command>chmod -v 755 /usr/lib/libpython3.{7m.,}so</command></term>
+       <listitem>
+         <para>Fix permissions for libraries to be consistent with other
+         libraries.</para>
+@@ -122,7 +122,7 @@ tar --strip-components=1  \
+       <term><option>--no-same-owner</option> and --no-same-permissions</term>
+       <listitem>
+         <para>Ensure the installed files have the correct ownership and 
+-        prermissions.  Without these options, using <application>tar</application>
++        permissions.  Without these options, using <application>tar</application>
+         will install the package files with the upstream creator's values. 
+         </para>
+       </listitem>
+@@ -145,10 +145,10 @@ tar --strip-components=1  \
+           2to3, idle3, pydoc3, python3, python3-config, pyvenv
+         </seg>
+         <seg>
+-          libpython3.6m.so and libpython3.so
++          libpython&python-minor;m.so and libpython3.so
+         </seg>
+         <seg>
+-          /usr/include/python3.6m, /usr/lib/python3 and
++          /usr/include/python&python-minor;m, /usr/lib/python3 and
+           /usr/share/doc/python-&python-version;
+         </seg>
+       </seglistitem>

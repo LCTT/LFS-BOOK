@@ -1,0 +1,13 @@
+diff --git a/chapter06/tar.xml b/chapter06/tar.xml
+index 10d76de..1200a39 100644
+--- a/chapter06/tar.xml
++++ b/chapter06/tar.xml
+@@ -68,7 +68,7 @@
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+ 
+-    <para>To test the results (about 1 SBU), issue:</para>
++    <para>To test the results (about 3 SBU), issue:</para>
+ 
+ <screen><userinput remap="test">make check</userinput></screen>
+ 

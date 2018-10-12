@@ -1,0 +1,21 @@
+diff --git a/chapter06/chapter06.xml b/chapter06/chapter06.xml
+index 12a7617..cd15249 100644
+--- a/chapter06/chapter06.xml
++++ b/chapter06/chapter06.xml
+@@ -30,6 +30,7 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gmp.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="mpfr.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="mpc.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="shadow.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gcc.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bzip2.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="pkgconfig.xml"/>
+@@ -38,7 +39,7 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="acl.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="libcap.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="sed.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="shadow.xml"/>
++<!--  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="shadow.xml"/>-->
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="psmisc.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iana-etc.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bison.xml"/>

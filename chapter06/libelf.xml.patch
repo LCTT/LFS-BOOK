@@ -1,0 +1,15 @@
+diff --git a/chapter06/libelf.xml b/chapter06/libelf.xml
+index 56ec31d..de9cac1 100644
+--- a/chapter06/libelf.xml
++++ b/chapter06/libelf.xml
+@@ -52,7 +52,9 @@
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+ 
+-    <para>To test the results, issue <command>make check</command>.</para>
++    <para>To test the results, issue:</para>
++    
++<screen><userinput remap="test">make check</userinput></screen>
+ 
+     <para>Install only Libelf:</para>
+ 

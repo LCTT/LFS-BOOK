@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/xhtml/lfs-index.xsl b/stylesheets/lfs-xsl/xhtml/lfs-index.xsl
+index ae3e6f2..d2b5954 100644
+--- a/stylesheets/lfs-xsl/xhtml/lfs-index.xsl
++++ b/stylesheets/lfs-xsl/xhtml/lfs-index.xsl
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: matthew $
+-$Date: 2013-10-09 16:46:50 -0700 (Wed, 09 Oct 2013) $
++$Date: 2013-10-10 07:46:50 +0800 (Thu, 10 Oct 2013) $
+ -->
+ 
+ <!DOCTYPE xsl:stylesheet [

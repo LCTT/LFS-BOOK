@@ -1,0 +1,50 @@
+diff --git a/chapter02/hostreqs.xml b/chapter02/hostreqs.xml
+index 8217898..cd7c936 100644
+--- a/chapter02/hostreqs.xml
++++ b/chapter02/hostreqs.xml
+@@ -29,13 +29,13 @@
+     </listitem>
+ 
+     <listitem>
+-      <para><emphasis role="strong">Binutils-2.17</emphasis> (Versions
++      <para><emphasis role="strong">Binutils-2.25</emphasis> (Versions
+       greater than &binutils-version; are not recommended as they have
+       not been tested)</para>
+     </listitem>
+ 
+     <listitem>
+-      <para><emphasis role="strong">Bison-2.3</emphasis> (/usr/bin/yacc
++      <para><emphasis role="strong">Bison-2.7</emphasis> (/usr/bin/yacc
+       should be a link to bison or small script that executes bison)</para>
+     </listitem>
+ 
+@@ -61,19 +61,9 @@
+     </listitem>
+ 
+     <listitem>
+-      <para><emphasis role="strong">GCC-4.7</emphasis> including the C++
++      <para><emphasis role="strong">GCC-4.9</emphasis> including the C++
+       compiler, <command>g++</command> (Versions greater than &gcc-version; are
+       not recommended as they have not been tested)</para>
+-<!--
+-      <note><para>On some distributions, there have been reports that some
+-      libraries used by gcc can be in an inconsistent state and that this
+-      interferes with building some LFS packages.  To check this, look in
+-      /usr/lib and possibly /usr/lib64 for libgmp.la, libmpfr.la, and
+-      libmpc.la.  Either all three should be present or absent, but not only
+-      one or two.  If the problem exists on your system, either rename or
+-      delete the .la files or install the appropriate missing
+-      package.</para></note>
+--->
+     </listitem>
+ 
+     <listitem>
+@@ -114,7 +104,7 @@
+     </listitem>
+ 
+     <listitem>
+-      <para><emphasis role="strong">Make-3.81</emphasis></para>
++      <para><emphasis role="strong">Make-4.0</emphasis></para>
+     </listitem>
+ 
+     <listitem>

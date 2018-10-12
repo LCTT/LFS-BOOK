@@ -1,0 +1,39 @@
+diff --git a/chapter05/perl.xml b/chapter05/perl.xml
+index 14858b1..1e55d83 100644
+--- a/chapter05/perl.xml
++++ b/chapter05/perl.xml
+@@ -45,7 +45,33 @@
+ 
+     <para>Prepare Perl for compilation:</para>
+ 
+-<screen><userinput remap="configure">sh Configure -des -Dprefix=/tools -Dlibs=-lm</userinput></screen>
++<screen><userinput remap="configure">sh Configure -des -Dprefix=/tools -Dlibs=-lm -Uloclibpth -Ulocincpth</userinput></screen>
++
++    <variablelist>
++      <title>The meaning of the Configure options:</title>
++
++      <varlistentry>
++        <term><parameter>-des</parameter></term>
++        <listitem>
++          <para>This is a combination of three options: -d uses defaults for 
++          all items; -e ensures completion of all tasks; -s silences
++          non-essential output.</para>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry>
++        <term><parameter>-Uloclibpth amd -Ulocincpth</parameter></term>
++        <listitem>
++          <para>These entries undefine variables that cause the configuration
++          to search for locally installed components that may exist on the
++          host system.</para>
++        </listitem>
++      </varlistentry>
++
++    </variablelist>
++
++
++
+ 
+     <para>Build the package:</para>
+ 

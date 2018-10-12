@@ -1,0 +1,447 @@
+diff --git a/appendices/dependencies.xml b/appendices/dependencies.xml
+index 3b34951..96ea3ff 100644
+--- a/appendices/dependencies.xml
++++ b/appendices/dependencies.xml
+@@ -38,7 +38,7 @@
+   re-installation is addressed in BLFS.</para>
+ 
+ <!-- Begin Acl dependency info -->
+-  <bridgehead renderas="sect2" id="acl-dep">acl</bridgehead>
++  <bridgehead renderas="sect2" id="acl-dep">Acl</bridgehead>
+ 
+       <segmentedlist>
+         <segtitle>&dependencies;</segtitle>
+@@ -61,7 +61,7 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Coreutils, Sed, Tar, Vim</seg>
++          <seg>Coreutils, Sed, Tar, and Vim</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -74,7 +74,7 @@
+       </segmentedlist>
+ 
+ <!-- Begin Attr dependency info -->
+-  <bridgehead renderas="sect2" id="attr-dep">attr</bridgehead>
++  <bridgehead renderas="sect2" id="attr-dep">Attr</bridgehead>
+ 
+       <segmentedlist>
+         <segtitle>&dependencies;</segtitle>
+@@ -97,7 +97,7 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Acl, Libcap</seg>
++          <seg>Acl and Libcap</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -161,7 +161,7 @@
+ 
+         <seglistitem>
+           <seg>Binutils, Bison, Bzip2, DejaGNU, Diffutils, Expect, Findutils,
+-          Flex, GCC, Gettext, Gzip, Libtool, and Tar.</seg>
++          Flex, GCC, Gettext, Gzip, Libtool, and Tar</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -260,8 +260,8 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, Diffutils, File, Gawk, GCC, Glibc, Grep,
+-         Make, Perl, Sed, Texinfo and Zlib</seg>
++         <seg>Bash, Binutils, Coreutils, Diffutils, File, Gawk, GCC, Glibc,
++         Grep, Make, Perl, Sed, Texinfo and Zlib</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -420,7 +420,7 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Bash, Diffutils, Findutils, Man-DB, and Eudev</seg>
++          <seg>Bash, Diffutils, Eudev, Findutils, and Man-DB</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -520,7 +520,7 @@
+         <segtitle>&testsuites;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Diffutils, Perl</seg>
++          <seg>Perl</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -540,15 +540,15 @@
+         </seglistitem>
+       </segmentedlist>
+ 
+-<!-- Begin Eudev dependency info -->
+-  <bridgehead renderas="sect2" id="eudev-dep">Eudev</bridgehead>
++<!-- Begin E2fsprogs dependency info -->
++  <bridgehead renderas="sect2" id="e2fsprogs-dep">E2fsprogs</bridgehead>
+ 
+       <segmentedlist>
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep, Gperf,
+-         Make, and Sed</seg>
++         <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep,
++         Gzip, Make, Sed, Texinfo, and Util-linux</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -556,7 +556,7 @@
+         <segtitle>&testsuites;</segtitle>
+ 
+         <seglistitem>
+-          <seg>None</seg>
++          <seg>Procps-ng and Psmisc</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -576,14 +576,14 @@
+         </seglistitem>
+       </segmentedlist>
+ 
+-<!-- Begin Expat dependency info -->
+-  <bridgehead renderas="sect2" id="expat-dep">Expat</bridgehead>
++<!-- Begin Eudev dependency info -->
++  <bridgehead renderas="sect2" id="eudev-dep">Eudev</bridgehead>
+ 
+       <segmentedlist>
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep,
++         <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep, Gperf,
+          Make, and Sed</seg>
+         </seglistitem>
+       </segmentedlist>
+@@ -600,7 +600,7 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>XML::Parser</seg>
++          <seg>None</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -612,15 +612,15 @@
+         </seglistitem>
+       </segmentedlist>
+ 
+-<!-- Begin Expect dependency info -->
+-  <bridgehead renderas="sect2" id="expect-dep">Expect</bridgehead>
++<!-- Begin Expat dependency info -->
++  <bridgehead renderas="sect2" id="expat-dep">Expat</bridgehead>
+ 
+       <segmentedlist>
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Glibc, Grep, Make,
+-         Patch, Sed, and Tcl</seg>
++         <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep,
++         Make, and Sed</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -636,7 +636,7 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>None</seg>
++          <seg>XML::Parser</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -648,15 +648,15 @@
+         </seglistitem>
+       </segmentedlist>
+ 
+-<!-- Begin E2fsprogs dependency info -->
+-  <bridgehead renderas="sect2" id="e2fsprogs-dep">E2fsprogs</bridgehead>
++<!-- Begin Expect dependency info -->
++  <bridgehead renderas="sect2" id="expect-dep">Expect</bridgehead>
+ 
+       <segmentedlist>
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep,
+-         Gzip, Make, Sed, Texinfo, and Util-linux</seg>
++         <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Glibc, Grep, Make,
++         Patch, Sed, and Tcl</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -664,7 +664,7 @@
+         <segtitle>&testsuites;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Procps-ng,Psmisc</seg>
++          <seg>None</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -800,7 +800,7 @@
+ 
+         <seglistitem>
+          <seg>Bash, Binutils, Coreutils, GCC, Gettext, Glibc, GMP, Grep, Make,
+-         MPFR, Patch, Readline, Sed and Texinfo</seg>
++         MPFR, Patch, Readline, Sed, and Texinfo</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -845,7 +845,7 @@
+         <segtitle>&testsuites;</segtitle>
+ 
+         <seglistitem>
+-          <seg>DejaGNU and Expect</seg>
++          <seg>DejaGNU, Expect, and Shadow</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -862,7 +862,7 @@
+ 
+         <seglistitem>
+           <seg><ulink url="http://gcc.gnu.org/wiki/Graphite">CLooG-PPL</ulink>,
+-               <ulink url="http://gcc.gnu.org/wiki/GNAT">GNAT</ulink> and
++               <ulink url="http://gcc.gnu.org/wiki/GNAT">GNAT</ulink>, and
+                <ulink url="http://gcc.gnu.org/wiki/Graphite">PPL</ulink></seg>
+         </seglistitem>
+       </segmentedlist>
+@@ -874,7 +874,8 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Grep, Make, and Sed</seg>
++         <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Grep, Make, 
++         and Sed</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -981,8 +982,8 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep, M4, Make,
+-         Sed and Texinfo</seg>
++         <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep,
++         M4, Make, Sed, and Texinfo</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -998,7 +999,7 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>MPFR, GCC</seg>
++          <seg>MPFR and GCC</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1017,7 +1018,7 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, GCC, Glibc, Make</seg>
++         <seg>Bash, Binutils, Coreutils, GCC, Glibc, and Make</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1025,7 +1026,7 @@
+         <segtitle>&testsuites;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Diffutils, Expect</seg>
++          <seg>Diffutils and Expect</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1169,7 +1170,7 @@
+         <segtitle>&testsuites;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Diffutils, Less</seg>
++          <seg>Diffutils and Less</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1375,7 +1376,7 @@
+ 
+         <seglistitem>
+          <seg>Bash, Binutils, Bison, Coreutils, Flex, GCC, Gettext, Glibc,
+-         Gzip, Make, Sed, Xz-Utils, Zlib</seg>
++         Gzip, Make, Sed, Xz-Utils, and Zlib</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1446,7 +1447,8 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Attr, Bash, Binutils, Coreutils, GCC, Glibc, Perl, Make, and Sed</seg>
++         <seg>Attr, Bash, Binutils, Coreutils, GCC, Glibc, Perl, Make,
++         and Sed</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1561,7 +1563,7 @@
+         <segtitle>&testsuites;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Autoconf, Automake, Findutils</seg>
++          <seg>Autoconf, Automake, and Findutils</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1588,8 +1590,8 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Bc, Binutils, Coreutils, Diffutils, Findutils, GCC, Glibc, Grep,
+-         Gzip, Kmod, Make, Ncurses, OpenSSL, Perl, and Sed</seg>
++         <seg>Bash, Bc, Binutils, Coreutils, Diffutils, Findutils, GCC, Glibc,
++         Grep, Gzip, Kmod, Make, Ncurses, OpenSSL, Perl, and Sed</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1803,7 +1805,7 @@
+ 
+         <seglistitem>
+          <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep, GMP,
+-         Make, MPFR, Sed and Texinfo</seg>
++         Make, MPFR, Sed, and Texinfo</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1839,7 +1841,7 @@
+ 
+         <seglistitem>
+          <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Glibc, Grep, GMP,
+-         Make, Sed and Texinfo</seg>
++         Make, Sed, and Texinfo</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1855,7 +1857,7 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Gawk, GCC</seg>
++          <seg>Gawk and GCC</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1891,8 +1893,8 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Bash, GRUB, Inetutils, Less, Procps-ng, Psmisc, Readline, Texinfo,
+-          Util-linux, and Vim</seg>
++          <seg>Bash, GRUB, Inetutils, Less, Procps-ng, Psmisc, Readline,
++          Texinfo, Util-linux, and Vim</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1911,7 +1913,7 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Binutils, Coreutils, Gcc, Python</seg>
++         <seg>Binutils, Coreutils, Gcc, and Python</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1946,7 +1948,7 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Binutils, Coreutils, Gcc, Make, Perl</seg>
++         <seg>Binutils, Coreutils, Gcc, Make, and Perl</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -2088,7 +2090,7 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep, Make</seg>
++         <seg>Bash, Binutils, Coreutils, Gawk, GCC, Glibc, Grep, and Make</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -2158,8 +2160,8 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, GCC, Gettext, Glibc, Grep, Make, Ncurses,
+-         and Sed</seg>
++         <seg>Bash, Binutils, Coreutils, GCC, Gettext, Glibc, Grep, Make,
++         Ncurses, and Sed</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -2247,7 +2249,7 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Bash, Gawk</seg>
++          <seg>Bash and Gawk</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -2327,7 +2329,7 @@
+         <segtitle>&external;</segtitle>
+ 
+         <seglistitem>
+-          <seg>Acl, Attr, Cracklib, PAM</seg>
++          <seg>Acl, Attr, Cracklib, and PAM</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -2553,8 +2555,8 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, Diffutils, Findutils, Gawk, GCC,
+-         Gettext, Glibc, Grep, Make, Ncurses, Sed, Eudev, and Zlib</seg>
++         <seg>Bash, Binutils, Coreutils, Diffutils, Eudev, Findutils, Gawk, GCC,
++         Gettext, Glibc, Grep, Make, Ncurses, Sed, and Zlib</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -2578,7 +2580,7 @@
+         <segtitle>&external;</segtitle>
+ 
+         <seglistitem>
+-          <seg><ulink url="https://people.redhat.com/sgrubb/libcap-ng/">libcap-ng</ulink></seg>
++          <seg><ulink url="https://people.redhat.com/sgrubb/libcap-ng/">Libcap-ng</ulink></seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -2660,7 +2662,7 @@
+         <segtitle>&dependencies;</segtitle>
+ 
+         <seglistitem>
+-         <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Glibc, and Make.</seg>
++         <seg>Bash, Binutils, Coreutils, Diffutils, GCC, Glibc, and Make</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -2676,7 +2678,7 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>GRUB, Kmod, Man-DB, Eudev</seg>
++          <seg>Eudev, GRUB, Kmod, and Man-DB</seg>
+         </seglistitem>
+       </segmentedlist>
+ 

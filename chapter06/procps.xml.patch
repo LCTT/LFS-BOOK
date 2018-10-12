@@ -1,0 +1,14 @@
+diff --git a/chapter06/procps.xml b/chapter06/procps.xml
+index 0df21e4..59bf086 100644
+--- a/chapter06/procps.xml
++++ b/chapter06/procps.xml
+@@ -83,9 +83,6 @@ sed -i '/set tty/d' testsuite/pkill.test/pkill.exp
+ rm testsuite/pgrep.test/pgrep.exp
+ make check</userinput></screen>
+ 
+-    <para>One ps test may fail, but passes if the tests are rerun at 
+-    the end of Chapter&nbsp;6.</para>
+-
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make install</userinput></screen>

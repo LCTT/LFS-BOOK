@@ -1,0 +1,13 @@
+diff --git a/chapter06/grep.xml b/chapter06/grep.xml
+index 58b0db3..2d46eb7 100644
+--- a/chapter06/grep.xml
++++ b/chapter06/grep.xml
+@@ -50,7 +50,7 @@
+ 
+     <para>To test the results, issue:</para>
+ 
+-<screen><userinput remap="test">make check</userinput></screen>
++<screen><userinput remap="test">make -k check</userinput></screen>
+ 
+     <para>Install the package:</para>
+ 

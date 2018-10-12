@@ -1,0 +1,30 @@
+diff --git a/chapter06/coreutils.xml b/chapter06/coreutils.xml
+index b03e3e6..a228fdf 100644
+--- a/chapter06/coreutils.xml
++++ b/chapter06/coreutils.xml
+@@ -62,7 +62,8 @@
+ 
+     <para>Now prepare Coreutils for compilation:</para>
+ 
+-<screen><userinput remap="configure">FORCE_UNSAFE_CONFIGURE=1 ./configure \
++<screen><userinput remap="configure">autoreconf -fiv
++FORCE_UNSAFE_CONFIGURE=1 ./configure \
+             --prefix=/usr            \
+             --enable-no-install-program=kill,uptime</userinput></screen>
+ 
+@@ -70,6 +71,15 @@
+       <title>The meaning of the configure options:</title>
+ 
+       <varlistentry>
++        <term><command>autoreconf</command></term>
++        <listitem>
++          <para>This command updates generated configuration files 
++          consistent with the latest version of automake.
++          </para>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry>
+         <term><envar>FORCE_UNSAFE_CONFIGURE=1</envar></term>
+         <listitem>
+           <para>This environment variable allows the package to be 

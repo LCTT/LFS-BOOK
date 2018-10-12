@@ -1,0 +1,27 @@
+diff --git a/chapter06/bison.xml b/chapter06/bison.xml
+index 31e9570..dd415fe 100644
+--- a/chapter06/bison.xml
++++ b/chapter06/bison.xml
+@@ -39,11 +39,7 @@
+ 
+   <sect2 role="installation">
+     <title>Installation of Bison</title>
+-<!-- bison only installs a static library
+-    <para>Inhibit static library installation:</para>
+ 
+-<screen><userinput remap="pre">sed -i '/lib_LIBRARIES =/d' Makefile.in</userinput></screen>    
+--->
+     <para>Prepare Bison for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/bison-&bison-version;</userinput></screen>
+@@ -60,8 +56,8 @@
+ 
+     <para>There is a circular dependency between bison and flex with regard to
+     the checks.  If desired, after installing flex in the next section, the
+-    bison checks can be run with <command>make check</command>.  Three
+-    tests related to lalr1.cc fail for unknown reasons.</para>
++    bison can be rebuilt and the bison checks can be run with 
++    <command>make check</command>.</para>
+ 
+     <para>Install the package:</para>
+ 
