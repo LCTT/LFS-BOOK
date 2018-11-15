@@ -25,7 +25,7 @@
 <!-- Note: Only Saxon 6.4.2 or later is supported. -->
 
 <xsl:param name="chunker.output.method" select="'html'"/>
-<xsl:param name="chunker.output.encoding" select="'ISO-8859-1'"/>
+<xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
 <xsl:param name="chunker.output.indent" select="'no'"/>
 <xsl:param name="chunker.output.omit-xml-declaration" select="'no'"/>
 <xsl:param name="chunker.output.standalone" select="'no'"/>
