@@ -5,48 +5,45 @@
   %general-entities;
 ]>
 
-<appendix id="appendixb" xreflabel="Appendix B">
+<appendix id="appendixb" xreflabel="附录 B">
   <?dbhtml dir="appendices"?>
   <?dbhtml filename="acknowledgments.html"?>
 
-  <title>Acknowledgments</title>
+  <title>致谢</title>
 
-  <para>We would like to thank the following people and organizations
-  for their contributions to the Linux From Scratch Project.</para>
+  <para>我们十分感谢下列为 Linux From Scratch 项目做出了贡献的贡献者和组织。</para>
 
   <itemizedlist>
 
     <listitem>
-      <para><ulink url="mailto:gerard@linuxfromscratch.org">Gerard
+      <para>Gerard
       Beekmans</ulink> &lt;gerard@linuxfromscratch.org&gt; &ndash;
-      LFS Creator</para>
+      LFS 创始人</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:bdubbs@linuxfromscratch.org">Bruce
-      Dubbs</ulink> &lt;bdubbs@linuxfromscratch.org&gt; &ndash; LFS Managing
-      Editor</para>
+      Dubbs</ulink> &lt;bdubbs@linuxfromscratch.org&gt; &ndash; LFS 管理编辑</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:jim@linuxfromscratch.org">Jim
-      Gifford</ulink> &lt;jim@linuxfromscratch.org&gt; &ndash; CLFS Project
-      Co-Leader</para>
+      Gifford</ulink> &lt;jim@linuxfromscratch.org&gt; &ndash; CLFS 项目共同负责人</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:pierre@linuxfromscratch.org">Pierre Labastie</ulink>
-      &lt;pierre@linuxfromscratch.org&gt; &ndash; BLFS Editor and ALFS Lead</para>
+      &lt;pierre@linuxfromscratch.org&gt; &ndash; BLFS 编辑和 ALFS 负责人</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:dj@linuxfromscratch.org">DJ Lucas</ulink>
-      &lt;dj@linuxfromscratch.org&gt; &ndash; LFS and BLFS Editor</para>
+      &lt;dj@linuxfromscratch.org&gt; &ndash; LFS 和 BLFS 编辑</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:ken@linuxfromscratch.org">Ken Moffat</ulink>
-      &lt;ken@linuxfromscratch.org&gt; &ndash; BLFS Editor</para>
+      &lt;ken@linuxfromscratch.org&gt; &ndash; BLFS 编辑</para>
     </listitem>
 
     <listitem>
@@ -55,249 +52,251 @@
     </listitem>
 
     <listitem>
-      <para>Countless other people on the various LFS and BLFS mailing lists
-      who helped make this book possible by giving their suggestions, testing
-      the book, and submitting bug reports, instructions, and their
-      experiences with installing various packages.</para>
+      <para>在 LFS 和 BLFS 的邮件列表里还有无数同志为本书的发布帮过忙，他们提供建议，帮忙测试，提交问题报告和指令，以及分享他们安装各种软件包的经验。</para>
     </listitem>
 
   </itemizedlist>
 
-  <bridgehead renderas="sect2">Translators</bridgehead>
+  <bridgehead renderas="sect2">翻译</bridgehead>
+
+  <bridgehead renderas="sect3">简体中文</bridgehead>
+
+    <itemizedlist>
+
+    <listitem>
+      <para><ulink url="https://linux.cn/lctt/">Linux 中国 - LCTT - LFS 翻译小组</ulink></para>
+
+      <itemizedlist>
+
+        <listitem>
+          <para>
+            <ulink url="https://github.com/wxy">wxy</ulink>，
+            <ulink url="https://github.com/ictlyh">ictlyh</ulink>，
+            <ulink url="https://github.com/dongfengweixiao">dongfengweixiao</ulink>，
+            <ulink url="https://github.com/zpl1025">zpl1025</ulink>，
+            <ulink url="https://github.com/H-mudcup">H-mudcup</ulink>，
+            <ulink url="https://github.com/Yuking-net">Yuking-net</ulink>，
+            <ulink url="https://github.com/kevinSJ">kevinSJ</ulink>,
+            <ulink url="https://github.com/martin2011qi">martin2011qi</ulink>，
+            <ulink url="https://github.com/vizv">vizv</ulink>，
+            <ulink url="https://github.com/strugglingyouth">strugglingyouth</ulink>，
+            <ulink url="https://github.com/Athenacle">Athenacle</ulink>
+            <ulink url="https://github.com/haoqixu">haoqixu</ulink>
+          </para>
+        </listitem>
+
+      </itemizedlist>
+    </listitem>
+
+  </itemizedlist>
 
   <itemizedlist>
 
     <listitem>
       <para><ulink url="mailto:macana@macana-es.com">Manuel Canales
-      Esparcia</ulink> &lt;macana@macana-es.com&gt; &ndash; Spanish
-      LFS translation project</para>
+      Esparcia</ulink> &lt;macana@macana-es.com&gt; &ndash; 西班牙语翻译项目</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:johan@linuxfromscratch.org">Johan
-      Lenglet</ulink> &lt;johan@linuxfromscratch.org&gt; &ndash; French LFS
-      translation project until 2008</para>
+      Lenglet</ulink> &lt;johan@linuxfromscratch.org&gt; &ndash; 2008 年以前的 LFS 法语翻译项目</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:jmengual@linuxfromscratch.org">Jean-Philippe 
-      Mengual </ulink> &lt;jmengual@linuxfromscratch.org&gt; &ndash; French LFS
-      translation project 2008-2016</para>
+      Mengual </ulink> &lt;jmengual@linuxfromscratch.org&gt; &ndash; 2008-2016 年的 LFS 法语翻译项目</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:jlepiller@linuxfromscratch.org">Julien 
-      Lepiller </ulink> &lt;jlepiller@linuxfromscratch.org&gt; &ndash; French LFS
-      translation project 2017-present</para>
+      Lepiller </ulink> &lt;jlepiller@linuxfromscratch.org&gt; &ndash; 2017 年至今的 LFS 法语翻译项目</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:lizardo@linuxfromscratch.org">Anderson
       Lizardo</ulink> &lt;lizardo@linuxfromscratch.org&gt; &ndash;
-      Portuguese LFS translation project</para>
+      LFS 葡萄牙语翻译项目</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:tr@erdfunkstelle.de">Thomas
-      Reitelbach </ulink> &lt;tr@erdfunkstelle.de&gt; &ndash; German LFS
-      translation project</para>
-    </listitem>
-
-    <listitem>
-      <para><ulink url="mailto:info@linuxfromscratch.org.ru">Anton Maisak</ulink> 
-      &lt;info@linuxfromscratch.org.ru&gt; &ndash; Russian LFS
-      translation project</para>
-    </listitem>
-
-    <listitem>
-      <para><ulink url="mailto:helen@linuxfromscratch.org.ru">Elena Shevcova</ulink> 
-      &lt;helen@linuxfromscratch.org.ru&gt; &ndash; Russian LFS
-      translation project</para>
+      Reitelbach </ulink> &lt;tr@erdfunkstelle.de&gt; &ndash; LFS 德语翻译项目</para>
     </listitem>
 
   </itemizedlist>
 
-  <bridgehead renderas="sect2">Mirror Maintainers</bridgehead>
+  <bridgehead renderas="sect2">镜像维护者</bridgehead>
 
-  <bridgehead renderas="sect3">North American Mirrors</bridgehead>
+  <bridgehead renderas="sect3">北美镜像</bridgehead>
 
-  <itemizedlist>
+<itemizedlist>
 
     <listitem>
       <para><ulink url="mailto:scott@osuosl.org">Scott Kveton</ulink>
-      &lt;scott@osuosl.org&gt; &ndash; lfs.oregonstate.edu mirror</para>
+      &lt;scott@osuosl.org&gt; &ndash; lfs.oregonstate.edu 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:lost@l-w.net">William Astle</ulink>
-      &lt;lost@l-w.net&gt; &ndash; ca.linuxfromscratch.org mirror</para>
+      &lt;lost@l-w.net&gt; &ndash; ca.linuxfromscratch.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:eujon.sellers@gmail.com">Eujon Sellers</ulink>
-      &lt;jpolen@rackspace.com&gt; &ndash; lfs.introspeed.com mirror</para>
+      &lt;jpolen@rackspace.com&gt; &ndash; lfs.introspeed.com 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:justin@knierim.org">Justin Knierim</ulink>
-      &lt;tim@idge.net&gt; &ndash; lfs-matrix.net mirror</para>
+      &lt;tim@idge.net&gt; &ndash; lfs-matrix.net 镜像</para>
     </listitem>
 
   </itemizedlist>
 
-  <bridgehead renderas="sect3">South American Mirrors</bridgehead>
+  <bridgehead renderas="sect3">南美镜像</bridgehead>
 
   <itemizedlist>
 
     <listitem>
       <para><ulink url="mailto:manuel@linuxfromscratch.org">Manuel
       Canales Esparcia</ulink> &lt;manuel@linuxfromscratch.org&gt; &ndash;
-      lfsmirror.lfs-es.info mirror</para>
+      lfsmirror.lfs-es.info 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:lfalcon@thymbra.com">Luis Falcon</ulink>
-      &lt;Luis Falcon&gt; &ndash; torredehanoi.org mirror</para>
+      &lt;Luis Falcon&gt; &ndash; torredehanoi.org 镜像</para>
     </listitem>
 
   </itemizedlist>
 
-  <bridgehead renderas="sect3">European Mirrors</bridgehead>
+   <bridgehead renderas="sect3">欧洲镜像</bridgehead>
 
   <itemizedlist>
 
     <listitem>
       <para><ulink url="mailto:guido@primerelay.net">Guido Passet</ulink>
-      &lt;guido@primerelay.net&gt; &ndash; nl.linuxfromscratch.org mirror</para>
+      &lt;guido@primerelay.net&gt; &ndash; nl.linuxfromscratch.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:baafie@planet.nl">Bastiaan Jacques</ulink>
-      &lt;baafie@planet.nl&gt; &ndash; lfs.pagefault.net mirror</para>
+      &lt;baafie@planet.nl&gt; &ndash; lfs.pagefault.net 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:sven.cranshoff@lineo.be">Sven Cranshoff</ulink>
-      &lt;sven.cranshoff@lineo.be&gt; &ndash; lfs.lineo.be mirror</para>
+      &lt;sven.cranshoff@lineo.be&gt; &ndash; lfs.lineo.be 镜像</para>
     </listitem>
 
     <listitem>
-      <para>Scarlet Belgium &ndash; lfs.scarlet.be mirror</para>
+      <para>Scarlet Belgium &ndash; lfs.scarlet.be 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:info@aliensoft.org">Sebastian Faulborn</ulink>
-      &lt;info@aliensoft.org&gt; &ndash; lfs.aliensoft.org mirror</para>
+      &lt;info@aliensoft.org&gt; &ndash; lfs.aliensoft.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:stuart@dontuse.ms">Stuart Fox</ulink>
-      &lt;stuart@dontuse.ms&gt; &ndash; lfs.dontuse.ms mirror</para>
+      &lt;stuart@dontuse.ms&gt; &ndash; lfs.dontuse.ms 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:admin@realhost.de">Ralf Uhlemann</ulink>
-      &lt;admin@realhost.de&gt; &ndash; lfs.oss-mirror.org mirror</para>
+      &lt;admin@realhost.de&gt; &ndash; lfs.oss-mirror.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:Antonin.Sprinzl@tuwien.ac.at">Antonin
       Sprinzl</ulink> &lt;Antonin.Sprinzl@tuwien.ac.at&gt; &ndash;
-      at.linuxfromscratch.org mirror</para>
+      at.linuxfromscratch.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:fredan-lfs@fredan.org">Fredrik
       Danerklint</ulink> &lt;fredan-lfs@fredan.org&gt; &ndash;
-      se.linuxfromscratch.org mirror</para>
+      se.linuxfromscratch.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:franck@linuxpourtous.com">Franck</ulink>
-      &lt;franck@linuxpourtous.com&gt; &ndash; lfs.linuxpourtous.com mirror</para>
+      &lt;franck@linuxpourtous.com&gt; &ndash; lfs.linuxpourtous.com 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:baque@cict.fr">Philippe Baque</ulink>
-      &lt;baque@cict.fr&gt; &ndash; lfs.cict.fr mirror</para>
+      &lt;baque@cict.fr&gt; &ndash; lfs.cict.fr 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:gyouja@pilgrims.ru">Vitaly Chekasin</ulink>
-      &lt;gyouja@pilgrims.ru&gt; &ndash; lfs.pilgrims.ru mirror</para>
+      &lt;gyouja@pilgrims.ru&gt; &ndash; lfs.pilgrims.ru 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:kontakt@wankoo.org">Benjamin Heil</ulink>
-      &lt;kontakt@wankoo.org&gt; &ndash; lfs.wankoo.org mirror</para>
+      &lt;kontakt@wankoo.org&gt; &ndash; lfs.wankoo.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:info@linuxfromscratch.org.ru">Anton Maisak</ulink>
-      &lt;info@linuxfromscratch.org.ru&gt; &ndash; linuxfromscratch.org.ru mirror</para>
+      &lt;info@linuxfromscratch.org.ru&gt; &ndash; linuxfromscratch.org.ru 镜像</para>
     </listitem>
 
   </itemizedlist>
 
-  <bridgehead renderas="sect3">Asian Mirrors</bridgehead>
+  <bridgehead renderas="sect3">亚洲镜像</bridgehead>
 
   <itemizedlist>
 
     <listitem>
       <para><ulink url="mailto:satit@wbac.ac.th">Satit Phermsawang</ulink>
-      &lt;satit@wbac.ac.th&gt; &ndash; lfs.phayoune.org mirror</para>
+      &lt;satit@wbac.ac.th&gt; &ndash; lfs.phayoune.org 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:info@shizu-net.jp">Shizunet Co.,Ltd.</ulink>
-      &lt;info@shizu-net.jp&gt; &ndash; lfs.mirror.shizu-net.jp mirror</para>
+      &lt;info@shizu-net.jp&gt; &ndash; lfs.mirror.shizu-net.jp 镜像</para>
     </listitem>
 
     <listitem>
       <para><ulink url="http://www.initworld.com/">Init World</ulink>
-      &lt;http://www.initworld.com/&gt; &ndash; lfs.initworld.com mirror</para>
+      &lt;http://www.initworld.com/&gt; &ndash; lfs.initworld.com 镜像</para>
     </listitem>
 
   </itemizedlist>
 
-  <bridgehead renderas="sect3">Australian Mirrors</bridgehead>
+   <bridgehead renderas="sect3">澳大利亚镜像</bridgehead>
 
   <itemizedlist>
 
     <listitem>
       <para><ulink url="mailto:jason@dstc.edu.au">Jason Andrade</ulink>
-      &lt;jason@dstc.edu.au&gt; &ndash; au.linuxfromscratch.org mirror</para>
+      &lt;jason@dstc.edu.au&gt; &ndash; au.linuxfromscratch.org 镜像</para>
     </listitem>
 
   </itemizedlist>
 
-  <bridgehead renderas="sect2">Former Project Team Members</bridgehead>
+ <bridgehead renderas="sect2">前项目组成员</bridgehead>
 
   <itemizedlist>
 
     <listitem>
       <para><ulink url="mailto:theladyskye@linuxfromscratch.org">Christine
-      Barczak</ulink> &lt;theladyskye@linuxfromscratch.org&gt; &ndash; LFS
-      Book Editor</para>
+      Barczak</ulink> &lt;theladyskye@linuxfromscratch.org&gt; &ndash; LFS 手册编辑</para>
     </listitem>
 
     <listitem>
       <para>Archaic
-      &lt;archaic@linuxfromscratch.org&gt; &ndash; LFS Technical Writer/Editor,
-      HLFS Project Leader, BLFS Editor, Hints and Patches Project
-      Maintainer</para>
+      &lt;archaic@linuxfromscratch.org&gt; &ndash;LFS 技术作家/编辑，HLFS 项目负责人，BLFS 编辑，Hints and Patches 项目维护者</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:matthew@linuxfromscratch.org">Matthew
       Burgess</ulink> &lt;matthew@linuxfromscratch.org&gt; &ndash;
-      LFS Project Leader, LFS Technical Writer/Editor</para>
-    </listitem>
-
-    <listitem>
-      <para><ulink url="mailto:nathan@linuxfromscratch.org">Nathan
-      Coulson</ulink> &lt;nathan@linuxfromscratch.org&gt; &ndash;
-      LFS-Bootscripts Maintainer</para>
+      LFS 项目负责人，LFS 技术作家/编辑</para>
     </listitem>
 
     <listitem>
@@ -314,18 +313,17 @@
 
     <listitem>
       <para><ulink url="mailto:jeroen@linuxfromscratch.org">Jeroen
-      Coumans</ulink> &lt;jeroen@linuxfromscratch.org&gt; &ndash; Website
-      Developer, FAQ Maintainer</para>
+      Coumans</ulink> &lt;jeroen@linuxfromscratch.org&gt; &ndash; 网站开发者，FAQ 维护者</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:manuel@linuxfromscratch.org">Manuel
       Canales Esparcia</ulink> &lt;manuel@linuxfromscratch.org&gt; &ndash;
-      LFS/BLFS/HLFS XML and XSL Maintainer</para>
+      LFS/BLFS/HLFS XML 和 XSL 版本维护者</para>
     </listitem>
 
     <listitem>
-      <para>Alex Groenewoud &ndash; LFS Technical Writer</para>
+      <para>Alex Groenewoud &ndash; LFS 技术作家</para>
     </listitem>
 
     <listitem>
@@ -334,51 +332,43 @@
 
     <listitem>
       <para><ulink url="mailto:jhuntwork@linuxfromscratch.org">Jeremy
-      Huntwork</ulink> &lt;jhuntwork@linuxfromscratch.org&gt; &ndash; LFS
-      Technical Writer, LFS LiveCD Maintainer</para>
+      Huntwork</ulink> &lt;jhuntwork@linuxfromscratch.org&gt; &ndash; LFS 技术作家，LFS LiveCD 维护者</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:bryan@linuxfromscratch.org">Bryan
-      Kadzban</ulink> &lt;bryan@linuxfromscratch.org&gt; &ndash; LFS
-      Technical Writer</para>
+      Kadzban</ulink> &lt;bryan@linuxfromscratch.org&gt; &ndash; LFS 技术作家</para>
     </listitem>
 
     <listitem>
       <para>Mark Hymers</para>
     </listitem>
 
-    <listitem><para>Seth W. Klein &ndash; FAQ maintainer</para></listitem>
+    <listitem><para>Seth W. Klein &ndash; FAQ 维护者</para></listitem>
 
     <listitem>
       <para><ulink url="mailto:nicholas@linuxfromscratch.org">Nicholas
-      Leippe</ulink> &lt;nicholas@linuxfromscratch.org&gt; &ndash; Wiki
-      Maintainer</para>
+      Leippe</ulink> &lt;nicholas@linuxfromscratch.org&gt; &ndash; Wiki 维护者</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:lizardo@linuxfromscratch.org">Anderson
-      Lizardo</ulink> &lt;lizardo@linuxfromscratch.org&gt; &ndash; Website
-      Backend-Scripts Maintainer</para>
+      Lizardo</ulink> &lt;lizardo@linuxfromscratch.org&gt; &ndash; 网站 Backend-Scripts 维护者</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:randy@linuxfromscratch.org">Randy
-      McMurchy</ulink> &lt;randy@linuxfromscratch.org&gt; &ndash; BLFS
-      Project Leader, LFS Editor</para>
+      McMurchy</ulink> &lt;randy@linuxfromscratch.org&gt; &ndash; BLFS 项目负责人，LFS 编辑</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:dnicholson@linuxfromscratch.org">Dan
-      Nicholson</ulink> &lt;dnicholson@linuxfromscratch.org&gt; &ndash; LFS and
-      BLFS Editor</para>
+      Nicholson</ulink> &lt;dnicholson@linuxfromscratch.org&gt; &ndash; LFS 和 BLFS 编辑</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:alexander@linuxfromscratch.org">Alexander
-      E. Patrakov</ulink> &lt;alexander@linuxfromscratch.org&gt; &ndash; LFS
-      Technical Writer, LFS Internationalization Editor,
-      LFS Live CD Maintainer</para>
+      E. Patrakov</ulink> &lt;alexander@linuxfromscratch.org&gt; &ndash; LFS 技术作家，LFS 国际化编辑，LFS LiveCD 维护者</para>
     </listitem>
 
     <listitem>
@@ -387,47 +377,41 @@
 
     <listitem>
       <para><ulink url="mailto:scot@linuxfromscratch.org">Scot Mc
-      Pherson</ulink> &lt;scot@linuxfromscratch.org&gt; &ndash; LFS NNTP
-      Gateway Maintainer</para>
+      Pherson</ulink> &lt;scot@linuxfromscratch.org&gt; &ndash; LFS NNTP Gateway 维护者</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:ryan@linuxfromscratch.org">Ryan
-      Oliver</ulink> &lt;ryan@linuxfromscratch.org&gt; &ndash; CLFS Project
-      Co-Leader</para>
+      Oliver</ulink> &lt;ryan@linuxfromscratch.org&gt; &ndash; CLFS 项目联合负责人</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:gschafer@zip.com.au">Greg Schafer</ulink>
-      &lt;gschafer@zip.com.au&gt; &ndash; LFS Technical Writer and
-      Architect of the Next Generation 64-bit-enabling Build Method</para>
+      &lt;gschafer@zip.com.au&gt; &ndash; LFS 技术作家，下一代 64 位模式构建模型架构师</para>
     </listitem>
 
     <listitem>
-      <para>Jesse Tie-Ten-Quee &ndash; LFS Technical Writer</para>
+      <para>Jesse Tie-Ten-Quee &ndash; LFS 技术作家</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:jwrober@linuxfromscratch.org">James
-      Robertson</ulink> &lt;jwrober@linuxfromscratch.org&gt; &ndash; Bugzilla
-      Maintainer</para>
+      Robertson</ulink> &lt;jwrober@linuxfromscratch.org&gt; &ndash; Bugzilla 维护者</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:tushar@linuxfromscratch.org">Tushar
-      Teredesai</ulink> &lt;tushar@linuxfromscratch.org&gt; &ndash; BLFS Book
-      Editor, Hints and Patches Project Leader</para>
+      Teredesai</ulink> &lt;tushar@linuxfromscratch.org&gt; &ndash; BLFS 手册编辑，Hints and Patches 项目负责人</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:jeremy@linuxfromscratch.org">Jeremy
-      Utley</ulink> &lt;jeremy@linuxfromscratch.org&gt; &ndash; LFS Technical
-      Writer, Bugzilla Maintainer, LFS-Bootscripts Maintainer</para>
+      Utley</ulink> &lt;jeremy@linuxfromscratch.org&gt; &ndash; LFS 技术作家，Bugzilla 维护者，LFS-Bootscripts 维护者</para>
     </listitem>
 
     <listitem>
       <para><ulink url="mailto:zwinkles@gmail.com">Zack Winkles</ulink>
-      &lt;zwinkles@gmail.com&gt; &ndash; LFS Technical Writer</para>
+      &lt;zwinkles@gmail.com&gt; &ndash; LFS 技术作家</para>
     </listitem>
 
   </itemizedlist>
