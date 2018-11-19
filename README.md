@@ -3,4 +3,5 @@
  * [https://lctt.github.io/LFS-BOOK/][1]
  ## 协作规范
  * **开始前，请务必保证阅读并理解** [CONTRIBUTING.md](CONTRIBUTING.md)
+ 
  [1]: https://lctt.github.io/LFS-BOOK/
