@@ -29,7 +29,7 @@
 <!ENTITY autoconf-home "&gnu-software;autoconf/">
 <!ENTITY autoconf-ch6-du "17.3 MB">
 <!ENTITY autoconf-ch6-sbu-tests "3.5">
-<!ENTITY autoconf-ch6-sbu "少于 0.1 SBU （包含测试大于 &autoconf-ch6-sbu-tests; SBU）>
+<!ENTITY autoconf-ch6-sbu "少于 0.1 SBU （包含测试大于 &autoconf-ch6-sbu-tests; SBU）">
 
 <!ENTITY automake-version "1.16.1">
 <!ENTITY am-minor-version "1.16">
