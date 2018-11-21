@@ -21,7 +21,7 @@
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Binutils-2.25/emphasis> （不推荐安装  &binutils-version; 以上的版本，它们没有经过测试，并不敢保证没有问题）</para>
+      <para><emphasis role="strong">Binutils-2.25</emphasis> （不推荐安装  &binutils-version; 以上的版本，它们没有经过测试，并不敢保证没有问题）</para>
     </listitem>
 
     <listitem>
