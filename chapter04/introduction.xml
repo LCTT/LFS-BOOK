@@ -8,15 +8,8 @@
 <sect1 id="prepare-introduction">
   <?dbhtml filename="introduction.html"?>
 
-  <title>Introduction</title>
+  <title>简介</title>
 
-  <para>In this chapter, we will perform a few additional tasks to prepare
-  for building the temporary system. We will create a directory in
-  <filename class="directory">$LFS</filename> for the installation of the
-  temporary tools, add an unprivileged user to reduce risk,
-  and create an appropriate build environment for that user. We will also
-  explain the unit of time we use to measure how long LFS packages take to
-  build, or <quote>SBUs</quote>, and give some information about package
-  test suites.</para>
+  <para>在本章，我们还需要为构建临时系统做一些额外的准备工作。我们会在 <filename class="directory">$LFS</filename> 中新建一个用于安装临时工具的目录，增加一个非特权用户用于降低风险，并为该用户创建合适的构建环境。我们还会解释用于测量构建 LFS 软件包花费时间的单位，或称「SBUs」，并给出一些关于软件包测试套件的信息。</para>
 
 </sect1>
