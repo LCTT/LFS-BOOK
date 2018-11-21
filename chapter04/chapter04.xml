@@ -5,11 +5,11 @@
   %general-entities;
 ]>
 
-<chapter id="chapter-final-preps" xreflabel="Chapter&nbsp;4">
+<chapter id="chapter-final-preps" xreflabel="第 4 章">
   <?dbhtml dir="chapter04"?>
   <?dbhtml filename="chapter04.html"?>
 
-  <title>Final Preparations</title>
+  <title>最后的准备工作</title>
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
   <!--<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="aboutlfs.xml"/>-->
