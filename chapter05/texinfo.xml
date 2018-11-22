@@ -41,29 +41,25 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Texinfo</title>
+    <title>安装 Texinfo</title>
 
-    <para>Prepare Texinfo for compilation:</para>
+    <para>配置 Texinfo 准备编译：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/tools</userinput></screen>
 
     <note>
-      <para>As part of the configure process, a test is made that indicates an
-      error for TestXS_la-TestXS.lo.  This is not relevant for LFS and should be
-      ignored.</para>
+      <para>作为配制过程的一部分，有一个测试会指出 TestXS_la-TestXS.lo 有一处错误。这与 LFS 没有关系，可以忽略。</para>
     </note>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Compilation is now complete. As discussed earlier, running the test
-    suite is not mandatory for the temporary tools here in this chapter. To run
-    the Texinfo test suite anyway, issue the following command:</para>
+    <para>现在编译已经完成。之前说过，不要求为本章中所构建的临时工具运行测试套件。不过你仍然要测试 Texinfo 的话可以用下面的命令：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
@@ -72,8 +68,8 @@
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
-    <xref linkend="contents-texinfo" role="."/></para>
+    <para>关于这个软件包的详细资料请参见：
+    <xref linkend="contents-texinfo"/>。</para>
 
   </sect2>
 
