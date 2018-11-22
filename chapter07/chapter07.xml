@@ -5,11 +5,11 @@
   %general-entities;
 ]>
 
-<chapter id="chapter-bootscripts" xreflabel="Chapter&nbsp;7">
+<chapter id="chapter-bootscripts" xreflabel="第 7 章">
   <?dbhtml dir="chapter07"?>
   <?dbhtml filename="chapter07.html"?>
 
-  <title>System Configuration</title>
+  <title>基本系统配置</title>
 
   <!-- sysv -->
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
