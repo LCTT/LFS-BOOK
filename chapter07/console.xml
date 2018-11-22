@@ -317,8 +317,7 @@ EOF</userinput></screen>
 
 <screen role="nodump"><userinput>localectl set-keymap MAP</userinput></screen>
 
-  <note><para>Please note that <command>localectl</command> command can
-  be used  only on a system booted with Systemd.</para></note>
+  <note><para><command>localectl</command> 仅可用于 systemd 环境。</para></note>
 
   </sect2>
 
