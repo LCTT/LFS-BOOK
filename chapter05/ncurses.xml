@@ -41,13 +41,13 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Ncurses</title>
+    <title>安装 Ncurses</title>
 
-    <para>First, ensure that <command>gawk</command> is found first during configuration:</para>
+    <para>在安装之前，须要确保 <command>gawk</command> 在第一次配置时已经找到：</para>
 
 <screen><userinput remap="pre">sed -i s/mawk// configure</userinput></screen>
 
-    <para>Prepare Ncurses for compilation:</para>
+    <para>配置 Ncurses 准备编译：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/tools \
             --with-shared   \
@@ -57,55 +57,38 @@
             --enable-overwrite</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置脚本参数的含义：</title>
 
       <varlistentry>
         <term><parameter>--without-ada</parameter></term>
         <listitem>
-          <para>This ensures that Ncurses does not build support for the Ada
-          compiler which may be present on the host but will not be available
-          once we enter the <command>chroot</command> environment.</para>
+          <para>这个选项会保证 Ncurse 不会编译对宿主机系统里可能存在的 Ada 编译器的支持，而这在我们 <command>chroot</command> 切换环境后就不再可用。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--enable-overwrite</parameter></term>
         <listitem>
-          <para>This tells Ncurses to install its header files into
-          <filename class="directory">/tools/include</filename>, instead of
-          <filename class="directory">/tools/include/ncurses</filename>, to
-          ensure that other packages can find the Ncurses headers
-          successfully.</para>
+          <para>这个选项会告诉 Ncurses 安装它的头文件到 <filename class="directory">/tools/include</filename> 目录，而不是 <filename class="directory">/tools/include/ncurses</filename> 目录，保证其他软件包可以正常找到 Ncurses 的头文件。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--enable-widec</parameter></term>
         <listitem>
-          <para>This switch causes wide-character libraries (e.g., <filename
-          class="libraryfile">libncursesw.so.&ncurses-version;</filename>)
-          to be built instead of normal ones (e.g., <filename
-          class="libraryfile">libncurses.so.&ncurses-version;</filename>).
-          These wide-character libraries are usable in both multibyte and
-          traditional 8-bit locales, while normal libraries work properly
-          only in 8-bit locales. Wide-character and normal libraries are
-          source-compatible, but not binary-compatible.</para>
+          <para>这个选项会控制编译宽字符库（比如，<filename class="libraryfile">libncursesw.so.&ncurses-version;</filename>）而不是默认的普通库（比如，<filename class="libraryfile">libncurses.so.&ncurses-version;</filename> ）。这些宽字符库在多字节和传统的 8 位环境下使用，而普通库只能用于 8 位环境。宽字符库和普通库的源代码是兼容的，但并不是二进制兼容。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>This package has a test suite, but it can only be run after the
-    package has been installed.  The tests reside in the
-    <filename class="directory">test/</filename> directory.  See the
-    <filename>README</filename> file in that directory for further details.
-    </para>
+    <para>这个软件包有测试套件，但是只有在安装后才能执行。测试用例在 <filename class="directory">test/</filename> 目录里。查看该目录下的 <filename>README</filename> 文件了解更多细节。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
@@ -114,8 +97,8 @@
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
-    <xref linkend="contents-ncurses" role="."/></para>
+    <para>关于这个软件包的详细资料请参见：
+    <xref linkend="contents-ncurses"/>。</para>
 
   </sect2>
 
