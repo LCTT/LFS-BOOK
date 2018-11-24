@@ -8,145 +8,104 @@
 <sect1 id="ch-scripts-locale" revision="systemd">
   <?dbhtml filename="locale.html"?>
 
-  <title>Configuring the System Locale</title>
+  <title>配置系统语言环境</title>
 
   <indexterm zone="ch-scripts-locale">
     <primary sortas="e-etc-locale-conf">/etc/locale.conf</primary>
   </indexterm>
 
-  <para>The <filename>/etc/locale.conf</filename> below sets some
-  environment variables necessary for native language support. Setting
-  them properly results in:</para>
+  <para>本地语言的支持依赖于 <filename>/etc/locale.conf</filename>，它包含不少和此相关的环境变量。更改此文件后，可能会出现以下的变化：</para>
 
   <itemizedlist>
     <listitem>
-      <para>The output of programs translated into the native language</para>
+      <para>程序的输出将以本地语言展示</para>
     </listitem>
     <listitem>
-      <para>Correct classification of characters into letters, digits and other
-      classes. This is necessary for <command>bash</command> to properly accept
-      non-ASCII characters in command lines in non-English locales</para>
+      <para>修正字符在字母、数字等类型的分类。对于非英语区域设置来说，只有这样，<command>bash</command> 才能正常显示非 ASCII 字符</para>
     </listitem>
     <listitem>
-      <para>The correct alphabetical sorting order for the country</para>
+      <para>国家顺序可以按照字母顺序正常排序（译者注：这里所谓的正常排序，应该是首先将国家名称转换成本地语言的国家名称，比如中国的开头字母是 Z，那么显示就很靠后了。但是假如显示为英文，就是 C 开头，那么将会靠前显示。）</para>
     </listitem>
     <listitem>
-      <para>Appropriate default paper size</para>
+      <para>默认纸张尺寸</para>
     </listitem>
     <listitem>
-      <para>Correct formatting of monetary, time, and date values</para>
+      <para>货币、时间和日期值的格式</para>
     </listitem>
   </itemizedlist>
 
-  <para>Replace <replaceable>&lt;ll&gt;</replaceable> below with the two-letter code
-  for the desired language (e.g., <quote>en</quote>) and
-  <replaceable>&lt;CC&gt;</replaceable> with the two-letter code for the appropriate
-  country (e.g., <quote>GB</quote>). <replaceable>&lt;charmap&gt;</replaceable> should
-  be replaced with the canonical charmap for your chosen locale. Optional
-  modifiers such as <quote>@euro</quote> may also be present.</para>
+  <para>/etc/locale.conf 中 <replaceable>&lt;ll&gt;</replaceable> 使用语言代码代替（比如中文是「zh」，英文是「en」），
+    <replaceable>&lt;CC&gt;</replaceable> 使用地区代码代替（比如中国是「CN」，中国香港是「HK」，中国台湾是「TW」，美国是「US」），
+    <replaceable>&lt;charmap&gt;</replaceable> 使用选定字符集指定的标准字符映射表替换。诸如「@euro」这样的可选修饰符也可使用。</para>
 
-  <para>The list of all locales supported by Glibc can be obtained by running
-  the following command:</para>
+  <para>运行以下命令可以获得当前 Glibc 支持的本地字符集。</para>
 
 <screen role="nodump"><userinput>locale -a</userinput></screen>
 
-  <para>Charmaps can have a number of aliases, e.g., <quote>ISO-8859-1</quote>
-  is also referred to as <quote>iso8859-1</quote> and <quote>iso88591</quote>.
-  Some applications cannot handle the various synonyms correctly (e.g., require
-  that <quote>UTF-8</quote> is written as <quote>UTF-8</quote>, not
-  <quote>utf8</quote>), so it is safest in most
-  cases to choose the canonical name for a particular locale. To determine
-  the canonical name, run the following command, where <replaceable>&lt;locale
-  name&gt;</replaceable> is the output given by <command>locale -a</command> for
-  your preferred locale (<quote>en_GB.iso88591</quote> in our example).</para>
+  <para>字符映射表可能存在很多的别名，比如「ISO-8859-1」可以写作「iso8859-1」或「iso88591」。
+  但是有一些程序不支持这些乱七八糟的写法（比如「UTF-8」只能写作「UTF-8」，「utf8」它就不认识了）。
+  所以，为了安全起见，在设置的时候还是尽量的使用特定区域设置的规范名称。可以通过以下命令查询在特定区域下的字符映射表标准名称，<replaceable>&lt;locale
+  name&gt;</replaceable> 为运行 <command>locale -a</command> 输出的首选区域设置（这里以「zh_CN.utf8」为例）。</para>
 
 <screen role="nodump"><userinput>LC_ALL=<replaceable>&lt;locale name&gt;</replaceable> locale charmap</userinput></screen>
 
-  <para>For the <quote>en_GB.iso88591</quote> locale, the above command
-  will print:</para>
+  <para>对于「zh_CN.utf8」以上命令将会如下输出：</para>
 
-<screen><computeroutput>ISO-8859-1</computeroutput></screen>
+<screen><computeroutput>UTF-8</computeroutput></screen>
 
-  <para>This results in a final locale setting of <quote>en_GB.ISO-8859-1</quote>.
-  It is important that the locale found using the heuristic above is tested prior
-  to it being added to the Bash startup files:</para>
+  <para>根据以上输出，我们再次修改 <filename>/etc/locale.conf</filename>，
+  将字符映射表设置为标准形式（「zh_CN.utf8」变为「zh_CN.UTF-8」）。
+  同理，也可一并查询以下设置的标准命令，然后将其添加到 bash 的启动文件中
+  （译者注：对于 bash 来说，启动文件为 <filename>.bashrc</filename>）。</para>
 
 <screen role="nodump"><userinput>LC_ALL=&lt;locale name&gt; locale language
 LC_ALL=&lt;locale name&gt; locale charmap
 LC_ALL=&lt;locale name&gt; locale int_curr_symbol
 LC_ALL=&lt;locale name&gt; locale int_prefix</userinput></screen>
 
-  <para>The above commands should print the language name, the character
-  encoding used by the locale, the local currency, and the prefix to dial
-  before the telephone number in order to get into the country. If any of the
-  commands above fail with a message similar to the one shown below, this means
-  that your locale was either not installed in Chapter&nbsp;6 or is not supported by
-  the default installation of Glibc.</para>
+  <para>以上的命令将会打印当前区域设置的语言、字符编码、本地货币单位以及电话国际编码。如果出现类似下文的错误输出，
+    可能是你没有严格按照第六章指导的方法操作或者是你当前所用的 Glibc 不支持。</para>
 
 <screen><computeroutput>locale: Cannot set LC_* to default locale: No such file or directory</computeroutput></screen>
 
-  <para>If this happens, you should either install the desired locale using the
-  <command>localedef</command> command, or consider choosing a different locale.
-  Further instructions assume that there are no such error messages from
-  Glibc.</para>
+  <para>如果这种情况真的发生，你应该使用 <command>localedef</command> 命令安装对应的系统区域，
+  或者是考虑更改为其它的区域。假如没有出现错误提示，我们就可以继续进行下一步操作了！</para>
 
   <!-- FIXME: the xlib example will became obsolete real soon -->
-  <para>Some packages beyond LFS may also lack support for your chosen locale. One
-  example is the X library (part of the X Window System), which outputs the
-  following error message if the locale does not exactly match one of the character
-  map names in its internal files:</para>
+  <para>有一些 LFS 之外的包可能出现对你设置的区域支持很差劲的情况。比如 X 的库（X Windows System 的一部份），
+    就可能在内部文件中输出以下消息：</para>
 
 <screen><computeroutput>Warning: locale not supported by Xlib, locale set to C</computeroutput></screen>
 
-  <para>In several cases Xlib expects that the character map will be listed in
-  uppercase notation with canonical dashes. For instance, "UTF-8" rather
-  than "iso88591". It is also  possible to find an appropriate specification by
-  removing the charmap part of the locale specification.  This can be checked
-  by running the <command>locale charmap</command> command in both locales.
-  For example, one would have to change "de_DE.ISO-8859-15@euro" to
-  "de_DE@euro" in order to get this locale recognized by Xlib.</para>
+  <para>在若干情况下，Xlib 希望以带规范破折号的大写形式列出字符映射表。比如 "ISO-8859-1" 而不应该写作 "iso88591"。不过，
+    也可以通过去除区域规范中的字符映射部分找到合适的规范。这可以通过运行 <command>locale charmap</command> 命令来检查。
+    例如，需要更改 "de_DE.ISO-8859-15@euro" 为 "de_DE@euro" 以便 Xlib 能识别区域。</para>
 
-  <para>Other packages can also function incorrectly (but may not necessarily
-  display any error messages) if the locale name does not meet their expectations.
-  In those cases, investigating how other Linux distributions support your locale
-  might provide some useful information.</para>
+  <para>即便如此，也可能遇到某些程序因为区域设置和它们预置的不同而导致功能异常（可能不会显示任何的错误消息）。
+    如果出现这样的情况，可以通过查看其它的发行版是如何进行设置区域，从而得到启发。</para>
 
-  <para>Once the proper locale settings have been determined, create the
-  <filename>/etc/locale.conf</filename> file:</para>
+  <para>一旦确定了到底该使用哪个区域设置，就可以创建 <filename>/etc/locale.conf</filename> 文件了：</para>
 
 <screen><userinput>cat &gt; /etc/locale.conf &lt;&lt; "EOF"
 <literal>LANG=<replaceable>&lt;ll&gt;_&lt;CC&gt;.&lt;charmap&gt;&lt;@modifiers&gt;</replaceable></literal>
 EOF</userinput></screen>
 
-  <para>Note that you can modify <filename>/etc/locale.conf</filename> with the
-  systemd <command>localectl</command> utility. To use
-  <command>localectl</command> for the example above, run:</para>
+  <para>也可以通过 systemd 提供的实用程序 <command>localectl</command> 修改 <filename>/etc/locale.conf</filename>：</para>
 
 <screen role="nodump"><userinput>localectl set-locale LANG="<replaceable>&lt;ll&gt;_&lt;CC&gt;.&lt;charmap&gt;&lt;@modifiers&gt;</replaceable>"</userinput></screen>
 
-  <para>You can also specify other language specific environment variables such
-  as <envar>LANG</envar>, <envar>LC_CTYPE</envar>, <envar>LC_NUMERIC</envar> or
-  any other environment variable from <command>locale</command> output. Just
-  separate them with a space. An example where <envar>LANG</envar> is set as
-  en_US.UTF-8 but <envar>LC_CTYPE</envar> is set as just en_US is:</para>
+  <para>此处，也可以指定其它和语言相关的环境变量，例如 <envar>LANG</envar>，<envar>LC_CTYPE</envar>，<envar>LC_NUMERIC</envar>
+  或任何其它 <command>locale</command> 输出的环境变量，只需要用一个空格分开它们就可以了。以下示例中，<envar>LANG</envar> 设置为 en_US.UTF-8，但 <envar>LC_CTYPE</envar> 设置为 en_US：</para>
 
 <screen role="nodump"><userinput>localectl set-locale LANG="en_US.UTF-8" LC_CTYPE="en_US"</userinput></screen>
 
-  <note><para>Please note that the <command>localectl</command> command can
-  be used only on a system booted with systemd.</para></note>
+  <note><para><command>localectl</command> 仅可用于 systemd 环境。</para></note>
 
-  <para>The <quote>C</quote> (default) and <quote>en_US</quote> (the recommended
-  one for United States English users) locales are different. <quote>C</quote>
-  uses the US-ASCII 7-bit character set, and treats bytes with the high bit set
-  as invalid characters. That's why, e.g., the <command>ls</command> command
-  substitutes them with question marks in that locale. Also, an attempt to send
-  mail with such characters from Mutt or Pine results in non-RFC-conforming
-  messages being sent (the charset in the outgoing mail is indicated as <quote>unknown
-  8-bit</quote>). So you can use the <quote>C</quote> locale only if you are sure that
-  you will never need 8-bit characters.</para>
+  <para>「C」（默认）和「en_US」（推荐美国英语用户使用）这两种区域设置有所不同。
+「C」使用 US-ASCII 7 位字符集，并把设置了最高位的字节作为无效字符。这就是为什么类似 <command>ls</command> 的命令本地化时会用疑问号代替。
+  同样，如果你想要使用 Mutt 或 Pine 发送包含有类似字符的邮件，将会得到如下消息：非 RFC 兼容字符（发送邮件中的字符集为「unknown 8-bit」）。
+   所以，如果你一定以及肯定一定不会用到 8 位的字符，那你可以仅使用「C」。</para>
 
-  <para>UTF-8 based locales are not supported well by many programs.
-  Work is in progress to document and, if possible, fix such problems, see
-  <ulink url="&blfs-book;introduction/locale-issues.html"/>.</para>
+  <para>不少程序还不支持 UTF-8 区域设置。我们正在完善文档并修复类似问题，可以查看<ulink url="&blfs-book;introduction/locale-issues.html"/>.</para>
 
 </sect1>
