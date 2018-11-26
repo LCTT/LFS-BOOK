@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Libelf is a library for handling ELF (Executable and Linkable Format)
-    files.</para>
+    <para>Libelf 是处理 ELF（可执行与可链接格式）文件的库。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,24 +38,23 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Libelf</title>
+    <title>安装 Libelf</title>
 
-      <para>Libelf is part of elfutils-&elfutils-version; package. Use
-      the elfutils-&elfutils-version;.tar.xz as the source tarball.</para>
+      <para>Libelf 是软件包 elfutils-&elfutils-version; 种的一部分。使用 elfutils-&elfutils-version;.tar.xz 作为源码包。</para>
 
-    <para>Prepare Libelf for compilation:</para>
+    <para>编译 Libelf 前的准备：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
     
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install only Libelf:</para>
+    <para>仅安装 Libelf：</para>
 
 <screen><userinput remap="install">make -C libelf install
 install -vm644 config/libelf.pc /usr/lib/pkgconfig</userinput></screen>
@@ -64,10 +62,10 @@ install -vm644 config/libelf.pc /usr/lib/pkgconfig</userinput></screen>
   </sect2>
 
   <sect2 id="contents-elfutils" role="content">
-    <title>Contents of Libelf</title>
+    <title>Libelf 软件包的内容</title>
 
     <segmentedlist>
-      <segtitle>Installed Library</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>

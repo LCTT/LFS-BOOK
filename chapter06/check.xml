@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Check is a unit testing framework for C.</para>
+    <para>Check 是 C 语言的单元测试框架。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,25 +38,23 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Check</title>
+    <title>安装 Check</title>
 
-    <para>Prepare Check for compilation:</para>
+    <para>配置 Check 准备编译：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>Build the package:</para>
+    <para>构建软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Compilation is now complete.  To run the Check test suite, issue the
-    following command:</para>
+    <para>现在编译完成了。运行 Check 的测试套件，输入以下命令：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Note that the Check test suite may take a relatively long
-    (up to 4 SBU) time.</para>
+    <para>注意，Check 的测试套件可能会占用挺长（上至 4 SBU）的时间。</para>
 
-    <para>Install the package and fix a script:</para>
+    <para>安装软件包、修复脚本：</para>
 
 <screen><userinput remap="install">make install
 sed -i '1 s/tools/usr/' /usr/bin/checkmk</userinput></screen>
@@ -64,11 +62,11 @@ sed -i '1 s/tools/usr/' /usr/bin/checkmk</userinput></screen>
   </sect2>
 
   <sect2 id="contents-check" role="content">
-    <title>Contents of Check</title>
+    <title>Check 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed program</segtitle>
-      <segtitle>Installed library</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>checkmk</seg>
@@ -77,15 +75,14 @@ sed -i '1 s/tools/usr/' /usr/bin/checkmk</userinput></screen>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="checkmk">
         <term><command>checkmk</command></term>
         <listitem>
-          <para>Awk script for generating C unit tests for use with the Check
-          unit testing framework</para>
+          <para>用于生成 C 语言单元测试的 Awk 脚本，这些用例可以配合 Check 单元测试框架使用</para>
           <indexterm zone="ch-tools-check checkmk">
             <primary sortas="b-checmk">checkmk</primary>
           </indexterm>
@@ -95,8 +92,7 @@ sed -i '1 s/tools/usr/' /usr/bin/checkmk</userinput></screen>
       <varlistentry id="libcheck">
         <term><filename class="libraryfile">libcheck.{a,so}</filename></term>
         <listitem>
-          <para>Contains functions that allow Check to be called from a test
-          program</para>
+          <para>包含允许测试程序调用 Check 的功能</para>
           <indexterm zone="ch-tools-check libcheck">
             <primary sortas="c-libcheck">libcheck</primary>
           </indexterm>

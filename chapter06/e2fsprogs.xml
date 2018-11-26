@@ -23,11 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The E2fsprogs package contains the utilities for handling the
-    <systemitem class="filesystem">ext2</systemitem> file system. It also
-    supports the <systemitem class="filesystem">ext3</systemitem> and
-    <systemitem class="filesystem">ext4</systemitem> journaling
-    file systems.</para>
+    <para>E2fsprogs 软件包包含用于处理 <systemitem class="filesystem">ext2</systemitem> 文件系统的工具。它也支持 <systemitem class="filesystem">ext3</systemitem> 和 <systemitem class="filesystem">ext4</systemitem> 日志文件系统。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -42,15 +38,14 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of E2fsprogs</title>
+    <title>安装 E2fsprogs</title>
 
-    <para>The E2fsprogs documentation recommends that the package be built in
-    a subdirectory of the source tree: </para>
+    <para>E2fsprogs 的文档建议在源码目录下新建目录进行编译：</para>
 
 <screen><userinput remap="pre">mkdir -v build
 cd build</userinput></screen>
 
-    <para>Prepare E2fsprogs for compilation:</para>
+    <para>准备编译 E2fsprogs：</para>
 
 <!--<screen><userinput remap="configure">LIBS=-L/tools/lib                    \
 CFLAGS=-I/tools/include              \
@@ -67,7 +62,7 @@ PKG_CONFIG_PATH=/tools/lib/pkgconfig \
              --disable-fsck</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the environment variable and configure options:</title>
+      <title>环境变量和配置选项的含义：</title>
 <!--
       <varlistentry>
         <term><parameter>PKG_CONFIG_PATH, LIBS, CFLAGS</parameter></term>
@@ -78,84 +73,57 @@ PKG_CONFIG_PATH=/tools/lib/pkgconfig \
       </varlistentry>
 -->
       <varlistentry>
-        <term><parameter>--with-root-prefix=""</parameter> and
-              <parameter>--bindir=/bin</parameter></term>
+        <term><parameter>--with-root-prefix=""</parameter> 和 <parameter>--bindir=/bin</parameter></term>
         <listitem>
-          <para>Certain programs (such as the <command>e2fsck</command>
-          program) are considered essential programs.  When, for example,
-          <filename class="directory">/usr</filename> is not mounted, these
-          programs still need to be available. They belong in directories
-          like <filename class="directory">/lib</filename> and <filename
-          class="directory">/sbin</filename>. If this option is not passed
-          to E2fsprogs' configure, the programs are installed into the
-          <filename class="directory">/usr</filename> directory.</para>
+          <para>有些程序（例如 <command>e2fsck</command>）属于重要程序。比如，当 <filename class="directory">/usr</filename> 没有挂载的时候，仍然要求这些程序可用。它们放在类似 <filename class="directory">/lib</filename> 和 <filename class="directory">/sbin</filename> 的目录中。如果没有传递这个参数到 E2fsprogs 的配置参数中，程序就会被安装在 <filename class="directory">/usr</filename>  目录。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--enable-elf-shlibs</parameter></term>
         <listitem>
-          <para>This creates the shared libraries which some programs
-          in this package use.</para>
+          <para>创建该软件包中一些程序会使用的共享库。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-*</parameter></term>
         <listitem>
-          <para>This prevents E2fsprogs from building and installing the
-          <systemitem class="library">libuuid</systemitem> and
-          <systemitem class="library">libblkid</systemitem> libraries, the
-          <systemitem class="daemon">uuidd</systemitem> daemon, and the
-          <command>fsck</command> wrapper, as Util-Linux installs more
-          recent versions.</para>
+          <para>这会阻止 E2fsprogs 编译和安装 <systemitem class="library">libuuid</systemitem> 和 <systemitem class="library">libblkid</systemitem> 库、<systemitem class="daemon">uuidd</systemitem> 守护进程、以及 <command>fsck</command> 封装包。因为 Util-Linux 安装了更新的版本。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To set up and run the test suite we need to first link some 
-    libraries from /tools/lib to a location where the test programs look.
-    To run the tests, issue:</para>
+    <para>要设置和运行测试套件，我们首先需要把 /tools/lib 中的一些库链接到测试程序查找的位置。输入命令运行测试：</para>
 
 <screen><userinput remap="test">ln -sfv /tools/lib/lib{blk,uu}id.so.1 lib
 make LD_LIBRARY_PATH=/tools/lib check</userinput></screen>
 
-    <para>One of the E2fsprogs tests will attempt to allocate 256 MB of memory.
-    If you do not have significantly more RAM than this, be sure to enable
-    sufficient swap space for the test. See <xref
-    linkend="space-creatingfilesystem"/> and <xref linkend="space-mounting"/>
-    for details on creating and enabling swap space.  Two tests, f_bigalloc_badinode
-    and f_bigalloc_orphan_list, are known ot fail.</para>
+    <para>E2fsprogs 的其中一个测试程序会试图分配 256M 的内存。如果你没有比这更多的 RAM，确保为测试启用了足够的交换空间。阅读 <xref linkend="space-creatingfilesystem"/> 以及 <xref linkend="space-mounting"/> 查看创建和启用交换空间的详细信息。另外，f_bigalloc_badinode 和 f_bigalloc_orphan_list 为已知的两项测试失败项。</para>
 
-    <para>Install the binaries, documentation, and shared libraries:</para>
+    <para>安装二进制文件、文档以及共享库：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Install the static libraries and headers:</para>
+    <para>安装静态库和头文件：</para>
 
 <screen><userinput remap="install">make install-libs</userinput></screen>
 
-    <para>Make the installed static libraries writable so debugging symbols can
-    be removed later:</para>
+    <para>使安装的静态库可写，以便后面可以移除调试符号：</para>
 
 <screen><userinput remap="install">chmod -v u+w /usr/lib/{libcom_err,libe2p,libext2fs,libss}.a</userinput></screen>
 
-    <para>This package installs a gzipped
-    <filename class="extension">.info</filename> file but doesn't update the
-    system-wide <filename>dir</filename> file. Unzip this file and then update
-    the system <filename>dir</filename> file using the following
-    commands:</para>
+    <para>该软件包安装了一个 gzip 压缩的 <filename class="extension">.info</filename> 文件但并没有更新系统级的 <filename>dir</filename> 文件。解压该文件并用下面的命令更新系统的 <filename>dir</filename> 文件：</para>
 
 <screen><userinput remap="install">gunzip -v /usr/share/info/libext2fs.info.gz
 install-info --dir-file=/usr/share/info/dir /usr/share/info/libext2fs.info</userinput></screen>
 
-    <para>If desired, create and install some additional documentation by
-    issuing the following commands:</para>
+    <para>如果需要的话，用下面的命令创建和安装一些额外的文档：</para>
 
 <screen><userinput remap="install">makeinfo -o      doc/com_err.info ../lib/et/com_err.texinfo
 install -v -m644 doc/com_err.info /usr/share/info
@@ -163,35 +131,34 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
   </sect2>
 
   <sect2 id="contents-e2fsprogs" role="content">
-    <title>Contents of E2fsprogs</title>
+    <title>E2fsprogs 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>badblocks, chattr, compile_et, debugfs, dumpe2fs,e2freefrag,
         e2fsck, e2image, e2label, e2undo, e4defrag, filefrag, fsck.ext2,
         fsck.ext3, fsck.ext4, fsck.ext4dev, logsave, lsattr, mk_cmds, mke2fs,
         mkfs.ext2, mkfs.ext3, mkfs.ext4, mkfs.ext4dev, mklost+found,
-        resize2fs, and tune2fs</seg>
-        <seg>libcom_err.so, libe2p.so, libext2fs.so, and libss.so</seg>
+        resize2fs, 和 tune2fs</seg>
+        <seg>libcom_err.so, libe2p.so, libext2fs.so, 和 libss.so</seg>
         <seg>/usr/include/e2p, /usr/include/et, /usr/include/ext2fs,
-        /usr/include/ss, /usr/share/et, and /usr/share/ss</seg>
+        /usr/include/ss, /usr/share/et, 和 /usr/share/ss</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="badblocks">
         <term><command>badblocks</command></term>
         <listitem>
-          <para>Searches a device (usually a disk partition) for bad
-          blocks</para>
+          <para>搜索设备（通常是一个磁盘分区）的坏块</para>
           <indexterm zone="ch-system-e2fsprogs badblocks">
             <primary sortas="b-badblocks">badblocks</primary>
           </indexterm>
@@ -201,11 +168,8 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="chattr">
         <term><command>chattr</command></term>
         <listitem>
-          <para>Changes the attributes of files on an <systemitem
-          class="filesystem">ext2</systemitem> file system; it also
-          changes <systemitem class="filesystem">ext3</systemitem>
-          file systems, the journaling version of <systemitem
-          class="filesystem">ext2</systemitem> file systems</para>
+          <para>更改 <systemitem
+          class="filesystem">ext2</systemitem> 文件系统中文件的属性；它也可以更改 <systemitem class="filesystem">ext3</systemitem> 文件系统，这是 <systemitem class="filesystem">ext2</systemitem> 文件系统的日志版本</para>
           <indexterm zone="ch-system-e2fsprogs chattr">
             <primary sortas="b-chattr">chattr</primary>
           </indexterm>
@@ -215,9 +179,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="compile_et">
         <term><command>compile_et</command></term>
         <listitem>
-          <para>An error table compiler; it converts a table of error-code
-          names and messages into a C source file suitable for use with the
-          <filename class="libraryfile">com_err</filename> library</para>
+          <para>错误表编译器；它将错误代码名称和信息对照表转换为适用于 <filename class="libraryfile">com_err</filename> 库的 C 源文件。</para>
           <indexterm zone="ch-system-e2fsprogs compile_et">
             <primary sortas="b-compile_et">compile_et</primary>
           </indexterm>
@@ -227,9 +189,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="debugfs">
         <term><command>debugfs</command></term>
         <listitem>
-          <para>A file system debugger; it can be used to examine and change
-          the state of an <systemitem class="filesystem">ext2</systemitem>
-          file system</para>
+          <para>文件系统调试器；可用于检查和更改 <systemitem class="filesystem">ext2</systemitem> 文件系统的状态</para>
           <indexterm zone="ch-system-e2fsprogs debugfs">
             <primary sortas="b-debugfs">debugfs</primary>
           </indexterm>
@@ -239,8 +199,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="dumpe2fs">
         <term><command>dumpe2fs</command></term>
         <listitem>
-          <para>Prints the super block and blocks group information for the
-          file system present on a given device</para>
+          <para>对指定设备上的文件系统打印超级块和块组信息</para>
           <indexterm zone="ch-system-e2fsprogs dumpe2fs">
             <primary sortas="b-dumpe2fs">dumpe2fs</primary>
           </indexterm>
@@ -250,7 +209,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="e2freefrag">
         <term><command>e2freefrag</command></term>
         <listitem>
-          <para>Reports free space fragmentation information</para>
+          <para>报告空闲空间的碎片信息</para>
           <indexterm zone="ch-system-e2fsprogs e2freefrag">
             <primary sortas="b-e2freefrag">e2freefrag</primary>
           </indexterm>
@@ -260,9 +219,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="e2fsck">
         <term><command>e2fsck</command></term>
         <listitem>
-          <para>Is used to check, and optionally repair <systemitem
-          class="filesystem">ext2</systemitem> file systems and <systemitem
-          class="filesystem">ext3</systemitem> file systems</para>
+          <para>用于检查或者修复 <systemitem class="filesystem">ext2</systemitem> 文件系统和 <systemitem class="filesystem">ext3</systemitem> 文件系统</para>
           <indexterm zone="ch-system-e2fsprogs e2fsck">
             <primary sortas="b-e2fsck">e2fsck</primary>
           </indexterm>
@@ -272,8 +229,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="e2image">
         <term><command>e2image</command></term>
         <listitem>
-          <para>Is used to save critical <systemitem
-          class="filesystem">ext2</systemitem> file system data to a file</para>
+          <para>用于将重要 <systemitem class="filesystem">ext2</systemitem> 文件系统数据保存到文件中</para>
           <indexterm zone="ch-system-e2fsprogs e2image">
             <primary sortas="b-e2image">e2image</primary>
           </indexterm>
@@ -283,9 +239,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="e2label">
         <term><command>e2label</command></term>
         <listitem>
-          <para>Displays or changes the file system label on the <systemitem
-          class="filesystem">ext2</systemitem> file system present on a given
-          device</para>
+          <para>显示或更改指定设备上的 <systemitem class="filesystem">ext2</systemitem> 文件系统的标签</para>
           <indexterm zone="ch-system-e2fsprogs e2label">
             <primary sortas="b-e2label">e2label</primary>
           </indexterm>
@@ -295,9 +249,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="e2undo">
         <term><command>e2undo</command></term>
         <listitem>
-          <para>Replays the undo log undo_log for an ext2/ext3/ext4 filesystem
-          found on a device [This can be used to undo a failed operation by an
-          e2fsprogs program.]</para>
+          <para>对设备上发现的 ext2/ext3/ext4 文件系统重做撤销日志 undo_log [ 这可用于取消一个 e2fsprogs 程序的失败操作。]</para>
           <indexterm zone="ch-system-e2fsprogs e2undo">
             <primary sortas="b-e2undo">e2undo</primary>
           </indexterm>
@@ -307,7 +259,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="e4defrag">
         <term><command>e4defrag</command></term>
         <listitem>
-          <para>Online defragmenter for ext4 filesystems</para>
+          <para>ext4 文件系统的在线碎片整理器</para>
           <indexterm zone="ch-system-e2fsprogs e4defrag">
             <primary sortas="b-e4defrag">e4defrag</primary>
           </indexterm>
@@ -317,7 +269,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="filefrag">
         <term><command>filefrag</command></term>
         <listitem>
-          <para>Reports on how badly fragmented a particular file might be</para>
+          <para>报告一个文件可能的碎片化程度</para>
           <indexterm zone="ch-system-e2fsprogs filefrag">
             <primary sortas="b-filefrag">filefrag</primary>
           </indexterm>
@@ -327,8 +279,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="fsck.ext2">
         <term><command>fsck.ext2</command></term>
         <listitem>
-          <para>By default checks <systemitem class="filesystem">ext2</systemitem>
-          file systems and is a hard link to <command>e2fsck</command></para>
+          <para>默认检查 <systemitem class="filesystem">ext2</systemitem> 文件系统，是到 <command>e2fsck</command> 的硬链接</para>
           <indexterm zone="ch-system-e2fsprogs fsck.ext2">
             <primary sortas="b-fsck.ext2">fsck.ext2</primary>
           </indexterm>
@@ -338,8 +289,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="fsck.ext3">
         <term><command>fsck.ext3</command></term>
         <listitem>
-          <para>By default checks <systemitem class="filesystem">ext3</systemitem>
-          file systems and is a hard link to <command>e2fsck</command></para>
+          <para>默认检查 <systemitem class="filesystem">ext3</systemitem> 文件系统，是到 <command>e2fsck</command> 的硬链接</para>
           <indexterm zone="ch-system-e2fsprogs fsck.ext3">
             <primary sortas="b-fsck.ext3">fsck.ext3</primary>
           </indexterm>
@@ -349,8 +299,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="fsck.ext4">
         <term><command>fsck.ext4</command></term>
         <listitem>
-          <para>By default checks <systemitem class="filesystem">ext4</systemitem>
-          file systems and is a hard link to <command>e2fsck</command></para>
+          <para>默认检查 <systemitem class="filesystem">ext4</systemitem> 文件系统，是到 <command>e2fsck</command> 的硬链接</para>
           <indexterm zone="ch-system-e2fsprogs fsck.ext4">
             <primary sortas="b-fsck.ext4">fsck.ext4</primary>
           </indexterm>
@@ -360,9 +309,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="fsck.ext4dev">
         <term><command>fsck.ext4dev</command></term>
         <listitem>
-          <para>By default checks <systemitem class="filesystem">ext4</systemitem>
-          development file systems and  is a hard link to
-          <command>e2fsck</command></para>
+          <para>默认检查 <systemitem class="filesystem">ext4</systemitem> 开发版文件系统，是到 <command>e2fsck</command> 的硬链接</para>
           <indexterm zone="ch-system-e2fsprogs fsck.ext4dev">
             <primary sortas="b-fsck.ext4dev">fsck.ext4dev</primary>
           </indexterm>
@@ -372,7 +319,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="logsave">
         <term><command>logsave</command></term>
         <listitem>
-          <para>Saves the output of a command in a log file</para>
+          <para>在日志文件中保存命令的输出</para>
           <indexterm zone="ch-system-e2fsprogs logsave">
             <primary sortas="b-logsave">logsave</primary>
           </indexterm>
@@ -382,8 +329,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="lsattr">
         <term><command>lsattr</command></term>
         <listitem>
-          <para>Lists the attributes of files on a second extended file
-          system</para>
+          <para>列出二级扩展文件系统中一个文件的属性</para>
           <indexterm zone="ch-system-e2fsprogs lsattr">
             <primary sortas="b-lsattr">lsattr</primary>
           </indexterm>
@@ -393,9 +339,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="mk_cmds">
         <term><command>mk_cmds</command></term>
         <listitem>
-          <para>Converts a table of command names and help messages into a C
-          source file suitable for use with the <filename
-          class="libraryfile">libss</filename> subsystem library</para>
+          <para>将命令名称和帮助信息的映射表转换为适用于 <filename class="libraryfile">libss</filename> 子系统库的 C 源文件</para>
           <indexterm zone="ch-system-e2fsprogs mk_cmds">
             <primary sortas="b-mk_cmds">mk_cmds</primary>
           </indexterm>
@@ -405,9 +349,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="mke2fs">
         <term><command>mke2fs</command></term>
         <listitem>
-          <para>Creates an <systemitem class="filesystem">ext2</systemitem>
-          or <systemitem class="filesystem">ext3</systemitem> file system on
-          the given device</para>
+          <para>在指定设备上创建 <systemitem class="filesystem">ext2</systemitem> 或 <systemitem class="filesystem">ext3</systemitem> 文件系统</para>
           <indexterm zone="ch-system-e2fsprogs mke2fs">
             <primary sortas="b-mke2fs">mke2fs</primary>
           </indexterm>
@@ -417,8 +359,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="mkfs.ext2">
         <term><command>mkfs.ext2</command></term>
         <listitem>
-          <para>By default creates <systemitem class="filesystem">ext2</systemitem>
-          file systems and is a hard link to <command>mke2fs</command></para>
+          <para>默认创建 <systemitem class="filesystem">ext2</systemitem> 文件系统，是到 <command>mke2fs</command> 的硬链接</para>
           <indexterm zone="ch-system-e2fsprogs mkfs.ext2">
             <primary sortas="b-mkfs.ext2">mkfs.ext2</primary>
           </indexterm>
@@ -428,8 +369,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="mkfs.ext3">
         <term><command>mkfs.ext3</command></term>
         <listitem>
-          <para>By default creates <systemitem class="filesystem">ext3</systemitem>
-          file systems and is a hard link to <command>mke2fs</command></para>
+          <para>默认创建 <systemitem class="filesystem">ext3</systemitem> 文件系统，是到 <command>mke2fs</command> 的硬链接</para>
           <indexterm zone="ch-system-e2fsprogs mkfs.ext3">
             <primary sortas="b-mkfs.ext3">mkfs.ext3</primary>
           </indexterm>
@@ -439,8 +379,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="mkfs.ext4">
         <term><command>mkfs.ext4</command></term>
         <listitem>
-          <para>By default creates <systemitem class="filesystem">ext4</systemitem>
-          file systems and is a hard link to <command>mke2fs</command></para>
+          <para>默认创建 <systemitem class="filesystem">ext4</systemitem> 文件系统，是到 <command>mke2fs</command> 的硬链接</para>
           <indexterm zone="ch-system-e2fsprogs mkfs.ext4">
             <primary sortas="b-mkfs.ext4">mkfs.ext4</primary>
           </indexterm>
@@ -450,8 +389,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="mkfs.ext4dev">
         <term><command>mkfs.ext4dev</command></term>
         <listitem>
-          <para>By default creates <systemitem class="filesystem">ext4</systemitem>
-          development file systems and is a hard link to <command>mke2fs</command></para>
+          <para>默认创建 <systemitem class="filesystem">ext4</systemitem> 开发版文件系统，是到 <command>mke2fs</command> 的硬链接</para>
           <indexterm zone="ch-system-e2fsprogs mkfs.ext4dev">
             <primary sortas="b-mkfs.ext4dev">mkfs.ext4dev</primary>
           </indexterm>
@@ -461,10 +399,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="mklost-found">
         <term><command>mklost+found</command></term>
         <listitem>
-          <para>Used to create a <filename class="directory">lost+found</filename>
-          directory on an <systemitem class="filesystem">ext2</systemitem> file
-          system; it pre-allocates disk blocks to this directory to lighten the
-          task of <command>e2fsck</command></para>
+          <para>用于在 <filename class="directory">lost+found</filename> 文件系统上创建 <systemitem class="filesystem">ext2</systemitem> 目录，它可以预先为目录分配磁盘块，以减轻 <command>e2fsck</command> 任务</para>
           <indexterm zone="ch-system-e2fsprogs mklost-found">
             <primary sortas="b-mklost+found">mklost+found</primary>
           </indexterm>
@@ -474,8 +409,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="resize2fs">
         <term><command>resize2fs</command></term>
         <listitem>
-          <para>Can be used to enlarge or shrink an <systemitem
-          class="filesystem">ext2</systemitem> file system</para>
+          <para>用于伸缩 <systemitem class="filesystem">ext2</systemitem> 文件系统的大小</para>
           <indexterm zone="ch-system-e2fsprogs resize2fs">
             <primary sortas="b-resize2fs">resize2fs</primary>
           </indexterm>
@@ -485,8 +419,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="tune2fs">
         <term><command>tune2fs</command></term>
         <listitem>
-          <para>Adjusts tunable file system parameters on an <systemitem
-          class="filesystem">ext2</systemitem> file system</para>
+          <para>调整 <systemitem class="filesystem">ext2</systemitem> 文件系统上的可调文件系统参数</para>
           <indexterm zone="ch-system-e2fsprogs tune2fs">
             <primary sortas="b-tune2fs">tune2fs</primary>
           </indexterm>
@@ -496,7 +429,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="libcom_err">
         <term><filename class="libraryfile">libcom_err</filename></term>
         <listitem>
-          <para>The common error display routine</para>
+          <para>常用错误显示例程</para>
           <indexterm zone="ch-system-e2fsprogs libcom_err">
             <primary sortas="c-libcom_err">libcom_err</primary>
           </indexterm>
@@ -506,8 +439,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="libe2p">
         <term><filename class="libraryfile">libe2p</filename></term>
         <listitem>
-          <para>Used by <command>dumpe2fs</command>, <command>chattr</command>,
-          and <command>lsattr</command></para>
+          <para>用于 <command>dumpe2fs</command>，<command>chattr</command>，和 <command>lsattr</command></para>
           <indexterm zone="ch-system-e2fsprogs libe2p">
             <primary sortas="c-libe2p">libe2p</primary>
           </indexterm>
@@ -517,8 +449,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="libext2fs">
         <term><filename class="libraryfile">libext2fs</filename></term>
         <listitem>
-          <para>Contains routines to enable user-level programs to manipulate an
-          <systemitem class="filesystem">ext2</systemitem> file system</para>
+          <para>包含使用户层程序可以操作 <systemitem class="filesystem">ext2</systemitem> 文件系统的例程</para>
           <indexterm zone="ch-system-e2fsprogs libext2fs">
             <primary sortas="c-libext2fs">libext2fs</primary>
           </indexterm>
@@ -528,7 +459,7 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
       <varlistentry id="libss">
         <term><filename class="libraryfile">libss</filename></term>
         <listitem>
-          <para>Used by <command>debugfs</command></para>
+          <para>用于 <command>debugfs</command></para>
           <indexterm zone="ch-system-e2fsprogs libss">
             <primary sortas="c-libss">libss</primary>
           </indexterm>

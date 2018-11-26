@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Ninja is a small build system with a focus on speed.</para>
+    <para>Ninja 是一个专注于速度的小型构件系统。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,18 +38,11 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Ninja</title>
+    <title>安装 Ninja</title>
 
-    <para>When run, ninja normally runs a maximum number of processes
-    in parallel.  By default this is the number of cores on the system 
-    plus two.  In some cases this can overheat a CPU or run a system out
-    of memory.  If run from the command line, passing a -jN parameter
-    will limit the number of parallel processes, but some packages
-    embed the execution of ninja and do not pass a -j parameter.</para>
+    <para>在运行时，ninja 通常会并行最大数量的进程。默认值是系统的核心数乘以二。有些时候会导致 CPU 过热，或者内存容量不足。如果是命令行运行，通过传递 -jN 参数可以限制并行的进程数，但是有些软件包虽然潜入了 ninja 的执行却不会传递 -j 参数。</para>
 
-    <para>Using the <emphasis>optional</emphasis> patch below allows a user to
-    limit the number of parallel processes via an environment variable, 
-    NINJAJOBS.  <command>For example</command> setting:
+    <para>通过使用下方 <emphasis>可选的</emphasis> 的补丁，让用户能够通过环境变量 NINJAJOBS 来限制并行进程的数量。<command>例如</command> 设定：
 
      <!-- Using <command> here to make the output bold.  We really don't want
      users setting this now and experience shows that many users blindly
@@ -57,36 +50,35 @@
 
     <screen>export NINJAJOBS=4</screen>
 
-    will limit ninja to four parallel processes.</para>
+    将限制 ninja 最多仅四个进程并行。</para>
 
-    <para>If desired, install the patch by running:</para>
+    <para>如果需要，运行以下命令安装补丁：</para>
 
 <screen><userinput remap="pre">patch -Np1 -i ../ninja-1.8.2-add_NINJAJOBS_var-1.patch</userinput></screen>
 
-    <para>Build Ninja with:</para>
+    <para>构建 Ninja：</para>
 
 <screen><userinput remap="configure">python3 configure.py --bootstrap</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the build option:</title>
+      <title>构建参数的含义：</title>
 
       <varlistentry>
         <term><parameter>--bootstrap</parameter></term>
         <listitem>
-          <para>This parameter forces ninja to rebuild itself for the current
-          system.</para>
+          <para>这个参数强迫 ninja 重新构建自身以适应当前系统。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>To test the results, issue:</para>
+    <para>查看测试结果，输入：</para>
 
 <screen><userinput remap="test">python3 configure.py
 ./ninja ninja_test
 ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">install -vm755 ninja /usr/bin/
 install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja
@@ -95,24 +87,24 @@ install -vDm644 misc/zsh-completion  /usr/share/zsh/site-functions/_ninja</useri
   </sect2>
 
   <sect2 id="contents-ninja" role="content">
-    <title>Contents of Ninja</title>
+    <title>Ninja 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
         <seg>ninja</seg>
       </seglistitem>
     </segmentedlist>
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="ninja">
         <term><command>ninja</command></term>
         <listitem>
-          <para>is the Ninja build system.</para>
+          <para>Ninja 构件系统。</para>
           <indexterm zone="ch-system-ninja ninja">
             <primary sortas="b-ninja">ninja</primary>
           </indexterm>
