@@ -23,10 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The OpenSSL package contains  management tools and libraries relating
-    to cryptography. These are useful for providing cryptographic functions
-    to other packages, such as OpenSSH, email applications and web browsers
-    (for accessing HTTPS sites).  </para>
+    <para>OpenSSL 软件包包含管理工具和加密相关的库。其中提供的这些加密功能对于其他软件包，比方说 OpenSSH，email 应用和网页浏览器（访问 HTTPS 站点）来说，十分有用。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -41,9 +38,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of OpenSSL</title>
+    <title>安装 OpenSSL</title>
 
-    <para>Prepare OpenSSL for compilation:</para>
+    <para>编译 OpenSSL 前的准备：</para>
 
 <screen><userinput remap="configure">./config --prefix=/usr         \
          --openssldir=/etc/ssl \
@@ -51,23 +48,22 @@
          shared                \
          zlib-dynamic</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>查看测试结果，输入：</para>
 
 <screen><userinput remap="test">make test</userinput></screen>
 
-    <para>One subtest in the test 40-test_rehash.t fails in the lfs chroot 
-    environment, but passes when run as a regular user.</para>
+    <para>一个位于 40-test_rehash.t 中的子测试，在 LFS chroot 环境中会失败，但常规用户运行时便可通过。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
 make MANSUFFIX=ssl install</userinput></screen>
 
-    <para>If desired, install the documentation:</para>
+    <para>如果有需要，安装文档：</para>
 
 <screen><userinput remap="install">mv -v /usr/share/doc/openssl /usr/share/doc/openssl-&openssl-version;
 cp -vfr doc/* /usr/share/doc/openssl-&openssl-version;</userinput></screen>
@@ -75,31 +71,31 @@ cp -vfr doc/* /usr/share/doc/openssl-&openssl-version;</userinput></screen>
   </sect2>
 
   <sect2 id="contents-openssl" role="content">
-    <title>Contents of OpenSSL</title>
+    <title>OpenSSL 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>
-          c_rehash and openssl
+          c_rehash 和 openssl
         </seg>
         <seg>
-          libcrypto.{so,a} and libssl.{so,a}
+          libcrypto.{so,a} 和 libssl.{so,a}
         </seg>
         <seg>
           /etc/ssl,
           /usr/include/openssl,
-          /usr/lib/engines and
+          /usr/lib/engines 和
           /usr/share/doc/openssl-&openssl-version;
         </seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
@@ -107,8 +103,7 @@ cp -vfr doc/* /usr/share/doc/openssl-&openssl-version;</userinput></screen>
         <term><command>c_rehash</command></term>
         <listitem>
           <para>
-            is a <application>Perl</application> script that scans all files in
-            a directory and adds symbolic links to their hash values.
+            用于扫描一个目录中的所有文件并为它们的 hash 值添加符号链接的 <application>Perl</application> 脚本。
           </para>
           <indexterm zone="ch-system-openssl c_rehash">
             <primary sortas="b-c_rehash">c_rehash</primary>
@@ -120,11 +115,7 @@ cp -vfr doc/* /usr/share/doc/openssl-&openssl-version;</userinput></screen>
         <term><command>openssl</command></term>
         <listitem>
           <para>
-            is a command-line tool for using the various cryptography functions
-            of <application>OpenSSL</application>'s crypto library from the
-            shell. It can be used for various functions which are documented in
-            <command>man 1 openssl</command>.
-          </para>
+            一个从 shell 使用 <application>OpenSSL</application> 的加密库的各种加密功能的命令行工具。功能广泛，十分有用，参考 <command>man 1 openssl</command>。</para>
           <indexterm zone="ch-system-openssl openssl-prog">
             <primary sortas="b-openssl">openssl</primary>
           </indexterm>
@@ -135,13 +126,7 @@ cp -vfr doc/* /usr/share/doc/openssl-&openssl-version;</userinput></screen>
         <term><filename class="libraryfile">libcrypto.so</filename></term>
         <listitem>
           <para>
-            implements a wide range of cryptographic algorithms used in various
-            Internet standards. The services provided by  this library are used
-            by the <application>OpenSSL</application> implementations of SSL,
-            TLS and S/MIME, and they have also been used to implement
-            <application>OpenSSH</application>,
-            <application>OpenPGP</application>, and other cryptographic
-            standards.
+            实现了各种互联网标准中极大部分加密算法。该库提供的服务，被 <application>OpenSSL</application> 用于实现 SSL， TLS 和 S/MIME，并且它们还被用于实现 <application>OpenSSH</application>，<application>OpenPGP</application>，以及其他加密标准。
           </para>
           <indexterm zone="ch-system-openssl libcrypto">
             <primary sortas="c-libcrypto">libcrypto.so</primary>
@@ -153,9 +138,7 @@ cp -vfr doc/* /usr/share/doc/openssl-&openssl-version;</userinput></screen>
         <term><filename class="libraryfile">libssl.so</filename></term>
         <listitem>
           <para>
-            implements the Transport Layer Security (TLS v1) protocol.
-            It provides a rich API, documentation
-            on which can be found by running <command>man 3 ssl</command>.
+            实现传输层安全（TLS v1）协议。提供丰富的 API，文档参见 <command>man 3 ssl</command>。
           </para>
           <indexterm zone="ch-system-openssl libssl">
             <primary sortas="c-libssl">libssl.so</primary>

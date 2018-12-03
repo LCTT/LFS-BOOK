@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Bison package contains a parser generator.</para>
+    <para>Bison 软件包包含一个语法生成器。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,59 +38,53 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Bison</title>
+    <title>安装 Bison</title>
 
-    <para>Prepare Bison for compilation:</para>
+    <para>准备编译 Bison：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/bison-&bison-version;</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
 <!--
-    <para>To test the results (about 2.2 SBU), issue:</para>
+    <para>用以下命令测试结果（大约 2.2 SBU）：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 -->
 
-    <para>There is a circular dependency between bison and flex with regard to
-    the checks.  If desired, after installing flex in the next section, the
-    bison can be rebuilt and the bison checks can be run with 
-    <command>make check</command>.</para>
-
-    <para>Install the package:</para>
+    <para>考虑到 bison 和 flex 的检查有循环依赖。如有需要，在下一节安装 flex 之后，可以使用 <command>make check</command> 命令重新编译和检查 bison。</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-bison" role="content">
-    <title>Contents of Bison</title>
+    <title>Bison 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed library</segtitle>
-      <segtitle>Installed directory</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
-        <seg>bison and yacc</seg>
+        <seg>bison 和 yacc</seg>
         <seg>liby.a</seg>
         <seg>/usr/share/bison</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="bison">
         <term><command>bison</command></term>
         <listitem>
-          <para>Generates, from a series of rules, a program for analyzing the
-          structure of text files; Bison is a replacement for Yacc (Yet Another
-          Compiler Compiler)</para>
+          <para>根据一系列规则生成用于分析文本结构的程序；Bison 是 Yacc（Yet Another Compiler Compiler） 的替代品。</para>
           <indexterm zone="ch-system-bison bison">
             <primary sortas="b-bison">bison</primary>
           </indexterm>
@@ -100,10 +94,7 @@
       <varlistentry id="yacc">
         <term><command>yacc</command></term>
         <listitem>
-          <para>A wrapper for <command>bison</command>, meant for programs that
-          still call <command>yacc</command> instead of <command>bison</command>;
-          it calls <command>bison</command> with the <parameter>-y</parameter>
-          option</para>
+          <para><command>bison</command> 的封装，用于仍然调用 <command>yacc</command> 而不是 <command>bison</command> 的程序；它会调用带有 <parameter>-y</parameter> 选项的 <command>bison</command></para>
           <indexterm zone="ch-system-bison yacc">
             <primary sortas="b-yacc">yacc</primary>
           </indexterm>
@@ -113,9 +104,7 @@
       <varlistentry id="liby">
         <term><filename class="libraryfile">liby</filename></term>
         <listitem>
-          <para>The Yacc library containing implementations of Yacc-compatible
-          <function>yyerror</function> and <function>main</function> functions;
-          this library is normally not very useful, but POSIX requires it</para>
+          <para>Yacc 库包含和 Yacc 兼容的 <function>yyerror</function> 和 <function>main</function> 程序的实现；这个库并不是很有用，但是 POSIX 要求有它</para>
           <indexterm zone="ch-system-bison liby">
             <primary sortas="c-liby">liby</primary>
           </indexterm>
