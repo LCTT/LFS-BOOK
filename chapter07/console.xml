@@ -240,7 +240,7 @@ EOF</userinput></screen>
   </sect2>
 
   <sect2 id="ch-scripts-systemd-console">
-    <title>Systemd</title>
+    <title>systemd</title>
 
   <indexterm zone="ch-scripts-systemd-console">
     <primary sortas="d-console">systemd console</primary>

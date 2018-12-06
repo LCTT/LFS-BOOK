@@ -107,7 +107,7 @@ cd       build</userinput></screen>
 
 <screen><userinput remap="test">ulimit -s 32768</userinput></screen>
 
-    <para>删除已知的导致问题的测试：</para>
+    <para>删除已知会导致问题的测试：</para>
 
 <screen><userinput remap="test">rm ../gcc/testsuite/g++.dg/pr83239.C</userinput></screen>
 
@@ -126,7 +126,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
 
     <para>结果可以和 <ulink url="&test-results;"/> 以及 <ulink url="http://gcc.gnu.org/ml/gcc-testresults/"/> 上的相比较。</para>
 
-    <para>一些意料之外的错误总是难以避免。GCC 开发者通常会意识到这些问题，但还没有解决。特别是 libstdc++ 测试套件中的六个测试，已知在像我们这样使用 root 用户的情况下会失败。除非测试结果和上面 URL 中的相差很大，不然就可以安全继续。</para>
+    <para>一些意料之外的错误总是难以避免。GCC 开发者通常会意识到这些问题，但还没有解决。除非测试结果和上面 URL 中的相差很大，不然就可以安全继续。</para>
 
     <note><para>
       在某些内核配置和 AMD 处理器组合的时候，肯能会在 gcc.target/i386/mpx 测试（旨在测试最新英特尔处理器上的 MPX 选项）中出现 1100 个失败。AMD 处理器的话可以安心的忽略这些。

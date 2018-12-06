@@ -14,7 +14,7 @@
     <address>&systemd-url;</address>
   </sect1info>
 
-  <title>Systemd-&systemd-version;</title>
+  <title>systemd-&systemd-version;</title>
 
   <indexterm zone="ch-system-systemd">
     <primary sortas="a-systemd">systemd</primary>

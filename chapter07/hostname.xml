@@ -15,7 +15,7 @@
     <secondary>configuring</secondary>
   </indexterm>
 
-  <para>启动过程中，Systemd 和 System V 都需要从 <filename>/etc/hostname</filename> 中获得系统的主机名。</para>
+  <para>启动过程中，systemd 和 System V 都需要从 <filename>/etc/hostname</filename> 中获得系统的主机名。</para>
 
   <para>执行以下命令建立 <filename>/etc/hostname</filename> 文件：</para>
 

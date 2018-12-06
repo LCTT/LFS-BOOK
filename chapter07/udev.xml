@@ -11,7 +11,7 @@
   <title>设备与模块管理概述</title>
 
   <indexterm zone="ch-scripts-udev">
-    <primary sortas="a-udev">Udev</primary>
+    <primary sortas="a-udev">udev</primary>
     <secondary>用法</secondary>
   </indexterm>
 
@@ -33,7 +33,7 @@
   </sect2>
 
   <sect2>
-    <title>Udev 实现</title>
+    <title>udev 实现</title>
 
     <sect3>
       <title>Sysfs</title>
@@ -89,7 +89,7 @@
 
       <para>如果在 <filename class="directory">/sys/bus</filename> 下的相应目录里没有 <filename>modalias</filename> 的话，意味着内核开发人员还没有为这个总线类型增加 modalias 支持。使用 Linux-&linux-version; 内核，应该是 ISA 总线的问题。希望这个可以在后面的内核版本里得到解决。</para>
 
-      <para>Udev根本不打算加载 <emphasis>snd-pcm-oss</emphasis> 这样的「封装」驱动程序和 <emphasis>loop</emphasis> 这样的非硬件设备驱动。</para>
+      <para>udev 根本不打算加载 <emphasis>snd-pcm-oss</emphasis> 这样的「封装」驱动程序和 <emphasis>loop</emphasis> 这样的非硬件设备驱动。</para>
 
     </sect3>
 

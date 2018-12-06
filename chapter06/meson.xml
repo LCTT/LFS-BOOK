@@ -51,7 +51,7 @@
 cp -rv dest/* /</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the install parameters:</title>
+      <title>安装参数的含义：</title>
       
       <varlistentry>
         <term><parameter>--root=dest</parameter></term>
@@ -67,7 +67,7 @@ cp -rv dest/* /</userinput></screen>
     <title>Meson 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>安装的库</segtitle>
+      <segtitle>安装的程序</segtitle>
       <segtitle>安装的目录</segtitle>
 
       <seglistitem>

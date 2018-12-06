@@ -362,7 +362,7 @@ ln -sfv ../../lib/libshadow.so.0 /usr/lib/libshadow.so</userinput></screen> -->
       <varlistentry id="newgidmap">
         <term><command>newgidmap</command></term>
         <listitem>
-          <para>Is used to set the gid mapping of a user namespace</para>
+          <para>用于设置用户命名空间的 gid 映射</para>
           <indexterm zone="ch-system-shadow newgidmap">
             <primary sortas="b-newgidmap">newgidmap</primary>
           </indexterm>
@@ -382,7 +382,7 @@ ln -sfv ../../lib/libshadow.so.0 /usr/lib/libshadow.so</userinput></screen> -->
       <varlistentry id="newuidmap">
         <term><command>newuidmap</command></term>
         <listitem>
-          <para>Is used to set the uid mapping of a user namespace</para>
+          <para>用于设置用户命名空间的 uid 映射</para>
           <indexterm zone="ch-system-shadow newuidmap">
             <primary sortas="b-newuidmap">newuidmap</primary>
           </indexterm>

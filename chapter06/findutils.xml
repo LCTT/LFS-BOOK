@@ -47,7 +47,7 @@
 
 <screen><userinput remap="pre">sed -i 's/test-lock..EXEEXT.//' tests/Makefile.in</userinput></screen>
 
-    <para>然后处理 glibc-2.28 相关的必要更改：</para>
+    <para>然后，对应 glibc-2.28 的需求做一些修复：</para>
 
 <screen><userinput remap="pre">sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' gl/lib/*.c
 sed -i '/unistd/a #include &lt;sys/sysmacros.h&gt;' gl/lib/mountlist.c

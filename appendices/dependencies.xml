@@ -5,7 +5,7 @@
   %general-entities;
 ]>
 
-<appendix id="appendixc" xreflabel="Appendix C">
+<appendix id="appendixc" xreflabel="附录 C">
   <?dbhtml dir="appendices"?>
   <?dbhtml filename="dependencies.html"?>
 
@@ -2349,7 +2349,7 @@
       </segmentedlist>
 
 <!-- Begin systemd dependency info -->
-  <bridgehead renderas="sect2" id="systemd-dep">Systemd</bridgehead>
+  <bridgehead renderas="sect2" id="systemd-dep">systemd</bridgehead>
 
       <segmentedlist>
         <segtitle>&dependencies;</segtitle>

@@ -164,7 +164,7 @@ EOF</userinput></screen>
       <filename>/sys/bus/pci/devices/0000:00:0d.0/modalias</filename> file
       might contain the string
       <quote>pci:v00001319d00000801sv00001319sd00001319bc04sc01i00</quote>.
-      The default rules provided with Udev will cause <command>udevd</command>
+      The default rules provided with udev will cause <command>udevd</command>
       to call out to <command>/sbin/modprobe</command> with the contents of the
       <envar>MODALIAS</envar> uevent environment variable (which should be the
       same as the contents of the <filename>modalias</filename> file in sysfs),
