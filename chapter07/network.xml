@@ -8,7 +8,7 @@
 <sect1 id="ch-scripts-network" revision="sysv">
   <?dbhtml filename="network.html"?>
 
-  <title>常规网络配置</title>
+  <title>通用网络配置</title>
 
   <indexterm zone="ch-scripts-network">
     <primary sortas="d-network">network</primary>

@@ -54,7 +54,7 @@
 
     <para>注意，Check 的测试套件可能会占用挺长（上至 4 SBU）的时间。</para>
 
-    <para>安装软件包、修复脚本：</para>
+    <para>安装软件包，并修复脚本：</para>
 
 <screen><userinput remap="install">make install
 sed -i '1 s/tools/usr/' /usr/bin/checkmk</userinput></screen>

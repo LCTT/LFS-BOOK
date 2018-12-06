@@ -8,7 +8,7 @@
 <sect1 id="ch-scripts-introduction" revision="sysv">
   <?dbhtml filename="introduction.html"?>
 
-  <title>介绍</title>
+  <title>简介<</title>
 
     <para>启动 Linux 系统牵涉到好些任务。该过程须挂载虚拟和现实两个文件系统，初始化设备，激活 swap，检查文件系统是否完整，挂载所有的 swap 分区和文件，设置系统时钟，配属网络，起动系统需要的守护进程，并完成用户想要完成的那些自定义的任务。该过程必须有组织有纪律，以确保任务能被井然有序地实施，并尽可能快地执行。</para>
 
@@ -75,9 +75,9 @@
   </sect2>
 <!--
   <sect2 id='sysd-desc'>
-    <title>Systemd</title>
+    <title>systemd</title>
 
-    <para>Systemd is a group of interconnected programs that handles system and
+    <para>systemd is a group of interconnected programs that handles system and
     individual process requests.  It provides a dependency system between
     various entities called "units".  It automatically addresses dependencies
     between units and can execute several startup tasks in parallel.  It

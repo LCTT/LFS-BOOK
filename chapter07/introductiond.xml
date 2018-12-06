@@ -14,13 +14,13 @@
 
   <itemizedlist>
      <listitem>
-       <para><xref linkend="ch-scripts-network" role="."/></para>
+       <para><xref linkend="ch-scripts-network"/></para>
      </listitem>
      <listitem>
-       <para><xref linkend="ch-scripts-hostname" role="."/></para>
+       <para><xref linkend="ch-scripts-hostname"/></para>
      </listitem>
      <listitem>
-       <para><xref linkend="ch-scripts-hosts" role="."/></para>
+       <para><xref linkend="ch-scripts-hosts"/></para>
      </listitem>
   </itemizedlist>
 
@@ -28,10 +28,10 @@
 
   <itemizedlist>
      <listitem>
-       <para><xref linkend="ch-scripts-udev" role="."/></para>
+       <para><xref linkend="ch-scripts-udev"/></para>
      </listitem>
      <listitem>
-       <para><xref linkend="ch-scripts-symlinks" role="."/></para>
+       <para><xref linkend="ch-scripts-symlinks"/></para>
      </listitem>
   </itemizedlist>
 
@@ -39,10 +39,10 @@
 
   <itemizedlist>
      <listitem>
-       <para><xref linkend="ch-scripts-clock" role="."/></para>
+       <para><xref linkend="ch-scripts-clock"/></para>
      </listitem>
      <listitem>
-       <para><xref linkend="ch-scripts-console" role="."/></para>
+       <para><xref linkend="ch-scripts-console"/></para>
      </listitem>
   </itemizedlist>
 
@@ -51,10 +51,10 @@
 
   <itemizedlist>
      <listitem>
-       <para><xref linkend="ch-scripts-locale" role="."/></para>
+       <para><xref linkend="ch-scripts-locale"/></para>
      </listitem>
      <listitem>
-       <para><xref linkend="ch-scripts-inputrc" role="."/></para>
+       <para><xref linkend="ch-scripts-inputrc"/></para>
      </listitem>
   </itemizedlist>
 
@@ -62,7 +62,7 @@
 
   <itemizedlist>
      <listitem>
-       <para><xref linkend="ch-scripts-systemd-custom" role="."/></para>
+       <para><xref linkend="ch-scripts-systemd-custom"/></para>
      </listitem>
   </itemizedlist>
 

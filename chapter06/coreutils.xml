@@ -68,8 +68,7 @@ FORCE_UNSAFE_CONFIGURE=1 ./configure \
       <varlistentry>
         <term><command>autoreconf</command></term>
         <listitem>
-          <para>此命令更新已有的配置文件，以使其和 automake 最新生成的一致。
-          </para>
+          <para>此命令更新已有的配置文件，以使其和 automake 最新生成的一致。</para>
         </listitem>
       </varlistentry>
 
