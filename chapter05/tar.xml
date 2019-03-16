@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-tar" role="wrap">
+  <?dbhtml filename="tar.html"?>
+
+  <sect1info condition="script">
+    <productname>tar</productname>
+    <productnumber>&tar-version;</productnumber>
+    <address>&tar-url;</address>
+  </sect1info>
+
+  <title>Tar-&tar-version;</title>
+
+  <indexterm zone="ch-tools-tar">
+    <primary sortas="a-Tar">Tar</primary>
+    <secondary>tools</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/tar.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&tar-ch5-sbu;</seg>
+        <seg>&tar-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Tar</title>
+
+    <para>Prepare Tar for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/tools</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Compilation is now complete. As discussed earlier, running the test
+    suite is not mandatory for the temporary tools here in this chapter. To run
+    the Tar test suite anyway, issue the following command:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-tar" role="."/></para>
+
+  </sect2>
+
+</sect1>

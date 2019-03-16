@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-revisedchroot">
+  <?dbhtml filename="revisedchroot.html"?>
+
+  <title>Cleaning Up</title>
+
+  <para>Finally, clean up some extra files left around from running tests:</para>
+
+<screen><userinput>rm -rf /tmp/*</userinput></screen>
+
+  <para>Now log out and reenter the chroot environment with an updated
+  chroot command.  From now on, use this updated chroot command any time 
+  you need to reenter the chroot environment after exiting:</para>
+
+<screen role="nodump"><userinput>logout
+
+chroot "$LFS" /usr/bin/env -i          \
+    HOME=/root TERM="$TERM"            \
+    PS1='(lfs chroot) \u:\w\$ '        \
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+    /bin/bash --login</userinput></screen>
+
+  <para>The reason for this is that the programs in <filename
+  class="directory">/tools</filename> are no longer needed.  For this reason
+  you can delete the <filename class="directory">/tools</filename>
+  directory if so desired.</para>
+
+  <note>
+    <para>Removing <filename class="directory">/tools</filename> will also
+    remove the temporary copies of Tcl, Expect, and DejaGNU which were used
+    for running the toolchain tests. If you need these programs later on,
+    they will need to be recompiled and re-installed. The BLFS book has
+    instructions for this (see <ulink url="&blfs-root;"/>).</para>
+  </note>
+
+  <para>If the virtual kernel file systems have been unmounted, either manually
+  or through a reboot, ensure that the virtual kernel file systems are mounted
+  when reentering the chroot. This process was explained in <xref
+  linkend="ch-system-bindmount"/> and <xref
+  linkend="ch-system-kernfsmount"/>.</para>
+
+  <para>There were several static libraries that were not suppressed earlier
+  in the chapter in order to satisfy the regression tests in several packages. These 
+  libraries are from binutils, bzip2, e2fsprogs, flex, libtool, and zlib.  If desired,
+  remove them now:</para>
+
+<screen><userinput>rm -f /usr/lib/lib{bfd,opcodes}.a
+rm -f /usr/lib/libbz2.a
+rm -f /usr/lib/lib{com_err,e2p,ext2fs,ss}.a
+rm -f /usr/lib/libltdl.a
+rm -f /usr/lib/libfl.a
+rm -f /usr/lib/libz.a</userinput></screen>
+
+  <para>There are also several files installed in the /usr/lib and /usr/libexec
+  directories with a file name extention of .la. These are "libtool archive"
+  files and generally unneeded on a linux system. None of these are necessary
+  at this point. To remove them, run:</para>
+
+<screen><userinput>find /usr/lib /usr/libexec -name \*.la -delete</userinput></screen>
+
+   <para>For more information about libtool archive files, see the <ulink
+   url="&blfs-book;/introduction/la-files.html">BLFS section "About Libtool
+   Archive (.la) files"</ulink>.</para>
+
+</sect1>

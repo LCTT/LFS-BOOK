@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-clock">
+  <?dbhtml filename="clock.html"?>
+
+  <title>Configuring the System Clock</title>
+
+  <para>Procedures for setting the system clock differ between systemd and 
+  System V, however the separate procedures do not conflict so both
+  procedures should be accomplished to allow switching between systems.</para>
+
+  <sect2 id="ch-scripts-setclock">
+    <title>System V Clock Configuration</title>
+
+    <indexterm zone="ch-scripts-setclock">
+      <primary sortas="d-setclock">setclock</primary>
+    <secondary>configuring</secondary></indexterm>
+
+    <para>The <command>setclock</command> script reads the time from the hardware
+    clock, also known as the BIOS or the Complementary Metal Oxide Semiconductor
+    (CMOS) clock. If the hardware clock is set to UTC, this script will convert the
+    hardware clock's time to the local time using the
+    <filename>/etc/localtime</filename> file (which tells the
+    <command>hwclock</command> program which timezone the user is in). There is no
+    way to detect whether or not the hardware clock is set to UTC, so this
+    needs to be configured manually.</para>
+
+    <para>The <command>setclock</command> is run via
+    <application>udev</application> when the kernel detects the hardware
+    capability upon boot.  It can also be run manually with the stop parameter to
+    store the system time to the CMOS clock.</para>
+
+    <para>If you cannot remember whether or not the hardware clock is set to UTC,
+    find out by running the <userinput>hwclock --localtime --show</userinput>
+    command. This will display what the current time is according to the hardware
+    clock. If this time matches whatever your watch says, then the hardware clock is
+    set to local time. If the output from <command>hwclock</command> is not local
+    time, chances are it is set to UTC time. Verify this by adding or subtracting
+    the proper amount of hours for the timezone to the time shown by
+    <command>hwclock</command>. For example, if you are currently in the MST
+    timezone, which is also known as GMT -0700, add seven hours to the local
+    time.</para>
+
+    <para>Change the value of the <envar>UTC</envar> variable below
+    to a value of <parameter>0</parameter> (zero) if the hardware clock
+    is <emphasis>not</emphasis> set to UTC time.</para>
+
+    <para>Create a new file <filename>/etc/sysconfig/clock</filename> by running
+    the following:</para>
+
+<screen><userinput>cat &gt; /etc/sysconfig/clock &lt;&lt; "EOF"
+<literal># Begin /etc/sysconfig/clock
+
+UTC=1
+
+# Set this to any options you might need to give to hwclock,
+# such as machine hardware clock type for Alphas.
+CLOCKPARAMS=
+
+# End /etc/sysconfig/clock</literal>
+EOF</userinput></screen>
+
+    <para>A good hint explaining how to deal with time on LFS is available
+    at <ulink url="&hints-root;time.txt"/>. It explains issues such as
+    time zones, UTC, and the <envar>TZ</envar> environment variable.</para>
+
+    <note><para>The CLOCKPARAMS and UTC paramaters may be alternatively set
+    in the <filename>/etc/sysconfig/rc.site</filename> file.</para></note>
+
+  </sect2>
+
+  <sect2 id="ch-scripts-systemd-clock">
+    <title>Systemd Clock Configuration</title>
+
+  <indexterm zone="ch-scripts-clock">
+    <primary sortas="d-clock">clock</primary>
+  <secondary>configuring</secondary></indexterm>
+
+  <para>This section discusses how to configure the
+  <command>systemd-timedated</command> system service, which configures
+  system clock and timezone.</para>
+
+  <para><command>systemd-timedated</command> reads
+  <filename>/etc/adjtime</filename>, and depending on the contents of the file,
+  it sets the clock to either UTC or local time.  Create the
+  <filename>/etc/adjtime</filename> file with the following contents <emphasis>if your
+  hardware clock is set to local time</emphasis>:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/adjtime &lt;&lt; "EOF"
+<literal>0.0 0 0.0
+0
+LOCAL</literal>
+EOF</userinput></screen>
+
+    <para>If <filename>/etc/adjtime</filename> isn't present at first boot,
+    <command>systemd-timedated</command> will assume that hardware clock is
+    set to UTC and create the file using that setting.</para>
+
+    <para>You can also use the <command>timedatectl</command> utility to tell
+    <command>systemd-timedated</command> if your hardware clock is set to
+    UTC or local time:</para>
+
+<screen role="nodump"><userinput>timedatectl set-local-rtc 1</userinput></screen>
+
+    <para><command>timedatectl</command> can also be used to change system time and
+    time zone.</para>
+
+    <para>To change your current system time, issue:</para>
+
+<screen role="nodump"><userinput>timedatectl set-time YYYY:MM:DD HH:MM:SS</userinput></screen>
+
+    <para>Hardware clock will also be updated accordingly.</para>
+
+    <para>To change your current time zone, issue:</para>
+
+<screen role="nodump"><userinput>timedatectl set-timezone TIMEZONE</userinput></screen>
+
+    <para>You can get list of available time zones by running:</para>
+
+<screen role="nodump"><userinput>timedatectl list-timezones</userinput></screen>
+
+    <note><para>Please note that <command>timedatectl</command> command can
+    be used only on a system booted with Systemd.</para></note>
+
+  </sect2>
+
+</sect1>

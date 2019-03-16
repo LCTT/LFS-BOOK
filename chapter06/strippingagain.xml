@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-strippingagain">
+  <?dbhtml filename="strippingagain.html"?>
+
+  <title>Stripping Again</title>
+
+  <para>This section is optional.  If the intended user is not a 
+  programmer and does not plan to do
+  any debugging on the system software, the system size can be decreased
+  by about 90 MB by removing the debugging symbols from binaries and
+  libraries. This causes no inconvenience other than not being able to
+  debug the software fully anymore.</para>
+
+  <para>Most people who use the commands mentioned below do not
+  experience any difficulties. However, it is easy to make a typo and
+  render the new system unusable, so before running the
+  <command>strip</command> commands, it is a good idea to make a
+  backup of the LFS system in its current state.</para>
+
+  <para>First place the debugging symbols for selected libraries 
+  in separate files.  This debugging information is needed if running 
+  regression tests that use <ulink 
+  url='&blfs-book;/general/valgrind.html'>valgrind</ulink> or <ulink 
+  url='&blfs-book;/general/gdb.html'>gdb</ulink> later in BLFS.
+  </para>
+
+<!-- also of interest are libgfortan, libgo, libgomp, and libobjc from gcc -->
+
+<!--<screen><userinput>save_lib="ld-2.25.so libc-2.25.so libpthread-2.25.so libthread_db-1.0.so"-->
+<screen><userinput>save_lib="ld-&glibc-version;.so libc-&glibc-version;.so libpthread-&glibc-version;.so libthread_db-&libthread_db-version;.so"
+
+cd /lib
+
+for LIB in $save_lib; do
+    objcopy --only-keep-debug $LIB $LIB.dbg 
+    strip --strip-unneeded $LIB
+    objcopy --add-gnu-debuglink=$LIB.dbg $LIB 
+done    
+
+save_usrlib="libquadmath.so.&libquadmath-version; libstdc++.so.&libstdcpp-version;
+             libitm.so.&libitm-version; libatomic.so.&libatomic-version;" <!-- libcilkrts.so.&libcilkrts-version;-->
+
+cd /usr/lib
+
+for LIB in $save_usrlib; do
+    objcopy --only-keep-debug $LIB $LIB.dbg
+    strip --strip-unneeded $LIB
+    objcopy --add-gnu-debuglink=$LIB.dbg $LIB
+done
+
+unset LIB save_lib save_usrlib</userinput></screen>
+
+  <para>Before performing the stripping, take special care to ensure that
+  none of the binaries that are about to be stripped are running:</para>
+
+<screen role="nodump"><userinput>exec /tools/bin/bash</userinput></screen>
+  
+  <!--
+  If
+  unsure whether the user entered chroot with the command given in
+  <xref linkend="ch-system-chroot" role=","/> first use the version
+  of bash we created in 
+  chroot:</para>
+
+<screen role="nodump"><userinput>logout</userinput></screen>
+
+  <para>Then reenter it with:</para>
+
+<screen role="nodump"><userinput>chroot $LFS /tools/bin/env -i          \
+    HOME=/root TERM=$TERM              \
+    PS1='(lfs chroot) \u:\w\$ '        \
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+    /tools/bin/bash - -login</userinput></screen>-->
+
+  <para>Now the binaries and libraries can be safely stripped:</para>
+
+<screen><userinput>/tools/bin/find /usr/lib -type f -name \*.a \
+   -exec /tools/bin/strip --strip-debug {} ';'
+
+/tools/bin/find /lib /usr/lib -type f \( -name \*.so* -a ! -name \*dbg \) \
+   -exec /tools/bin/strip --strip-unneeded {} ';'
+
+/tools/bin/find /{bin,sbin} /usr/{bin,sbin,libexec} -type f \
+    -exec /tools/bin/strip --strip-all {} ';'</userinput></screen>
+
+  <para>A large number of files will be reported as having their file
+  format not recognized. These warnings can be safely ignored. These
+  warnings indicate that those files are scripts instead of
+  binaries.</para>
+
+</sect1>

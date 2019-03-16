@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-automake" role="wrap">
+  <?dbhtml filename="automake.html"?>
+
+  <sect1info condition="script">
+    <productname>automake</productname>
+    <productnumber>&automake-version;</productnumber>
+    <address>&automake-url;</address>
+  </sect1info>
+
+  <title>Automake-&automake-version;</title>
+
+  <indexterm zone="ch-system-automake">
+    <primary sortas="a-Automake">Automake</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Automake package contains programs for generating Makefiles for use
+    with Autoconf.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&automake-ch6-sbu;</seg>
+        <seg>&automake-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Automake</title>
+
+    <para>Prepare Automake for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/automake-&automake-version;</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+<!--<para>There are a couple of tests that incorrectly link to the 
+    wrong version of the flex library, so we temporarily work around
+    the problem.  Also, using the -j4 make option speeds up the tests, even on
+    systems with only one processor, due to internal delays in individual
+    tests.  To test the results, issue:</para>
+ -->
+
+    <para> Using the -j4 make option speeds up the tests, even on systems with
+    only one processor, due to internal delays in individual tests.  To test
+    the results, issue:</para>
+
+ <!--<screen><userinput remap="test">sed -i "s:./configure:LEXLIB=/usr/lib/libfl.a &amp;:" t/lex-{clean,depend}-cxx.sh
+       make -j4 check</userinput></screen>-->
+
+<screen><userinput remap="test">make -j4 check</userinput></screen>
+
+
+    <para>One test is known to fail in the LFS environment:
+    subobj.sh.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+
+  <sect2 id="contents-automake" role="content">
+    <title>Contents of Automake</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>aclocal, aclocal-&am-minor-version; (hard linked with aclocal), automake, and
+        automake-&am-minor-version; (hard linked with automake) </seg>
+        <seg>/usr/share/aclocal-&am-minor-version;, /usr/share/automake-&am-minor-version;, and
+        /usr/share/doc/automake-&automake-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="aclocal">
+        <term><command>aclocal</command></term>
+        <listitem>
+          <para>Generates <filename>aclocal.m4</filename> files based on the
+          contents of <filename>configure.in</filename> files</para>
+          <indexterm zone="ch-system-automake aclocal">
+            <primary sortas="b-aclocal">aclocal</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="aclocalversion">
+        <term><command>aclocal-&am-minor-version;</command></term>
+        <listitem>
+          <para>A hard link to <command>aclocal</command></para>
+          <indexterm zone="ch-system-automake aclocalversion">
+            <primary sortas="b-aclocal-&am-minor-version;">aclocal-&am-minor-version;</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="automake">
+        <term><command>automake</command></term>
+        <listitem>
+          <para>A tool for automatically generating
+          <filename>Makefile.in</filename> files from
+          <filename>Makefile.am</filename> files [To create all the
+          <filename>Makefile.in</filename> files for a package, run this program
+          in the top-level directory. By scanning the
+          <filename>configure.in</filename> file, it automatically finds each
+          appropriate <filename>Makefile.am</filename> file and generates the
+          corresponding <filename>Makefile.in</filename> file.]</para>
+          <indexterm zone="ch-system-automake automake">
+            <primary sortas="b-automake">automake</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="automake-version">
+        <term><command>automake-&am-minor-version;</command></term>
+        <listitem>
+          <para>A hard link to <command>automake</command></para>
+          <indexterm zone="ch-system-automake automake-version">
+            <primary sortas="b-automake-&am-minor-version;">automake-&am-minor-version;</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

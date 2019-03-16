@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="prepare-introduction">
+  <?dbhtml filename="introduction.html"?>
+
+  <title>Introduction</title>
+
+  <para>In this chapter, we will perform a few additional tasks to prepare
+  for building the temporary system. We will create a directory in
+  <filename class="directory">$LFS</filename> for the installation of the
+  temporary tools, add an unprivileged user to reduce risk,
+  and create an appropriate build environment for that user. We will also
+  explain the unit of time we use to measure how long LFS packages take to
+  build, or <quote>SBUs</quote>, and give some information about package
+  test suites.</para>
+
+</sect1>

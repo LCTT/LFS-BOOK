@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-inetutils" role="wrap">
+  <?dbhtml filename="inetutils.html"?>
+
+  <sect1info condition="script">
+    <productname>inetutils</productname>
+    <productnumber>&inetutils-version;</productnumber>
+    <address>&inetutils-url;</address>
+  </sect1info>
+
+  <title>Inetutils-&inetutils-version;</title>
+
+  <indexterm zone="ch-system-inetutils">
+    <primary sortas="a-Inetutils">Inetutils</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Inetutils package contains programs for basic networking.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&inetutils-ch6-sbu;</seg>
+        <seg>&inetutils-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Inetutils</title>
+
+    <para>Prepare Inetutils for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr        \
+            --localstatedir=/var \
+            --disable-logger     \
+            --disable-whois      \
+            --disable-rcp        \
+            --disable-rexec      \
+            --disable-rlogin     \
+            --disable-rsh        \
+            --disable-servers</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--disable-logger</parameter></term>
+        <listitem>
+          <para>This option prevents Inetutils from installing the
+          <command>logger</command> program, which is used by scripts to
+          pass messages to the System Log Daemon. Do not install it because
+          Util-linux installs a more recent version.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-whois</parameter></term>
+        <listitem>
+          <para>This option disables the building of the Inetutils
+          <command>whois</command> client, which is out of date. Instructions for
+          a better <command>whois</command> client are in the BLFS book.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-r*</parameter></term>
+        <listitem>
+          <para>These parameters disable building obsolete programs that should not
+          be used due to security issues. The functions provided by these
+          programs can be provided by the <application>openssh</application>
+          package in the BLFS book.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-servers</parameter></term>
+        <listitem>
+          <para>This disables the installation of the various network servers
+          included as part of the Inetutils package. These servers are deemed not
+          appropriate in a basic LFS system. Some are insecure by nature and are
+          only considered safe on trusted networks. Note that
+          better replacements are available for many of these servers.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <note><para>One test, libls.sh, may fail in the initial chroot
+    environment but will pass if the test is rerun after the LFS system
+    is complete. One test, ping-localhost.sh, will fail if the host
+    system does not have ipv6 capability.</para></note>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>Move some programs so they are available if <filename
+    class='directory'>/usr</filename> is not accessible:</para>
+
+<screen><userinput remap="install">mv -v /usr/bin/{hostname,ping,ping6,traceroute} /bin
+mv -v /usr/bin/ifconfig /sbin</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-inetutils" role="content">
+    <title>Contents of Inetutils</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+
+      <seglistitem>
+        <seg>dnsdomainname, ftp, ifconfig, hostname, ping, ping6, 
+        talk, telnet, tftp, and traceroute</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="dnsdomainname">
+        <term><command>dnsdomainname</command></term>
+        <listitem>
+        <para>Show the system's DNS domain name</para>
+        <indexterm zone="ch-system-inetutils dnsdomainname">
+          <primary sortas="b-dnsdomainname">dnsdomainname</primary>
+        </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ftp">
+        <term><command>ftp</command></term>
+        <listitem>
+        <para>Is the file transfer protocol program</para>
+        <indexterm zone="ch-system-inetutils ftp">
+          <primary sortas="b-ftp">ftp</primary>
+        </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="hostname">
+        <term><command>hostname</command></term>
+        <listitem>
+          <para>Reports or sets the name of the host</para>
+          <indexterm zone="ch-system-inetutils hostname">
+            <primary sortas="b-hostname">hostname</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ifconfig">
+        <term><command>ifconfig</command></term>
+        <listitem>
+        <para>Manages network interfaces</para>
+        <indexterm zone="ch-system-inetutils ifconfig">
+          <primary sortas="b-ifconfig">ifconfig</primary>
+        </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ping">
+        <term><command>ping</command></term>
+        <listitem>
+          <para>Sends echo-request packets and reports how long the replies
+          take</para>
+          <indexterm zone="ch-system-inetutils ping">
+            <primary sortas="b-ping">ping</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ping6">
+        <term><command>ping6</command></term>
+        <listitem>
+          <para>A version of <command>ping</command> for IPv6 networks</para>
+          <indexterm zone="ch-system-inetutils ping6">
+            <primary sortas="b-ping6">ping6</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="talk">
+        <term><command>talk</command></term>
+        <listitem>
+          <para>Is used to chat with another user</para>
+          <indexterm zone="ch-system-inetutils talk">
+            <primary sortas="b-talk">talk</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="telnet">
+        <term><command>telnet</command></term>
+        <listitem>
+          <para>An interface to the TELNET protocol</para>
+          <indexterm zone="ch-system-inetutils telnet">
+            <primary sortas="b-telnet">telnet</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tftp">
+        <term><command>tftp</command></term>
+        <listitem>
+          <para>A trivial file transfer program</para>
+          <indexterm zone="ch-system-inetutils tftp">
+            <primary sortas="b-tftp">tftp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="traceroute">
+        <term><command>traceroute</command></term>
+        <listitem>
+          <para>Traces the route your packets take from the host you are
+          working on to another host on a network, showing all the intermediate
+          hops (gateways) along the way</para>
+          <indexterm zone="ch-system-inetutils traceroute">
+            <primary sortas="b-traceroute">traceroute</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

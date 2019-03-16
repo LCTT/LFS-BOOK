@@ -1,0 +1,3 @@
+# /etc/udev/rules.d/81-cdrom.rules: Set CD-ROM permissions and get device capabilities
+
+ACTION=="add", SUBSYSTEM=="block", ENV{ID_TYPE}=="cd", IMPORT{program}="cdrom_id --export $tempnode", GROUP="cdrom"

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-bison" role="wrap">
+  <?dbhtml filename="bison.html"?>
+
+  <sect1info condition="script">
+    <productname>bison</productname>
+    <productnumber>&bison-version;</productnumber>
+    <address>&bison-url;</address>
+  </sect1info>
+
+  <title>Bison-&bison-version;</title>
+
+  <indexterm zone="ch-tools-bison">
+    <primary sortas="a-Bison">Bison</primary>
+    <secondary>tools</secondary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/bison.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&bison-ch5-sbu;</seg>
+        <seg>&bison-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Bison</title>
+
+    <para>Prepare Bison for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/tools</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-bison" role="."/></para>
+
+  </sect2>
+
+</sect1>

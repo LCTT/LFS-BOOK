@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-intltool" role="wrap">
+  <?dbhtml filename="intltool.html"?>
+
+  <sect1info condition="script">
+    <productname>intltool</productname>
+    <productnumber>&intltool-version;</productnumber>
+    <address>&intltool-url;</address>
+  </sect1info>
+
+  <title>Intltool-&intltool-version;</title>
+
+  <indexterm zone="ch-system-intltool">
+    <primary sortas="a-Intltool">Intltool</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Intltool is an internationalization tool used for extracting
+    translatable strings from source files.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&intltool-ch6-sbu;</seg>
+        <seg>&intltool-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Intltool</title>
+
+    <para>First fix a warning that is caused by perl-5.22 and later:</para>
+
+<screen><userinput remap="pre">sed -i 's:\\\${:\\\$\\{:' intltool-update.in</userinput></screen>
+
+    <para>Prepare Intltool for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install
+install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-&intltool-version;/I18N-HOWTO</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-intltool" role="content">
+    <title>Contents of Intltool</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>intltool-extract, intltool-merge, intltool-prepare,
+        intltool-update, and intltoolize</seg>
+        <seg>/usr/share/doc/intltool-&intltool-version; and
+        /usr/share/intltool</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="intltoolize">
+        <term><command>intltoolize</command></term>
+        <listitem>
+          <para>Prepares a package to use intltool</para>
+          <indexterm zone="ch-system-intltool intltoolize">
+            <primary sortas="b-intltoolize">intltoolize</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="intltool-extract">
+        <term><command>intltool-extract</command></term>
+        <listitem>
+          <para>Generates header files that can be read by <command>gettext</command></para>
+          <indexterm zone="ch-system-intltool intltool-extract">
+            <primary sortas="b-intltool-extract">intltool-extract</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="intltool-merge">
+        <term><command>intltool-merge</command></term>
+        <listitem>
+          <para>Merges translated strings into various file types</para>
+          <indexterm zone="ch-system-intltool intltool-merge">
+            <primary sortas="b-intltool-merge">intltool-merge</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="intltool-prepare">
+        <term><command>intltool-prepare</command></term>
+        <listitem>
+          <para>Updates pot files and merges them with translation files</para>
+          <indexterm zone="ch-system-intltool intltool-prepare">
+            <primary sortas="b-intltool-prepare">intltool-prepare</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="intltool-update">
+        <term><command>intltool-update</command></term>
+        <listitem>
+          <para>Updates the po template files and merges them with the translations</para>
+          <indexterm zone="ch-system-intltool intltool-update">
+            <primary sortas="b-intltool-update">intltool-update</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

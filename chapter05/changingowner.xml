@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-changingowner">
+  <?dbhtml filename="changingowner.html"?>
+
+  <title>Changing Ownership</title>
+
+  <note>
+    <para>The commands in the remainder of this book must be performed while
+    logged in as user <systemitem class="username">root</systemitem> and no
+    longer as user <systemitem class="username">lfs</systemitem>. Also, double
+    check that <envar>$LFS</envar> is set in <systemitem
+    class="username">root</systemitem>'s environment.</para>
+  </note>
+
+  <para>Currently, the <filename class="directory">$LFS/tools</filename> directory
+  is owned by the user <systemitem class="username">lfs</systemitem>, a user
+  that exists only on the host system. If the <filename
+  class="directory">$LFS/tools</filename> directory is kept as is, the files are
+  owned by a user ID without a corresponding account. This is dangerous because
+  a user account created later could get this same user ID and would own the
+  <filename class="directory">$LFS/tools</filename> directory and all the files
+  therein, thus exposing these files to possible malicious manipulation.</para>
+
+  <para>To avoid this issue, you could add the <systemitem
+  class="username">lfs</systemitem> user to the new LFS system later when
+  creating the <filename>/etc/passwd</filename> file, taking care to assign it
+  the same user and group IDs as on the host system. Better yet, change the
+  ownership of the <filename class="directory">$LFS/tools</filename> directory to
+  user <systemitem class="username">root</systemitem> by running the following
+  command:</para>
+
+<screen><userinput>chown -R root:root $LFS/tools</userinput></screen>
+
+  <para>Although the <filename class="directory">$LFS/tools</filename> directory
+  can be deleted once the LFS system has been finished, it can be retained to build
+  additional LFS systems <emphasis>of the same book version</emphasis>. How best
+  to backup <filename class="directory">$LFS/tools</filename> is a matter of
+  personal preference.</para>
+
+  <caution>
+    <para>If you intend to keep the temporary tools for use in building future LFS
+    systems, <emphasis>now</emphasis> is the time to back them up. Subsequent
+    commands in chapter 6 will alter the tools currently in place, rendering them
+    useless for future builds.</para>
+  </caution>
+
+</sect1>
