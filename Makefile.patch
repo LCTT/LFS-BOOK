@@ -1,0 +1,35 @@
+diff --git a/Makefile b/Makefile
+index f237346..f4a00ec 100644
+--- a/Makefile
++++ b/Makefile
+@@ -189,22 +189,22 @@ $(BASEDIR)/md5sums: stylesheets/wget-list.xsl chapter03/chapter03.xml \
+        "s/BOOTSCRIPTS-MD5SUM/$(shell md5sum lfs-bootscripts*.tar.bz2 | cut -d' ' -f1)/" \
+        $(BASEDIR)/md5sums
+ 
+-dump-commands: validate
+-	@echo "Dumping book commands..."
++#dump-commands: validate
++#	@echo "Dumping book commands..."
+ #	$(Q)xsltproc --nonet                     \
+ #      --output $(RENDERTMP)/lfs-html.xml    \
+ #      --stringparam profile.revision $(REV) \
+ #      stylesheets/lfs-xsl/profile.xsl       \
+ #      $(RENDERTMP)/lfs-full.xml
+ 
+-	$(Q)rm -rf $(DUMPDIR)
++#	$(Q)rm -rf $(DUMPDIR)
+ 
+-	$(Q)xsltproc --output $(DUMPDIR)/          \
+-                stylesheets/dump-commands.xsl \
+-                $(RENDERTMP)/lfs-html.xml
+-	@echo "Dumping book commands complete in $(DUMPDIR)"
++#	$(Q)xsltproc --output $(DUMPDIR)/          \
++#                stylesheets/dump-commands.xsl \
++#                $(RENDERTMP)/lfs-html.xml
++#	@echo "Dumping book commands complete in $(DUMPDIR)"
+ 
+-all: book nochunks pdf dump-commands
++all: book nochunks pdf # dump-commands
+ 
+ .PHONY : all book dump-commands nochunks pdf profile-html tmpdir validate md5sums wget-list
+ 

@@ -1,0 +1,27 @@
+diff --git a/chapter06/dbus.xml b/chapter06/dbus.xml
+index 06b6685..7d148d5 100644
+--- a/chapter06/dbus.xml
++++ b/chapter06/dbus.xml
+@@ -48,14 +48,14 @@
+ 
+     <para>Prepare D-Bus for compilation:</para>
+ 
+-<screen><userinput remap="configure">  ./configure --prefix=/usr                       \
+-              --sysconfdir=/etc                   \
+-              --localstatedir=/var                \
+-              --disable-static                    \
+-              --disable-doxygen-docs              \
+-              --disable-xml-docs                  \
+-              --docdir=/usr/share/doc/dbus-&dbus-version; \
+-              --with-console-auth-dir=/run/console</userinput></screen>
++<screen><userinput remap="configure">./configure --prefix=/usr                       \
++            --sysconfdir=/etc                   \
++            --localstatedir=/var                \
++            --disable-static                    \
++            --disable-doxygen-docs              \
++            --disable-xml-docs                  \
++            --docdir=/usr/share/doc/dbus-&dbus-version; \
++            --with-console-auth-dir=/run/console</userinput></screen>
+ 
+     <variablelist>
+       <title>The meaning of the configure options:</title>

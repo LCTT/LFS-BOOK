@@ -1,0 +1,30 @@
+diff --git a/chapter06/attr.xml b/chapter06/attr.xml
+index 56c9fa8..de93a2b 100644
+--- a/chapter06/attr.xml
++++ b/chapter06/attr.xml
+@@ -87,7 +87,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</userinput
+       <segtitle>Installed directories</segtitle>
+ 
+       <seglistitem>
+-        <seg>attr, getfattr, and setattr</seg>
++        <seg>attr, getfattr, and setfattr</seg>
+         <seg>libattr.so</seg>
+         <seg>/usr/include/attr and /usr/share/doc/attr-&attr-version;</seg>
+       </seglistitem>
+@@ -118,12 +118,12 @@ ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</userinput
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="setattr">
+-        <term><command>setattr</command></term>
++      <varlistentry id="setfattr">
++        <term><command>setfattr</command></term>
+         <listitem>
+           <para>Sets the extended attributes of filesystem objects</para>
+-          <indexterm zone="ch-system-attr setattr">
+-            <primary sortas="b-setattr">setattr</primary>
++          <indexterm zone="ch-system-attr setfattr">
++            <primary sortas="b-setfattr">setfattr</primary>
+           </indexterm>
+         </listitem>
+       </varlistentry>

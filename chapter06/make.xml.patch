@@ -1,0 +1,13 @@
+diff --git a/chapter06/make.xml b/chapter06/make.xml
+index bf57ce7..e279297 100644
+--- a/chapter06/make.xml
++++ b/chapter06/make.xml
+@@ -40,7 +40,7 @@
+   <sect2 role="installation">
+     <title>Installation of Make</title>
+ 
+-    <para>Again, work around an error caused by glibc-2.27:</para>
++    <para>Again, work around an error caused by glibc-2.27 and later:</para>
+ 
+ <screen><userinput remap="pre">sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c</userinput></screen>
+     <para>Prepare Make for compilation:</para>

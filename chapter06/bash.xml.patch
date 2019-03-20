@@ -1,0 +1,25 @@
+diff --git a/chapter06/bash.xml b/chapter06/bash.xml
+index aeaada5..7294ccc 100644
+--- a/chapter06/bash.xml
++++ b/chapter06/bash.xml
+@@ -46,9 +46,9 @@
+ -->
+     <para>Prepare Bash for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr                       \
++<screen><userinput remap="configure">./configure --prefix=/usr                    \
+             --docdir=/usr/share/doc/bash-&bash-version; \
+-            --without-bash-malloc               \
++            --without-bash-malloc            \
+             --with-installed-readline</userinput></screen>
+ 
+     <variablelist>
+@@ -80,7 +80,7 @@
+     <para>Now, run the tests as the <systemitem
+     class="username">nobody</systemitem> user:</para>
+ 
+-<screen><userinput remap="test">su nobody -s /bin/bash -c "PATH=$PATH make tests"</userinput></screen>
++<screen><userinput remap="test">su nobody -s /bin/bash -c "PATH=$PATH HOME=/home make tests"</userinput></screen>
+ 
+     <para>Install the package and move the main executable to
+     <filename class='directory'>/bin</filename>:</para>

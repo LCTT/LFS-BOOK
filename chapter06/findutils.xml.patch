@@ -1,0 +1,57 @@
+diff --git a/chapter06/findutils.xml b/chapter06/findutils.xml
+index 31fc1d2..9ea7d6f 100644
+--- a/chapter06/findutils.xml
++++ b/chapter06/findutils.xml
+@@ -50,7 +50,7 @@
+ 
+ <screen><userinput remap="pre">sed -i 's/test-lock..EXEEXT.//' tests/Makefile.in</userinput></screen>
+ 
+-    <para>Next, make some fixes required by glibc-2.28:</para>
++    <para>Next, make some fixes required by glibc-2.28 and later:</para>
+ 
+ <screen><userinput remap="pre">sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' gl/lib/*.c
+ sed -i '/unistd/a #include &lt;sys/sysmacros.h&gt;' gl/lib/mountlist.c
+@@ -109,7 +109,7 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
+       <segtitle>Installed programs</segtitle>
+ 
+       <seglistitem>
+-        <seg>code, find, locate, oldfind, updatedb, and xargs</seg>
++        <seg>find, locate, updatedb, and xargs</seg>
+       </seglistitem>
+     </segmentedlist>
+ 
+@@ -118,17 +118,6 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
+       <?dbfo list-presentation="list"?>
+       <?dbhtml list-presentation="table"?>
+ 
+-      <varlistentry id="code">
+-        <term><command>code</command></term>
+-        <listitem>
+-          <para>Was formerly used to produce <command>locate</command>
+-          databases; it is the ancestor of <command>frcode</command></para>
+-          <indexterm zone="ch-system-findutils code">
+-            <primary sortas="b-code">code</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+       <varlistentry id="find">
+         <term><command>find</command></term>
+         <listitem>
+@@ -151,16 +140,6 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="oldfind">
+-        <term><command>oldfind</command></term>
+-        <listitem>
+-          <para>Older version of find, using a different algorithm</para>
+-          <indexterm zone="ch-system-findutils oldfind">
+-            <primary sortas="b-oldfind">oldfind</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+       <varlistentry id="updatedb">
+       <term><command>updatedb</command></term>
+         <listitem>

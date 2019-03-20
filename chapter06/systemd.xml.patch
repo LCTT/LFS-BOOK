@@ -1,0 +1,73 @@
+diff --git a/chapter06/systemd.xml b/chapter06/systemd.xml
+index e5d89b8..a395c51 100644
+--- a/chapter06/systemd.xml
++++ b/chapter06/systemd.xml
+@@ -40,21 +40,28 @@
+   <sect2 role="installation">
+     <title>Installation of systemd</title>
+ 
++    <para>Apply a patch to fix two critical security vulnerabilities:</para>
++
++<screen><userinput remap="pre">patch -Np1 -i ../systemd-240-security_fixes-2.patch</userinput></screen>
++
+     <para>Create a symlink to work around missing xsltproc:</para>
+ 
+ <screen><userinput remap="pre">ln -sf /tools/bin/true /usr/bin/xsltproc</userinput></screen>
+ 
++    <para>Because we have not yet installed the final version of Util-Linux,
++    create links to the libraries in the approprite location:</para>
++
++<screen><userinput remap="pre">for file in /tools/lib/lib{blkid,mount,uuid}*; do
++    ln -sf $file /usr/lib/
++done</userinput></screen>
++
+     <para>Set up the man pages:</para>
+ 
+ <screen><userinput remap="pre">tar -xf ../systemd-man-pages-&systemd-version;.tar.xz</userinput></screen>
+ 
+     <para>Remove tests that cannot be built in chroot:</para>
+ 
+-<screen><userinput remap="pre">sed '166,$ d' -i src/resolve/meson.build</userinput></screen>
+-
+-    <para>Apply a patch to fix a build failure with glibc-2.28:</para>
+-
+-<screen><userinput remap="pre">patch -Np1 -i ../systemd-&systemd-version;-glibc_statx_fix-1.patch</userinput></screen>
++<screen><userinput remap="pre">sed '177,$ d' -i src/resolve/meson.build</userinput></screen>
+ 
+     <para>Remove an unneeded group,
+     <systemitem class="groupname">render</systemitem>, from the default udev
+@@ -67,6 +74,7 @@
+     <screen><userinput remap="configure">mkdir -p build
+ cd       build
+ 
++PKG_CONFIG_PATH="/usr/lib/pkgconfig:/tools/lib/pkgconfig" \
+ LANG=en_US.UTF-8                   \
+ meson --prefix=/usr                \
+       --sysconfdir=/etc            \
+@@ -182,17 +190,6 @@ meson --prefix=/usr                \
+     <para>Remove an unnecessary directory:</para>
+ 
+ <screen><userinput remap="install">rm -rfv /usr/lib/rpm
+-<!--
+-    <para>Create the Sysvinit compatibility symlinks, so systemd is used
+-    as the default init system:</para>
+-
+-<screen><userinput remap="install">for tool in runlevel reboot shutdown poweroff halt telinit; do
+-     ln -sfv ../bin/systemctl /sbin/${tool}
+-done
+-ln -sfv ../lib/systemd/systemd /sbin/init</userinput></screen>
+-
+-    <para>Remove our earlier created symlink for xsltproc:</para>
+--->
+ rm -f /usr/bin/xsltproc</userinput></screen>
+ 
+     <para>Create the <filename>/etc/machine-id</filename> file needed by
+@@ -233,7 +230,7 @@ chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
+         telinit, timedatectl, and udevadm</seg>
+         <seg>libnss_myhostname.so.2, libnss_mymachines.so.2,
+         libnss_resolve.so.2, libnss_systemd.so.2, 
+-        libsystemd.so, libsystemd-shared-231.so,
++        libsystemd.so, libsystemd-shared-&systemd-version;.so,
+         and libudev.so</seg>
+         <seg>/etc/binfmt.d, /etc/init.d, /etc/kernel, /etc/modules-load.d,
+         /etc/sysctl.d, /etc/systemd, /etc/tmpfiles.d, /etc/udev,

@@ -1,0 +1,30 @@
+diff --git a/chapter06/tar.xml b/chapter06/tar.xml
+index 1200a39..d51bfa8 100644
+--- a/chapter06/tar.xml
++++ b/chapter06/tar.xml
+@@ -39,11 +39,11 @@
+ 
+   <sect2 role="installation">
+     <title>Installation of Tar</title>
+-<!--
+-    <para>Add a program that generates a man page for tar from the source code:</para>
++
++    <para>Fix a bug introduced in tar-1.31:</para>
+  
+- <screen><userinput remap="pre">patch -Np1 -i ../&tar-manpage-patch;</userinput></screen>
+--->
++ <screen><userinput remap="pre">sed -i 's/abort.*/FALLTHROUGH;/' src/extract.c</userinput></screen>
++
+     <para>Prepare Tar for compilation:</para>
+ 
+ <screen><userinput remap="configure">FORCE_UNSAFE_CONFIGURE=1  \
+@@ -72,7 +72,9 @@
+ 
+ <screen><userinput remap="test">make check</userinput></screen>
+ 
++<!-- Seems to pass for version 1.31. Keeping as a comment just in case...
+     <para>One test, link mismatch, is known to fail.</para>
++-->
+ 
+     <para>Install the package:</para>
+ 

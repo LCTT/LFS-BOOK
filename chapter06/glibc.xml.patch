@@ -1,0 +1,92 @@
+diff --git a/chapter06/glibc.xml b/chapter06/glibc.xml
+index bf5a46d..e109f7a 100644
+--- a/chapter06/glibc.xml
++++ b/chapter06/glibc.xml
+@@ -151,6 +151,16 @@ unset GCC_INCDIR</userinput></screen>
+     <para>Generally a few tests do not pass. The test failures listed below
+     are usually safe to ignore.</para>
+ 
++<!-- Use remap="make" here to work around a jhalfs issue. -->
++<screen><userinput remap="make">case $(uname -m) in
++  i?86)   ln -sfnv $PWD/elf/ld-linux.so.2        /lib ;;
++  x86_64) ln -sfnv $PWD/elf/ld-linux-x86-64.so.2 /lib ;;
++esac</userinput></screen>
++
++    <note><para>The symbolic link above is needed to run the tests at this
++    stage of building in the chroot envirnment.  It will be overwritten
++    in the install phase below.</para></note>
++
+ <screen><userinput remap="test">make check</userinput></screen>
+ 
+     <para>You may see some test failures.  The Glibc test suite is
+@@ -180,14 +190,14 @@ unset GCC_INCDIR</userinput></screen>
+         test may fail for reasons that have not been determined.</para>
+       </listitem>
+ 
+-<!--
+       <listitem>
+-        <para>The <emphasis>rt/tst-cputimer1</emphasis> and 
+-        <emphasis>rt/tst-cpuclock2</emphasis> tests have been known to
+-        fail.  The reason is not completely understood, but indications are
+-        that minor timing issues can trigger these failures.</para>
++        <para>The <emphasis>rt/tst-cputimer{1,2,3}</emphasis> tests depend on
++        the host system kernel. Kernels 4.14.91&ndash;4.14.96,
++        4.19.13&ndash;4.19.18, and 4.20.0&ndash;4.20.5 are known to 
++        cause these tests to fail.
++        </para>
+       </listitem>
+--->
++
+       <listitem>
+         <para>The math tests sometimes fail when running on
+         systems where the CPU is not a relatively new Intel or
+@@ -252,10 +262,12 @@ install -v -Dm644 ../nscd/nscd.service /lib/systemd/system/nscd.service</userinp
+     locales necessary for the optimal coverage of tests:</para>
+ 
+ <screen role="nodump"><userinput remap="locale-test">mkdir -pv /usr/lib/locale
++localedef -i POSIX -f UTF-8 C.UTF-8 2> /dev/null || true
+ localedef -i cs_CZ -f UTF-8 cs_CZ.UTF-8
+ localedef -i de_DE -f ISO-8859-1 de_DE
+ localedef -i de_DE@euro -f ISO-8859-15 de_DE@euro
+ localedef -i de_DE -f UTF-8 de_DE.UTF-8
++localedef -i el_GR -f ISO-8859-7 el_GR
+ localedef -i en_GB -f UTF-8 en_GB.UTF-8
+ localedef -i en_HK -f ISO-8859-1 en_HK
+ localedef -i en_PH -f ISO-8859-1 en_PH
+@@ -269,10 +281,13 @@ localedef -i fr_FR -f UTF-8 fr_FR.UTF-8
+ localedef -i it_IT -f ISO-8859-1 it_IT
+ localedef -i it_IT -f UTF-8 it_IT.UTF-8
+ localedef -i ja_JP -f EUC-JP ja_JP
++localedef -i ja_JP -f SHIFT_JIS ja_JP.SIJS 2> /dev/null || true
++localedef -i ja_JP -f UTF-8 ja_JP.UTF-8
+ localedef -i ru_RU -f KOI8-R ru_RU.KOI8-R
+ localedef -i ru_RU -f UTF-8 ru_RU.UTF-8
+ localedef -i tr_TR -f UTF-8 tr_TR.UTF-8
+-localedef -i zh_CN -f GB18030 zh_CN.GB18030</userinput></screen>
++localedef -i zh_CN -f GB18030 zh_CN.GB18030
++localedef -i zh_HK -f BIG5-HKSCS zh_HK.BIG5-HKSCS</userinput></screen>
+ 
+     <para>In addition, install the locale for your own country, language and
+     character set.</para>
+@@ -291,7 +306,7 @@ localedef -i zh_CN -f GB18030 zh_CN.GB18030</userinput></screen>
+ 
+     <note><para>Glibc now uses libidn2 when resolving internationalized 
+     domain names.  This is a run time dependency.  If this capability
+-    is needed, the instrucions for installing libidn2 are in the 
++    is needed, the instructions for installing libidn2 are in the 
+     <ulink url="&blfs-book;general/libidn2.html">BLFS libidn2 page</ulink>.
+     </para></note>
+ 
+@@ -349,9 +364,9 @@ mkdir -pv $ZONEINFO/{posix,right}
+ 
+ for tz in etcetera southamerica northamerica europe africa antarctica  \
+           asia australasia backward pacificnew systemv; do
+-    zic -L /dev/null   -d $ZONEINFO       -y "sh yearistype.sh" ${tz}
+-    zic -L /dev/null   -d $ZONEINFO/posix -y "sh yearistype.sh" ${tz}
+-    zic -L leapseconds -d $ZONEINFO/right -y "sh yearistype.sh" ${tz}
++    zic -L /dev/null   -d $ZONEINFO       ${tz}
++    zic -L /dev/null   -d $ZONEINFO/posix ${tz}
++    zic -L leapseconds -d $ZONEINFO/right ${tz}
+ done
+ 
+ cp -v zone.tab zone1970.tab iso3166.tab $ZONEINFO

@@ -1,0 +1,13 @@
+diff --git a/chapter06/libcap.xml b/chapter06/libcap.xml
+index 94fc944..7b6bcab 100644
+--- a/chapter06/libcap.xml
++++ b/chapter06/libcap.xml
+@@ -56,7 +56,7 @@
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">make RAISE_SETFCAP=no lib=lib prefix=/usr install
+-chmod -v 755 /usr/lib/libcap.so</userinput></screen>
++chmod -v 755 /usr/lib/libcap.so.&libcap-version;</userinput></screen>
+ 
+     <variablelist>
+       <title>The meaning of the make option:</title>

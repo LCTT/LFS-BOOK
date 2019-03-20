@@ -1,0 +1,19 @@
+diff --git a/tidy.conf b/tidy.conf
+index cd77f2b..9db8e5f 100644
+--- a/tidy.conf
++++ b/tidy.conf
+@@ -3,14 +3,11 @@ wrap: 78
+ tab-size: 8
+ input-encoding: latin1
+ output-encoding: latin1
+-newline: CRLF
+ write-back: yes
+ markup: yes
+ indent: yes
+-hide-endtags: no
+ uppercase-tags: no
+ logical-emphasis: no
+-drop-font-tags: no
+ tidy-mark: no
+ numeric-entities: no
+ show-warnings: no

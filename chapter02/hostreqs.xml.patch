@@ -1,0 +1,36 @@
+diff --git a/chapter02/hostreqs.xml b/chapter02/hostreqs.xml
+index cd7c936..a7d124e 100644
+--- a/chapter02/hostreqs.xml
++++ b/chapter02/hostreqs.xml
+@@ -61,7 +61,7 @@
+     </listitem>
+ 
+     <listitem>
+-      <para><emphasis role="strong">GCC-4.9</emphasis> including the C++
++      <para><emphasis role="strong">GCC-5.2</emphasis> including the C++
+       compiler, <command>g++</command> (Versions greater than &gcc-version; are
+       not recommended as they have not been tested)</para>
+     </listitem>
+@@ -115,6 +115,10 @@
+       <para><emphasis role="strong">Perl-5.8.8</emphasis></para>
+     </listitem>
+ 
++    <listitem>
++      <para><emphasis role="strong">Python-3.4</emphasis></para>
++    </listitem>
++
+     <listitem>
+       <para><emphasis role="strong">Sed-4.1.5</emphasis></para>
+     </listitem>
+@@ -198,9 +202,10 @@ m4 --version | head -n1
+ make --version | head -n1
+ patch --version | head -n1
+ echo Perl `perl -V:version`
++python3 --version
+ sed --version | head -n1
+ tar --version | head -n1
+-makeinfo --version | head -n1
++makeinfo --version | head -n1  # texinfo version
+ xz --version | head -n1
+ <?hard-pagebreak?>
+ echo 'int main(){}' &gt; dummy.c &amp;&amp; g++ -o dummy dummy.c

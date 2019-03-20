@@ -1,0 +1,77 @@
+diff --git a/appendices/dependencies.xml b/appendices/dependencies.xml
+index 96ea3ff..a233a86 100644
+--- a/appendices/dependencies.xml
++++ b/appendices/dependencies.xml
+@@ -861,9 +861,9 @@
+         <segtitle>&external;</segtitle>
+ 
+         <seglistitem>
+-          <seg><ulink url="http://gcc.gnu.org/wiki/Graphite">CLooG-PPL</ulink>,
+-               <ulink url="http://gcc.gnu.org/wiki/GNAT">GNAT</ulink>, and
+-               <ulink url="http://gcc.gnu.org/wiki/Graphite">PPL</ulink></seg>
++          <seg><ulink url="http://gcc.gnu.org/wiki/GNAT">GNAT</ulink> and 
++               <ulink url="https://repo.or.cz/isl.git">ISL</ulink> 
++          </seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -947,7 +947,7 @@
+ 
+         <seglistitem>
+          <seg>Bash, Binutils, Coreutils, Diffutils, Gawk, GCC, Gettext,
+-         Grep, Gzip, Linux API Headers, Make, Perl, Sed, and Texinfo</seg>
++         Grep, Gzip, Linux API Headers, Make, Perl, Python, Sed, and Texinfo</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1476,6 +1476,41 @@
+         </seglistitem>
+       </segmentedlist>
+ 
++<!-- Begin Libelf dependency info -->
++  <bridgehead renderas="sect2" id="libelf-dep">Libelf</bridgehead>
++
++      <segmentedlist>
++        <segtitle>&dependencies;</segtitle>
++
++        <seglistitem>
++         <seg>Bash, Binutils, Coreutils, GCC, Glibc, and Make</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&testsuites;</segtitle>
++
++        <seglistitem>
++          <seg>No test suite available</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&before;</segtitle>
++
++        <seglistitem>
++          <seg>Linux Kernel</seg>
++        </seglistitem>
++      </segmentedlist>
++
++      <segmentedlist>
++        <segtitle>&external;</segtitle>
++
++        <seglistitem>
++          <seg>None</seg>
++        </seglistitem>
++      </segmentedlist>
++
+ <!-- Begin Libffi dependency info -->
+   <bridgehead renderas="sect2" id="libffi-dep">Libffi</bridgehead>
+ 
+@@ -1591,7 +1626,7 @@
+ 
+         <seglistitem>
+          <seg>Bash, Bc, Binutils, Coreutils, Diffutils, Findutils, GCC, Glibc,
+-         Grep, Gzip, Kmod, Make, Ncurses, OpenSSL, Perl, and Sed</seg>
++         Grep, Gzip, Kmod, Libelf, Make, Ncurses, OpenSSL, Perl, and Sed</seg>
+         </seglistitem>
+       </segmentedlist>
+ 

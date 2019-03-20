@@ -1,0 +1,13 @@
+diff --git a/lfs-latest.php b/lfs-latest.php
+index 845a345..fd77c4a 100644
+--- a/lfs-latest.php
++++ b/lfs-latest.php
+@@ -16,7 +16,7 @@ $regex[ 'check'    ] = "/^.*Check (\d[\d\.]+\d).*$/";
+ $regex[ 'intltool' ] = "/^.*Latest version is (\d[\d\.]+\d).*$/";
+ $regex[ 'less'     ] = "/^.*current released version is less-(\d+).*$/";
+ $regex[ 'mpfr'     ] = "/^mpfr-([\d\.]+)\.tar.*$/";
+-$regex[ 'systemd'  ] = "/^.*v([\d]+).*$/";
++$regex[ 'systemd'  ] = "/^.*v([\d]+)$/";
+ //$regex[ 'sysvinit' ] = "/^.*sysvinit-([\d\.]+)dsf\.tar.*$/";
+ $regex[ 'tzdata'   ] = "/^.*tzdata([\d]+[a-z]).*$/";
+ $regex[ 'xz'       ] = "/^.*xz-([\d\.]*\d).*$/";

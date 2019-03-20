@@ -1,0 +1,56 @@
+diff --git a/chapter06/chapter06.xml b/chapter06/chapter06.xml
+index cd15249..d6025c5 100644
+--- a/chapter06/chapter06.xml
++++ b/chapter06/chapter06.xml
+@@ -39,7 +39,6 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="acl.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="libcap.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="sed.xml"/>
+-<!--  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="shadow.xml"/>-->
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="psmisc.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iana-etc.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bison.xml"/>
+@@ -65,12 +64,6 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="python.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ninja.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="meson.xml"/>
+-
+-  <!-- systemd only -->
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="systemd.xml"/>
+-
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="procps.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="e2fsprogs.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="coreutils.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="check.xml"/> 
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="diffutils.xml"/>
+@@ -85,20 +78,25 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="libpipeline.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="make.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="patch.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="man-db.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tar.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="texinfo.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="vim.xml"/>
+ 
+   <!-- systemd only -->
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="systemd.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dbus.xml"/>
+ 
++  <!-- these packages libsystemd on systemd builds -->
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="procps.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="util-linux.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="e2fsprogs.xml"/>
++
+   <!-- sysv only -->
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="sysklogd.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="sysvinit.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="eudev.xml"/>
+ 
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="util-linux.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="man-db.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tar.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="texinfo.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="vim.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="aboutdebug.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="strippingagain.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="revisedchroot.xml"/>

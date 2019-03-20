@@ -1,0 +1,13 @@
+diff --git a/chapter06/bc.xml b/chapter06/bc.xml
+index e538c04..48ea215 100644
+--- a/chapter06/bc.xml
++++ b/chapter06/bc.xml
+@@ -63,7 +63,7 @@ EOF</userinput></screen>
+     this chapter.</para>
+ 
+ <screen><userinput remap="pre">ln -sv /tools/lib/libncursesw.so.6 /usr/lib/libncursesw.so.6
+-ln -sfv libncurses.so.6 /usr/lib/libncurses.so</userinput></screen>
++ln -sfv libncursesw.so.6 /usr/lib/libncurses.so</userinput></screen>
+ 
+     <para>Fix an issue in <command>configure</command> due to missing
+     files in the early stages of LFS:</para>

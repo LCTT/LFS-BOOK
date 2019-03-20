@@ -1,0 +1,14 @@
+diff --git a/chapter05/ncurses.xml b/chapter05/ncurses.xml
+index 09d8160..c00135f 100644
+--- a/chapter05/ncurses.xml
++++ b/chapter05/ncurses.xml
+@@ -107,7 +107,8 @@
+ 
+     <para>Install the package:</para>
+ 
+-<screen><userinput remap="install">make install</userinput></screen>
++<screen><userinput remap="install">make install
++ln -s libncursesw.so /tools/lib/libncurses.so</userinput></screen>
+ 
+   </sect2>
+ 

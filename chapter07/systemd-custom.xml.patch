@@ -1,0 +1,24 @@
+diff --git a/chapter07/systemd-custom.xml b/chapter07/systemd-custom.xml
+index 8bf6699..4cea2b2 100644
+--- a/chapter07/systemd-custom.xml
++++ b/chapter07/systemd-custom.xml
+@@ -60,7 +60,7 @@ EOF</userinput></screen>
+     <warning>
+       <para>
+         Do not create the symbolic link above if a separate partition is used
+-        for <filename class="directory">/tmp</filename>.  This will prvent the
++        for <filename class="directory">/tmp</filename>.  This will prevent the
+         root file system (/) from being remounted r/w and make the system
+         unusable when booted.
+       </para>
+@@ -254,8 +254,8 @@ EOF</userinput></screen>
+         <para>
+           <emphasis>Disable at build-time</emphasis>: You can enable
+           lingering by default while building systemd by adding the switch
+-          <parameter>--without-kill-user-processes</parameter> to the
+-          <command>configure</command> command for systemd. This completely
++          <parameter>-Ddefault-kill-user-processes=no</parameter> to the
++          <command>meson</command> command for systemd. This completely
+           disables the ability of systemd to kill user processes at session
+           end.
+         </para>

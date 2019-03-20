@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/pdf/lfs-mixed.xsl b/stylesheets/lfs-xsl/pdf/lfs-mixed.xsl
+index 6c7bdd0..8587c6d 100644
+--- a/stylesheets/lfs-xsl/pdf/lfs-mixed.xsl
++++ b/stylesheets/lfs-xsl/pdf/lfs-mixed.xsl
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: bdubbs $
+-$Date: 2011-10-10 10:59:11 +0800 (Mon, 10 Oct 2011) $
++$Date: 2011-10-10 10:59:11 +0800 (周一, 10 10月 2011) $
+ -->
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

@@ -1,0 +1,12 @@
+diff --git a/chapter07/usage.xml b/chapter07/usage.xml
+index c75394b..89d6573 100644
+--- a/chapter07/usage.xml
++++ b/chapter07/usage.xml
+@@ -480,6 +480,7 @@ EOF</userinput></screen>
+ KEYMAP="de-latin1"
+ KEYMAP_CORRECTIONS="euro2"
+ FONT="lat0-16 -m 8859-15"
++UNICODE=1
+ 
+ # End /etc/sysconfig/console</literal>
+ EOF</userinput></screen>

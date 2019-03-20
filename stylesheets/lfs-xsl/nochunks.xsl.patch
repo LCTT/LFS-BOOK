@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/nochunks.xsl b/stylesheets/lfs-xsl/nochunks.xsl
+index 7d2f6af..af756b8 100644
+--- a/stylesheets/lfs-xsl/nochunks.xsl
++++ b/stylesheets/lfs-xsl/nochunks.xsl
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: matthew $
+-$Date: 2013-10-09 04:03:29 +0800 (Wed, 09 Oct 2013) $
++$Date: 2013-10-09 04:03:29 +0800 (周三, 09 10月 2013) $
+ -->
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

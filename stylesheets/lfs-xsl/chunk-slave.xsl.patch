@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/chunk-slave.xsl b/stylesheets/lfs-xsl/chunk-slave.xsl
+index 5b8539e..1074485 100644
+--- a/stylesheets/lfs-xsl/chunk-slave.xsl
++++ b/stylesheets/lfs-xsl/chunk-slave.xsl
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: bdubbs $
+-$Date: 2015-08-11 01:53:57 +0800 (Tue, 11 Aug 2015) $
++$Date: 2015-08-11 01:53:57 +0800 (周二, 11 8月 2015) $
+ -->
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

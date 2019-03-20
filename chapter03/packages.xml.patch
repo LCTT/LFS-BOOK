@@ -1,0 +1,34 @@
+diff --git a/chapter03/packages.xml b/chapter03/packages.xml
+index 0316349..a21f8e3 100644
+--- a/chapter03/packages.xml
++++ b/chapter03/packages.xml
+@@ -140,14 +140,6 @@
+       </listitem>
+     </varlistentry>
+ 
+-    <varlistentry revision="sysv">
+-      <term>Eudev (&eudev-version;) - <token>&eudev-size;</token>:</term>
+-      <listitem>
+-        <para>Download: <ulink url="&eudev-url;"/></para>
+-        <para>MD5 sum: <literal>&eudev-md5;</literal></para>
+-      </listitem>
+-    </varlistentry>
+-
+     <varlistentry>
+       <term>E2fsprogs (&e2fsprogs-version;) - <token>&e2fsprogs-size;</token>:</term>
+       <listitem>
+@@ -166,6 +158,14 @@
+       </listitem>
+     </varlistentry>
+ 
++    <varlistentry revision="sysv">
++      <term>Eudev (&eudev-version;) - <token>&eudev-size;</token>:</term>
++      <listitem>
++        <para>Download: <ulink url="&eudev-url;"/></para>
++        <para>MD5 sum: <literal>&eudev-md5;</literal></para>
++      </listitem>
++    </varlistentry>
++
+     <varlistentry>
+       <term>Expat (&expat-version;) - <token>&expat-size;</token>:</term>
+       <listitem>

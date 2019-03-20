@@ -1,0 +1,22 @@
+diff --git a/chapter06/libelf.xml b/chapter06/libelf.xml
+index de9cac1..280d1fe 100644
+--- a/chapter06/libelf.xml
++++ b/chapter06/libelf.xml
+@@ -14,7 +14,7 @@
+     <address>&elfutils-url;</address>
+   </sect1info>
+ 
+-  <title>Libelf &elfutils-version;</title>
++  <title>Libelf from Elfutils-&elfutils-version;</title>
+ 
+   <indexterm zone="ch-system-libelf">
+     <primary sortas="a-Libelf">Libelf</primary>
+@@ -42,7 +42,7 @@
+     <title>Installation of Libelf</title>
+ 
+       <para>Libelf is part of elfutils-&elfutils-version; package. Use
+-      the elfutils-&elfutils-version;.tar.xz as the source tarball.</para>
++      the elfutils-&elfutils-version;.tar.bz2 as the source tarball.</para>
+ 
+     <para>Prepare Libelf for compilation:</para>
+ 

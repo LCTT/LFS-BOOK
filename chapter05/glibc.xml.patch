@@ -1,0 +1,36 @@
+diff --git a/chapter05/glibc.xml b/chapter05/glibc.xml
+index 09636a1..d8a4f67 100644
+--- a/chapter05/glibc.xml
++++ b/chapter05/glibc.xml
+@@ -55,10 +55,11 @@ cd       build</userinput></screen>
+       --prefix=/tools                    \
+       --host=$LFS_TGT                    \
+       --build=$(../scripts/config.guess) \
+-      --enable-kernel=&min-kernel;             \
+-      --with-headers=/tools/include      \
++      --enable-kernel=&min-kernel;                \
++      --with-headers=/tools/include</userinput></screen>
++<!--
+       libc_cv_forced_unwind=yes          \
+-      libc_cv_c_cleanup=yes</userinput></screen>
++      libc_cv_c_cleanup=yes</userinput></screen> -->
+ 
+     <variablelist>
+       <title>The meaning of the configure options:</title>
+@@ -89,7 +90,7 @@ cd       build</userinput></screen>
+           features the kernel has and can optimize itself accordingly.</para>
+         </listitem>
+       </varlistentry>
+-
++<!--
+       <varlistentry>
+         <term><parameter>libc_cv_forced_unwind=yes</parameter></term>
+         <listitem>
+@@ -110,6 +111,7 @@ cd       build</userinput></screen>
+           cleanup handling support is configured.</para>
+         </listitem>
+       </varlistentry>
++-->
+ <!--  <varlistentry>
+         <term><parameter>libc_cv_ctors_header=yes</parameter></term>
+         <listitem>

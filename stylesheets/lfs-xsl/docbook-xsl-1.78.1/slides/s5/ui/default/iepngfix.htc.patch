@@ -1,0 +1,91 @@
+diff --git a/stylesheets/lfs-xsl/docbook-xsl-1.78.1/slides/s5/ui/default/iepngfix.htc b/stylesheets/lfs-xsl/docbook-xsl-1.78.1/slides/s5/ui/default/iepngfix.htc
+old mode 100755
+new mode 100644
+index bba2db7..9f3d628
+--- a/stylesheets/lfs-xsl/docbook-xsl-1.78.1/slides/s5/ui/default/iepngfix.htc
++++ b/stylesheets/lfs-xsl/docbook-xsl-1.78.1/slides/s5/ui/default/iepngfix.htc
+@@ -1,42 +1,42 @@
+-<public:component>
+-<public:attach event="onpropertychange" onevent="doFix()" />
+-
+-<script>
+-
+-// IE5.5+ PNG Alpha Fix v1.0 by Angus Turnbull http://www.twinhelix.com
+-// Free usage permitted as long as this notice remains intact.
+-
+-// This must be a path to a blank image. That's all the configuration you need here.
+-var blankImg = 'ui/default/blank.gif';
+-
+-var f = 'DXImageTransform.Microsoft.AlphaImageLoader';
+-
+-function filt(s, m) {
+- if (filters[f]) {
+-  filters[f].enabled = s ? true : false;
+-  if (s) with (filters[f]) { src = s; sizingMethod = m }
+- } else if (s) style.filter = 'progid:'+f+'(src="'+s+'",sizingMethod="'+m+'")';
+-}
+-
+-function doFix() {
+- if ((parseFloat(navigator.userAgent.match(/MSIE (\S+)/)[1]) < 5.5) ||
+-  (event && !/(background|src)/.test(event.propertyName))) return;
+-
+- if (tagName == 'IMG') {
+-  if ((/\.png$/i).test(src)) {
+-   filt(src, 'image');  // was 'scale'
+-   src = blankImg;
+-  } else if (src.indexOf(blankImg) < 0) filt();
+- } else if (style.backgroundImage) {
+-  if (style.backgroundImage.match(/^url[("']+(.*\.png)[)"']+$/i)) {
+-   var s = RegExp.$1;
+-   style.backgroundImage = '';
+-   filt(s, 'crop');
+-  } else filt();
+- }
+-}
+-
+-doFix();
+-
+-</script>
++<public:component>
++<public:attach event="onpropertychange" onevent="doFix()" />
++
++<script>
++
++// IE5.5+ PNG Alpha Fix v1.0 by Angus Turnbull http://www.twinhelix.com
++// Free usage permitted as long as this notice remains intact.
++
++// This must be a path to a blank image. That's all the configuration you need here.
++var blankImg = 'ui/default/blank.gif';
++
++var f = 'DXImageTransform.Microsoft.AlphaImageLoader';
++
++function filt(s, m) {
++ if (filters[f]) {
++  filters[f].enabled = s ? true : false;
++  if (s) with (filters[f]) { src = s; sizingMethod = m }
++ } else if (s) style.filter = 'progid:'+f+'(src="'+s+'",sizingMethod="'+m+'")';
++}
++
++function doFix() {
++ if ((parseFloat(navigator.userAgent.match(/MSIE (\S+)/)[1]) < 5.5) ||
++  (event && !/(background|src)/.test(event.propertyName))) return;
++
++ if (tagName == 'IMG') {
++  if ((/\.png$/i).test(src)) {
++   filt(src, 'image');  // was 'scale'
++   src = blankImg;
++  } else if (src.indexOf(blankImg) < 0) filt();
++ } else if (style.backgroundImage) {
++  if (style.backgroundImage.match(/^url[("']+(.*\.png)[)"']+$/i)) {
++   var s = RegExp.$1;
++   style.backgroundImage = '';
++   filt(s, 'crop');
++  } else filt();
++ }
++}
++
++doFix();
++
++</script>
+ </public:component>
+\ No newline at end of file

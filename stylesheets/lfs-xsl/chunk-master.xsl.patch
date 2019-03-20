@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/chunk-master.xsl b/stylesheets/lfs-xsl/chunk-master.xsl
+index 53799e1..af4c8b3 100644
+--- a/stylesheets/lfs-xsl/chunk-master.xsl
++++ b/stylesheets/lfs-xsl/chunk-master.xsl
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: matthew $
+-$Date: 2013-10-09 04:03:29 +0800 (Wed, 09 Oct 2013) $
++$Date: 2013-10-09 04:03:29 +0800 (周三, 09 10月 2013) $
+ -->
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

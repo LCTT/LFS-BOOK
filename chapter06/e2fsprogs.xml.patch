@@ -1,0 +1,33 @@
+diff --git a/chapter06/e2fsprogs.xml b/chapter06/e2fsprogs.xml
+index 7b6a079..76bb1db 100644
+--- a/chapter06/e2fsprogs.xml
++++ b/chapter06/e2fsprogs.xml
+@@ -117,20 +117,23 @@ PKG_CONFIG_PATH=/tools/lib/pkgconfig \
+     <para>Compile the package:</para>
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+-
++<!--
+     <para>To set up and run the test suite we need to first link some 
+     libraries from /tools/lib to a location where the test programs look.
+     To run the tests, issue:</para>
++-->
++
++    <para>To run the tests, issue:</para>
+ 
+-<screen><userinput remap="test">ln -sfv /tools/lib/lib{blk,uu}id.so.1 lib
+-make LD_LIBRARY_PATH=/tools/lib check</userinput></screen>
++<screen><userinput remap="test">make check</userinput></screen>
++<!--ln -sfv /tools/lib/lib{blk,uu}id.so.1 lib -->
++<!--make LD_LIBRARY_PATH=/tools/lib check</userinput></screen>-->
+ 
+     <para>One of the E2fsprogs tests will attempt to allocate 256 MB of memory.
+     If you do not have significantly more RAM than this, be sure to enable
+     sufficient swap space for the test. See <xref
+     linkend="space-creatingfilesystem"/> and <xref linkend="space-mounting"/>
+-    for details on creating and enabling swap space.  Two tests, f_bigalloc_badinode
+-    and f_bigalloc_orphan_list, are known ot fail.</para>
++    for details on creating and enabling swap space.</para>
+ 
+     <para>Install the binaries, documentation, and shared libraries:</para>
+ 

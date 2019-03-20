@@ -1,0 +1,111 @@
+diff --git a/chapter06/createfiles.xml b/chapter06/createfiles.xml
+index cd90477..e4daa3c 100644
+--- a/chapter06/createfiles.xml
++++ b/chapter06/createfiles.xml
+@@ -39,40 +39,27 @@
+   will be replaced by real files throughout the course of this chapter after the
+   software has been installed:</para>
+ 
+-<!--
+-<screen revision="sysv"><userinput>ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} /bin
+-ln -sv /tools/bin/{install,perl} /usr/bin
+-ln -sv /tools/lib/libgcc_s.so{,.1} /usr/lib
+-ln -sv /tools/lib/libstdc++.{a,so{,.6}} /usr/lib
+-ln -sv bash /bin/sh
++<screen><userinput>ln -sv /tools/bin/{bash,cat,chmod,dd,echo,ln,mkdir,pwd,rm,stty,touch} /bin
++ln -sv /tools/bin/{env,install,perl,printf}         /usr/bin
++ln -sv /tools/lib/libgcc_s.so{,.1}                  /usr/lib
++ln -sv /tools/lib/libstdc++.{a,so{,.6}}             /usr/lib
+ 
++install -vdm755 /usr/lib/pkgconfig
+ 
+-</userinput></screen>
+--->
+-<!--sed 's/tools/usr/' /tools/lib/libstdc++.la > /usr/lib/libstdc++.la -->
+-
+-<!--<screen revision="systemd"><userinput>ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} /bin-->
+-<screen><userinput>ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} /bin
+-ln -sv /tools/bin/{env,install,perl} /usr/bin
+-ln -sv /tools/lib/libgcc_s.so{,.1} /usr/lib
+-ln -sv /tools/lib/libstdc++.{a,so{,.6}} /usr/lib
+-for lib in blkid lzma mount uuid
++ln -sv bash /bin/sh</userinput></screen>
++
++<!--for lib in blkid lzma mount uuid
+ do
+     ln -sv /tools/lib/lib$lib.so* /usr/lib
+-done
+-ln -svf /tools/include/blkid    /usr/include
++done-->
++<!--ln -svf /tools/include/blkid    /usr/include
+ ln -svf /tools/include/libmount /usr/include
+-ln -svf /tools/include/uuid     /usr/include
+-install -vdm755 /usr/lib/pkgconfig
+-for pc in blkid mount uuid
++ln -svf /tools/include/uuid     /usr/include-->
++<!--for pc in blkid mount uuid
+ do
+     sed 's@tools@usr@g' /tools/lib/pkgconfig/${pc}.pc \
+         > /usr/lib/pkgconfig/${pc}.pc
+-done
+-ln -sv bash /bin/sh</userinput></screen>
+-
+-<!--sed 's/tools/usr/' /tools/lib/libstdc++.la > /usr/lib/libstdc++.la
+-   sed 's/tools/usr/' /tools/lib/lib${lib}.la > /usr/lib/lib${lib}.la-->
++done-->
+   <variablelist>
+     <title>The purpose of each link:</title>
+ 
+@@ -107,6 +94,14 @@ ln -sv bash /bin/sh</userinput></screen>
+       </listitem>
+     </varlistentry>
+ 
++    <varlistentry>
++      <term><parameter><filename>/usr/bin/env</filename></parameter></term>
++      <listitem>
++        <para>This pathname is hard-coded into some packages build procedures.
++        <!-- systemd  This may not be needed if we move sysd to the end--></para>
++      </listitem>
++    </varlistentry>
++
+     <varlistentry>
+       <term><parameter><filename>/usr/bin/install</filename></parameter></term>
+       <listitem>
+@@ -182,14 +177,14 @@ ln -sv bash /bin/sh</userinput></screen>
+     </varlistentry>
+ -->
+     <!--<varlistentry revision="systemd">-->
+-    <varlistentry>
++<!--    <varlistentry>
+       <term><parameter><filename>/usr/lib/lib{blkid,lzma,mount,uuid}.{a,la,so*}</filename></parameter></term>
+       <listitem>
+-        <para>These links prevent <!--systemd--> utilities from acquiring an
++        <para>These links prevent utilities from acquiring an
+         unnecessary reference to the
+         <filename class="directory">/tools</filename> directory.</para>
+       </listitem>
+-    </varlistentry>
++    </varlistentry>-->
+ 
+     <varlistentry>
+       <term><parameter><filename>/bin/sh</filename></parameter></term>
+@@ -266,9 +261,10 @@ usb:x:14:
+ cdrom:x:15:
+ adm:x:16:
+ messagebus:x:18:
+-systemd-journal:x:23:
+ input:x:24:
+ mail:x:34:
++kvm:x:61:
++wheel:x:97:
+ nogroup:x:99:
+ users:x:999:</literal>
+ EOF</userinput></screen>
+@@ -304,6 +300,7 @@ systemd-network:x:76:
+ systemd-resolve:x:77:
+ systemd-timesync:x:78:
+ systemd-coredump:x:79:
++wheel:x:97:
+ nogroup:x:99:
+ users:x:999:</literal>
+ EOF</userinput></screen>

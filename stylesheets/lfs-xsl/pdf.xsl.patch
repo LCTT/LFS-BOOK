@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/pdf.xsl b/stylesheets/lfs-xsl/pdf.xsl
+index 9f47568..71b72cc 100644
+--- a/stylesheets/lfs-xsl/pdf.xsl
++++ b/stylesheets/lfs-xsl/pdf.xsl
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: matthew $
+-$Date: 2013-10-17 02:55:24 +0800 (Thu, 17 Oct 2013) $
++$Date: 2013-10-17 02:55:24 +0800 (周四, 17 10月 2013) $
+ -->
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

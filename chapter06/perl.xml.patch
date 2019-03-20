@@ -1,0 +1,54 @@
+diff --git a/chapter06/perl.xml b/chapter06/perl.xml
+index d712fc2..2a64b80 100644
+--- a/chapter06/perl.xml
++++ b/chapter06/perl.xml
+@@ -146,11 +146,11 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
+       <segtitle>Installed directory</segtitle>
+ 
+       <seglistitem>
+-        <seg>c2ph, corelist, cpan, enc2xs, encguess, h2ph, h2xs, instmodsh,
++        <seg>corelist, cpan, enc2xs, encguess, h2ph, h2xs, instmodsh,
+         json_pp, libnetcfg, perl, perl&perl-version; (hard link to perl),
+         perlbug, perldoc, perlivp, perlthanks (hard link to perlbug), piconv,
+         pl2pm, pod2html, pod2man, pod2text, pod2usage, podchecker, podselect,
+-        prove, pstruct (hard link to c2ph), ptar, ptardiff, ptargrep, shasum,
++        prove, ptar, ptardiff, ptargrep, shasum,
+         splain, xsubpp, and zipdetails</seg>
+         <seg>Many which cannot all be listed here</seg>
+         <seg>/usr/lib/perl5</seg>
+@@ -161,7 +161,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
+       <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+       <?dbfo list-presentation="list"?>
+       <?dbhtml list-presentation="table"?>
+-
++<!--
+       <varlistentry id="c2ph">
+         <term><command>c2ph</command></term>
+         <listitem>
+@@ -172,7 +172,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
+           </indexterm>
+         </listitem>
+       </varlistentry>
+-
++-->
+       <varlistentry id="corelist">
+         <term><command>corelist</command></term>
+         <listitem>
+@@ -430,7 +430,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
+           </indexterm>
+         </listitem>
+       </varlistentry>
+-
++<!--
+       <varlistentry id="pstruct">
+         <term><command>pstruct</command></term>
+         <listitem>
+@@ -441,7 +441,7 @@ unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
+           </indexterm>
+         </listitem>
+       </varlistentry>
+-
++-->
+       <varlistentry id="ptar">
+         <term><command>ptar</command></term>
+         <listitem>

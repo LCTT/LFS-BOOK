@@ -1,0 +1,14 @@
+diff --git a/chapter06/grub.xml b/chapter06/grub.xml
+index 3c7f153..0977d38 100644
+--- a/chapter06/grub.xml
++++ b/chapter06/grub.xml
+@@ -77,7 +77,8 @@
+ 
+     <para>Install the package:</para>
+ 
+-<screen><userinput remap="install">make install</userinput></screen>
++<screen><userinput remap="install">make install
++mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions</userinput></screen>
+ 
+   <para>Using GRUB to make your LFS system bootable will be discussed in
+   <xref linkend="ch-bootable-grub"/>.</para>

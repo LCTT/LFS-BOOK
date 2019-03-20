@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/xhtml/lfs-admon.xsl b/stylesheets/lfs-xsl/xhtml/lfs-admon.xsl
+index 9e2d79a..dc1cde7 100644
+--- a/stylesheets/lfs-xsl/xhtml/lfs-admon.xsl
++++ b/stylesheets/lfs-xsl/xhtml/lfs-admon.xsl
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: manuel $
+-$Date: 2007-07-06 05:18:33 +0800 (Fri, 06 Jul 2007) $
++$Date: 2007-07-06 05:18:33 +0800 (周五, 06 7月 2007) $
+ -->
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

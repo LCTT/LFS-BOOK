@@ -1,0 +1,12 @@
+diff --git a/stylesheets/lfs-xsl/docbook-xsl-1.78.1/RELEASE-NOTES.txt b/stylesheets/lfs-xsl/docbook-xsl-1.78.1/RELEASE-NOTES.txt
+index dc39093..da54594 100644
+--- a/stylesheets/lfs-xsl/docbook-xsl-1.78.1/RELEASE-NOTES.txt
++++ b/stylesheets/lfs-xsl/docbook-xsl-1.78.1/RELEASE-NOTES.txt
+@@ -1,6 +1,6 @@
+ Release Notes for the DocBook XSL Stylesheets
+ 
+-$Revision: 10355 $ $Date: 2013-10-09 04:03:29 +0800 (Wed, 09 Oct 2013) $
++$Revision: 10355 $ $Date: 2013-10-09 04:03:29 +0800 (周三, 09 10月 2013) $
+ 
+ 2013-03-17
+ 

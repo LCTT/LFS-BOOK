@@ -1,0 +1,15 @@
+diff --git a/chapter06/shadow.xml b/chapter06/shadow.xml
+index c1f3b9a..ba5d34e 100644
+--- a/chapter06/shadow.xml
++++ b/chapter06/shadow.xml
+@@ -51,8 +51,8 @@
+ 
+     <para>Disable the installation of the <command>groups</command> program
+     and its man pages, as Coreutils provides a better version. Also 
+-    Prevent the installation of manual pages that were already installed by the
+-    <xref linkend="man-pages"/> package:</para>
++    Prevent the installation of manual pages that were already installed in
++    <xref linkend="ch-system-man-pages"/>:</para>
+ 
+ <screen><userinput remap="pre">sed -i 's/groups$(EXEEXT) //' src/Makefile.in
+ find man -name Makefile.in -exec sed -i 's/groups\.1 / /'   {} \;

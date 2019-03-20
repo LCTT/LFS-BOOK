@@ -1,0 +1,13 @@
+diff --git a/chapter06/gdbm.xml b/chapter06/gdbm.xml
+index 544cb43..ccb4ef1 100644
+--- a/chapter06/gdbm.xml
++++ b/chapter06/gdbm.xml
+@@ -46,7 +46,7 @@
+ 
+     <para>Prepare GDBM for compilation:</para>
+ 
+-<screen><userinput remap="configure">./configure --prefix=/usr \
++<screen><userinput remap="configure">./configure --prefix=/usr    \
+             --disable-static \
+             --enable-libgdbm-compat</userinput></screen>
+ 

@@ -1,0 +1,17 @@
+diff --git a/chapter06/openssl.xml b/chapter06/openssl.xml
+index bd35f28..34e4ade 100644
+--- a/chapter06/openssl.xml
++++ b/chapter06/openssl.xml
+@@ -58,10 +58,10 @@
+     <para>To test the results, issue:</para>
+ 
+ <screen><userinput remap="test">make test</userinput></screen>
+-
++<!--
+     <para>One subtest in the test 40-test_rehash.t fails in the lfs chroot 
+     environment, but passes when run as a regular user.</para>
+-
++-->
+     <para>Install the package:</para>
+ 
+ <screen><userinput remap="install">sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile

@@ -1,0 +1,28 @@
+diff --git a/appendices/acknowledgments.xml b/appendices/acknowledgments.xml
+index 802f960..48decde 100644
+--- a/appendices/acknowledgments.xml
++++ b/appendices/acknowledgments.xml
+@@ -49,11 +49,6 @@
+       &lt;ken@linuxfromscratch.org&gt; &ndash; BLFS Editor</para>
+     </listitem>
+ 
+-    <listitem>
+-      <para><ulink url="mailto:renodr@linuxfromscratch.org">Douglas Reno</ulink>
+-      &lt;renodr@linuxfromscratch.org&gt; &ndash; systemd Editor</para>
+-    </listitem>
+-
+     <listitem>
+       <para>Countless other people on the various LFS and BLFS mailing lists
+       who helped make this book possible by giving their suggestions, testing
+@@ -391,6 +386,11 @@
+       Gateway Maintainer</para>
+     </listitem>
+ 
++    <listitem>
++      <para><ulink url="mailto:renodr@linuxfromscratch.org">Douglas R. Reno</ulink>
++      &lt;renodr@linuxfromscratch.org&gt; &ndash; Systemd Editor</para>
++    </listitem>
++
+     <listitem>
+       <para><ulink url="mailto:ryan@linuxfromscratch.org">Ryan
+       Oliver</ulink> &lt;ryan@linuxfromscratch.org&gt; &ndash; CLFS Project

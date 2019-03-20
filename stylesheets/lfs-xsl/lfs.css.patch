@@ -1,0 +1,12 @@
+diff --git a/stylesheets/lfs-xsl/lfs.css b/stylesheets/lfs-xsl/lfs.css
+index 2e56d3e..d57a7cd 100644
+--- a/stylesheets/lfs-xsl/lfs.css
++++ b/stylesheets/lfs-xsl/lfs.css
+@@ -1,6 +1,6 @@
+ /*
+ $LastChangedBy: bdubbs $
+-$Date: 2012-11-27 11:21:28 +0800 (Tue, 27 Nov 2012) $
++$Date: 2012-11-27 11:21:28 +0800 (周二, 27 11月 2012) $
+ */
+ /* Global settings */
+ body {

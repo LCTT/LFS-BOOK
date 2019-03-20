@@ -1,0 +1,18 @@
+diff --git a/chapter04/aboutsbus.xml b/chapter04/aboutsbus.xml
+index 5dea1fb..357a8c1 100644
+--- a/chapter04/aboutsbus.xml
++++ b/chapter04/aboutsbus.xml
+@@ -43,11 +43,11 @@
+     <command>make</command> program how many processors are available.  For
+     instance, a Core2Duo can support two simultaneous processes with:</para>
+ 
+-    <screen><userinput>export MAKEFLAGS='-j 2'</userinput></screen>
++    <screen role="nodump"><userinput>export MAKEFLAGS='-j 2'</userinput></screen>
+ 
+     <para>or just building with:</para>
+ 
+-    <screen><userinput>make -j2</userinput></screen>
++    <screen role="nodump"><userinput>make -j2</userinput></screen>
+ 
+     <para>When multiple processors are used in this way, the SBU units in the
+     book will vary even more than they normally would.  In some cases, the make

@@ -1,0 +1,13 @@
+diff --git a/stylesheets/lfs-xsl/pdf/lfs-lists.xsl b/stylesheets/lfs-xsl/pdf/lfs-lists.xsl
+index 74097d8..34e009e 100644
+--- a/stylesheets/lfs-xsl/pdf/lfs-lists.xsl
++++ b/stylesheets/lfs-xsl/pdf/lfs-lists.xsl
+@@ -2,7 +2,7 @@
+ 
+ <!--
+ $LastChangedBy: bdubbs $
+-$Date: 2012-08-30 04:45:23 +0800 (Thu, 30 Aug 2012) $
++$Date: 2012-08-30 04:45:23 +0800 (周四, 30 8月 2012) $
+ -->
+ 
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

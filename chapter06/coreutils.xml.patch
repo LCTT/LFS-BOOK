@@ -1,0 +1,27 @@
+diff --git a/chapter06/coreutils.xml b/chapter06/coreutils.xml
+index a228fdf..803bdad 100644
+--- a/chapter06/coreutils.xml
++++ b/chapter06/coreutils.xml
+@@ -152,16 +152,13 @@ mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8
+ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
+ 
+     <para revision="sysv">Some of the scripts in the LFS-Bootscripts package
+-    depend on <command>head</command>, <command>sleep</command>, and
+-    <command>nice</command>.  As <filename class="directory">/usr</filename>
+-    may not be available during the early stages of booting, those binaries
+-    need to be on the root partition:</para>
++    depend on <command>head</command>, <command>nice</command>,
++    <command>sleep</command>, and <command>touch</command>.  As <filename
++    class="directory">/usr</filename> may not be available during the early and
++    late stages of booting, those binaries need to be on the root partition to
++    maintain FHS compliance:</para>
+ 
+-    <para revision="systemd">Some packages in BLFS and beyond expect the
+-    following programs in <filename class="directory">/bin</filename>, so make
+-    sure they are placed there:</para>
+-
+-<screen><userinput remap="install">mv -v /usr/bin/{head,sleep,nice} /bin</userinput></screen>
++<screen><userinput remap="install">mv -v /usr/bin/{head,nice,sleep,touch} /bin</userinput></screen>
+ 
+   </sect2>
+ 

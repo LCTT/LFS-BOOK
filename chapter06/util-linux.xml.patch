@@ -1,0 +1,30 @@
+diff --git a/chapter06/util-linux.xml b/chapter06/util-linux.xml
+index 6275c71..62965c1 100644
+--- a/chapter06/util-linux.xml
++++ b/chapter06/util-linux.xml
+@@ -131,7 +131,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+ 
+       <seglistitem>
+         <seg>addpart, agetty, blkdiscard, blkid, blockdev, cal, cfdisk, chcpu,
+-        chrt, col, colcrt, colrm, column, ctrlaltdel, delpart, dmesg,
++        choom, chrt, col, colcrt, colrm, column, ctrlaltdel, delpart, dmesg,
+         eject, fallocate, fdformat, fdisk, findfs, findmnt, flock, fsck,
+         fsck.cramfs, fsck.minix, fsfreeze, fstrim, getopt, hexdump, hwclock,
+         i386, ionice, ipcmk, ipcrm, ipcs, isosize, kill, last, lastb (link to
+@@ -243,6 +243,16 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="choom">
++        <term><command>choom</command></term>
++        <listitem>
++          <para>Displays and adjusts OOM-killer score</para>
++          <indexterm zone="ch-system-util-linux choom">
++            <primary sortas="b-choom">choom</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="chrt">
+         <term><command>chrt</command></term>
+         <listitem>

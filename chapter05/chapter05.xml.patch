@@ -1,0 +1,20 @@
+diff --git a/chapter05/chapter05.xml b/chapter05/chapter05.xml
+index 7b215ba..3d82af5 100644
+--- a/chapter05/chapter05.xml
++++ b/chapter05/chapter05.xml
+@@ -24,7 +24,6 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tcl.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="expect.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dejagnu.xml"/>
+-<!--  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="check.xml"/> -->
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="m4.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ncurses.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bash.xml"/>
+@@ -41,6 +40,7 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="make.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="patch.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="perl.xml"/>
++  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="python.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="sed.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tar.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="texinfo.xml"/>
