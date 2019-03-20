@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1'?>
+<?xml version='1.0' encoding='UTF-8'?>
 
 <!--
 $LastChangedBy: bdubbs $
@@ -25,6 +25,8 @@ $Date: 2011-10-10 10:59:11 +0800 (周一, 10 10月 2011) $
     <!-- Properties associated with verbatim text. -->
   <xsl:attribute-set name="verbatim.properties">
     <xsl:attribute name="keep-with-previous.within-column">always</xsl:attribute>
+    <xsl:attribute name="font-size">8pt</xsl:attribute>
+    <xsl:attribute name="line-height">10pt</xsl:attribute>
     <xsl:attribute name="space-before.optimum">0.6em</xsl:attribute>
     <xsl:attribute name="space-before.minimum">0.4em</xsl:attribute>
     <xsl:attribute name="space-before.maximum">0.8em</xsl:attribute>
