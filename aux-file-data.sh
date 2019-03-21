@@ -7,7 +7,7 @@ fi
 
 FILE=$1
 
-./make-aux-files.sh
+bash make-aux-files.sh
 
 # Bootscript data
 bootscripts=$(ls lfs-bootscripts*.bz2)
