@@ -143,7 +143,7 @@ validate: tmpdir
                $(RENDERTMP)/lfs-html2.xml
 
 	$(Q)rm -f appendices/*.script
-	$(Q)./aux-file-data.sh $(RENDERTMP)/lfs-full.xml
+	$(Q)bash aux-file-data.sh $(RENDERTMP)/lfs-full.xml
 	@echo "Validation complete."
 
 profile-html: 
