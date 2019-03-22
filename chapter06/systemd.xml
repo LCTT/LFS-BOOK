@@ -14,7 +14,7 @@
     <address>&systemd-url;</address>
   </sect1info>
 
-  <title>Systemd-&systemd-version;</title>
+  <title>systemd-&systemd-version;</title>
 
   <indexterm zone="ch-system-systemd">
     <primary sortas="a-systemd">systemd</primary>
@@ -689,7 +689,7 @@ chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
         <term><command>udevadm</command></term>
         <listitem>
           <para>Generic udev administration tool: controls the udevd daemon,
-          provides info from the Udev database, monitors uevents, waits for
+          provides info from the udev database, monitors uevents, waits for
           uevents to finish, tests udev configuration, and triggers uevents
           for a given device</para>
           <indexterm zone="ch-system-systemd udevadm">
@@ -711,7 +711,7 @@ chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
       <varlistentry id="libudev">
         <term><filename class="libraryfile">libudev</filename></term>
         <listitem>
-          <para>A library to access Udev device information</para>
+          <para>A library to access udev device information</para>
           <indexterm zone="ch-system-systemd libudev">
             <primary sortas="c-libudev">libudev</primary>
           </indexterm>

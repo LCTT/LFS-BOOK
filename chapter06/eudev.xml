@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Eudev package contains programs for dynamic creation of device
-    nodes.</para> 
+    <para>Eudev 软件包包含动态创建设备节点的程序。</para> 
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,19 +37,18 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Eudev</title>
+    <title>安装 Eudev</title>
 <!--
     <para>First, fix a test script:</para>
 
 <screen><userinput remap="pre">sed -r -i 's|/usr(/bin/test)|\1|' test/udev-test.pl</userinput></screen>
 -->
 <!--
-    <para>Next, remove an unneeded line that causes a build failure:</para>
+    <para>接着，去掉会导致编译失败，又不需要的一行：</para>
 
 <screen><userinput remap="pre">sed -i '/keyboard_lookup_key/d' src/udev/udev-builtin-keyboard.c</userinput></screen>
 -->
-    <para>Next, add a workaround to prevent the /tools directory from being 
-    hard coded into Eudev binary files library locations:</para>
+    <para>接着，追加一个解决方案以保证 /tools 目录不会被硬编码到 Eudev 的二进制文件库处：</para>
 
 <screen><userinput remap="pre">cat &gt; config.cache &lt;&lt; "EOF"
 HAVE_BLKID=1
@@ -58,7 +56,7 @@ BLKID_LIBS="-lblkid"
 BLKID_CFLAGS="-I/tools/include"
 EOF</userinput></screen>
 
-<para>Prepare Eudev for compilation:</para>
+<para>准备编译 Eudev：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr           \
             --bindir=/sbin          \
@@ -72,32 +70,26 @@ EOF</userinput></screen>
             --disable-static        \
             --config-cache</userinput></screen>
 
-<para>Compile the package:</para>
+<para>编译软件包：</para>
 
 <screen><userinput remap="make">LIBRARY_PATH=/tools/lib make</userinput></screen>
 
-<note><para>The LIBRARY_PATH variable here and the LD_LIBRARY_PATH variable
-below are needed to allow the use of libraries that were installed in /tools,
-but have not yet been installed in the main system.  LIBRARY_PATH is
-used to find libraries during the linking process.  LD_LIBRARY_PATH is
-used to find libraries during program execution.</para></note>
+<note><para>需要此处的变量 LIBRARY_PATH 和下面的变量 LD_LIBRARY_PATH 来使安装在 /tools 中的库可用。LIBRARY_PATH 用于在链接过程中查找库。LD_LIBRARY_PATH 用于在程序执行期间查找库。</para></note>
 
-<para>Create some directories now that are needed for tests, but
-will also be used as a part of installation:</para>
+<para>现在创建一些目录，不仅仅是为了测试需求，一部分的安装操作也将用到：</para>
 
 <screen><userinput remap="test">mkdir -pv /lib/udev/rules.d
 mkdir -pv /etc/udev/rules.d</userinput></screen>
 
-<para>To test the results, issue:</para>
+<para>测试编译结果，通过：</para>
 
 <screen><userinput remap="test">make LD_LIBRARY_PATH=/tools/lib check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make LD_LIBRARY_PATH=/tools/lib install</userinput></screen>
 
-    <para>Install some custom rules and support files useful in an LFS 
-    environment:</para>
+    <para>安装一些对 LFS 的环境中有益的自定义规则和支持文件：</para>
 
 <screen><userinput remap="install">tar -xvf ../&udev-lfs-version;.tar.bz2
 make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
@@ -105,7 +97,7 @@ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
   </sect2>
 
   <sect2 id="conf-eudev" role="configuration">
-    <title>Configuring Eudev</title>
+    <title>配置 Eudev</title>
 
     <indexterm zone="conf-eudev">
       <primary sortas="a-Eudev">Eudev</primary>
@@ -116,27 +108,21 @@ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
       <primary sortas="e-/etc/udev/hwdb.bin">/etc/udev/hwdb.bin</primary>
     </indexterm>
 
-    <para>Information about hardware devices is maintained in the
-    <filename class="directory">/etc/udev/hwdb.d</filename> and
-    <filename class="directory">/lib/udev/hwdb.d</filename> directories.
-    <application>Eudev</application> needs that information to be compiled
-    into a binary database <filename>/etc/udev/hwdb.bin</filename>. Create the
-    initial database:</para>
+    <para>有关硬件的设备存放在 <filename class="directory">/etc/udev/hwdb.d</filename> 和 <filename class="directory">/lib/udev/hwdb.d</filename> 目录中。<application>Eudev</application> 需要将这些信息编译到一个二进制数据库文件 <filename>/etc/udev/hwdb.bin</filename> 中去。创建初始数据库：</para>
 
 <screen><userinput>LD_LIBRARY_PATH=/tools/lib udevadm hwdb --update</userinput></screen>
 
-    <para>This command needs to be run each time the hardware information is
-    updated.</para>
+    <para>该命令需在每次更新硬件信息时运行。</para>
 
   </sect2>
 
   <sect2 id="contents-eudev" role="content">
-    <title>Contents of Eudev</title>
+    <title>Eudev 软件包的内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg><!-- These are in /lib/udev and not to be called by the user:
@@ -145,21 +131,18 @@ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
 
         <seg>libudev.so</seg>
 
-        <seg>/etc/udev, /lib/udev, and /usr/share/doc/udev-&udev-lfs-version;</seg>
+        <seg>/etc/udev, /lib/udev, 和 /usr/share/doc/udev-&udev-lfs-version;</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
       <varlistentry id="udevadm" revision="sysv">
         <term><command>udevadm</command></term>
         <listitem>
-          <para>Generic udev administration tool: controls the udevd daemon,
-          provides info from the Udev database, monitors uevents, waits for
-          uevents to finish, tests Udev configuration, and triggers uevents
-          for a given device</para>
+          <para>通用 udev 管理工具：控制守护进程 udevd，从 udev 数据库提供信息，监控 uevent，等待 uevent 完成，测试 udev 配置，并为给定的设备触发 uevent</para>
           <indexterm zone="ch-system-eudev udevadm">
             <primary sortas="b-udevadm">udevadm</primary>
           </indexterm>
@@ -169,9 +152,7 @@ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
       <varlistentry id="udevd">
         <term><command>udevd</command></term>
         <listitem>
-          <para>A daemon that listens for uevents on the netlink socket,
-          creates devices and runs the configured external programs in
-          response to these uevents</para>
+          <para>一个守护进程，用于监听 netlink 套接字上 uevent，创建设备和运行这些 uevent 的应答中已被配置了的外部命令</para>
           <indexterm zone="ch-system-eudev udevd">
             <primary sortas="b-udevd">udevd</primary>
           </indexterm>
@@ -181,7 +162,7 @@ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
       <varlistentry id="libudev">
         <term><filename class="libraryfile">libudev</filename></term>
         <listitem>
-          <para>A library interface to udev device information</para>
+          <para>一个 udev 设备信息的库接口</para>
           <indexterm zone="ch-system-eudev libudev">
             <primary sortas="c-libudev">libudev</primary>
           </indexterm>
@@ -191,8 +172,7 @@ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
       <varlistentry id="etc-udev">
         <term><filename class="directory">/etc/udev</filename></term>
         <listitem>
-          <para>Contains Udev configuration files,
-          device permissions, and rules for device naming</para>
+          <para>包含 udev 的配置文件，设备权限，以及设备命名规则</para>
           <indexterm zone="ch-system-eudev etc-udev">
             <primary sortas="e-/etc/udev">/etc/udev</primary>
           </indexterm>

@@ -8,10 +8,10 @@
 <sect1 id="ch-scripts-systemd-custom" revision="systemd">
   <?dbhtml filename="systemd-custom.html"?>
 
-  <title>Systemd Usage and Configuration</title>
+  <title>systemd Usage and Configuration</title>
 
   <indexterm zone="ch-scripts-systemd-custom">
-    <primary sortas="e-Systemd">Systemd Customization</primary>
+    <primary sortas="e-Systemd">systemd Customization</primary>
   </indexterm>
 
   <sect2>
@@ -176,7 +176,7 @@ EOF</userinput></screen>
   </sect2>
 
   <sect2>
-    <title>Working with the Systemd Journal</title>
+    <title>Working with the systemd Journal</title>
 
     <para>Logging on a system booted with systemd is handled with
     systemd-journald (by default), rather than a typical unix syslog daemon.

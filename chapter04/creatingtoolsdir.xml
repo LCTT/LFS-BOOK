@@ -8,41 +8,22 @@
 <sect1 id="ch-tools-creatingtoolsdir">
   <?dbhtml filename="creatingtoolsdir.html"?>
 
-  <title>Creating the $LFS/tools Directory</title>
+  <title>创建目录 $LFS/tools</title>
 
-  <para>All programs compiled in <xref linkend="chapter-temporary-tools"/>
-  will be installed under <filename class="directory">$LFS/tools</filename>
-  to keep them separate from the programs compiled in <xref
-  linkend="chapter-building-system"/>. The programs compiled here are
-  temporary tools and will not be a part of the final LFS system. By keeping
-  these programs in a separate directory, they can easily be discarded later
-  after their use. This also prevents these programs from ending up in the
-  host production directories (easy to do by accident in <xref
-  linkend="chapter-temporary-tools"/>).</para>
+  <para>所有 <xref linkend="chapter-temporary-tools"/> 中编译的软件都会安装到 <filename class="directory">$LFS/tools</filename> 中，以确保和 <xref linkend="chapter-building-system"/> 中编译的软件相互分离。这里编译的软件是临时工具，并不会成为最终的 LFS 系统中的一部分。将这些软件保存在单独的目录中，用完后方便弃置。这样做也可以防止这些程序在宿主机生成目录中突然停止工作（在 <xref linkend="chapter-temporary-tools"/> 中很容易发生意外）。</para>
 
-  <para>Create the required directory by running the following as
-  <systemitem class="username">root</systemitem>:</para>
+  <para>以 <systemitem class="username">root</systemitem> 用户运行以下的命令来创建需要的文件夹：</para>
 
 <screen><userinput>mkdir -v $LFS/tools</userinput></screen>
 
-  <para>The next step is to create a <filename class="symlink">/tools</filename>
-  symlink on the host system. This will point to the newly-created directory on
-  the LFS partition. Run this command as <systemitem
-  class="username">root</systemitem> as well:</para>
+  <para>下一步是在宿主系统中创建 <filename class="symlink">/tools</filename> 的符号链接。将其指向 LFS 分区中新建的目录。同样以 <systemitem class="username">root</systemitem> 用户运行下面的命令：</para>
 
 <screen><userinput>ln -sv $LFS/tools /</userinput></screen>
 
   <note>
-    <para>The above command is correct. The <command>ln</command> command
-    has a few syntactic variations, so be sure to check
-    <command>info coreutils ln</command> and <filename>ln(1)</filename>
-    before reporting what you may think is an error.</para>
+    <para>上面的命令是正确的。<command>ln</command> 命令有一些语法变种，所以在报出你觉得可能是错误的信息之前检查一下 <command>info coreutils ln</command> 和 <filename>ln(1)</filename>。</para>
   </note>
 
-  <para>The created symlink enables the toolchain to be compiled so that it
-  always refers to <filename class="directory">/tools</filename>, meaning
-  that the compiler, assembler, and linker will work both in Chapter&nbsp;5
-  (when we are still using some tools from the host) and in the next (when
-  we are <quote>chrooted</quote> to the LFS partition).</para>
+  <para>创建的符号链接使得编译的工具链总是指向 <filename class="directory">/tools</filename> 文件夹，也就是说编译器、汇编器以及链接器无论是在第五章中（我们仍然使用宿主机的一些工具的时）还是之后（当我们「chrooted」到 LFS 分区时）都可以工作。</para>
 
 </sect1>
