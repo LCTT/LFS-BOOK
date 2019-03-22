@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The XML::Parser module is a Perl interface to James Clark's
-    XML parser, Expat.</para>
+    <para>XML::Parser 模块是到 James Clark 的 XML 解析器的 Perl Expat 接口。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,31 +38,31 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of XML::Parser</title>
+    <title>安装 XML::Parser</title>
 
-    <para>Prepare XML::Parser for compilation:</para>
+    <para>准备编译 XML::Parser：</para>
 
 <screen><userinput remap="configure">perl Makefile.PL</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make test</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-xml-parser" role="content">
-    <title>Contents of XML::Parser</title>
+    <title>XML::Parser 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed module</segtitle>
+      <segtitle>安装的模块</segtitle>
 
       <seglistitem>
         <seg>Expat.so</seg>
@@ -71,14 +70,14 @@
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="Expat">
         <term><filename class="libraryfile">Expat</filename></term>
         <listitem>
-          <para>provides the Perl Expat interface</para>
+          <para>提供 Perl Expat 接口</para>
           <indexterm zone="ch-system-xml-parser Expat">
             <primary sortas="c-Expat">Expat</primary>
           </indexterm>

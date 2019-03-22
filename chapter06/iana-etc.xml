@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Iana-Etc package provides data for network services and
-    protocols.</para>
+    <para>Iana-Etc 软件包为网络服务和协议提供数据。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,43 +38,40 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Iana-Etc</title>
+    <title>安装 Iana-Etc</title>
 
-    <para>The following command converts the raw data provided by IANA into the
-    correct formats for the <filename>/etc/protocols</filename> and
-    <filename>/etc/services</filename> data files:</para>
+    <para>下面的命令将 IANA 提供的原始数据转换为 <filename>/etc/protocols</filename> 和 <filename>/etc/services</filename> 数据文件的正确格式：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>This package does not come with a test suite.</para>
+    <para>该软件包没有测试套件。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-iana-etc" role="content">
-    <title>Contents of Iana-Etc</title>
+    <title>Iana-Etc 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed files</segtitle>
+      <segtitle>安装的文件</segtitle>
 
       <seglistitem>
-        <seg>/etc/protocols and /etc/services</seg>
+        <seg>/etc/protocols 和 /etc/services</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="protocols">
         <term><filename>/etc/protocols</filename></term>
         <listitem>
-          <para>Describes the various DARPA Internet protocols that are
-          available from the TCP/IP subsystem</para>
+          <para>描述 TCP/IP 子系统中可用的多种 DARPA 网络协议</para>
           <indexterm zone="ch-system-iana-etc">
             <primary sortas="e-/etc/protocols">/etc/protocols</primary>
           </indexterm>
@@ -85,9 +81,7 @@
       <varlistentry id="services">
         <term><filename>/etc/services</filename></term>
         <listitem>
-          <para>Provides a mapping between friendly textual names for internet
-          services, and their underlying assigned port numbers and protocol
-          types</para>
+          <para>提供友好文本名称和背后分配的端口号以及协议类型之间的映射</para>
           <indexterm zone="ch-system-iana-etc">
             <primary sortas="e-/etc/services">/etc/services</primary>
           </indexterm>

@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Meson is an open source build system meant to be both extremely fast,
-    and, even more importantly, as user friendly as possible.</para>
+    <para>Meson 是一个开源代码构建系统，不仅速度非常快，而且更重要的是对用户极其友好。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,31 +37,26 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Meson</title>
+    <title>安装 Meson</title>
 
-    <para>Compile Meson with the following command:</para>
+    <para>通过下列命令编译 Meson：</para>
 
 <screen><userinput remap="make">python3 setup.py build</userinput></screen>
 
-    <para>This package does not come with a test suite.</para>
+    <para>这个软件包还没有测试套件。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">python3 setup.py install --root=dest
 cp -rv dest/* /</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the install parameters:</title>
+      <title>安装参数的含义：</title>
       
       <varlistentry>
         <term><parameter>--root=dest</parameter></term>
         <listitem>
-          <para>By default <command>python3 setup.py install</command>
-          installs various files (such as man pages) into Python Eggs.
-          With a specified root location, <command>setup.py</command> installs
-          these files into a standard hierarchy.  Then we can just copy
-          the hierarchy so the files will be in the standard location.
-        </para>
+          <para>默认情况下执行命令 <command>python3 setup.py install</command> 会将所有文件（比如 man 手册）安装到 Python Eggs。指定根路径则 <command>setup.py</command>会将这些文件安装到标准层次目录。然后只需要复制层次目录，文件即处于标准位置。</para>
         </listitem>
       </varlistentry>
 
@@ -70,11 +64,11 @@ cp -rv dest/* /</userinput></screen>
   </sect2>
 
   <sect2 id="contents-meson" role="content">
-    <title>Contents of Meson</title>
+    <title>Meson 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed directory</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>meson, mesonconf, mesonintrospect, mesontest, and wraptool</seg>
@@ -83,14 +77,14 @@ cp -rv dest/* /</userinput></screen>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="meson">
 		<term><command>meson</command></term>
         <listitem>
-          <para>A high productivity build system</para>
+          <para> 高生产率构建系统</para>
           <indexterm zone="ch-system-meson meson">
             <primary sortas="b-meson">meson</primary>
           </indexterm>
@@ -100,7 +94,7 @@ cp -rv dest/* /</userinput></screen>
       <varlistentry id="mesonconf">
 		<term><command>mesonconf</command></term>
         <listitem>
-          <para>A tool to configure Meson builds</para>
+          <para>Meson 构建系统配置工具</para>
           <indexterm zone="ch-system-meson mesonconf">
             <primary sortas="b-mesonconf">mesonconf</primary>
           </indexterm>
@@ -110,7 +104,7 @@ cp -rv dest/* /</userinput></screen>
       <varlistentry id="mesonintrospect">
 		<term><command>mesonintrospect</command></term>
         <listitem>
-          <para>A tool to extract information about a Meson build</para>
+          <para>Meson 构建系统信息提取工具</para>
           <indexterm zone="ch-system-meson mesonintrospect">
             <primary sortas="b-mesonintrospect">mesonintrospect</primary>
           </indexterm>
@@ -120,7 +114,7 @@ cp -rv dest/* /</userinput></screen>
       <varlistentry id="mesontest">
 		<term><command>mesontest</command></term>
         <listitem>
-          <para>Test tool for the Meson build system</para>
+          <para>Meson 构建系统测试工具</para>
           <indexterm zone="ch-system-meson mesontest">
             <primary sortas="b-mesontest">mesontest</primary>
           </indexterm>
@@ -130,7 +124,7 @@ cp -rv dest/* /</userinput></screen>
       <varlistentry id="wraptool">
 		<term><command>wraptool</command></term>
         <listitem>
-          <para>Source dependency downloader</para>
+          <para>源码依赖下载器</para>
           <indexterm zone="ch-system-meson wraptool">
             <primary sortas="b-wraptool">wraptool</primary>
           </indexterm>

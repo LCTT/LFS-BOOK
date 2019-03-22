@@ -32,26 +32,18 @@
   %general-entities;
 ]>
 
-<appendix id="scripts" xreflabel="Appendix D" revision="sysv">
+<appendix id="scripts" xreflabel="附录 D" revision="sysv">
   <?dbhtml dir="scripts"?>
   <?dbhtml filename="scripts.html"?>
 
-  <title>Boot and sysconfig scripts version-&lfs-bootscripts-version;</title>
+  <title>启动及系统配置脚本版本-&lfs-bootscripts-version;</title>
 
-  <para>The scripts in this appendix are listed by the directory where they
-  normally reside.  The order is <filename
-  class='directory'>/etc/rc.d/init.d</filename>, <filename
-  class='directory'>/etc/sysconfig</filename>, <filename
-  class='directory'>/etc/sysconfig/network-devices</filename>, and <filename
-  class='directory'>/etc/sysconfig/network-devices/services</filename>.  Within
-  each section, the files are listed in the order they are normally called.
-  </para>
+  <para>本附录中的脚本按其常规存放的目录顺序列出。顺序按次为 <filename class='directory'>/etc/rc.d/init.d</filename>，<filename class='directory'>/etc/sysconfig</filename>，<filename class='directory'>/etc/sysconfig/network-devices</filename>，和 <filename class='directory'>/etc/sysconfig/network-devices/services</filename>。各个段落中，文件会按其通常情况下，调用的顺序列出。</para>
 
   <sect1 id="rc" role="wrap">
     <title>/etc/rc.d/init.d/rc</title>
 
-    <para>The <systemitem>rc</systemitem> script is the first script called by
-    <application>init</application> and initiates the boot process.</para>
+    <para><systemitem>rc</systemitem> 脚本是 <application>init</application> 调用的第一个，也是开始启动过程伊始运行的第一个脚本。</para>
 
     <screen>&rc;</screen>
   </sect1>

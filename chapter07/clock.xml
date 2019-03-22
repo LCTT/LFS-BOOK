@@ -8,33 +8,22 @@
 <sect1 id="ch-scripts-clock" revision="systemd">
   <?dbhtml filename="clock.html"?>
 
-  <title>Configuring the system clock</title>
+  <title>配置系统时间</title>
 
   <indexterm zone="ch-scripts-clock">
-    <primary sortas="d-clock">clock</primary>
-  <secondary>configuring</secondary></indexterm>
+    <primary sortas="d-clock">时间</primary>
+  <secondary>配置</secondary></indexterm>
 
-  <para>This section discusses how to configure the
-  <command>systemd-timedated</command> system service, which configures
-  system clock and timezone.</para>
+  <para>本节将会讨论如何配置 <command>systemd-timedated</command> 系统服务，包括配置系统时间和时区。</para>
 
-  <para>If you cannot remember whether or not the hardware clock is set to UTC,
-  find out by running the <userinput>hwclock --localtime --show</userinput>
-  command. This will display what the current time is according to the hardware
-  clock. If this time matches whatever your watch says, then the hardware clock is
-  set to local time. If the output from <command>hwclock</command> is not local
-  time, chances are it is set to UTC time. Verify this by adding or subtracting
-  the proper amount of hours for the timezone to the time shown by
-  <command>hwclock</command>. For example, if you are currently in the MST
-  timezone, which is also known as GMT -0700, add seven hours to the local
-  time.</para>
+  <para>如果你不确定是否将硬件时钟设置为 UTC，可以通过 <userinput>hwclock --localtime --show</userinput> 来查看。
+  这将根据硬件时钟显示当前的时间。如果显示的和手表的时间相同，应该是设置为本地时间了；
+  如果 <command>hwclock</command> 输出的时间不一致，应该是设置为 UTC 了。通过增减数小时，可以确定你所在时区。</para>
 
-  <para><command>systemd-timedated</command> reads <filename>/etc/adjtime</filename>,
-  and depending on the contents of the file, it sets the clock to either UTC or
-  local time.</para>
+  <para><command>systemd-timedated</command> 读取 <filename>/etc/adjtime</filename>，
+  然后确定是本地时间还是 UTC 时间。</para>
 
-  <para>Create the <filename>/etc/adjtime</filename> file with the following contents
-  if your hardware clock is set to local time:</para>
+  <para>如果想要将硬件时钟设置为本地时间，使用以下命令建立 <filename>/etc/adjtime</filename> ：</para>
 
 <screen role="nodump"><userinput>cat &gt; /etc/adjtime &lt;&lt; "EOF"
 <literal>0.0 0 0.0
@@ -42,62 +31,45 @@
 LOCAL</literal>
 EOF</userinput></screen>
 
-  <para>If <filename>/etc/adjtime</filename> isn't present at first boot,
-  <command>systemd-timedated</command> will assume that hardware clock is
-  set to UTC and adjust the file according to that.</para>
+  <para>如果第一次启动时 <filename>/etc/adjtime</filename> 文件不存在，
+  <command>systemd-timedated</command> 会认为硬件时钟设置成 UTC 并且以此调整该文件。</para>
 
-  <para>You can also use the <command>timedatectl</command> utility to tell
-  <command>systemd-timedated</command> if your hardware clock is set to
-  UTC or local time:</para>
+  <para>你也可以使用 <command>timedatectl</command> 程序来告诉 <command>systemd-timedated</command> 你的硬件时钟是 UTC 还是本地时间：</para>
 
 <screen role="nodump"><userinput>timedatectl set-local-rtc 1</userinput></screen>
 
-  <para><command>timedatectl</command> can also be used to change system time and
-  time zone.</para>
+  <para><command>timedatectl</command> 也可以用来更改系统时间和时区。</para>
 
-  <para>To change your current system time, issue:</para>
+  <para>要更改当前系统时间，使用下面的命令：</para>
 
 <screen role="nodump"><userinput>timedatectl set-time YYYY-MM-DD HH:MM:SS</userinput></screen>
 
-  <para>Hardware clock will also be updated accordingly.</para>
+  <para>硬件时钟也会相应更新。</para>
 
-  <para>To change your current time zone, issue:</para>
+  <para>要更改当前时区，使用下面命令：</para>
 
 <screen role="nodump"><userinput>timedatectl set-timezone TIMEZONE</userinput></screen>
 
-  <para>You can get a list of available time zones by running:</para>
+  <para>你可以通过运行下面命令查看可用时区列表：</para>
 
 <screen role="nodump"><userinput>timedatectl list-timezones</userinput></screen>
 
-  <note><para>Please note that the <command>timedatectl</command> command can
-  be used only on a system booted with systemd.</para></note>
+  <note><para><command>timedatectl</command> 仅可用于 systemd 环境。</para></note>
 
   <sect2>
-    <title>Network Time Synchronization</title>
+    <title>网络时间同步</title>
 
-    <para>Starting with version 213, systemd ships a daemon called
-    <command>systemd-timesyncd</command> which can be used to
-    synchronize the system time with remote NTP servers.</para>
+    <para>从版本号 213 的 systemd 开始，包括了一个名为 <command>systemd-timesyncd</command> 的守护进程，将能够和远程的 NTP 服务器同步时间。</para>
 
-    <para>The daemon is not intended as a replacement for the well
-    established NTP daemon, but as a client only implementation
-    of the SNTP protocol which can be used for less advanced
-    tasks and on resource limited systems.</para>
+    <para>此守护进程并不是为了取代已有的 NTP 服务，而是作为 SNTP 协议的实现客户端，它可用于更高级的任务和资源有限的系统。</para>
 
-    <para>Starting with systemd version 216, the
-    <command>systemd-timesyncd</command> daemon is enabled by
-    default. If you want to disable it, issue the following
-    command:</para>
+    <para>从版本号 216 的 systemd 开始，<command>systemd-timesyncd</command> 守护进程默认启用，如果需要禁用，执行以下命令：</para>
 
 <screen role="nodump"><userinput>systemctl disable systemd-timesyncd</userinput></screen>
 
-    <para>The <filename>/etc/systemd/timesyncd.conf</filename> file
-    can be used to change the NTP servers that
-    <command>systemd-timesyncd</command> synchronizes with.</para>
+    <para><command>systemd-timesyncd</command> 也可以通过配置 <filename>/etc/systemd/timesyncd.conf</filename> 文件同步更改 NTP 服务。</para>
 
-    <para>Please note that when system clock is set to Local Time,
-    <command>systemd-timesyncd</command> won't update hardware
-    clock.</para>
+    <para>需要注意的是，当使用本地时间作为系统时间时，<command>systemd-timesyncd</command> 无法更新硬件时钟。</para>
 
   </sect2>
 

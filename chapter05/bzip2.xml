@@ -41,14 +41,13 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Bzip2</title>
+    <title>安装 Bzip2</title>
 
-    <para>The Bzip2 package does not contain a <command>configure</command>
-    script. Compile and test it with:</para>
+    <para>Bzip2 软件包里没有 <command>configure</command> 配置脚本。用下面的命令编译和测试：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make PREFIX=/tools install</userinput></screen>
 
@@ -57,8 +56,8 @@
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
-    <xref linkend="contents-bzip2" role="."/></para>
+    <para>关于这个软件包的详细资料请参见：
+    <xref linkend="contents-bzip2"/>。</para>
 
   </sect2>
 

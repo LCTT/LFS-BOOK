@@ -8,24 +8,19 @@
 <sect1 id="ch-scripts-hostname">
   <?dbhtml filename="hostname.html"?>
 
-  <title>Configuring the system hostname</title>
+  <title>配置系统主机名</title>
 
   <indexterm zone="ch-scripts-hostname">
     <primary sortas="d-hostname">hostname</primary>
     <secondary>configuring</secondary>
   </indexterm>
 
-  <para>During the boot process, both systemd and System V use the same
-  file for establishing the system's hostname.  This needs to be configured by
-  creating <filename>/etc/hostname</filename>.</para>
+  <para>启动过程中，systemd 和 System V 都需要从 <filename>/etc/hostname</filename> 中获得系统的主机名。</para>
 
-  <para>Create the <filename>/etc/hostname</filename> file and enter a
-  hostname by running:</para>
+  <para>执行以下命令建立 <filename>/etc/hostname</filename> 文件：</para>
 
 <screen><userinput>echo "<replaceable>&lt;lfs&gt;</replaceable>" &gt; /etc/hostname</userinput></screen>
 
-  <para><replaceable>&lt;lfs&gt;</replaceable> needs to be replaced with the name given
-  to the computer. Do not enter the Fully Qualified Domain Name (FQDN) here. That
-  information is put in the <filename>/etc/hosts</filename> file.</para>
+  <para>其中 <replaceable>&lt;lfs&gt;</replaceable> 替换为想要设置的名称。但是不要在此使用完全合格的域名（FQDN），它应该在 <filename>/etc/hosts</filename> 中设置。</para>
 
 </sect1>
