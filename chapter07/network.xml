@@ -37,7 +37,7 @@
     address(es), subnet masks, and so forth.  It is necessary that the stem of
     the filename be <emphasis>ifconfig</emphasis>.</para>
 
-    <note><para>If the procedure in the previous section was not used, Udev
+    <note><para>If the procedure in the previous section was not used, udev
     will assign network card interface names based on system physical
     characteristics such as enp2s1. If you are not sure what your interface
     name is, you can always run <command>ip link</command> or <command>ls

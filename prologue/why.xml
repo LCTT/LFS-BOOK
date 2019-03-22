@@ -532,7 +532,7 @@
       </listitem>
 
       <listitem revision="systemd">
-        <para>Systemd</para>
+        <para>systemd</para>
 
         <para>This package provides an <application>init</application> program
         and several additional boot and system control capabilities as an

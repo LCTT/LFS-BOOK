@@ -2404,7 +2404,7 @@
       </segmentedlist>
 
 <!-- Begin systemd dependency info -->
-  <bridgehead renderas="sect2" id="systemd-dep">Systemd</bridgehead>
+  <bridgehead renderas="sect2" id="systemd-dep">systemd</bridgehead>
 
       <segmentedlist>
         <segtitle>&dependencies;</segtitle>

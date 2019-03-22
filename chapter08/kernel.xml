@@ -150,7 +150,7 @@ Kernel hacking  ---&gt;
         <term><parameter>Support for uevent helper</parameter></term>
         <listitem>
           <para>Having this option set may interfere with device
-          management when using Udev/Eudev. </para>
+          management when using udev/Eudev. </para>
         </listitem>
       </varlistentry>
 
@@ -158,9 +158,9 @@ Kernel hacking  ---&gt;
         <term><parameter>Maintain a devtmpfs</parameter></term>
         <listitem>
           <para>This will create automated device nodes which are populated by the
-          kernel, even without Udev running.  Udev then runs on top of this,
+          kernel, even without udev running.  udev then runs on top of this,
           managing permissions and adding symlinks.  This configuration
-          item is required for all users of Udev/Eudev.</para>
+          item is required for all users of udev/Eudev.</para>
         </listitem>
       </varlistentry>
 

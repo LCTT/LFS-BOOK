@@ -577,11 +577,11 @@
       <itemizedlist>
         <listitem revision="systemd">
           <para>[dj] - Restore build of Util-Linux in chapter5 to avoid
-          reciprocal dependency for Systemd.</para>
+          reciprocal dependency for systemd.</para>
         </listitem>
         <listitem>
           <para>[dj] - Moved installation of Util-Linux and E2fsprogs after
-          Procps to satisfy build order in the Systemd book. This has no effect
+          Procps to satisfy build order in the systemd book. This has no effect
           on the SysV book.</para>
         </listitem>
       </itemizedlist>

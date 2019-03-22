@@ -47,7 +47,7 @@
       <title>Network Device Naming</title>
 
       <para>
-        Udev normally assigns network card interface names based
+        udev normally assigns network card interface names based
         on system physical characteristics such as enp2s1. If you are
         not sure what your interface name is, you can always run
         <command>ip link</command> after you have booted your system.
