@@ -8,35 +8,26 @@
 <sect1 id="pre-hostreqs" xreflabel="Host System Requirements">
   <?dbhtml filename="hostreqs.html"?>
 
-  <title>Host System Requirements</title>
+  <title>主机系统要求</title>
 
-    <para>Your host system should have the following software with the
-    minimum versions indicated. This should not be an issue for most
-    modern Linux distributions. Also note that many distributions will
-    place software headers into separate packages, often in the form of
-    <quote>&lt;package-name&gt;-devel</quote> or
-    <quote>&lt;package-name&gt;-dev</quote>. Be sure to install those if
-    your distribution provides them.</para>
+    <para>您的主机系统应具有以下指定最低版本的软件。 对于大多数现代Linux发行版来说，这不应该是一个问题。 另请注意，许多发行版会将软件标题放入单独的包中，通常采用
+    <quote>&lt;package-name&gt;-devel</quote> 或
+    <quote>&lt;package-name&gt;-dev</quote>的形式。如果您的发行版提供了这些，请务必安装它们。</para>
 
-   <para>Earlier versions of the listed software packages may work, but have
-   not been tested.</para>
+   <para>所列软件包的早期版本可能有效，但尚未经过测试。</para>
 
   <itemizedlist spacing="compact">
 
     <listitem>
-      <para><emphasis role="strong">Bash-3.2</emphasis> (/bin/sh
-      should be a symbolic or hard link to bash)</para>
+      <para><emphasis role="strong">Bash-3.2</emphasis> (/bin/sh应该是bash的符号链接或硬链接)</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Binutils-2.25</emphasis> (Versions
-      greater than &binutils-version; are not recommended as they have
-      not been tested)</para>
+      <para><emphasis role="strong">Binutils-2.25</emphasis> (不建议使用大于 &binutils-version; 的版本，因为它们尚未经过测试)</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Bison-2.7</emphasis> (/usr/bin/yacc
-      should be a link to bison or small script that executes bison)</para>
+      <para><emphasis role="strong">Bison-2.7</emphasis> (/usr/bin/yacc应该是bison或执行bison的小脚本的链接)</para>
     </listitem>
 
     <listitem>
@@ -56,20 +47,15 @@
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Gawk-4.0.1</emphasis> (/usr/bin/awk
-      should be a link to gawk)</para>
+      <para><emphasis role="strong">Gawk-4.0.1</emphasis> (/usr/bin/awk应该是gawk的链接)</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">GCC-5.2</emphasis> including the C++
-      compiler, <command>g++</command> (Versions greater than &gcc-version; are
-      not recommended as they have not been tested)</para>
+      <para><emphasis role="strong">GCC-5.2</emphasis>包括C++编译器，<command>g++</command> (版本大于 &gcc-version; 不建议使用，因为它们尚未经过测试)</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Glibc-2.11</emphasis> (Versions
-      greater than &glibc-version; are not recommended as they have
-      not been tested)</para>
+      <para><emphasis role="strong">Glibc-2.11</emphasis> (版本大于 &glibc-version; 不建议使用，因为它们尚未经过测试)</para>
     </listitem>
 
     <listitem>
@@ -83,19 +69,11 @@
     <listitem>
       <para><emphasis role="strong">Linux Kernel-&min-kernel;</emphasis></para>
 
-      <para>The reason for the kernel version requirement is that we specify
-      that version when building <application>glibc</application> in Chapter&nbsp;6
-      at the recommendation of the developers.  It is also required by
-      udev.</para>
+      <para>内核版本要求的原因是我们在开发人员的推荐下在第6章中构建 <application>glibc</application> 时指定了该版本。udev也要求它。</para>
 
-      <para>If the host kernel is earlier than &min-kernel; you will need to replace
-      the kernel with a more up to date version. There are two ways
-      you can go about this. First, see if your Linux vendor provides a &min-kernel;
-      or later kernel package. If so, you may wish to install it. If your
-      vendor doesn't offer an acceptable kernel package, or you would prefer not to
-      install it, you can compile a kernel yourself. Instructions for
-      compiling the kernel and configuring the boot loader (assuming the host
-      uses GRUB) are located in <xref linkend="chapter-bootable"/>.</para>
+      <para>如果主机内核早于&min-kernel;，则需要使用更新版本替换内核。
+有两种方法可以解决这个问题。首先，看看您的Linux供应商是否提供了&min-kernel;或更高版本的内核包。
+如果是这样，您可能希望安装它。如果您的供应商不提供可接受的内核包，或者您不想安装它，则可以自己编译内核。编译内核和配置引导加载程序的说明（假设主机使用GRUB）位于 <xref linkend="chapter-bootable"/>.</para>
 
     </listitem>
 
@@ -138,12 +116,7 @@
   </itemizedlist>
 
   <important>
-    <para>Note that the symlinks mentioned above are required to build an LFS
-    system using the instructions contained within this book. Symlinks that
-    point to other software (such as dash, mawk, etc.) may work, but are not
-    tested or supported by the LFS development team, and may require either
-    deviation from the instructions or additional patches to some
-    packages.</para>
+    <para>请注意，使用本书中包含的说明构建LFS系统需要上面提到的符号链接。指向其他软件（例如破折号，mawk等）的符号链接可能有效，但LFS开发团队未对其进行测试或支持，并且可能需要偏离指令或某些程序包的其他补丁。</para>
   </important>
 
   <!-- Use an empty sect2 element to prevent a pdf warning.  -->
@@ -153,8 +126,7 @@
   </bridgehead>
   <!--<title> </title>-->
 
-  <para >To see whether your host system has all the appropriate versions, and
-  the ability to compile programs, run the following:</para>
+  <para >要查看主机系统是否具有所有适当的版本以及编译程序的能力，请运行以下命令：</para>
 
 <!-- ANY additional lines in the script cause a pdf rendering problem-->
 <screen role="nodump"><userinput>cat &gt; version-check.sh &lt;&lt; "EOF"
