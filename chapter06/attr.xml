@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The attr package contains utilities to administer the extended
-    attributes on filesystem objects.</para>
+    <para>attr 软件包包含管理文件系统对象的扩展属性的工具。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,9 +38,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Attr</title>
+    <title>安装 Attr</title>
 
-    <para>Prepare Attr for compilation:</para>
+    <para>准备编译 Attr：</para>
 
 <screen revision="sysv"><userinput remap="configure">./configure --prefix=/usr     \
             --bindir=/bin     \
@@ -54,24 +53,19 @@
             --sysconfdir=/etc \
             --docdir=/usr/share/doc/attr-&attr-version;</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>The tests need to be run on a filesystem that supports extended
-    attributes such as the ext2, ext3, or ext4 filesystems. 
-    To test the results, issue:</para>
+    <para>测试需要在支持扩展属性的文件系统上运行，例如 ext2、ext3、或者 ext4。如果同时运行多个测试会导致测试失败（-j 选项大于 1）。输入命令检查结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>The shared library needs to be moved to
-    <filename class="directory">/lib</filename>, and as a result the
-    <filename class="extension">.so</filename> file in
-    <filename class="directory">/usr/lib</filename> will need to be recreated:</para>
+    <para>需要移动共享库到 <filename class="directory">/lib</filename>，因此需要重建 <filename class="extension">.so</filename> 中的 <filename class="directory">/usr/lib</filename> 文件：</para>
 
 <screen><userinput remap="install">mv -v /usr/lib/libattr.so.* /lib
 ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</userinput></screen>
@@ -79,29 +73,29 @@ ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</userinput
   </sect2>
 
   <sect2 id="contents-attr" role="content">
-    <title>Contents of Attr</title>
+    <title>Attr 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed library</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
-        <seg>attr, getfattr, and setfattr</seg>
+        <seg>attr, getfattr, 和 setfattr</seg>
         <seg>libattr.so</seg>
-        <seg>/usr/include/attr and /usr/share/doc/attr-&attr-version;</seg>
+        <seg>/usr/include/attr 和 /usr/share/doc/attr-&attr-version;</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="attr">
         <term><command>attr</command></term>
         <listitem>
-          <para>Extends attributes on filesystem objects</para>
+          <para>扩展文件系统对象的属性</para>
           <indexterm zone="ch-system-attr attr">
             <primary sortas="b-attr">attr</primary>
           </indexterm>
@@ -111,7 +105,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</userinput
       <varlistentry id="getfattr">
         <term><command>getfattr</command></term>
         <listitem>
-          <para>Gets the extended attributes of filesystem objects</para>
+          <para>获取文件系统对象的扩展属性</para>
           <indexterm zone="ch-system-attr getfattr">
             <primary sortas="b-getfattr">getfattr</primary>
           </indexterm>
@@ -121,7 +115,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</userinput
       <varlistentry id="setfattr">
         <term><command>setfattr</command></term>
         <listitem>
-          <para>Sets the extended attributes of filesystem objects</para>
+          <para>设置文件系统对象的扩展属性</para>
           <indexterm zone="ch-system-attr setfattr">
             <primary sortas="b-setfattr">setfattr</primary>
           </indexterm>
@@ -131,7 +125,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</userinput
       <varlistentry id="libattr">
         <term><filename class="libraryfile">libattr</filename></term>
         <listitem>
-          <para>Contains the library functions for manipulating extended attributes</para>
+          <para>包含管理扩展属性的库函数</para>
           <indexterm zone="ch-system-attr libattr">
             <primary sortas="c-libattr">libattr</primary>
           </indexterm>

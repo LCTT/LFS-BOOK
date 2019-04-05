@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Man-DB package contains programs for finding and viewing man
-    pages.</para>
+    <para>Man-DB 软件包包含用于查找和查看 man 页面的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,9 +38,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Man-DB</title>
+    <title>安装 Man-DB</title>
 
-    <para>Prepare Man-DB for compilation:</para>
+    <para>准备编译 Man-DB：</para>
 
 <screen revision="systemd"><userinput remap="configure">./configure --prefix=/usr                        \
             --docdir=/usr/share/doc/man-db-&man-db-version; \
@@ -64,66 +63,50 @@
             --with-systemdsystemunitdir=</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--disable-setuid</parameter></term>
         <listitem>
-          <para>This disables making the <command>man</command> program setuid
-          to user <systemitem class="username">man</systemitem>.</para>
+          <para>为用户 <command>man</command> 禁止 <systemitem class="username">man</systemitem>.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--enable-cache-owner=bin</parameter></term>
         <listitem>
-          <para>This makes the system-wide cache files be owned by user
-          bin.</para>
+          <para>用于将系统范围内的 cache 文件的拥有者设置为 bin 用户。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--with-...</parameter></term>
         <listitem>
-          <para>These three parameters are used to set some default programs.
-          <command>lynx</command> is a text-based web browser (see
-          BLFS for installation instructions), <command>vgrind</command>
-          converts program sources to Groff input, and <command>grap</command>
-          is useful for typesetting graphs in Groff documents. The
-          <command>vgrind</command> and <command>grap</command> programs are
-          not normally needed for viewing manual pages. They are not part of
-          LFS or BLFS, but you should be able to install them yourself after
-          finishing LFS if you wish to do so.</para>
+          <para>这些参数用于设置一些默认程序。<command>lynx</command> 是一个基于文本的网络浏览器（查看 BLFS 获取安装指令），<command>vgrind</command> 将程序源码转换为 Groff 输入，<command>grap</command> 在 Groof 文档排版图中非常有用。查看手册页通常并不需要  <command>vgrind</command> 和 <command>grap</command> 程序。它们并不是 LFS 或 BLFS 的一部分，但是如果需要的话你自己应该能够在完成 LFS 之后安装它们。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry revision="sysv">
         <term><parameter>--with-systemd...</parameter></term>
         <listitem>
-          <para>These parameters prevent installing unneeded systemd 
-          directories and files.</para>
+          <para>这些参数可防止安装不需要的 systemd 目录和文件。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-   <para>To test the results, issue:</para>
+   <para>用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 <!--
-    <para revision="sysv">Remove an unwanted directory used for service files
-    which would cause some BLFS packages to also install files there: </para>
-
-<screen revision="sysv"><userinput remap="install">rm -rfv /lib/systemd</userinput></screen>
-
     <para revision="systemd">Remove a reference to a non-existent user:</para>
 
 <screen revision="systemd"><userinput remap="install">sed -i "s:man man:root root:g" /usr/lib/tmpfiles.d/man-db.conf</userinput></screen>
@@ -131,17 +114,13 @@
   </sect2>
 
   <sect2>
-    <title>Non-English Manual Pages in LFS</title>
+    <title>LFS 中的非英语手册页</title>
 
-    <para>The following table shows the character set that Man-DB assumes
-    manual pages installed under
-    <filename class="directory">/usr/share/man/&lt;ll&gt;</filename> will be
-    encoded with.  In addition to this, Man-DB correctly determines if manual
-    pages installed in that directory are UTF-8 encoded.</para>
+    <para>下面的表格显示了 Man-DB 假定手册页安装到 <filename class="directory">/usr/share/man/&lt;ll&gt;</filename> 会使用的字符编码。除此之外，Man-DB 能正确判断安装到该目录的手册页是否采用 UTF-8 编码。</para>
 
     <!-- Origin: man-db-2.5.9/lib/encodings.c -->
     <table>
-<title>Expected character encoding of legacy 8-bit manual pages</title>
+<title>传统 8 位手册页预期字符编码</title>
       <?dbfo table-width="6in" ?>
 
       <tgroup cols="4">
@@ -153,10 +132,10 @@
 
         <thead>
           <row>
-            <entry>Language (code)</entry>
-            <entry>Encoding</entry>
-            <entry>Language (code)</entry>
-            <entry>Encoding</entry>
+            <entry>语言 (缩写)</entry>
+            <entry>编码</entry>
+            <entry>语言 (缩写)</entry>
+            <entry>编码</entry>
           </row>
         </thead>
 
@@ -301,38 +280,37 @@
     </table>
 
     <note>
-      <para>Manual pages in languages not in the list are not supported.</para>
+      <para>手册页不支持不在列表中的语言。</para>
     </note>
 
   </sect2>
 
   <sect2 id="contents-man-db" role="content">
-    <title>Contents of Man-DB</title>
+    <title>Man-DB 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
-        <seg>accessdb, apropos (link to whatis), catman, lexgrog, man, mandb,
-        manpath, and whatis</seg>
-        <seg>libman.so and libmandb.so</seg>
+        <seg>accessdb, apropos (链接到 whatis), catman, lexgrog, man, mandb,
+        manpath, 和 whatis</seg>
+        <seg>libman.so 和 libmandb.so</seg>
         <seg>/usr/lib/man-db, /usr/lib/tmpfiles.d, /usr/libexec/man-db,
-        and /usr/share/doc/man-db-&man-db-version;</seg>
+        和 /usr/share/doc/man-db-&man-db-version;</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="accessdb">
         <term><command>accessdb</command></term>
         <listitem>
-          <para>Dumps the <command>whatis</command> database contents in
-          human-readable form</para>
+          <para>以人类可读形式转储 <command>whatis</command> 数据库</para>
           <indexterm zone="ch-system-man-db accessdb">
             <primary sortas="b-accessdb">accessdb</primary>
           </indexterm>
@@ -342,9 +320,7 @@
       <varlistentry id="apropos">
         <term><command>apropos</command></term>
         <listitem>
-          <para>Searches the <command>whatis</command> database and displays
-          the short descriptions of system commands that contain a given
-          string</para>
+          <para>查询 <command>whatis</command> 数据库并显示包含指定字符串的系统命令的简要介绍</para>
           <indexterm zone="ch-system-man-db apropos">
             <primary sortas="b-apropos">apropos</primary>
           </indexterm>
@@ -354,7 +330,7 @@
       <varlistentry id="catman">
         <term><command>catman</command></term>
         <listitem>
-          <para>Creates or updates the pre-formatted manual pages</para>
+          <para>创建或更新预格式化手册页</para>
           <indexterm zone="ch-system-man-db catman">
             <primary sortas="b-catman">catman</primary>
           </indexterm>
@@ -364,8 +340,7 @@
       <varlistentry id="lexgrog">
         <term><command>lexgrog</command></term>
         <listitem>
-          <para>Displays one-line summary information about a given manual
-          page</para>
+          <para>显示指定手册页的一行概要信息</para>
           <indexterm zone="ch-system-man-db lexgrog">
             <primary sortas="b-lexgrog">lexgrog</primary>
           </indexterm>
@@ -375,7 +350,7 @@
       <varlistentry id="man">
         <term><command>man</command></term>
         <listitem>
-          <para>Formats and displays the requested manual page</para>
+          <para>格式化并显示要求的手册页</para>
           <indexterm zone="ch-system-man-db man">
             <primary sortas="b-man">man</primary>
           </indexterm>
@@ -385,7 +360,7 @@
       <varlistentry id="mandb">
         <term><command>mandb</command></term>
         <listitem>
-          <para>Creates or updates the <command>whatis</command> database</para>
+          <para>创建或更新 <command>whatis</command> 数据库</para>
           <indexterm zone="ch-system-man-db mandb">
             <primary sortas="b-mandb">mandb</primary>
           </indexterm>
@@ -395,9 +370,7 @@
       <varlistentry id="manpath">
         <term><command>manpath</command></term>
         <listitem>
-          <para>Displays the contents of $MANPATH or (if $MANPATH is not set)
-          a suitable search path based on the settings in man.conf and the
-          user's environment</para>
+          <para>基于 man.conf 中的设置和用户环境显示 $MANPATH 或 (如果没有设置 $MANPATH) 合适的搜索路径的内容</para>
           <indexterm zone="ch-system-man-db manpath">
             <primary sortas="b-manpath">manpath</primary>
           </indexterm>
@@ -407,9 +380,7 @@
       <varlistentry id="whatis">
         <term><command>whatis</command></term>
         <listitem>
-          <para>Searches the <command>whatis</command> database and displays
-          the short descriptions of system commands that contain the given
-          keyword as a separate word</para>
+          <para>查询 <command>whatis</command> 数据库并显示包含以给定关键字为独立字的系统命令的简要介绍</para>
           <indexterm zone="ch-system-man-db whatis">
             <primary sortas="b-whatis">whatis</primary>
           </indexterm>
@@ -419,7 +390,7 @@
       <varlistentry id="libman">
         <term><filename class="libraryfile">libman</filename></term>
         <listitem>
-          <para>Contains run-time support for <command>man</command></para>
+          <para>包含 <command>man</command> 的运行时支持</para>
           <indexterm zone="ch-system-man-db libman">
             <primary sortas="c-libman">libman</primary>
           </indexterm>
@@ -429,7 +400,7 @@
       <varlistentry id="libmandb">
         <term><filename class="libraryfile">libmandb</filename></term>
         <listitem>
-          <para>Contains run-time support for <command>man</command></para>
+          <para>包含 <command>man</command> 的运行时支持</para>
           <indexterm zone="ch-system-man-db libmandb">
             <primary sortas="c-libmandb">libmandb</primary>
           </indexterm>

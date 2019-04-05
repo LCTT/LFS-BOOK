@@ -23,10 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Glibc package contains the main C library. This library provides
-    the basic routines for allocating memory, searching directories, opening and
-    closing files, reading and writing files, string handling, pattern matching,
-    arithmetic, and so on.</para>
+    <para>Glibc 软件包包含了主要的 C 函数库。这个库提供了分配内存、搜索目录、打开关闭文件、读写文件、操作字符串、模式匹配、基础算法等基本程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -41,19 +38,11 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Glibc</title>
+    <title>安装 Glibc</title>
 
-    <note><para>The Glibc build system is self-contained and will install
-    perfectly, even though the compiler specs file and linker are still
-    pointing to <filename class="directory">/tools</filename>. The specs
-    and linker cannot be adjusted before the Glibc install because the
-    Glibc autoconf tests would give false results and defeat the goal
-    of achieving a clean build.</para></note>
+    <note><para>Glibc 构建系统是独立的，并且会完美地安装，即使编译器指定的文件和链接器仍然指向 <filename class="directory">/tools</filename>。在 Glibc 安装之前，不能调整指定的文件和链接器，因为 Glibc 的 autoconf 测试会给出错误结果并阻碍目标实现干净的构建。</para></note>
 
-    <para>Some of the Glibc programs use the non-FHS compilant
-    <filename class="directory">/var/db</filename> directory to store
-    their runtime data. Apply the following patch to make such programs
-    store their runtime data in the FHS-compliant locations:</para>
+    <para>有些 Glibc 程序会用到和 FHS 不兼容的 <filename class="directory">/var/db</filename> 目录来存储它们的运行时数据。打上如下的补丁让这些程序在 FHS 兼容的位置存储它们的运行时数据。</para>
 
 <screen><userinput remap="pre">patch -Np1 -i ../&glibc-fhs-patch;</userinput></screen>
 <!--
@@ -61,14 +50,11 @@
 
 <screen><userinput remap="pre">patch -Np1 -i ../&glibc-glob-patch;</userinput></screen>
 -->
-    <para>First create a compatibility symlink to avoid references to /tools in
-    our final glibc:</para>
+    <para>首先创建一个兼容性符号链接，以避免在最终的 glibc 中存在 /tool 中的引用：</para>
 
 <screen><userinput remap="pre">ln -sfv /tools/lib/gcc /usr/lib</userinput></screen>
 
-    <para>Determine the GCC include directory and create a symlink for LSB
-    compliance. Additionally, for x86_64, create a compatibility symlink
-    required for the dynamic loader to function correctly:</para>
+    <para>决定 GCC 的 include 目录，并顺应 LSB 规范创建一个软链接。此外，x86_64 情况下，为了使动态加载器正确运作，再创建一个兼容性的软链接：</para>
 
 <screen><userinput remap="pre">case $(uname -m) in
     i?86)    GCC_INCDIR=/usr/lib/gcc/$(uname -m)-pc-linux-gnu/&gcc-version;/include
@@ -80,18 +66,17 @@
     ;;
 esac</userinput></screen>
 
-    <para>Remove a file that may be left over from a previous build attempt:
+    <para>删除一个以前的构建尝试可能遗留下来的文件：
     </para>
 
 <screen><userinput remap="pre">rm -f /usr/include/limits.h</userinput></screen>
 
-    <para>The Glibc documentation recommends building Glibc 
-    in a dedicated build directory:</para>
+    <para>Glibc 文档里建议在 Glibc 特定编译目录下编译：</para>
 
 <screen><userinput remap="pre">mkdir -v build
 cd       build</userinput></screen>
 
-    <para>Prepare Glibc for compilation:</para>
+    <para>配置 Glibc 准备编译：</para>
 
 <screen><userinput remap="configure">CC="gcc -isystem $GCC_INCDIR -isystem /usr/include" \
 ../configure --prefix=/usr                          \
@@ -102,54 +87,47 @@ cd       build</userinput></screen>
 unset GCC_INCDIR</userinput></screen>
 
    <variablelist>
-      <title>The meaning of the options and new configure parameters:</title>
+      <title>选项和新参数的含义：</title>
 
       <varlistentry>
         <term><parameter>CC="gcc -isystem $GCC_INCDIR -isystem /usr/include"</parameter></term>
         <listitem>
-          <para>Setting the location of both gcc and system include directories
-          avoids introduction of invalid paths in debugging symbols.</para>
+          <para>设置 gcc 和系统的 include 目录以避免在调试符号中引入无效路径。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--disable-werror</parameter></term>
         <listitem>
-          <para>This option disables the -Werror option passed to 
-          GCC.  This is necessary for running the test suite.</para>
+          <para>选项像禁用了传递给 GCC 的 -Werror 选项。为了测试套件，此项必不可少。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--enable-stack-protector=strong</parameter></term>
         <listitem>
-          <para>This option increases system security by adding 
-          extra code to check for buffer overflows, such as stack
-          smashing attacks.</para>
+          <para>该选项通过添加额外代码检查缓冲区溢出（例如，堆栈粉碎攻击）来增强系统安全性。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>libc_cv_slibdir=/lib</parameter></term>
         <listitem>
-          <para>This variable sets the correct library for all
-          systems.  We do not want lib64 to be used.</para>
+          <para>该变量为所有系统设置正确的库。我们不希望使用 lib64 。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
     <important>
-      <para>In this section, the test suite for Glibc is considered critical.
-      Do not skip it under any circumstance.</para>
+      <para>在本小节里，运行 Glibc 的测试套件是很关键的。在任何情况下都不要跳过这个测试。</para>
     </important>
 
-    <para>Generally a few tests do not pass. The test failures listed below
-    are usually safe to ignore.</para>
+    <para>通常会有一些测试不能通过。若是下面列出的这些失败，通常就可以安心的无视了。</para>
 
 <!-- Use remap="make" here to work around a jhalfs issue. -->
 <screen><userinput remap="make">case $(uname -m) in
@@ -157,51 +135,36 @@ unset GCC_INCDIR</userinput></screen>
   x86_64) ln -sfnv $PWD/elf/ld-linux-x86-64.so.2 /lib ;;
 esac</userinput></screen>
 
-    <note><para>The symbolic link above is needed to run the tests at this
-    stage of building in the chroot envirnment.  It will be overwritten
-    in the install phase below.</para></note>
+    <note><para>在 chroot 环境的这个阶段需要上面的符号链接以运行测试。在接下来的安装中，这些链接将会被覆盖。</para></note>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>You may see some test failures.  The Glibc test suite is
-    somewhat dependent on the host system.  This is a list of the most common
-    issues seen for some versions of LFS:</para>
+    <para>你可能会看到一些失败的测试项。Glibc 的测试套件对宿主系统有一定的依赖。下面是一些 LFS 版本中最常见的问题：</para>
 
     <itemizedlist>
 
       <listitem>
-        <para><emphasis>misc/tst-ttyname</emphasis> 
-        is known to fail in the LFS chroot environment.</para>
+        <para><emphasis>misc/tst-ttyname</emphasis> 已知会在 LFS 的 chroot 环境中失败。</para>
       </listitem>
 
       <listitem>
-        <para><emphasis>inet/tst-idna_name_classify</emphasis> 
-        is known to fail in the LFS chroot environment.</para>
+        <para><emphasis>inet/tst-idna_name_classify</emphasis> 已知会在 LFS 的 chroot 环境中失败。</para>
       </listitem>
 
       <listitem>
-        <para><emphasis>posix/tst-getaddrinfo4</emphasis> and
-        <emphasis>posix/tst-getaddrinfo5</emphasis>
-        may fail on some architectures.</para>
+        <para><emphasis>posix/tst-getaddrinfo4</emphasis> 和 <emphasis>posix/tst-getaddrinfo5</emphasis> 可能在某些架构上失败。</para>
       </listitem>
 
       <listitem>
-        <para>The <emphasis>nss/tst-nss-files-hosts-multi</emphasis>
-        test may fail for reasons that have not been determined.</para>
+        <para><emphasis>nss/tst-nss-files-hosts-multi</emphasis> 由于未知的原因，测试可能失败。</para>
       </listitem>
 
       <listitem>
-        <para>The <emphasis>rt/tst-cputimer{1,2,3}</emphasis> tests depend on
-        the host system kernel. Kernels 4.14.91&ndash;4.14.96,
-        4.19.13&ndash;4.19.18, and 4.20.0&ndash;4.20.5 are known to 
-        cause these tests to fail.
-        </para>
+        <para><emphasis>rt/tst-cputimer{1,2,3}</emphasis> 测试取决于宿主机的系统内核。众所周知，内核版本 4.14.91&ndash;4.14.96、4.19.13&ndash;4.19.18 和 4.20.0&ndash;4.20.5 是会导致这些测试失败的。</para>
       </listitem>
 
       <listitem>
-        <para>The math tests sometimes fail when running on
-        systems where the CPU is not a relatively new Intel or
-        AMD processor.</para>
+        <para>如果你系统的 CPU 不是相对较新的 Intel 或 AMD 处理器，数学运算测试有时候会失败。</para>
       </listitem>
 <!--
       <listitem>
@@ -217,49 +180,32 @@ esac</userinput></screen>
 -->
     </itemizedlist>
 
-    <para>Though it is a harmless message, the install stage of Glibc will
-    complain about the absence of <filename>/etc/ld.so.conf</filename>.
-    Prevent this warning with:</para>
+    <para>虽然这只是无关紧要的消息，在安装 Glibc 时会报告找不到 <filename>/etc/ld.so.conf</filename> 文件。下面的方式可以避免这个警告：</para>
 
 <screen><userinput remap="install">touch /etc/ld.so.conf</userinput></screen>
 
-    <para>Fix the generated Makefile to skip an unneeded sanity check
-    that fails in the LFS partial environment:
+    <para>修复生成的 Makefile 以跳过一个没有必要的完整性检查，该检查在部分 LFS 环境中会失败：
     </para>
 
 <screen><userinput remap="install">sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Install the configuration file and runtime directory for
-    <command>nscd</command>:</para>
+    <para>为 <command>nscd</command> 安装配置文件并创建运行时目录：</para>
 
 <screen><userinput remap="install">cp -v ../nscd/nscd.conf /etc/nscd.conf
 mkdir -pv /var/cache/nscd</userinput></screen>
 
-    <para revision="systemd">Install the systemd support files for 
-    <command>nscd</command>:</para>
+    <para revision="systemd">为 <command>nscd</command> 安装系统支持文件：</para>
 
     <screen revision="systemd"><userinput remap="install">install -v -Dm644 ../nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf
 install -v -Dm644 ../nscd/nscd.service /lib/systemd/system/nscd.service</userinput></screen>
 
-    <para>Next, install the locales that can make the system respond in a
-    different language.  None of the locales are required, but if some of them
-    are missing, the test suites of future packages would skip important
-    testcases.</para>
+    <para>接着，安装可以使系统响应不同语言的地域设置。没有一个地域是必需的，但是如果缺少了其中的某些，可能会导致在未来的软件包测试套件中，跳过了重要的测试项目。</para>
 
-    <para>Individual locales can be installed using the
-    <command>localedef</command> program. E.g., the first
-    <command>localedef</command> command below combines the
-    <filename>/usr/share/i18n/locales/cs_CZ</filename>
-    charset-independent locale definition with the
-    <filename>/usr/share/i18n/charmaps/UTF-8.gz</filename>
-    charmap definition and appends the result to the
-    <filename>/usr/lib/locale/locale-archive</filename> file.
-    The following instructions will install the minimum set of
-    locales necessary for the optimal coverage of tests:</para>
+    <para>单独的语言环境可以用 <command>localedef</command> 程序安装。例如，下面第一个 <command>localedef</command> 命令将 <filename>/usr/share/i18n/locales/cs_CZ</filename> 字符表定义组合在一起，并将结果附加到 <filename>/usr/share/i18n/charmaps/UTF-8.gz</filename> 文件末尾。下面的命令将安装能完美覆盖测试所需语言环境的最小集合：</para>
 
 <screen role="nodump"><userinput remap="locale-test">mkdir -pv /usr/lib/locale
 localedef -i POSIX -f UTF-8 C.UTF-8 2> /dev/null || true
@@ -289,31 +235,20 @@ localedef -i tr_TR -f UTF-8 tr_TR.UTF-8
 localedef -i zh_CN -f GB18030 zh_CN.GB18030
 localedef -i zh_HK -f BIG5-HKSCS zh_HK.BIG5-HKSCS</userinput></screen>
 
-    <para>In addition, install the locale for your own country, language and
-    character set.</para>
+    <para>另外，安装适合你自己国家、语言和字符集的语言环境。</para>
 
-    <para>Alternatively, install all locales listed in the
-    <filename>glibc-&glibc-version;/localedata/SUPPORTED</filename> file
-    (it includes every locale listed above and many more) at once with the
-    following time-consuming command:</para>
+    <para>或者，也可以一次性安装在 <filename>glibc-&glibc-version;/localedata/SUPPORTED</filename> 文件里列出的所有语言环境（包括以上列出的所有语言环境以及其它更多），执行下面这个非常耗时的命令：</para>
 
 <screen><userinput remap="locale-full">make localedata/install-locales</userinput></screen>
 
-    <para>Then use the <command>localedef</command> command to create and
-    install locales not listed in the
-    <filename>glibc-&glibc-version;/localedata/SUPPORTED</filename> file
-    in the unlikely case you need them.</para>
+    <para>你需要的语言环境几乎不太可能没有列在 <filename>glibc-&glibc-version;/localedata/SUPPORTED</filename> 文件中，但如果真的没有可以使用 <command>localedef</command> 命令创建和安装。</para>
 
-    <note><para>Glibc now uses libidn2 when resolving internationalized 
-    domain names.  This is a run time dependency.  If this capability
-    is needed, the instructions for installing libidn2 are in the 
-    <ulink url="&blfs-book;general/libidn2.html">BLFS libidn2 page</ulink>.
-    </para></note>
+    <note><para>当前，Glibc 在解决国际化域名时使用 libidn2。此为运行时依赖。如果需要此功能，可以参考 <ulink url="&blfs-book;general/libidn2.html">BLFS libidn2 页</ulink> 相关的安装指令。</para></note>
 
   </sect2>
 
   <sect2 id="conf-glibc" role="configuration">
-    <title>Configuring Glibc</title>
+    <title>配置 Glibc</title>
 
     <indexterm zone="conf-glibc">
       <primary sortas="e-/etc/nsswitch.conf">/etc/nsswitch.conf</primary>
@@ -324,14 +259,11 @@ localedef -i zh_HK -f BIG5-HKSCS zh_HK.BIG5-HKSCS</userinput></screen>
     </indexterm>
 
   <sect3>
-  <title>Adding nsswitch.conf</title>
+  <title>添加 nsswitch.conf</title>
 
-    <para>The <filename>/etc/nsswitch.conf</filename> file needs to be created
-    because the Glibc defaults do not work well in a networked environment.
-    </para>
+    <para>由于 Glibc 的默认状态在网络环境下工作的并不好，所以需要创建 <filename>/etc/nsswitch.conf</filename> 文件。</para>
 
-    <para>Create a new file <filename>/etc/nsswitch.conf</filename> by running the
-    following:</para>
+    <para>创建新的 <filename>/etc/nsswitch.conf</filename> 通过以下命令：</para>
 
 <screen><userinput>cat &gt; /etc/nsswitch.conf &lt;&lt; "EOF"
 <literal># Begin /etc/nsswitch.conf
@@ -354,9 +286,9 @@ EOF</userinput></screen>
     </sect3>
 
     <sect3>
-    <title>Adding time zone data</title>
+    <title>添加时区数据</title>
 
-    <para>Install and set up the time zone data with the following:</para>
+    <para>通过以下命令安装并启动时区数据：</para>
 <screen><userinput>tar -xf ../../tzdata&tzdata-version;.tar.gz
 
 ZONEINFO=/usr/share/zoneinfo
@@ -374,93 +306,57 @@ zic -d $ZONEINFO -p America/New_York
 unset ZONEINFO</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the zic commands:</title>
+      <title>zic 命令的含义：</title>
 
       <varlistentry>
         <term><parameter>zic -L /dev/null ...</parameter></term>
         <listitem>
-          <para>This creates posix time zones, without any leap seconds.  It is
-          conventional to put these in both
-          <filename class="directory">zoneinfo</filename> and
-          <filename class="directory">zoneinfo/posix</filename>. It is
-          necessary to put the POSIX time zones in
-          <filename class="directory">zoneinfo</filename>, otherwise various
-          test-suites will report errors. On an embedded system, where space is
-          tight and you do not intend to ever update the time zones, you could save
-          1.9MB by not using the <filename class="directory">posix</filename>
-          directory, but some applications or test-suites might produce some
-          failures.</para>
+          <para>这会创建没有时间补偿的 posix 时区数据。一般将它们同时放在 <filename class="directory">zoneinfo</filename> 和 <filename class="directory">zoneinfo/posix</filename>。另外需要将 POSIX 时区数据放到 <filename class="directory">zoneinfo</filename> 目录下，否则很多测试套件会报错。在嵌入式平台，如果存储空间紧张而且你也不准备更新时区，也可以不用 <filename class="directory">posix</filename> 目录从而节省 1.9MB，但是一些应用程序或测试套件也许会出错。</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term><parameter>zic -L leapseconds ...</parameter></term>
         <listitem>
-          <para>This creates right time zones, including leap seconds. On an
-          embedded system, where space is tight and you do not intend to
-          ever update the time zones, or care about the correct time, you could
-          save 1.9MB by omitting the <filename class="directory">right</filename>
-          directory.</para>
+          <para>这会创建包含时间补偿的 right 时区数据。在嵌入式平台，空间比较紧张而且你也不打算更新时区或者不需要准确时间，你可以忽略 <filename class="directory">right</filename> 目录从而节省 1.9MB。</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term><parameter>zic ... -p ...</parameter></term>
         <listitem>
-          <para>This creates the <filename>posixrules</filename> file. We use
-          New York because POSIX requires the daylight savings time rules
-          to be in accordance with US rules.</para>
+          <para>这会创建 <filename>posixrules</filename> 文件。我们使用纽约是因为 POSIX 要求夏令时规则与 US 标准一致。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
 
-    <para>One way to determine the local time zone is to run the following
-    script:</para>
+    <para>一种确定本地时区的方式是运行下面的脚本：</para>
 
 <screen role="nodump"><userinput>tzselect</userinput></screen>
 
-    <para>After answering a few questions about the location, the script will
-    output the name of the time zone (e.g.,
-    <emphasis>America/Edmonton</emphasis>). There are also some other possible
-    time zones listed in <filename
-    class='directory'>/usr/share/zoneinfo</filename> such as
-    <emphasis>Canada/Eastern</emphasis> or <emphasis>EST5EDT</emphasis> that
-    are not identified by the script but can be used.</para>
+    <para>在询问了几个关于位置的问题后，脚本会输出所在时区的名字（比如 <emphasis>America/Edmonton</emphasis>)）。在 <filename class='directory'>/usr/share/zoneinfo</filename> 文件中也有其它一些可用时区，比如 <emphasis>Canada/Eastern</emphasis> 或 <emphasis>EST5EDT</emphasis>，这些时区并没有被脚本列出来但也是可以使用的。</para>
 
-    <para>Then create the <filename>/etc/localtime</filename> file by
-    running:</para>
+    <para>然后运行下面的命令创建 <filename>/etc/localtime</filename> 文件：</para>
 
 <screen revision="sysv"><userinput>cp -v /usr/share/zoneinfo/<replaceable>&lt;xxx&gt;</replaceable> /etc/localtime</userinput></screen>
 
 <screen revision="systemd"><userinput>ln -sfv /usr/share/zoneinfo/<replaceable>&lt;xxx&gt;</replaceable> /etc/localtime</userinput></screen>
 
-    <para>Replace <replaceable>&lt;xxx&gt;</replaceable> with the name of the
-    time zone selected (e.g., Canada/Eastern).</para>
+    <para>将命令中的 <replaceable>&lt;xxx&gt;</replaceable> 替换成你所在实际时区的名字（比如 Canada/Eastern）。</para>
 
   </sect3>
 
   <sect3 id="conf-ld" role="configuration">
-    <title>Configuring the Dynamic Loader</title>
+    <title>配置动态库加载器</title>
 
     <indexterm zone="conf-ld">
       <primary sortas="e-/etc/ld.so.conf">/etc/ld.so.conf</primary>
     </indexterm>
 
-    <para>By default, the dynamic loader (<filename
-    class="libraryfile">/lib/ld-linux.so.2</filename>) searches through
-    <filename class="directory">/lib</filename> and <filename
-    class="directory">/usr/lib</filename> for dynamic libraries that are
-    needed by programs as they are run. However, if there are libraries in
-    directories other than <filename class="directory">/lib</filename> and
-    <filename class="directory">/usr/lib</filename>, these need to be added
-    to the <filename>/etc/ld.so.conf</filename> file in order for the
-    dynamic loader to find them. Two directories that are commonly known
-    to contain additional libraries are <filename
-    class="directory">/usr/local/lib</filename> and <filename
-    class="directory">/opt/lib</filename>, so add those directories to the
-    dynamic loader's search path.</para>
+    <para>默认情况下，动态库加载器（<filename
+    class="libraryfile">/lib/ld-linux.so.2</filename>）会搜索目录 <filename class="directory">/lib</filename> 和 <filename class="directory">/usr/lib</filename> 查找程序运行时所需的动态库文件。如果库文件不在 <filename class="directory">/lib</filename> 和 <filename class="directory">/usr/lib</filename> 目录下，需要把它所在目录加到 <filename>/etc/ld.so.conf</filename> 文件里，保证动态库加载器能找到这些库。通常有两个目录包含额外的动态库，<filename
+    class="directory">/usr/local/lib</filename> 和 <filename class="directory">/opt/lib</filename>，把这两个目录加到动态库加载器的搜索路径中。</para>
 
-    <para>Create a new file <filename>/etc/ld.so.conf</filename> by running the
-    following:</para>
+    <para>运行下面的命令创建一个新文件 <filename>/etc/ld.so.conf</filename></para>
 
 <screen><userinput>cat &gt; /etc/ld.so.conf &lt;&lt; "EOF"
 <literal># Begin /etc/ld.so.conf
@@ -469,10 +365,7 @@ unset ZONEINFO</userinput></screen>
 </literal>
 EOF</userinput></screen>
 
-  <para>If desired, the dynamic loader can also search a directory and
-  include the contents of files found there.  Generally the files in
-  this include directory are one line specifying the desired library path.
-  To add this capability run the following commands:</para>
+  <para>如果需要的话，动态库加载器也可以查找目录并包含里面配置文件的内容。通常在这个包含目录下的文件只有一行字指向库目录。运行下面的命令增加这个功能：</para>
 
 <screen role="nodump"><userinput>cat &gt;&gt; /etc/ld.so.conf &lt;&lt; "EOF"
 <literal># Add an include directory
@@ -485,18 +378,18 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
   </sect2>
 
   <sect2 id="contents-glibc" role="content">
-    <title>Contents of Glibc</title>
+    <title>Glibc 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>catchsegv, gencat, getconf, getent, iconv, iconvconfig, ldconfig,
         ldd, lddlibc4, locale, localedef, makedb, mtrace, nscd, 
         pldd, sln, sotruss, sprof, tzselect, xtrace,
-        zdump, and zic</seg>
+        zdump, 和 zic</seg>
         <seg>ld-&glibc-version;.so, libBrokenLocale.{a,so}, libSegFault.so, libanl.{a,so},
         libc.{a,so}, libc_nonshared.a, libcidn.so,
         libcrypt.{a,so}, libdl.{a,so}, libg.a, libieee.a, libm.{a,so},
@@ -504,7 +397,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
         libnss_dns.so, libnss_files.so, libnss_hesiod.so, libnss_nis.so,
         libnss_nisplus.so, libpthread.{a,so},
         libpthread_nonshared.a, libresolv.{a,so}, librpcsvc.a, librt.{a,so},
-        libthread_db.so, and libutil.{a,so}</seg>
+        libthread_db.so, 和 libutil.{a,so}</seg>
         <seg>/usr/include/arpa, /usr/include/bits, /usr/include/gnu,
         /usr/include/net, /usr/include/netash, /usr/include/netatalk,
         /usr/include/netax25, /usr/include/neteconet, /usr/include/netinet,
@@ -513,20 +406,19 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
         /usr/include/protocols, /usr/include/rpc, /usr/include/rpcsvc,
         /usr/include/sys, /usr/lib/audit, /usr/lib/gconv, /usr/lib/locale,
         /usr/libexec/getconf, /usr/share/i18n, /usr/share/zoneinfo,
-        /var/cache/nscd, and /var/lib/nss_db</seg>
+        /var/cache/nscd, 和 /var/lib/nss_db</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="catchsegv">
         <term><command>catchsegv</command></term>
         <listitem>
-          <para>Can be used to create a stack trace when a program
-          terminates with a segmentation fault</para>
+          <para>可以在程序因为段错误终止的时候创建栈调用历史</para>
           <indexterm zone="ch-system-glibc catchsegv">
             <primary sortas="b-catchsegv">catchsegv</primary>
           </indexterm>
@@ -536,7 +428,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="gencat">
         <term><command>gencat</command></term>
         <listitem>
-          <para>Generates message catalogues</para>
+          <para>生成消息条目</para>
           <indexterm zone="ch-system-glibc gencat">
             <primary sortas="b-gencat">gencat</primary>
           </indexterm>
@@ -546,8 +438,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="getconf">
         <term><command>getconf</command></term>
         <listitem>
-          <para>Displays the system configuration values for file system
-          specific variables</para>
+          <para>显示文件系统相关的系统配置变量的值</para>
           <indexterm zone="ch-system-glibc getconf">
             <primary sortas="b-getconf">getconf</primary>
           </indexterm>
@@ -557,7 +448,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="getent">
         <term><command>getent</command></term>
         <listitem>
-          <para>Gets entries from an administrative database</para>
+          <para>获取系统数据库的内容</para>
           <indexterm zone="ch-system-glibc getent">
             <primary sortas="b-getent">getent</primary>
           </indexterm>
@@ -567,7 +458,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="iconv">
         <term><command>iconv</command></term>
         <listitem>
-          <para>Performs character set conversion</para>
+          <para>字符集转换</para>
           <indexterm zone="ch-system-glibc iconv">
             <primary sortas="b-iconv">iconv</primary>
           </indexterm>
@@ -577,8 +468,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="iconvconfig">
         <term><command>iconvconfig</command></term>
         <listitem>
-          <para>Creates fastloading <command>iconv</command> module configuration
-          files</para>
+          <para>创建 <command>iconv</command> 快速加载模块配置文件</para>
           <indexterm zone="ch-system-glibc iconvconfig">
             <primary sortas="b-iconvconfig">iconvconfig</primary>
           </indexterm>
@@ -588,7 +478,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="ldconfig">
         <term><command>ldconfig</command></term>
         <listitem>
-          <para>Configures the dynamic linker runtime bindings</para>
+          <para>配置动态链接器的运行时环境</para>
           <indexterm zone="ch-system-glibc ldconfig">
             <primary sortas="b-ldconfig">ldconfig</primary>
           </indexterm>
@@ -598,8 +488,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="ldd">
         <term><command>ldd</command></term>
         <listitem>
-          <para>Reports which shared libraries are required
-          by each given program or shared library</para>
+          <para>报告某个程序或动态库所依赖的动态库</para>
           <indexterm zone="ch-system-glibc ldd">
             <primary sortas="b-ldd">ldd</primary>
           </indexterm>
@@ -609,7 +498,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="lddlibc4">
         <term><command>lddlibc4</command></term>
         <listitem>
-          <para>Assists <command>ldd</command> with object files</para>
+          <para>协助 <command>ldd</command> 处理某些目标文件</para>
           <indexterm zone="ch-system-glibc lddlibc4">
             <primary sortas="b-lddlibc4">lddlibc4</primary>
           </indexterm>
@@ -619,7 +508,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="locale">
         <term><command>locale</command></term>
         <listitem>
-          <para>Prints various information about the current locale</para>
+          <para>输出当前语言环境的大量信息</para>
           <indexterm zone="ch-system-glibc locale">
             <primary sortas="b-locale">locale</primary>
           </indexterm>
@@ -629,7 +518,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="localedef">
         <term><command>localedef</command></term>
         <listitem>
-          <para>Compiles locale specifications</para>
+          <para>编译语言环境规格</para>
           <indexterm zone="ch-system-glibc localedef">
             <primary sortas="b-localedef">localedef</primary>
           </indexterm>
@@ -639,7 +528,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="makedb">
         <term><command>makedb</command></term>
         <listitem>
-          <para>Creates a simple database from textual input</para>
+          <para>根据输入的文本创建简单数据库</para>
           <indexterm zone="ch-system-glibc makedb">
             <primary sortas="b-makedb">makedb</primary>
           </indexterm>
@@ -649,8 +538,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="mtrace">
         <term><command>mtrace</command></term>
         <listitem>
-          <para>Reads and interprets a memory trace file and displays a summary
-          in human-readable format</para>
+          <para>读取并解析内存跟踪文件，然后用方便人阅读的格式显示一个摘要</para>
           <indexterm zone="ch-system-glibc mtrace">
             <primary sortas="b-mtrace">mtrace</primary>
           </indexterm>
@@ -660,8 +548,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="nscd">
         <term><command>nscd</command></term>
         <listitem>
-          <para>A daemon that provides a cache for the most common name
-          service requests</para>
+          <para>一个后台服务程序，提供最常用名字服务请求的缓存</para>
           <indexterm zone="ch-system-glibc nscd">
             <primary sortas="b-nscd">nscd</primary>
           </indexterm>
@@ -671,7 +558,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="pldd">
         <term><command>pldd</command></term>
         <listitem>
-          <para>Lists dynamic shared objects used by running processes</para>
+          <para>列出运行中进程正在使用的动态共享目标</para>
           <indexterm zone="ch-system-glibc pldd">
             <primary sortas="b-pldd">pldd</primary>
           </indexterm>
@@ -681,7 +568,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="sln">
         <term><command>sln</command></term>
         <listitem>
-          <para>A statically linked <command>ln</command> program</para>
+          <para>一个静态链接的 <command>ln</command> 程序</para>
           <indexterm zone="ch-system-glibc sln">
             <primary sortas="b-sln">sln</primary>
           </indexterm>
@@ -691,7 +578,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="sotruss">
         <term><command>sotruss</command></term>
         <listitem>
-          <para>Traces shared library procedure calls of a specified command</para>
+          <para>跟踪指定命令里的动态库函数调用</para>
           <indexterm zone="ch-system-glibc sotruss">
             <primary sortas="b-sotruss">sotruss</primary>
           </indexterm>
@@ -701,7 +588,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="sprof">
         <term><command>sprof</command></term>
         <listitem>
-          <para>Reads and displays shared object profiling data</para>
+          <para>读取并显示共享目标分析数据</para>
           <indexterm zone="ch-system-glibc sprof">
             <primary sortas="b-sprof">sprof</primary>
           </indexterm>
@@ -711,8 +598,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="tzselect">
         <term><command>tzselect</command></term>
         <listitem>
-          <para>Asks the user about the location of the system and reports
-          the corresponding time zone description</para>
+          <para>询问用户该系统的地理位置并给出相应的时区描述</para>
           <indexterm zone="ch-system-glibc tzselect">
             <primary sortas="b-tzselect">tzselect</primary>
           </indexterm>
@@ -722,8 +608,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="xtrace">
         <term><command>xtrace</command></term>
         <listitem>
-          <para>Traces the execution of a program by printing the currently
-          executed function</para>
+          <para>跟踪程序执行过程并打印当前执行的函数</para>
           <indexterm zone="ch-system-glibc xtrace">
             <primary sortas="b-xtrace">xtrace</primary>
           </indexterm>
@@ -733,7 +618,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="zdump">
         <term><command>zdump</command></term>
         <listitem>
-          <para>The time zone dumper</para>
+          <para>时区数据输出工具</para>
           <indexterm zone="ch-system-glibc zdump">
             <primary sortas="b-zdump">zdump</primary>
           </indexterm>
@@ -743,7 +628,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="zic">
         <term><command>zic</command></term>
         <listitem>
-          <para>The time zone compiler</para>
+          <para>时区数据编译工具</para>
           <indexterm zone="ch-system-glibc zic">
             <primary sortas="b-zic">zic</primary>
           </indexterm>
@@ -753,7 +638,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="ld.so">
         <term><filename class="libraryfile">ld-&glibc-version;.so</filename></term>
         <listitem>
-          <para>The helper program for shared library executables</para>
+          <para>用于动态库执行的辅助程序</para>
           <indexterm zone="ch-system-glibc ld.so">
             <primary sortas="c-ld.so">ld-&glibc-version;.so</primary>
           </indexterm>
@@ -763,10 +648,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libBrokenLocale">
         <term><filename class="libraryfile">libBrokenLocale</filename></term>
         <listitem>
-          <para>Used internally by Glibc as a gross hack to get broken programs
-          (e.g., some Motif applications) running. See comments in
-          <filename>glibc-&glibc-version;/locale/broken_cur_max.c</filename>
-          for more information</para>
+          <para>Glibc 内部的一个粗暴破解用来修复损坏程序（比如，一些 Motif 应用）。查看文件 <filename>glibc-&glibc-version;/locale/broken_cur_max.c</filename> 里的注释来了解更多信息</para>
           <indexterm zone="ch-system-glibc libBrokenLocale">
             <primary sortas="c-libBrokenLocale">libBrokenLocale</primary>
           </indexterm>
@@ -776,8 +658,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libSegFault">
         <term><filename class="libraryfile">libSegFault</filename></term>
         <listitem>
-          <para>The segmentation fault signal handler, used by
-          <command>catchsegv</command></para>
+          <para>段错误信号处理函数，<command>catchsegv</command> 会用到</para>
           <indexterm zone="ch-system-glibc libSegFault">
             <primary sortas="c-libSegFault">libSegFault</primary>
           </indexterm>
@@ -787,7 +668,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libanl">
         <term><filename class="libraryfile">libanl</filename></term>
         <listitem>
-          <para>An asynchronous name lookup library</para>
+          <para>一个异步名字查找库</para>
           <indexterm zone="ch-system-glibc libanl">
             <primary sortas="c-libanl">libanl</primary>
           </indexterm>
@@ -797,7 +678,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libc">
         <term><filename class="libraryfile">libc</filename></term>
         <listitem>
-          <para>The main C library</para>
+          <para>主要的 C 库</para>
           <indexterm zone="ch-system-glibc libc">
             <primary sortas="c-libc">libc</primary>
           </indexterm>
@@ -807,8 +688,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libcidn">
         <term><filename class="libraryfile">libcidn</filename></term>
         <listitem>
-          <para>Used internally by Glibc for handling internationalized domain
-          names in the <function>getaddrinfo()</function> function</para>
+          <para>Glibc 内部用于在函数 <function>getaddrinfo()</function> 中处理国际化域名</para>
           <indexterm zone="ch-system-glibc libcidn">
             <primary sortas="c-libcidn">libcidn</primary>
           </indexterm>
@@ -818,7 +698,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libcrypt">
         <term><filename class="libraryfile">libcrypt</filename></term>
         <listitem>
-          <para>The cryptography library</para>
+          <para>密码学函数库</para>
           <indexterm zone="ch-system-glibc libcrypt">
             <primary sortas="c-libcrypt">libcrypt</primary>
           </indexterm>
@@ -828,7 +708,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libdl">
         <term><filename class="libraryfile">libdl</filename></term>
         <listitem>
-          <para>The dynamic linking interface library</para>
+          <para>动态链接接口函数库</para>
           <indexterm zone="ch-system-glibc libdl">
             <primary sortas="c-libdl">libdl</primary>
           </indexterm>
@@ -838,8 +718,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libg">
         <term><filename class="libraryfile">libg</filename></term>
         <listitem>
-          <para>Dummy library containing no functions. Previously was a runtime
-          library for <command>g++</command></para>
+          <para>不包含函数的一个空库。以前是 <command>g++</command> 的运行时库</para>
           <indexterm zone="ch-system-glibc libg">
             <primary sortas="c-libg">libg</primary>
           </indexterm>
@@ -849,9 +728,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libieee">
         <term><filename class="libraryfile">libieee</filename></term>
         <listitem>
-          <para>Linking in this module forces error handling rules for math
-          functions as defined by the Institute of Electrical and Electronic
-          Engineers (IEEE). The default is POSIX.1 error handling</para>
+          <para>链接该模块会强制使用电气与电子工程师协会（IEEE) 定义的数学函数错误处理规则。默认的是 POSIX.1 错误处理</para>
           <indexterm zone="ch-system-glibc libieee">
             <primary sortas="c-libieee">libieee</primary>
           </indexterm>
@@ -861,7 +738,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libm">
         <term><filename class="libraryfile">libm</filename></term>
         <listitem>
-          <para>The mathematical library</para>
+          <para>数学运算函数库</para>
           <indexterm zone="ch-system-glibc libm">
             <primary sortas="c-libm">libm</primary>
           </indexterm>
@@ -871,7 +748,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libmcheck">
         <term><filename class="libraryfile">libmcheck</filename></term>
         <listitem>
-          <para>Turns on memory allocation checking when linked to</para>
+          <para>链接这个库后会打开内存分配检查</para>
           <indexterm zone="ch-system-glibc libmcheck">
             <primary sortas="c-libmcheck">libmcheck</primary>
           </indexterm>
@@ -881,8 +758,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libmemusage">
         <term><filename class="libraryfile">libmemusage</filename></term>
         <listitem>
-          <para>Used by <command>memusage</command> to help collect
-          information about the memory usage of a program</para>
+          <para>Used by <command>memusage</command> 命令用它来协助收集应用程序里内存使用信息</para>
           <indexterm zone="ch-system-glibc libmemusage">
             <primary sortas="c-libmemusage">libmemusage</primary>
           </indexterm>
@@ -892,7 +768,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libnsl">
         <term><filename class="libraryfile">libnsl</filename></term>
         <listitem>
-          <para>The network services library</para>
+          <para>网络服务函数库</para>
           <indexterm zone="ch-system-glibc libnsl">
             <primary sortas="c-libnsl">libnsl</primary>
           </indexterm>
@@ -902,9 +778,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libnss">
         <term><filename class="libraryfile">libnss</filename></term>
         <listitem>
-          <para>The Name Service Switch libraries, containing functions for
-          resolving host names, user names, group names, aliases, services,
-          protocols, etc.</para>
+          <para>名称服务切换函数库，包含了解析主机名、用户名、组名、别称、服务、协议等等的函数</para>
           <indexterm zone="ch-system-glibc libnss">
             <primary sortas="c-libnss">libnss</primary>
           </indexterm>
@@ -914,7 +788,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libpthread">
         <term><filename class="libraryfile">libpthread</filename></term>
         <listitem>
-          <para>The POSIX threads library</para>
+          <para>POSIX 线程函数库</para>
           <indexterm zone="ch-system-glibc libpthread">
             <primary sortas="c-libpthread">libpthread</primary>
           </indexterm>
@@ -924,8 +798,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libresolv">
         <term><filename class="libraryfile">libresolv</filename></term>
         <listitem>
-          <para>Contains functions for creating, sending, and interpreting
-          packets to the Internet domain name servers</para>
+          <para>包含了创建、发送和解析互联网域名服务器封包的函数</para>
           <indexterm zone="ch-system-glibc libresolv">
             <primary sortas="c-libresolv">libresolv</primary>
           </indexterm>
@@ -935,7 +808,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="librpcsvc">
         <term><filename class="libraryfile">librpcsvc</filename></term>
         <listitem>
-          <para>Contains functions providing miscellaneous RPC services</para>
+          <para>包含了提供杂项 RPC 服务的函数</para>
           <indexterm zone="ch-system-glibc librpcsvc">
             <primary sortas="c-librpcsvc">librpcsvc</primary>
           </indexterm>
@@ -945,8 +818,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="librt">
         <term><filename class="libraryfile">librt</filename></term>
         <listitem>
-          <para>Contains functions providing most of the interfaces specified
-          by the POSIX.1b Realtime Extension</para>
+          <para>包含了实现 POSIX.1b 实时扩展里规定的大部分接口的函数</para>
           <indexterm zone="ch-system-glibc librt">
             <primary sortas="c-librt">librt</primary>
           </indexterm>
@@ -956,8 +828,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libthread_db">
         <term><filename class="libraryfile">libthread_db</filename></term>
         <listitem>
-          <para>Contains functions useful for building debuggers for
-          multi-threaded programs</para>
+          <para>包含了方便构建多线程程序调试工具的函数</para>
           <indexterm zone="ch-system-glibc libthread_db">
             <primary sortas="c-libthread_db">libthread_db</primary>
           </indexterm>
@@ -967,8 +838,7 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
       <varlistentry id="libutil">
         <term><filename class="libraryfile">libutil</filename></term>
         <listitem>
-          <para>Contains code for <quote>standard</quote> functions used in
-          many different Unix utilities</para>
+          <para>包含各种 Unix 应用程序中用到的「标准」函数的代码</para>
           <indexterm zone="ch-system-glibc libutil">
             <primary sortas="c-libutil">libutil</primary>
           </indexterm>
