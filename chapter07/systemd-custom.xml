@@ -8,30 +8,25 @@
 <sect1 id="ch-scripts-systemd-custom" revision="systemd">
   <?dbhtml filename="systemd-custom.html"?>
 
-  <title>systemd Usage and Configuration</title>
+  <title>systemd 的用法与配置</title>
 
   <indexterm zone="ch-scripts-systemd-custom">
-    <primary sortas="e-Systemd">systemd Customization</primary>
+    <primary sortas="e-systemd">systemd 配置</primary>
   </indexterm>
 
   <sect2>
-    <title>Basic Configuration</title>
+    <title>基础配置</title>
 
-    <para>The <filename>/etc/systemd/system.conf</filename> file contains a set
-    of options to control basic systemd operations. The default file has all
-    entries commented out with the default settings indicated. This file is
-    where the log level may be changed as well as some basic logging settings.
-    See the <filename>systemd-system.conf(5)</filename> manual page for details
-    on each configuration option.</para>
+    <para><filename>/etc/systemd/system.conf</filename> 文件包含了大量的 systemd 控制命令。
+    假如未作任何的更改，文件中的所有行应该都是注释掉的，这代表了 systemd 正使用默认的运行方式。
+    这个文件中可以设置日志级别，可以修改日志的基本设置。所有设置项都可以在 man 手册的 <filename>systemd-system.conf(5)</filename> 中查看。</para>
 
   </sect2>
 
   <sect2>
-    <title>Disabling Screen Clearing at Boot Time</title>
+    <title>禁用启动时清屏</title>
 
-    <para>The normal behavior for systemd is to clear the screen at
-    the end of the boot sequence. If desired, this behavior may be
-    changed by running the following command:</para>
+    <para>默认情况下，systemd 将会在系统启动快要结束的时候清屏。如不需要，使用以下操作禁用：</para>
 
 <screen role="nodump"><userinput>mkdir -pv /etc/systemd/system/getty@tty1.service.d
 
@@ -40,77 +35,53 @@ cat &gt; /etc/systemd/system/getty@tty1.service.d/noclear.conf &lt;&lt; EOF
 TTYVTDisallocate=no</literal>
 EOF</userinput></screen>
 
-    <para>The boot messages can always be reviewed by using the
-    <userinput>journalctl -b</userinput> command as the root user.</para>
+    <para>拥有 root 权限的账户可以通过 <userinput>journalctl -b</userinput> 查看启动信息。</para>
 
   </sect2>
 
   <sect2>
-    <title>Disabling tmpfs for /tmp</title>
+    <title>禁止 /tmp 使用 tmpfs</title>
 
-    <para>By default, <filename class="directory">/tmp</filename> is created as
-    a tmpfs. If this is not desired, it can be overridden by the following:</para>
+    <para>默认情况下，<filename class="directory">/tmp</filename> 使用 tmpfs 文件系统。如不需要，使用以下操作禁用：</para>
 
 <screen role="nodump"><userinput>ln -sfv /dev/null /etc/systemd/system/tmp.mount</userinput></screen>
 
-    <para>Alternatively, if a a separate partition for
-    <filename class="directory">/tmp</filename> is desired, specify that 
-    partition in an <filename>/etc/fstab</filename> entry.</para>
+    <para>或许，如果你需要一个单独的 <filename class="directory">/tmp</filename> 分区，那请在 <filename>/etc/fstab</filename> 条目中指定该分区。</para>
 
     <warning>
       <para>
-        Do not create the symbolic link above if a separate partition is used
-        for <filename class="directory">/tmp</filename>.  This will prevent the
-        root file system (/) from being remounted r/w and make the system
-        unusable when booted.
+        如果使用的是独立的 <filename class="directory">/tmp</filename> 分区，就不要创建上述链接。这将保护根（/）文件系统，使其在重新挂载后失去 r/w 权限，从而导致系统在启动后无法使用。
       </para>
     </warning>
 
   </sect2>
 
   <sect2>
-    <title>Configuring Automatic File Creation and Deletion</title>
+    <title>配置自动创建和删除文件</title>
 
-    <para>There are several services that create or delete files or
-    directories:</para>
+    <para>有这样几个服务可以建立或删除文件/目录：</para>
 
     <itemizedlist>
       <listitem><para>systemd-tmpfiles-clean.service</para></listitem>
       <listitem><para>systemd-tmpfiles-setup-dev.service</para></listitem>
       <listitem><para>systemd-tmpfiles-setup.service</para></listitem>
     </itemizedlist>
-  
-    <para>The system location for the configuration files is
-    <filename>/usr/lib/tmpfiles.d/*.conf</filename>. The local 
-    configuration files are in
-    <filename class="directory">/etc/tmpfiles.d</filename>. Files in
-    <filename class="directory">/etc/tmpfiles.d</filename> override
-    files with the same name in
-    <filename class="directory">/usr/lib/tmpfiles.d</filename>. See
-    <filename>tmpfiles.d(5)</filename> manual page  for file format
-    details.</para>
+
+    <para>系统配置文件在 <filename>/usr/lib/tmpfiles.d/*.conf</filename> 中。
+      本地配置文件在 <filename class="directory">/etc/tmpfiles.d</filename> 中。
+      <filename class="directory">/etc/tmpfiles.d</filename>中的文件会覆盖 <filename class="directory">/usr/lib/tmpfiles.d</filename> 中相同名称的文件。
+      （译者注：首先读取系统范围配置文件，再读取用户范围配置文件，用户范围配置文件会覆盖系统范围配置文件的相同部分。）可以在 man 手册的 <filename>tmpfiles.d(5)</filename> 中获取文件格式详情。</para>
 
     <para>
-      Note that the syntax for the
-      <filename>/usr/lib/tmpfiles.d/*.conf</filename> files can be 
-      confusing.  For example, the default deletion of files in the /tmp directory
-      is located in <filename>/usr/lib/tmpfiles.d/tmp.conf</filename> with 
-      the line:
+      注意，<filename>/usr/lib/tmpfiles.d/*.conf</filename> 文件的语法比较容易搞错。例如，默认对于 /tmp 目录下文件的删除，源自 <filename>/usr/lib/tmpfiles.d/tmp.conf</filename> 中的这一行：
 
 <screen role="nodump">q /tmp 1777 root root 10d</screen>
 
-      The type field, q, discusses creating a subvolume with quotas which
-      is really only applicable to btrfs filesystems.  It references type v
-      which in turn references type d (directory). This then creates the
-      specified directory if is is not present and adjusts the permissions
-      and ownership as specified.  Contents of the directory will be
-      subject to time based cleanup if the age argument is specified.
+      类型字段 q，用于创建带配额的子卷，仅适用于 btrfs 文件系统。它会引用类型 v，然后引用类型 d （目录）。然后创建指定的目录，如果它原先不存在的话，并为其调整权限，指定所有权。
      </para>
 
      <para>
-      If the default parameters are not desired, then the file should
-      be copied to <filename class="directory">/etc/tmpfiles.d</filename>
-      and edited as desired.  For example:
+      如果默认参数不能达到要求，那就复制文件至 <filename class="directory">/etc/tmpfiles.d</filename> 按照自己的需求修改它。复制示例：
 
 <screen role="nodump"><userinput>mkdir -p /etc/tempfiles.d
 cp /usr/lib/tmpfiles.d/tmp.conf /etc/tempfiles.d</userinput></screen>
@@ -119,11 +90,9 @@ cp /usr/lib/tmpfiles.d/tmp.conf /etc/tempfiles.d</userinput></screen>
   </sect2>
 
   <sect2>
-    <title>Overriding Default Services Behavior</title>
+    <title>覆盖默认服务的行为</title>
 
-    <para>The parameter of a unit can be overriden by creating a directory
-    and a configuration file in <filename
-    class="directory">/etc/systemd/system</filename>. For example:</para>
+    <para>可以通过在 <filename class="directory">/etc/systemd/system</filename> 中创建目录和配置文件来覆盖单元的参数。例如：</para>
 
 <screen role="nodump"><userinput>mkdir -pv /etc/systemd/system/foobar.service.d
 
@@ -133,132 +102,72 @@ Restart=always
 RestartSec=30</literal>
 EOF</userinput></screen>
 
-     <para>See <filename>systemd.unit(5)</filename> manual page for more
-     information. After creating the configuration file, run
-     <userinput>systemctl daemon-reload</userinput> and <userinput>systemctl
-     restart foobar</userinput> to activate the changes to a service.</para>
+     <para>可以在 man 手册的 <filename>systemd.unit(5)</filename> 中查询更多信息。创建好文件之后，请运行 <userinput>systemctl daemon-reload</userinput> 和 <userinput>systemctl restart foobar</userinput> 激活所做更改。</para>
 
   </sect2>
 
   <sect2>
-    <title>Debugging the Boot Sequence</title>
+    <title>调试启动顺序</title>
 
-    <para>Rather than plain shell scripts used in SysVinit or BSD style init
-    systems, systemd uses a unified format for different types of startup
-    files (or units). The command <command>systemctl</command> is used to
-    enable, disable, control state, and obtain status of unit files. Here 
-    are some examples of frequently used commands:</para>
+    <para>相较于 SysVinit 或 BSD 风格的初始化使用的是简单的 shell 脚本，而 systemd 对于不同类型的启动文件（或单元）使用的是统一的格式。<command>systemctl</command> 命令可用于用于，启用，禁用，控制状态，和获取单元文件的状态。以下是一些常用命令的示例：</para>
 
     <itemizedlist>
        <listitem>
-         <para><command>systemctl list-units -t <replaceable>&lt;service&gt;</replaceable> [--all]</command>:
-         lists loaded unit files of type service.</para>
+         <para><command>systemctl list-units -t <replaceable>&lt;service&gt;</replaceable> [--all]</command>：列出加载的服务类型的单元文件。</para>
        </listitem>
        <listitem>
-         <para><command>systemctl list-units -t <replaceable>&lt;target&gt;</replaceable> [--all]</command>:
-         lists loaded unit files of type target.</para>
+         <para><command>systemctl list-units -t <replaceable>&lt;target&gt;</replaceable> [--all]</command>：列出加载的目标类型的单元文件。</para>
        </listitem>
        <listitem>
-         <para><command>systemctl show -p Wants <replaceable>&lt;multi-user.target&gt;</replaceable></command>:
-         shows all units that depend on the multi-user target. Targets are
-         special unit files that are anogalous to runlevels under
-         SysVinit.</para>
+         <para><command>systemctl show -p Wants <replaceable>&lt;multi-user.target&gt;</replaceable></command>：显示所有依赖多用户的目标。目标是与 SysVinit 运行级不同的特殊单元文件。</para>
        </listitem>
        <listitem>
-         <para><command>systemctl status <replaceable>&lt;servicename.service&gt;</replaceable></command>:
-         shows the status of the servicename service. The .service extension
-         can be omitted if there are no other unit files with the same name,
-         such as .socket files (which create a listening socket that provides
-         similar functionality to inetd/xinetd).</para>
+         <para><command>systemctl status <replaceable>&lt;servicename.service&gt;</replaceable></command>：显示服务名称服务的状态。扩展名 .service 在没有同名单元文件，例如 .socket（创建监听套接字功能与 inetd/xinetd 相似的）文件，的情况下可以省略。</para>
        </listitem>
     </itemizedlist>
 
   </sect2>
 
   <sect2>
-    <title>Working with the systemd Journal</title>
+    <title>使用 systemd 日志</title>
 
-    <para>Logging on a system booted with systemd is handled with
-    systemd-journald (by default), rather than a typical unix syslog daemon.
-    You can also add a normal syslog daemon and have both work side by
-    side if desired. The systemd-journald program stores journal entries in a
-    binary format rather than a plain text log file. To assist with
-    parsing the file, the command <command>journalctl</command> is provided.
-    Here are some examples of frequently used commands:</para>
+    <para>systemd 启动的系统上的日志记录（默认）由 systemd-journald 处理的，而不是传统的 unix syslog 守护程序。如果需要，你也可以添加 syslog 的守护进程与之并行运作。systemd-journald 程序使用二进制形式存储日志条目而非纯文本的日志文件。为了帮助解析文件，提供了 <command>journalctl</command> 命令。以下是一些常用命令的示例：</para>
 
     <itemizedlist>
        <listitem>
-         <para><command>journalctl -r</command>: shows all contents of the
-         journal in reverse chronological order.</para>
+         <para><command>journalctl -r</command>：按时间逆序现实所有的内容。</para>
        </listitem>
        <listitem>
-         <para><command>journalctl -u <replaceable>UNIT</replaceable></command>:
-         shows the journal entries associated with the specified UNIT
-         file.</para>
+         <para><command>journalctl -u <replaceable>UNIT</replaceable></command>：显示与指定 UNIT 相关的日志条目。</para>
        </listitem>
        <listitem>
-         <para><command>journalctl -b[=ID] -r</command>: shows the journal
-         entries since last successful boot (or for boot ID) in reverse
-         chronological order.</para>
+         <para><command>journalctl -b[=ID] -r</command>：按时间逆序显示自上次成功启动（或启动 ID）的日志条目。</para>
        </listitem>
        <listitem>
-         <para><command>journalctl -f</command>: povides functionality similar
-         to tail -f (follow).</para>
+         <para><command>journalctl -f</command>：提供类似与 tail -f (follow) 类似的功能。</para>
        </listitem>
     </itemizedlist>
 
   </sect2>
 
   <sect2>
-    <title>Long Running Processes</title>
+    <title>长时间运行进程</title>
 
-    <para>Beginning with systemd-230, all user processes are killed when a user
-    session is ended, even if nohup is used, or the process uses the
-    <function>daemon()</function> or <function>setsid()</function> functions.
-    This is a deliberate change from a historically permissive environment to a
-    more restrictive one. The new behavior may cause issues if you depend on
-    long running programs (e.g., <command>screen</command> or
-    <command>tmux</command>) to remain active after ending your user session.
-    There are three ways to enable lingering processes to remain after a user
-    session is ended.</para>
+    <para>自 systemd-230 开始，用户的所有进程都会随着用户会话的结束而被杀死，即使你用了 nohup，或进程使用了 <function>daemon()</function> 或是 <function>setsid()</function> 功能。这是为了是让原先宽松的环境变得更为严格而故意为之的。如果你依赖长时间运行的程序（例如，<command>screen</command> 或是 <command>tmux</command>），需要在你结束用户会话后保持运作。有三个方法能让进程保持在用户会话结束后仍然逗留。</para>
 
     <itemizedlist>
       <listitem>
         <para>
-          <emphasis>Enable process lingering for only selected users</emphasis>:
-          Normal users have permission to enable process lingering
-          with the command <command>loginctl enable-linger</command> for their
-          own user. System administrators can use the same command with a
-          <parameter>user</parameter> argument to enable for a user. That user
-          can then use the <command>systemd-run</command> command to start
-          long running processes. For example: <command>systemd-run --scope
-          --user /usr/bin/screen</command>. If you enable lingering for your
-          user, the user@.service will remain even after all login sessions are
-          closed, and will automatically start at system boot. This has the
-          advantage of explicitly allowing and disallowing processes to run
-          after the user session has ended, but breaks backwards compatibility
-          with tools like <command>nohup</command> and utilities that use
-          <function>deamon()</function>.
-        </para>
+          <emphasis>仅为需要的用户启用进程逗留</emphasis>：正常用户有权使用命令 <command>loginctl enable-linger</command> 来为其启用进程逗留。系统管理员可以使用相同的命令伴随着 <parameter>user</parameter> 参数，来帮某个用户实现。用户可以在之后使用命令 <command>systemd-run</command> 来启动长时间运行进程。举个例子：<command>systemd-run --scope
+          --user /usr/bin/screen</command>。如果你为你的用户启用了逗留，user@.service 会在所有的登录会话被关闭后仍然保留，并在系统启动后自动启动。这样做的好处是明确地表明是否允许进程在用户会话结束后继续运行，但却打破了对于类似于 <command>nohup</command> 之类工具和使用 <function>deamon()</function> 的公用方法的向后兼容。</para>
       </listitem>
       <listitem>
         <para>
-          <emphasis>Enable system-wide process lingering</emphasis>:
-          You can set <parameter>KillUserProcesses=no</parameter> in
-          <filename>/etc/logind.conf</filename> to enable process lingering
-          globally for all users. This has the benefit of leaving the old
-          method available to all users at the expense of explicit control.
-        </para>
+          <emphasis>启用系统范围的进程逗留</emphasis>：你可以在 <filename>/etc/logind.conf</filename> 中设置 <parameter>KillUserProcesses=no</parameter> 来全局地为每个用户启用进程逗留。这在牺牲明确控制的同时，带来了将旧方法提供给所有用户的好处。</para>
       </listitem>
       <listitem>
         <para>
-          <emphasis>Disable at build-time</emphasis>: You can enable
-          lingering by default while building systemd by adding the switch
-          <parameter>-Ddefault-kill-user-processes=no</parameter> to the
-          <command>meson</command> command for systemd. This completely
-          disables the ability of systemd to kill user processes at session
-          end.
-        </para>
+          <emphasis>在构建时禁用</emphasis>：你可以通过在构建 systemd 时向命令 <command>meson</command> 添加 <parameter>-Ddefault-kill-user-processes=no</parameter>，以此来默认启用逗留。这会使 systemd 完全丧失在用户会话结束后杀死进程的能力。</para>
       </listitem>
     </itemizedlist>
 

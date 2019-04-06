@@ -99,7 +99,7 @@ Kernel hacking  ---&gt;
     </note>
 
     <note revision="systemd">
-      <para>尽管 "The IPv6 Protocol" 不是必须打开，但是 systemd 开发人员强烈推荐打开。</para>
+      <para>尽管「The IPv6 Protocol」不是必须打开，但是 systemd 开发人员强烈推荐打开。</para>
     </note>
 
     <para revision="sysv">根据对系统的不同需求，可能需要这些选项。BLFS 软件包需要的选项列表，参考 <ulink
