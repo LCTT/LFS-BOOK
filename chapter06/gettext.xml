@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>Gettext 软件包包含用于国际化和地区化的工具。这允许用 NLS（Native Language Support，本地语言支持） 编译程序，使得能以用户的本地语言输出信息。</para>
+    <para>Gettext 软件包包含用于国际化和本土化的工具。这允许用 NLS（Native Language Support，本地语言支持） 编译程序，使得能以用户的本地语言输出信息。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>

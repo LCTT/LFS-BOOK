@@ -162,7 +162,7 @@ cp -av lib/lib*.so.5* /usr/lib</userinput></screen>
            libmenuw.so, 
            libncursesw.so,
            libncurses++w.a,
-           libpanelw.so, 以及库名称中没有 "w" 的对应的非宽字符部分。</seg>
+           libpanelw.so, 以及库名称中没有「w」的对应的非宽字符部分。</seg>
         <seg>
            /usr/share/tabset, 
            /usr/share/terminfo, 和

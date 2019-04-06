@@ -235,7 +235,7 @@ localedef -i tr_TR -f UTF-8 tr_TR.UTF-8
 localedef -i zh_CN -f GB18030 zh_CN.GB18030
 localedef -i zh_HK -f BIG5-HKSCS zh_HK.BIG5-HKSCS</userinput></screen>
 
-    <para>另外，安装适合你自己国家、语言和字符集的语言环境。</para>
+    <para>另外，安装适合你自己国家/地区、语言和字符集的语言环境。</para>
 
     <para>或者，也可以一次性安装在 <filename>glibc-&glibc-version;/localedata/SUPPORTED</filename> 文件里列出的所有语言环境（包括以上列出的所有语言环境以及其它更多），执行下面这个非常耗时的命令：</para>
 

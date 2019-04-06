@@ -118,7 +118,7 @@ cd       build</userinput></screen>
 
     <para><command>msgfmt</command> 程序的缺失或者不兼容通常是无害的。这个 <command>msgfmt</command> 程序是 Gettext 软件包的一部分，主机发行版应该提供了。</para>
 
-    <note><para>有报告说用 "parallel make" 编译这个软件包的时候会失败。如果出现这种情况，用 "-j1" 选项重新运行 make 命令。</para></note>
+    <note><para>有报告说用「parallel make」编译这个软件包的时候会失败。如果出现这种情况，用「-j1」选项重新运行 make 命令。</para></note>
 
     <para>编译软件包:</para>
 

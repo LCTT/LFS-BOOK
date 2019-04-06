@@ -58,7 +58,7 @@
     <sect3>
     <title>Grub Bios 分区</title>
 
-    <para>如果是在 GPT（GUID Partition Table，GUID 分区表）下分 <emphasis>boot 磁盘</emphasis>，那么必然会产生一个约 1 MB 左右的小分区，如果之前没有的话。这个分区可能还没有被格式化，但是它必须存在，GRUB 会在安装引导器的时候用到。如果使用 <command>fdisk</command>，该分区通常会被标记为'BIOS Boot'。而如果使用的是 <command>gdisk</command>，则分区代码应为 <emphasis>EF02</emphasis> 。</para>
+    <para>如果是在 GPT（GUID Partition Table，GUID 分区表）下分 <emphasis>boot 磁盘</emphasis>，那么必然会产生一个约 1 MB 左右的小分区，如果之前没有的话。这个分区可能还没有被格式化，但是它必须存在，GRUB 会在安装引导器的时候用到。如果使用 <command>fdisk</command>，该分区通常会被标记为「BIOS Boot」。而如果使用的是 <command>gdisk</command>，则分区代码应为 <emphasis>EF02</emphasis> 。</para>
 
     <note><para>Grub Bios 分区必须位于 BIOS 用于引导系统的磁盘驱动器上。却不一定要和 LFS 的根分区位于同一个磁盘驱动器。一个系统里的磁盘可能会用到不同类型的分区表。该磁盘仅与 boot 磁盘的分区表类型有关。</para></note>
     </sect3>

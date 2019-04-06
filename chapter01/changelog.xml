@@ -138,7 +138,7 @@
       <para>2019-02-02</para>
       <itemizedlist>
         <listitem>
-          <para>[bdubbs] - Fix psmisc URL。修复 <ulink url="&lfs-ticket-root;4418">#4418</ulink>。</para>
+          <para>[bdubbs] - 修复 psmisc URL。修复 <ulink url="&lfs-ticket-root;4418">#4418</ulink>。</para>
         </listitem>
         <listitem>
           <para>[bdubbs] - 更新至 binutils-2.32。修复 <ulink url="&lfs-ticket-root;4417">#4417</ulink>。</para>
@@ -195,7 +195,7 @@
       <para>2019-01-11</para>
       <itemizedlist>
         <listitem>
-          <para>[renodr] - 为 systemd-240 添加安全补丁。该补丁用于修正 CVE-2018-16865 和 CVE-2018-16864（日志中的内存损坏导致堆栈溢出/任意代码执行） 。尽可能快的应用该补丁。修复 <ulink url="&lfs-ticket-root;4408">#4408</ulink>。</para>
+          <para>[renodr] - 为 systemd-240 添加安全补丁。该补丁用于修正 CVE-2018-16865 和 CVE-2018-16864（日志中的内存损坏导致堆栈溢出/任意代码可执行） 。尽可能快的应用该补丁。修复 <ulink url="&lfs-ticket-root;4408">#4408</ulink>。</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -276,7 +276,7 @@
       <para>2018-12-12</para>
       <itemizedlist>
         <listitem>
-          <para>[renodr] - 添加一则注意提示 libffi 编译时将根据 CPU 优化使。与 GMP 类似，如果将安装被移动到另一个系统，则会导致非法操作错误。</para>
+          <para>[renodr] - 添加一则注意提示 libffi 编译时将根据 CPU 优化。与 GMP 类似，如果将安装被移动到另一个系统，则会导致非法操作错误。</para>
         </listitem>
       </itemizedlist>
     </listitem>

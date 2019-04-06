@@ -10,22 +10,22 @@
 
   <title>宿主系统要求</title>
 
-    <para>你的主机系统应具有以下指定最低版本的软件。 对于大多数现代 Linux 发行版来说，这不应该是一个问题。 另请注意，许多发行版会将软件标题放入单独的包中，通常采用<quote>&lt;package-name&gt;-devel</quote> 或<quote>&lt;package-name&gt;-dev</quote>的形式。如果您的发行版提供了这些，请务必安装它们。</para>
+    <para>你的主机系统应具有以下指定最低版本的软件。 对于大多数现代 Linux 发行版来说，这应该不是问题。 另请注意，不少发行版可能会将软件的头文件单独打包，并采用「&lt;package-name&gt;-devel」或「&lt;package-name&gt;-dev」的形式命名。如果你的发行版提供了这样的软件包，请务必安装。</para>
 
-   <para>所列软件包的早期版本可能有效，但尚未经过测试。</para>
+   <para>所列软件包的早期版本可能也能用，但尚未经过测试。</para>
 
   <itemizedlist spacing="compact">
 
     <listitem>
-      <para><emphasis role="strong">Bash-3.2</emphasis> (/bin/sh 应该是 bash 的符号链接或硬链接)</para>
+      <para><emphasis role="strong">Bash-3.2</emphasis> （/bin/sh 应该是 bash 的符号链接或硬链接）</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Binutils-2.25</emphasis> (不建议使用大于 &binutils-version; 的版本，因为它们尚未经过测试)</para>
+      <para><emphasis role="strong">Binutils-2.25</emphasis> （不建议使用 &binutils-version; 以后的版本，尚未经过测试）</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Bison-2.7</emphasis> (/usr/bin/yacc应该是bison或执行 bison 的小脚本的链接)</para>
+      <para><emphasis role="strong">Bison-2.7</emphasis> （/usr/bin/yacc 应该是指向 bison 或执行 bison 的小型脚本的链接）</para>
     </listitem>
 
     <listitem>
@@ -45,15 +45,15 @@
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Gawk-4.0.1</emphasis> (/usr/bin/awk 应该是 gawk  的链接)</para>
+      <para><emphasis role="strong">Gawk-4.0.1</emphasis> （/usr/bin/awk 应该是 gawk 的链接）</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">GCC-5.2</emphasis>包括C++编译器，<command>g++</command> (版本大于 &gcc-version; 不建议使用，因为它们尚未经过测试)</para>
+      <para><emphasis role="strong">GCC-5.2</emphasis> 包括 C++ 编译器，<command>g++</command> （&gcc-version; 以后的版本不建议使用，尚未经过测试）</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Glibc-2.11</emphasis> (版本大于 &glibc-version; 不建议使用，因为它们尚未经过测试)</para>
+      <para><emphasis role="strong">Glibc-2.11</emphasis> （&glibc-version; 以后的版本不建议使用，尚未经过测试）</para>
     </listitem>
 
     <listitem>
@@ -67,11 +67,9 @@
     <listitem>
       <para><emphasis role="strong">Linux Kernel-&min-kernel;</emphasis></para>
 
-      <para>内核版本要求的原因是我们在开发人员的推荐下在第6章中构建 <application>glibc</application> 时指定了该版本。 udev 也要求它。</para>
+      <para>之所以指定使用这一版本的内核，是因为这是第 6 章构建 <application>glibc</application> 的需求，开发人员如是建议。udev 也有这个需求。</para>
 
-      <para>如果主机内核早于&min-kernel;，则需要使用更新版本替换内核。
-有两种方法可以解决这个问题。首先，看看您的 Linux 供应商是否提供了&min-kernel;或更高版本的内核包。
-如果是这样，您可能希望安装它。如果您的供应商不提供可接受的内核包，或者您不想安装它，则可以自己编译内核。编译内核和配置引导加载程序的说明（假设主机使用 GRUB ）位于 <xref linkend="chapter-bootable"/>。</para>
+      <para>如果宿主机内核早于 &min-kernel;，则需使用更新版本的内核将其替换。有两种方法可以解决这个问题。首先，查看你的 Linux 供应商是否提供 &min-kernel; 或更高版本内核的软件包。如果提供的话，你便能如愿安装了。如果你的供应商不提供合适的内核（的软件包），或者是你不想直接安装，你也可以自己编译内核。编译内核和配置引导的说明（假设宿主机使用 GRUB）位于 <xref linkend="chapter-bootable"/>。</para>
 
     </listitem>
 
@@ -114,7 +112,7 @@
   </itemizedlist>
 
   <important>
-    <para>请注意，使用本书中包含的说明构建LFS系统需要上面提到的符号链接。指向其他软件（例如dash，mawk等）的符号链接可能有效，但LFS开发团队未对其进行测试或支持，并且这样可能导致在执行一些命令或者应用某些补丁的时候出现问题。</para>
+    <para>请注意，依据本手册的指导构建 LFS 系统需确保上述提到的符号链接无误。虽然指向其他软件（例如 dash，mawk 等）的符号链接可能也可以，但 LFS 开发团队尚未对其进行测试或支持，并且这样做可能导致对于个别软件包在执行命令或者应用某些补丁的时候出现偏差。</para>
   </important>
 
   <!-- Use an empty sect2 element to prevent a pdf warning.  -->
@@ -124,7 +122,7 @@
   </bridgehead>
   <!--<title> </title>-->
 
-  <para >要查看主机系统是否具有所有适当的版本以及编译程序的能力，请运行以下命令：</para>
+  <para >查看宿主机系统是否已具备所有软件包的适当版本和编译程序的能力，请运行以下命令：</para>
 
 <!-- ANY additional lines in the script cause a pdf rendering problem-->
 <screen role="nodump"><userinput>cat &gt; version-check.sh &lt;&lt; "EOF"

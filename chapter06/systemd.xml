@@ -306,7 +306,7 @@ chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
       <varlistentry id="localectl">
         <term><command>localectl</command></term>
         <listitem>
-          <para>用于查询和更改系统地区和键盘布局设置</para>
+          <para>用于查询和更改系统区域设置和键盘布局设置</para>
           <indexterm zone="ch-system-systemd localectl">
             <primary sortas="b-localectl">localectl</primary>
           </indexterm>
