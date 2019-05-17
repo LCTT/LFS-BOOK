@@ -43,7 +43,7 @@
   <sect2 role="installation">
     <title>安装 Linux API 头文件</title>
 
-    <para>Linux 内核需要展示供系统 C 库（在 LFS 中是 Glibc）使用的应用程序编程接口（API）。这通过在 Linux 内核源代码 tar 包中包括一些 C 头文件来完成。</para>
+    <para>Linux 内核需要向系统 C 库（也就是 LFS 中的 Glibc）公开应用编程接口（API）。这通过在 Linux 内核源代码 tar 包中包括一些 C 头文件来完成。</para>
 
     <para>确认这里没有陈旧的文件且不依赖于之前的操作：</para>
 
