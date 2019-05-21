@@ -30,7 +30,7 @@ PATH=/tools/bin:/bin:/usr/bin
 export LFS LC_ALL LFS_TGT PATH</literal>
 EOF</userinput></screen>
 
-  <para><command>set +h</command> 命令关闭了 <command>bash</command> 的哈希功能。哈希通常是个好用的功能——<command>bash</command> 用一个哈希表来记录可执行文件的完整路径，以规避对 <envar>PATH</envar> 进行检索的时间和对同一个可执行文件的重复寻找。然而，新工具在安装后，应马上使用。通过关闭哈希功能，程序执行的时候就会一直搜索 <envar>PATH</envar>。如此，新编译的工具一旦可用，shell 便能马上在文件夹 <filename class="directory">$LFS/tools</filename> 中找到它们，而不用记录该程序存在于不同地方的旧版本。</para>
+  <para><command>set +h</command> 命令关闭了 <command>bash</command> 的哈希功能。哈希通常是个好用的功能——<command>bash</command> 用一个哈希表来记录可执行文件的完整路径，以规避对 <envar>PATH</envar> 进行检索的时间和对同一个可执行文件的重复寻找。然而，新工具在安装后，应马上使用。通过关闭哈希功能，程序执行的时候就会一直搜索 <envar>PATH</envar>。如此，新编译的工具一旦可用，shell 便能马上在文件夹 <filename class="directory">$LFS/tools</filename> 中找到它们，而不会去记录存在于不同地方的旧版该程序。</para>
 
   <para>设置用户文件新建时的掩码（umask）为 022，以确保新建的文件和目录只有其所有者可写，但任何人都可读可执行（假设系统调用的 <function>open(2)</function> 使用的是默认模式，新文件将使用 664 权限模式、文件夹为 755 模式）。</para>
 
