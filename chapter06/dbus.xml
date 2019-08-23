@@ -67,7 +67,7 @@
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>该软件包没有测试套件，但要求 LFS 中没有的几个软件包。运行测试套件的命令可以在 BLFS 指南 <ulink url="&blfs-book;general/dbus.html"/> 中找到。</para>
+    <para>该软件包附带了一个测试套件，但需求几个未包含在 LFS 中的软件包。运行测试套件的命令可以在 BLFS 指南 <ulink url="&blfs-book;general/dbus.html"/> 中找到。</para>
 
     <para>安装软件包：</para>
 
