@@ -167,6 +167,15 @@
     </varlistentry>
 
     <varlistentry>
+      <term>Expat (&expat-version;) - <token>&expat-size;</token>:</term>
+      <listitem>
+        <para>主页： <ulink url="&expat-home;"/></para>
+        <para>下载： <ulink url="&expat-url;"/></para>
+        <para>MD5 校验和： <literal>&expat-md5;</literal></para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
       <term>Expect (&expect-version;) - <token>&expect-size;</token>:</term>
       <listitem>
         <para>主页： <ulink url="&expect-home;"/></para>

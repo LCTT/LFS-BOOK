@@ -51,7 +51,7 @@
    <!-- this has been fixed in upstream gnulib, when a new version of
    coreutils is released, please check #4055 to see if the change has been
    picked up in this package -->
-   <para>抑制测试在某些机器上可能出现的无线循环：</para>
+   <para>抑制测试在某些机器上可能出现的无限循环：</para>
 
 <screen><userinput remap="pre">sed -i '/test.lock/s/^/#/' gnulib-tests/gnulib.mk</userinput></screen>
 

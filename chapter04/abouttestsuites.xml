@@ -15,7 +15,7 @@
   <para>有一些测试套件要相较而言更为重要。例如，核心工具链软件包——GCC, Binutils 和 Glibc——对于对于一个系统的正常运转起到至关重要的作用。要完成 GCC 和 Glibc 的测试套件可能要花费很长的时间，特别是对于硬件比较慢的设备来说，但还是强烈推荐完成它们！</para>
 
   <note>
-    <para>经验表明，在 <xref linkend="chapter-temporary-tools"/> 中运行测试套件并不是什么好主意。在那章有何无法回避的现实，就是宿主机或多或少会对测试产生影响，经常导致一些令人摸不着头脑的错误信息。因为在 <xref linkend="chapter-temporary-tools"/> 中构建的这些工具只是零时的，最终我们并不需要它们，所以我们并不推荐普通读者在 <xref linkend="chapter-temporary-tools"/> 中运行测试套件。虽然为测试者和开发者提供了测试套件的说明，但是这依旧是可选项。</para>
+    <para>经验表明，在 <xref linkend="chapter-temporary-tools"/> 中运行测试套件并不是什么好主意。在该章节运行测试将不可避免地面临一个问题，宿主机或多或少会对测试产生影响，这经常导致一些令人摸不着头脑的错误信息。因为在 <xref linkend="chapter-temporary-tools"/> 中构建的这些工具只是临时的，最终我们并不需要它们，所以我们并不推荐普通读者在 <xref linkend="chapter-temporary-tools"/> 中运行测试套件。虽然为测试者和开发者提供了测试套件的说明，但是这依旧是可选项。</para>
   </note>
 
   <para>对 Binutils 和 GCC 执行测试套件时可能会使伪终端（PTYs）耗尽。造成大量的测试失败。造成问题的原因有很多，但最有可能的原因是宿主系统没能正确设置 <systemitem class="filesystem">devpts</systemitem> 文件系统。针对这个问题在 <ulink url="&lfs-root;lfs/faq.html#no-ptys"/> 中有更详尽的讨论。</para>

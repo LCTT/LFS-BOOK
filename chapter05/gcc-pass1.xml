@@ -135,7 +135,7 @@ cd       build</userinput></screen>
       <varlistentry>
         <term><parameter>--without-headers</parameter></term>
         <listitem>
-          <para>创建一个完成的交叉编译器的时候，GCC 要求标准头文件和目标系统兼容。对于我们的目的来说，不需要这些头文件。这个选项可以防止 GCC 查找它们。</para>
+          <para>在创建完整的交叉编译器时，GCC 要求标准头文件和目标系统兼容。对于我们的目的来说，不需要这些头文件。这个选项可以防止 GCC 查找它们。</para>
         </listitem>
       </varlistentry>
 
@@ -156,7 +156,7 @@ cd       build</userinput></screen>
       <varlistentry>
         <term><parameter>--disable-shared</parameter></term>
         <listitem>
-          <para>这个选项强制 GCC 静态链接到它的内部库。我们这样做是为了避免与主机系统可能出现的问题。</para>
+          <para>这个选项强制 GCC 静态链接到它的内部库。我们这样做是为了避免主机系统可能出现的问题。</para>
         </listitem>
       </varlistentry>
 
