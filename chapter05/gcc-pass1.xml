@@ -43,7 +43,7 @@
   <sect2 role="installation">
     <title>安装交叉编译的 GCC</title>
 
-    <para>现在 GCC 需要 GMP、MPFR 和 MPC 软件包。在你的主机发行版中可能并不包括这些软件包，它们将和 GCC 一起编译。将每个解压软件包到 GCC 的目录下，并重命名解压后得到的目录，以便 GCC 编译过程中能自动使用这些软件：</para>
+    <para>现在 GCC 需要 GMP、MPFR 和 MPC 软件包。正如在你宿主机的发行版中可能并不包含这些软件包，它们将和 GCC 一起编译。将每个软件包解压到 GCC 的目录下，并重命名解压后得到的目录，以便 GCC 编译过程中能自动使用这些软件：</para>
 
     <note><para>读者经常对本章节产生误解。过程与之前的章节（<xref linkend='buildinstr'/>）中提到的一样。首先从源目录中解压 gcc 的源码包，然后进入创建的目录中。接着才可以执行下面的指令。</para></note>
 
@@ -54,7 +54,7 @@ mv -v gmp-&gmp-version; gmp
 tar -xf ../mpc-&mpc-version;.tar.gz
 mv -v mpc-&mpc-version; mpc</userinput></screen>
 
-    <para>下面的指令将会修改 GCC 默认的动态链接器的位置，安装到 <filename class="directory">/tools</filename> 目录中的。并将 <filename class="directory">/usr/include</filename> 从 GCC 的 include 检索路径中移除。执行：</para>
+    <para>下面的指令将会修改 GCC 默认动态链接器的位置，以使用安装到 <filename class="directory">/tools</filename> 目录中的链接器。并将 <filename class="directory">/usr/include</filename> 从 GCC 的 include 检索路径中移除。执行：</para>
 
 <screen><userinput remap="pre">for file in gcc/config/{linux,i386/linux{,64}}.h
 do
