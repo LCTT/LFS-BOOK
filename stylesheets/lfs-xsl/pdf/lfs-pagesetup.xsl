@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1'?>
+<?xml version='1.0' encoding='UTF-8'?>
 
 <!--
 $LastChangedBy: manuel $
@@ -13,10 +13,10 @@ $Date: 2007-07-06 05:18:33 +0800 (周五, 06 7月 2007) $
        header content and titles size. -->
 
     <!-- The inner page margin. -->
-  <xsl:param name="page.margin.inner" select="'0.32in'"/>
+  <xsl:param name="page.margin.inner" select="'0.8in'"/>
 
     <!-- The outer page margin. -->
-  <xsl:param name="page.margin.outer" select="'0.32in'"/>
+  <xsl:param name="page.margin.outer" select="'0.8in'"/>
 
     <!-- The bottom margin of the page. -->
   <xsl:param name="page.margin.bottom" select="'0.35in'"/>

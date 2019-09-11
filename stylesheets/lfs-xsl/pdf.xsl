@@ -39,7 +39,7 @@ $Date: 2013-10-17 02:55:24 +0800 (周四, 17 10月 2013) $
   <xsl:param name="draft.mode" select="'no'"/>
 
   <!-- Paper size -->
-  <xsl:param name="paper.type" select="'USletter'"/>
+  <xsl:param name="paper.type" select="'A4'"/>
 
   <!-- Paper size required by the publisher
   <xsl:param name="paper.type" select="'Customized'"/>
@@ -65,14 +65,14 @@ $Date: 2013-10-17 02:55:24 +0800 (周四, 17 10月 2013) $
   <xsl:param name="ulink.hyphenate.chars" select="'/._-'"/>
 
   <!-- Specify the default text alignment. -->
-  <xsl:param name="alignment">justify</xsl:param>
+  <xsl:param name="alignment">left</xsl:param>
 
   <!-- Specify the default point size for body text.
        Used for calculating the size of titles. -->
   <xsl:param name="body.font.master">9</xsl:param>
 
   <!-- Specifies the default font size for body text. -->
-  <xsl:param name="body.font.size">12pt</xsl:param>
+  <xsl:param name="body.font.size">10pt</xsl:param>
 
   <!-- Control generation of ToCs and LoTs -->
   <xsl:param name="generate.toc">
@@ -105,4 +105,6 @@ $Date: 2013-10-17 02:55:24 +0800 (周四, 17 10月 2013) $
     <fo:block break-before='page'/>
   </xsl:template>
 
+  <!-- Viz: Chinese fonts fix -->
+  <xsl:include href="pdf/lctt-chinese-fonts.xsl"/>
 </xsl:stylesheet>

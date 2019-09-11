@@ -502,12 +502,12 @@
 <l:template name="qandadiv" text="质保 %n"/>
 <l:template name="qandaentry" text="问： %n"/>
 <l:template name="question" text="问： %n"/>
-<l:template name="sect1" text="第 %n 节"/>
-<l:template name="sect2" text="第 %n 节"/>
-<l:template name="sect3" text="第 %n 节"/>
-<l:template name="sect4" text="第 %n 节"/>
-<l:template name="sect5" text="第 %n 节"/>
-<l:template name="section" text="第 %n 节"/>
+<l:template name="sect1" text="第 %n 节"/>
+<l:template name="sect2" text="第 %n 节"/>
+<l:template name="sect3" text="第 %n 节"/>
+<l:template name="sect4" text="第 %n 节"/>
+<l:template name="sect5" text="第 %n 节"/>
+<l:template name="section" text="第 %n 节"/>
 <l:template name="table" text="表 %n"/>
 </l:context>
 <l:context name="xref-number-and-title"><l:template name="appendix" text="附录 %n, %t"/>
@@ -524,12 +524,12 @@
 <l:template name="refsect2" text="“%t”一节"/>
 <l:template name="refsect3" text="“%t”一节"/>
 <l:template name="refsection" text="“%t”一节"/>
-<l:template name="sect1" text="第 %n 节 “%t”"/>
-<l:template name="sect2" text="第 %n 节 “%t”"/>
-<l:template name="sect3" text="第 %n 节 “%t”"/>
-<l:template name="sect4" text="第 %n 节 “%t”"/>
-<l:template name="sect5" text="第 %n 节 “%t”"/>
-<l:template name="section" text="第 %n 节 “%t”"/>
+<l:template name="sect1" text="第 %n 节 「%t」"/>
+<l:template name="sect2" text="第 %n 节 「%t」"/>
+<l:template name="sect3" text="第 %n 节 「%t」"/>
+<l:template name="sect4" text="第 %n 节 「%t」"/>
+<l:template name="sect5" text="第 %n 节 「%t」"/>
+<l:template name="section" text="第 %n 节 「%t」"/>
 <l:template name="simplesect" text="“%t”一节"/>
 <l:template name="table" text="表 %n “%t”"/>
 </l:context>

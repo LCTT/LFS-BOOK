@@ -59,7 +59,7 @@ book: validate profile-html
          true;                                        \
          /bin/bash obfuscate.sh $$filename;           \
          sed -e "s@text/html@application/xhtml+xml@g" \
-             -e "s/\xa9/\&copy;/ "                    \
+             -e "s/\xef\xbf\xbd/\&copy;/ "                    \
              -i $$filename;                           \
    done;
 
@@ -89,7 +89,8 @@ pdf: validate
 
 	$(Q)mkdir -p $(BASEDIR)
 
-	$(Q)fop -q  $(RENDERTMP)/lfs-pdf.fo $(BASEDIR)/$(PDF_OUTPUT) 2>fop.log
+	$(Q)fop -c /usr/share/doc/fop/fop.xconf \
+	        -q  $(RENDERTMP)/lfs-pdf.fo $(BASEDIR)/$(PDF_OUTPUT) 2>fop.log
 	@echo "$(BASEDIR)/$(PDF_OUTPUT) created"
 	@echo "fop.log created"
 
@@ -109,7 +110,7 @@ nochunks: validate profile-html
 	$(Q)sed -i -e "s@text/html@application/xhtml+xml@g"  $(BASEDIR)/$(NOCHUNKS_OUTPUT)
 	$(Q)sed -i -e "s@../wget-list@wget-list@"            $(BASEDIR)/$(NOCHUNKS_OUTPUT)
 	$(Q)sed -i -e "s@../md5sums@md5sums@"                $(BASEDIR)/$(NOCHUNKS_OUTPUT)
-	$(Q)sed -i -e "s@\xa9@\&copy;@"                      $(BASEDIR)/$(NOCHUNKS_OUTPUT)
+	$(Q)sed -i -e "s@\xef\xbf\xbd@\&copy;@"                      $(BASEDIR)/$(NOCHUNKS_OUTPUT)
 
 	@echo "Output at $(BASEDIR)/$(NOCHUNKS_OUTPUT)"
 
@@ -141,7 +142,7 @@ validate: tmpdir
                $(RENDERTMP)/lfs-html2.xml
 
 	$(Q)rm -f appendices/*.script
-	$(Q)./aux-file-data.sh $(RENDERTMP)/lfs-full.xml
+	$(Q)bash aux-file-data.sh $(RENDERTMP)/lfs-full.xml
 	@echo "Validation complete."
 
 profile-html: 
