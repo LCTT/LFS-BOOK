@@ -1,0 +1,36 @@
+diff --git a/chapter05/gcc-pass1.xml b/chapter05/gcc-pass1.xml
+index b4d39ee..8758ac0 100644
+--- a/chapter05/gcc-pass1.xml
++++ b/chapter05/gcc-pass1.xml
+@@ -9,7 +9,7 @@
+   <?dbhtml filename="gcc-pass1.html"?>
+ 
+   <sect1info condition="script">
+-    <productname>gcc</productname>
++    <productname>gcc-pass1</productname>
+     <productnumber>&gcc-version;</productnumber>
+     <address>&gcc-url;</address>
+   </sect1info>
+@@ -144,7 +144,6 @@ cd       build</userinput></screen>
+     --disable-threads                              \
+     --disable-libatomic                            \
+     --disable-libgomp                              \
+-    --disable-libmpx                               \
+     --disable-libquadmath                          \
+     --disable-libssp                               \
+     --disable-libvtv                               \
+@@ -207,12 +206,12 @@ cd       build</userinput></screen>
+ 
+       <varlistentry>
+         <term><parameter>--disable-decimal-float, --disable-threads,
+-        --disable-libatomic, --disable-libgomp, --disable-libmpx,
++              --disable-libatomic, --disable-libgomp, <!--- -disable-libmpx,-->
+         --disable-libquadmath, --disable-libssp, --disable-libvtv,
+         --disable-libstdcxx</parameter></term>
+         <listitem>
+           <para>These switches disable support for the decimal floating point
+-          extension, threading, libatomic, libgomp, libmpx, libquadmath, libssp,
++          extension, threading, libatomic, libgomp, <!--libmpx, --> libquadmath, libssp,
+           libvtv, and the C++ standard library respectively. These features
+           will fail to compile when building a cross-compiler and are not
+           necessary for the task of cross-compiling the temporary libc.</para>

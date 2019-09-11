@@ -1,0 +1,13 @@
+diff --git a/chapter06/check.xml b/chapter06/check.xml
+index c65e803..739af98 100644
+--- a/chapter06/check.xml
++++ b/chapter06/check.xml
+@@ -58,7 +58,7 @@
+ 
+     <para>Install the package and fix a script:</para>
+ 
+-<screen><userinput remap="install">make install
++    <screen><userinput remap="install">make docdir=/usr/share/doc/check-&check-version; install
+ sed -i '1 s/tools/usr/' /usr/bin/checkmk</userinput></screen>
+ 
+   </sect2>

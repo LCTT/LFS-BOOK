@@ -1,0 +1,13 @@
+diff --git a/chapter07/clock.xml b/chapter07/clock.xml
+index 7e6a916..1c95421 100644
+--- a/chapter07/clock.xml
++++ b/chapter07/clock.xml
+@@ -36,7 +36,7 @@
+   <para>Create the <filename>/etc/adjtime</filename> file with the following contents
+   if your hardware clock is set to local time:</para>
+ 
+-<screen role="nodump"><userinput>cat &gt; /etc/adjtime &lt;&lt; "EOF"
++<screen><userinput>cat &gt; /etc/adjtime &lt;&lt; "EOF"
+ <literal>0.0 0 0.0
+ 0
+ LOCAL</literal>

@@ -1,0 +1,44 @@
+diff --git a/chapter07/network.xml b/chapter07/network.xml
+index b5202fb..e523ce3 100644
+--- a/chapter07/network.xml
++++ b/chapter07/network.xml
+@@ -46,19 +46,20 @@
+ 
+     <para>The following command creates a sample file for the
+     <emphasis>eth0</emphasis> device with a static IP address:</para>
+-
++<!-- jhalfs relies on the values for IFACE, IP, etc. If you want to change
++     them, please inform the jhalfs maintainer(s). -->
+ <screen><userinput>cd /etc/sysconfig/
+-cat &gt; ifconfig.eth0 &lt;&lt; "EOF"
+-<literal>ONBOOT=yes
+-IFACE=eth0
+-SERVICE=ipv4-static
+-IP=192.168.1.2
+-GATEWAY=192.168.1.1
+-PREFIX=24
+-BROADCAST=192.168.1.255</literal>
++cat &gt; ifconfig.<replaceable>eth0</replaceable> &lt;&lt; "EOF"
++<literal>ONBOOT=<replaceable>yes</replaceable>
++IFACE=<replaceable>eth0</replaceable>
++SERVICE=<replaceable>ipv4-static</replaceable>
++IP=<replaceable>192.168.1.2</replaceable>
++GATEWAY=<replaceable>192.168.1.1</replaceable>
++PREFIX=<replaceable>24</replaceable>
++BROADCAST=<replaceable>192.168.1.255</replaceable></literal>
+ EOF</userinput></screen>
+ 
+-    <para>The values of these variables must be changed in every file to match
++    <para>The values in italics must be changed in every file to match
+     the proper setup.</para>
+ 
+     <para>If the <envar>ONBOOT</envar> variable is set to <quote>yes</quote> the
+@@ -70,7 +71,7 @@ EOF</userinput></screen>
+ 
+     <para>The <envar>IFACE</envar> variable defines the interface name,
+     for example, eth0.  It is required for all network device configuration
+-    files. </para>
++    files. The filename extension must match this value.</para>
+ 
+     <para>The <envar>SERVICE</envar> variable defines the method used for
+     obtaining the IP address. The LFS-Bootscripts package has a modular IP

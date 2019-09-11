@@ -1,0 +1,13 @@
+diff --git a/chapter06/libtool.xml b/chapter06/libtool.xml
+index 5de045f..3093b41 100644
+--- a/chapter06/libtool.xml
++++ b/chapter06/libtool.xml
+@@ -50,7 +50,7 @@
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+ 
+-    <para>To test the results (about 11.0 SBU), issue:</para>
++<para>To test the results<!--(about 11.0 SBU)-->, issue:</para>
+ 
+ <screen><userinput remap="test">make check</userinput></screen>
+ 

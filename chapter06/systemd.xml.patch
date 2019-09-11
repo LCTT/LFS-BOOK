@@ -1,0 +1,226 @@
+diff --git a/chapter06/systemd.xml b/chapter06/systemd.xml
+index a395c51..9ba24de 100644
+--- a/chapter06/systemd.xml
++++ b/chapter06/systemd.xml
+@@ -40,9 +40,10 @@
+   <sect2 role="installation">
+     <title>Installation of systemd</title>
+ 
+-    <para>Apply a patch to fix two critical security vulnerabilities:</para>
++    <para>First, apply a patch to fix issues with systemd-networkd on Linux 5.2+
++    kernels, as well as with AMD Ryzen CPUs:</para>
+ 
+-<screen><userinput remap="pre">patch -Np1 -i ../systemd-240-security_fixes-2.patch</userinput></screen>
++<screen><userinput remap="pre">patch -Np1 -i ../systemd-&systemd-version;-networkd_and_rdrand_fixes-1.patch</userinput></screen>
+ 
+     <para>Create a symlink to work around missing xsltproc:</para>
+ 
+@@ -51,7 +52,7 @@
+     <para>Because we have not yet installed the final version of Util-Linux,
+     create links to the libraries in the approprite location:</para>
+ 
+-<screen><userinput remap="pre">for file in /tools/lib/lib{blkid,mount,uuid}*; do
++<screen><userinput remap="pre">for file in /tools/lib/lib{blkid,mount,uuid}.so*; do
+     ln -sf $file /usr/lib/
+ done</userinput></screen>
+ 
+@@ -69,13 +70,16 @@ done</userinput></screen>
+ 
+ <screen><userinput remap="pre">sed -i 's/GROUP="render", //' rules/50-udev-default.rules.in</userinput></screen>
+ 
++<!-- EDITORS NOTE: At the next systemd release, see if the CFLAGS can be removed. -->
++
+     <para>Prepare systemd for compilation:</para>
+ 
+-    <screen><userinput remap="configure">mkdir -p build
++<screen><userinput remap="configure">mkdir -p build
+ cd       build
+ 
+ PKG_CONFIG_PATH="/usr/lib/pkgconfig:/tools/lib/pkgconfig" \
+ LANG=en_US.UTF-8                   \
++CFLAGS+="-Wno-format-overflow"     \
+ meson --prefix=/usr                \
+       --sysconfdir=/etc            \
+       --localstatedir=/var         \
+@@ -84,7 +88,6 @@ meson --prefix=/usr                \
+       -Ddefault-dnssec=no          \
+       -Dfirstboot=false            \
+       -Dinstall-tests=false        \
+-      -Dkill-path=/bin/kill        \
+       -Dkmod-path=/bin/kmod        \
+       -Dldconfig=false             \
+       -Dmount-path=/bin/mount      \
+@@ -95,6 +98,7 @@ meson --prefix=/usr                \
+       -Dsysusers=false             \
+       -Dumount-path=/bin/umount    \
+       -Db_lto=false                \
++      -Drpmmacrosdir=no            \
+       ..</userinput></screen>
+ 
+     <variablelist>
+@@ -173,6 +177,13 @@ meson --prefix=/usr                \
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry>
++        <term><parameter>-Drpmmacrosdir=no</parameter></term>
++        <listitem>
++          <para>This switch disables installation of RPM Macros
++          for use with systemd because LFS does not support RPM.</para>
++        </listitem>
++      </varlistentry>
+     </variablelist>
+ 
+     <para>Compile the package:</para>
+@@ -187,25 +198,24 @@ meson --prefix=/usr                \
+ 
+ <screen><userinput remap="install">LANG=en_US.UTF-8 ninja install</userinput></screen>
+ 
+-    <para>Remove an unnecessary directory:</para>
++    <para>Remove an unnecessary symbolic link:</para>
+ 
+-<screen><userinput remap="install">rm -rfv /usr/lib/rpm
+-rm -f /usr/bin/xsltproc</userinput></screen>
++<screen><userinput remap="install">rm -f /usr/bin/xsltproc</userinput></screen>
+ 
+     <para>Create the <filename>/etc/machine-id</filename> file needed by
+     <command>systemd-journald</command>:</para>
+ 
+ <screen><userinput remap="adjust">systemd-machine-id-setup</userinput></screen>
+ 
+-    <para>Create the <filename>/lib/systemd/systemd-user-sessions</filename>
+-    script to allow unprivileged user logins without
++    <para>Remove symbolic links to Util-Linux libraries:</para>
++
++<screen><userinput remap="adjust">rm -fv /usr/lib/lib{blkid,uuid,mount}.so*</userinput></screen>
++
++    <para>Prevent systemd from creating <filename>/run/nologin</filename>
++    to allow unprivileged user logins without
+     <application>systemd-logind</application>:</para>
+ 
+-<screen><userinput remap="adjust">cat &gt; /lib/systemd/systemd-user-sessions &lt;&lt; "EOF"
+-#!/bin/bash
+-rm -f /run/nologin
+-EOF
+-chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
++<screen><userinput remap="adjust">rm -f /usr/lib/tmpfiles.d/systemd-nologin.conf</userinput></screen>
+ 
+   </sect2>
+ 
+@@ -218,19 +228,24 @@ chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
+       <segtitle>Installed directories</segtitle>
+ 
+       <seglistitem>
+-        <seg>bootctl, busctl, coredumpctl, halt, hostnamectl, init, journalctl,
+-        kernel-install, localectl, loginctl, machinectl, networkctl, poweroff,
+-        reboot, runlevel, shutdown, systemctl, systemd-analyze,
++        <seg>bootctl, busctl, coredumpctl, halt (symlink to systemctl),
++        hostnamectl, init, journalctl, kernel-install, localectl, loginctl,
++        machinectl, networkctl, portablectl, poweroff (symlink to
++        systemctl), reboot (symlink to systemctl), resolvconf (symlink to
++        resolvectl), resolvectl, runlevel (symlink to systemctl), shutdown
++        (symlink to systemctl), systemctl, systemd-analyze,
+         systemd-ask-password, systemd-cat, systemd-cgls, systemd-cgtop,
+         systemd-delta, systemd-detect-virt, systemd-escape, systemd-hwdb,
+-        systemd-inhibit, systemd-machine-id-setup, systemd-mount, 
+-        systemd-notify, systemd-nspawn, systemd-path, systemd-resolve, 
+-        systemd-run, systemd-socket-activate,
+-        systemd-stdio-bridge, systemd-tmpfiles, systemd-tty-ask-password-agent,
+-        telinit, timedatectl, and udevadm</seg>
++        systemd-id128, systemd-inhibit, systemd-machine-id-setup,
++        systemd-mount, systemd-notify, systemd-nspawn, systemd-path,
++        systemd-resolve (symlink to resolvectl), systemd-run,
++        systemd-socket-activate, systemd-stdio-bridge, systemd-tmpfiles,
++        systemd-tty-ask-password-agent, systemd-umount (symlink to
++        systemd-mount), telinit (symlink to systemctl), timedatectl, and
++        udevadm</seg>
+         <seg>libnss_myhostname.so.2, libnss_mymachines.so.2,
+-        libnss_resolve.so.2, libnss_systemd.so.2, 
+-        libsystemd.so, libsystemd-shared-&systemd-version;.so,
++        libnss_resolve.so.2, libnss_systemd.so.2,
++        libsystemd.so, libsystemd-shared-&systemd-version;.so (in /lib/systemd),
+         and libudev.so</seg>
+         <seg>/etc/binfmt.d, /etc/init.d, /etc/kernel, /etc/modules-load.d,
+         /etc/sysctl.d, /etc/systemd, /etc/tmpfiles.d, /etc/udev,
+@@ -379,6 +394,17 @@ chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="portablectl">
++        <term><command>portablectl</command></term>
++        <listitem>
++          <para>Used to attach or detach portable services from the local
++          system</para>
++          <indexterm zone="ch-system-systemd portablectl">
++            <primary sortas="b-portablectl">portablectl</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="poweroff">
+         <term><command>poweroff</command></term>
+         <listitem>
+@@ -401,6 +427,29 @@ chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="resolvconf">
++        <term><command>resolvconf</command></term>
++        <listitem>
++          <para>Register DNS server and domain configuration with
++          <command>systemd-resolved</command></para>
++          <indexterm zone="ch-system-systemd resolvconf">
++            <primary sortas="b-resolvconf">resolvconf</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry id="resolvectl">
++        <term><command>resolvectl</command></term>
++        <listitem>
++          <para>Send control commands to the network name resolution
++          manager, or resolve domain names, IPv4 and IPv6 addresses,
++          DNS records, and services.</para>
++          <indexterm zone="ch-system-systemd resolvectl">
++            <primary sortas="b-resolvectl">resolvectl</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="runlevel">
+         <term><command>runlevel</command></term>
+         <listitem>
+@@ -532,6 +581,16 @@ chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="systemd-id128">
++        <term><command>systemd-id128</command></term>
++        <listitem>
++          <para>Generate and print id128 strings</para>
++          <indexterm zone="ch-system-systemd systemd-id128">
++            <primary sortas="b-systemd-id128">systemd-id128</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="systemd-inhibit">
+         <term><command>systemd-inhibit</command></term>
+         <listitem>
+@@ -653,6 +712,16 @@ chmod 755 /lib/systemd/systemd-user-sessions</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="systemd-umount">
++        <term><command>systemd-umount</command></term>
++        <listitem>
++          <para>Unmount mount points</para>
++          <indexterm zone="ch-system-systemd systemd-umount">
++            <primary sortas="b-systemd-umount">systemd-umount</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="systemd-tty-ask-password-agent">
+         <term><command>systemd-tty-ask-password-agent</command></term>
+         <listitem>

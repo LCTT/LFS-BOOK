@@ -1,0 +1,20 @@
+diff --git a/patches.ent b/patches.ent
+index 480d0d2..ea376aa 100644
+--- a/patches.ent
++++ b/patches.ent
+@@ -54,9 +54,10 @@
+ <!ENTITY ninja-limit-jobs-patch-size "2.5 KB">
+ -->
+ <!ENTITY sysvinit-consolidated-patch "sysvinit-&sysvinit-version;-consolidated-1.patch">
+-<!ENTITY sysvinit-consolidated-patch-md5 "aaa84675e717504d7d3da452c8c2eaf1">
+-<!ENTITY sysvinit-consolidated-patch-size "2.6 KB">
++<!ENTITY sysvinit-consolidated-patch-md5 "4900322141d493e74020c9cf437b2cdc">
++<!ENTITY sysvinit-consolidated-patch-size "2.4 KB">
++
++<!ENTITY systemd-networkd-patch "systemd-&systemd-version;-networkd_and_rdrand_fixes-1.patch">
++<!ENTITY systemd-networkd-patch-md5 "bb26f26d7c3a17d1888ab3171366906b">
++<!ENTITY systemd-networkd-patch-size "8 KB">
+ 
+-<!ENTITY systemd-security-patch "systemd-&systemd-version;-security_fixes-2.patch">
+-<!ENTITY systemd-security-patch-md5 "10abebce8ff5d9fd402623ace39b5ab8">
+-<!ENTITY systemd-security-patch-size "14 KB">

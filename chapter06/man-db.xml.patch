@@ -1,0 +1,42 @@
+diff --git a/chapter06/man-db.xml b/chapter06/man-db.xml
+index a32b98a..5554d45 100644
+--- a/chapter06/man-db.xml
++++ b/chapter06/man-db.xml
+@@ -43,7 +43,9 @@
+ 
+     <para>Prepare Man-DB for compilation:</para>
+ 
+-<screen revision="systemd"><userinput remap="configure">./configure --prefix=/usr                        \
++<screen revision="systemd"><userinput remap="configure">sed -i '/find/s@/usr@@' init/systemd/man-db.service.in
++
++./configure --prefix=/usr                        \
+             --docdir=/usr/share/doc/man-db-&man-db-version; \
+             --sysconfdir=/etc                    \
+             --disable-setuid                     \
+@@ -66,6 +68,15 @@
+     <variablelist>
+       <title>The meaning of the configure options:</title>
+ 
++      <varlistentry revision="systemd">
++        <term><command>sed -i '/find/s@/usr@@' init/systemd/man-db.service.in</command></term>
++        <listitem>
++          <para>This changes a harcoded path to the <command>find</command>
++          utility, which we install in
++          <filename class="directory">/bin</filename>.</para>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry>
+         <term><parameter>--disable-setuid</parameter></term>
+         <listitem>
+@@ -317,8 +328,8 @@
+       <seglistitem>
+         <seg>accessdb, apropos (link to whatis), catman, lexgrog, man, mandb,
+         manpath, and whatis</seg>
+-        <seg>libman.so and libmandb.so</seg>
+-        <seg>/usr/lib/man-db, /usr/lib/tmpfiles.d, /usr/libexec/man-db,
++        <seg>libman.so and libmandb.so (both in /usr/lib/man-db)</seg>
++        <seg>/usr/lib/man-db, /usr/libexec/man-db,
+         and /usr/share/doc/man-db-&man-db-version;</seg>
+       </seglistitem>
+     </segmentedlist>

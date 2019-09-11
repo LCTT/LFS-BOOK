@@ -1,0 +1,13 @@
+diff --git a/chapter07/bootscripts.xml b/chapter07/bootscripts.xml
+index 8c4c169..0b163b2 100644
+--- a/chapter07/bootscripts.xml
++++ b/chapter07/bootscripts.xml
+@@ -9,7 +9,7 @@
+   <?dbhtml filename="bootscripts.html"?>
+ 
+   <sect1info condition="script">
+-    <productname>lfs-bootscripts</productname>
++    <productname>bootscripts</productname>
+     <productnumber>&lfs-bootscripts-version;</productnumber>
+     <address>&lfs-bootscripts-url;</address>
+   </sect1info>

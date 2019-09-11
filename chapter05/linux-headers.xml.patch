@@ -1,0 +1,13 @@
+diff --git a/chapter05/linux-headers.xml b/chapter05/linux-headers.xml
+index 36edc3c..b5f134e 100644
+--- a/chapter05/linux-headers.xml
++++ b/chapter05/linux-headers.xml
+@@ -9,7 +9,7 @@
+   <?dbhtml filename="linux-headers.html"?>
+ 
+   <sect1info condition="script">
+-    <productname>linux</productname>
++    <productname>linux-headers</productname>
+     <productnumber>&linux-version;</productnumber>
+     <address>&linux-url;</address>
+   </sect1info>

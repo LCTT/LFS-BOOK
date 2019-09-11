@@ -1,0 +1,25 @@
+diff --git a/chapter06/bison.xml b/chapter06/bison.xml
+index 4d4fa17..05bf30c 100644
+--- a/chapter06/bison.xml
++++ b/chapter06/bison.xml
+@@ -40,13 +40,18 @@
+   <sect2 role="installation">
+     <title>Installation of Bison</title>
+ 
++    <para>First, fix a build problem with the current version:</para>
++
++<screen><userinput remap="pre">sed -i '6855 s/mv/cp/' Makefile.in</userinput></screen>
++
+     <para>Prepare Bison for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr --docdir=/usr/share/doc/bison-&bison-version;</userinput></screen>
+ 
+-    <para>Compile the package:</para>
++    <para>Compile the package, but work around a race condition in the 
++    current version:</para>
+ 
+-<screen><userinput remap="make">make</userinput></screen>
++<screen><userinput remap="make">make -j1</userinput></screen>
+ 
+ <!--
+     <para>To test the results (about 2.2 SBU), issue:</para>

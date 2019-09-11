@@ -1,0 +1,98 @@
+diff --git a/bootscripts/lfs/sbin/ifup b/bootscripts/lfs/sbin/ifup
+index a7e1138..5a4945a 100644
+--- a/bootscripts/lfs/sbin/ifup
++++ b/bootscripts/lfs/sbin/ifup
+@@ -7,6 +7,7 @@
+ # Authors     : Nathan Coulson - nathan@linuxfromscratch.org
+ #               Kevin P. Fleming - kpfleming@linuxfromscratch.org
+ # Update      : Bruce Dubbs - bdubbs@linuxfromscratch.org
++#               DJ Lucas - dj@linuxfromscratch.org
+ #
+ # Version     : LFS 7.7
+ #
+@@ -18,6 +19,8 @@
+ 
+ up()
+ {
++  log_info_msg "Bringing up the ${1} interface..."
++
+   if ip link show $1 > /dev/null 2>&1; then
+      link_status=`ip link show $1`
+ 
+@@ -28,9 +31,11 @@ up()
+      fi
+ 
+   else
+-     log_failure_msg "\nInterface ${IFACE} doesn't exist."
++     log_failure_msg "Interface ${IFACE} doesn't exist."
+      exit 1
+   fi
++
++  evaluate_retval
+ }
+ 
+ RELEASE="7.7"
+@@ -72,27 +77,29 @@ file=/etc/sysconfig/ifconfig.${1}
+ 
+ . /lib/lsb/init-functions
+ 
+-log_info_msg "Bringing up the ${1} interface... "
+-
+ if [ ! -r "${file}" ]; then
+-   log_failure_msg2 "${file} is missing or cannot be accessed." 
++   log_failure_msg "Unable to bring up ${1} interface! ${file} is missing or cannot be accessed."
+    exit 1
+ fi
+ 
+-. $file
++.  $file
+ 
+ if [ "$IFACE" = "" ]; then
+-   log_failure_msg2 "${file} does not define an interface [IFACE]."
++   log_failure_msg "Unable to bring up ${1} interface! ${file} does not define an interface [IFACE]."
+    exit 1
+ fi
+ 
+ # Do not process this service if started by boot, and ONBOOT
+ # is not set to yes
+ if [ "${IN_BOOT}" = "1" -a "${ONBOOT}" != "yes" ]; then
+-   log_skip_msg
+    exit 0
+ fi
+ 
++# Bring up the interface
++if [ "$VIRTINT" != "yes" ]; then
++   up ${IFACE}
++fi
++
+ for S in ${SERVICE}; do
+   if [ ! -x "/lib/services/${S}" ]; then
+     MSG="\nUnable to process ${file}.  Either " 
+@@ -110,8 +117,13 @@ for S in ${SERVICE}; do
+   IFCONFIG=${file} /lib/services/${S} ${IFACE} up
+ done
+ 
+-# Bring up the interface and any components
+-for I in $IFACE $INTERFACE_COMPONENTS; do up $I; done
++# Set link up virtual interfaces
++if [ "${VIRTINT}" == "yes" ]; then
++   up ${IFACE}
++fi
++
++# Bring up any additional interface components
++for I in $INTERFACE_COMPONENTS; do up $I; done
+ 
+ # Set MTU if requested. Check if MTU has a "good" value.
+ if test -n "${MTU}"; then
+@@ -127,9 +139,9 @@ fi
+ # Set the route default gateway if requested
+ if [ -n "${GATEWAY}" ]; then
+    if ip route | grep -q default; then
+-      log_skip_msg "\n     Gateway already setup; skipping."
++      log_warning_msg "Gateway already setup; skipping."
+    else
+-      log_info_msg "Setting up default gateway..."
++      log_info_msg "Adding default gateway ${GATEWAY} to the ${IFACE} interface..."
+       ip route add default via ${GATEWAY} dev ${IFACE}
+       evaluate_retval
+    fi

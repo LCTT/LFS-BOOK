@@ -1,0 +1,12 @@
+diff --git a/chapter09/reboot.xml b/chapter09/reboot.xml
+index 2718c0e..c6a857d 100644
+--- a/chapter09/reboot.xml
++++ b/chapter09/reboot.xml
+@@ -71,7 +71,6 @@
+         <listitem><para>/etc/vimrc                   </para></listitem>
+         <listitem><para>/root/.bash_profile          </para></listitem>
+         <listitem><para>/root/.bashrc                </para></listitem>
+-        <listitem revision="sysv"><para>/etc/sysconfig/network       </para></listitem>
+         <listitem revision="sysv"><para>/etc/sysconfig/ifconfig.eth0 </para></listitem>
+       </itemizedlist>
+     </listitem>

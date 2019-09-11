@@ -1,0 +1,35 @@
+diff --git a/lfs-latest.php b/lfs-latest.php
+index fd77c4a..504e286 100644
+--- a/lfs-latest.php
++++ b/lfs-latest.php
+@@ -104,8 +104,9 @@ function get_packages( $package, $dirpath )
+   global $exceptions;
+   global $regex;
+ 
+-//if ( $package != "expat" ) return 0; // Debug
++//if ( $package != "vim" ) return 0; // Debug
+ 
++if ( $package == "bc"         ) $dirpath = "https://github.com/gavinhoward/bc/releases";
+ if ( $package == "check"      ) $dirpath = "https://github.com/libcheck/check/releases";
+ if ( $package == "e2fsprogs"  ) $dirpath = "http://sourceforge.net/projects/e2fsprogs/files/e2fsprogs";
+ if ( $package == "expat"      ) $dirpath = "http://sourceforge.net/projects/expat/files";
+@@ -125,7 +126,8 @@ if ( $package == "shadow"     ) $dirpath = "https://github.com/shadow-maint/shad
+ if ( $package == "systemd"    ) $dirpath = "https://github.com/systemd/systemd/releases";
+ if ( $package == "tcl"        ) $dirpath = "http://sourceforge.net/projects/tcl/files";
+ if ( $package == "util-linux" ) $dirpath = max_parent( $dirpath, "v." );
+-if ( $package == "vim"        ) $dirpath = "ftp://ftp.vim.org/pub/vim/unix";
++if ( $package == "vim"        ) $dirpath = "https://github.com/vim/vim/releases";
++//if ( $package == "vim"        ) $dirpath = "ftp://ftp.vim.org/pub/vim/unix";
+ 
+   // Check for ftp
+   if ( preg_match( "/^ftp/", $dirpath ) ) 
+@@ -278,6 +280,9 @@ if ( $package == "vim"        ) $dirpath = "ftp://ftp.vim.org/pub/vim/unix";
+   if ( $package == "openssl" )
+      return find_max( $lines, "/openssl/", "/^.*openssl-([\d\.p]*\d.?).tar.*$/" );
+ 
++  if ( $package == "vim" )
++     return find_max( $lines, "/v\d\./", "/^.*v([\d\.]+).*$/" );
++
+   // Most packages are in the form $package-n.n.n
+   // Occasionally there are dashes (e.g. 201-1)
+   return find_max( $lines, "/$package/", "/^.*$package-([\d\.-]*\d)\.tar.*$/" );

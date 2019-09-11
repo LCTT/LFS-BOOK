@@ -1,0 +1,61 @@
+diff --git a/chapter06/meson.xml b/chapter06/meson.xml
+index 02cfdf8..820ccd7 100644
+--- a/chapter06/meson.xml
++++ b/chapter06/meson.xml
+@@ -77,8 +77,8 @@ cp -rv dest/* /</userinput></screen>
+       <segtitle>Installed directory</segtitle>
+ 
+       <seglistitem>
+-        <seg>meson, mesonconf, mesonintrospect, mesontest, and wraptool</seg>
+-		<seg>/usr/lib/python&python-minor;/site-packages/meson-&meson-version;-py&python-minor;.egg</seg>
++        <seg>meson</seg>
++        <seg>/usr/lib/python&python-minor;/site-packages/meson-&meson-version;-py&python-minor;.egg-info and /usr/lib/python&python-minor;/site-packages/mesonbuild</seg>
+       </seglistitem>
+     </segmentedlist>
+ 
+@@ -97,45 +97,6 @@ cp -rv dest/* /</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="mesonconf">
+-		<term><command>mesonconf</command></term>
+-        <listitem>
+-          <para>A tool to configure Meson builds</para>
+-          <indexterm zone="ch-system-meson mesonconf">
+-            <primary sortas="b-mesonconf">mesonconf</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+-      <varlistentry id="mesonintrospect">
+-		<term><command>mesonintrospect</command></term>
+-        <listitem>
+-          <para>A tool to extract information about a Meson build</para>
+-          <indexterm zone="ch-system-meson mesonintrospect">
+-            <primary sortas="b-mesonintrospect">mesonintrospect</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+-      <varlistentry id="mesontest">
+-		<term><command>mesontest</command></term>
+-        <listitem>
+-          <para>Test tool for the Meson build system</para>
+-          <indexterm zone="ch-system-meson mesontest">
+-            <primary sortas="b-mesontest">mesontest</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+-      <varlistentry id="wraptool">
+-		<term><command>wraptool</command></term>
+-        <listitem>
+-          <para>Source dependency downloader</para>
+-          <indexterm zone="ch-system-meson wraptool">
+-            <primary sortas="b-wraptool">wraptool</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+     </variablelist>
+ 
+   </sect2>

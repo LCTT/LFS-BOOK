@@ -1,0 +1,219 @@
+diff --git a/chapter06/glibc.xml b/chapter06/glibc.xml
+index e109f7a..c7e0949 100644
+--- a/chapter06/glibc.xml
++++ b/chapter06/glibc.xml
+@@ -61,30 +61,28 @@
+ 
+ <screen><userinput remap="pre">patch -Np1 -i ../&glibc-glob-patch;</userinput></screen>
+ -->
+-    <para>First create a compatibility symlink to avoid references to /tools in
+-    our final glibc:</para>
++    <para>Fix a problem introduced with the linux-5.2 kernel:</para>
+ 
+-<screen><userinput remap="pre">ln -sfv /tools/lib/gcc /usr/lib</userinput></screen>
++<screen><userinput remap="pre">sed -i '/asm.socket.h/a# include &lt;linux/sockios.h&gt;' \
++   sysdeps/unix/sysv/linux/bits/socket.h</userinput></screen>
+ 
+-    <para>Determine the GCC include directory and create a symlink for LSB
++    <para>Create a symlink for LSB
+     compliance. Additionally, for x86_64, create a compatibility symlink
+     required for the dynamic loader to function correctly:</para>
+ 
+ <screen><userinput remap="pre">case $(uname -m) in
+-    i?86)    GCC_INCDIR=/usr/lib/gcc/$(uname -m)-pc-linux-gnu/&gcc-version;/include
+-            ln -sfv ld-linux.so.2 /lib/ld-lsb.so.3
++    i?86)   ln -sfv ld-linux.so.2 /lib/ld-lsb.so.3
+     ;;
+-    x86_64) GCC_INCDIR=/usr/lib/gcc/x86_64-pc-linux-gnu/&gcc-version;/include
+-            ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64
++    x86_64) ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64
+             ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
+     ;;
+ esac</userinput></screen>
+-
++<!--
+     <para>Remove a file that may be left over from a previous build attempt:
+     </para>
+ 
+ <screen><userinput remap="pre">rm -f /usr/include/limits.h</userinput></screen>
+-
++-->
+     <para>The Glibc documentation recommends building Glibc 
+     in a dedicated build directory:</para>
+ 
+@@ -93,22 +91,23 @@ cd       build</userinput></screen>
+ 
+     <para>Prepare Glibc for compilation:</para>
+ 
+-<screen><userinput remap="configure">CC="gcc -isystem $GCC_INCDIR -isystem /usr/include" \
++<screen><userinput remap="configure">CC="gcc -ffile-prefix-map=/tools=/usr" \
+ ../configure --prefix=/usr                          \
+              --disable-werror                       \
+              --enable-kernel=&min-kernel;                    \
+              --enable-stack-protector=strong        \
+-             libc_cv_slibdir=/lib
+-unset GCC_INCDIR</userinput></screen>
++             --with-headers=/usr/include            \
++             libc_cv_slibdir=/lib</userinput></screen>
+ 
+    <variablelist>
+       <title>The meaning of the options and new configure parameters:</title>
+ 
+       <varlistentry>
+-        <term><parameter>CC="gcc -isystem $GCC_INCDIR -isystem /usr/include"</parameter></term>
++        <term><parameter>CC="gcc -ffile-prefix-map=/tools=/usr"</parameter></term>
+         <listitem>
+-          <para>Setting the location of both gcc and system include directories
+-          avoids introduction of invalid paths in debugging symbols.</para>
++          <para>Make GCC record any references to files in /tools in result
++          of the compilation as if the files resided in /usr.  This avoids
++          introduction of invalid paths in debugging symbols.</para>
+         </listitem>
+       </varlistentry>
+ 
+@@ -129,6 +128,15 @@ unset GCC_INCDIR</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry>
++        <term><parameter>--with-headers=/usr/include</parameter></term>
++        <listitem>
++          <para>This option tells the build system where to find the
++          kernel API headers. By default, those headers are sought in
++          <filename class="directory">/tools/include</filename>.</para>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry>
+         <term><parameter>libc_cv_slibdir=/lib</parameter></term>
+         <listitem>
+@@ -429,9 +437,7 @@ unset ZONEINFO</userinput></screen>
+     <para>Then create the <filename>/etc/localtime</filename> file by
+     running:</para>
+ 
+-<screen revision="sysv"><userinput>cp -v /usr/share/zoneinfo/<replaceable>&lt;xxx&gt;</replaceable> /etc/localtime</userinput></screen>
+-
+-<screen revision="systemd"><userinput>ln -sfv /usr/share/zoneinfo/<replaceable>&lt;xxx&gt;</replaceable> /etc/localtime</userinput></screen>
++<screen><userinput>ln -sfv /usr/share/zoneinfo/<replaceable>&lt;xxx&gt;</replaceable> /etc/localtime</userinput></screen>
+ 
+     <para>Replace <replaceable>&lt;xxx&gt;</replaceable> with the name of the
+     time zone selected (e.g., Canada/Eastern).</para>
+@@ -495,22 +501,22 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
+       <seglistitem>
+         <seg>catchsegv, gencat, getconf, getent, iconv, iconvconfig, ldconfig,
+         ldd, lddlibc4, locale, localedef, makedb, mtrace, nscd, 
+-        pldd, sln, sotruss, sprof, tzselect, xtrace,
++        pcprofiledump, pldd, sln, sotruss, sprof, tzselect, xtrace,
+         zdump, and zic</seg>
+         <seg>ld-&glibc-version;.so, libBrokenLocale.{a,so}, libSegFault.so, libanl.{a,so},
+-        libc.{a,so}, libc_nonshared.a, libcidn.so,
+-        libcrypt.{a,so}, libdl.{a,so}, libg.a, libieee.a, libm.{a,so},
+-        libmcheck.a, libmemusage.so, libnsl.{a,so}, libnss_compat.so,
+-        libnss_dns.so, libnss_files.so, libnss_hesiod.so, libnss_nis.so,
+-        libnss_nisplus.so, libpthread.{a,so},
+-        libpthread_nonshared.a, libresolv.{a,so}, librpcsvc.a, librt.{a,so},
++        libc.{a,so}, libc_nonshared.a,
++        libcrypt.{a,so}, libdl.{a,so}, libg.a, libm.{a,so},
++        libmcheck.a, libmemusage.so, libmvec.{a,so}, libnsl.{a,so},
++        libnss_compat.so, libnss_dns.so, libnss_files.so, libnss_hesiod.so,
++        libpcprofile.so, libpthread.{a,so},
++        libpthread_nonshared.a, libresolv.{a,so}, librt.{a,so},
+         libthread_db.so, and libutil.{a,so}</seg>
+         <seg>/usr/include/arpa, /usr/include/bits, /usr/include/gnu,
+         /usr/include/net, /usr/include/netash, /usr/include/netatalk,
+         /usr/include/netax25, /usr/include/neteconet, /usr/include/netinet,
+         /usr/include/netipx, /usr/include/netiucv, /usr/include/netpacket,
+         /usr/include/netrom, /usr/include/netrose, /usr/include/nfs,
+-        /usr/include/protocols, /usr/include/rpc, /usr/include/rpcsvc,
++        /usr/include/protocols, /usr/include/rpc,
+         /usr/include/sys, /usr/lib/audit, /usr/lib/gconv, /usr/lib/locale,
+         /usr/libexec/getconf, /usr/share/i18n, /usr/share/zoneinfo,
+         /var/cache/nscd, and /var/lib/nss_db</seg>
+@@ -668,6 +674,16 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="pcprofiledump">
++        <term><command>pcprofiledump</command></term>
++        <listitem>
++          <para>Dump information generated by PC profiling</para>
++          <indexterm zone="ch-system-glibc pcprofiledump">
++            <primary sortas="b-pcprofiledump">pcprofiledump</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="pldd">
+         <term><command>pldd</command></term>
+         <listitem>
+@@ -804,17 +820,6 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="libcidn">
+-        <term><filename class="libraryfile">libcidn</filename></term>
+-        <listitem>
+-          <para>Used internally by Glibc for handling internationalized domain
+-          names in the <function>getaddrinfo()</function> function</para>
+-          <indexterm zone="ch-system-glibc libcidn">
+-            <primary sortas="c-libcidn">libcidn</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+       <varlistentry id="libcrypt">
+         <term><filename class="libraryfile">libcrypt</filename></term>
+         <listitem>
+@@ -846,18 +851,6 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="libieee">
+-        <term><filename class="libraryfile">libieee</filename></term>
+-        <listitem>
+-          <para>Linking in this module forces error handling rules for math
+-          functions as defined by the Institute of Electrical and Electronic
+-          Engineers (IEEE). The default is POSIX.1 error handling</para>
+-          <indexterm zone="ch-system-glibc libieee">
+-            <primary sortas="c-libieee">libieee</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+       <varlistentry id="libm">
+         <term><filename class="libraryfile">libm</filename></term>
+         <listitem>
+@@ -911,6 +904,16 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="libpcprofile">
++        <term><filename class="libraryfile">libpcprofile</filename></term>
++        <listitem>
++          <para>Can be preloaded to PC profile an executable</para>
++          <indexterm zone="ch-system-glibc libpcprofile">
++            <primary sortas="c-libpcprofile">libpcprofile</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="libpthread">
+         <term><filename class="libraryfile">libpthread</filename></term>
+         <listitem>
+@@ -932,16 +935,6 @@ mkdir -pv /etc/ld.so.conf.d</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="librpcsvc">
+-        <term><filename class="libraryfile">librpcsvc</filename></term>
+-        <listitem>
+-          <para>Contains functions providing miscellaneous RPC services</para>
+-          <indexterm zone="ch-system-glibc librpcsvc">
+-            <primary sortas="c-librpcsvc">librpcsvc</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+       <varlistentry id="librt">
+         <term><filename class="libraryfile">librt</filename></term>
+         <listitem>

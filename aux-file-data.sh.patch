@@ -1,0 +1,15 @@
+diff --git a/aux-file-data.sh b/aux-file-data.sh
+index f13f6d0..8be1b1d 100644
+--- a/aux-file-data.sh
++++ b/aux-file-data.sh
+@@ -10,8 +10,8 @@ FILE=$1
+ ./make-aux-files.sh
+ 
+ # Bootscript data
+-bootscripts=$(ls lfs-bootscripts*.bz2)
+-base=$(basename $bootscripts .tar.bz2)
++bootscripts=$(ls lfs-bootscripts*.xz)
++base=$(basename $bootscripts .tar.xz)
+ bootsize=$(ls -l --block-size=1024 $bootscripts | cut -f5 -d" ")
+ bootmd5=$(md5sum $bootscripts | cut -f1 -d" ")
+ 

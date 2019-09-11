@@ -1,0 +1,13 @@
+diff --git a/chapter05/gcc-pass2.xml b/chapter05/gcc-pass2.xml
+index b5c56c1..8531e23 100644
+--- a/chapter05/gcc-pass2.xml
++++ b/chapter05/gcc-pass2.xml
+@@ -9,7 +9,7 @@
+   <?dbhtml filename="gcc-pass2.html"?>
+ 
+   <sect1info condition="script">
+-    <productname>gcc</productname>
++    <productname>gcc-pass2</productname>
+     <productnumber>&gcc-version;</productnumber>
+     <address>&gcc-url;</address>
+   </sect1info>

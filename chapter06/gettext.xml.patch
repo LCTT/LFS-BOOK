@@ -1,0 +1,40 @@
+diff --git a/chapter06/gettext.xml b/chapter06/gettext.xml
+index 6cd3e1a..6d50449 100644
+--- a/chapter06/gettext.xml
++++ b/chapter06/gettext.xml
+@@ -52,19 +52,22 @@
+ 
+    There is no reference to 'test' or TEST in  gettext-tools/gnulib-tests/Makefile.am
+    -->
++   <!--
+    <para>First, suppress two invocations of test-lock which on some machines
+    can loop forever:</para>
+ 
+ <screen><userinput remap="pre">sed -i '/^TESTS =/d' gettext-runtime/tests/Makefile.in &amp;&amp;
+-sed -i 's/test-lock..EXEEXT.//' gettext-tools/gnulib-tests/Makefile.in</userinput></screen>
++sed -i 's/test-lock..EXEEXT.//' gettext-tools/gnulib-tests/Makefile.in</userinput></screen>-->
+ 
+    <!-- As of April 11, 2018 appdata.* is NOT in git master, but appears
+    to be in metainfo.{its,loc},  When updating, check BLFS gnome-screenshot. -->
++
++<!--
+    <para>Now fix a configuration file:</para>
+ 
+ <screen><userinput remap="pre">sed -e '/AppData/{N;N;p;s/\.appdata\./.metainfo./}' \
+     -i gettext-tools/its/appdata.loc</userinput></screen>
+-
++-->
+     <para>Prepare Gettext for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr    \
+@@ -102,8 +105,8 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
+         ngettext, recode-sr-latin, and xgettext</seg>
+         <seg>libasprintf.so, libgettextlib.so, libgettextpo.so,
+         libgettextsrc.so, and preloadable_libintl.so</seg>
+-        <seg>/usr/lib/gettext, /usr/share/doc/gettext-&gettext-version;, and
+-        /usr/share/gettext</seg>
++        <seg>/usr/lib/gettext, /usr/share/doc/gettext-&gettext-version;,
++        /usr/share/gettext, and /usr/share/gettext-0.19.8</seg>
+       </seglistitem>
+     </segmentedlist>
+ 

@@ -1,0 +1,30 @@
+diff --git a/chapter06/psmisc.xml b/chapter06/psmisc.xml
+index 19d31ce..b013031 100644
+--- a/chapter06/psmisc.xml
++++ b/chapter06/psmisc.xml
+@@ -70,7 +70,7 @@ mv -v /usr/bin/killall /bin</userinput></screen>
+       <segtitle>Installed programs</segtitle>
+ 
+       <seglistitem>
+-        <seg>fuser, killall, peekfd, prtstat, pstree, and pstree.x11 (link to pstree)</seg>
++        <seg>fuser, killall, peekfd, prtstat, pslog, pstree, and pstree.x11 (link to pstree)</seg>
+       </seglistitem>
+     </segmentedlist>
+ 
+@@ -122,6 +122,16 @@ mv -v /usr/bin/killall /bin</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="pslog">
++        <term><command>pslog</command></term>
++        <listitem>
++          <para>Reports current logs path of a process</para>
++          <indexterm zone="ch-system-psmisc pslog">
++            <primary sortas="b-pslog">pslog</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="pstree">
+         <term><command>pstree</command></term>
+         <listitem>

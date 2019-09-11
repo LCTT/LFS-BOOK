@@ -1,0 +1,61 @@
+diff --git a/chapter05/gettext.xml b/chapter05/gettext.xml
+index c88c0f4..ff064cb 100644
+--- a/chapter05/gettext.xml
++++ b/chapter05/gettext.xml
+@@ -43,17 +43,16 @@
+   <sect2 role="installation">
+     <title>Installation of Gettext</title>
+ 
+-    <para>For our temporary set of tools, we only need to build and install
++    <para>For our temporary set of tools, we only need to install
+     three programs from Gettext.</para>
+ 
+     <para>Prepare Gettext for compilation:</para>
+ 
+-<screen><userinput remap="configure">cd gettext-tools
+-EMACS="no" ./configure --prefix=/tools --disable-shared</userinput></screen>
++<screen><userinput remap="configure">./configure --disable-shared</userinput></screen>
+ 
+     <variablelist>
+       <title>The meaning of the configure option:</title>
+-
++<!--
+       <varlistentry>
+         <term><parameter>EMACS="no"</parameter></term>
+         <listitem>
+@@ -62,7 +61,7 @@ EMACS="no" ./configure --prefix=/tools --disable-shared</userinput></screen>
+           </para>
+         </listitem>
+       </varlistentry>
+-
++-->
+       <varlistentry>
+         <term><parameter>--disable-shared</parameter></term>
+         <listitem>
+@@ -75,21 +74,16 @@ EMACS="no" ./configure --prefix=/tools --disable-shared</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 
+-<screen><userinput remap="make">make -C gnulib-lib
+-make -C intl pluralx.c
+-make -C src msgfmt
+-make -C src msgmerge
+-make -C src xgettext</userinput></screen>
++<screen><userinput remap="make">make</userinput></screen>
+ 
+-    <para>As only three programs have been compiled, it is not possible to run the
+-    test suite without compiling additional support libraries from the Gettext
+-    package. It is therefore not recommended to attempt to run the test suite at
+-    this stage.</para>
++    <para>
++    Due to the limited environment, running the test suite at this stage
++    is not recommended.</para>
+ 
+     <para>Install the <command>msgfmt</command>, <command>msgmerge</command> and
+     <command>xgettext</command> programs:</para>
+ 
+-<screen><userinput remap="install">cp -v src/{msgfmt,msgmerge,xgettext} /tools/bin</userinput></screen>
++<screen><userinput remap="install">cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /tools/bin</userinput></screen>
+ 
+   </sect2>
+ 

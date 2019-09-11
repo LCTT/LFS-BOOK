@@ -1,0 +1,52 @@
+diff --git a/chapter06/binutils.xml b/chapter06/binutils.xml
+index 4435db7..3d7f532 100644
+--- a/chapter06/binutils.xml
++++ b/chapter06/binutils.xml
+@@ -57,6 +57,11 @@
+ <screen><computeroutput>The system has no more ptys.
+ Ask your system administrator to create more.</computeroutput></screen>
+ 
++    <para>Now remove one test that prevents the tests from running
++    to completion:</para>
++
++<screen><userinput remap="pre">sed -i '/@\tincremental_copy/d' gold/testsuite/Makefile.in</userinput></screen>
++
+     <para>The Binutils documentation recommends building Binutils 
+     in a dedicated build directory:</para>
+ 
+@@ -152,7 +157,8 @@ cd       build</userinput></screen>
+ 
+ <screen><userinput remap="test">make -k check</userinput></screen>
+ 
+-    <para>One test, debug_msg.sh, is known to fail.</para>
++    <para>The PC-relative offset test and  
++    the debug_msg.sh test may fail in the LFS environment.</para>
+ 
+     <para>Install the package:</para>
+ 
+@@ -169,7 +175,7 @@ cd       build</userinput></screen>
+       <segtitle>Installed directory</segtitle>
+ 
+       <seglistitem>
+-        <seg>addr2line, ar, as, c++filt, elfedit, gprof, ld, ld.bfd, ld.gold, nm,
++        <seg>addr2line, ar, as, c++filt, dwp, elfedit, gprof, ld, ld.bfd, ld.gold, nm,
+         objcopy, objdump, ranlib, readelf, size, strings, and strip</seg>
+         <seg>libbfd.{a,so} and libopcodes.{a,so}</seg>
+         <seg>/usr/lib/ldscripts</seg>
+@@ -226,6 +232,16 @@ cd       build</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="dwp">
++        <term><command>dwp</command></term>
++        <listitem>
++          <para>The DWARF packaging utility</para>
++          <indexterm zone="ch-system-binutils dwp">
++            <primary sortas="dwp">dwp</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="elfedit">
+         <term><command>elfedit</command></term>
+         <listitem>

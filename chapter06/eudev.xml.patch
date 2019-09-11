@@ -1,0 +1,80 @@
+diff --git a/chapter06/eudev.xml b/chapter06/eudev.xml
+index 8f66814..742fa5d 100644
+--- a/chapter06/eudev.xml
++++ b/chapter06/eudev.xml
+@@ -49,7 +49,8 @@
+ 
+ <screen><userinput remap="pre">sed -i '/keyboard_lookup_key/d' src/udev/udev-builtin-keyboard.c</userinput></screen>
+ -->
+-    <para>Next, add a workaround to prevent the /tools directory from being 
++<!--
++    <para>First, add a workaround to prevent the /tools directory from being 
+     hard coded into Eudev binary files library locations:</para>
+ 
+ <screen><userinput remap="pre">cat &gt; config.cache &lt;&lt; "EOF"
+@@ -57,7 +58,7 @@ HAVE_BLKID=1
+ BLKID_LIBS="-lblkid"
+ BLKID_CFLAGS="-I/tools/include"
+ EOF</userinput></screen>
+-
++-->
+ <para>Prepare Eudev for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr           \
+@@ -69,11 +70,13 @@ EOF</userinput></screen>
+             --with-rootprefix=      \
+             --with-rootlibdir=/lib  \
+             --enable-manpages       \
+-            --disable-static        \
+-            --config-cache</userinput></screen>
++            --disable-static</userinput></screen>
++<!--           - -config-cache</userinput></screen> -->
+ 
+ <para>Compile the package:</para>
+ 
++<screen><userinput remap="make">make</userinput></screen>
++<!--
+ <screen><userinput remap="make">LIBRARY_PATH=/tools/lib make</userinput></screen>
+ 
+ <note><para>The LIBRARY_PATH variable here and the LD_LIBRARY_PATH variable
+@@ -81,7 +84,7 @@ below are needed to allow the use of libraries that were installed in /tools,
+ but have not yet been installed in the main system.  LIBRARY_PATH is
+ used to find libraries during the linking process.  LD_LIBRARY_PATH is
+ used to find libraries during program execution.</para></note>
+-
++-->
+ <para>Create some directories now that are needed for tests, but
+ will also be used as a part of installation:</para>
+ 
+@@ -90,16 +93,18 @@ mkdir -pv /etc/udev/rules.d</userinput></screen>
+ 
+ <para>To test the results, issue:</para>
+ 
+-<screen><userinput remap="test">make LD_LIBRARY_PATH=/tools/lib check</userinput></screen>
++<screen><userinput remap="test">make check</userinput></screen>
++<!--<screen><userinput remap="test">make LD_LIBRARY_PATH=/tools/lib check</userinput></screen>-->
+ 
+     <para>Install the package:</para>
+ 
+-<screen><userinput remap="install">make LD_LIBRARY_PATH=/tools/lib install</userinput></screen>
++<screen><userinput remap="install">make install</userinput></screen>
++<!--<screen><userinput remap="install">make LD_LIBRARY_PATH=/tools/lib install</userinput></screen>-->
+ 
+     <para>Install some custom rules and support files useful in an LFS 
+     environment:</para>
+ 
+-<screen><userinput remap="install">tar -xvf ../&udev-lfs-version;.tar.bz2
++<screen><userinput remap="install">tar -xvf ../&udev-lfs-version;.tar.xz
+ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
+ 
+   </sect2>
+@@ -123,7 +128,8 @@ make -f &udev-lfs-version;/Makefile.lfs install</userinput></screen>
+     into a binary database <filename>/etc/udev/hwdb.bin</filename>. Create the
+     initial database:</para>
+ 
+-<screen><userinput>LD_LIBRARY_PATH=/tools/lib udevadm hwdb --update</userinput></screen>
++<!--<screen><userinput>LD_LIBRARY_PATH=/tools/lib udevadm hwdb - -update</userinput></screen>-->
++<screen><userinput>udevadm hwdb --update</userinput></screen>
+ 
+     <para>This command needs to be run each time the hardware information is
+     updated.</para>

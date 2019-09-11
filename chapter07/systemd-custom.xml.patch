@@ -1,0 +1,15 @@
+diff --git a/chapter07/systemd-custom.xml b/chapter07/systemd-custom.xml
+index 4cea2b2..7849c78 100644
+--- a/chapter07/systemd-custom.xml
++++ b/chapter07/systemd-custom.xml
+@@ -112,8 +112,8 @@ EOF</userinput></screen>
+       be copied to <filename class="directory">/etc/tmpfiles.d</filename>
+       and edited as desired.  For example:
+ 
+-<screen role="nodump"><userinput>mkdir -p /etc/tempfiles.d
+-cp /usr/lib/tmpfiles.d/tmp.conf /etc/tempfiles.d</userinput></screen>
++<screen role="nodump"><userinput>mkdir -p /etc/tmpfiles.d
++cp /usr/lib/tmpfiles.d/tmp.conf /etc/tmpfiles.d</userinput></screen>
+      </para>
+ 
+   </sect2>

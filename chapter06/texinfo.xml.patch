@@ -1,0 +1,25 @@
+diff --git a/chapter06/texinfo.xml b/chapter06/texinfo.xml
+index 97a5a99..d61df47 100644
+--- a/chapter06/texinfo.xml
++++ b/chapter06/texinfo.xml
+@@ -41,10 +41,6 @@
+   <sect2 role="installation">
+     <title>Installation of Texinfo</title>
+ 
+-    <para>Fix a file that creates a lot of failures in the regression checks:</para>
+-
+-<screen><userinput remap="pre">sed -i '5481,5485 s/({/(\\{/' tp/Texinfo/Parser.pm</userinput></screen>
+-
+     <para>Prepare Texinfo for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr --disable-static</userinput></screen>
+@@ -124,7 +120,8 @@ popd</userinput></screen>
+       <seglistitem>
+         <seg>info, install-info, makeinfo (link to texi2any),
+         pdftexi2dvi, pod2texi, texi2any, texi2dvi, texi2pdf, and texindex</seg>
+-        <seg>XSParagraph.so</seg>
++        <seg>MiscXS.so, Parsetexi.so, and XSParagraph.so
++        (all in /usr/lib/texinfo)</seg>
+         <seg>/usr/share/texinfo and /usr/lib/texinfo</seg>
+       </seglistitem>
+     </segmentedlist>

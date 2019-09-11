@@ -1,0 +1,43 @@
+diff --git a/chapter06/python.xml b/chapter06/python.xml
+index e044f33..d33dd10 100644
+--- a/chapter06/python.xml
++++ b/chapter06/python.xml
+@@ -90,7 +90,8 @@
+ 
+ <screen><userinput remap="install">make install
+ chmod -v 755 /usr/lib/libpython&python-minor;m.so
+-chmod -v 755 /usr/lib/libpython3.so</userinput></screen>
++chmod -v 755 /usr/lib/libpython3.so
++ln -sfv pip3.7 /usr/bin/pip3</userinput></screen>
+ 
+     <variablelist>
+       <title>The meaning of the install commands:</title>
+@@ -142,7 +143,7 @@ tar --strip-components=1  \
+ 
+       <seglistitem>
+         <seg>
+-          2to3, idle3, pydoc3, python3, python3-config, pyvenv
++          2to3, idle3, pip3, pydoc3, python3, python3-config, and pyvenv
+         </seg>
+         <seg>
+           libpython&python-minor;m.so and libpython3.so
+@@ -189,6 +190,19 @@ tar --strip-components=1  \
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="pip3">
++        <term><command>pip3</command></term>
++        <listitem>
++          <para>
++            The package installer for Python. You can use pip to install
++            packages from Python Package Index and other indexes.
++          </para>
++          <indexterm zone="ch-system-Python">
++            <primary sortas="b-pip3">pip3</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="pydoc3">
+         <term><command>pydoc3</command></term>
+         <listitem>

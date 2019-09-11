@@ -1,0 +1,30 @@
+diff --git a/chapter06/linux-headers.xml b/chapter06/linux-headers.xml
+index edc90b9..1bf45bf 100644
+--- a/chapter06/linux-headers.xml
++++ b/chapter06/linux-headers.xml
+@@ -9,7 +9,7 @@
+   <?dbhtml filename="linux-headers.html"?>
+ 
+   <sect1info condition="script">
+-    <productname>linux</productname>
++    <productname>linux-headers</productname>
+     <productnumber>&linux-version;</productnumber>
+     <address>&linux-url;</address>
+   </sect1info>
+@@ -130,6 +130,16 @@ find dest/include \( -name .install -o -name ..install.cmd \) -delete
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="misc">
++        <term><filename class="headerfile">/usr/include/misc/*.h</filename></term>
++        <listitem>
++          <para>The Linux API Miscellaneous Headers</para>
++          <indexterm zone="ch-system-linux-headers misc">
++            <primary sortas="e-/usr/include/misc/*.h">/usr/include/misc/*.h</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="mtd">
+         <term><filename class="headerfile">/usr/include/mtd/*.h</filename></term>
+         <listitem>

@@ -1,0 +1,25 @@
+diff --git a/chapter07/usage.xml b/chapter07/usage.xml
+index 89d6573..b160ff3 100644
+--- a/chapter07/usage.xml
++++ b/chapter07/usage.xml
+@@ -480,7 +480,7 @@ EOF</userinput></screen>
+ KEYMAP="de-latin1"
+ KEYMAP_CORRECTIONS="euro2"
+ FONT="lat0-16 -m 8859-15"
+-UNICODE=1
++UNICODE="1"
+ 
+ # End /etc/sysconfig/console</literal>
+ EOF</userinput></screen>
+@@ -489,8 +489,9 @@ EOF</userinput></screen>
+     <listitem>
+       <para>The following is a Unicode-enabled example for Bulgarian, where a
+       stock UTF-8 keymap exists:</para>
+-
+-<screen role="nodump"><userinput>cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
++<!-- This is what is used by jhalfs for creating the console file: whenever
++     you change the following, please inform the jhalfs maintainer(s). -->
++<screen><userinput>cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
+ <literal># Begin /etc/sysconfig/console
+ 
+ UNICODE="1"

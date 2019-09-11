@@ -1,0 +1,18 @@
+diff --git a/chapter06/findutils.xml b/chapter06/findutils.xml
+index 9ea7d6f..20da93a 100644
+--- a/chapter06/findutils.xml
++++ b/chapter06/findutils.xml
+@@ -107,10 +107,13 @@ sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</userinput></screen>
+ 
+     <segmentedlist>
+       <segtitle>Installed programs</segtitle>
++      <segtitle>Installed directory</segtitle>
+ 
+       <seglistitem>
+         <seg>find, locate, updatedb, and xargs</seg>
++        <seg>/var/lib/locate</seg>
+       </seglistitem>
++
+     </segmentedlist>
+ 
+     <variablelist>

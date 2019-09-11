@@ -1,0 +1,21 @@
+diff --git a/chapter06/creatingdirs.xml b/chapter06/creatingdirs.xml
+index e68efbf..129e94f 100644
+--- a/chapter06/creatingdirs.xml
++++ b/chapter06/creatingdirs.xml
+@@ -22,6 +22,7 @@ mkdir -pv /usr/{,local/}share/{color,dict,doc,info,locale,man}
+ mkdir -v  /usr/{,local/}share/{misc,terminfo,zoneinfo}
+ mkdir -v  /usr/libexec
+ mkdir -pv /usr/{,local/}share/man/man{1..8}
++mkdir -v  /usr/lib/pkgconfig
+ 
+ case $(uname -m) in
+  x86_64) mkdir -v /lib64 ;;
+@@ -52,7 +53,7 @@ mkdir -pv /var/{opt,cache,lib/{color,misc,locate},local}</userinput></screen>
+ 
+     <para>The directory tree is based on the Filesystem Hierarchy Standard
+     (FHS) (available at <ulink
+-    url="https://wiki.linuxfoundation.org/en/FHS"/>).  The FHS also specifies
++    url="https://refspecs.linuxfoundation.org/fhs.shtml"/>).  The FHS also specifies
+     the optional existence of some directories such as <filename
+     class="directory">/usr/local/games</filename> and <filename
+     class="directory">/usr/share/games</filename>.  We create only the

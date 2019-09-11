@@ -1,0 +1,234 @@
+diff --git a/chapter06/gcc.xml b/chapter06/gcc.xml
+index 46d0d10..a9c8fa1 100644
+--- a/chapter06/gcc.xml
++++ b/chapter06/gcc.xml
+@@ -51,11 +51,6 @@
+   ;;
+ esac</userinput></screen>
+ 
+-    <para>Remove the symlink created earlier as the final gcc includes will be
+-    installed here:</para>
+-
+-<screen><userinput remap="pre">rm -f /usr/lib/gcc</userinput></screen>
+-
+     <para>The GCC documentation recommends building GCC in a dedicated build directory:</para>
+ 
+ <screen><userinput remap="pre">mkdir -v build
+@@ -68,7 +63,6 @@ cd       build</userinput></screen>
+              --enable-languages=c,c++ \
+              --disable-multilib       \
+              --disable-bootstrap      \
+-             --disable-libmpx         \
+              --with-system-zlib</userinput></screen>
+ 
+     <para>Note that for other languages, there are some prerequisites that
+@@ -86,16 +80,16 @@ cd       build</userinput></screen>
+           path to /tools/bin/sed.</para>
+         </listitem>
+       </varlistentry>
+- 
++      <!-- 
+       <varlistentry>
+-        <term><parameter>--disable-libmpx</parameter></term>
++        <term><parameter>- -disable-libmpx</parameter></term>
+         <listitem>
+           <para>This switch tells GCC to not build mpx (Memory Protection
+           Extensions) that can cause problems on some processors. It has
+           been removed from the next version of gcc.</para>
+         </listitem>
+       </varlistentry>
+-
++      -->
+       <varlistentry>
+         <term><parameter>--with-system-zlib</parameter></term>
+         <listitem>
+@@ -119,10 +113,6 @@ cd       build</userinput></screen>
+ 
+ <screen><userinput remap="test">ulimit -s 32768</userinput></screen>
+ 
+-    <para>Remove one test known to cause a problem:</para>
+-
+-<screen><userinput remap="test">rm ../gcc/testsuite/g++.dg/pr83239.C</userinput></screen>
+-
+     <para>Test the results as a non-privileged user, but do not stop at errors:</para>
+ 
+ <screen><userinput remap="test">chown -Rv nobody . 
+@@ -139,23 +129,41 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+     url="&test-results;"/> and
+     <ulink url="https://gcc.gnu.org/ml/gcc-testresults/"/>.</para>
+ 
++    <para>Six tests related to get_time are known to fail.  These are
++    apparently related to the en_HK locale.</para>
++
++    <para>Two tests named lookup.cc and reverse.cc in experimental/net
++    are known to fail in LFS chroot environment because they require
++    /etc/hosts and iana-etc.</para>
++
++    <para>Two tests named pr57193.c and pr90178.c are known to fail.</para>
++
+     <para>A few unexpected failures cannot always be avoided. The GCC developers
+     are usually aware of these issues, but have not resolved them yet.
+     Unless the test results are vastly different from those at the above URL,
+     it is safe to continue.</para>
+ 
+-    <note><para>
++    <!--note><para>
+       On some combinations of kernel configuration and AMD processors
+       there may be more than 1100 failures in the gcc.target/i386/mpx
+       tests (which are designed to test the MPX option on recent
+       Intel processors). These can safely be ignored on AMD
+       processors. These tests will also fail on Intel processors if MPX support
+       is not enabled in the kernel even though it is present on the CPU.
+-    </para></note>
++    </para></note-->
++
++    <para>Install the package and remove an unneeded directory:</para>
++
++<screen><userinput remap="install">make install
++rm -rf /usr/lib/gcc/$(gcc -dumpmachine)/&gcc-version;/include-fixed/bits/</userinput></screen>
+ 
+-    <para>Install the package:</para>
++    <para>The GCC build directory is owned by <systemitem class="username">
++    nobody</systemitem> now and the ownership of the installed header
++    directory (and its content) will be incorrect.  Change the ownership to
++    <systemitem class="username">root</systemitem> user and group:</para>
+ 
+-<screen><userinput remap="install">make install</userinput></screen>
++<screen><userinput remap="install">chown -v -R root:root \
++    /usr/lib/gcc/*linux-gnu/&gcc-version;/include{,-fixed}</userinput></screen>
+ 
+     <para>Create a symlink required by the <ulink
+     url="https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink>
+@@ -335,13 +343,14 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
+ 
+       <seglistitem>
+         <seg>c++, cc (link to gcc), cpp, g++, gcc,
+-        gcc-ar, gcc-nm, gcc-ranlib, and gcov</seg>
++        gcc-ar, gcc-nm, gcc-ranlib, gcov, gcov-dump, and gcov-tool</seg>
+ 
+-        <seg>libasan.{a,so}, libatomic.{a,so}, libgcc.a, libgcc_eh.a, 
+-        libgcc_s.so, libgcov.a, libgomp.{a,so}, libiberty.a, libitm.{a,so},
+-        liblto_plugin.so, 
+-        libquadmath.{a,so}, libssp.{a,so},
+-        libssp_nonshared.a, libstdc++.{a,so}, libsupc++.a, and libtsan.{a,so}</seg>
++        <seg>libasan.{a,so}, libatomic.{a,so}, libcc1.so, libgcc.a, libgcc_eh.a,
++        libgcc_s.so, libgcov.a, libgomp.{a,so}, libitm.{a,so},
++        liblsan.{a,so}, liblto_plugin.so,
++        libquadmath.{a,so}, libssp.{a,so}, libssp_nonshared.a,
++        libstdc++.{a,so}, libstdc++fs.a, libsupc++.a, libtsan.{a,so},
++        and libubsan.{a,so}</seg>
+ 
+         <seg>/usr/include/c++, /usr/lib/gcc, /usr/libexec/gcc, and 
+         /usr/share/gcc-&gcc-version;</seg>
+@@ -454,8 +463,28 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="gcov-dump">
++        <term><command>gcov-dump</command></term>
++        <listitem>
++          <para>Offline gcda and gcno profile dump tool</para>
++          <indexterm zone="ch-system-gcc gcov-dump">
++            <primary sortas="b-gcov-dump">gcov-dump</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry id="gcov-tool">
++        <term><command>gcov-tool</command></term>
++        <listitem>
++          <para>Offline gcda profile processing tool</para>
++          <indexterm zone="ch-system-gcc gcov-tool">
++            <primary sortas="b-gcov-tool">gcov-tool</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="libasan">
+-        <term><command>libasan</command></term>
++        <term><filename class="libraryfile">libasan</filename></term>
+         <listitem>
+           <para>The Address Sanitizer runtime library</para>
+           <indexterm zone="ch-system-gcc libasan">
+@@ -464,6 +493,26 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="libatomic">
++        <term><filename class="libraryfile">libatomic</filename></term>
++        <listitem>
++          <para>GCC atomic built-in runtime library</para>
++          <indexterm zone="ch-system-gcc libatomic">
++            <primary sortas="b-libatomic">libatomic</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry id="libcc1">
++        <term><filename class="libraryfile">libcc1</filename></term>
++        <listitem>
++          <para>The C preprocessing library</para>
++          <indexterm zone="ch-system-gcc libcc1">
++            <primary sortas="b-libcc1">libcc1</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="libgcc">
+         <term><filename class="libraryfile">libgcc</filename></term>
+         <listitem>
+@@ -496,15 +545,12 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="libiberty">
+-        <term><filename class="libraryfile">libiberty</filename></term>
++      <varlistentry id="liblsan">
++        <term><filename class="libraryfile">liblsan</filename></term>
+         <listitem>
+-          <para>Contains routines used by various GNU programs, including
+-          <command>getopt</command>, <command>obstack</command>,
+-          <command>strerror</command>, <command>strtol</command>, and
+-          <command>strtoul</command></para>
+-          <indexterm zone="ch-system-gcc libiberty">
+-            <primary sortas="c-libiberty">libiberty</primary>
++          <para>The Leak Sanitizer runtime library</para>
++          <indexterm zone="ch-system-gcc liblsan">
++            <primary sortas="c-liblsan">liblsan</primary>
+           </indexterm>
+         </listitem>
+       </varlistentry>
+@@ -551,6 +597,16 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="libstdcfs">
++        <term><filename class="libraryfile">libstdc++fs</filename></term>
++        <listitem>
++          <para>ISO/IEC TS 18822:2015 Filesystem library</para>
++          <indexterm zone="ch-system-gcc libstdcfs">
++            <primary sortas="c-libstdc++fs">libstdc++fs</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="libsupc">
+         <term><filename class="libraryfile">libsupc++</filename></term>
+         <listitem>
+@@ -572,6 +628,16 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="libubsan">
++        <term><filename class="libraryfile">libubsan</filename></term>
++        <listitem>
++          <para>The Undefined Behavior Sanitizer runtime library</para>
++          <indexterm zone="ch-system-gcc libubsan">
++            <primary sortas="c-libubsan">libubsan</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+     </variablelist>
+ 
+   </sect2>

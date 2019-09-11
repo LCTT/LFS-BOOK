@@ -1,0 +1,173 @@
+diff --git a/chapter06/util-linux.xml b/chapter06/util-linux.xml
+index 62965c1..de24d67 100644
+--- a/chapter06/util-linux.xml
++++ b/chapter06/util-linux.xml
+@@ -60,9 +60,9 @@
+ <screen><userinput remap="pre">sed -e 's/2^64/(2^64/' -e 's/E &lt;/E) &lt;=/' -e 's/ne /eq /' \
+     -i tests/ts/ipcs/limits2</userinput></screen>
+ -->
+-    <para>Remove the earlier created symlinks:</para>
++    <para revision="systemd">Remove the earlier created symlinks:</para>
+ 
+-<screen><userinput remap="pre">rm -vf /usr/include/{blkid,libmount,uuid}</userinput></screen>
++<screen revision="systemd"><userinput remap="pre">rm -vf /usr/include/{blkid,libmount,uuid}</userinput></screen>
+ 
+     <para>Prepare Util-linux for compilation:</para>
+ 
+@@ -130,18 +130,18 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+       <segtitle>Installed directories</segtitle>
+ 
+       <seglistitem>
+-        <seg>addpart, agetty, blkdiscard, blkid, blockdev, cal, cfdisk, chcpu,
+-        choom, chrt, col, colcrt, colrm, column, ctrlaltdel, delpart, dmesg,
+-        eject, fallocate, fdformat, fdisk, findfs, findmnt, flock, fsck,
++        <seg>addpart, agetty, blkdiscard, blkid, blkzone, blockdev, cal, cfdisk, chcpu,
++        chmem, choom, chrt, col, colcrt, colrm, column, ctrlaltdel, delpart, dmesg,
++        eject, fallocate, fdformat, fdisk, fincore, findfs, findmnt, flock, fsck,
+         fsck.cramfs, fsck.minix, fsfreeze, fstrim, getopt, hexdump, hwclock,
+         i386, ionice, ipcmk, ipcrm, ipcs, isosize, kill, last, lastb (link to
+         last), ldattach, linux32, linux64, logger, look, losetup, lsblk, lscpu,
+-        lsipc, lslocks, lslogins, mcookie, mesg, mkfs, mkfs.bfs, mkfs.cramfs, mkfs.minix, mkswap,
+-        more, mount, mountpoint, namei, nsenter, partx, pg, pivot_root, prlimit, raw,
+-        readprofile, rename, renice, resizepart, rev, rtcwake, script,
++        lsipc, lslocks, lslogins, lsmem, lsns, mcookie, mesg, mkfs, mkfs.bfs, mkfs.cramfs, mkfs.minix, mkswap,
++        more, mount, mountpoint, namei, nsenter, partx, pivot_root, prlimit, raw,
++        readprofile, rename, renice, resizepart, rev, rfkill, rtcwake, script,
+         scriptreplay, setarch, setsid, setterm, sfdisk, sulogin, swaplabel,
+-        swapoff (link to swapon), swapon, switch_root, tailf, taskset, ul,
+-        umount, uname26, unshare, utmpdump, uuidd, uuidgen, wall, wdctl, whereis,
++        swapoff (link to swapon), swapon, switch_root, taskset, ul,
++        umount, uname26, unshare, utmpdump, uuidd, uuidgen, uuidparse, wall, wdctl, whereis,
+         wipefs, x86_64, and zramctl</seg>
+         <seg>libblkid.so, libfdisk.so, libmount.so, 
+         libsmartcols.so, and libuuid.so</seg>
+@@ -202,6 +202,16 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="blkzone">
++        <term><command>blkzone</command></term>
++        <listitem>
++          <para>Runs zone command on the given block device</para>
++          <indexterm zone="ch-system-util-linux blkzone">
++            <primary sortas="b-blkzone">blkzone</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="blockdev">
+         <term><command>blockdev</command></term>
+         <listitem>
+@@ -243,6 +253,16 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="chmem">
++        <term><command>chmem</command></term>
++        <listitem>
++          <para>Configures memory</para>
++          <indexterm zone="ch-system-util-linux chmem">
++            <primary sortas="b-chmem">chmem</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="choom">
+         <term><command>choom</command></term>
+         <listitem>
+@@ -375,6 +395,16 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="fincore">
++        <term><command>fincore</command></term>
++        <listitem>
++          <para>Counts pages of file contents in core</para>
++          <indexterm zone="ch-system-util-linux fincore">
++            <primary sortas="b-fincore">fincore</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="findfs">
+         <term><command>findfs</command></term>
+         <listitem>
+@@ -699,6 +729,27 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="lsmem">
++        <term><command>lsmem</command></term>
++        <listitem>
++          <para>Lists the ranges of available memory with their online
++          status</para>
++          <indexterm zone="ch-system-util-linux lsmem">
++            <primary sortas="b-lsmem">lsmem</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry id="lsns">
++        <term><command>lsns</command></term>
++        <listitem>
++          <para>Lists namespaces</para>
++          <indexterm zone="ch-system-util-linux lsns">
++            <primary sortas="b-lsns">lsns</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="mcookie">
+         <term><command>mcookie</command></term>
+         <listitem>
+@@ -835,16 +886,6 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="pg">
+-        <term><command>pg</command></term>
+-        <listitem>
+-          <para>Displays a text file one screen full at a time</para>
+-          <indexterm zone="ch-system-util-linux pg">
+-            <primary sortas="b-pg">pg</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+       <varlistentry id="pivot_root">
+         <term><command>pivot_root</command></term>
+         <listitem>
+@@ -927,6 +968,16 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="rkfill">
++        <term><command>rkfill</command></term>
++        <listitem>
++          <para>Tool for enabling and disabling wireless devices</para>
++          <indexterm zone="ch-system-util-linux rkfill">
++            <primary sortas="b-rkfill">rkfill</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="rtcwake">
+         <term><command>rtcwake</command></term>
+         <listitem>
+@@ -1149,6 +1200,16 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="uuidparse">
++        <term><command>uuidparse</command></term>
++        <listitem>
++          <para>An utility to parse unique identifiers</para>
++          <indexterm zone="ch-system-util-linux uuidparse">
++            <primary sortas="b-uuidparse">uuidparse</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="wall">
+         <term><command>wall</command></term>
+         <listitem>

@@ -1,0 +1,15 @@
+diff --git a/chapter06/tar.xml b/chapter06/tar.xml
+index d51bfa8..d148c46 100644
+--- a/chapter06/tar.xml
++++ b/chapter06/tar.xml
+@@ -40,10 +40,6 @@
+   <sect2 role="installation">
+     <title>Installation of Tar</title>
+ 
+-    <para>Fix a bug introduced in tar-1.31:</para>
+- 
+- <screen><userinput remap="pre">sed -i 's/abort.*/FALLTHROUGH;/' src/extract.c</userinput></screen>
+-
+     <para>Prepare Tar for compilation:</para>
+ 
+ <screen><userinput remap="configure">FORCE_UNSAFE_CONFIGURE=1  \

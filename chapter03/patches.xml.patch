@@ -1,0 +1,18 @@
+diff --git a/chapter03/patches.xml b/chapter03/patches.xml
+index 4fc795b..105b413 100644
+--- a/chapter03/patches.xml
++++ b/chapter03/patches.xml
+@@ -118,10 +118,10 @@
+     </varlistentry>
+ 
+     <varlistentry revision="systemd">
+-      <term>Systemd security patch - <token>&systemd-security-patch-size;</token>:</term>
++      <term>Systemd networkd and rdrand patch - <token>&systemd-networkd-patch-size;</token>:</term>
+       <listitem>
+-        <para>Download: <ulink url="&patches-root;&systemd-security-patch;"/></para>
+-        <para>MD5 sum: <literal>&systemd-security-patch-md5;</literal></para>
++        <para>Download: <ulink url="&patches-root;&systemd-networkd-patch;"/></para>
++        <para>MD5 sum: <literal>&systemd-networkd-patch-md5;</literal></para>
+       </listitem>
+     </varlistentry>
+ 

@@ -1,0 +1,13 @@
+diff --git a/chapter06/readline.xml b/chapter06/readline.xml
+index cb6c877..7f5b219 100644
+--- a/chapter06/readline.xml
++++ b/chapter06/readline.xml
+@@ -101,7 +101,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so</us
+ 
+       <seglistitem>
+         <seg>libhistory.so and libreadline.so</seg>
+-        <seg>/usr/include/readline, /usr/share/readline, and
++        <seg>/usr/include/readline and
+         /usr/share/doc/readline-&readline-version;</seg>
+       </seglistitem>
+     </segmentedlist>

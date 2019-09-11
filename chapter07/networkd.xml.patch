@@ -1,0 +1,18 @@
+diff --git a/chapter07/networkd.xml b/chapter07/networkd.xml
+index b446986..206f35f 100644
+--- a/chapter07/networkd.xml
++++ b/chapter07/networkd.xml
+@@ -111,10 +111,11 @@ EOF</userinput></screen>
+       <para>The command below creates a basic configuration file for a
+       Static IP setup (using both systemd-networkd and
+       systemd-resolved):</para>
+-
++<!-- jhalfs relies on the values for Name, Address, etc. If you want to change
++     them, please inform the jhalfs maintainer(s). -->
+ <screen><userinput>cat &gt; /etc/systemd/network/10-eth-static.network &lt;&lt; "EOF"
+ <literal>[Match]
+-Name=&lt;network-device-name&gt;
++Name=<replaceable>&lt;network-device-name&gt;</replaceable>
+ 
+ [Network]
+ Address=192.168.0.2/24

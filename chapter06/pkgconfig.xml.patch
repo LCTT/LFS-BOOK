@@ -1,0 +1,13 @@
+diff --git a/chapter06/pkgconfig.xml b/chapter06/pkgconfig.xml
+index 95b837e..3c311e3 100644
+--- a/chapter06/pkgconfig.xml
++++ b/chapter06/pkgconfig.xml
+@@ -9,7 +9,7 @@
+   <?dbhtml filename="pkg-config.html"?>
+ 
+   <sect1info condition="script">
+-    <productname>pkgconfig</productname>
++    <productname>pkg-config</productname>
+     <productnumber>&pkgconfig-version;</productnumber>
+     <address>&pkgconfig-url;</address>
+   </sect1info>

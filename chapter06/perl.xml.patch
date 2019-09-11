@@ -1,0 +1,12 @@
+diff --git a/chapter06/perl.xml b/chapter06/perl.xml
+index 2a64b80..81ee90d 100644
+--- a/chapter06/perl.xml
++++ b/chapter06/perl.xml
+@@ -61,6 +61,7 @@ export BUILD_BZIP2=0</userinput></screen>
+ 
+ <screen><userinput remap="pre">patch -Np1 -i ../&perl-gcc5-fixes-patch;</userinput></screen>
+ -->
++
+     <para>To have full control over the way Perl is set up, you can remove the
+     <quote>-des</quote> options from the following command and hand-pick the way
+     this package is built. Alternatively, use the command exactly as below to

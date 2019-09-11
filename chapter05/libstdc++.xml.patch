@@ -1,0 +1,13 @@
+diff --git a/chapter05/libstdc++.xml b/chapter05/libstdc++.xml
+index d7b6eb9..6c3b3d2 100644
+--- a/chapter05/libstdc++.xml
++++ b/chapter05/libstdc++.xml
+@@ -9,7 +9,7 @@
+   <?dbhtml filename="gcc-libstdc++.html"?>
+ 
+   <sect1info condition="script">
+-    <productname>gcc</productname>
++    <productname>gcc-libstdc++</productname>
+     <productnumber>&gcc-version;</productnumber>
+     <address>&gcc-url;</address>
+   </sect1info>

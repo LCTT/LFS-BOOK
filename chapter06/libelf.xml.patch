@@ -1,0 +1,20 @@
+diff --git a/chapter06/libelf.xml b/chapter06/libelf.xml
+index 280d1fe..e7f1ee3 100644
+--- a/chapter06/libelf.xml
++++ b/chapter06/libelf.xml
+@@ -68,11 +68,15 @@ install -vm644 config/libelf.pc /usr/lib/pkgconfig</userinput></screen>
+ 
+     <segmentedlist>
+       <segtitle>Installed Library</segtitle>
++      <segtitle>Installed Directory</segtitle>
+ 
+       <seglistitem>
+         <seg>
+           libelf.so
+         </seg>
++        <seg>
++          /usr/include/elfutils
++        </seg>
+       </seglistitem>
+     </segmentedlist>
+ 

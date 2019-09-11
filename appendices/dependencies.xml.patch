@@ -1,0 +1,52 @@
+diff --git a/appendices/dependencies.xml b/appendices/dependencies.xml
+index a233a86..1ab3a77 100644
+--- a/appendices/dependencies.xml
++++ b/appendices/dependencies.xml
+@@ -225,7 +225,7 @@
+ 
+         <seglistitem>
+           <seg>Bash, Binutils, Bison, Coreutils, GCC, Glibc,
+-          Grep, Make, and Readline</seg>
++          Grep, Make, Perl, and Readline</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1376,7 +1376,7 @@
+ 
+         <seglistitem>
+          <seg>Bash, Binutils, Bison, Coreutils, Flex, GCC, Gettext, Glibc,
+-         Gzip, Make, Sed, Xz-Utils, and Zlib</seg>
++         Gzip, Make, Pkg-config, Sed, Xz-Utils, and Zlib</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -1820,7 +1820,7 @@
+         <segtitle>&before;</segtitle>
+ 
+         <seglistitem>
+-          <seg>None</seg>
++          <seg>Systemd</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -2412,7 +2412,7 @@
+         <seglistitem>
+          <seg>Acl, Attr, Bash, Binutils, Coreutils, Diffutils, Expat, Gawk,
+          GCC, Glibc, Gperf, Grep, Intltool, Libcap,
+-         Make, Sed, and Util-linux</seg>
++         Meson, Sed, and Util-linux</seg>
+         </seglistitem>
+       </segmentedlist>
+ 
+@@ -2436,7 +2436,10 @@
+         <segtitle>&external;</segtitle>
+ 
+         <seglistitem>
+-          <seg>None</seg>
++          <seg>Many, see
++            <ulink url="&blfs-root;view/systemd/general/systemd.html">BLFS
++            systemd page</ulink>
++          </seg>
+         </seglistitem>
+       </segmentedlist>
+ 

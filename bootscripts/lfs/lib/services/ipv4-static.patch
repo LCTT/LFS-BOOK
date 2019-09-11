@@ -1,0 +1,17 @@
+diff --git a/bootscripts/lfs/lib/services/ipv4-static b/bootscripts/lfs/lib/services/ipv4-static
+index 4ac7f3e..7021c29 100644
+--- a/bootscripts/lfs/lib/services/ipv4-static
++++ b/bootscripts/lfs/lib/services/ipv4-static
+@@ -47,12 +47,6 @@ fi
+ case "${2}" in
+    up)
+       if [ "$(ip addr show ${1} 2>/dev/null | grep ${IP}/)" = "" ]; then
+-         
+-         # Cosmetic output 
+-         if ! $(echo ${SERVICE} | grep -q " "); then 
+-           log_info_msg2 "\n" # Terminate the previous message
+-         fi
+-         
+          log_info_msg "Adding IPv4 address ${IP} to the ${1} interface..."
+          ip addr add ${args} dev ${1}
+          evaluate_retval

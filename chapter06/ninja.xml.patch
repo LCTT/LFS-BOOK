@@ -1,0 +1,14 @@
+diff --git a/chapter06/ninja.xml b/chapter06/ninja.xml
+index 5be498e..e998c64 100644
+--- a/chapter06/ninja.xml
++++ b/chapter06/ninja.xml
+@@ -88,8 +88,7 @@
+ 
+     <para>To test the results, issue:</para>
+ 
+-<screen><userinput remap="test">python3 configure.py
+-./ninja ninja_test
++<screen><userinput remap="test">./ninja ninja_test
+ ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots</userinput></screen>
+ 
+     <para>Install the package:</para>

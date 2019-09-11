@@ -1,0 +1,27 @@
+diff --git a/prologue/bookinfo.xml b/prologue/bookinfo.xml
+index 07e1384..73d0641 100644
+--- a/prologue/bookinfo.xml
++++ b/prologue/bookinfo.xml
+@@ -9,6 +9,7 @@
+   <title>Linux From Scratch</title>
+   <subtitle revision='sysv'   >Version &version; </subtitle>
+   <subtitle revision='systemd'>Version &versiond;</subtitle>
++  <subtitle>Published &releasedate;</subtitle>
+ 
+   <authorgroup>
+     <author>
+@@ -19,12 +20,12 @@
+       <firstname>Managing Editor: Bruce</firstname>
+       <surname>Dubbs</surname>
+     </author>
+-    <!--
++
+     <author revision="systemd">
+       <firstname>Editor: Douglas R.</firstname>
+       <surname>Reno</surname>
+     </author>
+-    -->
++
+     <author revision="systemd">
+       <firstname>Editor: DJ</firstname>
+       <surname>Lucas</surname>

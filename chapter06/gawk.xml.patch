@@ -1,0 +1,16 @@
+diff --git a/chapter06/gawk.xml b/chapter06/gawk.xml
+index 6bc27ab..b112eb1 100644
+--- a/chapter06/gawk.xml
++++ b/chapter06/gawk.xml
+@@ -77,9 +77,9 @@ cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} /usr/share/doc/gawk-&gawk-version;</
+ 
+       <seglistitem>
+         <seg>awk (link to gawk), gawk, and awk-&gawk-version;</seg>
+-        <seg>filefuncs.so, fnmatch.so, fork.so, inplace.so, ordchr.so,
++        <seg>filefuncs.so, fnmatch.so, fork.so, inplace.so, intdiv.so, ordchr.so,
+         readdir.so, readfile.so, revoutput.so, revtwoway.so, rwarray.so,
+-        testext.so, and time.so</seg>
++        and time.so (all in /usr/lib/gawk)</seg>
+         <seg>/usr/lib/gawk, /usr/libexec/awk, /usr/share/awk, and
+         /usr/share/doc/gawk-&gawk-version;</seg>
+       </seglistitem>

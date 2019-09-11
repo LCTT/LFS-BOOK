@@ -1,0 +1,13 @@
+diff --git a/chapter08/kernel.xml b/chapter08/kernel.xml
+index 89cc8dd..641494c 100644
+--- a/chapter08/kernel.xml
++++ b/chapter08/kernel.xml
+@@ -9,7 +9,7 @@
+   <?dbhtml filename="kernel.html"?>
+ 
+   <sect1info condition="script">
+-    <productname>linux</productname>
++    <productname>kernel</productname>
+     <productnumber>&linux-version;</productnumber>
+     <address>&linux-url;</address>
+   </sect1info>

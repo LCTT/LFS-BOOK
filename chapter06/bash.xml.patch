@@ -1,0 +1,14 @@
+diff --git a/chapter06/bash.xml b/chapter06/bash.xml
+index 7294ccc..74b39dc 100644
+--- a/chapter06/bash.xml
++++ b/chapter06/bash.xml
+@@ -110,7 +110,8 @@ mv -vf /usr/bin/bash /bin</userinput></screen>
+ 
+       <seglistitem>
+         <seg>bash, bashbug, and sh (link to bash)</seg>
+-        <seg>/usr/share/doc/bash-&bash-version;</seg>
++        <seg>/usr/include/bash, /usr/lib/bash, and
++        /usr/share/doc/bash-&bash-version;</seg>
+       </seglistitem>
+     </segmentedlist>
+ 

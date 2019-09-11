@@ -1,0 +1,13 @@
+diff --git a/chapter05/binutils-pass2.xml b/chapter05/binutils-pass2.xml
+index 080c509..c281f92 100644
+--- a/chapter05/binutils-pass2.xml
++++ b/chapter05/binutils-pass2.xml
+@@ -9,7 +9,7 @@
+   <?dbhtml filename="binutils-pass2.html"?>
+ 
+   <sect1info condition="script">
+-    <productname>binutils</productname>
++    <productname>binutils-pass2</productname>
+     <productnumber>&binutils-version;</productnumber>
+     <address>&binutils-url;</address>
+   </sect1info>

@@ -1,0 +1,21 @@
+diff --git a/bootscripts/lfs/lib/services/init-functions b/bootscripts/lfs/lib/services/init-functions
+index 4e1c635..174657f 100644
+--- a/bootscripts/lfs/lib/services/init-functions
++++ b/bootscripts/lfs/lib/services/init-functions
+@@ -40,11 +40,11 @@ INFO="\\033[1;36m"           # Information is light cyan
+ BRACKET="\\033[1;34m"        # Brackets are blue
+ 
+ # Use a colored prefix
+-BMPREFIX="     "
+-SUCCESS_PREFIX="${SUCCESS}  *  ${NORMAL}"
+-FAILURE_PREFIX="${FAILURE}*****${NORMAL}"
+-WARNING_PREFIX="${WARNING} *** ${NORMAL}"
+-SKIP_PREFIX="${INFO}  S  ${NORMAL}"
++BMPREFIX="      "
++SUCCESS_PREFIX="${SUCCESS}  *  ${NORMAL} "
++FAILURE_PREFIX="${FAILURE}*****${NORMAL} "
++WARNING_PREFIX="${WARNING} *** ${NORMAL} "
++SKIP_PREFIX="${INFO}  S   ${NORMAL}"
+ 
+ SUCCESS_SUFFIX="${BRACKET}[${SUCCESS}  OK  ${BRACKET}]${NORMAL}"
+ FAILURE_SUFFIX="${BRACKET}[${FAILURE} FAIL ${BRACKET}]${NORMAL}"

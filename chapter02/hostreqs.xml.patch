@@ -1,0 +1,15 @@
+diff --git a/chapter02/hostreqs.xml b/chapter02/hostreqs.xml
+index a7d124e..1d8ee2a 100644
+--- a/chapter02/hostreqs.xml
++++ b/chapter02/hostreqs.xml
+@@ -60,8 +60,9 @@
+       should be a link to gawk)</para>
+     </listitem>
+ 
++    <!-- glibc-2.30 requires gcc-6.2 or later -->
+     <listitem>
+-      <para><emphasis role="strong">GCC-5.2</emphasis> including the C++
++      <para><emphasis role="strong">GCC-6.2</emphasis> including the C++
+       compiler, <command>g++</command> (Versions greater than &gcc-version; are
+       not recommended as they have not been tested)</para>
+     </listitem>

@@ -1,0 +1,65 @@
+diff --git a/chapter06/coreutils.xml b/chapter06/coreutils.xml
+index 803bdad..42ea98b 100644
+--- a/chapter06/coreutils.xml
++++ b/chapter06/coreutils.xml
+@@ -100,7 +100,7 @@ FORCE_UNSAFE_CONFIGURE=1 ./configure \
+ 
+     <para>Compile the package:</para>
+ 
+-<screen><userinput remap="make">FORCE_UNSAFE_CONFIGURE=1 make</userinput></screen>
++<screen><userinput remap="make">make</userinput></screen>
+ 
+     <para>Skip down to <quote>Install the
+     package</quote> if not running the test suite.</para>
+@@ -171,7 +171,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
+       <segtitle>Installed directory</segtitle>
+ 
+       <seglistitem>
+-        <seg>[, base32, base64, basename, cat, chcon, chgrp, chmod, chown,
++        <seg>[, b2sum, base32, base64, basename, basenc, cat, chcon, chgrp, chmod, chown,
+         chroot, cksum, comm, cp, csplit, cut, date, dd, df, dir, dircolors,
+         dirname, du, echo, env, expand, expr, factor, false, fmt, fold, groups,
+         head, hostid, id, install, join, link, ln, logname, ls, md5sum, mkdir,
+@@ -182,7 +182,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
+         sync, tac, tail, tee, test, timeout, touch, tr, true, truncate, tsort,
+         tty, uname, unexpand, uniq, unlink, users, vdir, wc, who, whoami, and
+         yes</seg>
+-        <seg>libstdbuf.so</seg>
++        <seg>libstdbuf.so (in /usr/libexec/coreutils)</seg>
+         <seg>/usr/libexec/coreutils</seg>
+       </seglistitem>
+     </segmentedlist>
+@@ -214,6 +214,16 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="b2sum">
++        <term><command>b2sum</command></term>
++        <listitem>
++          <para>Prints or checks BLAKE2 (512-bit) checksums</para>
++          <indexterm zone="ch-system-coreutils b2sum">
++            <primary sortas="b-b2sum">b2sum</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="basename">
+         <term><command>basename</command></term>
+         <listitem>
+@@ -224,6 +234,16 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="basenc">
++        <term><command>basenc</command></term>
++        <listitem>
++          <para>Encodes or decodes data using various algorithms</para>
++          <indexterm zone="ch-system-coreutils basenc">
++            <primary sortas="b-basenc">basenc</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="cat">
+         <term><command>cat</command></term>
+         <listitem>

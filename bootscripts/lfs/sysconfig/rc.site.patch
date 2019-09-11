@@ -1,0 +1,19 @@
+diff --git a/bootscripts/lfs/sysconfig/rc.site b/bootscripts/lfs/sysconfig/rc.site
+index 4008704..b6a69fc 100644
+--- a/bootscripts/lfs/sysconfig/rc.site
++++ b/bootscripts/lfs/sysconfig/rc.site
+@@ -27,10 +27,10 @@
+ 
+ # Use a colored prefix
+ # These values, if specified here, override the defaults
+-#BMPREFIX="     "
+-#SUCCESS_PREFIX="${SUCCESS}  *  ${NORMAL}"
+-#FAILURE_PREFIX="${FAILURE}*****${NORMAL}"
+-#WARNING_PREFIX="${WARNING} *** ${NORMAL}"
++#BMPREFIX="      "
++#SUCCESS_PREFIX="${SUCCESS}  *  ${NORMAL} "
++#FAILURE_PREFIX="${FAILURE}*****${NORMAL} "
++#WARNING_PREFIX="${WARNING} *** ${NORMAL} "
+ 
+ # Manually seet the right edge of message output (characters)
+ # Useful when resetting console font during boot to override

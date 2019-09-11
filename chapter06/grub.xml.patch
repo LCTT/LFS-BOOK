@@ -1,0 +1,13 @@
+diff --git a/chapter06/grub.xml b/chapter06/grub.xml
+index 0977d38..25a6107 100644
+--- a/chapter06/grub.xml
++++ b/chapter06/grub.xml
+@@ -103,7 +103,7 @@ mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions</userin
+             grub-script-check,
+             grub-set-default,     grub-sparc64-setup, and grub-syslinux2cfg</seg>
+ 
+-        <seg>/usr/lib/grub, /etc/grub.d, /usr/share/grub, and boot/grub (when grub-install
++        <seg>/usr/lib/grub, /etc/grub.d, /usr/share/grub, and /boot/grub (when grub-install
+         is first run)</seg>
+       </seglistitem>
+     </segmentedlist>

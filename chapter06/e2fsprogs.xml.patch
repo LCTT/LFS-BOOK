@@ -1,0 +1,124 @@
+diff --git a/chapter06/e2fsprogs.xml b/chapter06/e2fsprogs.xml
+index 76bb1db..549991d 100644
+--- a/chapter06/e2fsprogs.xml
++++ b/chapter06/e2fsprogs.xml
+@@ -48,7 +48,7 @@
+     a subdirectory of the source tree: </para>
+ 
+ <screen><userinput remap="pre">mkdir -v build
+-cd build</userinput></screen>
++cd       build</userinput></screen>
+ 
+     <para>Prepare E2fsprogs for compilation:</para>
+ 
+@@ -175,13 +175,15 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
+ 
+       <seglistitem>
+         <seg>badblocks, chattr, compile_et, debugfs, dumpe2fs,e2freefrag,
+-        e2fsck, e2image, e2label, e2undo, e4defrag, filefrag, fsck.ext2,
+-        fsck.ext3, fsck.ext4, fsck.ext4dev, logsave, lsattr, mk_cmds, mke2fs,
+-        mkfs.ext2, mkfs.ext3, mkfs.ext4, mkfs.ext4dev, mklost+found,
++        e2fsck, e2image, e2label, e2mmpstatus, e2scrub, e2scrub_all, e2undo,
++        e4crypt, e4defrag, filefrag, fsck.ext2,
++        fsck.ext3, fsck.ext4, logsave, lsattr, mk_cmds, mke2fs,
++        mkfs.ext2, mkfs.ext3, mkfs.ext4, mklost+found,
+         resize2fs, and tune2fs</seg>
+         <seg>libcom_err.so, libe2p.so, libext2fs.so, and libss.so</seg>
+         <seg>/usr/include/e2p, /usr/include/et, /usr/include/ext2fs,
+-        /usr/include/ss, /usr/share/et, and /usr/share/ss</seg>
++        /usr/include/ss, /usr/lib/e2fsprogs, /usr/share/et, and
++        /usr/share/ss</seg>
+       </seglistitem>
+     </segmentedlist>
+ 
+@@ -295,6 +297,36 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="e2mmpstatus">
++        <term><command>e2mmpstatus</command></term>
++        <listitem>
++          <para>Checks MMP status of an ext4 filesystem</para>
++          <indexterm zone="ch-system-e2fsprogs e2mmpstatus">
++            <primary sortas="b-e2mmpstatus">e2mmpstatus</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry id="e2scrub">
++        <term><command>e2scrub</command></term>
++        <listitem>
++          <para>Checks the contents of a mounted ext[234] filesystem</para>
++          <indexterm zone="ch-system-e2fsprogs e2scrub">
++            <primary sortas="b-e2scrub">e2scrub</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
++      <varlistentry id="e2scrub_all">
++        <term><command>e2scrub_all</command></term>
++        <listitem>
++          <para>Checks all mounted ext[234] filesystems for errors</para>
++          <indexterm zone="ch-system-e2fsprogs e2scrub_all">
++            <primary sortas="b-e2scrub_all">e2scrub_all</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="e2undo">
+         <term><command>e2undo</command></term>
+         <listitem>
+@@ -307,6 +339,16 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
+         </listitem>
+       </varlistentry>
+ 
++      <varlistentry id="e4crypt">
++        <term><command>e4crypt</command></term>
++        <listitem>
++          <para>Ext4 filesystem encryption utility</para>
++          <indexterm zone="ch-system-e2fsprogs e4crypt">
++            <primary sortas="b-e4crypt">e4crypt</primary>
++          </indexterm>
++        </listitem>
++      </varlistentry>
++
+       <varlistentry id="e4defrag">
+         <term><command>e4defrag</command></term>
+         <listitem>
+@@ -360,18 +402,6 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="fsck.ext4dev">
+-        <term><command>fsck.ext4dev</command></term>
+-        <listitem>
+-          <para>By default checks <systemitem class="filesystem">ext4</systemitem>
+-          development file systems and  is a hard link to
+-          <command>e2fsck</command></para>
+-          <indexterm zone="ch-system-e2fsprogs fsck.ext4dev">
+-            <primary sortas="b-fsck.ext4dev">fsck.ext4dev</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+       <varlistentry id="logsave">
+         <term><command>logsave</command></term>
+         <listitem>
+@@ -450,17 +480,6 @@ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</userin
+         </listitem>
+       </varlistentry>
+ 
+-      <varlistentry id="mkfs.ext4dev">
+-        <term><command>mkfs.ext4dev</command></term>
+-        <listitem>
+-          <para>By default creates <systemitem class="filesystem">ext4</systemitem>
+-          development file systems and is a hard link to <command>mke2fs</command></para>
+-          <indexterm zone="ch-system-e2fsprogs mkfs.ext4dev">
+-            <primary sortas="b-mkfs.ext4dev">mkfs.ext4dev</primary>
+-          </indexterm>
+-        </listitem>
+-      </varlistentry>
+-
+       <varlistentry id="mklost-found">
+         <term><command>mklost+found</command></term>
+         <listitem>

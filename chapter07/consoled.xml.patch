@@ -1,0 +1,17 @@
+diff --git a/chapter07/consoled.xml b/chapter07/consoled.xml
+index c1bbf64..baddc12 100644
+--- a/chapter07/consoled.xml
++++ b/chapter07/consoled.xml
+@@ -75,8 +75,10 @@
+   </variablelist>
+ 
+   <para>An example for a German keyboard and console is given below:</para>
+-
+-<screen role="nodump"><userinput>cat &gt; /etc/vconsole.conf &lt;&lt; "EOF"
++<!-- This is what is used by jhalfs for creating the vconsole.conf file.
++     Whenever you want to change the following, please inform the jhalfs
++     maintainer(s). -->
++<screen><userinput>cat &gt; /etc/vconsole.conf &lt;&lt; "EOF"
+ <literal>KEYMAP=de-latin1
+ FONT=Lat2-Terminus16</literal>
+ EOF</userinput></screen>

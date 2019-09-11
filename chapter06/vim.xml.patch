@@ -1,0 +1,25 @@
+diff --git a/chapter06/vim.xml b/chapter06/vim.xml
+index 04f6d9b..2f91d5c 100644
+--- a/chapter06/vim.xml
++++ b/chapter06/vim.xml
+@@ -66,9 +66,18 @@
+ 
+ <screen><userinput remap="make">make</userinput></screen>
+ 
+-    <para>To test the results, issue:</para>
++    <para>To prepare the tests, ensure that the 
++    <systemitem class="username">nobody</systemitem> user can write 
++    to the sources tree:</para>
+ 
+-<screen><userinput remap="test">LANG=en_US.UTF-8 make -j1 test &amp;&gt; vim-test.log</userinput></screen>
++<screen><userinput remap="test">chown -Rv nobody .</userinput></screen>
++
++    <para>Now run the tests as the <systemitem
++    class="username">nobody</systemitem> user:</para>
++
++<screen><userinput remap="test">su nobody -s /bin/bash -c "LANG=en_US.UTF-8 make -j1 test" &amp;> vim-test.log</userinput></screen>
++
++<!--<screen><userinput remap="test">LANG=en_US.UTF-8 make -j1 test &amp;&gt; vim-test.log</userinput></screen>-->
+ 
+     <para>The test suite outputs a lot of binary data to the screen.  This can
+     cause issues with the settings of the current terminal.  The problem can be

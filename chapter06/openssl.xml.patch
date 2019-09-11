@@ -1,0 +1,16 @@
+diff --git a/chapter06/openssl.xml b/chapter06/openssl.xml
+index 34e4ade..0bb6538 100644
+--- a/chapter06/openssl.xml
++++ b/chapter06/openssl.xml
+@@ -43,6 +43,11 @@
+   <sect2 role="installation">
+     <title>Installation of OpenSSL</title>
+ 
++    <para>First, fix a problem identified upstream:</para>
++
++<screen><userinput remap="pre">sed -i '/\} data/s/ =.*$/;\n    memset(\&amp;data, 0, sizeof(data));/' \
++  crypto/rand/rand_lib.c</userinput></screen>
++
+     <para>Prepare OpenSSL for compilation:</para>
+ 
+ <screen><userinput remap="configure">./config --prefix=/usr         \
