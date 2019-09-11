@@ -1,0 +1,20 @@
+# Common
+*~
+
+# Vim
+*.sw?
+
+# KDE
+.directory
+
+# OSX
+._*
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+
+# Projects
+*.log
+.svn
+/lfs-bootscripts-*.tar.xz
