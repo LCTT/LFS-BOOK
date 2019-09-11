@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-intro-how">
+  <?dbhtml filename="how.html"?>
+
+  <title>How to Build an LFS System</title>
+
+  <para>The LFS system will be built by using an already installed
+  Linux distribution (such as Debian, OpenMandriva, Fedora, or openSUSE). This
+  existing Linux system (the host) will be used as a starting point to
+  provide necessary programs, including a compiler, linker, and shell,
+  to build the new system. Select the <quote>development</quote> option
+  during the distribution installation to be able to access these
+  tools.</para>
+
+  <para>As an alternative to installing a separate distribution onto your
+  machine, you may wish to use <!-- the Linux From Scratch LiveCD or --> a LiveCD from a
+  commercial distribution. <!-- The LFS LiveCD works well as a host system,
+  providing all the tools you need to successfully follow the instructions in
+  this book. The LiveCD version is behind the current book, but is still useful
+  as a host for building the current book.  The <quote>-nosrc</quote> or
+  <quote>-min</quote> editions of the LiveCD are the most appropriate for
+  building a current LFS system.  For more information about the LFS LiveCD or
+  to download a copy, visit <ulink url="&livecd-root;"/>. --></para>
+
+  <!--
+  <note>
+    <para>The LFS LiveCD might not work on newer hardware configurations,
+    failing to boot or failing to detect some devices such as some SATA hard
+    drives.</para>
+  </note> -->
+
+  <para><xref linkend="chapter-partitioning"/> of this book describes how
+  to create a new Linux native partition and file system. This is the place
+  where the new LFS system will be compiled and installed. <xref
+  linkend="chapter-getting-materials"/> explains which packages and
+  patches need to be downloaded to build an LFS system and how to store
+  them on the new file system. <xref linkend="chapter-final-preps"/>
+  discusses the setup of an appropriate working environment. Please read
+  <xref linkend="chapter-final-preps"/> carefully as it explains several
+  important issues you need be aware of before beginning to
+  work your way through <xref linkend="chapter-temporary-tools"/> and beyond.</para>
+
+  <para><xref linkend="chapter-temporary-tools"/> explains the
+  installation of a number of packages that will form the basic
+  development suite (or toolchain) which is used to build the actual
+  system in <xref linkend="chapter-building-system"/>. Some of these
+  packages are needed to resolve circular dependencies&mdash;for example,
+  to compile a compiler, you need a compiler.</para>
+
+  <para><xref linkend="chapter-temporary-tools"/> also shows you how to
+  build a first pass of the toolchain, including Binutils and GCC (first pass
+  basically means these two core packages will be reinstalled).
+  The next step is to build Glibc, the C library. Glibc will be compiled by
+  the toolchain programs built in the first pass. Then, a second pass of the
+  toolchain will be built. This time, the toolchain will be dynamically linked
+  against the newly built Glibc. The remaining <xref
+  linkend="chapter-temporary-tools"/> packages are built using this second
+  pass toolchain. When this is done, the LFS installation process will no
+  longer depend on the host distribution, with the exception of the running
+  kernel. </para>
+
+  <para>This effort to isolate the new system from the host distribution may
+  seem excessive. A full technical explanation as to why this is done is provided in
+  <xref linkend="ch-tools-toolchaintechnotes"/>.</para>
+
+  <para>In <xref linkend="chapter-building-system"/>, the full LFS system is
+  built. The <command>chroot</command> (change root) program is used to enter
+  a virtual environment and start a new shell whose root directory will be
+  set to the LFS partition. This is very similar to rebooting and instructing
+  the kernel to mount the LFS partition as the root partition. The system
+  does not actually reboot, but instead uses <command>chroot</command> because
+  creating a bootable system requires additional work which is not necessary
+  just yet. The major advantage is that <quote>chrooting</quote> allows you
+  to continue using the host system while LFS is being built. While waiting
+  for package compilations to complete, you can continue using your computer as
+  normal.</para>
+
+  <para>To finish the installation, the basic system configuration is set up in
+  <xref linkend="chapter-bootscripts"/>, and the kernel and boot loader are set
+  up in <xref linkend="chapter-bootable"/>. <xref linkend="chapter-finalizing"/>
+  contains information on continuing the LFS experience beyond this book.
+  After the steps in this book have been implemented, the computer will be
+  ready to reboot into the new LFS system.</para>
+
+  <para>This is the process in a nutshell. Detailed information on each
+  step is discussed in the following chapters and package descriptions.
+  Items that may seem complicated will be clarified, and everything will
+  fall into place as you embark on the LFS adventure.</para>
+
+</sect1>

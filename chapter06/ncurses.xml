@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-ncurses" role="wrap">
+  <?dbhtml filename="ncurses.html"?>
+
+  <sect1info condition="script">
+    <productname>ncurses</productname>
+    <productnumber>&ncurses-version;</productnumber>
+    <address>&ncurses-url;</address>
+  </sect1info>
+
+  <title>Ncurses-&ncurses-version;</title>
+
+  <indexterm zone="ch-system-ncurses">
+    <primary sortas="a-Ncurses">Ncurses</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Ncurses package contains libraries for terminal-independent
+    handling of character screens.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&ncurses-ch6-sbu;</seg>
+        <seg>&ncurses-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Ncurses</title>
+
+    <para>Don't install a static library that is not handled by configure:</para>
+
+<screen><userinput remap="pre">sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in</userinput></screen>
+
+    <para>Prepare Ncurses for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr           \
+            --mandir=/usr/share/man \
+            --with-shared           \
+            --without-debug         \
+            --without-normal        \
+            --enable-pc-files       \
+            --enable-widec</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the new configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--enable-widec</parameter></term>
+        <listitem>
+          <para>This switch causes wide-character libraries (e.g., <filename
+          class="libraryfile">libncursesw.so.&ncurses-version;</filename>)
+          to be built instead of normal ones (e.g., <filename
+          class="libraryfile">libncurses.so.&ncurses-version;</filename>).
+          These wide-character libraries are usable in both multibyte and
+          traditional 8-bit locales, while normal libraries work properly
+          only in 8-bit locales. Wide-character and normal libraries are
+          source-compatible, but not binary-compatible.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--enable-pc-files</parameter></term>
+        <listitem>
+          <para>This switch generates and installs .pc files for pkg-config.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--without-normal</parameter></term>
+        <listitem>
+          <para>This switch disables building and installing most static libraries.
+          </para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>This package has a test suite, but it can only be run after the
+    package has been installed.  The tests reside in the
+    <filename class="directory">test/</filename> directory.  See the
+    <filename>README</filename> file in that directory for further details.
+    </para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+    <para>Move the shared libraries to the
+    <filename class="directory">/lib</filename> directory, where they are
+    expected to reside:</para>
+
+<screen><userinput remap="install">mv -v /usr/lib/libncursesw.so.6* /lib</userinput></screen>
+
+    <para>Because the libraries have been moved, one symlink points to
+    a non-existent file. Recreate it:</para>
+
+<screen><userinput remap="install">ln -sfv ../../lib/$(readlink /usr/lib/libncursesw.so) /usr/lib/libncursesw.so</userinput></screen>
+
+    <para>Many applications still expect the linker to be able to find
+    non-wide-character Ncurses libraries. Trick such applications into linking with
+    wide-character libraries by means of symlinks and linker scripts:</para>
+
+<screen><userinput remap="install">for lib in ncurses form panel menu ; do
+    rm -vf                    /usr/lib/lib${lib}.so
+    echo "INPUT(-l${lib}w)" &gt; /usr/lib/lib${lib}.so
+    ln -sfv ${lib}w.pc        /usr/lib/pkgconfig/${lib}.pc
+done</userinput></screen>
+
+    <para>Finally, make sure that old applications that look for
+    <filename class="libraryfile">-lcurses</filename> at build time are still
+    buildable:</para>
+
+<screen><userinput remap="install">rm -vf                     /usr/lib/libcursesw.so
+echo "INPUT(-lncursesw)" &gt; /usr/lib/libcursesw.so
+ln -sfv libncurses.so      /usr/lib/libcurses.so</userinput></screen>
+
+    <para>If desired, install the Ncurses documentation:</para>
+
+<screen><userinput remap="install">mkdir -v       /usr/share/doc/ncurses-&ncurses-version;
+cp -v -R doc/* /usr/share/doc/ncurses-&ncurses-version;</userinput></screen>
+
+    <note>
+
+      <para>The instructions above don't create non-wide-character Ncurses
+      libraries since no package installed by compiling from sources would link
+      against them at runtime. However, the only known binary-only
+      applications that link against non-wide-character Ncurses libraries 
+      require version 5.  If you must have such libraries because of some binary-only
+      application or to be compliant with LSB, build the package again with the
+      following commands:</para>
+
+<screen role="nodump"><userinput>make distclean
+./configure --prefix=/usr    \
+            --with-shared    \
+            --without-normal \
+            --without-debug  \
+            --without-cxx-binding \
+            --with-abi-version=5 
+make sources libs
+cp -av lib/lib*.so.5* /usr/lib</userinput></screen>
+    </note>
+
+  </sect2>
+
+  <sect2 id="contents-ncurses" role="content">
+    <title>Contents of Ncurses</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed libraries</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>
+           captoinfo (link to tic), 
+           clear, 
+           infocmp, 
+           infotocap (link to tic),
+           ncursesw6-config, 
+           reset (link to tset), 
+           tabs, 
+           tic, 
+           toe, 
+           tput, and 
+           tset
+        </seg>
+        <seg>
+           libcursesw.so (symlink and linker script to libncursesw.so),
+           libformw.so, 
+           libmenuw.so, 
+           libncursesw.so,
+           libncurses++w.a,
+           libpanelw.so, and their non-wide-character counterparts without "w"
+              in the library names.</seg>
+        <seg>
+           /usr/share/tabset, 
+           /usr/share/terminfo, and
+           /usr/share/doc/ncurses-&ncurses-version;
+        </seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="captoinfo">
+        <term><command>captoinfo</command></term>
+        <listitem>
+          <para>Converts a termcap description into a terminfo description</para>
+          <indexterm zone="ch-system-ncurses captoinfo">
+            <primary sortas="b-captoinfo">captoinfo</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="clear">
+        <term><command>clear</command></term>
+        <listitem>
+          <para>Clears the screen, if possible</para>
+          <indexterm zone="ch-system-ncurses clear">
+            <primary sortas="b-clear">clear</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="infocmp">
+        <term><command>infocmp</command></term>
+        <listitem>
+          <para>Compares or prints out terminfo descriptions</para>
+          <indexterm zone="ch-system-ncurses infocmp">
+            <primary sortas="b-infocmp">infocmp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="infotocap">
+        <term><command>infotocap</command></term>
+        <listitem>
+          <para>Converts a terminfo description into a termcap description</para>
+          <indexterm zone="ch-system-ncurses infotocap">
+            <primary sortas="b-infotocap">infotocap</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ncursesw6-config">
+        <term><command>ncursesw6-config</command></term>
+        <listitem>
+          <para>Provides configuration information for ncurses</para>
+          <indexterm zone="ch-system-ncurses ncursesw6-config">
+            <primary sortas="b-ncursesw6-config">ncursesw6-config</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="reset">
+        <term><command>reset</command></term>
+        <listitem>
+          <para>Reinitializes a terminal to its default values</para>
+          <indexterm zone="ch-system-ncurses reset">
+            <primary sortas="b-reset">reset</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tabs">
+        <term><command>tabs</command></term>
+        <listitem>
+          <para>Clears and sets tab stops on a terminal</para>
+          <indexterm zone="ch-system-ncurses tabs">
+            <primary sortas="b-tabs">tabs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tic">
+        <term><command>tic</command></term>
+        <listitem>
+          <para>The terminfo entry-description compiler that translates a
+          terminfo file from source format into the binary format needed for the
+          ncurses library routines [A terminfo file contains information on the
+          capabilities of a certain terminal.]</para>
+          <indexterm zone="ch-system-ncurses tic">
+            <primary sortas="b-tic">tic</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="toe">
+        <term><command>toe</command></term>
+        <listitem>
+          <para>Lists all available terminal types, giving the primary name and
+          description for each</para>
+          <indexterm zone="ch-system-ncurses toe">
+            <primary sortas="b-toe">toe</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tput">
+        <term><command>tput</command></term>
+        <listitem>
+          <para>Makes the values of terminal-dependent capabilities available to
+          the shell; it can also be used to reset or initialize a terminal or
+          report its long name</para>
+          <indexterm zone="ch-system-ncurses tput">
+            <primary sortas="b-tput">tput</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tset">
+        <term><command>tset</command></term>
+        <listitem>
+          <para>Can be used to initialize terminals</para>
+          <indexterm zone="ch-system-ncurses tset">
+            <primary sortas="b-tset">tset</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libcursesw">
+        <term><filename class="libraryfile">libcursesw</filename></term>
+        <listitem>
+          <para>A link to <filename>libncursesw</filename></para>
+          <indexterm zone="ch-system-ncurses libcursesw">
+            <primary sortas="c-libcursesw">libcursesw</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libncursesw">
+        <term><filename class="libraryfile">libncursesw</filename></term>
+        <listitem>
+          <para>Contains functions to display text in many complex ways on a
+          terminal screen; a good example of the use of these functions is the
+          menu displayed during the kernel's <command>make
+          menuconfig</command></para>
+          <indexterm zone="ch-system-ncurses libncursesw">
+            <primary sortas="c-libncursesw">libncursesw</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libformw">
+        <term><filename class="libraryfile">libformw</filename></term>
+        <listitem>
+          <para>Contains functions to implement forms</para>
+          <indexterm zone="ch-system-ncurses libformw">
+            <primary sortas="c-libformw">libformw</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libmenuw">
+        <term><filename class="libraryfile">libmenuw</filename></term>
+        <listitem>
+          <para>Contains functions to implement menus</para>
+          <indexterm zone="ch-system-ncurses libmenuw">
+            <primary sortas="c-libmenuw">libmenuw</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libpanelw">
+        <term><filename class="libraryfile">libpanelw</filename></term>
+        <listitem>
+          <para>Contains functions to implement panels</para>
+          <indexterm zone="ch-system-ncurses libpanelw">
+            <primary sortas="c-libpanelw">libpanelw</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

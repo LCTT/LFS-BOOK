@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="pre-organization">
+  <?dbhtml filename="organization.html"?>
+
+  <title>Structure</title>
+
+  <para>This book is divided into the following parts.</para>
+
+  <sect2>
+    <title>Part I - Introduction</title>
+
+    <para>Part I explains a few important notes on how to proceed with the
+    LFS installation.  This section also provides meta-information about
+    the book.</para>
+  </sect2>
+
+  <sect2>
+    <title>Part II - Preparing for the Build</title>
+
+    <para>Part II describes how to prepare for the building process&mdash;making
+    a partition, downloading the packages, and compiling temporary
+    tools.</para>
+  </sect2>
+
+  <sect2>
+    <title>Part III - Building the LFS System</title>
+
+    <para>Part III guides the reader through the building of the LFS
+    system&mdash;compiling and installing all the packages one by one,
+    setting up the boot scripts, and installing the kernel. The resulting
+    Linux system is the foundation on which other software can be built to
+    expand the system as desired. At the end of this book, there is an
+    easy to use reference listing all of the programs, libraries, and
+    important files that have been installed.</para>
+  </sect2>
+
+</sect1>

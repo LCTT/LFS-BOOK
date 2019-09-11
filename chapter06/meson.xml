@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-meson" role="wrap">
+  <?dbhtml filename="meson.html"?>
+
+  <sect1info condition="script">
+    <productname>meson</productname>
+    <productnumber>&meson-version;</productnumber>
+    <address>&meson-url;</address>
+  </sect1info>
+
+  <title>Meson-&meson-version;</title>
+
+  <indexterm zone="ch-system-meson">
+    <primary sortas="a-Meson">Meson</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>Meson is an open source build system meant to be both extremely fast,
+    and, even more importantly, as user friendly as possible.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+      <seglistitem>
+        <seg>&meson-ch6-sbu;</seg>
+        <seg>&meson-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Meson</title>
+
+    <para>Compile Meson with the following command:</para>
+
+<screen><userinput remap="make">python3 setup.py build</userinput></screen>
+
+    <para>This package does not come with a test suite.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">python3 setup.py install --root=dest
+cp -rv dest/* /</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the install parameters:</title>
+      
+      <varlistentry>
+        <term><parameter>--root=dest</parameter></term>
+        <listitem>
+          <para>By default <command>python3 setup.py install</command>
+          installs various files (such as man pages) into Python Eggs.
+          With a specified root location, <command>setup.py</command> installs
+          these files into a standard hierarchy.  Then we can just copy
+          the hierarchy so the files will be in the standard location.
+        </para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+  </sect2>
+
+  <sect2 id="contents-meson" role="content">
+    <title>Contents of Meson</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>meson</seg>
+        <seg>/usr/lib/python&python-minor;/site-packages/meson-&meson-version;-py&python-minor;.egg-info and /usr/lib/python&python-minor;/site-packages/mesonbuild</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="meson">
+		<term><command>meson</command></term>
+        <listitem>
+          <para>A high productivity build system</para>
+          <indexterm zone="ch-system-meson meson">
+            <primary sortas="b-meson">meson</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>
+

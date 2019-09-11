@@ -1,0 +1,20 @@
+Purpose of rules file:
+
+Most of the rules installed by Udev itself create devices with the correct
+properties.  This file contains rules that have not been merged upstream yet.
+
+Description of rules:
+
+By default, Udev creates device nodes with UID 0, GID 0, and permissions 0660.
+
+ISDN-related devices should be owned by the 'dialout' group, hence the following
+rule (and similar):
+
+KERNEL=="ippp[0-9]*", GROUP="dialout"
+
+The RTC-related rules cause the setclock bootscript to be run as soon as the
+RTC device has been created by Udev, meaning that times in log files, for
+example, are as accurate as possible as quickly as possible.
+
+A final word of caution: Any particular rule must be written on one line, and a
+comma must separate each part of the rule.

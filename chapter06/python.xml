@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-Python" role="wrap">
+  <?dbhtml filename="Python.html"?>
+
+  <sect1info condition="script">
+    <productname>Python</productname>
+    <productnumber>&python-version;</productnumber>
+    <address>&python-url;</address>
+  </sect1info>
+
+  <title>Python-&python-version;</title>
+
+  <indexterm zone="ch-system-Python">
+    <primary sortas="a-python">python</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Python 3 package contains the Python development environment. It
+    is useful for object-oriented programming, writing scripts, prototyping
+    large programs or developing entire applications.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&python-ch6-sbu;</seg>
+        <seg>&python-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Python 3</title>
+
+    <para>Prepare Python for compilation:</para>
+
+<screen><userinput remap="configure">./configure --prefix=/usr       \
+            --enable-shared     \
+            --with-system-expat \
+            --with-system-ffi   \
+            --with-ensurepip=yes</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+    <varlistentry>
+      <term><parameter>--with-system-expat</parameter></term>
+      <listitem>
+        <para>This switch enables linking against system version of
+        <application>Expat</application>.</para>
+       </listitem>
+     </varlistentry>
+
+    <varlistentry>
+      <term><parameter>--with-system-ffi</parameter></term>
+      <listitem>
+        <para>This switch enables linking against system version of
+        <application>libffi</application>.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term><parameter>--with-ensurepip=yes</parameter></term>
+      <listitem>
+        <para>This switch enables building <command>pip</command> and
+        <command>setuptools</command> packaging programs.</para>
+      </listitem>
+    </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>The test suite requires TK and and X Windows session and cannot
+    be run until Python 3 is reinstalled in BLFS.</para>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install
+chmod -v 755 /usr/lib/libpython&python-minor;m.so
+chmod -v 755 /usr/lib/libpython3.so
+ln -sfv pip3.7 /usr/bin/pip3</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the install commands:</title>
+<!-- ======  Change 7m if Python minor version changes ======= -->
+    <varlistentry>
+      <term><command>chmod -v 755 /usr/lib/libpython3.{7m.,}so</command></term>
+      <listitem>
+        <para>Fix permissions for libraries to be consistent with other
+        libraries.</para>
+      </listitem>
+    </varlistentry>
+
+    </variablelist>
+
+    <para>If desired, install the preformatted documentation:</para>
+
+<screen><userinput remap="install">install -v -dm755 /usr/share/doc/python-&python-version;/html 
+
+tar --strip-components=1  \
+    --no-same-owner       \
+    --no-same-permissions \
+    -C /usr/share/doc/python-&python-version;/html \
+    -xvf ../python-&python-version;-docs-html.tar.bz2</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the documentation install commands:</title>
+
+    <varlistentry>
+      <term><option>--no-same-owner</option> and --no-same-permissions</term>
+      <listitem>
+        <para>Ensure the installed files have the correct ownership and 
+        permissions.  Without these options, using <application>tar</application>
+        will install the package files with the upstream creator's values. 
+        </para>
+      </listitem>
+    </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+  <sect2 id="contents-python" role="content">
+    <title>Contents of Python 3</title>
+
+    <segmentedlist>
+      <segtitle>Installed Programs</segtitle>
+      <segtitle>Installed Library</segtitle>
+      <segtitle>Installed Directories</segtitle>
+
+      <seglistitem>
+        <seg>
+          2to3, idle3, pip3, pydoc3, python3, python3-config, and pyvenv
+        </seg>
+        <seg>
+          libpython&python-minor;m.so and libpython3.so
+        </seg>
+        <seg>
+          /usr/include/python&python-minor;m, /usr/lib/python3 and
+          /usr/share/doc/python-&python-version;
+        </seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="python-2to3">
+        <term><command>2to3</command></term>
+        <listitem>
+          <para>
+            is a <application>Python</application> program that reads
+            <application>Python 2.x</application> source code and applies a
+            series of fixes to transform it into valid
+            <application>Python 3.x</application> code.
+          </para>
+          <indexterm zone="ch-system-Python">
+            <primary sortas="b-2to3">2to3</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="idle3">
+        <term><command>idle3</command></term>
+        <listitem>
+          <para>
+            is a wrapper script that opens a <application>Python</application>
+            aware GUI editor. For this script to run, you must have installed
+            <application>Tk</application> before Python so that the Tkinter
+            Python module is built.
+          </para>
+          <indexterm zone="ch-system-Python">
+            <primary sortas="b-idle3">idle3</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pip3">
+        <term><command>pip3</command></term>
+        <listitem>
+          <para>
+            The package installer for Python. You can use pip to install
+            packages from Python Package Index and other indexes.
+          </para>
+          <indexterm zone="ch-system-Python">
+            <primary sortas="b-pip3">pip3</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pydoc3">
+        <term><command>pydoc3</command></term>
+        <listitem>
+          <para>
+            is the <application>Python</application> documentation tool.
+          </para>
+          <indexterm zone="ch-system-Python">
+            <primary sortas="b-pydoc3">pydoc3</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="python3">
+        <term><command>python3</command></term>
+        <listitem>
+          <para>
+            is an interpreted, interactive, object-oriented programming
+            language.
+          </para>
+          <indexterm zone="ch-system-Python">
+            <primary sortas="b-python3">python3</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pyvenv">
+        <term><command>pyvenv</command></term>
+        <listitem>
+          <para>
+            creates virtual <application>Python</application> environments in
+            one or more target directories.
+          </para>
+          <indexterm zone="ch-system-Python">
+            <primary sortas="b-pyvenv">pyvenv</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>
+

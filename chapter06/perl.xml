@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-perl" role="wrap">
+  <?dbhtml filename="perl.html"?>
+
+  <sect1info condition="script">
+    <productname>perl</productname>
+    <productnumber>&perl-version;</productnumber>
+    <address>&perl-url;</address>
+  </sect1info>
+
+  <title>Perl-&perl-version;</title>
+
+  <indexterm zone="ch-system-perl">
+    <primary sortas="a-Perl">Perl</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Perl package contains the Practical Extraction and Report
+    Language.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&perl-ch6-sbu;</seg>
+        <seg>&perl-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Perl</title>
+
+    <para>First create a basic <filename>/etc/hosts</filename> file to be
+    referenced in one of Perl's configuration files as well as the optional
+    test suite:</para>
+
+<screen><userinput remap="pre">echo "127.0.0.1 localhost $(hostname)" &gt; /etc/hosts</userinput></screen>
+
+    <para>This version of Perl now builds the Compress::Raw::Zlib and 
+    Compress::Raw::BZip2 modules. By
+    default Perl will use an internal copy of the sources for the build.
+    Issue the following command so that Perl will use the libraries
+    installed on the system:</para>
+
+<screen><userinput remap="pre">export BUILD_ZLIB=False
+export BUILD_BZIP2=0</userinput></screen>
+<!--
+    <para>Apply a patch to allow the Errno.pm module and the h2ph
+    program to build correctly when building with GCC 5:</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&perl-gcc5-fixes-patch;</userinput></screen>
+-->
+
+    <para>To have full control over the way Perl is set up, you can remove the
+    <quote>-des</quote> options from the following command and hand-pick the way
+    this package is built. Alternatively, use the command exactly as below to
+    use the defaults that Perl auto-detects:</para>
+
+<screen><userinput remap="configure">sh Configure -des -Dprefix=/usr                 \
+                  -Dvendorprefix=/usr           \
+                  -Dman1dir=/usr/share/man/man1 \
+                  -Dman3dir=/usr/share/man/man3 \
+                  -Dpager="/usr/bin/less -isR"  \
+                  -Duseshrplib                  \
+                  -Dusethreads</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>-Dvendorprefix=/usr</parameter></term>
+        <listitem>
+          <para>This ensures <command>perl</command> knows how to
+          tell packages where they should install their perl modules.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>-Dpager="/usr/bin/less -isR"</parameter></term>
+        <listitem>
+          <para>This ensures that <userinput>less</userinput> is used instead 
+          of <userinput>more</userinput>.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>-Dman1dir=/usr/share/man/man1
+        -Dman3dir=/usr/share/man/man3</parameter></term>
+        <listitem>
+          <para>Since Groff is not installed yet, <command>Configure</command>
+          thinks that we do not want man pages for Perl.  Issuing these
+          parameters overrides this decision.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>-Duseshrplib</parameter></term>
+        <listitem>
+          <para>Build a shared libperl needed by some perl modules.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>-Dusethreads</parameter></term>
+        <listitem>
+          <para>Build perl with support for threads.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>To test the results (approximately 11 SBU), issue:</para>
+
+<screen><userinput remap="test">make -k test</userinput></screen>
+
+    <note><para>One test fails due to using the most recent version of gdbm.
+    </para></note>
+
+    <para>Install the package and clean up:</para>
+
+<screen><userinput remap="install">make install
+unset BUILD_ZLIB BUILD_BZIP2</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-perl" role="content">
+    <title>Contents of Perl</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed libraries</segtitle>
+      <segtitle>Installed directory</segtitle>
+
+      <seglistitem>
+        <seg>corelist, cpan, enc2xs, encguess, h2ph, h2xs, instmodsh,
+        json_pp, libnetcfg, perl, perl&perl-version; (hard link to perl),
+        perlbug, perldoc, perlivp, perlthanks (hard link to perlbug), piconv,
+        pl2pm, pod2html, pod2man, pod2text, pod2usage, podchecker, podselect,
+        prove, ptar, ptardiff, ptargrep, shasum,
+        splain, xsubpp, and zipdetails</seg>
+        <seg>Many which cannot all be listed here</seg>
+        <seg>/usr/lib/perl5</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+<!--
+      <varlistentry id="c2ph">
+        <term><command>c2ph</command></term>
+        <listitem>
+          <para>Dumps C structures as generated from
+          <command>cc -g -S</command></para>
+          <indexterm zone="ch-system-perl c2ph">
+            <primary sortas="b-c2ph">c2ph</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+-->
+      <varlistentry id="corelist">
+        <term><command>corelist</command></term>
+        <listitem>
+          <para>A commandline frontend to Module::CoreList</para>
+          <indexterm zone="ch-system-perl corelist">
+            <primary sortas="b-corelist">corelist</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="cpan">
+        <term><command>cpan</command></term>
+        <listitem>
+          <para>Interact with the Comprehensive Perl Archive Network (CPAN)
+          from the command line</para>
+          <indexterm zone="ch-system-perl cpan">
+            <primary sortas="b-cpan">cpan</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="enc2xs">
+        <term><command>enc2xs</command></term>
+        <listitem>
+          <para>Builds a Perl extension for the Encode module from either
+          Unicode Character Mappings or Tcl Encoding Files</para>
+          <indexterm zone="ch-system-perl enc2xs">
+            <primary sortas="b-enc2xs">enc2xs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="encguess">
+        <term><command>encguess</command></term>
+        <listitem>
+          <para>Guess the encoding type of one or several files</para>
+          <indexterm zone="ch-system-perl encguess">
+            <primary sortas="b-encguess">encguess</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="h2ph">
+        <term><command>h2ph</command></term>
+        <listitem>
+          <para>Converts <filename class="extension">.h</filename> C header
+          files to <filename class="extension">.ph</filename> Perl header
+          files</para>
+          <indexterm zone="ch-system-perl h2ph">
+            <primary sortas="b-h2ph">h2ph</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="h2xs">
+        <term><command>h2xs</command></term>
+        <listitem>
+          <para>Converts <filename class="extension">.h</filename> C header
+          files to Perl extensions</para>
+          <indexterm zone="ch-system-perl h2xs">
+            <primary sortas="b-h2xs">h2xs</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="instmodsh">
+        <term><command>instmodsh</command></term>
+        <listitem>
+          <para>Shell script for examining installed Perl modules,
+          and can create a tarball from an installed module</para>
+          <indexterm zone="ch-system-perl instmodsh">
+            <primary sortas="b-instmodsh">instmodsh</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="json_pp">
+        <term><command>json_pp</command></term>
+        <listitem>
+          <para>Converts data between certain input and output formats</para>
+          <indexterm zone="ch-system-perl json_pp">
+            <primary sortas="b-json_pp">json_pp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libnetcfg">
+        <term><command>libnetcfg</command></term>
+        <listitem>
+          <para>Can be used to configure the
+          <filename class="libraryfile">libnet</filename> Perl module</para>
+          <indexterm zone="ch-system-perl libnetcfg">
+            <primary sortas="b-libnetcfg">libnetcfg</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="perl">
+        <term><command>perl</command></term>
+        <listitem>
+          <para>Combines some of the best features of C, <command>sed</command>,
+          <command>awk</command> and <command>sh</command> into a single
+          swiss-army language</para>
+          <indexterm zone="ch-system-perl perl">
+            <primary sortas="b-perl">perl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="perl-version">
+        <term><command>perl&perl-version;</command></term>
+        <listitem>
+          <para>A hard link to <command>perl</command></para>
+          <indexterm zone="ch-system-perl perl-version">
+            <primary sortas="b-perl&perl-version;">perl&perl-version;</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="perlbug">
+        <term><command>perlbug</command></term>
+        <listitem>
+          <para>Used to generate bug reports about Perl, or the modules that come
+          with it, and mail them</para>
+          <indexterm zone="ch-system-perl perlbug">
+            <primary sortas="b-perlbug">perlbug</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="perldoc">
+        <term><command>perldoc</command></term>
+        <listitem>
+          <para>Displays a piece of documentation in pod format that is embedded
+          in the Perl installation tree or in a Perl script</para>
+          <indexterm zone="ch-system-perl perldoc">
+            <primary sortas="b-perldoc">perldoc</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="perlivp">
+        <term><command>perlivp</command></term>
+        <listitem>
+          <para>The Perl Installation Verification Procedure; it can be used to
+          verify that Perl and its libraries have been installed
+          correctly</para>
+          <indexterm zone="ch-system-perl perlivp">
+            <primary sortas="b-perlivp">perlivp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="perlthanks">
+        <term><command>perlthanks</command></term>
+        <listitem>
+          <para>Used to generate thank you messages to mail to the Perl
+          developers</para>
+          <indexterm zone="ch-system-perl perlthanks">
+            <primary sortas="b-perlthanks">perlthanks</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="piconv">
+        <term><command>piconv</command></term>
+        <listitem>
+          <para>A Perl version of the character encoding converter
+          <command>iconv</command></para>
+          <indexterm zone="ch-system-perl piconv">
+            <primary sortas="b-piconv">piconv</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pl2pm">
+        <term><command>pl2pm</command></term>
+        <listitem>
+          <para>A rough tool for converting Perl4
+          <filename class="extension">.pl</filename> files to Perl5
+          <filename class="extension">.pm</filename> modules</para>
+          <indexterm zone="ch-system-perl pl2pm">
+            <primary sortas="b-pl2pm">pl2pm</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pod2html">
+        <term><command>pod2html</command></term>
+        <listitem>
+          <para>Converts files from pod format to HTML format</para>
+          <indexterm zone="ch-system-perl pod2html">
+            <primary sortas="b-pod2html">pod2html</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pod2man">
+        <term><command>pod2man</command></term>
+        <listitem>
+          <para>Converts pod data to formatted *roff input</para>
+          <indexterm zone="ch-system-perl pod2man">
+            <primary sortas="b-pod2man">pod2man</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pod2text">
+        <term><command>pod2text</command></term>
+        <listitem>
+          <para>Converts pod data to formatted ASCII text</para>
+          <indexterm zone="ch-system-perl pod2text">
+            <primary sortas="b-pod2text">pod2text</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pod2usage">
+        <term><command>pod2usage</command></term>
+        <listitem>
+          <para>Prints usage messages from embedded pod docs in files</para>
+          <indexterm zone="ch-system-perl pod2usage">
+            <primary sortas="b-pod2usage">pod2usage</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="podchecker">
+        <term><command>podchecker</command></term>
+        <listitem>
+          <para>Checks the syntax of pod format documentation files</para>
+          <indexterm zone="ch-system-perl podchecker">
+            <primary sortas="b-podchecker">podchecker</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="podselect">
+        <term><command>podselect</command></term>
+        <listitem>
+          <para>Displays selected sections of pod documentation</para>
+          <indexterm zone="ch-system-perl podselect">
+            <primary sortas="b-podselect">podselect</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="prove">
+        <term><command>prove</command></term>
+        <listitem>
+          <para>Command line tool for running tests against the Test::Harness
+          module</para>
+          <indexterm zone="ch-system-perl prove">
+            <primary sortas="b-prove">prove</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+<!--
+      <varlistentry id="pstruct">
+        <term><command>pstruct</command></term>
+        <listitem>
+          <para>Dumps C structures as generated from <command>cc -g -S</command>
+          stabs</para>
+          <indexterm zone="ch-system-perl pstruct">
+            <primary sortas="b-pstruct">pstruct</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+-->
+      <varlistentry id="ptar">
+        <term><command>ptar</command></term>
+        <listitem>
+          <para>A <command>tar</command>-like program written in Perl</para>
+          <indexterm zone="ch-system-perl ptar">
+            <primary sortas="b-ptar">ptar</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ptardiff">
+        <term><command>ptardiff</command></term>
+        <listitem>
+          <para>A Perl program that compares an extracted archive with an
+          unextracted one</para>
+          <indexterm zone="ch-system-perl ptardiff">
+            <primary sortas="b-ptardiff">ptardiff</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ptargrep">
+        <term><command>ptargrep</command></term>
+        <listitem>
+          <para>A Perl program that applies pattern matching to the contents
+          of files in a tar archive</para>
+          <indexterm zone="ch-system-perl ptargrep">
+            <primary sortas="b-ptargrep">ptargrep</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="shasum">
+        <term><command>shasum</command></term>
+        <listitem>
+          <para>Prints or checks SHA checksums</para>
+          <indexterm zone="ch-system-perl shasum">
+            <primary sortas="b-shasum">shasum</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="splain">
+        <term><command>splain</command></term>
+        <listitem>
+          <para>Is used to force verbose warning diagnostics in Perl</para>
+          <indexterm zone="ch-system-perl splain">
+            <primary sortas="b-splain">splain</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="xsubpp">
+        <term><command>xsubpp</command></term>
+        <listitem>
+          <para>Converts Perl XS code into C code</para>
+          <indexterm zone="ch-system-perl xsubpp">
+            <primary sortas="b-xsubpp">xsubpp</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="zipdetails">
+        <term><command>zipdetails</command></term>
+        <listitem>
+          <para>Displays details about the internal structure of a Zip file</para>
+          <indexterm zone="ch-system-perl zipdetails">
+            <primary sortas="b-zipdetails">zipdetails</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

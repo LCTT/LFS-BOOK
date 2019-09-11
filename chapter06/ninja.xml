@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-ninja" role="wrap">
+  <?dbhtml filename="ninja.html"?>
+
+  <sect1info condition="script">
+    <productname>ninja</productname>
+    <productnumber>&ninja-version;</productnumber>
+    <address>&ninja-url;</address>
+  </sect1info>
+
+  <title>Ninja-&ninja-version;</title>
+
+  <indexterm zone="ch-system-ninja">
+    <primary sortas="a-Ninja">Ninja</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>Ninja is a small build system with a focus on speed.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&ninja-ch6-sbu;</seg>
+        <seg>&ninja-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Ninja</title>
+
+    <para>When run, ninja normally runs a maximum number of processes
+    in parallel.  By default this is the number of cores on the system 
+    plus two.  In some cases this can overheat a CPU or run a system out
+    of memory.  If run from the command line, passing a -jN parameter
+    will limit the number of parallel processes, but some packages
+    embed the execution of ninja and do not pass a -j parameter.</para>
+
+    <para>Using the <emphasis>optional</emphasis> procedure below allows a user to
+    limit the number of parallel processes via an environment variable, 
+    NINJAJOBS.  <command>For example</command>, setting:
+
+     <!--Using <command> here to make the output bold.  We really don't want
+     users setting this now and experience shows that many users blindly
+     copy/paste anything in a box. -->
+
+    <screen>export NINJAJOBS=4</screen>
+
+    will limit ninja to four parallel processes.</para>
+
+    <para>If desired, add the capability to use the environment variable 
+    NINJAJOBS by running:</para>
+
+<screen><userinput remap="pre">sed -i '/int Guess/a \
+  int   j = 0;\
+  char* jobs = getenv( "NINJAJOBS" );\
+  if ( jobs != NULL ) j = atoi( jobs );\
+  if ( j > 0 ) return j;\
+' src/ninja.cc</userinput></screen>
+
+    <para>Build Ninja with:</para>
+
+<screen><userinput remap="configure">python3 configure.py --bootstrap</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the build option:</title>
+
+      <varlistentry>
+        <term><parameter>--bootstrap</parameter></term>
+        <listitem>
+          <para>This parameter forces ninja to rebuild itself for the current
+          system.</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+    <para>To test the results, issue:</para>
+
+<screen><userinput remap="test">./ninja ninja_test
+./ninja_test --gtest_filter=-SubprocessTest.SetWithLots</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">install -vm755 ninja /usr/bin/
+install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja
+install -vDm644 misc/zsh-completion  /usr/share/zsh/site-functions/_ninja</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-ninja" role="content">
+    <title>Contents of Ninja</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+
+      <seglistitem>
+        <seg>ninja</seg>
+      </seglistitem>
+    </segmentedlist>
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="ninja">
+        <term><command>ninja</command></term>
+        <listitem>
+          <para>is the Ninja build system.</para>
+          <indexterm zone="ch-system-ninja ninja">
+            <primary sortas="b-ninja">ninja</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>
+

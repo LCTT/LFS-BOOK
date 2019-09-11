@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-procps" role="wrap">
+  <?dbhtml filename="procps-ng.html"?>
+
+  <sect1info condition="script">
+    <productname>procps-ng</productname>
+    <productnumber>&procps-ng-version;</productnumber>
+    <address>&procps-ng-url;</address>
+  </sect1info>
+
+  <title>Procps-ng-&procps-ng-version;</title>
+
+  <indexterm zone="ch-system-procps">
+    <primary sortas="a-Procps">Procps-ng</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Procps-ng package contains programs for monitoring processes.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&procps-ng-ch6-sbu;</seg>
+        <seg>&procps-ng-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Procps-ng</title>
+
+    <para>Prepare procps-ng for compilation:</para>
+
+<screen revision="sysv"><userinput remap="configure">./configure --prefix=/usr                            \
+            --exec-prefix=                           \
+            --libdir=/usr/lib                        \
+            --docdir=/usr/share/doc/procps-ng-&procps-ng-version; \
+            --disable-static                         \
+            --disable-kill</userinput></screen>
+
+<screen revision="systemd"><userinput remap="configure">./configure --prefix=/usr                            \
+            --exec-prefix=                           \
+            --libdir=/usr/lib                        \
+            --docdir=/usr/share/doc/procps-ng-&procps-ng-version; \
+            --disable-static                         \
+            --disable-kill                           \
+            --with-systemd</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the configure options:</title>
+
+      <varlistentry>
+        <term><parameter>--disable-kill</parameter></term>
+        <listitem>
+          <para>This switch disables building the <command>kill</command>
+          command that will be installed by the Util-linux package.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>The test suite needs some custom modifications for LFS.
+    Remove a test that fails when scripting does not use a tty device and
+    fix two others.
+    To run the test suite, run the following commands:</para>
+
+<screen><userinput remap="test">sed -i -r 's|(pmap_initname)\\\$|\1|' testsuite/pmap.test/pmap.exp
+sed -i '/set tty/d' testsuite/pkill.test/pkill.exp
+rm testsuite/pgrep.test/pgrep.exp
+make check</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+<para>Finally, move essential libraries to a location that can be found if
+<filename class="directory">/usr</filename> is not mounted.</para>
+
+<screen><userinput remap="install">mv -v /usr/lib/libprocps.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-procps" role="content">
+    <title>Contents of Procps-ng</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+      <segtitle>Installed library</segtitle>
+      <segtitle>Installed directories</segtitle>
+
+      <seglistitem>
+        <seg>free, pgrep, pidof, pkill, pmap, ps, pwdx, slabtop,
+        sysctl, tload, top, uptime, vmstat, w, and watch</seg>
+        <seg>libprocps.so</seg>
+        <seg>/usr/include/proc and /usr/share/doc/procps-ng-&procps-ng-version;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="free">
+        <term><command>free</command></term>
+        <listitem>
+          <para>Reports the amount of free and used memory (both physical and
+          swap memory) in the system</para>
+          <indexterm zone="ch-system-procps free">
+            <primary sortas="b-free">free</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pgrep">
+        <term><command>pgrep</command></term>
+        <listitem>
+          <para>Looks up processes based on their name and other attributes</para>
+          <indexterm zone="ch-system-procps pgrep">
+            <primary sortas="b-pgrep">pgrep</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pidof">
+        <term><command>pidof</command></term>
+        <listitem>
+          <para>Reports the PIDs of the given programs</para>
+          <indexterm zone="ch-system-procps pidof">
+            <primary sortas="b-pidof">pidof</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pkill">
+        <term><command>pkill</command></term>
+        <listitem>
+          <para>Signals processes based on their name and other attributes</para>
+          <indexterm zone="ch-system-procps pkill">
+            <primary sortas="b-pkill">pkill</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pmap">
+        <term><command>pmap</command></term>
+        <listitem>
+          <para>Reports the memory map of the given process</para>
+          <indexterm zone="ch-system-procps pmap">
+            <primary sortas="b-pmap">pmap</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="ps">
+        <term><command>ps</command></term>
+        <listitem>
+          <para>Lists the current running processes</para>
+          <indexterm zone="ch-system-procps ps">
+            <primary sortas="b-ps">ps</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="pwdx">
+        <term><command>pwdx</command></term>
+        <listitem>
+          <para>Reports the current working directory of a process</para>
+          <indexterm zone="ch-system-procps pwdx">
+            <primary sortas="b-pwdx">pwdx</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="slabtop">
+        <term><command>slabtop</command></term>
+        <listitem>
+          <para>Displays detailed kernel slab cache information in real time</para>
+          <indexterm zone="ch-system-procps slabtop">
+            <primary sortas="b-slabtop">slabtop</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="sysctl">
+        <term><command>sysctl</command></term>
+        <listitem>
+          <para>Modifies kernel parameters at run time</para>
+          <indexterm zone="ch-system-procps sysctl">
+            <primary sortas="b-sysctl">sysctl</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="tload">
+        <term><command>tload</command></term>
+        <listitem>
+          <para>Prints a graph of the current system load average</para>
+          <indexterm zone="ch-system-procps tload">
+            <primary sortas="b-tload">tload</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="top">
+        <term><command>top</command></term>
+        <listitem>
+          <para>Displays a list of the most CPU intensive processes; it
+          provides an ongoing look at processor activity in real time</para>
+          <indexterm zone="ch-system-procps top">
+            <primary sortas="b-top">top</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="uptime">
+        <term><command>uptime</command></term>
+        <listitem>
+          <para>Reports how long the system has been running, how many users are
+          logged on, and the system load averages</para>
+          <indexterm zone="ch-system-procps uptime">
+            <primary sortas="b-uptime">uptime</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="vmstat">
+        <term><command>vmstat</command></term>
+        <listitem>
+          <para>Reports virtual memory statistics, giving information about
+          processes, memory, paging, block Input/Output (IO), traps, and CPU
+          activity</para>
+          <indexterm zone="ch-system-procps vmstat">
+            <primary sortas="b-vmstat">vmstat</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="w">
+        <term><command>w</command></term>
+        <listitem>
+          <para>Shows which users are currently logged on, where, and since
+          when</para>
+          <indexterm zone="ch-system-procps w">
+            <primary sortas="b-w">w</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="watch">
+        <term><command>watch</command></term>
+        <listitem>
+          <para>Runs a given command repeatedly, displaying the first
+          screen-full of its output; this allows a user to watch the output
+          change over time</para>
+          <indexterm zone="ch-system-procps watch">
+            <primary sortas="b-watch">watch</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="libprocps">
+        <term><filename class="libraryfile">libprocps</filename></term>
+        <listitem>
+          <para>Contains the functions used by most programs in this
+          package</para>
+          <indexterm zone="ch-system-procps libprocps">
+            <primary sortas="c-libprocps">libprocps</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

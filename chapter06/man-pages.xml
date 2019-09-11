@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-man-pages" role="wrap">
+  <?dbhtml filename="man-pages.html"?>
+
+  <sect1info condition="script">
+    <productname>man-pages</productname>
+    <productnumber>&man-pages-version;</productnumber>
+    <address>&man-pages-url;</address>
+  </sect1info>
+
+  <title>Man-pages-&man-pages-version;</title>
+
+  <indexterm zone="ch-system-man-pages">
+    <primary sortas="a-Man-pages">Man-pages</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Man-pages package contains over 2,200 man pages.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&man-pages-ch6-sbu;</seg>
+        <seg>&man-pages-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Man-pages</title>
+
+    <para>Install Man-pages by running:</para>
+
+<screen><userinput remap="install">make install</userinput></screen>
+
+  </sect2>
+
+  <sect2 id="contents-manpages" role="content">
+    <title>Contents of Man-pages</title>
+
+    <segmentedlist>
+      <segtitle>Installed files</segtitle>
+
+      <seglistitem>
+        <seg>various man pages</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="man-pages">
+        <term><filename>man pages</filename></term>
+        <listitem>
+          <para>Describe C programming language functions, important
+          device files, and significant configuration files</para>
+          <indexterm zone="ch-system-man-pages man-pages">
+            <primary sortas="e-man-pages">man pages</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>

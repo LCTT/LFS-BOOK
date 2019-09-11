@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-scripts-network" revision="sysv">
+  <?dbhtml filename="network.html"?>
+
+  <title>General Network Configuration</title>
+
+  <indexterm zone="ch-scripts-network">
+    <primary sortas="d-network">network</primary>
+  <secondary>configuring</secondary></indexterm>
+<!--
+  <para>This section only applies if a network card is to be
+  configured.</para>
+
+  <para>If a network card will not be used, there is likely no need to create
+  any configuration files relating to network cards. If that is the case, you
+  will need to remove the <filename class="symlink">network</filename> symlinks
+  from all run-level directories (<filename
+  class="directory">/etc/rc.d/rc*.d</filename>) after the bootscripts are
+  installed in <xref linkend="ch-scripts-bootscripts"/>.</para>
+-->
+  <sect2>
+    <title>Creating Network Interface Configuration Files</title>
+
+    <para>Which interfaces are brought up and down by the network script
+    usually depends on the files in <filename
+    class="directory">/etc/sysconfig/</filename>.  This directory should
+    contain a file for each interface to be configured, such as
+    <filename>ifconfig.xyz</filename>, where <quote>xyz</quote> should describe
+    the network card.  The interface name (e.g. eth0) is usually appropriate.
+    Inside this file are attributes to this interface, such as its IP
+    address(es), subnet masks, and so forth.  It is necessary that the stem of
+    the filename be <emphasis>ifconfig</emphasis>.</para>
+
+    <note><para>If the procedure in the previous section was not used, Udev
+    will assign network card interface names based on system physical
+    characteristics such as enp2s1. If you are not sure what your interface
+    name is, you can always run <command>ip link</command> or <command>ls
+    /sys/class/net</command> after you have booted your system.  
+    </para></note>
+
+    <para>The following command creates a sample file for the
+    <emphasis>eth0</emphasis> device with a static IP address:</para>
+<!-- jhalfs relies on the values for IFACE, IP, etc. If you want to change
+     them, please inform the jhalfs maintainer(s). -->
+<screen><userinput>cd /etc/sysconfig/
+cat &gt; ifconfig.<replaceable>eth0</replaceable> &lt;&lt; "EOF"
+<literal>ONBOOT=<replaceable>yes</replaceable>
+IFACE=<replaceable>eth0</replaceable>
+SERVICE=<replaceable>ipv4-static</replaceable>
+IP=<replaceable>192.168.1.2</replaceable>
+GATEWAY=<replaceable>192.168.1.1</replaceable>
+PREFIX=<replaceable>24</replaceable>
+BROADCAST=<replaceable>192.168.1.255</replaceable></literal>
+EOF</userinput></screen>
+
+    <para>The values in italics must be changed in every file to match
+    the proper setup.</para>
+
+    <para>If the <envar>ONBOOT</envar> variable is set to <quote>yes</quote> the
+    System V network script will bring up the Network Interface Card (NIC) during
+    booting of the system. If set to anything but <quote>yes</quote> the NIC
+    will be ignored by the network script and not be automatically brought up.
+    The interface can be manually started or stopped with the
+    <command>ifup</command> and <command>ifdown</command> commands.</para>
+
+    <para>The <envar>IFACE</envar> variable defines the interface name,
+    for example, eth0.  It is required for all network device configuration
+    files. The filename extension must match this value.</para>
+
+    <para>The <envar>SERVICE</envar> variable defines the method used for
+    obtaining the IP address. The LFS-Bootscripts package has a modular IP
+    assignment format, and creating additional files in the <filename
+    class="directory">/lib/services/</filename> directory allows other IP
+    assignment methods. This is commonly used for Dynamic Host Configuration
+    Protocol (DHCP), which is addressed in the BLFS book.</para>
+
+    <para>The <envar>GATEWAY</envar> variable should contain the default
+    gateway IP address, if one is present. If not, then comment out the
+    variable entirely.</para>
+
+    <para>The <envar>PREFIX</envar> variable contains the number of
+    bits used in the subnet. Each octet in an IP address is 8 bits. If the
+    subnet's netmask is 255.255.255.0, then it is using the first three octets
+    (24 bits) to specify the network number. If the netmask is 255.255.255.240,
+    it would be using the first 28 bits.  Prefixes longer than 24 bits are
+    commonly used by DSL and cable-based Internet Service Providers (ISPs).
+    In this example (PREFIX=24), the netmask is 255.255.255.0. Adjust the
+    <envar>PREFIX</envar> variable according to your specific subnet.
+    If omitted, the PREFIX defaults to 24.</para>
+
+    <para>For more information see the <command>ifup</command> man page.</para>
+
+  </sect2>
+  <sect2 id="resolv.conf">
+    <title>Creating the /etc/resolv.conf File</title>
+
+    <indexterm zone="resolv.conf">
+      <primary sortas="e-/etc/resolv.conf">/etc/resolv.conf</primary>
+    </indexterm>
+
+    <para>The system will need some means of obtaining Domain Name Service
+    (DNS) name resolution to resolve Internet domain names to IP addresses, and
+    vice versa. This is best achieved by placing the IP address of the DNS
+    server, available from the ISP or network administrator, into
+    <filename>/etc/resolv.conf</filename>. Create the file by running the
+    following:</para>
+
+<screen><userinput>cat &gt; /etc/resolv.conf &lt;&lt; "EOF"
+<literal># Begin /etc/resolv.conf
+
+domain <replaceable>&lt;Your Domain Name&gt;</replaceable>
+nameserver <replaceable>&lt;IP address of your primary nameserver&gt;</replaceable>
+nameserver <replaceable>&lt;IP address of your secondary nameserver&gt;</replaceable>
+
+# End /etc/resolv.conf</literal>
+EOF</userinput></screen>
+
+    <para>The <varname>domain</varname> statement can be omitted
+    or replaced with a <varname>search</varname> statement.  See the man page for
+    resolv.conf for more details.</para>
+
+    <para>Replace <replaceable>&lt;IP address of the nameserver&gt;</replaceable>
+    with the IP address of the DNS most appropriate for the setup. There will
+    often be more than one entry (requirements demand secondary servers for
+    fallback capability). If you only need or want one DNS server, remove the
+    second <emphasis>nameserver</emphasis> line from the file. The IP address
+    may also be a router on the local network.</para>
+
+    <note>
+      <para>The Google Public IPv4 DNS addresses are 8.8.8.8 and 8.8.4.4.</para>
+    </note>
+
+  </sect2>
+
+  <sect2 id="ch-scripts-hostname">
+    <title>Configuring the system hostname</title>
+
+    <indexterm zone="ch-scripts-hostname">
+      <primary sortas="d-hostname">hostname</primary>
+      <secondary>configuring</secondary>
+    </indexterm>
+
+     <para>During the boot process, the file <filename>/etc/hostname</filename>
+     is used for establishing the system's hostname.</para>
+
+     <para>Create the <filename>/etc/hostname</filename> file and enter a
+     hostname by running:</para>
+
+<screen><userinput>echo "<replaceable>&lt;lfs&gt;</replaceable>" &gt; /etc/hostname</userinput></screen>
+
+     <para><replaceable>&lt;lfs&gt;</replaceable> needs to be replaced with the
+     name given to the computer. Do not enter the Fully Qualified Domain Name
+     (FQDN) here. That information is put in the
+     <filename>/etc/hosts</filename> file.</para>
+
+  </sect2>
+
+  <sect2 id="ch-scripts-hosts">
+     <title>Customizing the /etc/hosts File</title>
+
+     <indexterm zone="ch-scripts-hosts">
+       <primary sortas="e-/etc/hosts">/etc/hosts</primary>
+     </indexterm>
+   
+     <indexterm zone="ch-scripts-hosts">
+       <primary sortas="d-localnet">localnet</primary>
+       <secondary>/etc/hosts</secondary>
+     </indexterm>
+   
+     <indexterm zone="ch-scripts-hosts">
+       <primary sortas="d-network">network</primary>
+       <secondary>/etc/hosts</secondary>
+     </indexterm>
+   
+     <para>Decide on the IP address, fully-qualified domain name (FQDN), and
+     possible aliases for use in the <filename>/etc/hosts</filename> file. The
+     syntax is:</para>
+   
+<screen><literal>IP_address myhost.example.org aliases</literal></screen>
+
+     <para>Unless the computer is to be visible to the Internet (i.e., there is
+     a registered domain and a valid block of assigned IP addresses&mdash;most
+     users do not have this), make sure that the IP address is in the private
+     network IP address range. Valid ranges are:</para>
+
+<screen><literal>Private Network Address Range      Normal Prefix
+10.0.0.1 - 10.255.255.254           8
+172.x.0.1 - 172.x.255.254           16
+192.168.y.1 - 192.168.y.254         24</literal></screen>
+
+     <para>x can be any number in the range 16-31. y can be any number in the
+     range 0-255.</para>
+   
+     <para>A valid private IP address could be 192.168.1.1. A valid FQDN for
+     this IP could be lfs.example.org.</para>
+   
+     <para>Even if not using a network card, a valid FQDN is still required.
+     This is necessary for certain programs to operate correctly.</para>
+   
+     <para>Create the  <filename>/etc/hosts</filename> file by running:</para>
+
+<screen><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
+<literal># Begin /etc/hosts
+
+127.0.0.1 localhost
+127.0.1.1 <replaceable>&lt;FQDN&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable>
+<replaceable>&lt;192.168.1.1&gt;</replaceable> <replaceable>&lt;FQDN&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable> <replaceable>[alias1] [alias2 ...]</replaceable>
+::1       localhost ip6-localhost ip6-loopback
+ff02::1   ip6-allnodes
+ff02::2   ip6-allrouters
+
+# End /etc/hosts</literal>
+EOF</userinput></screen>
+
+     <para>The <replaceable>&lt;192.168.1.1&gt;</replaceable>,
+     <replaceable>&lt;FQDN&gt;</replaceable>, and 
+     <replaceable>&lt;HOSTNAME&gt;</replaceable> values need to be
+     changed for specific uses or requirements (if assigned an IP address by a
+     network/system administrator and the machine will be connected to an
+     existing network). The optional alias name(s) can be omitted.</para>
+
+<!--  This is not very useful
+
+     <para>If a network card is not going to be configured, create the
+     <filename>/etc/hosts</filename> file by running:</para>
+
+<screen role="nodump"><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
+<literal># Begin /etc/hosts (no network card version)
+
+127.0.0.1 localhost
+127.0.1.1 <replaceable>&lt;FQDN&gt;</replaceable> <replaceable>&lt;HOSTNAME&gt;</replaceable>
+::1       localhost ip6-localhost ip6-loopback
+ff02::1   ip6-allnodes
+ff02::2   ip6-allrouters
+
+# End /etc/hosts (no network card version)</literal>
+EOF</userinput></screen> -->
+
+   </sect2>
+
+</sect1>

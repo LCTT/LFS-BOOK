@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-tools-e2fsprogs" role="wrap">
+  <?dbhtml filename="e2fsprogs.html"?>
+
+  <sect1info condition="script">
+    <productname>e2fsprogs</productname>
+    <productnumber>&e2fsprogs-version;</productnumber>
+    <address>&e2fsprogs-url;</address>
+  </sect1info>
+
+  <title>E2fsprogs-&e2fsprogs-version;</title>
+
+  <indexterm zone="ch-tools-e2fsprogs">
+    <primary sortas="a-E2fsprogs">E2fsprogs</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+    href="../chapter06/e2fsprogs.xml"
+    xpointer="xpointer(/sect1/sect2[1]/para[1])"/>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&e2fsprogs-ch5-sbu;</seg>
+        <seg>&e2fsprogs-ch5-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of E2fsprogs</title>
+
+    <para>The E2fsprogs documentation recommends that the package be built in
+    a subdirectory of the source tree: </para>
+
+<screen><userinput remap="pre">mkdir -v build
+cd build</userinput></screen>
+
+    <para>Prepare E2fsprogs for compilation:</para>
+
+<screen><userinput remap="configure">../configure --prefix=/tools --disable-libblkid --disable-libuuid</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the new configure option:</title>
+
+      <varlistentry>
+        <term><parameter>--disable-libblkid</parameter></term>
+        <listitem>
+          <para>This prevents E2fsprogs from building its own copy of the
+          libblkid library, which Util-Linux-NG provides.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><parameter>--disable-libuuid</parameter></term>
+        <listitem>
+          <para>This prevents E2fsprogs from building its own copy of the
+          libuuid library, which Util-Linux-NG provides.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Install the static libraries and headers required by Util-linux:</para>
+
+<screen><userinput remap="install">make install-libs</userinput></screen>
+
+    <para>Make the installed static libraries writable so debugging symbols can
+    be removed later:</para>
+
+<screen><userinput remap="install">chmod -v u+w \
+    /tools/lib/{libcom_err,libe2p,libext2fs,libss}.a</userinput></screen>
+
+  </sect2>
+
+  <sect2 role="content">
+    <title/>
+
+    <para>Details on this package are located in
+    <xref linkend="contents-e2fsprogs" role="."/></para>
+  </sect2>
+
+</sect1>

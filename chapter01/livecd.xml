@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-intro-livecd">
+  <?dbhtml filename="livecd.html"?>
+
+  <title>About the Included CD</title>
+
+  <para>For your convenience, we have included a CD with this book that
+  contains the source packages needed for creating a Linux From Scratch
+  system.  The CD is bootable and provides a stable working environment
+  for building LFS.  This book refers to this system as the
+  <quote>host system.</quote>  The CD images are actively maintained and
+  updated versions can be found at
+  <ulink url="ftp://ftp.lfs-matrix.net/pub/lfs-livecd/"/></para>
+
+  <para>In addition to the tools required to build LFS, the host system
+  on the CD has a number of other helpful tools installed:</para>
+
+  <itemizedlist>
+
+    <listitem>
+      <para>An HTML version of this book</para>
+    </listitem>
+
+    <listitem>
+      <para>The X Window System Environment</para>
+    </listitem>
+
+    <listitem>
+      <para>Web Tools</para>
+      <itemizedlist>
+        <listitem>
+          <para>Wget (command line file retriever)</para>
+        </listitem>
+        <listitem>
+          <para>Lynx (text web browser)</para>
+        </listitem>
+        <listitem>
+          <para>Irssi (console IRC client)</para>
+        </listitem>
+        <listitem>
+          <para>Firefox (graphical web browser)</para>
+        </listitem>
+        <listitem>
+          <para>Xchat (X-based IRC client)</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Text Editors</para>
+      <itemizedlist>
+        <listitem>
+          <para>Vim</para>
+        </listitem>
+        <listitem>
+          <para>Nano</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Network Tools</para>
+      <itemizedlist>
+        <listitem>
+          <para>SSH Server and Client</para>
+        </listitem>
+        <listitem>
+          <para>NFS Server and Client</para>
+        </listitem>
+        <listitem>
+          <para>Smbmount (mount.cifs) for Windows shares</para>
+        </listitem>
+        <listitem>
+          <para>Subversion</para>
+        </listitem>
+        <listitem>
+          <para>Dhcpcd (DHCP client)</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Filesystem Programs</para>
+      <itemizedlist>
+        <listitem>
+          <para>Reiserfsprogs</para>
+        </listitem>
+        <listitem>
+          <para>Xfsprogs</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>nALFS - A tool for automating LFS builds</para>
+    </listitem>
+
+  </itemizedlist>
+
+</sect1>

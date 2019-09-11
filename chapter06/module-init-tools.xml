@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % general-entities SYSTEM "../general.ent">
+  %general-entities;
+]>
+
+<sect1 id="ch-system-module-init-tools" role="wrap">
+  <?dbhtml filename="module-init-tools.html"?>
+
+  <sect1info condition="script">
+    <productname>module-init-tools</productname>
+    <productnumber>&module-init-tools-version;</productnumber>
+    <address>&module-init-tools-url;</address>
+  </sect1info>
+
+  <title>Module-Init-Tools-&module-init-tools-version;</title>
+
+  <indexterm zone="ch-system-module-init-tools">
+    <primary sortas="a-Module-Init-Tools">Module-Init-Tools</primary>
+  </indexterm>
+
+  <sect2 role="package">
+    <title/>
+
+    <para>The Module-Init-Tools package contains programs for handling kernel
+    modules in Linux kernels greater than or equal to version 2.5.47.</para>
+
+    <segmentedlist>
+      <segtitle>&buildtime;</segtitle>
+      <segtitle>&diskspace;</segtitle>
+
+      <seglistitem>
+        <seg>&module-init-tools-ch6-sbu;</seg>
+        <seg>&module-init-tools-ch6-du;</seg>
+      </seglistitem>
+    </segmentedlist>
+
+  </sect2>
+
+  <sect2 role="installation">
+    <title>Installation of Module-Init-Tools</title>
+
+    <para>Apply a patch that contains the generated man pages that were missing
+    from the released source tarball:</para>
+
+<screen><userinput remap="pre">patch -Np1 -i ../&module-init-tools-man-patch;</userinput></screen>
+
+    <para>The test suite of this package is geared towards the needs of its
+    Maintainer. The command <command>make check</command> builds a specially
+    wrapped version of modprobe which is useless for normal operation. To run
+    this (about 0.2 SBU), issue the following commands (note that the
+    <command>make clean</command> command is required to clean up the source
+    tree before recompiling for normal use):</para>
+
+<screen><userinput remap="test">DOCBOOKTOMAN=/bin/true ./configure
+make check
+sed -i -e 's@../../configure@DOCBOOKTOMAN=/bin/true &amp;@' tests/runtests
+./tests/runtests
+make clean</userinput></screen>
+
+    <para>Prepare Module-Init-Tools for compilation:</para>
+
+<screen><userinput remap="configure">DOCBOOKTOMAN=/bin/true ./configure --prefix=/ \
+    --enable-zlib-dynamic --mandir=/usr/share/man</userinput></screen>
+
+    <para>Compile the package:</para>
+
+<screen><userinput remap="make">make</userinput></screen>
+
+    <para>Install the package:</para>
+
+<screen><userinput remap="install">make INSTALL=install install</userinput></screen>
+
+    <variablelist>
+      <title>The meaning of the make parameter:</title>
+      <varlistentry>
+        <term><parameter>INSTALL=install</parameter></term>
+        <listitem>
+          <para>Normally, <command>make install</command> will not install the
+          binaries if they already exist. This option overrides that behavior by
+          calling <command>install</command> instead of using the default
+          wrapper script.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+  </sect2>
+
+  <sect2 id="contents-module-init-tools" role="content">
+    <title>Contents of Module-Init-Tools</title>
+
+    <segmentedlist>
+      <segtitle>Installed programs</segtitle>
+
+      <seglistitem>
+        <seg>depmod, insmod, insmod.static, lsmod, modinfo, modprobe, and rmmod</seg>
+      </seglistitem>
+    </segmentedlist>
+
+    <variablelist>
+      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <?dbfo list-presentation="list"?>
+      <?dbhtml list-presentation="table"?>
+
+      <varlistentry id="depmod">
+        <term><command>depmod</command></term>
+        <listitem>
+          <para>Creates a dependency file based on the symbols it finds in the
+          existing set of modules; this dependency file is used by
+          <command>modprobe</command> to automatically load the required
+          modules</para>
+          <indexterm zone="ch-system-module-init-tools depmod">
+            <primary sortas="b-depmod">depmod</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="insmod">
+        <term><command>insmod</command></term>
+        <listitem>
+          <para>Installs a loadable module in the running kernel</para>
+          <indexterm zone="ch-system-module-init-tools insmod">
+            <primary sortas="b-insmod">insmod</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="insmod.static">
+        <term><command>insmod.static</command></term>
+        <listitem>
+          <para>A statically compiled version of <command>insmod</command></para>
+          <indexterm zone="ch-system-module-init-tools insmod.static">
+            <primary sortas="b-insmod.static">insmod.static</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="lsmod">
+        <term><command>lsmod</command></term>
+        <listitem>
+          <para>Lists currently loaded modules</para>
+          <indexterm zone="ch-system-module-init-tools lsmod">
+            <primary sortas="b-lsmod">lsmod</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="modinfo">
+        <term><command>modinfo</command></term>
+        <listitem>
+          <para>Examines an object file associated with a kernel module and
+          displays any information that it can glean</para>
+          <indexterm zone="ch-system-module-init-tools modinfo">
+            <primary sortas="b-modinfo">modinfo</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="modprobe">
+        <term><command>modprobe</command></term>
+        <listitem>
+          <para>Uses a dependency file, created by
+          <command>depmod</command>, to automatically load relevant modules</para>
+          <indexterm zone="ch-system-module-init-tools modprobe">
+            <primary sortas="b-modprobe">modprobe</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry id="rmmod">
+        <term><command>rmmod</command></term>
+        <listitem>
+          <para>Unloads modules from the running kernel</para>
+          <indexterm zone="ch-system-module-init-tools rmmod">
+            <primary sortas="b-rmmod">rmmod</primary>
+          </indexterm>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+</sect1>
