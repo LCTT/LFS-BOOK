@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
   <!ENTITY % general-entities SYSTEM "../general.ent">
@@ -99,7 +99,7 @@ LC_ALL=&lt;locale name&gt; locale int_prefix</userinput></screen>
 <screen><computeroutput>Warning: locale not supported by Xlib, locale set to C</computeroutput></screen>
 
   <para>In several cases Xlib expects that the character map will be listed in
-  uppercase notation with canonical dashes. For instance, "ISO-8859-1" rather
+  uppercase notation with canonical dashes. For instance, "UTF-8" rather
   than "iso88591". It is also  possible to find an appropriate specification by
   removing the charmap part of the locale specification.  This can be checked
   by running the <command>locale charmap</command> command in both locales.
