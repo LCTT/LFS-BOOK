@@ -6,14 +6,13 @@
   %general-entities;
 ]>
 
-<appendix id="rules" xreflabel="Appendix E" revision="sysv">
+<appendix id="rules" xreflabel="附录 E" revision="sysv">
   <?dbhtml dir="scripts"?>
   <?dbhtml filename="eudev-rules.html"?>
 
-  <title>Udev configuration rules</title>
+  <title>udev 配置规则</title>
 
-  <para>The rules in this appendix are listed for convenience.  Installation is
-  normally done via instructions in <xref linkend='ch-system-eudev'/>.  </para>
+  <para>本附录仅为方便，在此处列出了配置规则。实则，经过 <xref linkend='ch-system-eudev'/> 的说明，安装已然已经完成。</para>
 
   <sect1 id="lfsrules" role="wrap">
     <title>55-lfs.rules</title>
