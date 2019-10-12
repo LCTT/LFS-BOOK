@@ -7,9 +7,9 @@
 
 <bookinfo>
   <title>Linux From Scratch （简体中文版）</title>
-  <subtitle revision='sysv'   >Version &version; </subtitle>
-  <subtitle revision='systemd'>Version &versiond;</subtitle>
-  <subtitle>Published &releasedate;</subtitle>
+  <subtitle revision='sysv'   >版本 &version; </subtitle>
+  <subtitle revision='systemd'>版本 &versiond;</subtitle>
+  <subtitle>发布时间 &releasedate;</subtitle>
 
   <authorgroup>
     <author>
