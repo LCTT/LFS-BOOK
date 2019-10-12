@@ -92,7 +92,7 @@ cd build</userinput></screen>
     <title/>
 
     <para>Details on this package are located in
-    <xref linkend="contents-e2fsprogs" role="."/></para>
+    <xref linkend="contents-e2fsprogs"/>。</para>
   </sect2>
 
 </sect1>
