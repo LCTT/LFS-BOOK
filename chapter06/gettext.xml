@@ -23,10 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Gettext package contains utilities for internationalization and
-    localization. These allow programs to be compiled with NLS (Native Language
-    Support), enabling them to output messages in the user's native
-    language.</para>
+    <para>Gettext 软件包包含用于国际化和本土化的工具。这允许用 NLS（Native Language Support，本地语言支持） 编译程序，使得能以用户的本地语言输出信息。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -41,7 +38,7 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Gettext</title>
+    <title>安装 Gettext</title>
 
    <!-- This has been fixed in upstream gnulib, when a new version of
    gettext is released, please check #4055 to see if the change has been
@@ -49,12 +46,10 @@
    
    As of April 11, 2018, 'TESTS = test-lock' is in gettext-runtime/tests/Makefile.am
    Perhaps the test is fixed.
-
    There is no reference to 'test' or TEST in  gettext-tools/gnulib-tests/Makefile.am
    -->
    <!--
-   <para>First, suppress two invocations of test-lock which on some machines
-   can loop forever:</para>
+   <para>首先，抑制两个 test-lock 的调用在某些机器上发生无限循环的问题：</para>
 
 <screen><userinput remap="pre">sed -i '/^TESTS =/d' gettext-runtime/tests/Makefile.in &amp;&amp;
 sed -i 's/test-lock..EXEEXT.//' gettext-tools/gnulib-tests/Makefile.in</userinput></screen>-->
@@ -63,27 +58,26 @@ sed -i 's/test-lock..EXEEXT.//' gettext-tools/gnulib-tests/Makefile.in</userinpu
    to be in metainfo.{its,loc},  When updating, check BLFS gnome-screenshot. -->
 
 <!--
-   <para>Now fix a configuration file:</para>
+   <para>然后修正配置文件：</para>
 
 <screen><userinput remap="pre">sed -e '/AppData/{N;N;p;s/\.appdata\./.metainfo./}' \
     -i gettext-tools/its/appdata.loc</userinput></screen>
 -->
-    <para>Prepare Gettext for compilation:</para>
+    <para>准备编译 Gettext：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr    \
             --disable-static \
             --docdir=/usr/share/doc/gettext-&gettext-version;</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results (this takes a long time, around 3 SBUs),
-    issue:</para>
+    <para>用以下命令测试结果（需要较长一段时间，大概 3 SBUs）：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install
 chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
@@ -91,35 +85,34 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
   </sect2>
 
   <sect2 id="contents-gettext" role="content">
-    <title>Contents of Gettext</title>
+    <title>Gettext 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>autopoint, envsubst, gettext, gettext.sh,
         gettextize, msgattrib, msgcat, msgcmp, msgcomm, msgconv, msgen,
         msgexec, msgfilter, msgfmt, msggrep, msginit, msgmerge, msgunfmt, msguniq,
-        ngettext, recode-sr-latin, and xgettext</seg>
+        ngettext, recode-sr-latin, 和  xgettext</seg>
         <seg>libasprintf.so, libgettextlib.so, libgettextpo.so,
-        libgettextsrc.so, and preloadable_libintl.so</seg>
+        libgettextsrc.so, 和  preloadable_libintl.so</seg>
         <seg>/usr/lib/gettext, /usr/share/doc/gettext-&gettext-version;,
-        /usr/share/gettext, and /usr/share/gettext-0.19.8</seg>
+        /usr/share/gettext, 和 /usr/share/gettext-0.19.8</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="autopoint">
         <term><command>autopoint</command></term>
         <listitem>
-          <para>Copies standard Gettext infrastructure files into a source
-          package</para>
+          <para>复制标准 Gettext 基础文件到源码包</para>
           <indexterm zone="ch-system-gettext autopoint">
             <primary sortas="b-autopoint">autopoint</primary>
           </indexterm>
@@ -129,7 +122,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="envsubst">
         <term><command>envsubst</command></term>
         <listitem>
-          <para>Substitutes environment variables in shell format strings</para>
+          <para>shell 格式字符串的替代环境变量</para>
           <indexterm zone="ch-system-gettext envsubst">
             <primary sortas="b-envsubst">envsubst</primary>
           </indexterm>
@@ -139,8 +132,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="gettext">
         <term><command>gettext</command></term>
         <listitem>
-          <para>Translates a natural language message into the user's language
-          by looking up the translation in a message catalog</para>
+          <para>通过查看信息目录中的转换将原来语言信息转换为用户语言</para>
           <indexterm zone="ch-system-gettext gettext">
             <primary sortas="b-gettext">gettext</primary>
           </indexterm>
@@ -150,7 +142,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="gettext.sh">
         <term><command>gettext.sh</command></term>
         <listitem>
-          <para>Primarily serves as a shell function library for gettext</para>
+          <para>主要作为 gettext 的一个 shell 函数库</para>
           <indexterm zone="ch-system-gettext gettext.sh">
             <primary sortas="b-gettext.sh">gettext.sh</primary>
           </indexterm>
@@ -160,8 +152,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="gettextize">
         <term><command>gettextize</command></term>
         <listitem>
-          <para>Copies all standard Gettext files into the given top-level
-          directory of a package to begin internationalizing it</para>
+          <para>复制所有标准 Gettext 文件到指定软件包的顶层目录以开始国际化</para>
           <indexterm zone="ch-system-gettext gettextize">
             <primary sortas="b-gettextize">gettextize</primary>
           </indexterm>
@@ -171,8 +162,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msgattrib">
         <term><command>msgattrib</command></term>
         <listitem>
-          <para>Filters the messages of a translation catalog according to their
-          attributes and manipulates the attributes</para>
+          <para>根据属性过滤翻译目录的信息并操作属性</para>
           <indexterm zone="ch-system-gettext msgattrib">
             <primary sortas="b-msgattrib">msgattrib</primary>
           </indexterm>
@@ -182,8 +172,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msgcat">
         <term><command>msgcat</command></term>
         <listitem>
-          <para>Concatenates and merges the given
-          <filename class="extension">.po</filename> files</para>
+          <para>连接和合并给定 <filename class="extension">.po</filename> 文件</para>
           <indexterm zone="ch-system-gettext msgcat">
             <primary sortas="b-msgcat">msgcat</primary>
           </indexterm>
@@ -193,8 +182,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msgcmp">
         <term><command>msgcmp</command></term>
         <listitem>
-          <para>Compares two <filename class="extension">.po</filename>
-          files to check that both contain the same set of msgid strings</para>
+          <para>比较两个 <filename class="extension">.po</filename> 文件以检查两者是否包含相同的 msgid 字符串集合</para>
           <indexterm zone="ch-system-gettext msgcmp">
             <primary sortas="b-msgcmp">msgcmp</primary>
           </indexterm>
@@ -204,8 +192,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msgcomm">
         <term><command>msgcomm</command></term>
         <listitem>
-          <para>Finds the messages that are common to the given
-          <filename class="extension">.po</filename> files</para>
+          <para>查找给定 <filename class="extension">.po</filename> 文件共同的信息</para>
           <indexterm zone="ch-system-gettext msgcomm">
             <primary sortas="b-msgcomm">msgcomm</primary>
           </indexterm>
@@ -215,8 +202,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msgconv">
         <term><command>msgconv</command></term>
         <listitem>
-          <para>Converts a translation catalog to a different character
-          encoding</para>
+          <para>转换翻译目录到不同的字符编码</para>
           <indexterm zone="ch-system-gettext msgconv">
             <primary sortas="b-msgconv">msgconv</primary>
           </indexterm>
@@ -226,7 +212,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msgen">
         <term><command>msgen</command></term>
         <listitem>
-          <para>Creates an English translation catalog</para>
+          <para>创建一个英语翻译目录</para>
           <indexterm zone="ch-system-gettext msgen">
             <primary sortas="b-msgen">msgen</primary>
           </indexterm>
@@ -236,8 +222,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msgexec">
         <term><command>msgexec</command></term>
         <listitem>
-          <para>Applies a command to all translations of a translation
-          catalog</para>
+          <para>对翻译目录的所有翻译运行命令</para>
           <indexterm zone="ch-system-gettext msgexec">
             <primary sortas="b-msgexec">msgexec</primary>
           </indexterm>
@@ -247,8 +232,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msgfilter">
         <term><command>msgfilter</command></term>
         <listitem>
-          <para>Applies a filter to all translations of a translation
-          catalog</para>
+          <para>对翻译目录的所有翻译应用过滤器</para>
           <indexterm zone="ch-system-gettext msgfilter">
             <primary sortas="b-msgfilter">msgfilter</primary>
           </indexterm>
@@ -258,8 +242,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msgfmt">
         <term><command>msgfmt</command></term>
         <listitem>
-          <para>Generates a binary message catalog from a translation
-          catalog</para>
+          <para>从翻译目录生成一个二进制信息目录</para>
           <indexterm zone="ch-system-gettext msgfmt">
             <primary sortas="b-msgfmt">msgfmt</primary>
           </indexterm>
@@ -269,8 +252,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msggrep">
         <term><command>msggrep</command></term>
         <listitem>
-          <para>Extracts all messages of a translation catalog that match a
-          given pattern or belong to some given source files</para>
+          <para>从翻译目录中抽取所有符合指定模式或属于特定源文件的信息</para>
           <indexterm zone="ch-system-gettext msggrep">
             <primary sortas="b-msggrep">msggrep</primary>
           </indexterm>
@@ -280,9 +262,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msginit">
         <term><command>msginit</command></term>
         <listitem>
-          <para>Creates a new <filename class="extension">.po</filename> file,
-          initializing the meta information with values from the user's
-          environment</para>
+          <para>创建一个新的 <filename class="extension">.po</filename> 文件，根据用户环境中的值初始化元信息</para>
           <indexterm zone="ch-system-gettext msginit">
             <primary sortas="b-msginit">msginit</primary>
           </indexterm>
@@ -292,7 +272,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msgmerge">
         <term><command>msgmerge</command></term>
         <listitem>
-          <para>Combines two raw translations into a single file</para>
+          <para>合并两个原译到一个单独的文件</para>
           <indexterm zone="ch-system-gettext msgmerge">
             <primary sortas="b-msgmerge">msgmerge</primary>
           </indexterm>
@@ -302,8 +282,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msgunfmt">
         <term><command>msgunfmt</command></term>
         <listitem>
-          <para>Decompiles a binary message catalog into raw translation
-          text</para>
+          <para>反向编译一个二进制信息目录为原译文本</para>
           <indexterm zone="ch-system-gettext msgunfmt">
             <primary sortas="b-msgunfmt">msgunfmt</primary>
           </indexterm>
@@ -313,7 +292,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="msguniq">
         <term><command>msguniq</command></term>
         <listitem>
-          <para>Unifies duplicate translations in a translation catalog</para>
+          <para>统一重复翻译为一个翻译目录</para>
           <indexterm zone="ch-system-gettext msguniq">
             <primary sortas="b-msguniq">msguniq</primary>
           </indexterm>
@@ -323,8 +302,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="ngettext">
         <term><command>ngettext</command></term>
         <listitem>
-          <para>Displays native language translations of a textual message whose
-          grammatical form depends on a number</para>
+          <para>显示语法形式取决于多种母语翻译的文本信息的本地语言翻译</para>
           <indexterm zone="ch-system-gettext ngettext">
             <primary sortas="b-ngettext">ngettext</primary>
           </indexterm>
@@ -334,7 +312,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="recode-sr-latin">
         <term><command>recode-sr-latin</command></term>
         <listitem>
-          <para>Recodes Serbian text from Cyrillic to Latin script</para>
+          <para>对 Serbian 文本从 Cyrillic 重新编码为 Latin 脚本</para>
           <indexterm zone="ch-system-gettext recode-sr-latin">
             <primary sortas="b-recode-sr-latin">recode-sr-latin</primary>
           </indexterm>
@@ -344,8 +322,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="xgettext">
         <term><command>xgettext</command></term>
         <listitem>
-          <para>Extracts the translatable message lines from the given source
-          files to make the first translation template</para>
+          <para>从指定源文件中抽取可翻译信息行用于生成第一个翻译模板</para>
           <indexterm zone="ch-system-gettext xgettext">
             <primary sortas="b-xgettext">xgettext</primary>
           </indexterm>
@@ -355,10 +332,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="libasprintf">
         <term><filename class="libraryfile">libasprintf</filename></term>
         <listitem>
-          <para>defines the <emphasis>autosprintf</emphasis> class, which makes
-          C formatted output routines usable in C++ programs, for use with the
-          <emphasis>&lt;string&gt;</emphasis> strings and the
-          <emphasis>&lt;iostream&gt;</emphasis> streams</para>
+          <para>定义 <emphasis>autosprintf</emphasis>  类，该类使 C 格式化输出在 C++程序中能和 <emphasis>&lt;string&gt;</emphasis> 字符串以及  <emphasis>&lt;iostream&gt;</emphasis> 流一起使用</para>
           <indexterm zone="ch-system-gettext libasprintf">
             <primary sortas="c-libasprintf">libasprintf</primary>
           </indexterm>
@@ -368,8 +342,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="libgettextlib">
         <term><filename class="libraryfile">libgettextlib</filename></term>
         <listitem>
-          <para>a private library containing common routines used by the
-          various Gettext programs; these are not intended for general use</para>
+          <para>包括多种 Gettext 程序使用的常用例程的私有库；并不用于一般用途</para>
           <indexterm zone="ch-system-gettext libgettextlib">
             <primary sortas="c-libgettextlib">libgettextlib</primary>
           </indexterm>
@@ -379,12 +352,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="libgettextpo">
         <term><filename class="libraryfile">libgettextpo</filename></term>
         <listitem>
-          <para>Used to write specialized programs that process
-          <filename class="extension">.po</filename> files; this library is
-          used when the standard applications shipped with Gettext (such as
-          <command>msgcomm</command>, <command>msgcmp</command>,
-          <command>msgattrib</command>, and <command>msgen</command>) will
-          not suffice</para>
+          <para>用来写处理 <filename class="extension">.po</filename> 文件的特殊程序；当 Gettext 附带的标准应用（例如 <command>msgcomm</command>，<command>msgcmp</command>，<command>msgattrib</command>, 以及  <command>msgen</command>）不足够时会使用这个库</para>
           <indexterm zone="ch-system-gettext libgettextpo">
             <primary sortas="c-libgettextpo">libgettextpo</primary>
           </indexterm>
@@ -394,8 +362,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="libgettextsrc">
         <term><filename class="libraryfile">libgettextsrc</filename></term>
         <listitem>
-          <para>A private library containing common routines used by the
-          various Gettext programs; these are not intended for general use</para>
+          <para>包括多种 Gettext 程序使用的常用例程的私有库；并不用于一般用途</para>
           <indexterm zone="ch-system-gettext libgettextsrc">
             <primary sortas="c-libgettextsrc">libgettextsrc</primary>
           </indexterm>
@@ -405,9 +372,7 @@ chmod -v 0755 /usr/lib/preloadable_libintl.so</userinput></screen>
       <varlistentry id="preloadable_libintl">
         <term><filename class="libraryfile">preloadable_libintl</filename></term>
         <listitem>
-          <para>A library, intended to be used by LD_PRELOAD that assists
-          <filename class="libraryfile">libintl</filename> in logging
-          untranslated messages</para>
+          <para>LD_PRELOAD 帮助 <filename class="libraryfile">libintl</filename> 记录未翻译信息时使用的库</para>
           <indexterm zone="ch-system-gettext preloadable_libintl">
             <primary sortas="c-preloadable_libintl">preloadable_libintl</primary>
           </indexterm>

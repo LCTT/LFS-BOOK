@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Bc package contains an arbitrary precision numeric processing 
-    language.</para>
+    <para>Bc 软件包包括一个任意精度数值处理的语言。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,10 +38,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Bc</title>
+    <title>安装 Bc</title>
 <!--
-    <para>First, change an internal script to use <command>sed</command> instead 
-    of <command>ed</command>:</para>
+    <para>首先，更改内部脚本用 <command>sed</command> 代替 <command>ed</command>：</para>
 
 <screen><userinput remap="pre">cat &gt; bc/fix-libmath_h &lt;&lt; "EOF"
 #! /bin/bash
@@ -56,21 +54,17 @@ sed -e '$ s/$/0}/' \
     -i libmath.h
 EOF</userinput></screen> 
 
-    <para>Create temporary symbolic links so the package can find
-    the readline library and confirm that its required libncurses
-    library is available. Even though the libraries are in /tools/lib
-    at this point, the system will use /usr/lib at the end of
-    this chapter.</para>
+    <para>创建临时符号链接，以便软件包能找到 readline 库，并确认所需的 libncurses 库可用。虽然现在这些库位于 /tools/lib 中，但在本章节的最后系统将改用 /usr/lib。</para>
 
 <screen><userinput remap="pre">ln -sv /tools/lib/libncursesw.so.6 /usr/lib/libncursesw.so.6
 ln -sfv libncursesw.so.6 /usr/lib/libncurses.so</userinput></screen>
 
-    <para>Fix an issue in <command>configure</command> due to missing
-    files in the early stages of LFS:</para>
+    <para>修复一个由于在 LFS 早期阶段缺少文件所导致的 <command>configure</command> 问题：</para>
 
 <screen><userinput remap="pre">sed -i -e '/flex/s/as_fn_error/: ;; # &amp;/' configure</userinput></screen>
 -->
-    <para>Prepare Bc for compilation:</para>
+    <para>准备编译 Bc：</para>
+
 <!--
 <screen><userinput remap="configure">./configure - -prefix=/usr           \
             - -with-readline         \
@@ -80,84 +74,78 @@ ln -sfv libncursesw.so.6 /usr/lib/libncurses.so</userinput></screen>
 <screen><userinput remap="configure">PREFIX=/usr CC=gcc CFLAGS="-std=c99" ./configure.sh -G -O3</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
+
 <!--
       <varlistentry>
         <term><parameter>- -with-readline</parameter></term>
         <listitem>
-          <para>This option tells Bc to use the <filename
-          class="libraryfile">readline</filename> library that is already
-          installed on the system rather than using its own readline
-          version.</para>
+          <para>该选项告诉 Bc 使用系统中已经安装的 <filename class="libraryfile">readline</filename> 库而不是使用自带的 readline 版本。</para>
         </listitem>
       </varlistentry>
 -->
       <varlistentry>
         <term><parameter>CC=gcc CFLAGS="-std=c99"</parameter></term>
         <listitem>
-          <para>These parameters specify the compiler and C standard to use.</para>
+          <para>这些参数指定要使用的编译器和 C 标准。</para>
         </listitem>
       </varlistentry>
-
+ 
       <varlistentry>
         <term><parameter>-O3</parameter></term>
         <listitem>
-          <para>Specify the optimization to use.</para>
+          <para>指定要使用的优化。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>-G</parameter></term>
         <listitem>
-          <para>Omit  parts of the test suite that won't work
-          without a GNU bc present.</para>
+          <para>省略测试套件的一部分，如果没有 GNU bc，这些套件将无法使用。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 <!--
-    <para>To test bc, run the commands below. There is quite a bit of output,
-    so you may want to redirect it to a file. There are a very small percentage
-    of tests (10 of 12,144) that will indicate a round off error at the last
-    digit.</para>
+    <para>运行下面的命令来测试 bc。这会输出好多内容，因此你可能希望重定向到一个文件。测试中会有很小的比例（10 分之 12,144）最后一位数字会有舍入误差。</para>
 
 <screen><userinput remap="test">echo "quit" | ./bc/bc -l Test/checklib.b</userinput></screen>
 -->
 
-    <para>To test bc, run:</para>
+    <para>测试 bc，运行：</para>
 
 <screen><userinput remap="test">make test</userinput></screen>
 
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-bc" role="content">
-    <title>Contents of Bc</title>
+    <title>Bc 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
-        <seg>bc and dc</seg>
+        <seg>bc 和 dc</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="bc">
         <term><command>bc</command></term>
         <listitem>
-          <para>A command line calculator</para>
+          <para>一个命令行计算器</para>
           <indexterm zone="ch-system-bc bc">
             <primary sortas="b-bc">bc</primary>
           </indexterm>
@@ -167,7 +155,7 @@ ln -sfv libncursesw.so.6 /usr/lib/libncurses.so</userinput></screen>
       <varlistentry id="dc">
         <term><command>dc</command></term>
         <listitem>
-          <para>A reverse-polish command line calculator</para>
+          <para>逆波兰命令行计算器</para>
           <indexterm zone="ch-system-bc dc">
             <primary sortas="b-dc">dc</primary>
           </indexterm>

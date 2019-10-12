@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Coreutils package contains utilities for showing and setting the
-    basic system characteristics.</para>
+    <para>Coreutils 软件包包含用于显示和设置基本系统特性的工具。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,28 +38,24 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Coreutils</title>
+    <title>安装 Coreutils</title>
 
-    <para>POSIX requires that programs from Coreutils recognize character
-    boundaries correctly even in multibyte locales. The following patch fixes
-    this non-compliance and other internationalization-related bugs.</para>
+    <para>POSIX 要求 Coreutils 中的程序即使在多字节语言环境也能正确识别字符边界。下面的补丁修复这个不兼容性以及其它一些和国际化相关的错误。</para>
 
 <screen><userinput remap="pre">patch -Np1 -i ../&coreutils-i18n-patch;</userinput></screen>
 
     <note>
-      <para>In the past, many bugs were found in this patch. When reporting new
-      bugs to Coreutils maintainers, please check first if they are reproducible
-      without this patch.</para>
+      <para>之前在这个补丁中发现了很多错误。当向 Coreutils 维护者报告新错误的时候，请先检查没有该补丁是否可以重现该错误。</para>
     </note>
 
    <!-- this has been fixed in upstream gnulib, when a new version of
    coreutils is released, please check #4055 to see if the change has been
    picked up in this package -->
-   <para>Suppress a test which on some machines can loop forever:</para>
+   <para>抑制测试在某些机器上可能出现的无限循环：</para>
 
 <screen><userinput remap="pre">sed -i '/test.lock/s/^/#/' gnulib-tests/gnulib.mk</userinput></screen>
 
-    <para>Now prepare Coreutils for compilation:</para>
+    <para>现在准备编译 Coreutils：</para>
 
 <screen><userinput remap="configure">autoreconf -fiv
 FORCE_UNSAFE_CONFIGURE=1 ./configure \
@@ -68,81 +63,64 @@ FORCE_UNSAFE_CONFIGURE=1 ./configure \
             --enable-no-install-program=kill,uptime</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><command>autoreconf</command></term>
         <listitem>
-          <para>This command updates generated configuration files 
-          consistent with the latest version of automake.
-          </para>
+          <para>此命令更新已有的配置文件，以使其和 automake 最新生成的一致。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><envar>FORCE_UNSAFE_CONFIGURE=1</envar></term>
         <listitem>
-          <para>This environment variable allows the package to be 
-          built as the root user.
-          </para>
+          <para>该环境变量允许以 root 用户权限编译软件包。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>--enable-no-install-program=kill,uptime</parameter></term>
         <listitem>
-          <para>The purpose of this switch is to prevent Coreutils from
-          installing binaries that will be installed by other packages later.
-          </para>
+          <para>该选项的目的是防止 Coreutils 安装其它软件包后面会安装的二进制包。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>Skip down to <quote>Install the
-    package</quote> if not running the test suite.</para>
+    <para>如果不运行测试套件的话跳到「安装软件包」</para>
 
-    <para>Now the test suite is ready to be run. First, run the tests that are
-    meant to be run as user <systemitem class="username">root</systemitem>:</para>
+    <para>现在可以运行测试套件了。首先，运行需要以 <systemitem class="username">root</systemitem> 用户运行的测试：</para>
 
 <screen><userinput remap="test">make NON_ROOT_USERNAME=nobody check-root</userinput></screen>
 
-    <para>We're going to run the remainder of the tests as the
-    <systemitem class="username">nobody</systemitem> user. Certain tests,
-    however, require that the user be a member of more than one group. So that
-    these tests are not skipped we'll add a temporary group and make the
-    user <systemitem class="username">nobody</systemitem> a part of it:</para>
+    <para>我们会以 <systemitem class="username">nobody</systemitem> 用户运行剩下的测试。但是，一些测试要求用户属于多个组。为了不跳过这些测试，我们会添加一个临时的组并添加用户 <systemitem class="username">nobody</systemitem> 作为它的成员：</para>
 
 <screen><userinput remap="test">echo "dummy:x:1000:nobody" &gt;&gt; /etc/group</userinput></screen>
 
-    <para>Fix some of the permissions so that the non-root user can compile and
-    run the tests:</para>
+    <para>修复一些权限问题以便非 root 用户可以编译和运行测试：</para>
 
 <screen><userinput remap="test">chown -Rv nobody . </userinput></screen>
 
-    <para>Now run the tests. Make sure the PATH in the <userinput>su</userinput>
-    environment includes /tools/bin.</para>
+    <para>现在运行测试。确保 <userinput>su</userinput> 环境中的 PATH 环境变量包含了 /tools/bin。</para>
 
 <screen><userinput remap="test">su nobody -s /bin/bash \
           -c "PATH=$PATH make RUN_EXPENSIVE_TESTS=yes check"</userinput></screen>
 
-    <para>The test program test-getlogin is known to fail in a
-    partially built system environment like the chroot environment here, but
-    passes if run at the end of this chapter.  The test program tty.sh is
-    also known to fail.</para>
+    <para>已知测试程序 test-getlogin 在部分构建的系统环境（如 chroot 环境）中会失败，章节结束后运行便会通过。已知测试程序 tty.sh 也会失败。</para>
 
-    <para>Remove the temporary group:</para>
+    <para>移除临时组：</para>
 
 <screen><userinput remap="test">sed -i '/dummy/d' /etc/group</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>Move programs to the locations specified by the FHS:</para>
+    <para>移动程序到 FHS 指定的位置：</para>
 
 <screen><userinput remap="install">mv -v /usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} /bin
 mv -v /usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm} /bin
@@ -151,24 +129,21 @@ mv -v /usr/bin/chroot /usr/sbin
 mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8
 sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
 
-    <para revision="sysv">Some of the scripts in the LFS-Bootscripts package
-    depend on <command>head</command>, <command>nice</command>,
-    <command>sleep</command>, and <command>touch</command>.  As <filename
-    class="directory">/usr</filename> may not be available during the early and
-    late stages of booting, those binaries need to be on the root partition to
-    maintain FHS compliance:</para>
+    <para revision="sysv">LFS-Bootscripts 包中的一些脚本依赖于 <command>head</command>、<command>nice</command>、
+<command>sleep</command> 和 <command>touch</command>。由于 <filename
+    class="directory">/usr</filename> 在启动的早期和晚期阶段可能不可用，这些二进制文件需要被存在放在根分区（/bin 目录）以保证 FHS 合规性：</para>
 
 <screen><userinput remap="install">mv -v /usr/bin/{head,nice,sleep,touch} /bin</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-coreutils" role="content">
-    <title>Contents of Coreutils</title>
+    <title>Coreutils 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed library</segtitle>
-      <segtitle>Installed directory</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装目录</segtitle>
 
       <seglistitem>
         <seg>[, b2sum, base32, base64, basename, basenc, cat, chcon, chgrp, chmod, chown,
@@ -182,21 +157,20 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
         sync, tac, tail, tee, test, timeout, touch, tr, true, truncate, tsort,
         tty, uname, unexpand, uniq, unlink, users, vdir, wc, who, whoami, and
         yes</seg>
-        <seg>libstdbuf.so (in /usr/libexec/coreutils)</seg>
+        <seg>libstdbuf.so (位于 /usr/libexec/coreutils)</seg>
         <seg>/usr/libexec/coreutils</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="base32">
         <term><command>base32</command></term>
         <listitem>
-          <para>Encodes and decodes data according to the base32 specification
-          (RFC 4648)</para>
+          <para>根据 base32（RFC 4648）规范编码和解码数据</para>
           <indexterm zone="ch-system-coreutils base64">
             <primary sortas="b-base64">base64</primary>
           </indexterm>
@@ -206,8 +180,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="base64">
         <term><command>base64</command></term>
         <listitem>
-          <para>Encodes and decodes data according to the base64 specification
-          (RFC 4648)</para>
+          <para>根据 base64（RFC 4648）规范编码和解码数据</para>
           <indexterm zone="ch-system-coreutils base64">
             <primary sortas="b-base64">base64</primary>
           </indexterm>
@@ -217,7 +190,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="b2sum">
         <term><command>b2sum</command></term>
         <listitem>
-          <para>Prints or checks BLAKE2 (512-bit) checksums</para>
+          <para>打印或查看 BLAKE2 (512-bit) 校验和</para>
           <indexterm zone="ch-system-coreutils b2sum">
             <primary sortas="b-b2sum">b2sum</primary>
           </indexterm>
@@ -227,7 +200,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="basename">
         <term><command>basename</command></term>
         <listitem>
-          <para>Strips any path and a given suffix from a file name</para>
+          <para>从文件名称中抽取路径和后缀</para>
           <indexterm zone="ch-system-coreutils basename">
             <primary sortas="b-basename">basename</primary>
           </indexterm>
@@ -237,7 +210,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="basenc">
         <term><command>basenc</command></term>
         <listitem>
-          <para>Encodes or decodes data using various algorithms</para>
+          <para>使用各种算法对数据进行编码或解码</para>
           <indexterm zone="ch-system-coreutils basenc">
             <primary sortas="b-basenc">basenc</primary>
           </indexterm>
@@ -247,7 +220,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="cat">
         <term><command>cat</command></term>
         <listitem>
-          <para>Concatenates files to standard output</para>
+          <para>将文件连接到标准输出</para>
           <indexterm zone="ch-system-coreutils cat">
             <primary sortas="b-cat">cat</primary>
           </indexterm>
@@ -257,7 +230,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="chcon">
         <term><command>chcon</command></term>
         <listitem>
-          <para>Changes security context for files and directories</para>
+          <para>改变文件和目录的安全上下文</para>
           <indexterm zone="ch-system-coreutils chcon">
             <primary sortas="b-chcon">chcon</primary>
           </indexterm>
@@ -267,7 +240,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="chgrp">
         <term><command>chgrp</command></term>
         <listitem>
-          <para>Changes the group ownership of files and directories</para>
+          <para>更改文件和目录的组所有者</para>
           <indexterm zone="ch-system-coreutils chgrp">
             <primary sortas="b-chgrp">chgrp</primary>
           </indexterm>
@@ -277,9 +250,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="chmod">
         <term><command>chmod</command></term>
         <listitem>
-          <para>Changes the permissions of each file to the given mode; the mode
-          can be either a symbolic representation of the changes to make or an
-          octal number representing the new permissions</para>
+          <para>更改每个文件为指定模式的权限；模式可以是要实现更改的符号表示 或者表示新权限的十进制数字</para>
           <indexterm zone="ch-system-coreutils chmod">
             <primary sortas="b-chmod">chmod</primary>
           </indexterm>
@@ -289,8 +260,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="chown">
         <term><command>chown</command></term>
         <listitem>
-          <para>Changes the user and/or group ownership of files and
-          directories</para>
+          <para>更改文件和目录的用户和/或组所有者</para>
           <indexterm zone="ch-system-coreutils chown">
             <primary sortas="b-chown">chown</primary>
           </indexterm>
@@ -300,8 +270,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="chroot">
         <term><command>chroot</command></term>
         <listitem>
-          <para>Runs a command with the specified directory as the
-          <filename class="directory">/</filename> directory</para>
+          <para>使用指定目录作为 <filename class="directory">/</filename> 目录运行命令</para>
           <indexterm zone="ch-system-coreutils chroot">
             <primary sortas="b-chroot">chroot</primary>
           </indexterm>
@@ -311,8 +280,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="cksum">
         <term><command>cksum</command></term>
         <listitem>
-          <para>Prints the Cyclic Redundancy Check (CRC) checksum and the byte
-          counts of each specified file</para>
+          <para>输出指定文件的循环冗余检验（CRC）校验码和字节数目</para>
           <indexterm zone="ch-system-coreutils cksum">
             <primary sortas="b-cksum">cksum</primary>
           </indexterm>
@@ -322,8 +290,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="comm">
         <term><command>comm</command></term>
         <listitem>
-          <para>Compares two sorted files, outputting in three columns the lines
-          that are unique and the lines that are common</para>
+          <para>比较两个排序后的文件，以三列输出不用的行和相同的行</para>
           <indexterm zone="ch-system-coreutils comm">
             <primary sortas="b-comm">comm</primary>
           </indexterm>
@@ -333,7 +300,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="cp">
         <term><command>cp</command></term>
         <listitem>
-          <para>Copies files</para>
+          <para>复制文件</para>
           <indexterm zone="ch-system-coreutils cp">
             <primary sortas="b-cp">cp</primary>
           </indexterm>
@@ -343,9 +310,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="csplit">
         <term><command>csplit</command></term>
         <listitem>
-          <para>Splits a given file into several new files, separating them
-          according to given patterns or line numbers and outputting the byte
-          count of each new file</para>
+          <para>将指定文件分割为几个新的文件，根据指定的模式或者行数分割并 输出每个新文件的字节数</para>
           <indexterm zone="ch-system-coreutils csplit">
             <primary sortas="b-csplit">csplit</primary>
           </indexterm>
@@ -355,8 +320,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="cut">
         <term><command>cut</command></term>
         <listitem>
-          <para>Prints sections of lines, selecting the parts according to given
-          fields or positions</para>
+          <para>根据指定的域或位置，选择输出行的组成</para>
           <indexterm zone="ch-system-coreutils cut">
             <primary sortas="b-cut">cut</primary>
           </indexterm>
@@ -366,8 +330,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="date">
         <term><command>date</command></term>
         <listitem>
-          <para>Displays the current time in the given format, or sets the
-          system date</para>
+          <para>根据指定格式显示当前时间，或设置系统日期</para>
           <indexterm zone="ch-system-coreutils date">
             <primary sortas="b-date">date</primary>
           </indexterm>
@@ -377,8 +340,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="dd">
         <term><command>dd</command> </term>
         <listitem>
-          <para>Copies a file using the given block size and count, while
-          optionally performing conversions on it</para>
+          <para>用给定的块大小和数目复制文件，同时可以进行一些转换</para>
           <indexterm zone="ch-system-coreutils dd">
             <primary sortas="b-dd">dd</primary>
           </indexterm>
@@ -388,9 +350,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="df">
         <term><command>df</command></term>
         <listitem>
-          <para>Reports the amount of disk space available (and used) on all
-          mounted file systems, or only on the file systems holding the selected
-          files</para>
+          <para>报告所有挂载的文件系统中可用（和已用）磁盘空间，或只是 含有指定文件的文件系统</para>
           <indexterm zone="ch-system-coreutils df">
             <primary sortas="b-df">df</primary>
           </indexterm>
@@ -400,8 +360,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="dir">
         <term><command>dir</command></term>
         <listitem>
-          <para>Lists the contents of each given directory (the same as
-          the <command>ls</command> command)</para>
+          <para>列出指定目的的内容（和 <command>ls</command> 命令相同）</para>
           <indexterm zone="ch-system-coreutils dir">
             <primary sortas="b-dir">dir</primary>
           </indexterm>
@@ -411,9 +370,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="dircolors">
         <term><command>dircolors</command></term>
         <listitem>
-          <para>Outputs commands to set the <envar>LS_COLOR</envar>
-          environment variable to change the color scheme used by
-          <command>ls</command></para>
+          <para>输出设置 <envar>LS_COLOR</envar> 环境变量的命令，用于更改 <command>ls</command> 使用的颜色模式</para>
           <indexterm zone="ch-system-coreutils dircolors">
             <primary sortas="b-dircolors">dircolors</primary>
           </indexterm>
@@ -423,7 +380,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="dirname">
         <term><command>dirname</command></term>
         <listitem>
-          <para>Strips the non-directory suffix from a file name</para>
+          <para>从一个文件名称中抽取非目录后缀</para>
           <indexterm zone="ch-system-coreutils dirname">
             <primary sortas="b-dirname">dirname</primary>
           </indexterm>
@@ -433,9 +390,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="du">
         <term><command>du</command></term>
         <listitem>
-          <para>Reports the amount of disk space used by the current directory,
-          by each of the given directories (including all subdirectories) or by
-          each of the given files</para>
+          <para>报告当前目录使用的磁盘空间，根据指定的每个文件夹（包括子文件夹） 或每个指定的文件</para>
           <indexterm zone="ch-system-coreutils du">
             <primary sortas="b-du">du</primary>
           </indexterm>
@@ -445,7 +400,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="echo">
         <term><command>echo</command></term>
         <listitem>
-          <para>Displays the given strings</para>
+          <para>显示给定的字符串</para>
           <indexterm zone="ch-system-coreutils echo">
             <primary sortas="b-echo">echo</primary>
           </indexterm>
@@ -455,7 +410,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="env">
         <term><command>env</command></term>
         <listitem>
-          <para>Runs a command in a modified environment</para>
+          <para>在更改后的环境中运行命令</para>
           <indexterm zone="ch-system-coreutils env">
             <primary sortas="b-env">env</primary>
           </indexterm>
@@ -465,7 +420,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="expand">
         <term><command>expand</command></term>
         <listitem>
-          <para>Converts tabs to spaces</para>
+          <para>把 tab 键转换为空格</para>
           <indexterm zone="ch-system-coreutils expand">
             <primary sortas="b-expand">expand</primary>
           </indexterm>
@@ -475,7 +430,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="expr">
         <term><command>expr</command></term>
         <listitem>
-          <para>Evaluates expressions</para>
+          <para>计算表达式</para>
           <indexterm zone="ch-system-coreutils expr">
             <primary sortas="b-expr">expr</primary>
           </indexterm>
@@ -485,7 +440,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="factor">
         <term><command>factor</command></term>
         <listitem>
-          <para>Prints the prime factors of all specified integer numbers</para>
+          <para>输出所有指定整数的质数因子</para>
           <indexterm zone="ch-system-coreutils factor">
             <primary sortas="b-factor">factor</primary>
           </indexterm>
@@ -495,8 +450,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="false">
         <term><command>false</command></term>
         <listitem>
-          <para>Does nothing, unsuccessfully; it always exits with a status code
-          indicating failure</para>
+          <para>什么都不做；总是以指示失败的状态码退出</para>
           <indexterm zone="ch-system-coreutils false">
             <primary sortas="b-false">false</primary>
           </indexterm>
@@ -506,7 +460,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="fmt">
         <term><command>fmt</command></term>
         <listitem>
-          <para>Reformats the paragraphs in the given files</para>
+          <para>重新格式化给定文件中的段落</para>
           <indexterm zone="ch-system-coreutils fmt">
             <primary sortas="b-fmt">fmt</primary>
           </indexterm>
@@ -516,7 +470,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="fold">
         <term><command>fold</command></term>
         <listitem>
-          <para>Wraps the lines in the given files</para>
+          <para>折叠指定文件的行</para>
           <indexterm zone="ch-system-coreutils fold">
             <primary sortas="b-fold">fold</primary>
           </indexterm>
@@ -526,7 +480,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="groups">
         <term><command>groups</command></term>
         <listitem>
-          <para>Reports a user's group memberships</para>
+          <para>报告一个用户的组成员</para>
           <indexterm zone="ch-system-coreutils groups">
             <primary sortas="b-groups">groups</primary>
           </indexterm>
@@ -536,8 +490,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="head">
         <term><command>head</command></term>
         <listitem>
-          <para>Prints the first ten lines (or the given number of lines)
-          of each given file</para>
+          <para>输出指定文件的前十行（或指定数目行数）</para>
           <indexterm zone="ch-system-coreutils head">
             <primary sortas="b-head">head</primary>
           </indexterm>
@@ -547,7 +500,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="hostid">
         <term><command>hostid</command></term>
         <listitem>
-          <para>Reports the numeric identifier (in hexadecimal) of the host</para>
+          <para>报告主机的数字标识符（以十六进制）</para>
           <indexterm zone="ch-system-coreutils hostid">
             <primary sortas="b-hostid">hostid</primary>
           </indexterm>
@@ -557,8 +510,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="id">
         <term><command>id</command></term>
         <listitem>
-          <para>Reports the effective user ID, group ID, and group memberships
-          of the current user or specified user</para>
+          <para>报告当前用户或指定用户的有效 用户 ID、组 ID 以及组成员</para>
           <indexterm zone="ch-system-coreutils id">
             <primary sortas="b-id">id</primary>
           </indexterm>
@@ -568,8 +520,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="install">
         <term><command>install</command> </term>
         <listitem>
-          <para>Copies files while setting their permission modes and, if
-          possible, their owner and group</para>
+          <para>复制文件的同时设置权限模式，如果可以的话包括用户和组</para>
           <indexterm zone="ch-system-coreutils install">
             <primary sortas="b-install">install</primary>
           </indexterm>
@@ -579,8 +530,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="join">
         <term><command>join</command></term>
         <listitem>
-          <para>Joins the lines that have identical join fields from two
-          separate files</para>
+          <para>从两个单独的文件中连接有相同域的行</para>
           <indexterm zone="ch-system-coreutils join">
             <primary sortas="b-join">join</primary>
           </indexterm>
@@ -590,7 +540,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="link">
         <term><command>link</command></term>
         <listitem>
-          <para>Creates a hard link with the given name to a file</para>
+          <para>用指定的名称创建到一个文件的硬链接</para>
           <indexterm zone="ch-system-coreutils link">
             <primary sortas="b-link">link</primary>
           </indexterm>
@@ -600,7 +550,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="ln">
         <term><command>ln</command></term>
         <listitem>
-          <para>Makes hard links or soft (symbolic) links between files</para>
+          <para>在文件之间建立硬链接或软（符号）链接</para>
           <indexterm zone="ch-system-coreutils ln">
             <primary sortas="b-ln">ln</primary>
           </indexterm>
@@ -610,7 +560,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="logname">
         <term><command>logname</command></term>
         <listitem>
-          <para>Reports the current user's login name</para>
+          <para>报告当前用户的登录名</para>
           <indexterm zone="ch-system-coreutils logname">
             <primary sortas="b-logname">logname</primary>
           </indexterm>
@@ -620,7 +570,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="ls">
         <term><command>ls</command></term>
         <listitem>
-          <para>Lists the contents of each given directory</para>
+          <para>列出给定目录的内容</para>
           <indexterm zone="ch-system-coreutils ls">
             <primary sortas="b-ls">ls</primary>
           </indexterm>
@@ -630,7 +580,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="md5sum">
         <term><command>md5sum</command></term>
         <listitem>
-          <para>Reports or checks Message Digest 5 (MD5) checksums</para>
+          <para>报告或检查消息摘要 5（MD5） 校验码</para>
           <indexterm zone="ch-system-coreutils md5sum">
             <primary sortas="b-md5sum">md5sum</primary>
           </indexterm>
@@ -640,7 +590,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="mkdir">
         <term><command>mkdir</command></term>
         <listitem>
-          <para>Creates directories with the given names</para>
+          <para>用指定的名称新建目录</para>
           <indexterm zone="ch-system-coreutils mkdir">
             <primary sortas="b-mkdir">mkdir</primary>
           </indexterm>
@@ -650,8 +600,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="mkfifo">
         <term><command>mkfifo</command></term>
         <listitem>
-          <para>Creates First-In, First-Outs (FIFOs), a "named
-          pipe" in UNIX parlance, with the given names</para>
+          <para>用指定的名称在 UNIX 中创建先进先出（FIFO） 的「命名管道」</para>
           <indexterm zone="ch-system-coreutils mkfifo">
             <primary sortas="b-mkfifo">mkfifo</primary>
           </indexterm>
@@ -661,8 +610,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="mknod">
         <term><command>mknod</command></term>
         <listitem>
-          <para>Creates device nodes with the given names; a device node is a
-          character special file, a block special file, or a FIFO</para>
+          <para>用指定的名称创建设备结点；设备结点是一个特殊字符文件、特殊块文件或先进先出</para>
           <indexterm zone="ch-system-coreutils mknod">
             <primary sortas="b-mknod">mknod</primary>
           </indexterm>
@@ -672,7 +620,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="mktemp">
         <term><command>mktemp</command></term>
         <listitem>
-          <para>Creates temporary files in a secure manner; it is used in scripts</para>
+          <para>以安全方式新建临时文件；在脚本中使用</para>
         <indexterm zone="ch-system-coreutils mktemp">
           <primary sortas="b-mktemp">mktemp</primary>
         </indexterm>
@@ -682,7 +630,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="mv">
         <term><command>mv</command></term>
         <listitem>
-          <para>Moves or renames files or directories</para>
+          <para>移动或重命名文件或目录</para>
           <indexterm zone="ch-system-coreutils mv">
             <primary sortas="b-mv">mv</primary>
           </indexterm>
@@ -692,7 +640,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="nice">
         <term><command>nice</command></term>
         <listitem>
-          <para>Runs a program with modified scheduling priority</para>
+          <para>以更改后的调度优先级运行程序</para>
           <indexterm zone="ch-system-coreutils nice">
             <primary sortas="b-nice">nice</primary>
           </indexterm>
@@ -702,7 +650,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="nl">
         <term><command>nl</command></term>
         <listitem>
-          <para>Numbers the lines from the given files</para>
+          <para>标记指定文件的行号</para>
           <indexterm zone="ch-system-coreutils nl">
             <primary sortas="b-nl">nl</primary>
           </indexterm>
@@ -712,8 +660,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="nohup">
         <term><command>nohup</command></term>
         <listitem>
-          <para>Runs a command immune to hangups, with its output redirected to
-          a log file</para>
+          <para>以不能被挂起方式运行命令，输出重定向到一个日志文件</para>
           <indexterm zone="ch-system-coreutils nohup">
             <primary sortas="b-nohup">nohup</primary>
           </indexterm>
@@ -723,8 +670,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="nproc">
         <term><command>nproc</command></term>
         <listitem>
-          <para>Prints the number of processing units available to a
-          process</para>
+          <para>输出进程可用的处理单元数目</para>
           <indexterm zone="ch-system-coreutils nproc">
             <primary sortas="b-nproc">nproc</primary>
           </indexterm>
@@ -734,7 +680,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="numfmt">
         <term><command>numfmt</command></term>
         <listitem>
-          <para>Converts numbers to or from human-readable strings</para>
+          <para>转换数字为人可读字符串或者相反</para>
           <indexterm zone="ch-system-coreutils numfmt">
             <primary sortas="b-numfmt">numfmt</primary>
           </indexterm>
@@ -744,7 +690,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="od">
         <term><command>od</command></term>
         <listitem>
-          <para>Dumps files in octal and other formats</para>
+          <para>以十进制或其他格式转储文件</para>
           <indexterm zone="ch-system-coreutils od">
             <primary sortas="b-od">od</primary>
           </indexterm>
@@ -754,8 +700,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="paste">
         <term><command>paste</command></term>
         <listitem>
-          <para>Merges the given files, joining sequentially corresponding lines
-          side by side, separated by tab characters</para>
+          <para>合并指定文件，用 tab 字符分隔，以行并列方式连续合并</para>
           <indexterm zone="ch-system-coreutils paste">
             <primary sortas="b-paste">paste</primary>
           </indexterm>
@@ -765,7 +710,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="pathchk">
         <term><command>pathchk</command></term>
         <listitem>
-          <para>Checks if file names are valid or portable</para>
+          <para>检查文件名是否可用</para>
           <indexterm zone="ch-system-coreutils pathchk">
             <primary sortas="b-pathchk">pathchk</primary>
           </indexterm>
@@ -775,8 +720,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="pinky">
         <term><command>pinky</command></term>
         <listitem>
-          <para>Is a lightweight finger client; it reports some information
-          about the given users</para>
+          <para>轻量级的 finger 客户端；报告指定用户的信息</para>
           <indexterm zone="ch-system-coreutils pinky">
             <primary sortas="b-pinky">pinky</primary>
           </indexterm>
@@ -786,7 +730,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="pr">
         <term><command>pr</command></term>
         <listitem>
-          <para>Paginates and columnates files for printing</para>
+          <para>对文件进行分页分行用于打印</para>
           <indexterm zone="ch-system-coreutils pr">
             <primary sortas="b-pr">pr</primary>
           </indexterm>
@@ -796,7 +740,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="printenv">
         <term><command>printenv</command></term>
         <listitem>
-          <para>Prints the environment</para>
+          <para>输出环境</para>
           <indexterm zone="ch-system-coreutils printenv">
             <primary sortas="b-printenv">printenv</primary>
           </indexterm>
@@ -806,8 +750,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="printf">
         <term><command>printf</command></term>
         <listitem>
-          <para>Prints the given arguments according to the given format, much
-          like the C printf function</para>
+          <para>根据指定格式打印指定参数，类似于 C 语言的 printf 函数</para>
           <indexterm zone="ch-system-coreutils printf">
             <primary sortas="b-printf">printf</primary>
           </indexterm>
@@ -817,8 +760,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="ptx">
         <term><command>ptx</command></term>
         <listitem>
-          <para>Produces a permuted index from the contents of the given files,
-          with each keyword in its context</para>
+          <para>用文中的每个关键字，根据文件的内容中建立重排索引</para>
           <indexterm zone="ch-system-coreutils ptx">
             <primary sortas="b-ptx">ptx</primary>
           </indexterm>
@@ -828,7 +770,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="pwd">
         <term><command>pwd</command></term>
         <listitem>
-          <para>Reports the name of the current working directory</para>
+          <para>报告当前工作目录的名称</para>
           <indexterm zone="ch-system-coreutils pwd">
             <primary sortas="b-pwd">pwd</primary>
           </indexterm>
@@ -838,7 +780,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="readlink">
         <term><command>readlink</command></term>
         <listitem>
-          <para>Reports the value of the given symbolic link</para>
+          <para>报告指定符号链接的值</para>
           <indexterm zone="ch-system-coreutils readlink">
             <primary sortas="b-readlink">readlink</primary>
           </indexterm>
@@ -848,7 +790,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="realpath">
         <term><command>realpath</command></term>
         <listitem>
-          <para>Prints the resolved path</para>
+          <para>打印解释后路径</para>
           <indexterm zone="ch-system-coreutils realpath">
             <primary sortas="b-realpath">realpath</primary>
           </indexterm>
@@ -858,7 +800,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="rm">
         <term><command>rm</command></term>
         <listitem>
-          <para>Removes files or directories</para>
+          <para>删除文件或目录</para>
           <indexterm zone="ch-system-coreutils rm">
             <primary sortas="b-rm">rm</primary>
           </indexterm>
@@ -868,7 +810,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="rmdir">
         <term><command>rmdir</command></term>
         <listitem>
-          <para>Removes directories if they are empty</para>
+          <para>如果目录为空则删除</para>
           <indexterm zone="ch-system-coreutils rmdir">
             <primary sortas="b-rmdir">rmdir</primary>
           </indexterm>
@@ -878,7 +820,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="runcon">
         <term><command>runcon</command></term>
         <listitem>
-          <para>Runs a command with specified security context</para>
+          <para>以指定安全上下文运行命令</para>
           <indexterm zone="ch-system-coreutils runcon">
             <primary sortas="b-runcon">runcon</primary>
           </indexterm>
@@ -888,8 +830,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="seq">
         <term><command>seq</command></term>
         <listitem>
-          <para>Prints a sequence of numbers within a given range and with a
-          given increment</para>
+          <para>用指定的范围和增长步长输出一序列数字</para>
           <indexterm zone="ch-system-coreutils seq">
             <primary sortas="b-seq">seq</primary>
           </indexterm>
@@ -899,8 +840,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="sha1sum">
         <term><command>sha1sum</command></term>
         <listitem>
-          <para>Prints or checks 160-bit Secure Hash Algorithm 1 (SHA1)
-          checksums</para>
+          <para>打印或检查 160-bit 安全哈希算法1（SHA1） 校验码</para>
           <indexterm zone="ch-system-coreutils sha1sum">
             <primary sortas="b-sha1sum">sha1sum</primary>
           </indexterm>
@@ -910,7 +850,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="sha224sum">
         <term><command>sha224sum</command></term>
         <listitem>
-          <para>Prints or checks 224-bit Secure Hash Algorithm checksums</para>
+          <para>打印或检查 224-bit 安全哈希算法校验码</para>
           <indexterm zone="ch-system-coreutils sha224sum">
             <primary sortas="b-sha224sum">sha224sum</primary>
           </indexterm>
@@ -920,7 +860,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="sha256sum">
         <term><command>sha256sum</command></term>
         <listitem>
-          <para>Prints or checks 256-bit Secure Hash Algorithm checksums</para>
+          <para>打印或检查 256-bit 安全哈希算法校验码</para>
           <indexterm zone="ch-system-coreutils sha256sum">
             <primary sortas="b-sha256sum">sha256sum</primary>
           </indexterm>
@@ -930,7 +870,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="sha384sum">
         <term><command>sha384sum</command></term>
         <listitem>
-          <para>Prints or checks 384-bit Secure Hash Algorithm checksums</para>
+          <para>打印或检查 384-bit 安全哈希算法校验码</para>
           <indexterm zone="ch-system-coreutils sha384sum">
             <primary sortas="b-sha384sum">sha384sum</primary>
           </indexterm>
@@ -940,7 +880,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="sha512sum">
         <term><command>sha512sum</command></term>
         <listitem>
-          <para>Prints or checks 512-bit Secure Hash Algorithm checksums</para>
+          <para>打印或检查 512-bit 安全哈希算法校验码</para>
           <indexterm zone="ch-system-coreutils sha512sum">
             <primary sortas="b-sha512sum">sha512sum</primary>
           </indexterm>
@@ -950,8 +890,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="shred">
         <term><command>shred</command></term>
         <listitem>
-          <para>Overwrites the given files repeatedly with complex patterns,
-          making it difficult to recover the data</para>
+          <para>用复杂形式多次重写指定文件，使得难以恢复其中的数据</para>
           <indexterm zone="ch-system-coreutils shred">
             <primary sortas="b-shred">shred</primary>
           </indexterm>
@@ -961,7 +900,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="shuf">
         <term><command>shuf</command></term>
         <listitem>
-          <para>Shuffles lines of text</para>
+          <para>打乱文本行</para>
           <indexterm zone="ch-system-coreutils shuf">
             <primary sortas="b-shuf">shuf</primary>
           </indexterm>
@@ -971,7 +910,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="sleep">
         <term><command>sleep</command></term>
         <listitem>
-          <para>Pauses for the given amount of time</para>
+          <para>暂停指定时间</para>
           <indexterm zone="ch-system-coreutils sleep">
             <primary sortas="b-sleep">sleep</primary>
           </indexterm>
@@ -981,7 +920,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="sort">
         <term><command>sort</command></term>
         <listitem>
-          <para>Sorts the lines from the given files</para>
+          <para>排序给定文件的行</para>
           <indexterm zone="ch-system-coreutils sort">
             <primary sortas="b-sort">sort</primary>
           </indexterm>
@@ -991,8 +930,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="split">
         <term><command>split</command></term>
         <listitem>
-          <para>Splits the given file into pieces, by size or by number of
-          lines</para>
+          <para>根据大小或行数分割文件为多个块</para>
           <indexterm zone="ch-system-coreutils split">
             <primary sortas="b-split">split</primary>
           </indexterm>
@@ -1002,7 +940,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="stat">
         <term><command>stat</command></term>
         <listitem>
-          <para>Displays file or filesystem status</para>
+          <para>显示文件或文件系统状态</para>
           <indexterm zone="ch-system-coreutils stat">
             <primary sortas="b-stat">stat</primary>
           </indexterm>
@@ -1012,8 +950,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="stdbuf">
         <term><command>stdbuf</command></term>
         <listitem>
-          <para>Runs commands with altered buffering operations for its standard
-          streams</para>
+          <para>用改变后的缓冲操作在标准流上运行命令</para>
           <indexterm zone="ch-system-coreutils stdbuf">
             <primary sortas="b-stdbuf">stdbuf</primary>
           </indexterm>
@@ -1023,7 +960,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="stty">
         <term><command>stty</command></term>
         <listitem>
-          <para>Sets or reports terminal line settings</para>
+          <para>设置或报告终端行设置</para>
           <indexterm zone="ch-system-coreutils stty">
             <primary sortas="b-stty">stty</primary>
           </indexterm>
@@ -1033,7 +970,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="sum">
         <term><command>sum</command></term>
         <listitem>
-          <para>Prints checksum and block counts for each given file</para>
+          <para>打印指定文件的校验码和块数目</para>
           <indexterm zone="ch-system-coreutils sum">
             <primary sortas="b-sum">sum</primary>
           </indexterm>
@@ -1043,8 +980,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="sync">
         <term><command>sync</command></term>
         <listitem>
-          <para>Flushes file system buffers; it forces changed blocks to disk
-          and updates the super block</para>
+          <para>清空文件系统缓存；强制更改块到磁盘并更新超级块</para>
           <indexterm zone="ch-system-coreutils sync">
             <primary sortas="b-sync">sync</primary>
           </indexterm>
@@ -1054,7 +990,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="tac">
         <term><command>tac</command></term>
         <listitem>
-          <para>Concatenates the given files in reverse</para>
+          <para>反向输出给定文件</para>
           <indexterm zone="ch-system-coreutils tac">
             <primary sortas="b-tac">tac</primary>
           </indexterm>
@@ -1064,8 +1000,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="tail">
         <term><command>tail</command></term>
         <listitem>
-          <para>Prints the last ten lines (or the given number of lines) of each
-          given file</para>
+          <para>输出每个给定文件的最后十行（或给定数目的行）</para>
           <indexterm zone="ch-system-coreutils tail">
             <primary sortas="b-tail">tail</primary>
           </indexterm>
@@ -1075,8 +1010,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="tee">
         <term><command>tee</command></term>
         <listitem>
-          <para>Reads from standard input while writing both to standard output
-          and to the given files</para>
+          <para>从标准输入读入并写出到标准输出和指定文件</para>
           <indexterm zone="ch-system-coreutils tee">
             <primary sortas="b-tee">tee</primary>
           </indexterm>
@@ -1086,7 +1020,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="test">
         <term><command>test</command></term>
         <listitem>
-          <para>Compares values and checks file types</para>
+          <para>比较值并检查文件类型</para>
           <indexterm zone="ch-system-coreutils test">
             <primary sortas="b-test">test</primary>
           </indexterm>
@@ -1096,7 +1030,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="timeout">
         <term><command>timeout</command></term>
         <listitem>
-          <para>Runs a command with a time limit</para>
+          <para>有限时间内运行命令</para>
           <indexterm zone="ch-system-coreutils timeout">
             <primary sortas="b-timeout">timeout</primary>
           </indexterm>
@@ -1106,9 +1040,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="touch">
         <term><command>touch</command></term>
         <listitem>
-          <para>Changes file timestamps, setting the access and modification
-          times of the given files to the current time; files that do not exist
-          are created with zero length</para>
+          <para>更改文件时间戳，设置指定文件的访问和修改时间为当前时间； 如果文件不存在则创建空文件</para>
           <indexterm zone="ch-system-coreutils touch">
             <primary sortas="b-touch">touch</primary>
           </indexterm>
@@ -1118,8 +1050,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="tr">
         <term><command>tr</command></term>
         <listitem>
-          <para>Translates, squeezes, and deletes the given characters from
-          standard input</para>
+          <para>从标准输入转换、压缩并删除指定字符</para>
           <indexterm zone="ch-system-coreutils tr">
             <primary sortas="b-tr">tr</primary>
           </indexterm>
@@ -1129,8 +1060,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="true">
         <term><command>true</command></term>
         <listitem>
-          <para>Does nothing, successfully; it always exits with a status code
-          indicating success</para>
+          <para>不做任何事情，总是成功；总是以表示成功的状态码退出</para>
           <indexterm zone="ch-system-coreutils true">
             <primary sortas="b-true">true</primary>
           </indexterm>
@@ -1140,7 +1070,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="truncate">
         <term><command>truncate</command></term>
         <listitem>
-          <para>Shrinks or expands a file to the specified size</para>
+          <para>压缩或扩展文件到特定大小</para>
           <indexterm zone="ch-system-coreutils truncate">
             <primary sortas="b-truncate">truncate</primary>
           </indexterm>
@@ -1150,8 +1080,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="tsort">
         <term><command>tsort</command></term>
         <listitem>
-          <para>Performs a topological sort; it writes a completely ordered list
-          according to the partial ordering in a given file</para>
+          <para>进行拓扑排序；根据指定文件的部分排序写出完全有序列表</para>
           <indexterm zone="ch-system-coreutils tsort">
             <primary sortas="b-tsort">tsort</primary>
           </indexterm>
@@ -1161,8 +1090,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="tty">
         <term><command>tty</command></term>
         <listitem>
-          <para>Reports the file name of the terminal connected to standard
-          input</para>
+          <para>报告链接到标准输入的终端文件名称</para>
           <indexterm zone="ch-system-coreutils tty">
             <primary sortas="b-tty">tty</primary>
           </indexterm>
@@ -1172,7 +1100,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="uname">
         <term><command>uname</command></term>
         <listitem>
-          <para>Reports system information</para>
+          <para>报告系统信息</para>
           <indexterm zone="ch-system-coreutils uname">
             <primary sortas="b-uname">uname</primary>
           </indexterm>
@@ -1182,7 +1110,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="unexpand">
         <term><command>unexpand</command></term>
         <listitem>
-          <para>Converts spaces to tabs</para>
+          <para>转换空格为 tab 键</para>
           <indexterm zone="ch-system-coreutils unexpand">
             <primary sortas="b-unexpand">unexpand</primary>
           </indexterm>
@@ -1192,7 +1120,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="uniq">
         <term><command>uniq</command></term>
         <listitem>
-          <para>Discards all but one of successive identical lines</para>
+          <para>忽略所有除非出现连续相同的行</para>
           <indexterm zone="ch-system-coreutils uniq">
             <primary sortas="b-uniq">uniq</primary>
           </indexterm>
@@ -1202,7 +1130,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="unlink">
         <term><command>unlink</command></term>
         <listitem>
-          <para>Removes the given file</para>
+          <para>移除指定文件</para>
           <indexterm zone="ch-system-coreutils unlink">
             <primary sortas="b-unlink">unlink</primary>
           </indexterm>
@@ -1212,7 +1140,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="users">
         <term><command>users</command></term>
         <listitem>
-          <para>Reports the names of the users currently logged on</para>
+          <para>报告当前登录的用户名</para>
           <indexterm zone="ch-system-coreutils users">
             <primary sortas="b-users">users</primary>
           </indexterm>
@@ -1222,7 +1150,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="vdir">
         <term><command>vdir</command></term>
         <listitem>
-          <para>Is the same as <command>ls -l</command></para>
+          <para>和 <command>ls -l</command> 相同</para>
           <indexterm zone="ch-system-coreutils vdir">
             <primary sortas="b-vdir">vdir</primary>
           </indexterm>
@@ -1232,8 +1160,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="wc">
         <term><command>wc</command></term>
         <listitem>
-          <para>Reports the number of lines, words, and bytes for each given
-          file, as well as a total line when more than one file is given</para>
+          <para>报告给定文件的行数、单词数和字节数，以及给定多个文件时总的行数</para>
           <indexterm zone="ch-system-coreutils wc">
             <primary sortas="b-wc">wc</primary>
           </indexterm>
@@ -1243,7 +1170,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="who">
         <term><command>who</command></term>
         <listitem>
-          <para>Reports who is logged on</para>
+          <para>报告谁登录了</para>
           <indexterm zone="ch-system-coreutils who">
             <primary sortas="b-who">who</primary>
           </indexterm>
@@ -1253,8 +1180,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="whoami">
         <term><command>whoami</command></term>
         <listitem>
-          <para>Reports the user name associated with the current effective
-          user ID</para>
+          <para>报告和当前有效用户 ID 关联的用户名</para>
           <indexterm zone="ch-system-coreutils whoami">
             <primary sortas="b-whoami">whoami</primary>
           </indexterm>
@@ -1264,8 +1190,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="yes">
         <term><command>yes</command></term>
         <listitem>
-          <para>Repeatedly outputs <quote>y</quote> or a given string until
-          killed</para>
+          <para>重复输出「y」或指定的字符串直到被杀死</para>
           <indexterm zone="ch-system-coreutils yes">
             <primary sortas="b-yes">yes</primary>
           </indexterm>
@@ -1275,7 +1200,7 @@ sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</userinput></screen>
       <varlistentry id="libstdbuf">
         <term><filename class="libraryfile">libstdbuf</filename></term>
         <listitem>
-          <para>Library used by <command>stdbuf</command></para>
+          <para><command>stdbuf</command> 使用的库</para>
           <indexterm zone="ch-system-coreutils libstdbuf">
             <primary sortas="c-libstdbuf">libstdbuf</primary>
           </indexterm>
