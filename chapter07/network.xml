@@ -8,44 +8,27 @@
 <sect1 id="ch-scripts-network" revision="sysv">
   <?dbhtml filename="network.html"?>
 
-  <title>General Network Configuration</title>
+  <title>通用网络配置</title>
 
   <indexterm zone="ch-scripts-network">
     <primary sortas="d-network">network</primary>
   <secondary>configuring</secondary></indexterm>
 <!--
-  <para>This section only applies if a network card is to be
-  configured.</para>
+  <para>仅在已经配置网卡的情况下才需实施此章节的内容。</para>
 
-  <para>If a network card will not be used, there is likely no need to create
-  any configuration files relating to network cards. If that is the case, you
-  will need to remove the <filename class="symlink">network</filename> symlinks
-  from all run-level directories (<filename
-  class="directory">/etc/rc.d/rc*.d</filename>) after the bootscripts are
-  installed in <xref linkend="ch-scripts-bootscripts"/>.</para>
+  <para>如果设备没有使用网卡，则没有必要建立任何和网卡相关的配置文件。在这种情况下，你应该从运行等级文件夹中（<filename class="directory">/etc/rc.d/rc*.d</filename>）移除 <xref linkend="ch-scripts-bootscripts"/> 中启动脚本创建的 <filename class="symlink">network</filename> 符号链接。</para>
 -->
   <sect2>
-    <title>Creating Network Interface Configuration Files</title>
+    <title>建立网络接口配置文件</title>
 
-    <para>Which interfaces are brought up and down by the network script
-    usually depends on the files in <filename
-    class="directory">/etc/sysconfig/</filename>.  This directory should
-    contain a file for each interface to be configured, such as
-    <filename>ifconfig.xyz</filename>, where <quote>xyz</quote> should describe
-    the network card.  The interface name (e.g. eth0) is usually appropriate.
-    Inside this file are attributes to this interface, such as its IP
-    address(es), subnet masks, and so forth.  It is necessary that the stem of
-    the filename be <emphasis>ifconfig</emphasis>.</para>
+    <para>网络脚本开启和关闭哪些端口，一般取决于 <filename class="directory">/etc/sysconfig/</filename> 下的文件。此文件夹应该包含要配置接口的描述文件，例如 <filename>ifconfig.xyz</filename>，其中的「xyz」用于描述网卡。（例如 eth0）就是常用的接口名称。文件的内容是此接口的属性信息，例如 IP 地址、子网掩码等。另外，文件名只能是 <emphasis>ifconfig</emphasis>。</para>
 
-    <note><para>If the procedure in the previous section was not used, Udev
-    will assign network card interface names based on system physical
-    characteristics such as enp2s1. If you are not sure what your interface
-    name is, you can always run <command>ip link</command> or <command>ls
-    /sys/class/net</command> after you have booted your system.  
-    </para></note>
+    <note><para>如果没有实施过上一节的内容，那么 udev 将会根据网卡的物理属性分配适当的名称。如果你不确定网卡接口的名称，则可以在系统启动之后执行 <command>ip link</command> 或者 <command>ls
+    /sys/class/net</command>。</para></note>
 
-    <para>The following command creates a sample file for the
-    <emphasis>eth0</emphasis> device with a static IP address:</para>
+    <para>以下命令将会为 <emphasis>eth0</emphasis> 设备建立启用静态 IP 的示例文件：</para>
+
+
 <!-- jhalfs relies on the values for IFACE, IP, etc. If you want to change
      them, please inform the jhalfs maintainer(s). -->
 <screen><userinput>cd /etc/sysconfig/
@@ -59,57 +42,32 @@ PREFIX=<replaceable>24</replaceable>
 BROADCAST=<replaceable>192.168.1.255</replaceable></literal>
 EOF</userinput></screen>
 
-    <para>The values in italics must be changed in every file to match
-    the proper setup.</para>
+    <para>斜体的数值，应该根据实际情况，进行适当的更改。</para>
 
-    <para>If the <envar>ONBOOT</envar> variable is set to <quote>yes</quote> the
-    System V network script will bring up the Network Interface Card (NIC) during
-    booting of the system. If set to anything but <quote>yes</quote> the NIC
-    will be ignored by the network script and not be automatically brought up.
-    The interface can be manually started or stopped with the
-    <command>ifup</command> and <command>ifdown</command> commands.</para>
+    <para>如果变量 <envar>ONBOOT</envar> 设置为「yes」则 System V 网络脚本将在系统启动期间激活网卡，如果设置为其他非「yes」值则不会自动激活网卡。但是你可以通过命令 <command>ifup</command> 和 <command>ifdown</command> 手动激活或者是禁用网卡。</para>
 
-    <para>The <envar>IFACE</envar> variable defines the interface name,
-    for example, eth0.  It is required for all network device configuration
-    files. The filename extension must match this value.</para>
+    <para>变量 <envar>IFACE</envar> 用于定义接口的名称，例如 eth0。所有的网络设备配置文件都依赖于它。文件扩展名必须与该值匹配。</para>
 
-    <para>The <envar>SERVICE</envar> variable defines the method used for
-    obtaining the IP address. The LFS-Bootscripts package has a modular IP
-    assignment format, and creating additional files in the <filename
-    class="directory">/lib/services/</filename> directory allows other IP
-    assignment methods. This is commonly used for Dynamic Host Configuration
-    Protocol (DHCP), which is addressed in the BLFS book.</para>
+    <para>变量 <envar>SERVICE</envar> 定义了获取 IP 地址的方式。LFS-Bootscripts 包中有模块化的 IP 分配格式，且在文件夹 <filename class="directory">/lib/services/</filename> 中建立文件以允许其他的 IP 获取方式。在 BLFS 书中，通常它被设置为动态主机配置协议（DHCP）。</para>
 
-    <para>The <envar>GATEWAY</envar> variable should contain the default
-    gateway IP address, if one is present. If not, then comment out the
-    variable entirely.</para>
+    <para>变量 <envar>GATEWAY</envar> 应该包括默认的网关 IP 地址。如果不需要，应该直接将这行注释掉。</para>
 
-    <para>The <envar>PREFIX</envar> variable contains the number of
-    bits used in the subnet. Each octet in an IP address is 8 bits. If the
-    subnet's netmask is 255.255.255.0, then it is using the first three octets
-    (24 bits) to specify the network number. If the netmask is 255.255.255.240,
-    it would be using the first 28 bits.  Prefixes longer than 24 bits are
-    commonly used by DSL and cable-based Internet Service Providers (ISPs).
-    In this example (PREFIX=24), the netmask is 255.255.255.0. Adjust the
-    <envar>PREFIX</envar> variable according to your specific subnet.
-    If omitted, the PREFIX defaults to 24.</para>
+    <para>变量 <envar>PREFIX</envar> 表示子网所用的位数。IP 地址中每一个字节是 8 位。如果子网掩码是 255.255.255.0，那么就会使用最前面的 3 个字节（24位）表达网络号。如果子网掩码是 255.255.255.240，则使用最开始的 28 位。前缀如果大于 24 位，一般都用于 DSL 或者是有线 ISP。在此示例中（PREFIX=24），子网掩码是 255.255.255.0。根据你实际的指望调整此字段，如果省略此字段，则默认为 24。</para>
 
-    <para>For more information see the <command>ifup</command> man page.</para>
+    <para>如欲获得更多信息，请浏览 <command>ifup</command> 的 man 手册。</para>
 
   </sect2>
+
   <sect2 id="resolv.conf">
-    <title>Creating the /etc/resolv.conf File</title>
+    <title>建立 /etc/resolv.conf 文件</title>
 
     <indexterm zone="resolv.conf">
       <primary sortas="e-/etc/resolv.conf">/etc/resolv.conf</primary>
     </indexterm>
 
-    <para>The system will need some means of obtaining Domain Name Service
-    (DNS) name resolution to resolve Internet domain names to IP addresses, and
-    vice versa. This is best achieved by placing the IP address of the DNS
-    server, available from the ISP or network administrator, into
-    <filename>/etc/resolv.conf</filename>. Create the file by running the
-    following:</para>
+    <para>如果系统连接到互联网，则需要通过 DNS 服务将域名和 IP 地址进行相互的转换。你可以从 ISP 或者是网络管理员处获得可用的 DNS 服务器，并填入 <filename>/etc/resolv.conf</filename> 文件。可以通过以下命令建立此文件：</para>
+
+    <para>系统需要一些 DNS（域名服务）名称解析的方法，将 Internet 的域名解析成 IP 地址，反之亦然。最佳的办法就是将，从 ISP 或网络管理员那里获取的，DNS 服务器的 IP 地址填入 <filename>/etc/resolv.conf</filename> 文件。可以通过以下命令建立此文件：</para>
 
 <screen><userinput>cat &gt; /etc/resolv.conf &lt;&lt; "EOF"
 <literal># Begin /etc/resolv.conf
@@ -121,48 +79,36 @@ nameserver <replaceable>&lt;IP address of your secondary nameserver&gt;</replace
 # End /etc/resolv.conf</literal>
 EOF</userinput></screen>
 
-    <para>The <varname>domain</varname> statement can be omitted
-    or replaced with a <varname>search</varname> statement.  See the man page for
-    resolv.conf for more details.</para>
+    <para>字段 <varname>domain</varname> 可以忽略或者是使用 <varname>search</varname> 字段替代。参考 man 手册的 resolv.conf 部分获得更多信息。</para>
 
-    <para>Replace <replaceable>&lt;IP address of the nameserver&gt;</replaceable>
-    with the IP address of the DNS most appropriate for the setup. There will
-    often be more than one entry (requirements demand secondary servers for
-    fallback capability). If you only need or want one DNS server, remove the
-    second <emphasis>nameserver</emphasis> line from the file. The IP address
-    may also be a router on the local network.</para>
+    <para>其中，<replaceable>&lt;IP address of the nameserver&gt;</replaceable> 应该替换为合适的 DNS 服务器的 IP 地址。通常来说，一般会有多个 DNS 地址可供填写（需要备选服务器具有相关兼容性）。如果你只想要填写一个 DNS 服务器，那么将文件中的第二行 <emphasis>nameserver</emphasis> 移除即可。该 IP 地址也可能是本地网络中的路由。</para>
 
     <note>
-      <para>The Google Public IPv4 DNS addresses are 8.8.8.8 and 8.8.4.4.</para>
+      <para>Google 公共 IPv4 DNS 的服务器地址是 8.8.8.8 和 8.8.4.4。</para>
     </note>
 
   </sect2>
 
   <sect2 id="ch-scripts-hostname">
-    <title>Configuring the system hostname</title>
+    <title>配置系统主机名称</title>
 
     <indexterm zone="ch-scripts-hostname">
       <primary sortas="d-hostname">hostname</primary>
       <secondary>configuring</secondary>
     </indexterm>
 
-     <para>During the boot process, the file <filename>/etc/hostname</filename>
-     is used for establishing the system's hostname.</para>
+     <para>在系统启动期间，文件 <filename>/etc/hostname</filename> 用于建立系统的主机名称。</para>
 
-     <para>Create the <filename>/etc/hostname</filename> file and enter a
-     hostname by running:</para>
+     <para>通过以下命令建立 <filename>/etc/hostname</filename> 文件且向其中写入主机名：</para>
 
 <screen><userinput>echo "<replaceable>&lt;lfs&gt;</replaceable>" &gt; /etc/hostname</userinput></screen>
 
-     <para><replaceable>&lt;lfs&gt;</replaceable> needs to be replaced with the
-     name given to the computer. Do not enter the Fully Qualified Domain Name
-     (FQDN) here. That information is put in the
-     <filename>/etc/hosts</filename> file.</para>
+     <para><replaceable>&lt;lfs&gt;</replaceable> 替换为你想要设置的名称。请不要输入完整域名（Fully Qualified Domain Name，FQDN），那应该是放在 <filename>/etc/hosts</filename> 文件中的信息。</para>
 
   </sect2>
 
   <sect2 id="ch-scripts-hosts">
-     <title>Customizing the /etc/hosts File</title>
+     <title>定制文件 /etc/hosts</title>
 
      <indexterm zone="ch-scripts-hosts">
        <primary sortas="e-/etc/hosts">/etc/hosts</primary>
@@ -178,32 +124,24 @@ EOF</userinput></screen>
        <secondary>/etc/hosts</secondary>
      </indexterm>
    
-     <para>Decide on the IP address, fully-qualified domain name (FQDN), and
-     possible aliases for use in the <filename>/etc/hosts</filename> file. The
-     syntax is:</para>
+     <para>文件 <filename>/etc/hosts</filename> 用于 IP 地址和完全限定域名（FQDN）及可能的别名的对应。它的语法如下：</para>
    
 <screen><literal>IP_address myhost.example.org aliases</literal></screen>
 
-     <para>Unless the computer is to be visible to the Internet (i.e., there is
-     a registered domain and a valid block of assigned IP addresses&mdash;most
-     users do not have this), make sure that the IP address is in the private
-     network IP address range. Valid ranges are:</para>
+     <para>除非计算机在互联网中可见（例如拥有注册的域名且分配了有效的 IP 地址——大部分用户并不具备此条件），否则请确保 IP 地址位于有效的私有网络 IP 地址段。有效区间为：</para>
 
-<screen><literal>Private Network Address Range      Normal Prefix
+<screen><literal>私有网络地址范围      常规前缀
 10.0.0.1 - 10.255.255.254           8
 172.x.0.1 - 172.x.255.254           16
 192.168.y.1 - 192.168.y.254         24</literal></screen>
 
-     <para>x can be any number in the range 16-31. y can be any number in the
-     range 0-255.</para>
-   
-     <para>A valid private IP address could be 192.168.1.1. A valid FQDN for
-     this IP could be lfs.example.org.</para>
-   
-     <para>Even if not using a network card, a valid FQDN is still required.
-     This is necessary for certain programs to operate correctly.</para>
-   
-     <para>Create the  <filename>/etc/hosts</filename> file by running:</para>
+     <para>x 可以是 16-31 中的任何数字，y 可以是 0-255 中的任何数字。</para>
+
+     <para>有效的私有 IP 地址可以是 192.168.1.1，有效的完全限定域名可以是 lfs.example.org。</para>
+
+     <para>即使不需要使用网卡，也应该需要有效的完全限定域名。它的存在可以确保程序能正常运行。</para>
+
+     <para>通过以下命令建立 <filename>/etc/hosts</filename> 文件：</para>
 
 <screen><userinput>cat &gt; /etc/hosts &lt;&lt; "EOF"
 <literal># Begin /etc/hosts
@@ -218,12 +156,7 @@ ff02::2   ip6-allrouters
 # End /etc/hosts</literal>
 EOF</userinput></screen>
 
-     <para>The <replaceable>&lt;192.168.1.1&gt;</replaceable>,
-     <replaceable>&lt;FQDN&gt;</replaceable>, and 
-     <replaceable>&lt;HOSTNAME&gt;</replaceable> values need to be
-     changed for specific uses or requirements (if assigned an IP address by a
-     network/system administrator and the machine will be connected to an
-     existing network). The optional alias name(s) can be omitted.</para>
+     <para>其中，<replaceable>&lt;192.168.1.1&gt;</replaceable>，<replaceable>&lt;FQDN&gt;</replaceable>，和 <replaceable>&lt;HOSTNAME&gt;</replaceable> 的值应该根据用户和实际需要进行更改（如果已经通过网络/系统管理员获得了 IP 地址，那么设备就可以连接到已存在的网络）。其中可选的别名可以忽略。</para>
 
 <!--  This is not very useful
 
