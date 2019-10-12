@@ -23,9 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Util-linux package contains miscellaneous utility programs.
-    Among them are utilities for handling file systems, consoles, partitions,
-    and messages.</para>
+    <para>Util-linux 软件包其它实用程序。包括处理文件系统、控制台、分区以及消息等工具。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -40,31 +38,27 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>FHS compliance notes</title>
+    <title>FHS 兼容性注意事项</title>
 
-    <para>The FHS recommends using the <filename
-    class="directory">/var/lib/hwclock</filename> directory instead of the
-    usual <filename class="directory">/etc</filename> directory as the
-    location for the <filename>adjtime</filename> file.  First create a directory
-    to enable storage for the <command>hwclock</command> program:</para>
+    <para>FHS 推荐使用 <filename class="directory">/var/lib/hwclock</filename> 目录而不是通常的 <filename class="directory">/etc</filename> 目录作为  <filename>adjtime</filename> 文件的位置。首先新建目录用于存储 <command>hwclock</command> 程序：</para>
 
 <screen><userinput remap="pre">mkdir -pv /var/lib/hwclock</userinput></screen>
 
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Util-linux</title>
+    <title>安装 Util-linux</title>
 <!--
     <para>First, fix one of the regression tests:</para>
 
 <screen><userinput remap="pre">sed -e 's/2^64/(2^64/' -e 's/E &lt;/E) &lt;=/' -e 's/ne /eq /' \
     -i tests/ts/ipcs/limits2</userinput></screen>
 -->
-    <para revision="systemd">Remove the earlier created symlinks:</para>
+    <para revision="systemd">删除早前创建的符号链接：</para>
 
 <screen revision="systemd"><userinput remap="pre">rm -vf /usr/include/{blkid,libmount,uuid}</userinput></screen>
 
-    <para>Prepare Util-linux for compilation:</para>
+    <para>准备编译 Util-linux：</para>
 
 <screen revision="sysv"><userinput remap="configure">./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
             --docdir=/usr/share/doc/util-linux-&util-linux-version; \
@@ -92,42 +86,35 @@
             --disable-static     \
             --without-python</userinput></screen>
 
-    <para>The --disable and --without options prevent warnings about
-    building components that require packages not in LFS or are 
-    inconsistent with programs installed by other packages.</para>
+    <para>--disable 和 --without 选项用于防止出现关于 LFS 中缺少构建组件需要的软件包或和其它软件包安装的程序不一致的警告。</para>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>If desired, run the test suite as a non-root user:</para>
+    <para>如果需要的话，以非 root 用户运行测试套件：</para>
 
-    <warning><para>Running the test suite as the root user can be harmful to
-    your system.  To run it, the CONFIG_SCSI_DEBUG option for the kernel must
-    be available in the currently running system, and must be built as a
-    module.  Building it into the kernel will prevent booting.  For complete
-    coverage, other BLFS packages must be installed.  If desired, this test can
-    be run after rebooting into the completed LFS system and running:</para>
+    <warning><para>以 root 用户运行测试套件会对系统有害。为了运行测试套件，必须保证当前运行的系统中用于内核的 CONFIG_SCSI_DEBUG 选项可用，且是以一个模块的方式编译。把它构建到内核中将阻止启动。为了全面覆盖，还必须安装其它的 BLFS 软件包。如果需要的话，可以在重启进入完整的 LFS 系统后用以下命令运行该测试：</para>
 
-    <screen role="nodump"><userinput>bash tests/run.sh --srcdir=$PWD --builddir=$PWD</userinput></screen> 
+    <screen role="nodump"><userinput>bash tests/run.sh --srcdir=$PWD --builddir=$PWD</userinput></screen>
     </warning>
 
     <screen><userinput remap="test">chown -Rv nobody .
 su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-utillinux" role="content">
-    <title>Contents of Util-linux</title>
+    <title>Util-linux 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>addpart, agetty, blkdiscard, blkid, blkzone, blockdev, cal, cfdisk, chcpu,
@@ -142,28 +129,28 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
         scriptreplay, setarch, setsid, setterm, sfdisk, sulogin, swaplabel,
         swapoff (link to swapon), swapon, switch_root, taskset, ul,
         umount, uname26, unshare, utmpdump, uuidd, uuidgen, uuidparse, wall, wdctl, whereis,
-        wipefs, x86_64, and zramctl</seg>
+        wipefs, x86_64, 和 zramctl</seg>
         <seg>libblkid.so, libfdisk.so, libmount.so, 
-        libsmartcols.so, and libuuid.so</seg>
+        libsmartcols.so, 和 libuuid.so</seg>
         <seg>/usr/include/blkid, 
              /usr/include/libfdisk, 
              /usr/include/libmount, 
              /usr/include/libsmartcols, 
              /usr/include/uuid, 
              /usr/share/doc/util-linux-&util-linux-version;, 
-         and /var/lib/hwclock</seg>
+         和 /var/lib/hwclock</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="addpart">
         <term><command>addpart</command></term>
         <listitem>
-          <para>Informs the Linux kernel of new partitions</para>
+          <para>通知 Linux 内核有新的分区</para>
           <indexterm zone="ch-system-util-linux addpart">
             <primary sortas="b-addpart">addpart</primary>
           </indexterm>
@@ -173,8 +160,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="agetty">
         <term><command>agetty</command></term>
         <listitem>
-          <para>Opens a tty port, prompts for a login name,
-          and then invokes the <command>login</command> program</para>
+          <para>打开一个 tty 端口，提示输入登录名，然后调用 <command>login</command> 程序</para>
           <indexterm zone="ch-system-util-linux agetty">
             <primary sortas="b-agetty">agetty</primary>
           </indexterm>
@@ -184,7 +170,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="blkdiscard">
         <term><command>blkdiscard</command></term>
         <listitem>
-          <para>Discards sectors on a device</para>
+          <para>丢弃设备上的扇区</para>
           <indexterm zone="ch-system-util-linux blkdiscard">
             <primary sortas="b-blkdiscard">blkdiscard</primary>
           </indexterm>
@@ -194,8 +180,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="blkid">
         <term><command>blkid</command></term>
         <listitem>
-          <para>A command line utility to locate and print block device
-          attributes</para>
+          <para>用于定位和打印块设备属性的命令行工具</para>
           <indexterm zone="ch-system-util-linux blkid">
             <primary sortas="b-blkid">blkid</primary>
           </indexterm>
@@ -205,7 +190,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="blkzone">
         <term><command>blkzone</command></term>
         <listitem>
-          <para>Runs zone command on the given block device</para>
+          <para>在给定的块设备上运行区域命令</para>
           <indexterm zone="ch-system-util-linux blkzone">
             <primary sortas="b-blkzone">blkzone</primary>
           </indexterm>
@@ -215,8 +200,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="blockdev">
         <term><command>blockdev</command></term>
         <listitem>
-          <para>Allows users to call block device ioctls from the command
-          line</para>
+          <para>允许用户在命令行中调用块设备的 ioctls</para>
           <indexterm zone="ch-system-util-linux blockdev">
             <primary sortas="b-blockdev">blockdev</primary>
           </indexterm>
@@ -226,7 +210,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="cal">
         <term><command>cal</command></term>
         <listitem>
-          <para>Displays a simple calendar</para>
+          <para>显示一个简单的日历</para>
           <indexterm zone="ch-system-util-linux cal">
             <primary sortas="b-cal">cal</primary>
           </indexterm>
@@ -236,7 +220,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="cfdisk">
         <term><command>cfdisk</command></term>
         <listitem>
-          <para>Manipulates the partition table of the given device</para>
+          <para>管理指定设备的分区表</para>
           <indexterm zone="ch-system-util-linux cfdisk">
             <primary sortas="b-cfdisk">cfdisk</primary>
           </indexterm>
@@ -246,7 +230,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="chcpu">
         <term><command>chcpu</command></term>
         <listitem>
-          <para>Modifies the state of CPUs</para>
+          <para>更改 CPU 的状态</para>
           <indexterm zone="ch-system-util-linux chcpu">
             <primary sortas="b-chcpu">chcpu</primary>
           </indexterm>
@@ -256,7 +240,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="chmem">
         <term><command>chmem</command></term>
         <listitem>
-          <para>Configures memory</para>
+          <para>配置内存</para>
           <indexterm zone="ch-system-util-linux chmem">
             <primary sortas="b-chmem">chmem</primary>
           </indexterm>
@@ -266,7 +250,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="choom">
         <term><command>choom</command></term>
         <listitem>
-          <para>Displays and adjusts OOM-killer score</para>
+          <para>显示和调整 OOM-killer 分数</para>
           <indexterm zone="ch-system-util-linux choom">
             <primary sortas="b-choom">choom</primary>
           </indexterm>
@@ -276,7 +260,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="chrt">
         <term><command>chrt</command></term>
         <listitem>
-          <para>Manipulates real-time attributes of a process</para>
+          <para>管理进程的的实时属性</para>
           <indexterm zone="ch-system-util-linux chrt">
             <primary sortas="b-chrt">chrt</primary>
           </indexterm>
@@ -286,7 +270,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="col">
         <term><command>col</command></term>
         <listitem>
-          <para>Filters out reverse line feeds</para>
+          <para>过滤掉反向换行符</para>
           <indexterm zone="ch-system-util-linux col">
             <primary sortas="b-col">col</primary>
           </indexterm>
@@ -296,8 +280,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="colcrt">
         <term><command>colcrt</command></term>
         <listitem>
-          <para>Filters <command>nroff</command> output for terminals
-          that lack some capabilities, such as overstriking and half-lines</para>
+          <para>为终端过滤缺少某些功能，例如加粗和半行的 <command>nroff</command> 输出</para>
           <indexterm zone="ch-system-util-linux colcrt">
             <primary sortas="b-colcrt">colcrt</primary>
           </indexterm>
@@ -307,7 +290,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="colrm">
         <term><command>colrm</command></term>
         <listitem>
-          <para>Filters out the given columns</para>
+          <para>过滤掉指定的列</para>
           <indexterm zone="ch-system-util-linux colrm">
             <primary sortas="b-colrm">colrm</primary>
           </indexterm>
@@ -317,7 +300,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="column">
         <term><command>column</command></term>
         <listitem>
-          <para>Formats a given file into multiple columns</para>
+          <para>格式化指定文件为多列</para>
           <indexterm zone="ch-system-util-linux column">
             <primary sortas="b-column">column</primary>
           </indexterm>
@@ -327,8 +310,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="ctrlaltdel">
         <term><command>ctrlaltdel</command></term>
         <listitem>
-          <para>Sets the function of the Ctrl+Alt+Del key combination to a
-          hard or a soft reset</para>
+          <para>设置 Ctrl+Alt+Del 组合键的功能为硬或软复位</para>
           <indexterm zone="ch-system-util-linux ctrlaltdel">
             <primary sortas="b-ctrlaltdel">ctrlaltdel</primary>
           </indexterm>
@@ -338,7 +320,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="delpart">
         <term><command>delpart</command></term>
         <listitem>
-          <para>Asks the Linux kernel to remove a partition</para>
+          <para>请求 Linux 内核移除一个分区</para>
           <indexterm zone="ch-system-util-linux delpart">
             <primary sortas="b-delpart">delpart</primary>
           </indexterm>
@@ -348,7 +330,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="dmesg">
         <term><command>dmesg</command></term>
         <listitem>
-          <para>Dumps the kernel boot messages</para>
+          <para>转储内核启动信息</para>
           <indexterm zone="ch-system-util-linux dmesg">
             <primary sortas="b-dmesg">dmesg</primary>
           </indexterm>
@@ -358,7 +340,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="eject">
         <term><command>eject</command></term>
         <listitem>
-          <para>Ejects removable media</para>
+          <para>弹出可移除媒体</para>
           <indexterm zone="ch-system-util-linux eject">
             <primary sortas="b-eject">eject</primary>
           </indexterm>
@@ -368,7 +350,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="fallocate">
         <term><command>fallocate</command></term>
         <listitem>
-          <para>Preallocates space to a file</para>
+          <para>为文件预分配空间</para>
           <indexterm zone="ch-system-util-linux fallocate">
             <primary sortas="b-fallocate">fallocate</primary>
           </indexterm>
@@ -378,7 +360,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="fdformat">
         <term><command>fdformat</command></term>
         <listitem>
-          <para>Low-level formats a floppy disk</para>
+          <para>低级别格式化软盘</para>
           <indexterm zone="ch-system-util-linux fdformat">
             <primary sortas="b-fdformat">fdformat</primary>
           </indexterm>
@@ -388,7 +370,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="fdisk">
         <term><command>fdisk</command></term>
         <listitem>
-          <para>Manipulates the partition table of the given device</para>
+          <para>管理指定设备的分区表</para>
           <indexterm zone="ch-system-util-linux fdisk">
             <primary sortas="b-fdisk">fdisk</primary>
           </indexterm>
@@ -398,7 +380,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="fincore">
         <term><command>fincore</command></term>
         <listitem>
-          <para>Counts pages of file contents in core</para>
+          <para>计算核心中文件内容的页数</para>
           <indexterm zone="ch-system-util-linux fincore">
             <primary sortas="b-fincore">fincore</primary>
           </indexterm>
@@ -408,8 +390,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="findfs">
         <term><command>findfs</command></term>
         <listitem>
-          <para>Finds a file system by label or Universally Unique Identifier
-          (UUID)</para>
+          <para>通过标签或通用唯一标识符（UUID）查找文件系统</para>
           <indexterm zone="ch-system-util-linux findfs">
             <primary sortas="b-findfs">findfs</primary>
           </indexterm>
@@ -419,8 +400,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="findmnt">
         <term><command>findmnt</command></term>
         <listitem>
-          <para>Is a command line interface to the libmount library
-          for work with mountinfo, fstab and mtab files</para>
+          <para>libmount 库中用于和 mountinfo、fstab 和 mtab 文件工作的命令行接口</para>
           <indexterm zone="ch-system-util-linux findmnt">
             <primary sortas="b-findmnt">findmnt</primary>
           </indexterm>
@@ -430,8 +410,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="flock">
         <term><command>flock</command></term>
         <listitem>
-          <para>Acquires a file lock and then executes a command with the lock
-          held</para>
+          <para>请求一个文件锁，然后用所持有的锁执行命令</para>
           <indexterm zone="ch-system-util-linux flock">
             <primary sortas="b-flock">flock</primary>
           </indexterm>
@@ -441,7 +420,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="fsck">
         <term><command>fsck</command></term>
         <listitem>
-          <para>Is used to check, and optionally repair, file systems</para>
+          <para>用于检查或者修复文件系统</para>
           <indexterm zone="ch-system-util-linux fsck">
             <primary sortas="b-fsck">fsck</primary>
           </indexterm>
@@ -451,8 +430,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="fsck.cramfs">
         <term><command>fsck.cramfs</command></term>
         <listitem>
-          <para>Performs a consistency check on the Cramfs file system on the
-          given device</para>
+          <para>在指定设备的 Cramfs 文件系统上进行一致性检查</para>
           <indexterm zone="ch-system-util-linux fsck.cramfs">
             <primary sortas="b-fsck.cramfs">fsck.cramfs</primary>
           </indexterm>
@@ -462,8 +440,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="fsck.minix">
         <term><command>fsck.minix</command></term>
         <listitem>
-          <para>Performs a consistency check on the Minix file system on the
-          given device</para>
+          <para>在指定设备的 Minix 文件系统上进行一致性检查</para>
           <indexterm zone="ch-system-util-linux fsck.minix">
             <primary sortas="b-fsck.minix">fsck.minix</primary>
           </indexterm>
@@ -473,8 +450,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="fsfreeze">
         <term><command>fsfreeze</command></term>
         <listitem>
-          <para>Is a very simple wrapper around FIFREEZE/FITHAW ioctl
-          kernel driver operations</para>
+          <para>FIFREEZE/FITHAW ioctl 内核驱动操作的简单封装</para>
           <indexterm zone="ch-system-util-linux fsfreeze">
             <primary sortas="b-fsfreeze">fsfreeze</primary>
           </indexterm>
@@ -484,7 +460,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="fstrim">
         <term><command>fstrim</command></term>
         <listitem>
-          <para>Discards unused blocks on a mounted filesystem</para>
+          <para>丢弃已挂载的文件系统中未使用的块</para>
           <indexterm zone="ch-system-util-linux fstrim">
             <primary sortas="b-fstrim">fstrim</primary>
           </indexterm>
@@ -494,7 +470,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="getopt">
         <term><command>getopt</command></term>
         <listitem>
-          <para>Parses options in the given command line</para>
+          <para>解析给定命令行中的选项</para>
           <indexterm zone="ch-system-util-linux getopt">
             <primary sortas="b-getopt">getopt</primary>
           </indexterm>
@@ -504,8 +480,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="hexdump">
         <term><command>hexdump</command></term>
         <listitem>
-          <para>Dumps the given file in hexadecimal or in another given
-          format</para>
+          <para>以十六进制或其它指定格式转储给定文件</para>
           <indexterm zone="ch-system-util-linux hexdump">
             <primary sortas="b-hexdump">hexdump</primary>
           </indexterm>
@@ -515,9 +490,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="hwclock">
         <term><command>hwclock</command></term>
         <listitem>
-          <para>Reads or sets the system's hardware clock, also called
-          the Real-Time Clock (RTC) or Basic Input-Output System (BIOS)
-          clock</para>
+          <para>读取或设置系统硬件时钟，也称为实时时钟（RTC）或基本输入输出系统（BIOS）时钟</para>
           <indexterm zone="ch-system-util-linux hwclock">
             <primary sortas="b-hwclock">hwclock</primary>
           </indexterm>
@@ -527,7 +500,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="i386">
         <term><command>i386</command></term>
         <listitem>
-          <para>A symbolic link to setarch</para>
+          <para>到 setarch 的符号链接</para>
           <indexterm zone="ch-system-util-linux i386">
             <primary sortas="b-i386">i386</primary>
           </indexterm>
@@ -537,7 +510,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="ionice">
         <term><command>ionice</command></term>
         <listitem>
-          <para>Gets or sets the io scheduling class and priority for a program</para>
+          <para>为某个程序获取或设置 io 调度类和优先级</para>
           <indexterm zone="ch-system-util-linux ionice">
             <primary sortas="b-ionice">ionice</primary>
           </indexterm>
@@ -547,7 +520,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="ipcmk">
         <term><command>ipcmk</command></term>
         <listitem>
-          <para>Creates various IPC resources</para>
+          <para>创建多种 IPC（进程间通信） 资源</para>
           <indexterm zone="ch-system-util-linux ipcmk">
             <primary sortas="b-ipcmk">ipcmk</primary>
           </indexterm>
@@ -557,7 +530,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="ipcrm">
         <term><command>ipcrm</command></term>
         <listitem>
-          <para>Removes the given Inter-Process Communication (IPC) resource</para>
+          <para>移除指定的进程间通信（IPC）资源</para>
           <indexterm zone="ch-system-util-linux ipcrm">
             <primary sortas="b-ipcrm">ipcrm</primary>
           </indexterm>
@@ -567,7 +540,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="ipcs">
         <term><command>ipcs</command></term>
         <listitem>
-          <para>Provides IPC status information</para>
+          <para>提供 IPC 状态信息</para>
           <indexterm zone="ch-system-util-linux ipcs">
             <primary sortas="b-ipcs">ipcs</primary>
           </indexterm>
@@ -577,7 +550,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="isosize">
         <term><command>isosize</command></term>
         <listitem>
-          <para>Reports the size of an iso9660 file system</para>
+          <para>报告 iso9660 文件系统的大小</para>
           <indexterm zone="ch-system-util-linux isosize">
             <primary sortas="b-isosize">isosize</primary>
           </indexterm>
@@ -587,7 +560,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="kill">
         <term><command>kill</command></term>
         <listitem>
-          <para>Sends signals to processes</para>
+          <para>向进程发送信号</para>
           <indexterm zone="ch-system-util-linux kill">
             <primary sortas="b-kill">kill</primary>
           </indexterm>
@@ -597,9 +570,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="last">
         <term><command>last</command></term>
         <listitem>
-          <para>Shows which users last logged in (and out), searching back 
-          through the <filename>/var/log/wtmp</filename> file; it also shows 
-          system boots, shutdowns, and run-level changes</para>
+          <para>通过反向查找 <filename>/var/log/wtmp</filename> 文件显示上次登录（注销）的用户；同时还显示系统启动、关闭以及运行时级别更改</para>
           <indexterm zone="ch-system-util-linux last">
             <primary sortas="b-last">last</primary>
           </indexterm>
@@ -609,8 +580,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="lastb">
         <term><command>lastb</command></term>
         <listitem>
-          <para>Shows the failed login attempts, as logged in 
-          <filename>/var/log/btmp</filename></para>
+          <para>根据 <filename>/var/log/btmp</filename> 中的日志显示失败的登录尝试</para>
           <indexterm zone="ch-system-util-linux lastb">
             <primary sortas="b-lastb">lastb</primary>
           </indexterm>
@@ -620,7 +590,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="ldattach">
         <term><command>ldattach</command></term>
         <listitem>
-          <para>Attaches a line discipline to a serial line</para>
+          <para>向行中添加行规则</para>
           <indexterm zone="ch-system-util-linux ldattach">
             <primary sortas="b-ldattach">ldattach</primary>
           </indexterm>
@@ -630,7 +600,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="linux32">
         <term><command>linux32</command></term>
         <listitem>
-          <para>A symbolic link to setarch</para>
+          <para>到 setarch 的符号链接</para>
           <indexterm zone="ch-system-util-linux linux32">
             <primary sortas="b-linux32">linux32</primary>
           </indexterm>
@@ -640,7 +610,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="linux64">
         <term><command>linux64</command></term>
         <listitem>
-          <para>A symbolic link to setarch</para>
+          <para>到 setarch 的符号链接</para>
           <indexterm zone="ch-system-util-linux linux64">
             <primary sortas="b-linux64">linux64</primary>
           </indexterm>
@@ -650,7 +620,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="logger">
         <term><command>logger</command></term>
         <listitem>
-          <para>Enters the given message into the system log</para>
+          <para>输入给定的信息到系统日志</para>
           <indexterm zone="ch-system-util-linux logger">
             <primary sortas="b-logger">logger</primary>
           </indexterm>
@@ -660,7 +630,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="look">
         <term><command>look</command></term>
         <listitem>
-          <para>Displays lines that begin with the given string</para>
+          <para>显示以指定字符串开头的行</para>
           <indexterm zone="ch-system-util-linux look">
             <primary sortas="b-look">look</primary>
           </indexterm>
@@ -670,7 +640,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="losetup">
         <term><command>losetup</command></term>
         <listitem>
-          <para>Sets up and controls loop devices</para>
+          <para>设置和控制环路设备</para>
           <indexterm zone="ch-system-util-linux losetup">
             <primary sortas="b-losetup">losetup</primary>
           </indexterm>
@@ -680,8 +650,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="lsblk">
         <term><command>lsblk</command></term>
         <listitem>
-          <para>Lists information about all or selected block devices in
-           a tree-like format</para>
+          <para>以类似树的形式列出所有或指定块设备的信息</para>
           <indexterm zone="ch-system-util-linux lsblk">
             <primary sortas="b-lsblk">lsblk</primary>
           </indexterm>
@@ -691,7 +660,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="lscpu">
         <term><command>lscpu</command></term>
         <listitem>
-          <para>Prints CPU architecture information</para>
+          <para>打印 CPU 架构信息</para>
           <indexterm zone="ch-system-util-linux lscpu">
             <primary sortas="b-lscpu">lscpu</primary>
           </indexterm>
@@ -701,8 +670,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="lsipc">
         <term><command>lsipc</command></term>
         <listitem>
-          <para>Prints information on IPC facilities currently employed
-          in the system</para>
+          <para>打印目前使用的 IPC 设备的信息</para>
           <indexterm zone="ch-system-util-linux lsipc">
             <primary sortas="b-lsipc">lsipc</primary>
           </indexterm>
@@ -712,7 +680,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="lslocks">
         <term><command>lslocks</command></term>
         <listitem>
-          <para>Lists local system locks</para>
+          <para>打印 CPU 架构信息</para>
           <indexterm zone="ch-system-util-linux lslocks">
             <primary sortas="b-lslocks">lslocks</primary>
           </indexterm>
@@ -722,7 +690,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="lslogins">
         <term><command>lslogins</command></term>
         <listitem>
-          <para>Lists information about users, groups and system accounts</para>
+          <para>列出关于用户、组和系统账号的信息</para>
           <indexterm zone="ch-system-util-linux lslogins">
             <primary sortas="b-lslogins">lslogins</primary>
           </indexterm>
@@ -732,8 +700,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="lsmem">
         <term><command>lsmem</command></term>
         <listitem>
-          <para>Lists the ranges of available memory with their online
-          status</para>
+          <para>列出可用内存的范围和在线状态</para>
           <indexterm zone="ch-system-util-linux lsmem">
             <primary sortas="b-lsmem">lsmem</primary>
           </indexterm>
@@ -743,7 +710,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="lsns">
         <term><command>lsns</command></term>
         <listitem>
-          <para>Lists namespaces</para>
+          <para>列出命名空间</para>
           <indexterm zone="ch-system-util-linux lsns">
             <primary sortas="b-lsns">lsns</primary>
           </indexterm>
@@ -753,8 +720,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="mcookie">
         <term><command>mcookie</command></term>
         <listitem>
-          <para>Generates magic cookies (128-bit random hexadecimal numbers) for
-          <command>xauth</command></para>
+          <para>为 <command>xauth</command> 生成 magic cookies（128位随机十六进制数）</para>
           <indexterm zone="ch-system-util-linux mcookie">
             <primary sortas="b-mcookie">mcookie</primary>
           </indexterm>
@@ -764,8 +730,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="mesg">
         <term><command>mesg</command></term>
         <listitem>
-          <para>Controls whether other users can send messages to the current 
-          user's terminal</para>
+          <para>控制其它用户是否可以向当前用户终端发送信息</para>
           <indexterm zone="ch-system-util-linux mesg">
             <primary sortas="b-mesg">mesg</primary>
           </indexterm>
@@ -775,8 +740,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="mkfs">
         <term><command>mkfs</command></term>
         <listitem>
-          <para>Builds a file system on a device (usually a hard disk
-          partition)</para>
+          <para>在设备上构建文件系统（通常是一个硬盘分区）</para>
           <indexterm zone="ch-system-util-linux mkfs">
             <primary sortas="b-mkfs">mkfs</primary>
           </indexterm>
@@ -786,7 +750,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="mkfs.bfs">
         <term><command>mkfs.bfs</command></term>
         <listitem>
-          <para>Creates a Santa Cruz Operations (SCO) bfs file system</para>
+          <para>创建 Santa Cruz Operations（SCO） bfs 文件系统</para>
           <indexterm zone="ch-system-util-linux mkfs.bfs">
             <primary sortas="b-mkfs.bfs">mkfs.bfs</primary>
           </indexterm>
@@ -796,7 +760,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="mkfs.cramfs">
         <term><command>mkfs.cramfs</command></term>
         <listitem>
-          <para>Creates a cramfs file system</para>
+          <para>创建 cramfs 文件系统</para>
           <indexterm zone="ch-system-util-linux mkfs.cramfs">
             <primary sortas="b-mkfs.cramfs">mkfs.cramfs</primary>
           </indexterm>
@@ -806,7 +770,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="mkfs.minix">
         <term><command>mkfs.minix</command></term>
         <listitem>
-          <para>Creates a Minix file system</para>
+          <para>创建 Minix 文件系统</para>
           <indexterm zone="ch-system-util-linux mkfs.minix">
             <primary sortas="b-mkfs.minix">mkfs.minix</primary>
           </indexterm>
@@ -816,8 +780,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="mkswap">
         <term><command>mkswap</command></term>
         <listitem>
-          <para>Initializes the given device or file to be used as a swap
-          area</para>
+          <para>初始化指定设备或文件作为交换空间使用</para>
           <indexterm zone="ch-system-util-linux mkswap">
             <primary sortas="b-mkswap">mkswap</primary>
           </indexterm>
@@ -827,7 +790,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="more">
         <term><command>more</command></term>
         <listitem>
-          <para>A filter for paging through text one screen at a time</para>
+          <para>用于每次显示文本一页的过滤器</para>
           <indexterm zone="ch-system-util-linux more">
             <primary sortas="b-more">more</primary>
           </indexterm>
@@ -837,8 +800,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="mount">
         <term><command>mount</command></term>
         <listitem>
-          <para>Attaches the file system on the given device to a specified
-          directory in the file-system tree</para>
+          <para>在文件系统树中挂载文件系统到给定设备的指定目录</para>
           <indexterm zone="ch-system-util-linux mount">
             <primary sortas="b-mount">mount</primary>
           </indexterm>
@@ -848,7 +810,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="mountpoint">
         <term><command>mountpoint</command></term>
         <listitem>
-          <para>Checks if the directory is a mountpoint</para>
+          <para>检查目录是否是一个挂载点</para>
           <indexterm zone="ch-system-util-linux mountpoint">
             <primary sortas="b-mountpoint">mountpoint</primary>
           </indexterm>
@@ -858,7 +820,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="namei">
         <term><command>namei</command></term>
         <listitem>
-          <para>Shows the symbolic links in the given pathnames</para>
+          <para>显示给定路径名称的符号链接</para>
           <indexterm zone="ch-system-util-linux namei">
             <primary sortas="b-namei">namei</primary>
           </indexterm>
@@ -868,7 +830,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="nsenter">
         <term><command>nsenter</command></term>
         <listitem>
-          <para>Runs a program with namespaces of other processes</para>
+          <para>在其他进程的命名空间中运行程序</para>
           <indexterm zone="ch-system-util-linux nsenter">
             <primary sortas="b-nsenter">nsenter</primary>
           </indexterm>
@@ -878,8 +840,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="partx">
         <term><command>partx</command></term>
         <listitem>
-          <para>Tells the kernel about the presence and numbering of on-disk
-          partitions</para>
+          <para>告诉内核磁盘上存在的分区和编号</para>
           <indexterm zone="ch-system-util-linux partx">
             <primary sortas="b-partx">partx</primary>
           </indexterm>
@@ -889,8 +850,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="pivot_root">
         <term><command>pivot_root</command></term>
         <listitem>
-          <para>Makes the given file system the new root file system of the
-          current process</para>
+          <para>使指定文件系统作为当前进程的新的根文件系统</para>
           <indexterm zone="ch-system-util-linux pivot_root">
             <primary sortas="b-pivot_root">pivot_root</primary>
           </indexterm>
@@ -900,7 +860,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="prlimit">
         <term><command>prlimit</command></term>
         <listitem>
-          <para>Get and set a process' resource limits</para>
+          <para>获取或设置进程资源限制</para>
           <indexterm zone="ch-system-util-linux prlimit">
             <primary sortas="b-prlimit">prlimit</primary>
           </indexterm>
@@ -910,7 +870,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="raw">
         <term><command>raw</command></term>
         <listitem>
-          <para>Bind a Linux raw character device to a block device</para>
+          <para>绑定 Linux 原始字符设备到一个块设备</para>
           <indexterm zone="ch-system-util-linux raw">
             <primary sortas="b-raw">raw</primary>
           </indexterm>
@@ -920,7 +880,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="readprofile">
         <term><command>readprofile</command></term>
         <listitem>
-          <para>Reads kernel profiling information</para>
+          <para>读取内核分析信息</para>
           <indexterm zone="ch-system-util-linux readprofile">
             <primary sortas="b-readprofile">readprofile</primary>
           </indexterm>
@@ -930,8 +890,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="rename">
         <term><command>rename</command></term>
         <listitem>
-          <para>Renames the given files, replacing a given string with
-          another</para>
+          <para>重命名指定文件，用另一个字符串替换指定字符串</para>
           <indexterm zone="ch-system-util-linux rename">
             <primary sortas="b-rename">rename</primary>
           </indexterm>
@@ -941,7 +900,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="renice">
         <term><command>renice</command></term>
         <listitem>
-          <para>Alters the priority of running processes</para>
+          <para>更改运行中进程的优先级</para>
           <indexterm zone="ch-system-util-linux renice">
             <primary sortas="b-renice">renice</primary>
           </indexterm>
@@ -951,7 +910,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="resizepart">
         <term><command>resizepart</command></term>
         <listitem>
-          <para>Asks the Linux kernel to resize a partition</para>
+          <para>请求 Linux 内核重新设置分区大小</para>
           <indexterm zone="ch-system-util-linux resizepart">
             <primary sortas="b-resizepart">resizepart</primary>
           </indexterm>
@@ -961,7 +920,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="rev">
         <term><command>rev</command></term>
         <listitem>
-          <para>Reverses the lines of a given file</para>
+          <para>反转指定文件的行</para>
           <indexterm zone="ch-system-util-linux rev">
             <primary sortas="b-rev">rev</primary>
           </indexterm>
@@ -971,7 +930,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="rkfill">
         <term><command>rkfill</command></term>
         <listitem>
-          <para>Tool for enabling and disabling wireless devices</para>
+          <para>用于启用和禁用无线设备的工具</para>
           <indexterm zone="ch-system-util-linux rkfill">
             <primary sortas="b-rkfill">rkfill</primary>
           </indexterm>
@@ -981,8 +940,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="rtcwake">
         <term><command>rtcwake</command></term>
         <listitem>
-          <para>Used to enter a system sleep state until specified wakeup
-          time</para>
+          <para>用于进入系统睡眠状态知道指定的唤醒时间</para>
           <indexterm zone="ch-system-util-linux rtcwake">
             <primary sortas="b-rtcwake">rtcwake</primary>
           </indexterm>
@@ -992,7 +950,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="script">
         <term><command>script</command></term>
         <listitem>
-          <para>Makes a typescript of a terminal session</para>
+          <para>生成终端会话的打字稿</para>
           <indexterm zone="ch-system-util-linux script">
             <primary sortas="b-script">script</primary>
           </indexterm>
@@ -1002,7 +960,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="scriptreplay">
         <term><command>scriptreplay</command></term>
         <listitem>
-          <para>Plays back typescripts using timing information</para>
+          <para>用定时信息播放打字稿</para>
           <indexterm zone="ch-system-util-linux scriptreplay">
             <primary sortas="b-scriptreplay">scriptreplay</primary>
           </indexterm>
@@ -1012,8 +970,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="setarch">
         <term><command>setarch</command></term>
         <listitem>
-          <para>Changes reported architecture in a new program environment and
-          sets personality flags</para>
+          <para>在新程序环境中更改报告架构并设置个性标签</para>
           <indexterm zone="ch-system-util-linux setarch">
             <primary sortas="b-setarch">setarch</primary>
           </indexterm>
@@ -1023,7 +980,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="setsid">
         <term><command>setsid</command></term>
         <listitem>
-          <para>Runs the given program in a new session</para>
+          <para>在新会话中运行指定程序</para>
           <indexterm zone="ch-system-util-linux setsid">
             <primary sortas="b-setsid">setsid</primary>
           </indexterm>
@@ -1033,7 +990,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="setterm">
         <term><command>setterm</command></term>
         <listitem>
-          <para>Sets terminal attributes</para>
+          <para>设置终端属性</para>
           <indexterm zone="ch-system-util-linux setterm">
             <primary sortas="b-setterm">setterm</primary>
           </indexterm>
@@ -1043,7 +1000,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="sfdisk">
         <term><command>sfdisk</command></term>
         <listitem>
-          <para>A disk partition table manipulator</para>
+          <para>磁盘分区表管理器</para>
           <indexterm zone="ch-system-util-linux sfdisk">
             <primary sortas="b-sfdisk">sfdisk</primary>
           </indexterm>
@@ -1053,9 +1010,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="sulogin">
         <term><command>sulogin</command></term>
         <listitem>
-          <para>Allows <systemitem class="username">root</systemitem> to log in;
-          it is normally invoked by <command>init</command> when the system goes
-          into single user mode</para>
+          <para>允许 <systemitem class="username">root</systemitem> 登录；通常当系统进入单用户模式时由 <command>init</command> 调用</para>
           <indexterm zone="ch-system-util-linux sulogin">
             <primary sortas="b-sulogin">sulogin</primary>
           </indexterm>
@@ -1065,7 +1020,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="swaplabel">
         <term><command>swaplabel</command></term>
         <listitem>
-          <para>Allows to change swaparea UUID and label</para>
+          <para>允许更改交换空间 UUID 和标签</para>
           <indexterm zone="ch-system-util-linux swaplabel">
             <primary sortas="b-swaplabel">swaplabel</primary>
           </indexterm>
@@ -1075,7 +1030,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="swapoff">
         <term><command>swapoff</command></term>
         <listitem>
-          <para>Disables devices and files for paging and swapping</para>
+          <para>停用设备和文件的分页和交换机制</para>
           <indexterm zone="ch-system-util-linux swapoff">
             <primary sortas="b-swapoff">swapoff</primary>
           </indexterm>
@@ -1085,8 +1040,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="swapon">
         <term><command>swapon</command></term>
         <listitem>
-          <para>Enables devices and files for paging and swapping and
-          lists the devices and files currently in use</para>
+          <para>启用设备和文件的分页和交换机制并列出当前使用的设备和文件</para>
           <indexterm zone="ch-system-util-linux swapon">
             <primary sortas="b-swapon">swapon</primary>
           </indexterm>
@@ -1096,7 +1050,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="switch_root">
         <term><command>switch_root</command></term>
         <listitem>
-          <para>Switches to another filesystem as the root of the mount tree</para>
+          <para>切换到另一个文件系统并把当前路径作为挂载树的根</para>
           <indexterm zone="ch-system-util-linux switch_root">
             <primary sortas="b-switch_root">switch_root</primary>
           </indexterm>
@@ -1106,9 +1060,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="tailf">
         <term><command>tailf</command></term>
         <listitem>
-          <para>Tracks the growth of a log file; displays the last 10 lines
-          of a log file, then continues displaying any new entries in the
-          log file as they are created</para>
+          <para>跟踪日志文件的的增长；显示日志文件的最后 10 行然后继续显示日志文件中 添加的任何新条目</para>
           <indexterm zone="ch-system-util-linux tailf">
             <primary sortas="b-tailf">tailf</primary>
           </indexterm>
@@ -1118,7 +1070,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="taskset">
         <term><command>taskset</command></term>
         <listitem>
-          <para>Retrieves or sets a process' CPU affinity</para>
+          <para>获取或设置一个进程的 CPU 亲和力</para>
           <indexterm zone="ch-system-util-linux taskset">
             <primary sortas="b-taskset">taskset</primary>
           </indexterm>
@@ -1128,8 +1080,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="ul">
         <term><command>ul</command></term>
         <listitem>
-          <para>A filter for translating underscores into escape sequences
-          indicating underlining for the terminal in use</para>
+          <para>将强调转换为转义序列以表示强调正在使用的终端的过滤器</para>
           <indexterm zone="ch-system-util-linux ul">
             <primary sortas="b-ul">ul</primary>
           </indexterm>
@@ -1139,7 +1090,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="umount">
         <term><command>umount</command></term>
         <listitem>
-          <para>Disconnects a file system from the system's file tree</para>
+          <para>断开文件系统到系统文件树的连接</para>
           <indexterm zone="ch-system-util-linux umount">
             <primary sortas="b-umount">umount</primary>
           </indexterm>
@@ -1149,7 +1100,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="uname26">
         <term><command>uname26</command></term>
         <listitem>
-          <para>A symbolic link to setarch</para>
+          <para>一个到 setarch 的符号链接</para>
           <indexterm zone="ch-system-util-linux uname26">
             <primary sortas="b-uname26">uname26</primary>
           </indexterm>
@@ -1159,7 +1110,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="unshare">
         <term><command>unshare</command></term>
         <listitem>
-          <para>Runs a program with some namespaces unshared from parent</para>
+          <para>用一些父进程非共享的名字空间运行程序</para>
           <indexterm zone="ch-system-util-linux unshare">
             <primary sortas="b-unshare">unshare</primary>
           </indexterm>
@@ -1169,8 +1120,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="utmpdump">
         <term><command>utmpdump</command></term>
         <listitem>
-          <para>Displays the content of the given login file in a more
-          user-friendly format</para>
+          <para>以更友好的格式显示指定登录文件的内容</para>
           <indexterm zone="ch-system-util-linux utmpdump">
             <primary sortas="b-utmpdump">utmpdump</primary>
           </indexterm>
@@ -1180,8 +1130,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="uuidd">
         <term><command>uuidd</command></term>
         <listitem>
-          <para>A daemon used by the UUID library to generate time-based
-          UUIDs in a secure and guaranteed-unique fashion</para>
+          <para>UUID 库用于生成基于时间的安全和保证唯一的 UUID 的守护进程</para>
           <indexterm zone="ch-system-util-linux uuidd">
             <primary sortas="b-uuidd">uuidd</primary>
           </indexterm>
@@ -1191,9 +1140,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="uuidgen">
         <term><command>uuidgen</command></term>
         <listitem>
-          <para>Creates new UUIDs. Each new UUID can reasonably be considered
-          unique among all UUIDs created, on the local system and on other
-          systems, in the past and in the future</para>
+          <para>创建新的 UUID。在所有创建的 UUID 中，在本地系统或其它系统，在之前和以后，每个新的 UUID 都可以被认为是唯一的</para>
           <indexterm zone="ch-system-util-linux uuidgen">
             <primary sortas="b-uuidgen">uuidgen</primary>
           </indexterm>
@@ -1203,7 +1150,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="uuidparse">
         <term><command>uuidparse</command></term>
         <listitem>
-          <para>An utility to parse unique identifiers</para>
+          <para>解析唯一标识符的实用程序</para>
           <indexterm zone="ch-system-util-linux uuidparse">
             <primary sortas="b-uuidparse">uuidparse</primary>
           </indexterm>
@@ -1213,8 +1160,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="wall">
         <term><command>wall</command></term>
         <listitem>
-          <para>Displays the contents of a file or, by default, its standard
-          input, on the terminals of all currently logged in users</para>
+          <para>在终端上显示所有当前登录用户的文件内容，或者默认的标准输出</para>
           <indexterm zone="ch-system-util-linux wall">
             <primary sortas="b-wall">wall</primary>
           </indexterm>
@@ -1224,7 +1170,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="wdctl">
         <term><command>wdctl</command></term>
         <listitem>
-          <para>Shows hardware watchdog status</para>
+          <para>显示硬件看门狗状态</para>
           <indexterm zone="ch-system-util-linux wdctl">
             <primary sortas="b-wdctl">wdctl</primary>
           </indexterm>
@@ -1234,8 +1180,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="whereis">
         <term><command>whereis</command></term>
         <listitem>
-          <para>Reports the location of the binary, source, and man page
-          for the given command</para>
+          <para>报告指定命令的二进制文件、源代码或者 man 手册的位置</para>
           <indexterm zone="ch-system-util-linux whereis">
             <primary sortas="b-whereis">whereis</primary>
           </indexterm>
@@ -1245,7 +1190,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="wipefs">
         <term><command>wipefs</command></term>
         <listitem>
-          <para>Wipes a filesystem signature from a device</para>
+          <para>从设备中擦除文件系统签名</para>
           <indexterm zone="ch-system-util-linux wipefs">
             <primary sortas="b-wipefs">wipefs</primary>
           </indexterm>
@@ -1255,7 +1200,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="x86_64">
         <term><command>x86_64</command></term>
         <listitem>
-          <para>A symbolic link to setarch</para>
+          <para>到 setarch 的符号链接</para>
           <indexterm zone="ch-system-util-linux x86_64">
             <primary sortas="b-x86_64">x86_64</primary>
           </indexterm>
@@ -1265,8 +1210,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="zramctl">
         <term><command>zramctl</command></term>
         <listitem>
-          <para>A program to set up and control zram (compressed ram disk) 
-          devices</para>
+          <para>用于设置和控制 zram（压缩后的 ram 磁盘）的程序</para>
           <indexterm zone="ch-system-util-linux zramctl">
             <primary sortas="b-zramctl">zramctl</primary>
           </indexterm>
@@ -1276,8 +1220,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="libblkid">
         <term><filename class="libraryfile">libblkid</filename></term>
         <listitem>
-          <para>Contains routines for device identification and token
-          extraction</para>
+          <para>包含用于设备识别和标记提取的例程</para>
           <indexterm zone="ch-system-util-linux libblkid">
             <primary sortas="c-libblkid">libblkid</primary>
           </indexterm>
@@ -1287,7 +1230,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="libfdisk">
         <term><filename class="libraryfile">libfdisk</filename></term>
         <listitem>
-          <para>Contains routines for manipulating partition tables</para>
+          <para>包含操作分区表的例程</para>
           <indexterm zone="ch-system-util-linux libfdisk">
             <primary sortas="c-libfdisk">libfdisk</primary>
           </indexterm>
@@ -1297,8 +1240,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="libmount">
         <term><filename class="libraryfile">libmount</filename></term>
         <listitem>
-          <para>Contains routines for block device mounting and
-          unmounting</para>
+          <para>包含用于块设备挂载和卸载的例程</para>
           <indexterm zone="ch-system-util-linux libmount">
             <primary sortas="c-libmount">libmount</primary>
           </indexterm>
@@ -1308,7 +1250,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="libsmartcols">
         <term><filename class="libraryfile">libsmartcols</filename></term>
         <listitem>
-          <para>Contains routines for aiding screen output in tabular form</para>
+          <para>包含以表格形式进行屏幕输出的例程</para>
           <indexterm zone="ch-system-util-linux libsmartcols">
             <primary sortas="c-libsmartcols">libsmartcols</primary>
           </indexterm>
@@ -1318,8 +1260,7 @@ su nobody -s /bin/bash -c "PATH=$PATH make -k check"</userinput></screen>
       <varlistentry id="libuuid">
         <term><filename class="libraryfile">libuuid</filename></term>
         <listitem>
-          <para>Contains routines for generating unique identifiers for objects
-          that may be accessible beyond the local system</para>
+          <para>包含用于生成在本地系统之上可访问对象的唯一标识符的例程</para>
           <indexterm zone="ch-system-util-linux libuuid">
             <primary sortas="c-libuuid">libuuid</primary>
           </indexterm>

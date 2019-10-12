@@ -8,45 +8,18 @@
 <sect1 id="prepare-abouttestsuites">
   <?dbhtml filename="abouttestsuites.html"?>
 
-  <title>About the Test Suites</title>
+  <title>关于测试套件</title>
 
-  <para>Most packages provide a test suite. Running the test suite for a
-  newly built package is a good idea because it can provide a <quote>sanity
-  check</quote> indicating that everything compiled correctly. A test suite
-  that passes its set of checks usually proves that the package is
-  functioning as the developer intended. It does not, however, guarantee
-  that the package is totally bug free.</para>
+  <para>很多软件包都提供相应的测试套件。为新构建的软件包运行测试套件是非常好的习惯，因为这样做可以「保证」所有功能都已编译正确。经由一系列的测试，套件往往能够检查出软件包的功能是否都如开发人员预想的那样。然而，这并不能保证所测试的软件包万无一失。</para>
 
-  <para>Some test suites are more important than others. For example,
-  the test suites for the core toolchain packages&mdash;GCC, Binutils, and
-  Glibc&mdash;are of the utmost importance due to their central role in a
-  properly functioning system. The test suites for GCC and Glibc can
-  take a very long time to complete, especially on slower hardware, but
-  are strongly recommended.</para>
+  <para>有一些测试套件要相较而言更为重要。例如，核心工具链软件包——GCC, Binutils 和 Glibc——对于对于一个系统的正常运转起到至关重要的作用。要完成 GCC 和 Glibc 的测试套件可能要花费很长的时间，特别是对于硬件比较慢的设备来说，但还是强烈推荐完成它们！</para>
 
   <note>
-    <para>Experience has shown that there is little to be gained from running
-    the test suites in <xref linkend="chapter-temporary-tools"/>. There can be
-    no escaping the fact that the host system always exerts some influence on
-    the tests in that chapter, often causing inexplicable failures. Because
-    the tools built in <xref linkend="chapter-temporary-tools"/> are temporary
-    and eventually discarded, we do not recommend running the test suites in
-    <xref linkend="chapter-temporary-tools"/> for the average reader. The
-    instructions for running those test suites are provided for the benefit of
-    testers and developers, but they are strictly optional.</para>
+    <para>经验表明，在 <xref linkend="chapter-temporary-tools"/> 中运行测试套件并不是什么好主意。在该章节运行测试将不可避免地面临一个问题，宿主机或多或少会对测试产生影响，这经常导致一些令人摸不着头脑的错误信息。因为在 <xref linkend="chapter-temporary-tools"/> 中构建的这些工具只是临时的，最终我们并不需要它们，所以我们并不推荐普通读者在 <xref linkend="chapter-temporary-tools"/> 中运行测试套件。虽然为测试者和开发者提供了测试套件的说明，但是这依旧是可选项。</para>
   </note>
 
-  <para>A common issue with running the test suites for Binutils and GCC
-  is running out of pseudo terminals (PTYs). This can result in a high
-  number of failing tests. This may happen for several reasons, but the
-  most likely cause is that the host system does not have the
-  <systemitem class="filesystem">devpts</systemitem> file system set up
-  correctly. This issue is discussed in greater detail at
-  <ulink url="&lfs-root;lfs/faq.html#no-ptys"/>.</para>
+  <para>对 Binutils 和 GCC 执行测试套件时可能会使伪终端（PTYs）耗尽。造成大量的测试失败。造成问题的原因有很多，但最有可能的原因是宿主系统没能正确设置 <systemitem class="filesystem">devpts</systemitem> 文件系统。针对这个问题在 <ulink url="&lfs-root;lfs/faq.html#no-ptys"/> 中有更详尽的讨论。</para>
 
-  <para>Sometimes package test suites will fail, but for reasons which the
-  developers are aware of and have deemed non-critical. Consult the logs located
-  at <ulink url="&test-results;"/> to verify whether or not these failures are
-  expected. This site is valid for all tests throughout this book.</para>
+  <para>还有一些测试套件运行错误，是开发人员已知且视为不重要的。查看 <ulink url="&test-results;"/> 中的日志，确认这些失败信息是否都是意料之中的。该网址中涉及的内容会贯穿全书所有的测试。</para>
 
 </sect1>

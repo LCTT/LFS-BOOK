@@ -8,26 +8,13 @@
 <sect1 id="ch-system-strippingagain">
   <?dbhtml filename="strippingagain.html"?>
 
-  <title>Stripping Again</title>
+  <title>再次清理无用内容</title>
 
-  <para>This section is optional.  If the intended user is not a 
-  programmer and does not plan to do
-  any debugging on the system software, the system size can be decreased
-  by about 90 MB by removing the debugging symbols from binaries and
-  libraries. This causes no inconvenience other than not being able to
-  debug the software fully anymore.</para>
+  <para>这个部分是可选的。如果预期的用户不是一个程序员或者不打算对系统软件进行任何调试，通过从二进制文件和库中删除调试符号能减少 90MB 的系统大小。除了不能完全调试软件，这不会导致任何不便。</para>
 
-  <para>Most people who use the commands mentioned below do not
-  experience any difficulties. However, it is easy to make a typo and
-  render the new system unusable, so before running the
-  <command>strip</command> commands, it is a good idea to make a
-  backup of the LFS system in its current state.</para>
+  <para>大部分人使用下面提到的命令并不会感到任何困难。然而，很容易出现错误并导致新的系统不可用，因此在运行 <command>strip</command> 命令之前，对当前状态的 LFS 系统进行备份是个好主意。</para>
 
-  <para>First place the debugging symbols for selected libraries 
-  in separate files.  This debugging information is needed if running 
-  regression tests that use <ulink 
-  url='&blfs-book;/general/valgrind.html'>valgrind</ulink> or <ulink 
-  url='&blfs-book;/general/gdb.html'>gdb</ulink> later in BLFS.
+  <para>首先将选定库的调试符号文件分开放置。如果要在后续的 BLFS 中用 <ulink url='&blfs-book;/general/valgrind.html'>valgrind</ulink> 或 <ulink url='&blfs-book;/general/gdb.html'>gdb</ulink> 做回归测试，那么调试信息还有用武之地。
   </para>
 
 <!-- also of interest are libgfortan, libgo, libgomp, and libobjc from gcc -->
@@ -56,8 +43,7 @@ done
 
 unset LIB save_lib save_usrlib</userinput></screen>
 
-  <para>Before performing the stripping, take special care to ensure that
-  none of the binaries that are about to be stripped are running:</para>
+  <para>在进行清理无用内容之前，格外注意确保要删除的二进制文件没有正在运行：</para>
 
 <screen role="nodump"><userinput>exec /tools/bin/bash</userinput></screen>
   
@@ -78,7 +64,7 @@ unset LIB save_lib save_usrlib</userinput></screen>
     PATH=/bin:/usr/bin:/sbin:/usr/sbin \
     /tools/bin/bash - -login</userinput></screen>-->
 
-  <para>Now the binaries and libraries can be safely stripped:</para>
+  <para>现在可以安心的清除二进制文件和库：</para>
 
 <screen><userinput>/tools/bin/find /usr/lib -type f -name \*.a \
    -exec /tools/bin/strip --strip-debug {} ';'
@@ -89,9 +75,6 @@ unset LIB save_lib save_usrlib</userinput></screen>
 /tools/bin/find /{bin,sbin} /usr/{bin,sbin,libexec} -type f \
     -exec /tools/bin/strip --strip-all {} ';'</userinput></screen>
 
-  <para>A large number of files will be reported as having their file
-  format not recognized. These warnings can be safely ignored. These
-  warnings indicate that those files are scripts instead of
-  binaries.</para>
+  <para>该命令会报告有很大数目的文件不能识别它们的格式。你可以安全地忽略这些警告。这些警告表示这些文件是脚本而不是二进制文件。</para>
 
 </sect1>

@@ -8,53 +8,26 @@
 <sect1 id="prepare-aboutsbus">
   <?dbhtml filename="aboutsbus.html"?>
 
-  <title>About SBUs</title>
+  <title>关于 SBUs</title>
 
-  <para>Many people would like to know beforehand approximately how long
-  it takes to compile and install each package. Because Linux From
-  Scratch can be built on many different systems, it is impossible to
-  provide accurate time estimates. The biggest package (Glibc) will
-  take approximately 20 minutes on the fastest systems, but could take
-  up to three days on slower systems! Instead of providing actual times,
-  the Standard Build Unit (SBU) measure will be
-  used instead.</para>
+  <para>在着手之前,不少人想知道编译和安装一个软件包到底需要多长的时间。因为 Linux From Scratch 能够运行于众多的硬件上，所以具体的编译时间无法一概而论。举一个简单的例子：在最快的系统上，编译最大的软件包（Glibc）需要约 20 分钟，但在慢的系统上有可能需要 3 天！所以，这里使用标准构建单元（SBU）来代替具体的编译时间。</para>
 
-  <para>The SBU measure works as follows. The first package to be compiled
-  from this book is Binutils in <xref linkend="chapter-temporary-tools"/>. The
-  time it takes to compile this package is what will be referred to as the
-  Standard Build Unit or SBU. All other compile times will be expressed relative
-  to this time.</para>
+  <para>SBU 衡量方式如下。我们编译的第一个软件包是 <xref linkend="chapter-temporary-tools"/> 的 Binutils。将这个软件包在编译时所需要的时间，作为标准构建单元（SBU）。其它软件的构建时间，都以其为标准进行比较。</para>
 
-  <para>For example, consider a package whose compilation time is 4.5
-  SBUs. This means that if a system took 10 minutes to compile and
-  install the first pass of Binutils, it will take
-  <emphasis>approximately</emphasis> 45 minutes to build this example package.
-  Fortunately, most build times are shorter than the one for Binutils.</para>
+  <para>举个例子，假如编译某个软件耗时 4.5 SBUs。这意味着如果这个系统，在编译 Binutils 需要 10 分钟，大概需要<emphasis>约</emphasis> 45 分钟来构建此软件包。很幸运，大部分的系统在生成 Binutils 时花的时间都要比这个系统要短。</para>
 
-  <para>In general, SBUs are not entirely accurate because they depend on many
-  factors, including the host system's version of GCC.  They are provided here
-  to give an estimate of how long it might take to install a package, but the
-  numbers can vary by as much as dozens of minutes in some cases.</para>
+  <para>一般来说，SBU 的结果并不完全准确，因为影响编译的因素太多，包括宿主机系统中 GCC 的版本也会影响到。所以更多的时候，这仅仅是提供一个编译和安装时间的预估。然而，在某些情况下，这个数字可能偏差约十几分钟。</para>
 
   <note>
-    <para>For many modern systems with multiple processors (or cores) the
-    compilation time for a package can be reduced by performing a "parallel
-    make" by either setting an environment variable or telling the
-    <command>make</command> program how many processors are available.  For
-    instance, a Core2Duo can support two simultaneous processes with:</para>
+    <para>对于大多数带有多个处理器（或内核）的现代操作系统而言，可以通过设置环境变量或者是告知 <command>make</command> 程序具体可用的处理器数目，通过「并行 make」来减少编译的时间。例如，对于 Core2Duo 可以通过以下参数实现两个处理器同时编译：</para>
 
     <screen role="nodump"><userinput>export MAKEFLAGS='-j 2'</userinput></screen>
 
-    <para>or just building with:</para>
+    <para>或者直接这样来构建：</para>
 
     <screen role="nodump"><userinput>make -j2</userinput></screen>
 
-    <para>When multiple processors are used in this way, the SBU units in the
-    book will vary even more than they normally would.  In some cases, the make
-    step will simply fail.  Analyzing the output of the build process will also
-    be more difficult because the lines of different processes will be
-    interleaved.  If you run into a problem with a build step, revert back to a
-    single processor build to properly analyze the error messages.</para>
+    <para>以该方式使用多处理器时，SBU 值可能比书中的正常值还要大。某些情况下，make 过程仅仅是简单的就失败了。分析错误日志也十分困难：因为不同处理器之间的执行路线是交错的。如果你在构建过程中遇到了问题，为了正确分析错误信息，最好返回单处理器。</para>
   </note>
 
 </sect1>

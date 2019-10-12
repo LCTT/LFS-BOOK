@@ -8,33 +8,22 @@
 <sect1 id="ch-system-kernfs">
   <?dbhtml filename="kernfs.html"?>
 
-  <title>Preparing Virtual Kernel File Systems</title>
+  <title>准备虚拟内核文件系统</title>
 
   <indexterm zone="ch-system-kernfs">
     <primary sortas="e-/dev/">/dev/*</primary>
   </indexterm>
 
-    <para>Various file systems exported by the kernel are used to communicate to
-    and from the kernel itself. These file systems are virtual in that no disk
-    space is used for them. The content of the file systems resides in
-    memory.</para>
+    <para>内核会挂载几个文件系统用于自己和用户空间程序交换信息。这些文件系统是虚拟的，并不占用实际磁盘空间，它们的内容会放在内存里。</para>
 
-    <para>Begin by creating directories onto which the file systems will be
-    mounted:</para>
+    <para>开始先创建将用来挂载文件系统的目录：</para>
 
 <screen><userinput>mkdir -pv $LFS/{dev,proc,sys,run}</userinput></screen>
 
   <sect2>
-    <title>Creating Initial Device Nodes</title>
+    <title>创建初始设备节点</title>
 
-    <para>When the kernel boots the system, it requires the presence of a few
-    device nodes, in particular the <filename
-    class="devicefile">console</filename> and <filename
-    class="devicefile">null</filename> devices. The device nodes must be created
-    on the hard disk so that they are available before <command>udevd</command>
-    has been started, and additionally when Linux is started with
-    <parameter>init=/bin/bash</parameter>. Create the devices by running the
-    following commands:</para>
+    <para>在内核引导系统的时候，它依赖于几个设备节点，特别是 <filename class="devicefile">console</filename> 和 <filename class="devicefile">null</filename> 两个设备。设备点必须创建在硬盘上以保证在 <command>udevd</command> 启动前是可用的，特别是在使用 <parameter>init=/bin/bash</parameter> 启动 Linux 时。运行以下命令创建设备节点：</para>
 
 <screen><userinput>mknod -m 600 $LFS/dev/console c 5 1
 mknod -m 666 $LFS/dev/null c 1 3</userinput></screen>
@@ -42,31 +31,18 @@ mknod -m 666 $LFS/dev/null c 1 3</userinput></screen>
   </sect2>
 
   <sect2 id="ch-system-bindmount">
-    <title>Mounting and Populating /dev</title>
+    <title>挂载和激活 /dev</title>
 
-      <para>The recommended method of populating the <filename
-      class="directory">/dev</filename> directory with devices is to mount a
-      virtual filesystem (such as <systemitem
-      class="filesystem">tmpfs</systemitem>) on the <filename
-      class="directory">/dev</filename> directory, and allow the devices to be
-      created dynamically on that virtual filesystem as they are detected or
-      accessed. Device creation is generally done during the boot process
-      by Udev. Since this new system does not yet have Udev and has not yet
-      been booted, it is necessary to mount and populate <filename
-      class="directory">/dev</filename> manually. This is accomplished by bind
-      mounting the host system's <filename class="directory">/dev</filename>
-      directory. A bind mount is a special type of mount that allows you to
-      create a mirror of a directory or mount point to some other location. Use
-      the following command to achieve this:</para>
+      <para>通常激活 <filename class="directory">/dev</filename> 目录下设备的方式是在 <filename class="directory">/dev</filename> 目录挂载一个虚拟文件系统（比如 <systemitem class="filesystem">tmpfs</systemitem>），然后允许在检测到设备或打开设备时在这个虚拟文件系统里动态创建设备节点。这个通常是在启动过程中由 udev 完成。由于我们的新系统还没有 udev，也没有被引导，有必要手动挂载和激活  <filename class="directory">/dev</filename> 这可以通过绑定挂载宿主机系统的 <filename class="directory">/dev</filename> 目录来实现。绑定挂载是一种特殊的挂载模式，它允许在另外的位置创建某个目录或挂载点的镜像。运行下面的命令来实现：</para>
 
 <screen><userinput>mount -v --bind /dev $LFS/dev</userinput></screen>
 
   </sect2>
 
   <sect2 id="ch-system-kernfsmount">
-    <title>Mounting Virtual Kernel File Systems</title>
+    <title>挂载虚拟文件系统</title>
 
-      <para>Now mount the remaining virtual kernel filesystems:</para>
+      <para>现在挂载剩下的虚拟内核文件系统：</para>
 
 <screen><userinput>mount -vt devpts devpts $LFS/dev/pts -o gid=5,mode=620
 mount -vt proc proc $LFS/proc
@@ -74,37 +50,25 @@ mount -vt sysfs sysfs $LFS/sys
 mount -vt tmpfs tmpfs $LFS/run</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the mount options for devpts:</title>
+      <title>挂载选项 devpts 的含义：</title>
 
       <varlistentry>
         <term><parameter>gid=5</parameter></term>
         <listitem>
-          <para>This ensures that all devpts-created device nodes are owned by
-          group ID 5.  This is the ID we will use later on for the <systemitem
-          class="groupname">tty</systemitem> group.  We use the group ID instead
-          of a name, since the host system might use a different ID for its
-          <systemitem class="groupname">tty</systemitem> group.</para>
+          <para>以确保所有由 devpts 创建的设备节点属于 GID 5 之下。这个 ID 日后将用于 <systemitem class="groupname">tty</systemitem> 组。我们使用 GID 来代替组名，原因是宿主系统可能为 <systemitem class="groupname">tty</systemitem> 组使用其他的 ID。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term><parameter>mode=0620</parameter></term>
         <listitem>
-          <para>This ensures that all devpts-created device nodes have mode 0620
-          (user readable and writable, group writable).  Together with the
-          option above, this ensures that devpts will create device nodes that
-          meet the requirements of grantpt(), meaning the Glibc
-          <command>pt_chown</command> helper binary (which is not installed by
-          default) is not necessary.</para>
+          <para>以确保所有 devpts 创建的设备节点的属性为 0620 （属主用户可读写，组成员可写）。与上一个选项同时使用，可以保证 devpts 所创建的设备节点能满足 grantpt() 函数的要求，这就意味着不需要 Glibc （默认不安装的）帮助程序 <command>pt_chown</command> 了。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-      <para>In some host systems, <filename>/dev/shm</filename> is a
-      symbolic link to <filename class="directory">/run/shm</filename>.
-      The /run tmpfs was mounted above so in this case only a 
-      directory needs to be created.</para>
+      <para>在某些宿主机系统里，<filename>/dev/shm</filename> 是一个指向 <filename class="directory">/run/shm</filename> 的符号链接。这个 /run 下的 tmpfs 文件系统已经在之前挂载了，所以在这里只需要创建一个目录。</para>
 
 <screen><userinput>if [ -h $LFS/dev/shm ]; then
   mkdir -pv $LFS/$(readlink $LFS/dev/shm)

@@ -14,7 +14,7 @@
     <address>&linux-url;</address>
   </sect1info>
 
-  <title>Linux-&linux-version; API Headers</title>
+  <title>Linux-&linux-version; API 头文件</title>
 
   <indexterm zone="ch-tools-linux-headers">
     <primary sortas="a-Linux">Linux</primary>
@@ -41,21 +41,15 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Linux API Headers</title>
+    <title>安装 Linux API 头文件</title>
 
-    <para>The Linux kernel needs to expose an Application Programming Interface
-    (API) for the system's C library (Glibc in LFS) to use.  This is done
-    by way of sanitizing various C header files that are shipped in the Linux
-    kernel source tarball.</para>
+    <para>Linux 内核需要展示供系统 C 库（在 LFS 中是 Glibc）使用的应用程序编程接口（API）。这通过在 Linux 内核源代码 tar 包中包括一些 C 头文件来完成。</para>
 
-    <para>Make sure there are no stale files embedded in the package:</para>
+    <para>确认这里没有陈旧的文件且不依赖于之前的操作：</para>
 
 <screen><userinput remap="pre">make mrproper</userinput></screen>
 
-    <para>Now extract the user-visible kernel headers from the source.
-    They are placed in an intermediate local directory and copied to the needed
-    location because the extraction process removes any existing files in
-    the target directory.</para>
+    <para>从源代码中提取用户可见的内核头文件。把他们保存在一个临时本地文件夹中然后复制到所需的位置，因为解压过程会移除目标文件夹中任何已有的文件。</para>
 
 <screen><userinput remap="make">make INSTALL_HDR_PATH=dest headers_install
 </userinput><userinput remap="install">cp -rv dest/include/* /tools/include</userinput></screen>
@@ -65,8 +59,8 @@
   <sect2 role="content">
     <title/>
 
-    <para>Details on this package are located in
-    <xref linkend="contents-linux-headers" role="."/></para>
+    <para>该软件包的详细信息请参见：
+    <xref linkend="contents-linux-headers"/>。</para>
 
   </sect2>
 

@@ -23,7 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Make package contains a program for compiling packages.</para>
+    <para>Make 软件包包含一个用于编译软件的程序。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -38,26 +38,25 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Make</title>
+    <title>安装 Make</title>
 
-    <para>Again, work around an error caused by glibc-2.27 and later:</para>
+    <para>再来一次，解决由 glibc-2.27 或更新版本 glibc 导致的错误：</para>
 
 <screen><userinput remap="pre">sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c</userinput></screen>
-    <para>Prepare Make for compilation:</para>
+
+    <para>准备编译 Make：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>The test suite needs to know where supporting perl files are located.
-    We use an environment variable to accomplish this.  To test the 
-    results, issue:</para>
+    <para>测试套件需要知道支持 perl 文件的位置。我们使用一个环境变量来达成这个目的。用以下命令测试结果：</para>
 
 <screen><userinput remap="test">make PERL5LIB=$PWD/tests/ check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
@@ -65,10 +64,10 @@
 
 
   <sect2 id="contents-make" role="content">
-    <title>Contents of Make</title>
+    <title>Make 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed program</segtitle>
+      <segtitle>安装的程序</segtitle>
 
       <seglistitem>
         <seg>make</seg>
@@ -76,15 +75,14 @@
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="make">
         <term><command>make</command></term>
         <listitem>
-          <para>Automatically determines which pieces of a package need to
-          be (re)compiled and then issues the relevant commands</para>
+          <para>自动检测软件包的哪些部分需要（重新）编译，然后运行相应命令</para>
           <indexterm zone="ch-system-make make">
             <primary sortas="b-make">make</primary>
           </indexterm>

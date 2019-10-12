@@ -23,13 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>D-Bus is a message bus system, a simple way for applications to talk
-    to one another. D-Bus supplies both a system daemon (for events such as
-    "new hardware device added" or "printer queue changed") and a
-    per-user-login-session daemon (for general IPC needs among user
-    applications). Also, the message bus is built on top of a general one-to-one
-    message passing framework, which can be used by any two applications to
-    communicate directly (without going through the message bus daemon).</para>
+    <para>D-Bus 是一个消息总线系统，应用之间相互通信的简单方式。D-Bus 支持系统守护进程（例如添加新硬件设备或打印队列更改事件）和每个用户的登录会话守护进程 （例如用户应用程序之间的一般进程间通信）。另外，消息总线在通用一对一消息传递框架之上构建，该框架使得任意两个应用可以直接通信（而不需要通过消息总线守护进程）。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -44,9 +38,9 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of D-Bus</title>
+    <title>安装 D-Bus</title>
 
-    <para>Prepare D-Bus for compilation:</para>
+    <para>准备编译 D-Bus：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr                       \
             --sysconfdir=/etc                   \
@@ -58,53 +52,45 @@
             --with-console-auth-dir=/run/console</userinput></screen>
 
     <variablelist>
-      <title>The meaning of the configure options:</title>
+      <title>配置选项的含义：</title>
 
       <varlistentry>
         <term><parameter>--with-console-auth-dir=/run/console</parameter></term>
         <listitem>
-          <para>This specifies the location of the ConsoleKit auth
-          directory.</para>
+          <para>该选项指定 ConsoleKit 验证目录的位置。</para>
         </listitem>
       </varlistentry>
 
     </variablelist>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>This package does come with a test suite, but it requires several
-    packages that are not included in LFS. Instructions for running the
-    test suite can be found in the BLFS book at
-    <ulink url="&blfs-book;general/dbus.html"/>.</para>
+    <para>该软件包附带了一个测试套件，但需求几个未包含在 LFS 中的软件包。运行测试套件的命令可以在 BLFS 指南 <ulink url="&blfs-book;general/dbus.html"/> 中找到。</para>
 
-    <para>Install the package:</para>
+    <para>安装软件包：</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>The shared library needs to be moved to
-    <filename class="directory">/lib</filename>, and as a result the
-    <filename class="extension">.so</filename> file in
-    <filename class="directory">/usr/lib</filename> will need to be recreated:</para>
+    <para>需要移动共享库到 <filename class="directory">/lib</filename>，因此需要重建 <filename class="directory">/usr/lib</filename> 中的 <filename class="extension">.so</filename> 文件：</para>
 
 <screen><userinput remap="install">mv -v /usr/lib/libdbus-1.so.* /lib
 ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</userinput></screen>
 
-    <para>Create a symlink, so that D-Bus and systemd can use the same
-    <filename>machine-id</filename> file:</para>
+    <para>创建符号链接，使得 D-Bus 和 systemd 可以使用相同的 <filename>machine-id</filename>  文件：</para>
 
 <screen><userinput remap="install">ln -sfv /etc/machine-id /var/lib/dbus</userinput></screen>
 
   </sect2>
 
   <sect2 id="contents-dbus" role="content">
-    <title>Contents of D-Bus</title>
+    <title>D-Bus 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed programs</segtitle>
-      <segtitle>Installed libraries</segtitle>
-      <segtitle>Installed directories</segtitle>
+      <segtitle>安装的程序</segtitle>
+      <segtitle>安装的库</segtitle>
+      <segtitle>安装的目录</segtitle>
 
       <seglistitem>
         <seg>dbus-cleanup-sockets, dbus-daemon, dbus-launch, dbus-monitor,
@@ -113,19 +99,19 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
         <seg>libdbus-1.{a,so}</seg>
         <seg>/etc/dbus-1, /usr/include/dbus-1.0, /usr/lib/dbus-1.0,
         /usr/share/dbus-1, /usr/share/doc/dbus-&dbus-version;,
-        and /var/lib/dbus</seg>
+        和 /var/lib/dbus</seg>
       </seglistitem>
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="dbus-cleanup-sockets">
         <term><command>dbus-cleanup-sockets</command></term>
         <listitem>
-          <para>Used to clean up leftover sockets in a directory</para>
+          <para>用于清理目录中残留的套接字</para>
           <indexterm zone="ch-system-dbus dbus-cleanup-sockets">
             <primary sortas="b-dbus-cleanup-sockets">dbus-cleanup-sockets</primary>
           </indexterm>
@@ -135,7 +121,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
       <varlistentry id="dbus-daemon">
         <term><command>dbus-daemon</command></term>
         <listitem>
-          <para>The D-Bus message bus daemon</para>
+          <para>D-Bus 消息总线守护进程</para>
           <indexterm zone="ch-system-dbus dbus-daemon">
             <primary sortas="b-dbus-daemon">dbus-daemon</primary>
           </indexterm>
@@ -145,8 +131,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
       <varlistentry id="dbus-launch">
         <term><command>dbus-launch</command></term>
         <listitem>
-          <para>Starts <command>dbus-daemon</command> from a shell
-          script</para>
+          <para>从 shell 脚本启动 <command>dbus-daemon</command></para>
           <indexterm zone="ch-system-dbus dbus-launch">
             <primary sortas="b-dbus-launch">dbus-launch</primary>
           </indexterm>
@@ -156,7 +141,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
       <varlistentry id="dbus-monitor">
         <term><command>dbus-monitor</command></term>
         <listitem>
-          <para>Monitors messages passing through a D-Bus message bus</para>
+          <para>监控 D-Bus 消息总线中传送的消息</para>
           <indexterm zone="ch-system-dbus dbus-monitor">
             <primary sortas="b-dbus-monitor">dbus-monitor</primary>
           </indexterm>
@@ -166,9 +151,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
       <varlistentry id="dbus-run-session">
         <term><command>dbus-run-session</command></term>
         <listitem>
-          <para>Starts a session bus instance of <command>dbus-daemon</command>
-          from a shell script and starts a specified program in that
-          session</para>
+          <para>从 shell 脚本中启动一个 <command>dbus-daemon</command> 会话总线实例并在会话中启动指定程序</para>
           <indexterm zone="ch-system-dbus dbus-run-session">
             <primary sortas="b-dbus-run-session">dbus-run-session</primary>
           </indexterm>
@@ -178,7 +161,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
       <varlistentry id="dbus-send">
         <term><command>dbus-send</command></term>
         <listitem>
-          <para>Sends a message to a D-Bus message bus</para>
+          <para>发送消息到 D-Bus 消息总线</para>
           <indexterm zone="ch-system-dbus dbus-send">
             <primary sortas="b-dbus-send">dbus-send</primary>
           </indexterm>
@@ -188,8 +171,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
       <varlistentry id="dbus-test-tool">
         <term><command>dbus-test-tool</command></term>
         <listitem>
-          <para>A tool to help packages test
-          <application>D-Bus</application></para>
+          <para>帮助软件包测试 <application>D-Bus</application> 的工具</para>
           <indexterm zone="ch-system-dbus dbus-test-tool">
             <primary sortas="b-dbus-test-tool">dbus-test-tool</primary>
           </indexterm>
@@ -200,8 +182,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
       <varlistentry id="dbus-update-activation-environment">
         <term><command>dbus-update-activation-environment</command></term>
         <listitem>
-          <para>Updates environment variables that will be set for
-          <application>D-Bus</application> session services</para>
+          <para>更新 <application>D-Bus</application> 会话服务的环境变量</para>
           <indexterm zone="ch-system-dbus dbus-update-activation-environment">
             <primary sortas="b-dbus-update-activation-environment">dbus-update-activation-environment</primary>
           </indexterm>
@@ -211,7 +192,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
       <varlistentry id="dbus-uuidgen">
         <term><command>dbus-uuidgen</command></term>
         <listitem>
-          <para>Generates a universally unique ID</para>
+          <para>生成一个通用唯一 ID</para>
           <indexterm zone="ch-system-dbus dbus-uuidgen">
             <primary sortas="b-dbus-uuidgen">dbus-uuidgen</primary>
           </indexterm>
@@ -221,8 +202,7 @@ ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</useri
       <varlistentry id="libdbus-1">
         <term><filename class="libraryfile">libdbus-1</filename></term>
         <listitem>
-          <para>Contains API functions used to communicate with the D-Bus
-          message bus</para>
+          <para>包含用于和 D-Bus 消息总线交互的 API 函数</para>
           <indexterm zone="ch-system-dbus libdbus-1">
             <primary sortas="c-libdbus-1">libdbus-1</primary>
           </indexterm>

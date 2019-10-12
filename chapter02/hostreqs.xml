@@ -5,38 +5,27 @@
   %general-entities;
 ]>
 
-<sect1 id="pre-hostreqs" xreflabel="Host System Requirements">
+<sect1 id="pre-hostreqs" xreflabel="宿主系统要求">
   <?dbhtml filename="hostreqs.html"?>
 
-  <title>Host System Requirements</title>
+  <title>宿主系统要求</title>
 
-    <para>Your host system should have the following software with the
-    minimum versions indicated. This should not be an issue for most
-    modern Linux distributions. Also note that many distributions will
-    place software headers into separate packages, often in the form of
-    <quote>&lt;package-name&gt;-devel</quote> or
-    <quote>&lt;package-name&gt;-dev</quote>. Be sure to install those if
-    your distribution provides them.</para>
+    <para>你的主机系统应具有以下指定最低版本的软件。 对于大多数现代 Linux 发行版来说，这应该不是问题。 另请注意，不少发行版可能会将软件的头文件单独打包，并采用「&lt;package-name&gt;-devel」或「&lt;package-name&gt;-dev」的形式命名。如果你的发行版提供了这样的软件包，请务必安装。</para>
 
-   <para>Earlier versions of the listed software packages may work, but have
-   not been tested.</para>
+   <para>所列软件包的早期版本可能也能用，但尚未经过测试。</para>
 
   <itemizedlist spacing="compact">
 
     <listitem>
-      <para><emphasis role="strong">Bash-3.2</emphasis> (/bin/sh
-      should be a symbolic or hard link to bash)</para>
+      <para><emphasis role="strong">Bash-3.2</emphasis> （/bin/sh 应该是 bash 的符号链接或硬链接）</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Binutils-2.25</emphasis> (Versions
-      greater than &binutils-version; are not recommended as they have
-      not been tested)</para>
+      <para><emphasis role="strong">Binutils-2.25</emphasis> （不建议使用 &binutils-version; 以后的版本，尚未经过测试）</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Bison-2.7</emphasis> (/usr/bin/yacc
-      should be a link to bison or small script that executes bison)</para>
+      <para><emphasis role="strong">Bison-2.7</emphasis> （/usr/bin/yacc 应该是指向 bison 或执行 bison 的小型脚本的链接）</para>
     </listitem>
 
     <listitem>
@@ -56,21 +45,15 @@
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Gawk-4.0.1</emphasis> (/usr/bin/awk
-      should be a link to gawk)</para>
-    </listitem>
-
-    <!-- glibc-2.30 requires gcc-6.2 or later -->
-    <listitem>
-      <para><emphasis role="strong">GCC-6.2</emphasis> including the C++
-      compiler, <command>g++</command> (Versions greater than &gcc-version; are
-      not recommended as they have not been tested)</para>
+      <para><emphasis role="strong">Gawk-4.0.1</emphasis> （/usr/bin/awk 应该是 gawk 的链接）</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="strong">Glibc-2.11</emphasis> (Versions
-      greater than &glibc-version; are not recommended as they have
-      not been tested)</para>
+      <para><emphasis role="strong">GCC-6.2</emphasis> 包括 C++ 编译器，<command>g++</command> （&gcc-version; 以后的版本不建议使用，尚未经过测试）</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="strong">Glibc-2.11</emphasis> （&glibc-version; 以后的版本不建议使用，尚未经过测试）</para>
     </listitem>
 
     <listitem>
@@ -84,19 +67,9 @@
     <listitem>
       <para><emphasis role="strong">Linux Kernel-&min-kernel;</emphasis></para>
 
-      <para>The reason for the kernel version requirement is that we specify
-      that version when building <application>glibc</application> in Chapter&nbsp;6
-      at the recommendation of the developers.  It is also required by
-      udev.</para>
+      <para>之所以指定使用这一版本的内核，是因为这是第 6 章构建 <application>glibc</application> 的需求，开发人员如是建议。udev 也有这个需求。</para>
 
-      <para>If the host kernel is earlier than &min-kernel; you will need to replace
-      the kernel with a more up to date version. There are two ways
-      you can go about this. First, see if your Linux vendor provides a &min-kernel;
-      or later kernel package. If so, you may wish to install it. If your
-      vendor doesn't offer an acceptable kernel package, or you would prefer not to
-      install it, you can compile a kernel yourself. Instructions for
-      compiling the kernel and configuring the boot loader (assuming the host
-      uses GRUB) are located in <xref linkend="chapter-bootable"/>.</para>
+      <para>如果宿主机内核早于 &min-kernel;，则需使用更新版本的内核将其替换。有两种方法可以解决这个问题。首先，查看你的 Linux 供应商是否提供 &min-kernel; 或更高版本内核的软件包。如果提供的话，你便能如愿安装了。如果你的供应商不提供合适的内核（的软件包），或者是你不想直接安装，你也可以自己编译内核。编译内核和配置引导的说明（假设宿主机使用 GRUB）位于 <xref linkend="chapter-bootable"/>。</para>
 
     </listitem>
 
@@ -139,23 +112,17 @@
   </itemizedlist>
 
   <important>
-    <para>Note that the symlinks mentioned above are required to build an LFS
-    system using the instructions contained within this book. Symlinks that
-    point to other software (such as dash, mawk, etc.) may work, but are not
-    tested or supported by the LFS development team, and may require either
-    deviation from the instructions or additional patches to some
-    packages.</para>
+    <para>请注意，依据本手册的指导构建 LFS 系统需确保上述提到的符号链接无误。虽然指向其他软件（例如 dash，mawk 等）的符号链接可能也可以，但 LFS 开发团队尚未对其进行测试或支持，并且这样做可能导致对于个别软件包在执行命令或者应用某些补丁的时候出现偏差。</para>
   </important>
 
   <!-- Use an empty sect2 element to prevent a pdf warning.  -->
   <bridgehead renderas="sect2" 
               id="version-check" 
-              xreflabel="Host System Requirements">
+              xreflabel="宿主系统需求">
   </bridgehead>
   <!--<title> </title>-->
 
-  <para >To see whether your host system has all the appropriate versions, and
-  the ability to compile programs, run the following:</para>
+  <para >查看宿主机系统是否已具备所有软件包的适当版本和编译程序的能力，请运行以下命令：</para>
 
 <!-- ANY additional lines in the script cause a pdf rendering problem-->
 <screen role="nodump"><userinput>cat &gt; version-check.sh &lt;&lt; "EOF"
@@ -218,7 +185,7 @@ EOF
 
 bash version-check.sh</userinput></screen>
 <!--
-  <para>Also check for some library consistency:</para>
+  <para>同时，还请进行库文件的一致性检查：</para>
 
 <screen role="nodump"><userinput>cat &gt; library-check.sh &lt;&lt; "EOF"
 <literal>#!/bin/bash
@@ -231,8 +198,7 @@ EOF
 
 bash library-check.sh</userinput></screen>
 
-<para>The files identified by this script should be all present
-or all absent, but not only one or two present.</para>
+<para>这些文件应该要么都在或者是都缺失，而不应该只有一两个。</para>
 -->
 
 </sect1>

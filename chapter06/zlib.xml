@@ -23,8 +23,7 @@
   <sect2 role="package">
     <title/>
 
-    <para>The Zlib package contains compression and decompression routines used by
-    some programs.</para>
+    <para>Zlib 软件包包括一些程序所使用的压缩和解压缩例程。</para>
 
     <segmentedlist>
       <segtitle>&buildtime;</segtitle>
@@ -39,28 +38,25 @@
   </sect2>
 
   <sect2 role="installation">
-    <title>Installation of Zlib</title>
+    <title>安装 Zlib</title>
 
-    <para>Prepare Zlib for compilation:</para>
+    <para>准备编译 Zlib：</para>
 
 <screen><userinput remap="configure">./configure --prefix=/usr</userinput></screen>
 
-    <para>Compile the package:</para>
+    <para>编译软件包：</para>
 
 <screen><userinput remap="make">make</userinput></screen>
 
-    <para>To test the results, issue:</para>
+    <para>输入命令查看结果：</para>
 
 <screen><userinput remap="test">make check</userinput></screen>
 
-    <para>Install the package:</para>
+    <para>安装软件包:</para>
 
 <screen><userinput remap="install">make install</userinput></screen>
 
-    <para>The shared library needs to be moved to
-    <filename class="directory">/lib</filename>, and as a result the
-    <filename class="extension">.so</filename> file in
-    <filename class="directory">/usr/lib</filename> will need to be recreated:</para>
+    <para>共享库需要移动到 <filename class="directory">/lib</filename>，因此需要重建 <filename class="extension">.so</filename> 里面的 <filename class="directory">/usr/lib</filename> 文件：</para>
 
 <screen><userinput remap="install">mv -v /usr/lib/libz.so.* /lib
 ln -sfv ../../lib/$(readlink /usr/lib/libz.so) /usr/lib/libz.so</userinput></screen>
@@ -68,10 +64,10 @@ ln -sfv ../../lib/$(readlink /usr/lib/libz.so) /usr/lib/libz.so</userinput></scr
   </sect2>
 
   <sect2 id="contents-zlib" role="content">
-    <title>Contents of Zlib</title>
+    <title>Zlib 软件包内容</title>
 
     <segmentedlist>
-      <segtitle>Installed libraries</segtitle>
+      <segtitle>安装的库</segtitle>
 
       <seglistitem>
         <seg>libz.{a,so}</seg>
@@ -79,15 +75,14 @@ ln -sfv ../../lib/$(readlink /usr/lib/libz.so) /usr/lib/libz.so</userinput></scr
     </segmentedlist>
 
     <variablelist>
-      <bridgehead renderas="sect3">Short Descriptions</bridgehead>
+      <bridgehead renderas="sect3">简要介绍</bridgehead>
       <?dbfo list-presentation="list"?>
       <?dbhtml list-presentation="table"?>
 
       <varlistentry id="libz">
         <term><filename class="libraryfile">libz</filename></term>
         <listitem>
-          <para>Contains compression and decompression functions used by
-          some programs</para>
+          <para>包括一些程序所使用的压缩和解压缩功能。</para>
           <indexterm zone="ch-system-zlib libz">
             <primary sortas="c-libz">libz</primary>
           </indexterm>
