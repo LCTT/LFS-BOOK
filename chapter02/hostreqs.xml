@@ -5,7 +5,7 @@
   %general-entities;
 ]>
 
-<sect1 id="pre-hostreqs" xreflabel="Host System Requirements">
+<sect1 id="pre-hostreqs" xreflabel="宿主系统要求">
   <?dbhtml filename="hostreqs.html"?>
 
   <title>宿主系统要求</title>
