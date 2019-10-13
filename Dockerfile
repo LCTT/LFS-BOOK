@@ -2,13 +2,14 @@
 #
 # Note: ubuntu is chosen because Java is required for fop.
 
-FROM ubuntu:latest
+FROM ubuntu:16.04
 MAINTAINER Wenxuan Zhao <viz@linux.com>
 
 RUN useradd -m -s /bin/bash -u 1000 -U build \
  && apt-get update \
  && apt-get install -y make tidy libxml2-utils docbook-utils xsltproc fop \
-                       docbook-xsl ttf-wqy-microhei ttf-wqy-zenhei bzip2 \
+                       docbook-xsl ttf-wqy-microhei ttf-wqy-zenhei \
+                       bzip2 xz-utils \
  && rm -rf /var/lib/apt/lists/*
 
 USER build
