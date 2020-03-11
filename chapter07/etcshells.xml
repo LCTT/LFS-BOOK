@@ -24,7 +24,7 @@
 
   <para>例如，当非特权用户想要使用 <command>chsh</command> 命令更改自己登录所用的 shell 时。如果命令没有在 /etc/shell 中找到，那么将会拒绝更改。</para>
 
-  <para>这个文件对于某些程序来说是必需的，比如 <application>GDM</application> 在找不到 <filename>/etc/shells</filename> 时就不会启用面部浏览器，还有 FTP 守护进程通常会禁止使用不在这个文件里列出终端的用户登录。</para>
+  <para>这个文件对于某些程序来说是必需的，比如 <application>GDM</application> 在找不到 <filename>/etc/shells</filename> 时就不会启用头像登录界面，还有 FTP 守护进程通常会禁止使用不在这个文件里列出终端的用户登录。</para>
 
 <screen role="root"><userinput>cat &gt; /etc/shells &lt;&lt; "EOF"
 <literal># Begin /etc/shells
