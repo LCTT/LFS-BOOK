@@ -28,7 +28,7 @@
 
 <screen role="nodump"><userinput>wget --input-file=wget-list --continue --directory-prefix=$LFS/sources</userinput></screen>
 
-  <para>LCTT 译注：由于这些文件都分布在国外的不同站点上，因此有些下载的会很慢。非常感谢中国科学技术大学镜像站提供的 LFS 软件包：<ulink url="http://mirrors.ustc.edu.cn/lfs/lfs-packages/9.0/"/>。可以使用我们制作的wget-list-ustc<ulink url="https://github.com/LCTT/LFS-BOOK/blob/9.0-translating/wget-list-ustc"/>方便下载。</para>
+  <para>LCTT 译注：由于这些文件都分布在国外的不同站点上，因此有些下载的会很慢。非常感谢中国科学技术大学镜像站提供的 LFS 软件包：<ulink url="http://mirrors.ustc.edu.cn/lfs/lfs-packages/9.0/"/>。可以使用我们制作的 wget-list-ustc<ulink url="https://github.com/LCTT/LFS-BOOK/blob/9.0-translating/wget-list-ustc"/> 方便下载。</para>
 
   <para>另外，从 LFS-7.0 开始，多了一个单独的文件 <ulink url="../md5sums">md5sums</ulink>，可以在正式开始前校验所有的文件是否都正确。将这个文件复制到 <filename class="directory">$LFS/sources</filename> 目录中并执行：</para>
 
