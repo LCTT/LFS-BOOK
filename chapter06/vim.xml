@@ -64,6 +64,8 @@
 
     <para>为测试做准备，确保 <systemitem class="username">nobody</systemitem> 用户拥有源码目录的写权限：</para>
 
+<screen><userinput remap="test">chown -Rv nobody .</userinput></screen>
+
     <para>现在用用户 <systemitem class="username">nobody</systemitem> 执行测试：</para>
 
 <screen><userinput remap="test">su nobody -s /bin/bash -c "LANG=en_US.UTF-8 make -j1 test" &amp;> vim-test.log</userinput></screen>

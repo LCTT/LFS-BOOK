@@ -47,9 +47,13 @@
       <para>有两个名称以 <quote>python</quote> 开头的包文件。注意要解压的是 <filename>Python-&python-version;.tar.xz</filename>（首字母大写的那个）。</para>
     </note>
 
-    <para>这个软件包首先构建 Python 解释器，然后是一些标准的 Python模块。构建模块的主要脚本是用 Python 编写的，并使用宿主机 <filename class="directory">/usr/include</filename> 和 <filename class="directory">/usr/lib</filename> 目录的硬编码路径。以此防止他们被使用，输入：</para>
+    <para>这个软件包首先构建 Python 解释器，然后是一些标准的 Python 模块。构建模块的主要脚本是用 Python 编写的，并使用宿主机 <filename class="directory">/usr/include</filename> 和 <filename class="directory">/usr/lib</filename> 目录的硬编码路径。以此防止他们被使用，输入：</para>
 
 <screen><userinput remap="pre">sed -i '/def add_multiarch_paths/a \        return' setup.py</userinput></screen>
+
+    <note>
+      <para>译注：PDF 文档在复制上述命令时，需注意「\」到「return」之间要保留 2 个 Tab、或 8 个空格的缩进。</para>
+    </note>
 
     <para>配置 Python 准备编译：</para>
 
