@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      D.24.&nbsp;/sbin/ifup
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds23.html" title=
+          "/etc/sysconfig/udev-retry">上一页</a>
+          <p>
+            /etc/sysconfig/udev-retry
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds25.html" title="/sbin/ifdown">下一页</a>
+          <p>
+            /sbin/ifdown
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ifup" name="ifup"></a>D.24. /sbin/ifup
+      </h1>
+      <pre class="screen">
+#!/bin/sh
+########################################################################
+# Begin /sbin/ifup
+#
+# Description : Interface Up
+#
+# Authors     : Nathan Coulson - nathan@linuxfromscratch.org
+#               Kevin P. Fleming - kpfleming@linuxfromscratch.org
+# Update      : Bruce Dubbs - bdubbs@linuxfromscratch.org
+#               DJ Lucas - dj@linuxfromscratch.org
+#
+# Version     : LFS 7.7
+#
+# Notes       : The IFCONFIG variable is passed to the SERVICE script
+#               in the /lib/services directory, to indicate what file the
+#               service should source to get interface specifications.
+#
+########################################################################
+
+up()
+{
+  log_info_msg "Bringing up the ${1} interface..."
+
+  if ip link show $1 &gt; /dev/null 2&gt;&amp;1; then
+     link_status=`ip link show $1`
+
+     if [ -n "${link_status}" ]; then
+        if ! echo "${link_status}" | grep -q UP; then
+           ip link set $1 up
+        fi
+     fi
+
+  else
+     log_failure_msg "Interface ${IFACE} doesn't exist."
+     exit 1
+  fi
+
+  evaluate_retval
+}
+
+RELEASE="7.7"
+
+USAGE="Usage: $0 [ -hV ] [--help] [--version] interface"
+VERSTR="LFS ifup, version ${RELEASE}"
+
+while [ $# -gt 0 ]; do
+   case "$1" in
+      --help | -h)     help="y"; break ;;
+
+      --version | -V)  echo "${VERSTR}"; exit 0 ;;
+   
+      -*)              echo "ifup: ${1}: invalid option" &gt;&amp;2
+                       echo "${USAGE}" &gt;&amp; 2
+                       exit 2 ;;
+                       
+      *)               break ;;
+   esac
+done
+
+if [ -n "$help" ]; then
+   echo "${VERSTR}"
+   echo "${USAGE}"
+   echo
+   cat &lt;&lt; HERE_EOF
+ifup is used to bring up a network interface.  The interface
+parameter, e.g. eth0 or eth0:2, must match the trailing part of the
+interface specifications file, e.g. /etc/sysconfig/ifconfig.eth0:2.
+
+HERE_EOF
+   exit 0
+fi
+
+file=/etc/sysconfig/ifconfig.${1}
+
+# Skip backup files
+[ "${file}" = "${file%""~""}" ] || exit 0
+
+. /lib/lsb/init-functions
+
+if [ ! -r "${file}" ]; then
+   log_failure_msg "Unable to bring up ${1} interface! ${file} is missing or cannot be accessed."
+   exit 1
+fi
+
+.  $file
+
+if [ "$IFACE" = "" ]; then
+   log_failure_msg "Unable to bring up ${1} interface! ${file} does not define an interface [IFACE]."
+   exit 1
+fi
+
+# Do not process this service if started by boot, and ONBOOT
+# is not set to yes
+if [ "${IN_BOOT}" = "1" -a "${ONBOOT}" != "yes" ]; then
+   exit 0
+fi
+
+# Bring up the interface
+if [ "$VIRTINT" != "yes" ]; then
+   up ${IFACE}
+fi
+
+for S in ${SERVICE}; do
+  if [ ! -x "/lib/services/${S}" ]; then
+    MSG="\nUnable to process ${file}.  Either " 
+    MSG="${MSG}the SERVICE '${S} was not present "
+    MSG="${MSG}or cannot be executed."
+    log_failure_msg "$MSG"
+    exit 1
+  fi
+done
+
+if [ "${SERVICE}" = "wpa" ]; then log_success_msg; fi
+
+# Create/configure the interface
+for S in ${SERVICE}; do 
+  IFCONFIG=${file} /lib/services/${S} ${IFACE} up
+done
+
+# Set link up virtual interfaces
+if [ "${VIRTINT}" == "yes" ]; then
+   up ${IFACE}
+fi
+
+# Bring up any additional interface components
+for I in $INTERFACE_COMPONENTS; do up $I; done
+
+# Set MTU if requested. Check if MTU has a "good" value.
+if test -n "${MTU}"; then
+   if [[ ${MTU} =~ ^[0-9]+$ ]] &amp;&amp; [[ $MTU -ge 68 ]] ; then
+      for I in $IFACE $INTERFACE_COMPONENTS; do 
+         ip link set dev $I mtu $MTU; 
+      done
+   else
+      log_info_msg2 "Invalid MTU $MTU"
+   fi
+fi 
+
+# Set the route default gateway if requested
+if [ -n "${GATEWAY}" ]; then
+   if ip route | grep -q default; then
+      log_warning_msg "Gateway already setup; skipping."
+   else
+      log_info_msg "Adding default gateway ${GATEWAY} to the ${IFACE} interface..."
+      ip route add default via ${GATEWAY} dev ${IFACE}
+      evaluate_retval
+   fi
+fi
+
+# End /sbin/ifup
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds23.html" title=
+          "/etc/sysconfig/udev-retry">上一页</a>
+          <p>
+            /etc/sysconfig/udev-retry
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds25.html" title="/sbin/ifdown">下一页</a>
+          <p>
+            /sbin/ifdown
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

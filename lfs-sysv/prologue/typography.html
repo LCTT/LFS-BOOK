@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      排版约定
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        序章
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="prerequisites.html" title="前提条件">上一页</a>
+          <p>
+            前提条件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="organization.html" title="本书结构">下一页</a>
+          <p>
+            本书结构
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="preface.html" title="序章">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="pre-typography" name="pre-typography"></a>vii. 排版约定
+      </h1>
+      <p>
+        为了能更更容易理解，这里有一些全书使用的排版约定。本段，会包含一些来自 Linux From Scratch 中排版格式的示例。
+      </p>
+      <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr</kbd>
+</pre>
+      <p>
+        这种形式的文本，设计出来就是为了让你照着输入的，除非周围文本中另有说明。部分的解释段落和会用它，以指出引用的那条命令。（译注：由于文字排版原因，其中的内容即便是注释，也不会翻译，下同。）
+      </p>
+      <p>
+        某些情况下，会在一行的行末添加反斜，将一个逻辑行的内容分写成两个或更多的物理行。
+      </p>
+      <pre class="userinput">
+<kbd class="command">CC="gcc -B/usr/bin/" ../binutils-2.18/configure \
+  --prefix=/tools --disable-nls --disable-werror</kbd>
+</pre>
+      <p>
+        注意，反斜杠的后面必须紧跟一个回车符。其它的空白字符，例如空格和 Tab 将导致错误的结果。
+      </p>
+      <pre class="screen">
+<code class=
+"computeroutput">install-info: unknown option '--dir-file=/mnt/lfs/usr/info/dir'</code>
+</pre>
+      <p>
+        这种形式的文本（等宽文本）用于显示屏幕输出，通常是所运行命令的输出结果。这种形式也用于文件名的显示，例如： <code class=
+        "filename">/etc/ld.so.conf</code>。
+      </p>
+      <p>
+        <span class="emphasis"><em>强调</em></span>
+      </p>
+      <p>
+        这种形式的文本在本书中有多重目的。主要目的是强调重要的内容或项目。
+      </p>
+      <p>
+        <a class="ulink" href=
+        "http://www.linuxfromscratch.org/">http://www.linuxfromscratch.org/</a>
+      </p>
+      <p>
+        这种格式用来表示 LFS 社区内部及外部网页的超链接。包括 HOWTO，下载地址和网站等。
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; $LFS/etc/group &lt;&lt; "EOF"
+<code class="literal">root:x:0:
+bin:x:1:
+......</code>
+EOF</kbd>
+</pre>
+      <p>
+        这种格式在创建配置文件中会使用。第一个命令告诉系统新建一个文件 <code class=
+        "filename">$LFS/etc/group</code>，然后后面的行中不论在输入了什么都会输入到文件中，直至遇到文件终结符（EOF）。因此，这整个部分会如看到的那样输入。
+      </p>
+      <p>
+        <em class="replaceable"><code>&lt;需要替换的文本&gt;</code></em>
+      </p>
+      <p>
+        这种格式用来封装需要替换为合适内容的文本，或者复制粘贴操作。
+      </p>
+      <p>
+        <em class="replaceable"><code>[可选的文本]</code></em>
+      </p>
+      <p>
+        这种格式用来封装可选项文本。
+      </p>
+      <p>
+        <code class="filename">passwd(5)</code>
+      </p>
+      <p>
+        这种格式用来表示特定的手册 （man） 页面。括号内的数字表示该手册的特定部分。例如 <span class=
+        "command"><strong>passwd</strong></span> 有两个手册页面。在 LFS
+        安装说明中，这两个手册页面会表示为 <code class=
+        "filename">/usr/share/man/man1/passwd.1</code> 以及 <code class=
+        "filename">/usr/share/man/man5/passwd.5</code>。当书中使用 <code class=
+        "filename">passwd(5)</code> 时它特指 <code class=
+        "filename">/usr/share/man/man5/passwd.5</code>。<span class=
+        "command"><strong>man passwd</strong></span>
+        会输出它找到匹配「passwd」的第一个手册页面，也就是 <code class=
+        "filename">/usr/share/man/man1/passwd.1</code>。在这个例子中，你需要执行
+        <span class="command"><strong>man 5 passwd</strong></span>
+        才能阅读指定的手册页面。应该注意的是，大部分的手册页面在不同部分不会有重复的页面名字。因此，<span class=
+        "command"><strong>man <em class="replaceable"><code>&lt;program
+        name&gt;</code></em></strong></span> 通常就足够了。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="prerequisites.html" title="前提条件">上一页</a>
+          <p>
+            前提条件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="organization.html" title="本书结构">下一页</a>
+          <p>
+            本书结构
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="preface.html" title="序章">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

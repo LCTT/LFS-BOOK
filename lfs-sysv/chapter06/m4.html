@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.14.&nbsp;M4-1.4.18
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="readline.html" title="Readline-8.0">上一页</a>
+          <p>
+            Readline-8.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bc.html" title="Bc-2.1.3">下一页</a>
+          <p>
+            Bc-2.1.3
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-m4" name="ch-system-m4"></a>6.14. M4-1.4.18
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          M4 软件包包含一个宏处理器。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.4 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">33 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.14.1. 安装 M4
+        </h2>
+        <p>
+          首先，对应 glibc-2.28 的需求做一些修复：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' lib/*.c
+echo "#define _IO_IN_BACKUP 0x100" &gt;&gt; lib/stdio-impl.h</kbd>
+</pre>
+        <p>
+          准备编译 M4：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          用以下命令测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-m4" name="contents-m4"></a>6.14.2. M4 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">m4</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="m4" name="m4"></a><span class="term"><span class=
+                    "command"><strong>m4</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    复制给定的文件并扩展其中包括的宏[这些宏或者是内建的或是用户定义的，可以有任何数目的参数。除了进行宏扩展，<span class="command"><strong>m4</strong></span>
+                    还有用于包含命名文件、运行 Unix 命令、进行整数运算、操作文本、递归等内建函数。<span class=
+                    "command"><strong>m4</strong></span>
+                    程序可以作为一个编译器的前端，也可以作为一个宏处理器使用。]
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="readline.html" title="Readline-8.0">上一页</a>
+          <p>
+            Readline-8.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bc.html" title="Bc-2.1.3">下一页</a>
+          <p>
+            Bc-2.1.3
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.6.&nbsp;配置 Linux 控制台
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="clock.html" title="配置系统时间">上一页</a>
+          <p>
+            配置系统时间
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="locale.html" title="配置系统语言环境">下一页</a>
+          <p>
+            配置系统语言环境
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-console" name="ch-scripts-console"></a>7.6. 配置
+        Linux 控制台
+      </h1>
+      <p>
+        （译者注：对于中文用户，因为大部分用户的键盘布局都是标准 us 键盘，所以大可忽略此文件的配置）
+      </p>
+      <p>
+        本节将会讨论如何配置 <span class=
+        "command"><strong>systemd-vconsole-setup</strong></span>
+        系统服务，包括配置控制台字体和控制台的键盘映射。
+      </p>
+      <p>
+        <span class="command"><strong>systemd-vconsole-setup</strong></span>
+        服务读取 <code class="filename">/etc/vconsole.conf</code> 中的配置信息，
+        确定使用的键盘类型和屏幕的字体。<a class="ulink" href=
+        "http://www.tldp.org/HOWTO/HOWTO-INDEX/other-lang.html">http://www.tldp.org/HOWTO/HOWTO-INDEX/other-lang.html</a>
+        页面有很多其它语言的「HOWTO」内容可以给你很多帮助。 <span class="command"><strong>localectl
+        list-keymaps</strong></span> 可以列举出所有可用的终端键盘布局。<code class=
+        "filename">/usr/share/consolefonts</code> 目录提供了所有可用的字体。
+      </p>
+      <p>
+        <code class="filename">/etc/vconsole.conf</code>
+        的每一行都应该形如：VARIABLE="value"。以下列举了可用的 VARIABLE：
+      </p>
+      <div class="variablelist">
+        <dl class="variablelist">
+          <dt>
+            <span class="term">KEYMAP</span>
+          </dt>
+          <dd>
+            <p>
+              此变量指定了键盘的按键映射表。如未设置，默认为 <code class="literal">us</code>。
+            </p>
+          </dd>
+          <dt>
+            <span class="term">KEYMAP_TOGGLE</span>
+          </dt>
+          <dd>
+            <p>
+              此变量指定配置第二个切换键盘映射，默认不设置。
+            </p>
+          </dd>
+          <dt>
+            <span class="term">FONT</span>
+          </dt>
+          <dd>
+            <p>
+              此变量指定虚拟控制台的字体。
+            </p>
+          </dd>
+          <dt>
+            <span class="term">FONT_MAP</span>
+          </dt>
+          <dd>
+            <p>
+              此变量指定要使用的控制台映射。
+            </p>
+          </dd>
+          <dt>
+            <span class="term">FONT_UNIMAP</span>
+          </dt>
+          <dd>
+            <p>
+              此变量指定 Unicode 字体映射。
+            </p>
+          </dd>
+        </dl>
+      </div>
+      <p>
+        以下为德语键盘和和控制台的实例：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /etc/vconsole.conf &lt;&lt; "EOF"
+<code class="literal">KEYMAP=de-latin1
+FONT=Lat2-Terminus16</code>
+EOF</kbd>
+</pre>
+      <p>
+        你可以使用 <span class="command"><strong>localectl</strong></span> 实用程序更改
+        KEYMAP 值：
+      </p>
+      <pre class="userinput">
+<kbd class="command">localectl set-keymap MAP</kbd>
+</pre>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          <span class="command"><strong>localectl</strong></span> 仅可用于
+          systemd 环境。
+        </p>
+      </div>
+      <p>
+        <span class="command"><strong>localectl</strong></span>
+        实用程序跟随相应的参数也可以更改 X11 的键盘布局、模型、变形和选项：
+      </p>
+      <pre class="userinput">
+<kbd class=
+"command">localectl set-x11-keymap LAYOUT [MODEL] [VARIANT] [OPTIONS]</kbd>
+</pre>
+      <p>
+        下面的 <span class="command"><strong>localectl</strong></span> 命令列出了
+        <span class="command"><strong>localectl
+        set-x11-keymap</strong></span> 命令参数的可用值：
+      </p>
+      <div class="variablelist">
+        <dl class="variablelist">
+          <dt>
+            <span class="term">list-x11-keymap-models</span>
+          </dt>
+          <dd>
+            <p>
+              显示所有已知的 X11 键盘映射模型。
+            </p>
+          </dd>
+          <dt>
+            <span class="term">list-x11-keymap-layouts</span>
+          </dt>
+          <dd>
+            <p>
+              显示所有已知的 X11 键盘映射布局。
+            </p>
+          </dd>
+          <dt>
+            <span class="term">list-x11-keymap-variants</span>
+          </dt>
+          <dd>
+            <p>
+              显示所有已知的 X11 键盘映射变形。
+            </p>
+          </dd>
+          <dt>
+            <span class="term">list-x11-keymap-options</span>
+          </dt>
+          <dd>
+            <p>
+              显示所有已知的 X11 键盘映射选项。
+            </p>
+          </dd>
+        </dl>
+      </div>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          想要使用以上的参数，你需要从 BLFS 中安装 Xkeyboard 软件包。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="clock.html" title="配置系统时间">上一页</a>
+          <p>
+            配置系统时间
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="locale.html" title="配置系统语言环境">下一页</a>
+          <p>
+            配置系统语言环境
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

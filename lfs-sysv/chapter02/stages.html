@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      2.3.&nbsp;分阶段构建 LFS
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;2&nbsp;章&nbsp;准备宿主系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="hostreqs.html" title="宿主系统要求">上一页</a>
+          <p>
+            宿主系统要求
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingpartition.html" title=
+          "创建新分区">下一页</a>
+          <p>
+            创建新分区
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="stages" name="stages"></a>2.3. 分阶段构建 LFS
+      </h1>
+      <p>
+        LFS 的设计是建立在一个会话中的。这也就是说假定系统在处理的过程中不会关机。但是实际上这并不意味着 LFS 的构建需要一气呵成。但是如果
+        LFS 恢复时的状态和之前不同，则某些程序必须在此之后重新构建。
+      </p>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          2.3.1. 第 1-4 章
+        </h2>
+        <p>
+          当在主机系统各种完成此章节的内容，重启时，需要注意一下的内容：
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                程序在 2.4 节以后都是以 root 用户完成的。所以需要重新将 LFS 的环境变量设置为 <span class=
+                "emphasis"><em>ROOT</em></span>。
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          2.3.2. 第 5 章
+        </h2>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                /mnt/lfs 分区必须挂载。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                第 5 章涉及的<span class="emphasis"><em>所有</em></span>指令都应该由
+                <span class="emphasis"><em>lfs</em></span> 用户执行。所以在执行第 5
+                章的任务之前请先执行 <span class="command"><strong>su -
+                lfs</strong></span>。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <a class="xref" href="../chapter05/generalinstructions.html"
+                title="5.3.&nbsp;通用编译指南">第 5.3 节 「通用编译指南」</a>
+                中提及的程序是十分重要的。如果在安装任何软件包时存在问题，请确保所有之前已经解压的软件包已经删除。重新将它们解压后再完成此章节中的所有命令。
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          2.3.3. 第 6-8 章
+        </h2>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                /mnt/lfs 分区必须挂载。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                当进入 chroot 环境，LFS 环境变量必须设置为 root 用户。否则不得使用 LFS 变量。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                必须挂载虚拟文件系统。这可以在进入 chroot 之前或者之后通过改变主机的虚拟终端，以 root 用户执行
+                <a class="xref" href=
+                "../chapter06/kernfs.html#ch-system-bindmount" title=
+                "6.2.2.&nbsp;挂载和激活 /dev">第 6.2.2 节 「挂载和激活 /dev」</a> 和
+                <a class="xref" href=
+                "../chapter06/kernfs.html#ch-system-kernfsmount" title=
+                "6.2.3.&nbsp;挂载虚拟文件系统">第 6.2.3 节 「挂载虚拟文件系统」</a> 中的命令。
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="hostreqs.html" title="宿主系统要求">上一页</a>
+          <p>
+            宿主系统要求
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingpartition.html" title=
+          "创建新分区">下一页</a>
+          <p>
+            创建新分区
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

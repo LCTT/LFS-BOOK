@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.24.&nbsp;Ncurses-6.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="pkg-config.html" title=
+          "Pkg-config-0.29.2">上一页</a>
+          <p>
+            Pkg-config-0.29.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="attr.html" title="Attr-2.4.48">下一页</a>
+          <p>
+            Attr-2.4.48
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-ncurses" name="ch-system-ncurses"></a>6.24.
+        Ncurses-6.1
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Ncurses 软件包包含用于不依赖于特定终端的字符屏幕处理的库。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.4 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">42 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.24.1. 安装 Ncurses
+        </h2>
+        <p>
+          不要安装静态库，它不受配置控制：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in</kbd>
+</pre>
+        <p>
+          准备编译 Ncurses：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr           \
+            --mandir=/usr/share/man \
+            --with-shared           \
+            --without-debug         \
+            --without-normal        \
+            --enable-pc-files       \
+            --enable-widec</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>新配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-widec</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项会编译宽字符库（例如 <code class=
+                "filename">libncursesw.so.6.1</code>）来代替普通字符库（例如 <code class=
+                "filename">libncurses.so.6.1</code>）。宽字符库可用于多字节和传统的 8
+                位本地字符，而常规的库只能用于 8 位本地字符。宽字符库和常规的库是源文件兼容的，而不是二进制文件兼容的。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-pc-files</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项为 pkg-config 生成和安装 .pc 文件。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-normal</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项用于禁用构建和安装大多数的静态库。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          该软件包有个测试套件，但只能在安装完软件包后运行。测试程序在 <code class="filename">test/</code>
+          目录中。查看该目录中的 <code class="filename">README</code> 文件获取更详细信息。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          移动共享库到期望的 <code class="filename">/lib</code> 文件夹：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mv -v /usr/lib/libncursesw.so.6* /lib</kbd>
+</pre>
+        <p>
+          由于库已经被移走了，符号链接指向了一个不存在的文件。重建符号链接：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">ln -sfv ../../lib/$(readlink /usr/lib/libncursesw.so) /usr/lib/libncursesw.so</kbd>
+</pre>
+        <p>
+          很多应用程序仍然希望编辑器能找到非宽字符的 Ncurses 库。通过符号链接和链接器脚本欺骗这样的应用链接到宽字符库：
+        </p>
+        <pre class="userinput">
+<kbd class="command">for lib in ncurses form panel menu ; do
+    rm -vf                    /usr/lib/lib${lib}.so
+    echo "INPUT(-l${lib}w)" &gt; /usr/lib/lib${lib}.so
+    ln -sfv ${lib}w.pc        /usr/lib/pkgconfig/${lib}.pc
+done</kbd>
+</pre>
+        <p>
+          最后，确保在编译时会查找 <code class="filename">-lcurses</code> 的旧应用程序仍然可以编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">rm -vf                     /usr/lib/libcursesw.so
+echo "INPUT(-lncursesw)" &gt; /usr/lib/libcursesw.so
+ln -sfv libncurses.so      /usr/lib/libcurses.so</kbd>
+</pre>
+        <p>
+          如果需要的话，安装 Ncurses 的帮助文档：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -v       /usr/share/doc/ncurses-6.1
+cp -v -R doc/* /usr/share/doc/ncurses-6.1</kbd>
+</pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            上面的指令并不会创建非宽字符 Ncurses
+            库，因为没有从源文件中编译安装的软件包会在运行时链接它们。然而，已知的仅有二进制应用程序并能链接到非等宽字符的库，需要第 5
+            版的支持。如果你由于一些仅有二进制的应用程序或要和 LSB 兼容而必须要有这样的库，用下面的命令重新编译软件包：
+          </p>
+          <pre class="userinput">
+<kbd class="command">make distclean
+./configure --prefix=/usr    \
+            --with-shared    \
+            --without-normal \
+            --without-debug  \
+            --without-cxx-binding \
+            --with-abi-version=5 
+make sources libs
+cp -av lib/lib*.so.5* /usr/lib</kbd>
+</pre>
+        </div>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-ncurses" name="contents-ncurses"></a>6.24.2.
+          Ncurses 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">captoinfo (链接到 tic), clear, infocmp, infotocap (链接到
+              tic), ncursesw6-config, reset (链接到 tset), tabs, tic, toe, tput,
+              和 tset</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libcursesw.so (到 libncursesw.so 的符号链接和链接器脚本),
+              libformw.so, libmenuw.so, libncursesw.so, libncurses++w.a,
+              libpanelw.so, 以及库名称中没有「w」的对应的非宽字符部分。</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/share/tabset, /usr/share/terminfo, 和
+              /usr/share/doc/ncurses-6.1</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="captoinfo" name="captoinfo"></a><span class=
+                    "term"><span class=
+                    "command"><strong>captoinfo</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 termcap 描述为 terminfo 描述
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="clear" name="clear"></a><span class=
+                    "term"><span class=
+                    "command"><strong>clear</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    如果可以的话清空屏幕
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="infocmp" name="infocmp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>infocmp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    比较或输出 terminfo 描述
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="infotocap" name="infotocap"></a><span class=
+                    "term"><span class=
+                    "command"><strong>infotocap</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 terminfo 描述为 termcap 描述
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ncursesw6-config" name=
+                    "ncursesw6-config"></a><span class="term"><span class=
+                    "command"><strong>ncursesw6-config</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    P为 ncurses 提供配置信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="reset" name="reset"></a><span class=
+                    "term"><span class=
+                    "command"><strong>reset</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    重新初始化终端为默认设置
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tabs" name="tabs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tabs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    清空终端并设置制表符长度
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tic" name="tic"></a><span class=
+                    "term"><span class="command"><strong>tic</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将 terminfo 文件从源文件格式转换到二进制格式的 terminfo 条目描述编译器需要 ncurses
+                    例程 [terminfo 文件包含特定终端的功能信息]
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="toe" name="toe"></a><span class=
+                    "term"><span class="command"><strong>toe</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    列出所有可用的终端类型，给出每个主名称和描述
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tput" name="tput"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tput</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    可以在 shell 中使用终端特定的功能值；也可用来重置或初始化终端或者报告它的完整名称
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tset" name="tset"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tset</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    可以用来初始化终端
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libcursesw" name="libcursesw"></a><span class=
+                    "term"><code class="filename">libcursesw</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    到 <code class="filename">libncursesw</code> 的链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libncursesw" name="libncursesw"></a><span class=
+                    "term"><code class="filename">libncursesw</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含在一个终端屏幕以多种复杂方式显示文本的函数；使用这些功能的一个好的例子是内核 <span class=
+                    "command"><strong>make menuconfig</strong></span> 时的菜单显示
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libformw" name="libformw"></a><span class=
+                    "term"><code class="filename">libformw</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含实现表单的函数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libmenuw" name="libmenuw"></a><span class=
+                    "term"><code class="filename">libmenuw</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含实现菜单的函数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libpanelw" name="libpanelw"></a><span class=
+                    "term"><code class="filename">libpanelw</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含实现面板的函数
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="pkg-config.html" title=
+          "Pkg-config-0.29.2">上一页</a>
+          <p>
+            Pkg-config-0.29.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="attr.html" title="Attr-2.4.48">下一页</a>
+          <p>
+            Attr-2.4.48
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

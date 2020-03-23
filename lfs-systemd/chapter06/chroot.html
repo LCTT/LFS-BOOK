@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.4.&nbsp;进入 Chroot 环境
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="pkgmgt.html" title="软件包管理">上一页</a>
+          <p>
+            软件包管理
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingdirs.html" title="创建目录">下一页</a>
+          <p>
+            创建目录
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-chroot" name="ch-system-chroot"></a>6.4. 进入 Chroot
+        环境
+      </h1>
+      <p>
+        现在可以切换到 chroot 环境开始构建和安装最终的 LFS 系统了。以 <code class=
+        "systemitem">root</code> 用户运行下面的命令进入此环境，从现在开始，就只剩下准备的那些临时工具了：
+      </p>
+      <pre class="userinput">
+<kbd class="command">chroot "$LFS" /tools/bin/env -i \
+    HOME=/root                  \
+    TERM="$TERM"                \
+    PS1='(lfs chroot) \u:\w\$ ' \
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
+    /tools/bin/bash --login +h</kbd>
+</pre>
+      <p>
+        给 <span class="command"><strong>env</strong></span> 命令传递 <em class=
+        "parameter"><code>-i</code></em> 选项会清除这个 chroot
+        切换进去的环境中的所有变量。随后，只需重新设定 <code class="envar">HOME</code>、<code class=
+        "envar">TERM</code>、<code class="envar">PS1</code> 、和 <code class=
+        "envar">PATH</code> 变量。<em class=
+        "parameter"><code>TERM=$TERM</code></em> 将会把 <code class=
+        "envar">TERM</code> 设定成 chroot 外环境相同的值。许多程序需要这个变量才能正常工作，比如
+        <span class="command"><strong>vim</strong></span> 和 <span class=
+        "command"><strong>less</strong></span>。如果还需设定其他变量，如 <code class=
+        "envar">CFLAGS</code> 或 <code class=
+        "envar">CXXFLAGS</code>，正好在这一起设置了。
+      </p>
+      <p>
+        在这之后，<code class="envar">LFS</code> 变量就不再需要了，因为后面所有工作都将被限定在 LFS
+        文件系统中。因为我们已经告诉 Bash 终端 <code class="filename">$LFS</code>
+        就是当前的根目录（<code class="filename">/</code>）目录。
+      </p>
+      <p>
+        注意要将 <code class="filename">/tools/bin</code> 放在 <code class=
+        "envar">PATH</code> 变量的最后。意思是在每个软件的最后版本编译安装好后就不再使用临时工具了。这还需要让 shell
+        不要「记住」每个可执行文件的位置——这样的话，还要给 <span class=
+        "command"><strong>bash</strong></span> 加上 <em class=
+        "parameter"><code>+h</code></em> 选项来关闭其哈希功能。
+      </p>
+      <p>
+        注意一下 <span class="command"><strong>bash</strong></span> 的提示符是
+        <code class="computeroutput">I have no name!</code> 这是正常的，因为这个时候
+        <code class="filename">/etc/passwd</code> 文件还没有被创建。
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          非常重要，从本章开始，后续章节中的命令都要在 chroot 环境下运行。如果因为某种原因（比如说重启）离开了这个环境，请保证要按照
+          <a class="xref" href="kernfs.html#ch-system-bindmount" title=
+          "6.2.2.&nbsp;挂载和激活 /dev">第 6.2.2 节 「挂载和激活 /dev」</a> 和 <a class=
+          "xref" href="kernfs.html#ch-system-kernfsmount" title=
+          "6.2.3.&nbsp;挂载虚拟文件系统">第 6.2.3 节 「挂载虚拟文件系统」</a>
+          中所说的那样挂载虚拟内核文件系统，并在继续构建之前重新运行 chroot 进入环境。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="pkgmgt.html" title="软件包管理">上一页</a>
+          <p>
+            软件包管理
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingdirs.html" title="创建目录">下一页</a>
+          <p>
+            创建目录
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

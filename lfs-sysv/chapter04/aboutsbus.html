@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      4.5.&nbsp;关于 SBUs
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;4&nbsp;章&nbsp;最后的准备工作
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="settingenvironment.html" title=
+          "设置环境">上一页</a>
+          <p>
+            设置环境
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="abouttestsuites.html" title="关于测试套件">下一页</a>
+          <p>
+            关于测试套件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "第&nbsp;4&nbsp;章&nbsp;最后的准备工作">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="prepare-aboutsbus" name="prepare-aboutsbus"></a>4.5. 关于 SBUs
+      </h1>
+      <p>
+        在着手之前,不少人想知道编译和安装一个软件包到底需要多长的时间。因为 Linux From Scratch
+        能够运行于众多的硬件上，所以具体的编译时间无法一概而论。举一个简单的例子：在最快的系统上，编译最大的软件包（Glibc）需要约 20
+        分钟，但在慢的系统上有可能需要 3 天！所以，这里使用标准构建单元（SBU）来代替具体的编译时间。
+      </p>
+      <p>
+        SBU 衡量方式如下。我们编译的第一个软件包是 <a class="xref" href=
+        "../chapter05/chapter05.html" title="第&nbsp;5&nbsp;章&nbsp;构建临时系统">第 5
+        章</a> 的 Binutils。将这个软件包在编译时所需要的时间，作为标准构建单元（SBU）。其它软件的构建时间，都以其为标准进行比较。
+      </p>
+      <p>
+        举个例子，假如编译某个软件耗时 4.5 SBUs。这意味着如果这个系统，在编译 Binutils 需要 10
+        分钟，大概需要<span class="emphasis"><em>约</em></span> 45
+        分钟来构建此软件包。很幸运，大部分的系统在生成 Binutils 时花的时间都要比这个系统要短。
+      </p>
+      <p>
+        一般来说，SBU 的结果并不完全准确，因为影响编译的因素太多，包括宿主机系统中 GCC
+        的版本也会影响到。所以更多的时候，这仅仅是提供一个编译和安装时间的预估。然而，在某些情况下，这个数字可能偏差约十几分钟。
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          对于大多数带有多个处理器（或内核）的现代操作系统而言，可以通过设置环境变量或者是告知 <span class=
+          "command"><strong>make</strong></span> 程序具体可用的处理器数目，通过「并行
+          make」来减少编译的时间。例如，对于 Core2Duo 可以通过以下参数实现两个处理器同时编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">export MAKEFLAGS='-j 2'</kbd>
+</pre>
+        <p>
+          或者直接这样来构建：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make -j2</kbd>
+</pre>
+        <p>
+          以该方式使用多处理器时，SBU 值可能比书中的正常值还要大。某些情况下，make
+          过程仅仅是简单的就失败了。分析错误日志也十分困难：因为不同处理器之间的执行路线是交错的。如果你在构建过程中遇到了问题，为了正确分析错误信息，最好返回单处理器。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="settingenvironment.html" title=
+          "设置环境">上一页</a>
+          <p>
+            设置环境
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="abouttestsuites.html" title="关于测试套件">下一页</a>
+          <p>
+            关于测试套件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "第&nbsp;4&nbsp;章&nbsp;最后的准备工作">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

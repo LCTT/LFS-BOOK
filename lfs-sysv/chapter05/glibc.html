@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.7.&nbsp;Glibc-2.30
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="linux-headers.html" title=
+          "Linux-5.2.8 API 头文件">上一页</a>
+          <p>
+            Linux-5.2.8 API 头文件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gcc-libstdc++.html" title=
+          "GCC-9.2.0 中的 Libstdc++">下一页</a>
+          <p>
+            GCC-9.2.0 中的 Libstdc++
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-glibc" name="ch-tools-glibc"></a>5.7. Glibc-2.30
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Glibc 软件包包含了主要的 C
+          函数库。这个库提供了分配内存、搜索目录、打开关闭文件、读写文件、操作字符串、模式匹配、基础算法等基本程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">4.8 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">896 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          5.7.1. 安装 Glibc
+        </h2>
+        <p>
+          Glibc 手册建议在源文件夹之外的一个专用文件夹中编译 Glibc：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -v build
+cd       build</kbd>
+</pre>
+        <p>
+          下一步，准备编译 Glibc：
+        </p>
+        <pre class="userinput">
+<kbd class="command">../configure                             \
+      --prefix=/tools                    \
+      --host=$LFS_TGT                    \
+      --build=$(../scripts/config.guess) \
+      --enable-kernel=3.2                \
+      --with-headers=/tools/include</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class="parameter"><code>--host=$LFS_TGT,
+              --build=$(../scripts/config.guess)</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这些选项的组合效果是 Glibc 的构建系统配置它自己用 <code class=
+                "filename">/tools</code> 里面的交叉链接器和交叉编译器交叉编译自己。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-kernel=3.2</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这告诉 Glibc 编译能支持 3.2 以及之后的内核库。更早的内核版本不受支持。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-headers=/tools/include</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                告诉 Glibc 利用刚刚安装在 tools 文件夹中的头文件编译自身，此能够根据内核的具体特性提供更好的优化。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          在这个过程中，可能会出现下面的警告：
+        </p>
+        <div class="blockquote">
+          <blockquote class="blockquote">
+            <pre class="screen">
+<code class="computeroutput">configure: WARNING:
+*** These auxiliary programs are missing or
+*** incompatible versions: msgfmt
+*** some features will be disabled.
+*** Check the INSTALL file for required versions.</code>
+</pre>
+          </blockquote>
+        </div>
+        <p>
+          <span class="command"><strong>msgfmt</strong></span>
+          程序的缺失或者不兼容通常是无害的。这个 <span class=
+          "command"><strong>msgfmt</strong></span> 程序是 Gettext
+          软件包的一部分，主机发行版应该提供了。
+        </p>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            有报告说用「parallel make」编译这个软件包的时候会失败。如果出现这种情况，用「-j1」选项重新运行 make 命令。
+          </p>
+        </div>
+        <p>
+          编译软件包:
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          安装软件包:
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <div class="admon caution">
+          <img alt="[小心]" src="../images/caution.png" />
+          <h3>
+            小心
+          </h3>
+          <p>
+            到了这里，必须停下来确认新工具链的基本功能(编译和链接)都是像预期的那样正常工作。运行下面的命令进行全面的检查：
+          </p>
+          <pre class="userinput">
+<kbd class="command">echo 'int main(){}' &gt; dummy.c
+$LFS_TGT-gcc dummy.c
+readelf -l a.out | grep ': /tools'</kbd>
+</pre>
+          <p>
+            如果一切工作正常的话，这里应该没有错误，最后一个命令的输出形式会是：
+          </p>
+          <pre class="screen">
+<code class=
+"computeroutput">[Requesting program interpreter: /tools/lib64/ld-linux-x86-64.so.2]</code>
+</pre>
+          <p>
+            注意 32 位机器上对应的解释器名字是 <code class=
+            "filename">/tools/lib/ld-linux.so.2</code>。
+          </p>
+          <p>
+            如果输出不是像上面那样或者根本就没有输出，那么可能某些地方出错了。调查并回溯这些步骤，找出问题所在并改正它。在继续之前必须解决这个问题。
+          </p>
+          <p>
+            一旦一切都顺利，清理测试文件：
+          </p>
+          <pre class="userinput">
+<kbd class="command">rm -v dummy.c a.out</kbd>
+</pre>
+        </div>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            在后面的编译 Binutils 章节时会再一次检查工具链是否正确编译。如果 Binutils 编译失败，说明之前安装
+            Binutils、GCC、或者 Glibc 时某些地方出现了错误。
+          </p>
+        </div>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <p>
+          该软件包的详细信息请参见： <a class="xref" href=
+          "../chapter06/glibc.html#contents-glibc" title=
+          "6.9.3.&nbsp;Glibc 软件包内容">第 6.9.3 节 「Glibc 软件包内容」</a>。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="linux-headers.html" title=
+          "Linux-5.2.8 API 头文件">上一页</a>
+          <p>
+            Linux-5.2.8 API 头文件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gcc-libstdc++.html" title=
+          "GCC-9.2.0 中的 Libstdc++">下一页</a>
+          <p>
+            GCC-9.2.0 中的 Libstdc++
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

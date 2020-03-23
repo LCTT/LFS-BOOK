@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.2.&nbsp;创建 /etc/fstab 文件
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;8&nbsp;章&nbsp;让 LFS 系统可引导
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kernel.html" title="Linux-5.2.8">下一页</a>
+          <p>
+            Linux-5.2.8
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;让 LFS 系统可引导">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-bootable-fstab" name="ch-bootable-fstab"></a>8.2. 创建
+        /etc/fstab 文件
+      </h1>
+      <p>
+        <code class="filename">/etc/fstab</code>
+        文件的作用是让其它程序确定存储设备的默认挂载点、挂载参数和检查信息（例如完整性检测）。仿照以下格式新建一个文件系统列表（file
+        system table，简称 fstab）文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /etc/fstab &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/fstab
+
+# file system  mount-point  type     options             dump  fsck
+#                                                              order
+
+/dev/<em class=
+"replaceable"><code>&lt;xxx&gt;</code></em>     /            <em class=
+"replaceable"><code>&lt;fff&gt;</code></em>    defaults            1     1
+/dev/<em class=
+"replaceable"><code>&lt;yyy&gt;</code></em>     swap         swap     pri=1               0     0
+
+# End /etc/fstab</code>
+EOF</kbd>
+</pre>
+      <p>
+        其中，<em class="replaceable"><code>&lt;xxx&gt;</code></em>，<em class=
+        "replaceable"><code>&lt;yyy&gt;</code></em> 和 <em class=
+        "replaceable"><code>&lt;fff&gt;</code></em> 请使用适当的值替换。例如 <code class=
+        "filename">sda2</code>，<code class="filename">sda5</code> 和
+        <code class="systemitem">ext4</code>。关于文件中六个字段的含义，请查看 <span class=
+        "command"><strong>man 5 fstab</strong></span>（译者注：fsck
+        列的数值来决定需要检查的文件系统的检查顺序。允许的数字是0, 1, 和2。根目录应当获得最高的优先权 1, 其它所有需要被检查的设备设置为
+        2。0 表示设备不会被 fsck 所检查）。
+      </p>
+      <p>
+        基于 MS-DOS 或者是来源于 Windows
+        的文件系统（例如：vfat，ntfs，smbfs，cifs，iso9660，udf）需要在挂载选项中添加「iocharset」，才能让非
+        ASCII
+        字符的文件名正确解析。此选项的值应该与语言区域设置的值相同，以便让内核能正确处理。此选项在相关字符集定义已为内核内建或是编译为模块时生效（在文件系统
+        -&gt; 本地语言支持中查看）。此外，vfat 和 smbfs 还需启用「codepage」支持。例如，想要挂载 USB
+        闪存设备，zh-CN.GBK 用户需要在 <code class="filename">/etc/fstab</code>
+        中添加以下的挂载选项：
+      </p>
+      <pre class="screen">
+<code class=
+"literal">noauto,user,quiet,showexec,iocharset=gbk,codepage=936</code>
+</pre>
+      <p>
+        对于 zh_CN.UTF-8 用户的对应选项是：
+      </p>
+      <pre class="screen">
+<code class=
+"literal">noauto,user,quiet,showexec,iocharset=utf8,codepage=936</code>
+</pre>
+      <p>
+        需要注意的是，<code class="option">iocharset</code> 默认值是 <code class=
+        "literal">iso8859-1</code> （其保证文件系统大小写敏感），而 <code class=
+        "option">utf8</code> 这个参数告知内核使用 UTF-8 转换文件名，以便可以在 UTF-8 语言环境中解释它们。
+      </p>
+      <p>
+        此外，还有可能在内核的配置过程中就指定一些文件系统的默认代码页和 iocharset 值。相关参数有「默认 NLS 选项
+        」（<code class="option">CONFIG_NLS_DEFAULT</code>），「默认远程 NLS
+        选项」（<code class="option">CONFIG_SMB_NLS_DEFAULT</code>)，「FAT
+        默认代码页」（<code class="option">CONFIG_FAT_DEFAULT_CODEPAGE</code>），和「FAT
+        默认 IO 字符集」（<code class=
+        "option">CONFIG_FAT_DEFAULT_IOCHARSET</code>）。不过，无法在内核编译阶段指定 ntfs
+        文件系统的设置。
+      </p>
+      <p>
+        另外，一些硬盘类型在遇到电源故障时，假如在 <code class="filename">/etc/fstab</code> 中使用
+        <code class="option">barrier=1</code> 这个挂载选项，则会让 ext3
+        文件系统的数据更加安全。如需检查磁盘是否支持此选项，请运行 <a class="ulink" href=
+        "http://www.linuxfromscratch.org/blfs/view/9.0/general/hdparm.html">hdparm</a>。例如：
+      </p>
+      <pre class="userinput">
+<kbd class="command">hdparm -I /dev/sda | grep NCQ</kbd>
+</pre>
+      <p>
+        如果有输出内容，则代表选项可用。
+      </p>
+      <p>
+        注意：基于 逻辑卷管理（LVM）的分区不可使用 <code class="option">barrier</code> 选项。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kernel.html" title="Linux-5.2.8">下一页</a>
+          <p>
+            Linux-5.2.8
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;让 LFS 系统可引导">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

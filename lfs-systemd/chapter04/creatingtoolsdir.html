@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      4.2.&nbsp;创建目录 $LFS/tools
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;4&nbsp;章&nbsp;最后的准备工作
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="addinguser.html" title="添加 LFS 用户">下一页</a>
+          <p>
+            添加 LFS 用户
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "第&nbsp;4&nbsp;章&nbsp;最后的准备工作">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-creatingtoolsdir" name=
+        "ch-tools-creatingtoolsdir"></a>4.2. 创建目录 $LFS/tools
+      </h1>
+      <p>
+        所有 <a class="xref" href="../chapter05/chapter05.html" title=
+        "第&nbsp;5&nbsp;章&nbsp;构建临时系统">第 5 章</a> 中编译的软件都会安装到 <code class=
+        "filename">$LFS/tools</code> 中，以确保和 <a class="xref" href=
+        "../chapter06/chapter06.html" title=
+        "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">第 6 章</a>
+        中编译的软件相互分离。这里编译的软件是临时工具，并不会成为最终的 LFS
+        系统中的一部分。将这些软件保存在单独的目录中，用完后方便弃置。这样做也可以防止这些程序在宿主机生成目录中突然停止工作（在
+        <a class="xref" href="../chapter05/chapter05.html" title=
+        "第&nbsp;5&nbsp;章&nbsp;构建临时系统">第 5 章</a> 中很容易发生意外）。
+      </p>
+      <p>
+        以 <code class="systemitem">root</code> 用户运行以下的命令来创建需要的文件夹：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkdir -v $LFS/tools</kbd>
+</pre>
+      <p>
+        下一步是在宿主系统中创建 <code class="filename">/tools</code> 的符号链接。将其指向 LFS
+        分区中新建的目录。同样以 <code class="systemitem">root</code> 用户运行下面的命令：
+      </p>
+      <pre class="userinput">
+<kbd class="command">ln -sv $LFS/tools /</kbd>
+</pre>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          上面的命令是正确的。<span class="command"><strong>ln</strong></span>
+          命令有一些语法变种，所以在报出你觉得可能是错误的信息之前检查一下 <span class="command"><strong>info
+          coreutils ln</strong></span> 和 <code class="filename">ln(1)</code>。
+        </p>
+      </div>
+      <p>
+        创建的符号链接使得编译的工具链总是指向 <code class="filename">/tools</code>
+        文件夹，也就是说编译器、汇编器以及链接器无论是在第五章中（我们仍然使用宿主机的一些工具的时）还是之后（当我们「chrooted」到 LFS
+        分区时）都可以工作。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="addinguser.html" title="添加 LFS 用户">下一页</a>
+          <p>
+            添加 LFS 用户
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "第&nbsp;4&nbsp;章&nbsp;最后的准备工作">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

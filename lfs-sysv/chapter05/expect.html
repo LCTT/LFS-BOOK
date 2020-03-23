@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.12.&nbsp;Expect-5.45.4
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="tcl.html" title="Tcl-8.6.9">上一页</a>
+          <p>
+            Tcl-8.6.9
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="dejagnu.html" title="DejaGNU-1.6.2">下一页</a>
+          <p>
+            DejaGNU-1.6.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-expect" name="ch-tools-expect"></a>5.12.
+        Expect-5.45.4
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Expect 软件包包含一个实现用脚本和其他交互式程序进行对话的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">4.0 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          5.12.1. 安装 Expect
+        </h2>
+        <p>
+          首先，强制 Expect 的 configure 配置脚本使用 <code class=
+          "filename">/bin/stty</code> 替代宿主机系统里可能存在的 <code class=
+          "filename">/usr/local/bin/stty</code>
+          。这样可以保证我们的测试套件工具在工具链的最后一次构建能够正常。
+        </p>
+        <pre class="userinput">
+<kbd class="command">cp -v configure{,.orig}
+sed 's:/usr/local/bin:/bin:' configure.orig &gt; configure</kbd>
+</pre>
+        <p>
+          现在配置 Expect 准备编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/tools       \
+            --with-tcl=/tools/lib \
+            --with-tclinclude=/tools/include</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置脚本参数的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-tcl=/tools/lib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项可以保证 configure 配置脚本会从临时工具目录里找 Tcl 的安装位置，而不是在宿主机系统中寻找。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-tclinclude=/tools/include</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项会给 Expect 显式地指定 Tcl 内部头文件的位置。通过这个选项可以避免 <span class=
+                "command"><strong>configure</strong></span> 脚本不能自动发现 Tcl
+                头文件位置的情况。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          现在编译已经完成。之前说过，不要求为本章中所构建的临时工具运行测试套件。不过你仍然要测试 Expect 的话可以用下面的命令：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make test</kbd>
+</pre>
+        <p>
+          请注意 Expect
+          测试套件已知在某些宿主机特定情况下有过失败的情况，我们还没有完全把握。不过，在这里测试套件运行失败并不奇怪，也不认为是关键问题。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make SCRIPTS="" install</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>make 参数的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>SCRIPTS=""</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个变量可以避免安装额外的、没有需求的 Expect 脚本。
+              </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-expect" name="contents-expect"></a>5.12.2. Expect
+          软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">expect</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libexpect-5.45.so</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="expect" name="expect"></a><span class=
+                    "term"><span class=
+                    "command"><strong>expect</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    基于脚本和其他交互式程序通信。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libexpect" name="libexpect"></a><span class=
+                    "term"><code class=
+                    "filename">libexpect-5.45.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含一些函数允许 Expect 用作 Tcl 扩展或直接用于 C/C++（不用 Tcl）。
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="tcl.html" title="Tcl-8.6.9">上一页</a>
+          <p>
+            Tcl-8.6.9
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="dejagnu.html" title="DejaGNU-1.6.2">下一页</a>
+          <p>
+            DejaGNU-1.6.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

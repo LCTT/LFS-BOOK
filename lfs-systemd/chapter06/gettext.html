@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.47.&nbsp;Gettext-0.20.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="kmod.html" title="Kmod-26">上一页</a>
+          <p>
+            Kmod-26
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libelf.html" title=
+          "Libelf 源自 Elfutils-0.177">下一页</a>
+          <p>
+            Libelf 源自 Elfutils-0.177
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-gettext" name="ch-system-gettext"></a>6.47.
+        Gettext-0.20.1
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Gettext 软件包包含用于国际化和本土化的工具。这允许用 NLS（Native Language Support，本地语言支持）
+          编译程序，使得能以用户的本地语言输出信息。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">2.9 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">249 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.47.1. 安装 Gettext
+        </h2>
+        <p>
+          准备编译 Gettext：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/gettext-0.20.1</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果（需要较长一段时间，大概 3 SBUs）：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install
+chmod -v 0755 /usr/lib/preloadable_libintl.so</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-gettext" name="contents-gettext"></a>6.47.2.
+          Gettext 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">autopoint, envsubst, gettext, gettext.sh, gettextize,
+              msgattrib, msgcat, msgcmp, msgcomm, msgconv, msgen, msgexec,
+              msgfilter, msgfmt, msggrep, msginit, msgmerge, msgunfmt,
+              msguniq, ngettext, recode-sr-latin, 和 xgettext</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libasprintf.so, libgettextlib.so, libgettextpo.so,
+              libgettextsrc.so, 和 preloadable_libintl.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/lib/gettext, /usr/share/doc/gettext-0.20.1,
+              /usr/share/gettext, 和 /usr/share/gettext-0.19.8</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="autopoint" name="autopoint"></a><span class=
+                    "term"><span class=
+                    "command"><strong>autopoint</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    复制标准 Gettext 基础文件到源码包
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="envsubst" name="envsubst"></a><span class=
+                    "term"><span class=
+                    "command"><strong>envsubst</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    shell 格式字符串的替代环境变量
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gettext" name="gettext"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gettext</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    通过查看信息目录中的转换将原来语言信息转换为用户语言
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gettext.sh" name="gettext.sh"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gettext.sh</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    主要作为 gettext 的一个 shell 函数库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gettextize" name="gettextize"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gettextize</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    复制所有标准 Gettext 文件到指定软件包的顶层目录以开始国际化
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msgattrib" name="msgattrib"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msgattrib</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据属性过滤翻译目录的信息并操作属性
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msgcat" name="msgcat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msgcat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    连接和合并给定 <code class="filename">.po</code> 文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msgcmp" name="msgcmp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msgcmp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    比较两个 <code class="filename">.po</code> 文件以检查两者是否包含相同的
+                    msgid 字符串集合
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msgcomm" name="msgcomm"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msgcomm</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    查找给定 <code class="filename">.po</code> 文件共同的信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msgconv" name="msgconv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msgconv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换翻译目录到不同的字符编码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msgen" name="msgen"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msgen</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建一个英语翻译目录
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msgexec" name="msgexec"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msgexec</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对翻译目录的所有翻译运行命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msgfilter" name="msgfilter"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msgfilter</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对翻译目录的所有翻译应用过滤器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msgfmt" name="msgfmt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msgfmt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从翻译目录生成一个二进制信息目录
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msggrep" name="msggrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msggrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从翻译目录中抽取所有符合指定模式或属于特定源文件的信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msginit" name="msginit"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msginit</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建一个新的 <code class="filename">.po</code>
+                    文件，根据用户环境中的值初始化元信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msgmerge" name="msgmerge"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msgmerge</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    合并两个原译到一个单独的文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msgunfmt" name="msgunfmt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msgunfmt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    反向编译一个二进制信息目录为原译文本
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="msguniq" name="msguniq"></a><span class=
+                    "term"><span class=
+                    "command"><strong>msguniq</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    统一重复翻译为一个翻译目录
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ngettext" name="ngettext"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ngettext</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示语法形式取决于多种母语翻译的文本信息的本地语言翻译
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="recode-sr-latin" name=
+                    "recode-sr-latin"></a><span class="term"><span class=
+                    "command"><strong>recode-sr-latin</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 Serbian 文本从 Cyrillic 重新编码为 Latin 脚本
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xgettext" name="xgettext"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xgettext</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从指定源文件中抽取可翻译信息行用于生成第一个翻译模板
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libasprintf" name="libasprintf"></a><span class=
+                    "term"><code class="filename">libasprintf</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    定义 <span class="emphasis"><em>autosprintf</em></span>
+                    类，该类使 C 格式化输出在 C++程序中能和 <span class=
+                    "emphasis"><em>&lt;string&gt;</em></span> 字符串以及
+                    <span class="emphasis"><em>&lt;iostream&gt;</em></span>
+                    流一起使用
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgettextlib" name=
+                    "libgettextlib"></a><span class="term"><code class=
+                    "filename">libgettextlib</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包括多种 Gettext 程序使用的常用例程的私有库；并不用于一般用途
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgettextpo" name="libgettextpo"></a><span class=
+                    "term"><code class="filename">libgettextpo</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用来写处理 <code class="filename">.po</code> 文件的特殊程序；当 Gettext
+                    附带的标准应用（例如 <span class=
+                    "command"><strong>msgcomm</strong></span>，<span class=
+                    "command"><strong>msgcmp</strong></span>，<span class=
+                    "command"><strong>msgattrib</strong></span>, 以及
+                    <span class=
+                    "command"><strong>msgen</strong></span>）不足够时会使用这个库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgettextsrc" name=
+                    "libgettextsrc"></a><span class="term"><code class=
+                    "filename">libgettextsrc</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包括多种 Gettext 程序使用的常用例程的私有库；并不用于一般用途
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="preloadable_libintl" name=
+                    "preloadable_libintl"></a><span class="term"><code class=
+                    "filename">preloadable_libintl</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    LD_PRELOAD 帮助 <code class="filename">libintl</code>
+                    记录未翻译信息时使用的库
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="kmod.html" title="Kmod-26">上一页</a>
+          <p>
+            Kmod-26
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libelf.html" title=
+          "Libelf 源自 Elfutils-0.177">下一页</a>
+          <p>
+            Libelf 源自 Elfutils-0.177
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

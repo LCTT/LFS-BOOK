@@ -1,0 +1,544 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.60.&nbsp;GRUB-2.04
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="groff.html" title="Groff-1.22.4">上一页</a>
+          <p>
+            Groff-1.22.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="less.html" title="Less-551">下一页</a>
+          <p>
+            Less-551
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-grub" name="ch-system-grub"></a>6.60. GRUB-2.04
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          GRUB 软件包包含多重启动管理器（GRand Unified Bootloader）。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.8 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">161 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.60.1. 安装 GRUB
+        </h2>
+        <p>
+          准备编译 GRUB：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr          \
+            --sbindir=/sbin        \
+            --sysconfdir=/etc      \
+            --disable-efiemu       \
+            --disable-werror</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>新配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-werror</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                允许忽视有更新 Flex 版本提示的警告以完成构建。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-efiemu</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这些选项通过停用 LFS 不需要的功能和测试程序最小化构建。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          该软件包没有测试套件。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install
+mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions</kbd>
+</pre>
+        <p>
+          会在 <a class="xref" href="../chapter08/grub.html" title=
+          "8.4.&nbsp;使用 GRUB 设置启动过程">第 8.4 节 「使用 GRUB 设置启动过程」</a> 介绍通过 GRUB
+          启动你的 LFS 系统。
+        </p>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-gRUB" name="contents-gRUB"></a>6.60.2. GRUB 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">grub-bios-setup, grub-editenv, grub-file,
+              grub-fstest, grub-glue-efi, grub-install, grub-kbdcomp,
+              grub-macbless, grub-menulst2cfg, grub-mkconfig, grub-mkimage,
+              grub-mklayout, grub-mknetdir, grub-mkpasswd-pbkdf2,
+              grub-mkrelpath, grub-mkrescue, grub-mkstandalone,
+              grub-ofpathname, grub-probe, grub-reboot, grub-render-label,
+              grub-script-check, grub-set-default, grub-sparc64-setup, 和
+              grub-syslinux2cfg</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/lib/grub, /etc/grub.d, /usr/share/grub, 和
+              /boot/grub (首次执行 grub-install)</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-bios-setup" name=
+                    "grub-bios-setup"></a><span class="term"><span class=
+                    "command"><strong>grub-bios-setup</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    grub-install 的帮助程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-editenv" name="grub-editenv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-editenv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    编辑环境块的工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-file" name="grub-file"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-file</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查 FILE 是否为指定的类型
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-fstest" name="grub-fstest"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-fstest</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    调试文件系统驱动的工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-glue-efi" name=
+                    "grub-glue-efi"></a><span class="term"><span class=
+                    "command"><strong>grub-glue-efi</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    处理 ia32 和 amd64 的 EFI 镜像并按照 Apple 的格式将他们粘在一起
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-install" name="grub-install"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-install</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在你的驱动器上安装 GRUB
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-kbdcomp" name="grub-kbdcomp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-kbdcomp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 xkb 布局为 GRUB 可识别样式的脚本
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-macbless" name=
+                    "grub-macbless"></a><span class="term"><span class=
+                    "command"><strong>grub-macbless</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以 Mac 的风格保护 HFS 或 HFS+ 文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-menulst2cfg" name=
+                    "grub-menulst2cfg"></a><span class="term"><span class=
+                    "command"><strong>grub-menulst2cfg</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    为和 GRUB 2 一起使用，转换引导装载程序（GRUB Legacy） <code class=
+                    "filename">menu.lst</code> 为 <code class=
+                    "filename">grub.cfg</code>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkconfig" name=
+                    "grub-mkconfig"></a><span class="term"><span class=
+                    "command"><strong>grub-mkconfig</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    生成 grub 配置文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkimage" name="grub-mkimage"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-mkimage</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建 GRUB 可启动镜像
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mklayout" name=
+                    "grub-mklayout"></a><span class="term"><span class=
+                    "command"><strong>grub-mklayout</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    生成 GRUB 键盘布局文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mknetdir" name=
+                    "grub-mknetdir"></a><span class="term"><span class=
+                    "command"><strong>grub-mknetdir</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    准备一个 GRUB 网络启动目录
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkpasswd-pbkdf2" name=
+                    "grub-mkpasswd-pbkdf2"></a><span class=
+                    "term"><span class="command"><strong>grub-mkpasswd-pbkdf2</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    生成一个用于启动菜单的加密 PBKDF2 密码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkrelpath" name=
+                    "grub-mkrelpath"></a><span class="term"><span class=
+                    "command"><strong>grub-mkrelpath</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    生成相对于根目录的系统路径名称
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkrescue" name=
+                    "grub-mkrescue"></a><span class="term"><span class=
+                    "command"><strong>grub-mkrescue</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建适用于软盘或 CDROM/DVD 的可启动 GRUB 镜像
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-mkstandalone" name=
+                    "grub-mkstandalone"></a><span class="term"><span class=
+                    "command"><strong>grub-mkstandalone</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    生成一个单独镜像
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-ofpathname" name=
+                    "grub-ofpathname"></a><span class="term"><span class=
+                    "command"><strong>grub-ofpathname</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印 GRUB 设备路径的帮助程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-probe" name="grub-probe"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-probe</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对指定路径或设备检测设备信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-reboot" name="grub-reboot"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grub-reboot</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    只为下次启动设置默认 GRUB 启动选项
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-render-label" name=
+                    "grub-render-label"></a><span class="term"><span class=
+                    "command"><strong>grub-render-label</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    为 Apple Mac 赋予 Apple 的 .disk_label
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-script-check" name=
+                    "grub-script-check"></a><span class="term"><span class=
+                    "command"><strong>grub-script-check</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查 GRUB 配置脚本是否有语法错误
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-set-default" name=
+                    "grub-set-default"></a><span class="term"><span class=
+                    "command"><strong>grub-set-default</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    为 GRUB 设置默认启动选项
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-sparc64-setup" name=
+                    "grub-sparc64-setup"></a><span class="term"><span class=
+                    "command"><strong>grub-sparc64-setup</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    grub-setup 的帮助程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grub-syslinux2cfg" name=
+                    "grub-syslinux2cfg"></a><span class="term"><span class=
+                    "command"><strong>grub-syslinux2cfg</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将 syslinux 的配置文件转换至 grub.cfg 格式
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="groff.html" title="Groff-1.22.4">上一页</a>
+          <p>
+            Groff-1.22.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="less.html" title="Less-551">下一页</a>
+          <p>
+            Less-551
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

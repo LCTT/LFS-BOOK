@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      D.22.&nbsp;/etc/sysconfig/createfiles
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds21.html" title=
+          "/etc/sysconfig/modules">上一页</a>
+          <p>
+            /etc/sysconfig/modules
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds23.html" title=
+          "/etc/sysconfig/udev-retry">下一页</a>
+          <p>
+            /etc/sysconfig/udev-retry
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="createfiles" name="createfiles"></a>D.22.
+        /etc/sysconfig/createfiles
+      </h1>
+      <pre class="screen">
+########################################################################
+# Begin /etc/sysconfig/createfiles
+#
+# Description : Createfiles script config file
+#
+# Authors     :
+#
+# Version     : 00.00
+#
+# Notes       : The syntax of this file is as follows:
+#         if type is equal to "file" or "dir"
+#          &lt;filename&gt; &lt;type&gt; &lt;permissions&gt; &lt;user&gt; &lt;group&gt;
+#         if type is equal to "dev"
+#          &lt;filename&gt; &lt;type&gt; &lt;permissions&gt; &lt;user&gt; &lt;group&gt; &lt;devtype&gt; 
+#             &lt;major&gt; &lt;minor&gt;
+#
+#         &lt;filename&gt; is the name of the file which is to be created
+#         &lt;type&gt; is either file, dir, or dev.
+#               file creates a new file
+#               dir creates a new directory
+#               dev creates a new device
+#         &lt;devtype&gt; is either block, char or pipe
+#               block creates a block device
+#               char creates a character deivce
+#               pipe creates a pipe, this will ignore the &lt;major&gt; and 
+#           &lt;minor&gt; fields
+#         &lt;major&gt; and &lt;minor&gt; are the major and minor numbers used for 
+#     the device.
+########################################################################
+
+# End /etc/sysconfig/createfiles
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds21.html" title=
+          "/etc/sysconfig/modules">上一页</a>
+          <p>
+            /etc/sysconfig/modules
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds23.html" title=
+          "/etc/sysconfig/udev-retry">下一页</a>
+          <p>
+            /etc/sysconfig/udev-retry
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

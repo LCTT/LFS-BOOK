@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.76.&nbsp;Sysvinit-2.95
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="sysklogd.html" title=
+          "Sysklogd-1.5.1">上一页</a>
+          <p>
+            Sysklogd-1.5.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="eudev.html" title="Eudev-3.2.8">下一页</a>
+          <p>
+            Eudev-3.2.8
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-sysvinit" name="ch-system-sysvinit"></a>6.76.
+        Sysvinit-2.95
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Sysvinit 的软件包包含控制系统启动、运行和关闭的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">少于 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">1.3 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.76.1. 安装 Sysvinit
+        </h2>
+        <p>
+          首先，打一个补丁移除一些其他软件包安装的程序，改正一个消息，并修复一个编译器的警告：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">patch -Np1 -i ../sysvinit-2.95-consolidated-1.patch</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          该软件包没有测试套件。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-sysvinit" name="contents-sysvinit"></a>6.76.2.
+          Sysvinit 软件包的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">bootlogd, fstab-decode, halt, init, killall5,
+              poweroff (链接到 halt), reboot (链接到 halt), runlevel, shutdown, 和
+              telinit (链接到 init)</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bootlogd" name="bootlogd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bootlogd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    记录启动消息至日志文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fstab-decode" name="fstab-decode"></a><span class=
+                    "term"><span class=
+                    "command"><strong>fstab-decode</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    执行 fstab-encoded 参数的命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="halt-sysv" name="halt-sysv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>halt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    通常调用命令 <span class=
+                    "command"><strong>shutdown</strong></span> 连带着它的
+                    <em class="parameter"><code>-h</code></em> 选项，排除运行级别已为 0
+                    的情况，吩咐内核关闭系统；将系统即将关闭的消息记录在 <code class=
+                    "filename">/var/log/wtmp</code> 文件中。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="init-sysv" name="init-sysv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>init</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    内核在初始化硬件时第一个启动的进程，用于接管启动过程并启动所有在配置文件中被指定的进程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="killall5" name="killall5"></a><span class=
+                    "term"><span class=
+                    "command"><strong>killall5</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    给所有进程发送信号，除了其本身所处的会话的进程，所以并不会杀死自己的父 shell
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="poweroff-sysv" name=
+                    "poweroff-sysv"></a><span class="term"><span class=
+                    "command"><strong>poweroff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    吩咐内核终止系统并关闭计算机（参考 <span class=
+                    "command"><strong>halt</strong></span>）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="reboot-sysv" name="reboot-sysv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>reboot</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    吩咐内核重新启动系统（参考 <span class=
+                    "command"><strong>halt</strong></span>）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="runlevel-sysv" name=
+                    "runlevel-sysv"></a><span class="term"><span class=
+                    "command"><strong>runlevel</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    按照文件 <code class="filename">/var/run/utmp</code>
+                    中记录的最后一个运行级别，汇报之前与当下的运行级别
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="shutdown-sysv" name=
+                    "shutdown-sysv"></a><span class="term"><span class=
+                    "command"><strong>shutdown</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以一个安全的方式关闭计算机，给所有的进程发信号，并通知所有登录的用户。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="telinit-sysv" name="telinit-sysv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>telinit</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    吩咐 <span class="command"><strong>init</strong></span>
+                    切换到哪个运行级别
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="sysklogd.html" title=
+          "Sysklogd-1.5.1">上一页</a>
+          <p>
+            Sysklogd-1.5.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="eudev.html" title="Eudev-3.2.8">下一页</a>
+          <p>
+            Eudev-3.2.8
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

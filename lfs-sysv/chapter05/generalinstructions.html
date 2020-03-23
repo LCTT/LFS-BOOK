@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.3.&nbsp;通用编译指南
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="toolchaintechnotes.html" title=
+          "工具链技术说明">上一页</a>
+          <p>
+            工具链技术说明
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="binutils-pass1.html" title=
+          "Binutils-2.32 - 第 1 遍">下一页</a>
+          <p>
+            Binutils-2.32 - 第 1 遍
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-generalinstructions" name=
+        "ch-tools-generalinstructions"></a>5.3. 通用编译指南
+      </h1>
+      <p>
+        编译软件包时，本指南假设你已知晓这几点：
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              有几个软件包，在编译之前需要打补丁来规避一些问题。有的补丁在本章和下一章中都需要，但有些只有其中一章需要。因此，如果某章看起来缺少某个补丁的下载说明时，不用担心。安装补丁的时候也许会遇到关于
+              <span class="emphasis"><em>offset</em></span> 或者 <span class=
+              "emphasis"><em>fuzz</em></span> 的警告信息。别担心这些警告，补丁还是会成功安装的。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              在大部分软件包的编译过程中，屏幕上都可能出现几个警告。这都很正常，可以安全地忽略。这些警告正如它们描述的那样，是对使用过时的
+              C 或 C++ 语法的警告，而不是这些语法不可用。C
+              语言的标准经常改变，一些软件包仍然在使用旧的标准。这并不是一个问题，不过确实会弹出警告。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              最后确认一次，是否正确设置了 <code class="envar">LFS</code> 环境变量：
+            </p>
+            <pre class="userinput">
+<kbd class="command">echo $LFS</kbd>
+</pre>
+            <p>
+              确认输出显示的是 LFS 分区挂载点的路径，在我们的例子中，也就是 <code class=
+              "filename">/mnt/lfs</code>。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              最后，有两个重要事项必须强调：
+            </p>
+            <div class="admon important">
+              <img alt="[重要]" src="../images/important.png" />
+              <h3>
+                重要
+              </h3>
+              <p>
+                编译指南假定你已经正确地设置了 <a class="xref" href=
+                "../chapter02/hostreqs.html" title=
+                "2.2.&nbsp;宿主系统要求">宿主系统要求</a> 和符号链接：
+              </p>
+              <div class="itemizedlist">
+                <ul>
+                  <li class="listitem">
+                    <p>
+                      shell 使用的是 <span class=
+                      "command"><strong>bash</strong></span>
+                    </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+                      <span class="command"><strong>sh</strong></span> 是到
+                      <span class="command"><strong>bash</strong></span>
+                      的符号链接。
+                    </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+                      <span class=
+                      "command"><strong>/usr/bin/awk</strong></span> 是到
+                      <span class="command"><strong>gawk</strong></span>
+                      的符号链接。
+                    </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+                      <span class=
+                      "command"><strong>/usr/bin/yacc</strong></span> 是到
+                      <span class="command"><strong>bison</strong></span>
+                      的符号链接，或者是一个执行 bison 的小脚本。
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="admon important">
+              <img alt="[重要]" src="../images/important.png" />
+              <h3>
+                重要
+              </h3>
+              <p>
+                再次强调构建的过程：
+              </p>
+              <div class="orderedlist">
+                <ol class="compact">
+                  <li class="listitem">
+                    <p>
+                      把所有源文件和补丁放到 chroot 环境可访问的目录，例如 <code class=
+                      "filename">/mnt/lfs/sources/</code>。但是千万<span class=
+                      "emphasis"><em>不能</em></span>把源文件放在 <code class=
+                      "filename">/mnt/lfs/tools/</code> 中。
+                    </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+                      进入到源文件目录。
+                    </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+                      <a id="buildinstr" name="buildinstr"></a>对于每个软件包：
+                    </p>
+                    <div class="orderedlist">
+                      <ol class="compact">
+                        <li class="listitem">
+                          <p>
+                            用 <span class=
+                            "command"><strong>tar</strong></span>
+                            程序解压要编译的软件包。在第五章中，确保解压软件包时你使用的是 <span class=
+                            "emphasis"><em>lfs</em></span> 用户。
+                          </p>
+                        </li>
+                        <li class="listitem">
+                          <p>
+                            进入到解压后创建的目录中。
+                          </p>
+                        </li>
+                        <li class="listitem">
+                          <p>
+                            根据指南说明编译软件包。
+                          </p>
+                        </li>
+                        <li class="listitem">
+                          <p>
+                            回退到源文件目录。
+                          </p>
+                        </li>
+                        <li class="listitem">
+                          <p>
+                            除非特别说明，删除解压出来的目录。
+                          </p>
+                        </li>
+                      </ol>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="toolchaintechnotes.html" title=
+          "工具链技术说明">上一页</a>
+          <p>
+            工具链技术说明
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="binutils-pass1.html" title=
+          "Binutils-2.32 - 第 1 遍">下一页</a>
+          <p>
+            Binutils-2.32 - 第 1 遍
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

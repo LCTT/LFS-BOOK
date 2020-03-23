@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      第&nbsp;5&nbsp;章&nbsp;构建临时系统
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        部分&nbsp;II.&nbsp;准备构建
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="../chapter04/abouttestsuites.html" title=
+          "关于测试套件">上一页</a>
+          <p>
+            关于测试套件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="introduction.html" title="简介">下一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="../part2.html" title=
+          "部分&nbsp;II.&nbsp;准备构建">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="chapter" lang="zh" xml:lang="zh">
+      <h1 class="chapter">
+        <a id="chapter-temporary-tools" name="chapter-temporary-tools"></a>5.
+        构建临时系统
+      </h1>
+      <div class="toc">
+        <h3>
+          目录
+        </h3>
+        <ul>
+          <li class="sect1">
+            <a href="introduction.html">简介</a>
+          </li>
+          <li class="sect1">
+            <a href="toolchaintechnotes.html">工具链技术说明</a>
+          </li>
+          <li class="sect1">
+            <a href="generalinstructions.html">通用编译指南</a>
+          </li>
+          <li class="sect1">
+            <a href="binutils-pass1.html">Binutils-2.32 - 第 1 遍</a>
+          </li>
+          <li class="sect1">
+            <a href="gcc-pass1.html">GCC-9.2.0 - 第 1 遍</a>
+          </li>
+          <li class="sect1">
+            <a href="linux-headers.html">Linux-5.2.8 API 头文件</a>
+          </li>
+          <li class="sect1">
+            <a href="glibc.html">Glibc-2.30</a>
+          </li>
+          <li class="sect1">
+            <a href="gcc-libstdc++.html">GCC-9.2.0 中的 Libstdc++</a>
+          </li>
+          <li class="sect1">
+            <a href="binutils-pass2.html">Binutils-2.32 - 第 2 遍</a>
+          </li>
+          <li class="sect1">
+            <a href="gcc-pass2.html">GCC-9.2.0 - 第 2 遍</a>
+          </li>
+          <li class="sect1">
+            <a href="tcl.html">Tcl-8.6.9</a>
+          </li>
+          <li class="sect1">
+            <a href="expect.html">Expect-5.45.4</a>
+          </li>
+          <li class="sect1">
+            <a href="dejagnu.html">DejaGNU-1.6.2</a>
+          </li>
+          <li class="sect1">
+            <a href="m4.html">M4-1.4.18</a>
+          </li>
+          <li class="sect1">
+            <a href="ncurses.html">Ncurses-6.1</a>
+          </li>
+          <li class="sect1">
+            <a href="bash.html">Bash-5.0</a>
+          </li>
+          <li class="sect1">
+            <a href="bison.html">Bison-3.4.1</a>
+          </li>
+          <li class="sect1">
+            <a href="bzip2.html">Bzip2-1.0.8</a>
+          </li>
+          <li class="sect1">
+            <a href="coreutils.html">Coreutils-8.31</a>
+          </li>
+          <li class="sect1">
+            <a href="diffutils.html">Diffutils-3.7</a>
+          </li>
+          <li class="sect1">
+            <a href="file.html">File-5.37</a>
+          </li>
+          <li class="sect1">
+            <a href="findutils.html">Findutils-4.6.0</a>
+          </li>
+          <li class="sect1">
+            <a href="gawk.html">Gawk-5.0.1</a>
+          </li>
+          <li class="sect1">
+            <a href="gettext.html">Gettext-0.20.1</a>
+          </li>
+          <li class="sect1">
+            <a href="grep.html">Grep-3.3</a>
+          </li>
+          <li class="sect1">
+            <a href="gzip.html">Gzip-1.10</a>
+          </li>
+          <li class="sect1">
+            <a href="make.html">Make-4.2.1</a>
+          </li>
+          <li class="sect1">
+            <a href="patch.html">Patch-2.7.6</a>
+          </li>
+          <li class="sect1">
+            <a href="perl.html">Perl-5.30.0</a>
+          </li>
+          <li class="sect1">
+            <a href="Python.html">Python-3.7.4</a>
+          </li>
+          <li class="sect1">
+            <a href="sed.html">Sed-4.7</a>
+          </li>
+          <li class="sect1">
+            <a href="tar.html">Tar-1.32</a>
+          </li>
+          <li class="sect1">
+            <a href="texinfo.html">Texinfo-6.6</a>
+          </li>
+          <li class="sect1">
+            <a href="util-linux.html">Util-linux-2.34</a>
+          </li>
+          <li class="sect1">
+            <a href="xz.html">Xz-5.2.4</a>
+          </li>
+          <li class="sect1">
+            <a href="stripping.html">清理无用内容</a>
+          </li>
+          <li class="sect1">
+            <a href="changingowner.html">改变属主</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="../chapter04/abouttestsuites.html" title=
+          "关于测试套件">上一页</a>
+          <p>
+            关于测试套件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="introduction.html" title="简介">下一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="../part2.html" title=
+          "部分&nbsp;II.&nbsp;准备构建">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

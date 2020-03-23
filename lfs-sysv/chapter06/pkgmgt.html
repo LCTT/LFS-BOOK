@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.3.&nbsp;软件包管理
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="kernfs.html" title="准备虚拟内核文件系统">上一页</a>
+          <p>
+            准备虚拟内核文件系统
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="chroot.html" title="进入 Chroot 环境">下一页</a>
+          <p>
+            进入 Chroot 环境
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-pkgmgt" name="ch-system-pkgmgt"></a>6.3. 软件包管理
+      </h1>
+      <p>
+        软件包管理经常被请求加入到 LFS
+        手册中。软件包管理器可以追踪安装的文件，方便软件包的移除和升级。不仅是二进制执行文件和库文件，包管理器还会处理配置文件的安装。在你想太多之前，答案是不——本节不讨论也不安利任何特定的软件包管理器，只是总结了一下关于软件包管理的常用技术和工作原理。对你而言最完美的软件包管理器可能就在这些技术之中，也可能由这些技术的其中几个组合而成。本节还简要的提了一些在升级软件包时可能遇到的问题。
+      </p>
+      <p>
+        为什么 LFS 或 BLFS 手册里不采用任何软件包管理器的一些原因：
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              使用软件包管理偏离了本手册的主要目标——教大家 Linux 系统是如何构建出来的。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              存在很多软件包管理的解决方案，每一个都有自己的长处和缺点。很难选择一种适合所有人的方式。
+            </p>
+          </li>
+        </ul>
+      </div>
+      <p>
+        关于软件包管理有很多资料，可以访问 <a class="ulink" href=
+        "http://www.linuxfromscratch.org/hints/list.html">Hints Project</a>
+        看看是否可以解决你的需求。
+      </p>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.3.1. 升级问题
+        </h2>
+        <p>
+          软件包管理器可以在软件新版本发布后轻松升级。一般来说 LFS 和 BLFS
+          手册里的指令是可以用来升级版本。下面是一些在你准备升级软件包时需要注意的事情，特别是运行中系统需更加注意。
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                如果需要升级 Glibc 到新版本（比如，从 glibc-2.19 升级到 glibc-2.20），重新构建整个 LFS
+                会比较安全。虽然你 <span class="emphasis"><em>也许</em></span>
+                能够按依赖关系重新编译所有的软件包，不过我们不建议这样做。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                如果某个包含的动态库的软件包升级了，而且库名字有所改变，那么所有动态链接到这个库的软件包都需要重新链接新的库。（请注意软件包版本和库名字并不存在相关性）。举个例子，说软件包
+                foo-1.2.3 安装了一个叫 <code class="filename">libfoo.so.1</code>
+                的动态库。然后你将软件包升级到了新版本 foo-1.2.4 安装的动态库叫 <code class=
+                "filename">libfoo.so.2</code> 了。在这种情况下，所有动态链接到 <code class=
+                "filename">libfoo.so.1</code> 的软件包都需要重新编译链接到 <code class=
+                "filename">libfoo.so.2</code>。注意在所有依赖软件包重新编译完成之前，请勿删除之前的库文件。
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.3.2. 软件包管理技术
+        </h2>
+        <p>
+          下面介绍一些常见的软件包管理技巧。在决定用哪种包管理方式之前，先研究一下各种不同的技术，特别是某些方案的不足之处。
+        </p>
+        <div class="sect3">
+          <h3 class="sect3">
+            6.3.2.1. 所有一切都在我脑袋里！
+          </h3>
+          <p>
+            是的，这也算一种软件包管理技术。有些人觉得不需要管理软件包，是因为他们非常熟悉软件包，知道每个包都安装了哪些文件。也有些用户不需要管理软件包，是因为他们会在某个软件包有更改后重建整个系统。
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            6.3.2.2. 在独立目录里安装
+          </h3>
+          <p>
+            这是一种简单的软件包管理方式，不需要其他额外的软件来管理软件的安装。每一个软件包都被装到一个独立的目录里。例如，软件包
+            foo-1.1 安装到目录 <code class="filename">/usr/pkg/foo-1.1</code>
+            中并创建一个符号链接 <code class="filename">/usr/pkg/foo</code> 指向
+            <code class="filename">/usr/pkg/foo-1.1</code>。在安装新版本 foo-1.2
+            的时候，它会被装到目录 <code class="filename">/usr/pkg/foo-1.2</code>
+            中，然后用指向新版本的软链替代之前的符号链接。
+          </p>
+          <p>
+            类似 <code class="envar">PATH</code>、<code class=
+            "envar">LD_LIBRARY_PATH</code>、<code class=
+            "envar">MANPATH</code>、<code class="envar">INFOPATH</code> 和
+            <code class="envar">CPPFLAGS</code> 之类的环境变量变量需要包含 <code class=
+            "filename">/usr/pkg/foo</code> 目录。在管理大量软件包时，这种方式就不可行了。
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            6.3.2.3. 符号链接方式软件包管理
+          </h3>
+          <p>
+            这是前一种软件包管理技术的变种。每个软件包的安装方式都和之前的方式类似。但不是建立目录的符号链接，而是把每个文件都链接到
+            <code class="filename">/usr</code>
+            目录结构里。这样就不需要扩展环境变量了。通过自动创建这些可由用户自行创建的软链，许多软件包管理器就采用了这种方式进行管理的。其中比较流行的有
+            Stow、Epkg、Graft 和 Depot。
+          </p>
+          <p>
+            这种安装方式需要伪装，这样软件包会认为自己被装到了 <code class="filename">/usr</code>
+            目录下，而实际上它被装到了 <code class="filename">/usr/pkg</code>
+            目录下。在这种方式下，安装并不是一件琐碎的小事。例如，假如你准备安装一个软件包
+            libfoo-1.1。下面的指令可能不会正确地安装：
+          </p>
+          <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr/pkg/libfoo/1.1
+make
+make install</kbd>
+</pre>
+          <p>
+            安装本身倒是没有问题，但是可能一些依赖包不会像你期望的那样链接到 libfoo 库。如果你要编译一个链接 libfoo
+            的软件，你可能会注意到它实际上链接到的是 <code class=
+            "filename">/usr/pkg/libfoo/1.1/lib/libfoo.so.1</code> 而不是你所期望的
+            <code class="filename">/usr/lib/libfoo.so.1</code>。正确的方式是使用
+            <code class="envar">DESTDIR</code> 策略来伪装软件包的安装过程。这种方式需要像下面这样操作：
+          </p>
+          <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr
+make
+make DESTDIR=/usr/pkg/libfoo/1.1 install</kbd>
+</pre>
+          <p>
+            大多数软件包支持这种方式，但也有一些例外。对于不兼容的软件包，你可能需要自己手动安装，或许你会发现将这些有问题的包安装到
+            <code class="filename">/opt</code> 目录下会更简单些。
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            6.3.2.4. 基于时间戳
+          </h3>
+          <p>
+            在这种方式里，在安装之前会创建一个时间戳文件。在安装之后，用一行简单的 <span class=
+            "command"><strong>find</strong></span>
+            命令加上合适的参数就可以生成在时间戳文件创建之后所安装的所有文件列表。有一个采用这种方式的包管理器叫做 install-log。
+          </p>
+          <p>
+            这种方式的优点是非常简单，但是它有两个缺陷。比如，在安装过程中，所安装文件采用的是其它时间戳而不是当前时间，那这些文件将不能被软件包管理器跟踪到。还有，这种方式只能在一次安装一个软件包的情况下使用。如果在不同的终端里同时安装两个不同的软件包，此时的安装日志就不可靠了。
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            6.3.2.5. 追踪安装脚本
+          </h3>
+          <p>
+            在这种方式里，安装脚本所使用的命令都会被记录下来。有两种技术，一种是：
+          </p>
+          <p>
+            设定环境变量 <code class="envar">LD_PRELOAD</code>
+            指向一个在安装前预加载的库。在安装过程中，这个库会追踪软件包安装脚本里所包含的各种执行文件比如 <span class=
+            "command"><strong>cp</strong></span>、<span class=
+            "command"><strong>install</strong></span>、<span class=
+            "command"><strong>mv</strong></span>，以及追踪会修改文件系统的系统调用。要让这种方式有效的话，所有的执行文件需要动态链接到没有
+            suid 或 sgid
+            标志位的库。预加载这个库可能会引起安装过程中一些意外的副作用。因此，建议做一些测试以保证软件包管理器不会造成破坏并且记录了所有适当的文件。
+          </p>
+          <p>
+            第二种技术是使用 <span class="command"><strong>strace</strong></span>
+            命令，它会记录下安装脚本执行过程中所有的系统调用。
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            6.3.2.6. 创建软件包存档
+          </h3>
+          <p>
+            在这种方式里，像之前的符号链接软件包管理方式里所描述的那样，软件包被伪装安装到一个独立的目录树里。在安装完成后，会将已安装文件打包成一个软件包存档。然后这个存档会用来在本地机器或其他机器上安装软件包。
+          </p>
+          <p>
+            这种方式为商业发行版中的大多数包管理器所采用。例子有 RPM（顺带提一下，这也是 <a class="ulink" href=
+            "http://refspecs.linuxfoundation.org/lsb.shtml">Linux 标准规范</a>
+            中指定的包管理器），pkg-utils，Debian 的 apt，和 Gentoo 的 Portage 系统。如何在 LFS
+            系统里采用这种包管理方式的简单描述，请参看 <a class="ulink" href=
+            "http://www.linuxfromscratch.org/hints/downloads/files/fakeroot.txt">
+            http://www.linuxfromscratch.org/hints/downloads/files/fakeroot.txt</a>.
+          </p>
+          <p>
+            创建带有依赖关系的软件包存档非常复杂，已经超出 LFS 手册范围了。
+          </p>
+          <p>
+            Slackware 使用一个基于 <span class=
+            "command"><strong>tar</strong></span>
+            的系统来创建软件包存档。这套系统不像那些更复杂的包管理器，有意地不处理包依赖关系。关于 Slackware
+            包管理器的详细信息，请参看 <a class="ulink" href=
+            "http://www.slackbook.org/html/package-management.html">http://www.slackbook.org/html/package-management.html</a>。
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            6.3.2.7. 基于用户的软件包管理
+          </h3>
+          <p>
+            这种方式，是 LFS 特有的，由 Matthias Benkmann 所设计，可以在 <a class="ulink" href=
+            "http://www.linuxfromscratch.org/hints/list.html">Hints
+            Project</a> 中能找到。在这种方式里，每个软件包都由一个单独的用户安装到标准的位置。文件属于某个软件包可以通过检查用户
+            ID 轻松识别出来。关于这种方式的利弊比较复杂，就不再本节中赘述了。详细的信息请参看 <a class="ulink" href=
+            "http://www.linuxfromscratch.org/hints/downloads/files/more_control_and_pkg_man.txt">
+            http://www.linuxfromscratch.org/hints/downloads/files/more_control_and_pkg_man.txt</a>。
+          </p>
+        </div>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.3.3. 在多个系统上部署 LFS
+        </h2>
+        <p>
+          LFS 系统的一个优点是没有那种需要依赖其在磁盘系统中的位置的文件。克隆一份 LFS
+          到和宿主机器相似配置的机器上，简单到只要对包含根目录的 LFS 分区（对于一个基本的 LFS 构建不压缩的话大概有 250MB）使用
+          <span class="command"><strong>tar</strong></span>
+          命令打包，然后通过网络传输或光盘拷贝到新机器上展开即可。在这之后，需要调整一些配置文件。需要更新的配置文件包括：
+          <code class="filename">/etc/hosts</code>, <code class=
+          "filename">/etc/fstab</code>, <code class=
+          "filename">/etc/passwd</code>, <code class=
+          "filename">/etc/group</code>, <span class="phrase"><code class=
+          "filename">/etc/shadow</code>, <code class=
+          "filename">/etc/ld.so.conf</code>, <code class=
+          "filename">/etc/sysconfig/rc.site</code>, <code class=
+          "filename">/etc/sysconfig/network</code>, 和 <code class=
+          "filename">/etc/sysconfig/ifconfig.eth0</code>。</span>
+        </p>
+        <p>
+          根据系统硬件和原始内核配置文件的差异，可能还需要重新编译一下内核。
+        </p>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            据报告，当这样的复制发生在两个相近却又不完全相同的架构时会发生问题。例如，Intel 系统的指令集就和 AMD
+            处理器的不同，还有一些较新版的处理器可能会有一些在较早版本中不能支持的指令。
+          </p>
+        </div>
+        <p>
+          最后，通过 <a class="xref" href="../chapter08/grub.html" title=
+          "8.4.&nbsp;使用 GRUB 设置启动过程">第 8.4 节 「使用 GRUB 设置启动过程」</a>
+          中介绍的方法来使新系统可以引导。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="kernfs.html" title="准备虚拟内核文件系统">上一页</a>
+          <p>
+            准备虚拟内核文件系统
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="chroot.html" title="进入 Chroot 环境">下一页</a>
+          <p>
+            进入 Chroot 环境
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

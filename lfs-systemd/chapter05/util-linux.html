@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.34.&nbsp;Util-linux-2.34
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="texinfo.html" title="Texinfo-6.6">上一页</a>
+          <p>
+            Texinfo-6.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="xz.html" title="Xz-5.2.4">下一页</a>
+          <p>
+            Xz-5.2.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-util-linux" name="ch-tools-util-linux"></a>5.34.
+        Util-linux-2.34
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Util-linux 软件包包含了各种各样的小工具。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">147 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          5.34.1. 安装 Util-linux
+        </h2>
+        <p>
+          配置 Util-linux 准备编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/tools                \
+            --without-python               \
+            --disable-makeinstall-chown    \
+            --without-systemdsystemunitdir \
+            --without-ncurses              \
+            PKG_CONFIG=""</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置脚本参数的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-python</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项会禁止使用宿主系统中可能安装了的 <span class=
+                "application">Python</span>。这样可以避免构建一些不必要的捆绑应用。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-makeinstall-chown</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项会禁止在安装的时候使用 <span class=
+                "command"><strong>chown</strong></span> 命令。这对我们安装到 /tools
+                目录没有意义而且可以避免使用 root 用户安装。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-ncurses</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项会禁止在构建的过程中使用 ncurses 库。在往 /tools 目录安装时没有必要使用 ncurses
+                库，而且这样做还能避免一些宿主发行版带来的问题。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-systemdsystemunitdir</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                对于使用 systemd 的系统，这个软件包会尝试安装 systemd 特定文件到 /tools
+                下一个不存在的目录里。这个选项可以避免这个不必要的动作。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><code class=
+              "envar">PKG_CONFIG=""</code></span>
+            </dt>
+            <dd>
+              <p>
+                设定这个环境变量可以避免增加一些宿主机上存在却不必要的功能。请注意这里设定环境变量的方式和 LFS
+                其他部分放在命令前面的方式不同。在这里是为了展示一下使用 configure 脚本配置时设定环境变量的另一种方式。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <p>
+          关于这个软件包的详细资料请参见： <a class="xref" href=
+          "../chapter06/util-linux.html#contents-utillinux" title=
+          "6.75.3.&nbsp;Util-linux 软件包内容">第 6.75.3 节 「Util-linux 软件包内容」</a>。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="texinfo.html" title="Texinfo-6.6">上一页</a>
+          <p>
+            Texinfo-6.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="xz.html" title="Xz-5.2.4">下一页</a>
+          <p>
+            Xz-5.2.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

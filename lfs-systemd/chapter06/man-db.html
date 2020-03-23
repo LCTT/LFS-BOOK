@@ -1,0 +1,728 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.68.&nbsp;Man-DB-2.8.6.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="patch.html" title="Patch-2.7.6">上一页</a>
+          <p>
+            Patch-2.7.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="tar.html" title="Tar-1.32">下一页</a>
+          <p>
+            Tar-1.32
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-man-db" name="ch-system-man-db"></a>6.68.
+        Man-DB-2.8.6.1
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Man-DB 软件包包含用于查找和查看 man 页面的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.4 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">38 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.68.1. 安装 Man-DB
+        </h2>
+        <p>
+          准备编译 Man-DB：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i '/find/s@/usr@@' init/systemd/man-db.service.in
+
+./configure --prefix=/usr                        \
+            --docdir=/usr/share/doc/man-db-2.8.6.1 \
+            --sysconfdir=/etc                    \
+            --disable-setuid                     \
+            --enable-cache-owner=bin             \
+            --with-browser=/usr/bin/lynx         \
+            --with-vgrind=/usr/bin/vgrind        \
+            --with-grap=/usr/bin/grap</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><span class="command"><strong>sed -i
+              '/find/s@/usr@@'
+              init/systemd/man-db.service.in</strong></span></span>
+            </dt>
+            <dd>
+              <p>
+                将硬编码路径更改为安装在 <code class="filename">/bin</code> 中的
+                <span class="command"><strong>find</strong></span> 实用程序。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-setuid</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                为用户 <span class="command"><strong>man</strong></span> 禁止
+                <code class="systemitem">man</code>.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-cache-owner=bin</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                用于将系统范围内的 cache 文件的拥有者设置为 bin 用户。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-...</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这些参数用于设置一些默认程序。<span class=
+                "command"><strong>lynx</strong></span> 是一个基于文本的网络浏览器（查看 BLFS
+                获取安装指令），<span class="command"><strong>vgrind</strong></span>
+                将程序源码转换为 Groff 输入，<span class=
+                "command"><strong>grap</strong></span> 在 Groof
+                文档排版图中非常有用。查看手册页通常并不需要 <span class=
+                "command"><strong>vgrind</strong></span> 和 <span class=
+                "command"><strong>grap</strong></span> 程序。它们并不是 LFS 或 BLFS
+                的一部分，但是如果需要的话你自己应该能够在完成 LFS 之后安装它们。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.68.2. LFS 中的非英语手册页
+        </h2>
+        <p>
+          下面的表格显示了 Man-DB 假定手册页安装到 <code class=
+          "filename">/usr/share/man/&lt;ll&gt;</code> 会使用的字符编码。除此之外，Man-DB
+          能正确判断安装到该目录的手册页是否采用 UTF-8 编码。
+        </p>
+        <div class="table">
+          <a id="idm45713277388784" name="idm45713277388784"></a>
+          <p class="title">
+            <strong>表&nbsp;6.1.&nbsp;传统 8 位手册页预期字符编码</strong>
+          </p>
+          <div class="table-contents">
+            <table summary="传统 8 位手册页预期字符编码" border="1">
+              <colgroup>
+                <col width="1.5in" />
+                <col width="1in" />
+                <col width="2.5in" />
+                <col width="1in" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>
+                    语言 (缩写)
+                  </th>
+                  <th>
+                    编码
+                  </th>
+                  <th>
+                    语言 (缩写)
+                  </th>
+                  <th>
+                    编码
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Danish (da)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Croatian (hr)
+                  </td>
+                  <td>
+                    ISO-8859-2
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    German (de)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Hungarian (hu)
+                  </td>
+                  <td>
+                    ISO-8859-2
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    English (en)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Japanese (ja)
+                  </td>
+                  <td>
+                    EUC-JP
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Spanish (es)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Korean (ko)
+                  </td>
+                  <td>
+                    EUC-KR
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Estonian (et)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Lithuanian (lt)
+                  </td>
+                  <td>
+                    ISO-8859-13
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Finnish (fi)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Latvian (lv)
+                  </td>
+                  <td>
+                    ISO-8859-13
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    French (fr)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Macedonian (mk)
+                  </td>
+                  <td>
+                    ISO-8859-5
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Irish (ga)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Polish (pl)
+                  </td>
+                  <td>
+                    ISO-8859-2
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Galician (gl)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Romanian (ro)
+                  </td>
+                  <td>
+                    ISO-8859-2
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Indonesian (id)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Russian (ru)
+                  </td>
+                  <td>
+                    KOI8-R
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Icelandic (is)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Slovak (sk)
+                  </td>
+                  <td>
+                    ISO-8859-2
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Italian (it)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Slovenian (sl)
+                  </td>
+                  <td>
+                    ISO-8859-2
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Norwegian Bokmal (nb)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Serbian Latin (sr@latin)
+                  </td>
+                  <td>
+                    ISO-8859-2
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Dutch (nl)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Serbian (sr)
+                  </td>
+                  <td>
+                    ISO-8859-5
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Norwegian Nynorsk (nn)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Turkish (tr)
+                  </td>
+                  <td>
+                    ISO-8859-9
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Norwegian (no)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Ukrainian (uk)
+                  </td>
+                  <td>
+                    KOI8-U
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Portuguese (pt)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Vietnamese (vi)
+                  </td>
+                  <td>
+                    TCVN5712-1
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Swedish (sv)
+                  </td>
+                  <td>
+                    ISO-8859-1
+                  </td>
+                  <td>
+                    Simplified Chinese (zh_CN)
+                  </td>
+                  <td>
+                    GBK
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Belarusian (be)
+                  </td>
+                  <td>
+                    CP1251
+                  </td>
+                  <td>
+                    Simplified Chinese, Singapore (zh_SG)
+                  </td>
+                  <td>
+                    GBK
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Bulgarian (bg)
+                  </td>
+                  <td>
+                    CP1251
+                  </td>
+                  <td>
+                    Traditional Chinese, Hong Kong (zh_HK)
+                  </td>
+                  <td>
+                    BIG5HKSCS
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Czech (cs)
+                  </td>
+                  <td>
+                    ISO-8859-2
+                  </td>
+                  <td>
+                    Traditional Chinese (zh_TW)
+                  </td>
+                  <td>
+                    BIG5
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Greek (el)
+                  </td>
+                  <td>
+                    ISO-8859-7
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div><br class="table-break" />
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            手册页不支持不在列表中的语言。
+          </p>
+        </div>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-man-db" name="contents-man-db"></a>6.68.3. Man-DB
+          软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">accessdb, apropos (链接到 whatis), catman, lexgrog, man,
+              mandb, manpath, 和 whatis</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libman.so 和 libmandb.so (都位于 /usr/lib/man-db)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/lib/man-db, /usr/libexec/man-db, 和
+              /usr/share/doc/man-db-2.8.6.1</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="accessdb" name="accessdb"></a><span class=
+                    "term"><span class=
+                    "command"><strong>accessdb</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以人类可读形式转储 <span class=
+                    "command"><strong>whatis</strong></span> 数据库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="apropos" name="apropos"></a><span class=
+                    "term"><span class=
+                    "command"><strong>apropos</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    查询 <span class="command"><strong>whatis</strong></span>
+                    数据库并显示包含指定字符串的系统命令的简要介绍
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="catman" name="catman"></a><span class=
+                    "term"><span class=
+                    "command"><strong>catman</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建或更新预格式化手册页
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lexgrog" name="lexgrog"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lexgrog</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示指定手册页的一行概要信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="man" name="man"></a><span class=
+                    "term"><span class="command"><strong>man</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    格式化并显示要求的手册页
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mandb" name="mandb"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mandb</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建或更新 <span class=
+                    "command"><strong>whatis</strong></span> 数据库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="manpath" name="manpath"></a><span class=
+                    "term"><span class=
+                    "command"><strong>manpath</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    基于 man.conf 中的设置和用户环境显示 $MANPATH 或 (如果没有设置 $MANPATH)
+                    合适的搜索路径的内容
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="whatis" name="whatis"></a><span class=
+                    "term"><span class=
+                    "command"><strong>whatis</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    查询 <span class="command"><strong>whatis</strong></span>
+                    数据库并显示包含以给定关键字为独立字的系统命令的简要介绍
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libman" name="libman"></a><span class=
+                    "term"><code class="filename">libman</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含 <span class="command"><strong>man</strong></span>
+                    的运行时支持
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libmandb" name="libmandb"></a><span class=
+                    "term"><code class="filename">libmandb</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含 <span class="command"><strong>man</strong></span>
+                    的运行时支持
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="patch.html" title="Patch-2.7.6">上一页</a>
+          <p>
+            Patch-2.7.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="tar.html" title="Tar-1.32">下一页</a>
+          <p>
+            Tar-1.32
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

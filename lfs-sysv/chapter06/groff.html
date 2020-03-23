@@ -1,0 +1,851 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.59.&nbsp;Groff-1.22.4
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="findutils.html" title=
+          "Findutils-4.6.0">上一页</a>
+          <p>
+            Findutils-4.6.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grub.html" title="GRUB-2.04">下一页</a>
+          <p>
+            GRUB-2.04
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-groff" name="ch-system-groff"></a>6.59. Groff-1.22.4
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Groff 软件包包含用于处理和格式化文本的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.5 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">95 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.59.1. 安装 Groff
+        </h2>
+        <p>
+          Groff 希望环境变量 <code class="envar">PAGE</code> 包含默认的页面大小，对于美国的用户，为
+          <em class=
+          "parameter"><code>PAGE=letter</code></em>，对于其它地方，<em class=
+          "parameter"><code>PAGE=A4</code></em> 更合适。尽管在编译的时候配置了默认页面大小，后面通过
+          echo「A4」或「letter」到 <code class="filename">/etc/papersize</code>
+          文件仍然可以修改。
+        </p>
+        <p>
+          准备编译 Groff：
+        </p>
+        <pre class="userinput">
+<kbd class="command">PAGE=<em class=
+"replaceable"><code>&lt;paper_size&gt;</code></em> ./configure --prefix=/usr</kbd>
+</pre>
+        <p>
+          该软件不支持并行构建。编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make -j1</kbd>
+</pre>
+        <p>
+          该软件包没有测试套具。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-groff" name="contents-groff"></a>6.59.2. Groff
+          软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">addftinfo, afmtodit, chem, eqn, eqn2graph, gdiffmk,
+              glilypond, gperl, gpinyin, grap2graph, grn, grodvi, groff,
+              groffer, grog, grolbp, grolj4, gropdf, grops, grotty, hpftodit,
+              indxbib, lkbib, lookbib, mmroff, neqn, nroff, pdfmom, pdfroff,
+              pfbtops, pic, pic2graph, post-grohtml, preconv, pre-grohtml,
+              refer, roff2dvi, roff2html, roff2pdf, roff2ps, roff2text,
+              roff2x, soelim, tbl, tfmtodit, 和 troff</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/lib/groff 和 /usr/share/doc/groff-1.22.4,
+              /usr/share/groff</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="addftinfo" name="addftinfo"></a><span class=
+                    "term"><span class=
+                    "command"><strong>addftinfo</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    读 troff 字体文件并添加一些额外的 <span class=
+                    "command"><strong>groff</strong></span> 系统使用的字体信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="afmtodit" name="afmtodit"></a><span class=
+                    "term"><span class=
+                    "command"><strong>afmtodit</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建用于和 <span class="command"><strong>groff</strong></span>
+                    以及 <span class="command"><strong>grops</strong></span>
+                    一起使用的字体文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chem" name="chem"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chem</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Gorff 预处理生成化学结构图
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="eqn" name="eqn"></a><span class=
+                    "term"><span class="command"><strong>eqn</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    编译嵌入了 troff 输入文件的方程的描述为 <span class=
+                    "command"><strong>troff</strong></span> 能理解的命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="eqn2graph" name="eqn2graph"></a><span class=
+                    "term"><span class=
+                    "command"><strong>eqn2graph</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 troff EQN （equation 方程）为裁剪图像
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gdiffmk" name="gdiffmk"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gdiffmk</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    标记 groff/nroff/troff 文件的差异
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="glilypond" name="glilypond"></a><span class=
+                    "term"><span class=
+                    "command"><strong>glilypond</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将 lilypond 语言写成的乐谱转换至 groff语言
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gperl" name="gperl"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gperl</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Groff 的预处理器，允许在 groff 中添加 perl 代码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gpinyin" name="gpinyin"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gpinyin</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Groff 的预处理器，允许在 groff 文件中添加类似欧洲语言的中文拼音。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grap2graph" name="grap2graph"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grap2graph</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 grap 图为裁剪位图图像
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grn" name="grn"></a><span class=
+                    "term"><span class="command"><strong>grn</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于 gremlin 文件的 <span class=
+                    "command"><strong>groff</strong></span> 预处理器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grodvi" name="grodvi"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grodvi</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    生成 TeX dvi 格式的 <span class=
+                    "command"><strong>groff</strong></span> 驱动
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="groff" name="groff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>groff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    groff 文档格式化系统前端；一般运行 <span class=
+                    "command"><strong>troff</strong></span> 程序和适合选定文件的后处理器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="groffer" name="groffer"></a><span class=
+                    "term"><span class=
+                    "command"><strong>groffer</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在 X 和 tty 终端显示 groff 文件以及 man 页面
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grog" name="grog"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grog</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    读文件并猜测打印文件需要的 <span class=
+                    "command"><strong>groff</strong></span> 选项 <code class=
+                    "option">-e</code>，<code class=
+                    "option">-man</code>，<code class=
+                    "option">-me</code>，<code class=
+                    "option">-mm</code>，<code class=
+                    "option">-ms</code>，<code class=
+                    "option">-p</code>，<code class="option">-s</code>,以及
+                    <code class="option">-t</code>，并报告包含这些选项的 <span class=
+                    "command"><strong>groff</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grolbp" name="grolbp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grolbp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于 Canon CAPSL 打印机（LBP-4 和 LBP-8 系列激光打印机） 的 <span class=
+                    "command"><strong>groff</strong></span> 驱动
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grolj4" name="grolj4"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grolj4</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    生成适合于 HP LaserJet 4 打印机的 PCL5 格式输出的 <span class=
+                    "command"><strong>groff</strong></span> 驱动
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gropdf" name="gropdf"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gropdf</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    翻译 GNU <span class=
+                    "command"><strong>troff</strong></span> 的输出至 PDF
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grops" name="grops"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grops</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 GNU <span class=
+                    "command"><strong>troff</strong></span> 输出为 PostScript
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grotty" name="grotty"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grotty</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 GNU <span class=
+                    "command"><strong>troff</strong></span> 输出为适合于打字机设备的格式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="hpftodit" name="hpftodit"></a><span class=
+                    "term"><span class=
+                    "command"><strong>hpftodit</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从 HP标签字体规格文件创建和 <span class="command"><strong>groff
+                    -Tlj4</strong></span> 一起使用的字体文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="indxbib" name="indxbib"></a><span class=
+                    "term"><span class=
+                    "command"><strong>indxbib</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用和 <span class=
+                    "command"><strong>refer</strong></span>，<span class=
+                    "command"><strong>lookbib</strong></span>, 以及
+                    <span class="command"><strong>lkbib</strong></span>
+                    一起使用的指定文件为文献数据库创建倒排索引
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lkbib" name="lkbib"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lkbib</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    搜索文献数据库中包含指定键的引用并报告找到的任何引用
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lookbib" name="lookbib"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lookbib</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在标准错误中输出提示（除非标准输入不是终端），从标准输入读取包含一系列关键字的行，在指定的文件中搜索文献数据库中包含那些关键字的引用，在标准输出中打印找到的任何引用，循环这些过程直到输入结束
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mmroff" name="mmroff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mmroff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>groff</strong></span>
+                    的简单预处理器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="neqn" name="neqn"></a><span class=
+                    "term"><span class=
+                    "command"><strong>neqn</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    为美国标准信息交换码（ASCII） 输出格式化方程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nroff" name="nroff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nroff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用 <span class="command"><strong>nroff</strong></span> 模仿
+                    <span class="command"><strong>groff</strong></span> 命令的脚本
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pdfmom" name="pdfmom"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pdfmom</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    groff 周围的封装，用于简化从带有 mom 宏的文件格式生成 PDF 文件的过程。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pdfroff" name="pdfroff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pdfroff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用 groff 创建 pdf 文档
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pfbtops" name="pfbtops"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pfbtops</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 <code class="filename">.pfb</code> 格式中的 PostScript 字体为
+                    ASCII
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pic" name="pic"></a><span class=
+                    "term"><span class="command"><strong>pic</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    编译嵌入了 troff 或 TeX 输入文件的图像的描述为 TeX 或 <span class=
+                    "command"><strong>troff</strong></span> 能理解的命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pic2graph" name="pic2graph"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pic2graph</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 PIC 图为裁剪图像
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="post-grohtml" name="post-grohtml"></a><span class=
+                    "term"><span class=
+                    "command"><strong>post-grohtml</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 GNU <span class=
+                    "command"><strong>troff</strong></span> 输出为 HTML
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="preconv" name="preconv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>preconv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换输入文件编码为 GNU <span class=
+                    "command"><strong>troff</strong></span> 能理解的编码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pre-grohtml" name="pre-grohtml"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pre-grohtml</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 GNU <span class=
+                    "command"><strong>troff</strong></span> 的输出为 HTML
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="refer" name="refer"></a><span class=
+                    "term"><span class=
+                    "command"><strong>refer</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    复制文件内容到标准输出，其中 <span class="emphasis"><em>.[</em></span>
+                    和 <span class="emphasis"><em>.]</em></span>
+                    之间的行解释为引用，<span class="emphasis"><em>.R1</em></span> 和
+                    <span class="emphasis"><em>.R2</em></span>
+                    之间的行解释为如何处理引用的命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="roff2dvi" name="roff2dvi"></a><span class=
+                    "term"><span class=
+                    "command"><strong>roff2dvi</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转化 roff 文件到 DVI 格式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="roff2html" name="roff2html"></a><span class=
+                    "term"><span class=
+                    "command"><strong>roff2html</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 roff 文件到 HTML 格式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="roff2pdf" name="roff2pdf"></a><span class=
+                    "term"><span class=
+                    "command"><strong>roff2pdf</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 roff 文件到 PDFs
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="roff2ps" name="roff2ps"></a><span class=
+                    "term"><span class=
+                    "command"><strong>roff2ps</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 roff 文件为 ps 文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="roff2text" name="roff2text"></a><span class=
+                    "term"><span class=
+                    "command"><strong>roff2text</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 roff 文件为文本文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="roff2x" name="roff2x"></a><span class=
+                    "term"><span class=
+                    "command"><strong>roff2x</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 roff 文件到其它格式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="soelim" name="soelim"></a><span class=
+                    "term"><span class=
+                    "command"><strong>soelim</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    读文件并用相应的 <span class="emphasis"><em>file</em></span> 内容替换
+                    <span class="emphasis"><em>.so file</em></span> 格式的行
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tbl" name="tbl"></a><span class=
+                    "term"><span class="command"><strong>tbl</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    编译嵌入了 troff 输入文件的表的描述为 <span class=
+                    "command"><strong>troff</strong></span> 能理解的命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tfmtodit" name="tfmtodit"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tfmtodit</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建和 <span class="command"><strong>groff
+                    -Tdvi</strong></span> 一起使用的字体文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="troff" name="troff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>troff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    和 Unix <span class=
+                    "command"><strong>troff</strong></span> 高度兼容；通常应该使用
+                    <span class="command"><strong>groff</strong></span>
+                    命令调用，它也会以恰当的顺序和选项运行预处理器和后处理器
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="findutils.html" title=
+          "Findutils-4.6.0">上一页</a>
+          <p>
+            Findutils-4.6.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grub.html" title="GRUB-2.04">下一页</a>
+          <p>
+            GRUB-2.04
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

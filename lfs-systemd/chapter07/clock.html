@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.5.&nbsp;配置系统时间
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="symlinks.html" title="设备管理">上一页</a>
+          <p>
+            设备管理
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="console.html" title="配置 Linux 控制台">下一页</a>
+          <p>
+            配置 Linux 控制台
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-clock" name="ch-scripts-clock"></a>7.5. 配置系统时间
+      </h1>
+      <p>
+        本节将会讨论如何配置 <span class=
+        "command"><strong>systemd-timedated</strong></span> 系统服务，包括配置系统时间和时区。
+      </p>
+      <p>
+        如果你不确定是否将硬件时钟设置为 UTC，可以通过 <strong class="userinput"><code>hwclock
+        --localtime --show</code></strong> 来查看。
+        这将根据硬件时钟显示当前的时间。如果显示的和手表的时间相同，应该是设置为本地时间了； 如果 <span class=
+        "command"><strong>hwclock</strong></span> 输出的时间不一致，应该是设置为 UTC
+        了。通过增减数小时，可以确定你所在时区。
+      </p>
+      <p>
+        <span class="command"><strong>systemd-timedated</strong></span> 读取
+        <code class="filename">/etc/adjtime</code>， 然后确定是本地时间还是 UTC 时间。
+      </p>
+      <p>
+        如果想要将硬件时钟设置为本地时间，使用以下命令建立 <code class="filename">/etc/adjtime</code>
+        ：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /etc/adjtime &lt;&lt; "EOF"
+<code class="literal">0.0 0 0.0
+0
+LOCAL</code>
+EOF</kbd>
+</pre>
+      <p>
+        如果第一次启动时 <code class="filename">/etc/adjtime</code> 文件不存在，
+        <span class="command"><strong>systemd-timedated</strong></span>
+        会认为硬件时钟设置成 UTC 并且以此调整该文件。
+      </p>
+      <p>
+        你也可以使用 <span class="command"><strong>timedatectl</strong></span>
+        程序来告诉 <span class="command"><strong>systemd-timedated</strong></span>
+        你的硬件时钟是 UTC 还是本地时间：
+      </p>
+      <pre class="userinput">
+<kbd class="command">timedatectl set-local-rtc 1</kbd>
+</pre>
+      <p>
+        <span class="command"><strong>timedatectl</strong></span>
+        也可以用来更改系统时间和时区。
+      </p>
+      <p>
+        要更改当前系统时间，使用下面的命令：
+      </p>
+      <pre class="userinput">
+<kbd class="command">timedatectl set-time YYYY-MM-DD HH:MM:SS</kbd>
+</pre>
+      <p>
+        硬件时钟也会相应更新。
+      </p>
+      <p>
+        要更改当前时区，使用下面命令：
+      </p>
+      <pre class="userinput">
+<kbd class="command">timedatectl set-timezone TIMEZONE</kbd>
+</pre>
+      <p>
+        你可以通过运行下面命令查看可用时区列表：
+      </p>
+      <pre class="userinput">
+<kbd class="command">timedatectl list-timezones</kbd>
+</pre>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          <span class="command"><strong>timedatectl</strong></span> 仅可用于
+          systemd 环境。
+        </p>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          7.5.1. 网络时间同步
+        </h2>
+        <p>
+          从版本号 213 的 systemd 开始，包括了一个名为 <span class=
+          "command"><strong>systemd-timesyncd</strong></span> 的守护进程，将能够和远程的
+          NTP 服务器同步时间。
+        </p>
+        <p>
+          此守护进程并不是为了取代已有的 NTP 服务，而是作为 SNTP 协议的实现客户端，它可用于更高级的任务和资源有限的系统。
+        </p>
+        <p>
+          从版本号 216 的 systemd 开始，<span class=
+          "command"><strong>systemd-timesyncd</strong></span>
+          守护进程默认启用，如果需要禁用，执行以下命令：
+        </p>
+        <pre class="userinput">
+<kbd class="command">systemctl disable systemd-timesyncd</kbd>
+</pre>
+        <p>
+          <span class="command"><strong>systemd-timesyncd</strong></span>
+          也可以通过配置 <code class="filename">/etc/systemd/timesyncd.conf</code>
+          文件同步更改 NTP 服务。
+        </p>
+        <p>
+          需要注意的是，当使用本地时间作为系统时间时，<span class=
+          "command"><strong>systemd-timesyncd</strong></span> 无法更新硬件时钟。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="symlinks.html" title="设备管理">上一页</a>
+          <p>
+            设备管理
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="console.html" title="配置 Linux 控制台">下一页</a>
+          <p>
+            配置 Linux 控制台
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

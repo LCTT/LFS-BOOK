@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      D.3.&nbsp;/etc/rc.d/init.d/mountvirtfs
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds02.html" title=
+          "/lib/lsb/init-functions">上一页</a>
+          <p>
+            /lib/lsb/init-functions
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds04.html" title=
+          "/etc/rc.d/init.d/modules">下一页</a>
+          <p>
+            /etc/rc.d/init.d/modules
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="mountvirtfs" name="mountvirtfs"></a>D.3.
+        /etc/rc.d/init.d/mountvirtfs
+      </h1>
+      <pre class="screen">
+#!/bin/sh
+########################################################################
+# Begin mountvirtfs
+#
+# Description : Mount proc, sysfs, and run
+#
+# Authors     : Gerard Beekmans - gerard@linuxfromscratch.org
+#               DJ Lucas - dj@linuxfromscratch.org
+# Update      : Bruce Dubbs - bdubbs@linuxfromscratch.org
+#
+# Version     : LFS 7.0
+#
+########################################################################
+
+### BEGIN INIT INFO
+# Provides:            mountvirtfs
+# Required-Start:
+# Should-Start:
+# Required-Stop:
+# Should-Stop:
+# Default-Start:       S
+# Default-Stop:
+# Short-Description:   Mounts /sys and /proc virtual (kernel) filesystems.
+#                      Mounts /run (tmpfs) and /dev (devtmpfs).
+# Description:         Mounts /sys and /proc virtual (kernel) filesystems.
+#                      Mounts /run (tmpfs) and /dev (devtmpfs).
+# X-LFS-Provided-By:   LFS
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+case "${1}" in
+   start)
+      # Make sure /run is available before logging any messages
+      if ! mountpoint /run &gt;/dev/null; then
+         mount /run || failed=1
+      fi
+
+      mkdir -p /run/lock /run/shm
+      chmod 1777 /run/shm /run/lock
+
+      log_info_msg "Mounting virtual file systems: ${INFO}/run" 
+
+      if ! mountpoint /proc &gt;/dev/null; then
+         log_info_msg2 " ${INFO}/proc"
+         mount -o nosuid,noexec,nodev /proc || failed=1
+      fi
+
+      if ! mountpoint /sys &gt;/dev/null; then
+         log_info_msg2 " ${INFO}/sys" 
+         mount -o nosuid,noexec,nodev /sys || failed=1
+      fi
+
+      if ! mountpoint /dev &gt;/dev/null; then
+         log_info_msg2 " ${INFO}/dev" 
+         mount -o mode=0755,nosuid /dev  || failed=1
+      fi
+
+      ln -sfn /run/shm /dev/shm
+      
+      (exit ${failed})
+      evaluate_retval
+      exit $failed
+      ;;
+
+   *)
+      echo "Usage: ${0} {start}"
+      exit 1
+      ;;
+esac
+
+# End mountvirtfs
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds02.html" title=
+          "/lib/lsb/init-functions">上一页</a>
+          <p>
+            /lib/lsb/init-functions
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds04.html" title=
+          "/etc/rc.d/init.d/modules">下一页</a>
+          <p>
+            /etc/rc.d/init.d/modules
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

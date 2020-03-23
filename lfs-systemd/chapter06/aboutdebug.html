@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.77.&nbsp;关于调试符号
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="e2fsprogs.html" title=
+          "E2fsprogs-1.45.3">上一页</a>
+          <p>
+            E2fsprogs-1.45.3
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="strippingagain.html" title=
+          "再次清理无用内容">下一页</a>
+          <p>
+            再次清理无用内容
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-aboutdebug" name="ch-system-aboutdebug"></a>6.77.
+        关于调试符号
+      </h1>
+      <p>
+        默认情况下大多数程序和库的编译带有调试符号。（类似 <span class=
+        "command"><strong>gcc</strong></span> 的 <em class=
+        "parameter"><code>-g</code></em>
+        选项。）这意味着当你调试一个包含调试信息的已编译的程序或库时，调试程序不仅能提供内存地址，还能提供变量和实例的名字。
+      </p>
+      <p>
+        然而，包含这些调试符号明显的增大了程序或库。下面这个例子说明了这些符号有多么占地方：
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              有调试符号的二进制 <span class=
+              "command"><strong>bash</strong></span>：1200 KB
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              无调试符号的二进制 <span class=
+              "command"><strong>bash</strong></span>：480 KB
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              有调试符号的 Glibc 和 GCC 文件（<code class="filename">/lib</code> 和
+              <code class="filename">/usr/lib</code>）：87 MB
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              无调试符号的 Glibc 和 GCC 文件：16 MB
+            </p>
+          </li>
+        </ul>
+      </div>
+      <p>
+        大小可能会因为所使用的编译器和 C 语言库的不同而改变，但是当比较有无调试符号的程序时，大小可能相差 2 到 5 倍。
+      </p>
+      <p>
+        因为大多数用户从来不会在他们的系统软件上使用调试器，没了这些调试符号可以省下很多磁盘空间。下一页将会告诉你如何剥离程序和库中所有的调试符号。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="e2fsprogs.html" title=
+          "E2fsprogs-1.45.3">上一页</a>
+          <p>
+            E2fsprogs-1.45.3
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="strippingagain.html" title=
+          "再次清理无用内容">下一页</a>
+          <p>
+            再次清理无用内容
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

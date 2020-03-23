@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.71.&nbsp;Vim-8.1.1846
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="texinfo.html" title="Texinfo-6.6">上一页</a>
+          <p>
+            Texinfo-6.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="procps-ng.html" title=
+          "Procps-ng-3.3.15">下一页</a>
+          <p>
+            Procps-ng-3.3.15
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-vim" name="ch-system-vim"></a>6.71. Vim-8.1.1846
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Vim 软件包包含了一个强大的文本编辑器。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">2.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">190 MB</span>
+            </div>
+          </div>
+        </div>
+        <div class="admon tip">
+          <img alt="[提示]" src="../images/tip.png" />
+          <h3>
+            Vim 的安装
+          </h3>
+          <p>
+            如果你钟情于其它的编辑器，比如 Emacs、Joe，或 Nano。请参考 <a class="ulink" href=
+            "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/editors.html">
+            http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/editors.html</a>
+            里的安装指导。
+          </p>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.71.1. Vim 的安装
+        </h2>
+        <p>
+          首先，把配置文件 <code class="filename">vimrc</code> 从默认位置移动到 <code class=
+          "filename">/etc</code>：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">echo '#define SYS_VIMRC_FILE "/etc/vimrc"' &gt;&gt; src/feature.h</kbd>
+</pre>
+        <p>
+          让 Vim 做好编译准备：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr</kbd>
+</pre>
+        <p>
+          编译安装包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          为测试做准备，确保 <code class="systemitem">nobody</code> 用户拥有源码目录的写权限：
+        </p>
+        <pre class="userinput">
+<kbd class="command">chown -Rv nobody .</kbd>
+</pre>
+        <p>
+          现在用用户 <code class="systemitem">nobody</code> 执行测试：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">su nobody -s /bin/bash -c "LANG=en_US.UTF-8 make -j1 test" &amp;&gt; vim-test.log</kbd>
+</pre>
+        <p>
+          这个测试套件会输出一堆二进制数据到屏幕上。这会导致当前设置下的终端出现问题。把输出重定向到一个日志文件就可以解决这个问题。测试成功的话就会输出「ALL
+          DONE」。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          许多用户习惯于使用 <span class="command"><strong>vi</strong></span> 而不是
+          <span class="command"><strong>vim</strong></span>。为了当人们在习惯性的输入
+          <span class="command"><strong>vi</strong></span> 时能执行 <span class=
+          "command"><strong>vim</strong></span>，需要给二进制文件和 man 页建立符号连接：
+        </p>
+        <pre class="userinput">
+<kbd class="command">ln -sv vim /usr/bin/vi
+for L in  /usr/share/man/{,*/}man1/vim.1; do
+    ln -sv vim.1 $(dirname $L)/vi.1
+done</kbd>
+</pre>
+        <p>
+          默认情况下，Vim 的说明文档被安装在 <code class="filename">/usr/share/vim</code>
+          里。下面的这个符号链接使得可以通过 <code class=
+          "filename">/usr/share/doc/vim-8.1.1846</code>
+          访问该文档，让它的位置与其它软件包的文档位置保持一致：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">ln -sv ../vim/vim81/doc /usr/share/doc/vim-8.1.1846</kbd>
+</pre>
+        <p>
+          如果要把一个 X Window 系统安装在 LFS 系统上，可能得在安装完 X 系统后再重新编译 Vim。Vim 带有一个 GUI
+          版本，这个版本需要安装 X 和一些额外的库。想了解更多信息，请参考 Vim 文档和 BLFS <a class="ulink"
+          href=
+          "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/vim.html">http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/vim.html</a>
+          中 Vim 安装指导页。
+        </p>
+      </div>
+      <div class="configuration" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="conf-vim" name="conf-vim"></a>6.71.2. 设置 Vim
+        </h2>
+        <p>
+          默认情况下，<span class="command"><strong>vim</strong></span> 是以不兼容 vi
+          的模式运行的。这对于过去使用其它编辑器的用户可能是个新问题。下面列出了「非兼容性」设置以突出显示使用的新特性。它也提醒着那些想换成「兼容」模式的人，这是配置文件里第一个该被设置的地方。这非常有必要，因为它会改变其它的设置，而且覆写必须在这个设置之后。以下面的方式，创建一个默认的
+          <span class="command"><strong>vim</strong></span> 配置文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cat &gt; /etc/vimrc &lt;&lt; "EOF"
+<code class="literal">" Begin /etc/vimrc
+
+" Ensure defaults are set before customizing settings, not after
+source $VIMRUNTIME/defaults.vim
+let skip_defaults_vim=1 
+
+set nocompatible
+set backspace=2
+set mouse=
+syntax on
+if (&amp;term == "xterm") || (&amp;term == "putty")
+  set background=dark
+endif
+
+" End /etc/vimrc</code>
+EOF</kbd>
+</pre>
+        <p>
+          设置 <em class="parameter"><code>set nocompatible</code></em> 让
+          <span class="command"><strong>vim</strong></span> 比 vi
+          兼容模式更有用。删掉「no」以保留旧的 <span class=
+          "command"><strong>vi</strong></span> 特性。设置 <em class=
+          "parameter"><code>set backspace=2</code></em>
+          让退格跨越换行、自动缩进和插入的开始。<em class="parameter"><code>syntax
+          on</code></em> 参数使 vim 能高亮显示语法。设置 <em class="parameter"><code>set
+          mouse</code></em> 让你能在 chroot 和远程连接的时候用鼠标粘帖文本。最后，带有 <em class=
+          "parameter"><code>set background=dark</code></em> 的 <span class=
+          "emphasis"><em>if</em></span> 语句矫正了 <span class=
+          "command"><strong>vim</strong></span>
+          对于某些终端模拟器的背景颜色的估算。这让某些写在黑色背景上的程序的高亮色能有更好的调色方案。
+        </p>
+        <p>
+          用下面的命令可以获得其它选项的文档：
+        </p>
+        <pre class="userinput">
+<kbd class="command">vim -c ':options'</kbd>
+</pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            默认情况下，Vim 只安装了英文的拼写检查文件。要想安装你想要的语言的拼写检查文件，请从 <a class="ulink"
+            href=
+            "ftp://ftp.vim.org/pub/vim/runtime/spell/">ftp://ftp.vim.org/pub/vim/runtime/spell/</a>
+            下载你所用语言的 <code class="filename">*.spl</code> 文件，可下可不下的
+            <code class="filename">*.sug</code> 文件和文字编码。并把它们保存到 <code class=
+            "filename">/usr/share/vim/vim81/spell/</code>。
+          </p>
+          <p>
+            要使用这些文件，需要设置 <code class="filename">/etc/vimrc</code> 里的某些项，例如：
+          </p>
+          <pre class="screen">
+<code class="literal">set spelllang=en,ru
+set spell</code>
+</pre>
+          <p>
+            想要了解更多信息，请阅读上方 URL 里对应 README 文件。
+          </p>
+        </div>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-vim" name="contents-vim"></a>6.71.3. Vim 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的软件:</strong> <span class=
+              "segbody">ex (链接到 vim), rview (链接到 vim), rvim (链接到 vim), vi
+              (链接到 vim), view (链接到 vim), vim, vimdiff (链接到 vim), vimtutor, 和
+              xxd</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/share/vim</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ex" name="ex"></a><span class="term"><span class=
+                    "command"><strong>ex</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以 ex 模式启动 <span class=
+                    "command"><strong>vim</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rview" name="rview"></a><span class=
+                    "term"><span class=
+                    "command"><strong>rview</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    是 <span class="command"><strong>view</strong></span>
+                    的一个受限版本；不能启动 shell 命令，而且 <span class=
+                    "command"><strong>view</strong></span> 无法暂停
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rvim" name="rvim"></a><span class=
+                    "term"><span class=
+                    "command"><strong>rvim</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    是 <span class="command"><strong>vim</strong></span>
+                    的一个受限版本；不能启动 shell 命令，而且 <span class=
+                    "command"><strong>vim</strong></span> 无法暂停
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="vi" name="vi"></a><span class="term"><span class=
+                    "command"><strong>vi</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    链接到 <span class="command"><strong>vim</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="view" name="view"></a><span class=
+                    "term"><span class=
+                    "command"><strong>view</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以只读模式启动 <span class="command"><strong>vim</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="vim" name="vim"></a><span class=
+                    "term"><span class="command"><strong>vim</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    就是这个编辑器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="vimdiff" name="vimdiff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>vimdiff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用 <span class="command"><strong>vim</strong></span>
+                    编辑一个文件的两到三个版本并显示它们的区别
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="vimtutor" name="vimtutor"></a><span class=
+                    "term"><span class=
+                    "command"><strong>vimtutor</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>vim</strong></span>
+                    基本热键和命令的教学
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xxd" name="xxd"></a><span class=
+                    "term"><span class="command"><strong>xxd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将给定文件进行十六进制转储，还可以还原；所以它可以被用于打二进制补丁
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="texinfo.html" title="Texinfo-6.6">上一页</a>
+          <p>
+            Texinfo-6.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="procps-ng.html" title=
+          "Procps-ng-3.3.15">下一页</a>
+          <p>
+            Procps-ng-3.3.15
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

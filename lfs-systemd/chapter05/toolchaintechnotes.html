@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.2.&nbsp;工具链技术说明
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="generalinstructions.html" title=
+          "通用编译指南">下一页</a>
+          <p>
+            通用编译指南
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-toolchaintechnotes" name=
+        "ch-tools-toolchaintechnotes"></a>5.2. 工具链技术说明
+      </h1>
+      <p>
+        这一节解释总体构建方法之中的某些基本原理和技术细节。本节中的所有问题并无需马上消化。在进行实际构建的过程中，绝大部分的信息会变得愈加清晰。过程中随时都可以查阅本小节的内容。
+      </p>
+      <p>
+        纵览 <a class="xref" href="chapter05.html" title=
+        "第&nbsp;5&nbsp;章&nbsp;构建临时系统">第 5 章</a>
+        的目标是生成一个临时的系统，这个系统中包含一个已知的较好工具集，并且工具集可以独立于宿主系统。通过使用 <span class=
+        "command"><strong>chroot</strong></span>，其余各章中的命令将被包含在此环境中，以保证目标 LFS
+        系统能够洁净且无故障地生成。该构建过程的设计就是为了使得新读者承担最少的风险，同时还能有最好的指导价值。
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          在继续前，请留心工作平台的名称，它时常被称为目标三元组。要确定目标三元组的名称有一个简单的法子，那就是运行许多软件包的源码附带的脚本
+          <span class="command"><strong>config.guess</strong></span>。解压
+          Binutils 的源码并运行脚本：<strong class=
+          "userinput"><code>./config.guess</code></strong>
+          并注意它的输出。举一个例子，Intel 的 32 位处理器输出会是 <span class=
+          "emphasis"><em>i686-pc-linux-gnu</em></span>。而在一个 64 位系统上，则会是
+          <span class="emphasis"><em>x86_64-pc-linux-gnu</em></span>。
+        </p>
+        <p>
+          也请留心平台的动态链接器的的名称，它时常被称为动态加载器（不要与 Binutils 中的标准链接器 <span class=
+          "command"><strong>ld</strong></span> 混为一谈）。动态链接器由 Glibc
+          提供，用于寻找和加载程序所需的共享库，为程序的运行做准备，以及运行程序。32 位的 Intel 机器，动态链接器的名称是
+          <code class="filename">ld-linux.so.2</code>（64 位系统则是 <code class=
+          "filename">ld-linux-x86-64.so.2</code>）。确定动态链接名的一个确定的方法，就是检查随机二进制文件，通过在宿主机运行：<strong class="userinput"><code>readelf
+          -l &lt;name of binary&gt; | grep interpreter</code></strong>
+          并注意它的输出。覆盖全平台的权威参考在 Glibc 源码树根目录的 <code class=
+          "filename">shlib-versions</code> 文件中。
+        </p>
+      </div>
+      <p>
+        下面是 <a class="xref" href="chapter05.html" title=
+        "第&nbsp;5&nbsp;章&nbsp;构建临时系统">第 5 章</a> 构建方法的几个关键技术点：
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              通过改变 <code class="envar">LFS_TGT</code>
+              变量的目标系统三段式中的「vendor（供应商）」字段，稍微调整一下工作平台的名称，以保证第一遍构建 Binutils 和
+              GCC
+              时能够生成兼容的交叉链接器和交叉编译器。此处的交叉链接器和交叉编译器生成的二进制文件与当前的硬件兼容，而不是用于其它的硬件架构。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              临时库经交叉编译获得。由于交叉编译原本就不应该依赖于宿主系统，因此，通过降低宿主系统的头文件或库进入新工具的可能性，该方法可去除目标系统中潜在的污染。交叉编译的方式，还可以在
+              64 位硬件平台上同时构建出 32 位和 64 位库。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              谨慎地操作 GCC 源码告诉编译器，哪个是即将被采用的目标动态链接器。
+            </p>
+          </li>
+        </ul>
+      </div>
+      <p>
+        Binutils 是首个安装的包，因为无论是执行 GCC 还是 Glibc 的 <span class=
+        "command"><strong>configure</strong></span>
+        时，都将围绕关汇编器和链接器实施多项特性测试，来判断哪些软件特性要启用或是禁用。其重要性可能更甚于你对它的第一印象。GCC 或 Glibc
+        的错误配置会导致工具链出现难以捉摸的问题，可能直到整个构建过程接近尾声时，这些问题才会显现出来。不过，通常情况下，在你进行大量的无用功之前，一次测试套件的失败便会将该错误高亮出来。
+      </p>
+      <p>
+        Binutils 将其汇编器和链接器安装在两处，<code class="filename">/tools/bin</code> 和
+        <code class=
+        "filename">/tools/$LFS_TGT/bin</code>。有一处的工具是另一处的硬链接。链接器的一个重要方面是它的库搜索顺序。可以给
+        <span class="command"><strong>ld</strong></span> 传递参数 <em class=
+        "parameter"><code>--verbose</code></em> 获取详细信息。例如，<strong class=
+        "userinput"><code>ld --verbose | grep SEARCH</code></strong>
+        将说明当前的搜索路径及其顺序。通过编译一个 dummy（假）程序并向链接器传递 <em class=
+        "parameter"><code>--verbose</code></em> 参数，可显示 <span class=
+        "command"><strong>ld</strong></span> 都链接了哪些文件。例如，<strong class=
+        "userinput"><code>gcc dummy.c -Wl,--verbose 2&gt;&amp;1 | grep
+        succeeded</code></strong> 将显示链接过程中成功打开的所有文件。
+      </p>
+      <p>
+        下一个安装的包是 GCC。下面便是运行 GCC 的 <span class=
+        "command"><strong>configure</strong></span> 的输出示例：
+      </p>
+      <pre class="screen">
+<code class=
+"computeroutput">checking what assembler to use... /tools/i686-lfs-linux-gnu/bin/as
+checking what linker to use... /tools/i686-lfs-linux-gnu/bin/ld</code>
+</pre>
+      <p>
+        基于上述原因，这很重要。这还说明了 GCC 的配置脚本并不会搜索 PATH 目录来寻找使用什么工具。不过，在 <span class=
+        "command"><strong>gcc</strong></span>
+        自身的实际运行中，并不需要使用同样的搜索路径。运行：<strong class="userinput"><code>gcc
+        -print-prog-name=ld</code></strong> 可获知 <span class=
+        "command"><strong>gcc</strong></span> 使用是何种标准链接器。
+      </p>
+      <p>
+        在编译 dummy（假）程序时，向 <span class="command"><strong>gcc</strong></span>
+        传递命令行选项 <em class="parameter"><code>-v</code></em>
+        可获得详细信息。例如，<strong class="userinput"><code>gcc -v
+        dummy.c</code></strong> 将显示预处理器、编译和汇编阶段的详细信息，包括 <span class=
+        "command"><strong>gcc</strong></span> 的 include 搜索路径及其顺序。
+      </p>
+      <p>
+        下一个安装的是经过净化的 Linux API 头文件。这些头文件可使得标准 C 库（Glibc）与 Linux
+        内核提供的特性进行交行交互。
+      </p>
+      <p>
+        下一个安装的软件包是 Glibc。构建 Glibc 时，最重要的几个注意点是编译器、二进制工具和内核头文件。编译器通常不成问题，因为
+        Glibc 将一直使用传递给它配置脚本的，有关 <em class=
+        "parameter"><code>--host</code></em> 参数的编译器。如，在我们的这个场景中，编译器就是
+        <span class=
+        "command"><strong>i686-lfs-linux-gnu-gcc</strong></span>。而二进制工具和内核头文件可能就要复杂一些了。因此，请不要冒险，并利用可用的配置开关来强制正确的选择。<span class="command"><strong>configure</strong></span>
+        运行完毕，目录 <code class="filename">glibc-build</code> 下的文件 <code class=
+        "filename">config.make</code> 包含有所有的重要细节。需要注意的是，<em class=
+        "parameter"><code>CC="i686-lfs-gnu-gcc"</code></em>
+        用来控制使用哪个二进制工具，<em class="parameter"><code>-nostdinc</code></em> 和
+        <em class="parameter"><code>-isystem</code></em> 标志用来控制编译器的 include
+        搜索路径。这些条目强调了 Glibc 包的一个重要方面，即其构建机制是非常自给自足的，通常并不依赖默工具链的默认设置。
+      </p>
+      <p>
+        在第二遍编译 Binutils 过程中，我们能够利用配置开关 <em class=
+        "parameter"><code>--with-lib-path</code></em> 来控制 <span class=
+        "command"><strong>ld</strong></span> 的库搜索路径。
+      </p>
+      <p>
+        第二遍编译 GCC 时，也需要修改其源代码，以告诉 GCC 使用新的动态链接器。如果不加修改，将导致 GCC
+        的自身程序中嵌入源自宿主系统目录 <code class="filename">/lib</code>
+        中的动态链接器，这违背了独立于宿主系统的目的。正是基于前面的这个出发点，核心工具链是自包含和自托管的。<a class="xref"
+        href="chapter05.html" title="第&nbsp;5&nbsp;章&nbsp;构建临时系统">第 5 章</a>
+        其它的软件包都将在 <code class="filename">/tools</code> 中的新 Glibc 的基础上进行构建。
+      </p>
+      <p>
+        在进入 <a class="xref" href="../chapter06/chapter06.html" title=
+        "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">第 6 章</a>中的 chroot 环境前，将安装的首个主要的软件包是
+        Glibc，这是因为它天生具有前面提及的自给自足特点。一旦将 Glibc 安装到 <code class=
+        "filename">/usr</code> 中，我们将快速改变工具链的默认设置，然后继续构建目标 LFS 系统的其余部分。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="generalinstructions.html" title=
+          "通用编译指南">下一页</a>
+          <p>
+            通用编译指南
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

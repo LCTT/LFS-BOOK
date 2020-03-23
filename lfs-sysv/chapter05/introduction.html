@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.1.&nbsp;简介
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter05.html" title="构建临时系统">上一页</a>
+          <p>
+            构建临时系统
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="toolchaintechnotes.html" title=
+          "工具链技术说明">下一页</a>
+          <p>
+            工具链技术说明
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-introduction" name="ch-tools-introduction"></a>5.1.
+        简介
+      </h1>
+      <p>
+        本章将向您展示如何构造一个最小的 Linux 系统。该系统将包含刚好足够构建 <a class="xref" href=
+        "../chapter06/chapter06.html" title=
+        "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">第 6 章</a> 中最终 LFS
+        系统所需的工具，以及一个比最小环境具有更好用户便利性的工作环境。
+      </p>
+      <p>
+        构建这个最小系统有两个步骤。第一步，是构建一个与宿主系统无关的新工具链（编译器、汇编器、链接器、库和一些有用的工具）。第二步则是使用该工具链，去构建其它的基础工具。
+      </p>
+      <p>
+        本章中编译得到的文件将被安装在目录 <code class="filename">$LFS/tools</code>
+        中，以确保在下一章中安装的文件和宿主系统生成的目录相互分离。由于此处编译的软件包都是临时性的，因此，我们不愿意它们污染后面即将构成的
+        LFS 系统。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter05.html" title="构建临时系统">上一页</a>
+          <p>
+            构建临时系统
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="toolchaintechnotes.html" title=
+          "工具链技术说明">下一页</a>
+          <p>
+            工具链技术说明
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

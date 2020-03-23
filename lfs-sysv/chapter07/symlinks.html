@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.4.&nbsp;设备管理
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="udev.html" title="设备与模块管理概述">上一页</a>
+          <p>
+            设备与模块管理概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="network.html" title="通用网络配置">下一页</a>
+          <p>
+            通用网络配置
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-symlinks" name="ch-scripts-symlinks"></a>7.4. 设备管理
+      </h1>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          7.4.1. 网络设备
+        </h2>
+        <p>
+          一般来说，udev 根据获取到的固件/BIOS 信息或者一些像总线号、插槽号或 MAC
+          地址等物理信息来命名网络设备。之所以采用这样的命名方式，是为了确保网络设备可以得到一个持久化的名称，且这个名称不会随着设备的发现时间而改变。例如，在一台同时拥有
+          Intel 网卡和 Realtek 网卡的双网卡计算机上，Intel 网卡可能会被命名为 eth0 而 Realtek
+          网卡可能会被命名为 eth1。在某些情况下，可能是一次重启使网卡重新编号了。
+        </p>
+        <p>
+          在持久化命名方式中，典型的网络设备名称看起来可能像 enp5s0 或者 wlp3s0
+          。如果你不希望采用这种命名方式，则还可以采用传统命名或者自定义的命名方式。
+        </p>
+        <div class="sect3">
+          <h3 class="sect3">
+            7.4.1.1. 在内核命令行上禁用持久命名
+          </h3>
+          <p>
+            可以在内核命令行上添加 <strong class=
+            "userinput"><code>net.ifnames=0</code></strong> 来恢复传统命名方式，采用
+            eth0、eth1 等来命名。这种命名方式对于那些网络设备类型唯一的系统最为合适。笔记本电脑通常拥有多个以太网连接，常被命名为
+            eth0 和 wlan0，也同样适用这种命名方法。可通过修改 GRUB 配置文件命令行。参见 <a class="xref"
+            href="../chapter08/grub.html#grub-cfg" title=
+            "8.4.4.&nbsp;创建 GRUB 配置文件">第 8.4.4 节 「创建 GRUB 配置文件」</a>。
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            7.4.1.2. 创建自定义 udev 规则
+          </h3>
+          <p>
+            可以通过创建自定义 udev 规则来改变网络设备命名方式。这里有一个脚本可以创建初始规则，运行：
+          </p>
+          <pre class="install">
+<kbd class="command">bash /lib/udev/init-net-rules.sh</kbd>
+</pre>
+          <p>
+            现在，可以检查 <code class=
+            "filename">/etc/udev/rules.d/70-persistent-net.rules</code> 文件,
+            来确定具体哪个名称配对了哪一个网络设备：
+          </p>
+          <pre class="userinput">
+<kbd class="command">cat /etc/udev/rules.d/70-persistent-net.rules</kbd>
+</pre>
+          <div class="admon note">
+            <img alt="[注意]" src="../images/note.png" />
+            <h3>
+              注意
+            </h3>
+            <p>
+              在某些特定情形下，如当一个 MAC 地址被手动指定给一个网卡或者如 Qemu 或 Xen
+              这样的虚拟环境时，可能并不会生成上述的网络规则文件。这是由于手动指定的 MAC
+              地址并不是永久固定的。在这种情况下，不能采用持久化命名方式来确定设备名称。
+            </p>
+          </div>
+          <p>
+            这个文件应由一个注释段落开头。之后每个网卡都对应有两行信息。第一行以注释形式描述了该网卡的硬件信息（如果是 PCI 网卡，还有其
+            PCI
+            厂商标识和设备标识），如果对应的驱动程序存在，还应在随后的括号中注明。要注意，该注释行中的硬件标识和驱动程序都不能决定其接口名，仅做参考作用。第二行则是网卡的
+            udev 规则，根据该规则可以确定网卡的设备名称。
+          </p>
+          <p>
+            udev 规则总的来说是由逗号或空格分割的若干键值对组成的，规则中的每一个键的解释如下所示：
+          </p>
+          <div class="itemizedlist">
+            <ul>
+              <li class="listitem">
+                <p>
+                  <code class="literal">SUBSYSTEM=="net"</code> - 让 udev
+                  忽略不是网卡的设备。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  <code class="literal">ACTION=="add"</code> - 让 udev 对增加
+                  uevent 以外的操作，忽略该规则（删除 uevent 和改变 uevent
+                  也会发生，但都不会导致网络接口重新命名）。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  <code class="literal">DRIVERS=="?*"</code> - 让 udev 忽略 VLAN
+                  和桥接子接口。（由于这些子接口没有独立的驱动程序）。而且子接口的名称可能会与父接口的名字相冲突，因而会被忽略。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  <code class="literal">ATTR{address}</code> - 该键值表示网卡的 MAC
+                  地址。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  <code class="literal">ATTR{type}=="1"</code> -
+                  对于一些可能会产生多个虚拟接口的无线网卡驱动，该键用于确保规则只会应用于其首要接口。和之前的 VLAN
+                  接口和桥接子接口的理由一样，次要接口会被忽略。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  <code class="literal">NAME</code> - 这个键中的值将是 udev 指定给接口的名称。
+                </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+            <code class="literal">NAME</code>
+            的健值相当重要。在进行操作之前，你已经为每一个网卡设备准备了一个名称，并且在之后的配置文件中使用对应的 <code class=
+            "literal">NAME</code> 键值。
+          </p>
+        </div>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          7.4.2. CD-ROM 符号链接
+        </h2>
+        <p>
+          你之后可能会安装的一些应用程序（如各种媒体播放器）需要如下两个符号链接：<code class=
+          "filename">/dev/cdrom</code> 和 <code class=
+          "filename">/dev/dvd</code> 存在并正确指向一个 CD-ROM 或 DVD-ROM 设备。另外，在
+          <code class="filename">/etc/fstab</code>
+          文件中添加对这些符号链接的引用，在用的时候会更方便。根据计算机中各设备之间的兼容性，udev
+          使用了一个脚本来生成创建这些符号链接的规则文件，但是你仍需要决定脚本以两种模式中的哪一种来运行。
+        </p>
+        <p>
+          第一种方式是采用「by-path」模式（该模式通常默认被 USB 设备和 FireWire 设备使用），这种方式根据 CD 或 DVD
+          设备的物理路径来创建规则。而第二种方式则是「by-id」模式 (这是 IDE 设备和 SCSI 设备的默认方式)，这种方式根据存储在
+          CD 或 DVD 驱动器中的标识字符串来创建规则。设备的路径可以由 udev 的 <span class=
+          "command"><strong>path_id</strong></span>
+          脚本来获取，而标识字符串则是根据不同的设备类型，使用设备驱动程序自带的 <span class=
+          "command"><strong>ata_id</strong></span> 或者 <span class=
+          "command"><strong>scsi_id</strong></span> 命令来获取，具体是哪个取决于你的设备类型。
+        </p>
+        <p>
+          这两种命名方式各有其特定使用场景，应根据可能发生的硬件变化来选择所采用的命名方式。若你希望设备的物理地址（即，其插入的端口和/或插槽）发生改变，例如你计划把一个设备连接到另外一个
+          IDE 端口或另外一个 USB
+          连接器，那么应采用「by-id」模式来命名设备。在另一方面，如果你仅仅希望改变设备的标识字符串，则可以采用「by-path」方式。例如系统中某个设备发生了故障，在其所对应的物理接口上插入另一个功能完全兼容的同类型设备。
+        </p>
+        <p>
+          如果任意一种模式都是可行的，那就根据更可能发生的场景来选择命名方式。
+        </p>
+        <div class="admon important">
+          <img alt="[重要]" src="../images/important.png" />
+          <h3>
+            重要
+          </h3>
+          <p>
+            外部设备（例如一个通过 USB 连接的 CD
+            驱动器）不应该使用「by-path」模式来命名，因为这种设备一旦插入不同的物理接口，其地址就可能会发生改变。不仅仅是 CD 和
+            DVD 驱动器，其他所有外部连接的设备都会产生这种问题，所以在创建 udev 规则的时候应该避免通过物理地址来识别外部设备。
+          </p>
+        </div>
+        <p>
+          如果你想查看 udev 将要对一个特定的 CD-ROM 设备将要使用的脚本，应该在 <code class=
+          "filename">/sys</code> 文件夹下查找相应的设备文件（例如 <code class=
+          "filename">/sys/block/hdd</code>）并运行如下的相应命令：
+        </p>
+        <pre class="userinput">
+<kbd class="command">udevadm test /sys/block/hdd</kbd>
+</pre>
+        <p>
+          查看包含各种 *_id 程序输出内容的行。如果 ID_SERIAL 存在且内容非空，「by-id」模式将采取这个值来命名设备，否则会将
+          ID_MODEL 和 ID_REVISION 的值字符串连接在一起用来命名设备。「by-path」模式会采用 ID_PATH
+          的内容来命名设备。
+        </p>
+        <p>
+          如果默认的命名模式不适合自己的情况，可使用如下命令修改 <code class=
+          "filename">/etc/udev/rules.d/83-cdrom-symlinks.rules</code>
+          文件，（<em class="replaceable"><code>mode</code></em>
+          由「by-id」或者「by-path」替代）
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i -e 's/"write_cd_rules"/"write_cd_rules <em class=
+"replaceable"><code>mode</code></em>"/' \
+    /etc/udev/rules.d/83-cdrom-symlinks.rules</kbd>
+</pre>
+        <p>
+          注意，目前为止还并不需要创建相应的规则以及符号链接。因为现在你仍然将宿主机的 <code class=
+          "filename">/dev</code> 文件夹绑定挂载在 LFS
+          系统，而且我们推测这些符号链接于宿主机中已经存在了。当你首次引导进入 LFS 系统之后，这些规则和符号链接都会被自动创建。
+        </p>
+        <p>
+          然而如果你有多个 CD-ROM
+          设备，在首次创建符号链接的时候，同一个符号链接所指向的设备可能与宿主机中指向的设备不同。这是由于设备发现的顺序是不可预测的。首次引导进
+          LFS
+          系统并创建的符号连接已经可以认为是固定了的。所以这个问题仅会在你需求同一设备在不同的系统之间的符号链接相同时才会产生。如果有必要的话，你还可以在系统引导之后检查并修改生成的
+          <code class=
+          "filename">/etc/udev/rules.d/70-persistent-cd.rules</code>
+          文件，以确认系统创建的符号连接符合自己所期望的。
+        </p>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          7.4.3. 处理相似性质的设备
+        </h2>
+        <p>
+          正如 <a class="xref" href="udev.html" title="7.3.&nbsp;设备与模块管理概述">第
+          7.3 节 「设备与模块管理概述」</a> 中解释的，具有相同功能的设备出现在 <code class=
+          "filename">/dev</code> 目录下的顺序是随机的。假如你有一个 USB
+          摄像头和一个电视调谐器，<code class="filename">/dev/video0</code> 有可能是 USB 摄像头，
+          <code class="filename">/dev/video1</code>
+          是电视调谐器，有时候又可能是反过来的。对于除声卡和网卡外的设备， 都可以通过创建自定义持久性符号链接的 udev
+          规则来固定。网卡如何设置请看 <a class="xref" href="network.html" title=
+          "7.5.&nbsp;通用网络配置">第 7.5 节 「通用网络配置」</a>，网卡的相关设置请看 <a class="ulink"
+          href=
+          "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/devices.html">
+          BLFS</a>。
+        </p>
+        <p>
+          对于你所有的硬件，都有可能遇到此问题（尽管此问题可能在你当前的 Linux 发行版上不存在），在 <code class=
+          "filename">/sys/class</code> 或是 <code class=
+          "filename">/sys/block</code> 目录下找到对应目录，比如，显卡可能的路径为 <code class=
+          "filename">/sys/class/video4linux/video<em class=
+          "replaceable"><code>X</code></em></code>。找到该设备的唯一设备标识（通常，厂商和产品 ID
+          以及/或 序列号会有用）：
+        </p>
+        <pre class="userinput">
+<kbd class="command">udevadm info -a -p /sys/class/video4linux/video0</kbd>
+</pre>
+        <p>
+          然后通过写入规则建立符号链接：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">cat &gt; /etc/udev/rules.d/83-duplicate_devs.rules &lt;&lt; "EOF"
+<code class="literal">
+# Persistent symlinks for webcam and tuner
+KERNEL=="video*", ATTRS{idProduct}=="1910", ATTRS{idVendor}=="0d81", \
+    SYMLINK+="webcam"
+KERNEL=="video*", ATTRS{device}=="0x036f", ATTRS{vendor}=="0x109e", \
+    SYMLINK+="tvtuner"
+</code>
+EOF</kbd>
+</pre>
+        <p>
+          最终，<code class="filename">/dev/video0</code> 和 <code class=
+          "filename">/dev/video1</code> 依旧会随机分配给 USB 摄像头和电视调谐器，但是
+          <code class="filename">/dev/tvtuner</code> 和 <code class=
+          "filename">/dev/webcam</code> 将会固定的分配给正确的设备。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="udev.html" title="设备与模块管理概述">上一页</a>
+          <p>
+            设备与模块管理概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="network.html" title="通用网络配置">下一页</a>
+          <p>
+            通用网络配置
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

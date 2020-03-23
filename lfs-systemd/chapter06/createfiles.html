@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.6.&nbsp;创建必要的文件和符号链接
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingdirs.html" title="创建目录">上一页</a>
+          <p>
+            创建目录
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="linux-headers.html" title=
+          "Linux-5.2.8 API 头文件">下一页</a>
+          <p>
+            Linux-5.2.8 API 头文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-createfiles" name="ch-system-createfiles"></a>6.6.
+        创建必要的文件和符号链接
+      </h1>
+      <p>
+        有些程序里会使用写死的路径调用其它暂时还未安装的程序。为了满足这种类型程序的需要，我们将创建一些符号链接，在完成本章内容后这些软件会安装好，并替代之前的符号链接：
+      </p>
+      <pre class="userinput">
+<kbd class=
+"command">ln -sv /tools/bin/{bash,cat,chmod,dd,echo,ln,mkdir,pwd,rm,stty,touch} /bin
+ln -sv /tools/bin/{env,install,perl,printf}         /usr/bin
+ln -sv /tools/lib/libgcc_s.so{,.1}                  /usr/lib
+ln -sv /tools/lib/libstdc++.{a,so{,.6}}             /usr/lib
+
+ln -sv bash /bin/sh</kbd>
+</pre>
+      <div class="variablelist">
+        <p class="title">
+          <strong>每个链接的目的：</strong>
+        </p>
+        <dl class="variablelist">
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/bin/bash</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              许多 <span class="command"><strong>bash</strong></span> 脚本指定了
+              <code class="filename">/bin/bash</code>。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/bin/cat</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              这个路径在 Glibc 的配置脚本里写死了。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/bin/dd</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              到 <code class="filename">dd</code> 的路径将写死在<code class=
+              "filename">/usr/bin/libtool</code> 实用工具中。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/bin/echo</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              这个是为了满足 Glibc 测试套件里的一个测试用例，它会检测 <code class=
+              "filename">/bin/echo</code>。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/usr/bin/env</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              这个路径名硬编码到许多软件包的构建过程中。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/usr/bin/install</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              到 <code class="filename">install</code> 的路径将写死在 <code class=
+              "filename">/usr/lib/bash/Makefile.inc</code> 文件中。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/bin/ln</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              到 <code class="filename">ln</code> 的路径将写死在 <code class=
+              "filename">/usr/lib/perl5/5.30.0/&lt;target-triplet&gt;/Config_heavy.pl</code>
+              文件中。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/bin/pwd</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              某些 <span class="command"><strong>configure</strong></span>
+              脚本，特别是 Glibc 的，写死了这个路径。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/bin/rm</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              到 <code class="filename">rm</code> 的路径将写死在 <code class=
+              "filename">/usr/lib/perl5/5.30.0/&lt;target-triplet&gt;/Config_heavy.pl</code>
+              文件中。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/bin/stty</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              这个路径在 Expect 软件中写死了，所以在 Binutils 和 GCC 测试套件中会需要它。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/usr/bin/perl</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              许多 Perl 脚本写死了这个路径调用 <span class=
+              "command"><strong>perl</strong></span> 执行程序。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/usr/lib/libgcc_s.so{,.1}</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              Glibc 需要这个让 pthreads 库正常工作。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/usr/lib/libstdc++{,.6}</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              在 Glibc 的一些测试套件和对于 GMP 的 C++ 支持中会需要。
+            </p>
+          </dd>
+          <dt>
+            <span class="term"><em class="parameter"><code><code class=
+            "filename">/bin/sh</code></code></em></span>
+          </dt>
+          <dd>
+            <p>
+              许多 shell 脚本写死了位置 <code class="filename">/bin/sh</code>。
+            </p>
+          </dd>
+        </dl>
+      </div>
+      <p>
+        由于历史原因，Linux 在文件 <code class="filename">/etc/mtab</code>
+        中维护一个已挂载文件系统的列表。而现代内核改为在内部维护这个列表，并通过 <code class=
+        "filename">/proc</code> 文件系统输出给用户。为了满足一些依赖 <code class=
+        "filename">/etc/mtab</code> 文件的应用程序，我们要创建下面的符号链接：
+      </p>
+      <pre class="userinput">
+<kbd class="command">ln -sv /proc/self/mounts /etc/mtab</kbd>
+</pre>
+      <p>
+        为了让 <code class="systemitem">root</code>
+        用户能正常登录，而且「root」的名字能被正常识别，必须在文件 <code class=
+        "filename">/etc/passwd</code> 和 <code class=
+        "filename">/etc/group</code> 中写入相应的内容。
+      </p>
+      <p>
+        运行下面的命令创建 <code class="filename">/etc/passwd</code> 文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /etc/passwd &lt;&lt; "EOF"
+<code class="literal">root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/dev/null:/bin/false
+daemon:x:6:6:Daemon User:/dev/null:/bin/false
+messagebus:x:18:18:D-Bus Message Daemon User:/var/run/dbus:/bin/false
+systemd-bus-proxy:x:72:72:systemd Bus Proxy:/:/bin/false
+systemd-journal-gateway:x:73:73:systemd Journal Gateway:/:/bin/false
+systemd-journal-remote:x:74:74:systemd Journal Remote:/:/bin/false
+systemd-journal-upload:x:75:75:systemd Journal Upload:/:/bin/false
+systemd-network:x:76:76:systemd Network Management:/:/bin/false
+systemd-resolve:x:77:77:systemd Resolver:/:/bin/false
+systemd-timesync:x:78:78:systemd Time Synchronization:/:/bin/false
+systemd-coredump:x:79:79:systemd Core Dumper:/:/bin/false
+nobody:x:99:99:Unprivileged User:/dev/null:/bin/false</code>
+EOF</kbd>
+</pre>
+      <p>
+        <code class="systemitem">root</code> 用户的实际密码（这里的「x」只是占位符）将在后面创建。
+      </p>
+      <p>
+        运行下面的命令创建 <code class="filename">/etc/group</code> 文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /etc/group &lt;&lt; "EOF"
+<code class="literal">root:x:0:
+bin:x:1:daemon
+sys:x:2:
+kmem:x:3:
+tape:x:4:
+tty:x:5:
+daemon:x:6:
+floppy:x:7:
+disk:x:8:
+lp:x:9:
+dialout:x:10:
+audio:x:11:
+video:x:12:
+utmp:x:13:
+usb:x:14:
+cdrom:x:15:
+adm:x:16:
+messagebus:x:18:
+systemd-journal:x:23:
+input:x:24:
+mail:x:34:
+kvm:x:61:
+systemd-bus-proxy:x:72:
+systemd-journal-gateway:x:73:
+systemd-journal-remote:x:74:
+systemd-journal-upload:x:75:
+systemd-network:x:76:
+systemd-resolve:x:77:
+systemd-timesync:x:78:
+systemd-coredump:x:79:
+wheel:x:97:
+nogroup:x:99:
+users:x:999:</code>
+EOF</kbd>
+</pre>
+      <p>
+        这里创建的用户组没有参照任何标准——它们一部分是为了满足本章中配置 udev 的需要，还有一部分来自一些现存 Linux
+        发行版的通用设定。另外，某些测试套件也依赖特定用户或组。而 Linux 标准规范 （LSB，参见 <a class="ulink"
+        href="http://www.linuxbase.org">http://www.linuxbase.org</a>）只要求以组
+        ID（GID）为 0 创建用户组 <code class="systemitem">root</code> 以及以 GID 为 1
+        创建用户组 <code class="systemitem">bin</code>。系统管理员可以自由分配其它所有用户组名字和
+        GID，因为优秀的程序不会依赖 GID 数字，而是使用组名。
+      </p>
+      <p>
+        为了移除「I have no name!」的提示符，可以打开一个新 shell。由于完整的 Glibc 已经在 <a class=
+        "xref" href="../chapter05/chapter05.html" title=
+        "第&nbsp;5&nbsp;章&nbsp;构建临时系统">第 5 章</a> 里装好了，而且已经创建好了 <code class=
+        "filename">/etc/passwd</code> 和 <code class=
+        "filename">/etc/group</code> 文件，用户名和组名就可以正常解析了：
+      </p>
+      <pre class="userinput">
+<kbd class="command">exec /tools/bin/bash --login +h</kbd>
+</pre>
+      <p>
+        注意这里使用了 <em class="parameter"><code>+h</code></em> 参数。这样会告诉
+        <span class="command"><strong>bash</strong></span>
+        不要使用它内建的路径哈希功能。而不加这个参数的话，<span class=
+        "command"><strong>bash</strong></span>
+        将会记住曾经执行过程序的路径。为了在新编译安装好程序后就能马上使用，参数 <em class=
+        "parameter"><code>+h</code></em> 将在本章中一直使用。
+      </p>
+      <p>
+        程序 <span class="command"><strong>login</strong></span>、<span class=
+        "command"><strong>agetty</strong></span> 和 <span class=
+        "command"><strong>init</strong></span>（还有一些其它的）会使用一些日志文件来记录信息，比如谁在什么时候登录了系统。不过，在日志文件不存在的时候这些程序一般不会写入。下面初始化一下日志文件并加上合适的权限：
+      </p>
+      <pre class="userinput">
+<kbd class="command">touch /var/log/{btmp,lastlog,faillog,wtmp}
+chgrp -v utmp /var/log/lastlog
+chmod -v 664  /var/log/lastlog
+chmod -v 600  /var/log/btmp</kbd>
+</pre>
+      <p>
+        文件 <code class="filename">/var/log/wtmp</code> 会记录所有的登录和登出动作。文件
+        <code class="filename">/var/log/lastlog</code> 会记录每个用户的最后一次登录时间。文件
+        <code class="filename">/var/log/faillog</code> 会记录失败的登录尝试。文件
+        <code class="filename">/var/log/btmp</code> 会记录非法的登录尝试。
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          文件 <code class="filename">/run/utmp</code>
+          会记录当前已登录的用户。这个文件会在启动脚本中动态创建。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingdirs.html" title="创建目录">上一页</a>
+          <p>
+            创建目录
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="linux-headers.html" title=
+          "Linux-5.2.8 API 头文件">下一页</a>
+          <p>
+            Linux-5.2.8 API 头文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

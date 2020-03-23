@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.25.&nbsp;Attr-2.4.48
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="ncurses.html" title="Ncurses-6.1">上一页</a>
+          <p>
+            Ncurses-6.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="acl.html" title="Acl-2.2.53">下一页</a>
+          <p>
+            Acl-2.2.53
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-attr" name="ch-system-attr"></a>6.25. Attr-2.4.48
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          attr 软件包包含管理文件系统对象的扩展属性的工具。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">少于 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">4.2 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.25.1. 安装 Attr
+        </h2>
+        <p>
+          准备编译 Attr：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr     \
+            --bindir=/bin     \
+            --disable-static  \
+            --sysconfdir=/etc \
+            --docdir=/usr/share/doc/attr-2.4.48</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          测试需要在支持扩展属性的文件系统上运行，例如 ext2、ext3、或者 ext4。如果同时运行多个测试会导致测试失败（-j 选项大于
+          1）。输入命令检查结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          需要移动共享库到 <code class="filename">/lib</code>，因此需要重建 <code class=
+          "filename">.so</code> 中的 <code class="filename">/usr/lib</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mv -v /usr/lib/libattr.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-attr" name="contents-attr"></a>6.25.2. Attr 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">attr, getfattr, 和 setfattr</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libattr.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/include/attr 和 /usr/share/doc/attr-2.4.48</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="attr" name="attr"></a><span class=
+                    "term"><span class=
+                    "command"><strong>attr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    扩展文件系统对象的属性
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="getfattr" name="getfattr"></a><span class=
+                    "term"><span class=
+                    "command"><strong>getfattr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    获取文件系统对象的扩展属性
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setfattr" name="setfattr"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setfattr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置文件系统对象的扩展属性
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libattr" name="libattr"></a><span class=
+                    "term"><code class="filename">libattr</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含管理扩展属性的库函数
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="ncurses.html" title="Ncurses-6.1">上一页</a>
+          <p>
+            Ncurses-6.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="acl.html" title="Acl-2.2.53">下一页</a>
+          <p>
+            Acl-2.2.53
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

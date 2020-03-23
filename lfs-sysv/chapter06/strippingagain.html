@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.79.&nbsp;再次清理无用内容
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutdebug.html" title="关于调试符号">上一页</a>
+          <p>
+            关于调试符号
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="revisedchroot.html" title="清理">下一页</a>
+          <p>
+            清理
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-strippingagain" name=
+        "ch-system-strippingagain"></a>6.79. 再次清理无用内容
+      </h1>
+      <p>
+        这个部分是可选的。如果预期的用户不是一个程序员或者不打算对系统软件进行任何调试，通过从二进制文件和库中删除调试符号能减少 90MB
+        的系统大小。除了不能完全调试软件，这不会导致任何不便。
+      </p>
+      <p>
+        大部分人使用下面提到的命令并不会感到任何困难。然而，很容易出现错误并导致新的系统不可用，因此在运行 <span class=
+        "command"><strong>strip</strong></span> 命令之前，对当前状态的 LFS 系统进行备份是个好主意。
+      </p>
+      <p>
+        首先将选定库的调试符号文件分开放置。如果要在后续的 BLFS 中用 <a class="ulink" href=
+        "http://www.linuxfromscratch.org/blfs/view/9.0//general/valgrind.html">
+        valgrind</a> 或 <a class="ulink" href=
+        "http://www.linuxfromscratch.org/blfs/view/9.0//general/gdb.html">gdb</a>
+        做回归测试，那么调试信息还有用武之地。
+      </p>
+      <pre class="userinput">
+<kbd class=
+"command">save_lib="ld-2.30.so libc-2.30.so libpthread-2.30.so libthread_db-1.0.so"
+
+cd /lib
+
+for LIB in $save_lib; do
+    objcopy --only-keep-debug $LIB $LIB.dbg 
+    strip --strip-unneeded $LIB
+    objcopy --add-gnu-debuglink=$LIB.dbg $LIB 
+done    
+
+save_usrlib="libquadmath.so.0.0.0 libstdc++.so.6.0.27
+             libitm.so.1.0.0 libatomic.so.1.2.0" 
+
+cd /usr/lib
+
+for LIB in $save_usrlib; do
+    objcopy --only-keep-debug $LIB $LIB.dbg
+    strip --strip-unneeded $LIB
+    objcopy --add-gnu-debuglink=$LIB.dbg $LIB
+done
+
+unset LIB save_lib save_usrlib</kbd>
+</pre>
+      <p>
+        在进行清理无用内容之前，格外注意确保要删除的二进制文件没有正在运行：
+      </p>
+      <pre class="userinput">
+<kbd class="command">exec /tools/bin/bash</kbd>
+</pre>
+      <p>
+        现在可以安心的清除二进制文件和库：
+      </p>
+      <pre class="userinput">
+<kbd class="command">/tools/bin/find /usr/lib -type f -name \*.a \
+   -exec /tools/bin/strip --strip-debug {} ';'
+
+/tools/bin/find /lib /usr/lib -type f \( -name \*.so* -a ! -name \*dbg \) \
+   -exec /tools/bin/strip --strip-unneeded {} ';'
+
+/tools/bin/find /{bin,sbin} /usr/{bin,sbin,libexec} -type f \
+    -exec /tools/bin/strip --strip-all {} ';'</kbd>
+</pre>
+      <p>
+        该命令会报告有很大数目的文件不能识别它们的格式。你可以安全地忽略这些警告。这些警告表示这些文件是脚本而不是二进制文件。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutdebug.html" title="关于调试符号">上一页</a>
+          <p>
+            关于调试符号
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="revisedchroot.html" title="清理">下一页</a>
+          <p>
+            清理
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

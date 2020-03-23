@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.5.&nbsp;GCC-9.2.0 - 第 1 遍
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils-pass1.html" title=
+          "Binutils-2.32 - 第 1 遍">上一页</a>
+          <p>
+            Binutils-2.32 - 第 1 遍
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="linux-headers.html" title=
+          "Linux-5.2.8 API 头文件">下一页</a>
+          <p>
+            Linux-5.2.8 API 头文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-gcc-pass1" name="ch-tools-gcc-pass1"></a>5.5.
+        GCC-9.2.0 - 第 1 遍
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          GCC 软件包包括 GNU 编译器集，其中有 C 和 C++ 的编译器。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">12 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">3.1 GB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          5.5.1. 安装交叉编译的 GCC
+        </h2>
+        <p>
+          现在 GCC 需要 GMP、MPFR 和 MPC 软件包。在你的主机发行版中可能并不包括这些软件包，它们将和 GCC
+          一起编译。将每个解压软件包到 GCC 的目录下，并重命名解压后得到的目录，以便 GCC 编译过程中能自动使用这些软件：
+        </p>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            读者经常对本章节产生误解。过程与之前的章节（<a class="xref" href=
+            "generalinstructions.html#buildinstr">软件包构建说明</a>）中提到的一样。首先从源目录中解压
+            gcc 的源码包，然后进入创建的目录中。接着才可以执行下面的指令。
+          </p>
+        </div>
+        <pre class="userinput">
+<kbd class="command">tar -xf ../mpfr-4.0.2.tar.xz
+mv -v mpfr-4.0.2 mpfr
+tar -xf ../gmp-6.1.2.tar.xz
+mv -v gmp-6.1.2 gmp
+tar -xf ../mpc-1.1.0.tar.gz
+mv -v mpc-1.1.0 mpc</kbd>
+</pre>
+        <p>
+          下面的指令将会修改 GCC 默认的动态链接器的位置，安装到 <code class="filename">/tools</code>
+          目录中的。并将 <code class="filename">/usr/include</code> 从 GCC 的 include
+          检索路径中移除。执行：
+        </p>
+        <pre class="userinput">
+<kbd class="command">for file in gcc/config/{linux,i386/linux{,64}}.h
+do
+  cp -uv $file{,.orig}
+  sed -e 's@/lib\(64\)\?\(32\)\?/ld@/tools&amp;@g' \
+      -e 's@/usr@/tools@g' $file.orig &gt; $file
+  echo '
+#undef STANDARD_STARTFILE_PREFIX_1
+#undef STANDARD_STARTFILE_PREFIX_2
+#define STANDARD_STARTFILE_PREFIX_1 "/tools/lib/"
+#define STANDARD_STARTFILE_PREFIX_2 ""' &gt;&gt; $file
+  touch $file.orig
+done</kbd>
+</pre>
+        <p>
+          如果上面的内容看起来有些难以理解，那让我们慢慢消化吧。首先，我们复制文件 <code class=
+          "filename">gcc/config/linux.h</code>，<code class=
+          "filename">gcc/config/i386/linux.h</code>，和 <code class=
+          "filename">gcc/config/i368/linux64.h</code>，给复制的文件加上「.orig」后缀。然后第一个
+          sed 表达式在每个「/lib/ld」，「/lib64/ld」或者「/lib32/ld」实例前面增加「/tools」，第二个 sed
+          表达式替换「/usr」的硬编码实例。然后，我们添加这改变默认 startfile
+          前缀到文件末尾的定义语句。注意「/tools/lib/」后面的「/」是必须的。最后，我们用 <span class=
+          "command"><strong>touch</strong></span> 更新复制文件的时间戳。当与 <span class=
+          "command"><strong>cp -u</strong></span>
+          一起使用时，可以防止命令被无意中运行两次造成对原始文件意外的更改。
+        </p>
+        <p>
+          最后，在 x86_64 的主机上，为 64 位的库设置默认目录名至「lib」：
+        </p>
+        <pre class="userinput">
+<kbd class="command">case $(uname -m) in
+  x86_64)
+    sed -e '/m64=/s/lib64/lib/' \
+        -i.orig gcc/config/i386/t-linux64
+ ;;
+esac</kbd>
+</pre>
+        <p>
+          GCC 手册建议在源目录之外一个专门的编译目录中编译 GCC：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -v build
+cd       build</kbd>
+</pre>
+        <p>
+          准备编译 GCC:
+        </p>
+        <pre class="userinput">
+<kbd class="command">../configure                                       \
+    --target=$LFS_TGT                              \
+    --prefix=/tools                                \
+    --with-glibc-version=2.11                      \
+    --with-sysroot=$LFS                            \
+    --with-newlib                                  \
+    --without-headers                              \
+    --with-local-prefix=/tools                     \
+    --with-native-system-header-dir=/tools/include \
+    --disable-nls                                  \
+    --disable-shared                               \
+    --disable-multilib                             \
+    --disable-decimal-float                        \
+    --disable-threads                              \
+    --disable-libatomic                            \
+    --disable-libgomp                              \
+    --disable-libquadmath                          \
+    --disable-libssp                               \
+    --disable-libvtv                               \
+    --disable-libstdcxx                            \
+    --enable-languages=c,c++</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-newlib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                由于还没有可用的 C 库，这确保编译 libgcc 时定义了常数 inhibit_libc。这可以防止编译任何需要
+                libc 支持的代码。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-headers</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                在创建完整的交叉编译器时，GCC 要求标准头文件和目标系统兼容。对于我们的目的来说，不需要这些头文件。这个选项可以防止
+                GCC 查找它们。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-local-prefix=/tools</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                GCC 会查找本地已安装的 include 文件的系统位置。默认是 <code class=
+                "filename">/usr/local</code>。把它设置为 <code class=
+                "filename">/tools</code> 能把主机位置中的 <code class=
+                "filename">/usr/local</code> 从 GCC 的搜索路径中排除。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-native-system-header-dir=/tools/include</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                GCC 默认会在 <code class="filename">/usr/include</code>
+                中查找系统头文件。和 sysroot 选项一起使用，会转换为 <code class=
+                "filename">$LFS/usr/include</code>。在后面两个章节中头文件会被安装到
+                <code class="filename">$LFS/tools/include</code> 。这个选项确保 gcc
+                能正确找到它们。第二次编译 GCC 时，同样的选项可以保证不会去寻找主机系统的头文件。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-shared</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项强制 GCC 静态链接到它的内部库。我们这样做是为了避免主机系统可能出现的问题。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-decimal-float, --disable-threads,
+              --disable-libatomic, --disable-libgomp, --disable-libquadmath,
+              --disable-libssp, --disable-libvtv,
+              --disable-libstdcxx</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这些选项取消了对十进制浮点数扩展、线程化、libatomic、libgomp、libquadmath、libssp、libvtv、libcilkrts
+                和 C++ 标准库的支持。这些功能在编译交叉编译器的时候会导致编译失败，对于交叉编译临时 libc 来说也没有必要。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-multilib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                在 x86_64 机器上，LFS 还不支持 multilib 配置。这个选项对 x86 来说无害。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-languages=c,c++</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项确保只编译 C 和 C++ 编译器。这些是现在唯一需要的语言。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          运行命令编译 GCC:
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          现在编译完成了。在这里，通常会运行测试套件，但正如前面提到的，测试套件框架还没有准备好。在此进行测试的并没有太多好处，因为第一遍编译的程序很快会被取代。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <p>
+          该软件包的详细信息请参见： <a class="xref" href=
+          "../chapter06/gcc.html#contents-gcc" title=
+          "6.21.2.&nbsp;GCC 软件包内容">第 6.21.2 节 「GCC 软件包内容」</a>。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils-pass1.html" title=
+          "Binutils-2.32 - 第 1 遍">上一页</a>
+          <p>
+            Binutils-2.32 - 第 1 遍
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="linux-headers.html" title=
+          "Linux-5.2.8 API 头文件">下一页</a>
+          <p>
+            Linux-5.2.8 API 头文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

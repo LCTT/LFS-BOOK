@@ -1,0 +1,478 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.3.&nbsp;Linux-5.2.8
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;8&nbsp;章&nbsp;让 LFS 系统可引导
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="fstab.html" title="创建 /etc/fstab 文件">上一页</a>
+          <p>
+            创建 /etc/fstab 文件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grub.html" title="使用 GRUB 设置启动过程">下一页</a>
+          <p>
+            使用 GRUB 设置启动过程
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;让 LFS 系统可引导">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-bootable-kernel" name="ch-bootable-kernel"></a>8.3.
+        Linux-5.2.8
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Linux 软件包包含 Linux 内核。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">4.4 - 66.0 SBU （通常约为 6 SBU）</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">960 - 4250 MB （通常约为 1100 MB）</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          8.3.1. 安装内核
+        </h2>
+        <p>
+          编译内核包括以下步骤——配置、编译和安装。阅读内核源码树中的 <code class="filename">README</code>
+          可以获得替代本手册配置的方法。
+        </p>
+        <p>
+          运行以下命令准备编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make mrproper</kbd>
+</pre>
+        <p>
+          这将保证内核树的绝对干净。内核小组建议在每次编译之前都执行此命令，无用的代码将会在解压后删除。
+        </p>
+        <p>
+          通过菜单界面配置内核。配置内核的一般信息请查看：<a class="ulink" href=
+          "http://www.linuxfromscratch.org/hints/downloads/files/kernel-configuration.txt">http://www.linuxfromscratch.org/hints/downloads/files/kernel-configuration.txt</a>。
+          BLFS 包含有一些内核的特殊配置，可以查看：<a class="ulink" href=
+          "http://www.linuxfromscratch.org/blfs/view/9.0/longindex.html#kernel-config-index">http://www.linuxfromscratch.org/blfs/view/9.0/longindex.html#kernel-config-index</a>。
+          内核配置和编译的附加信息可查看：<a class="ulink" href=
+          "http://www.kroah.com/lkn/">http://www.kroah.com/lkn/</a>。
+        </p>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            配置内核的一个好的起点是运行 <span class="command"><strong>make
+            defconfig</strong></span>。这样会参考你的机器架构生成一份基本能用的基础配置。
+          </p>
+          <p>
+            注意要确保启用/禁用/设置下面这些特性，否则系统也许不能正常工作甚至根本无法启动：
+          </p>
+          <pre class="screen">
+General setup --&gt;
+   [ ] Enable deprecated sysfs features to support old userspace tools [CONFIG_SYSFS_DEPRECATED]
+   [ ] Enable deprecated sysfs features by default [CONFIG_SYSFS_DEPRECATED_V2]
+   [*] open by fhandle syscalls [CONFIG_FHANDLE]
+   [ ] Auditing support [CONFIG_AUDIT]
+   [*] Control Group support [CONFIG_CGROUPS]
+Processor type and features  ---&gt;
+   [*] Enable seccomp to safely compute untrusted bytecode [CONFIG_SECCOMP]
+Networking support  ---&gt;
+  Networking options  ---&gt;
+   &lt;*&gt; The IPv6 protocol [CONFIG_IPV6]
+Device Drivers  ---&gt;
+  Generic Driver Options  ---&gt;
+   [ ] Support for uevent helper [CONFIG_UEVENT_HELPER]
+   [*] Maintain a devtmpfs filesystem to mount at /dev [CONFIG_DEVTMPFS]
+   [ ] Fallback user-helper invocation for firmware loading [CONFIG_FW_LOADER_USER_HELPER]
+Firmware Drivers  ---&gt;
+   [*] Export DMI identification via sysfs to userspace [CONFIG_DMIID]
+File systems  ---&gt;
+   [*] Inotify support for userspace [CONFIG_INOTIFY_USER]
+   &lt;*&gt; Kernel automounter version 4 support (also supports v3) [CONFIG_AUTOFS4_FS]
+  Pseudo filesystems  ---&gt;
+   [*] Tmpfs POSIX Access Control Lists [CONFIG_TMPFS_POSIX_ACL]
+   [*] Tmpfs extended attributes [CONFIG_TMPFS_XATTR]
+Kernel hacking  ---&gt;
+       Choose kernel unwinder (Frame pointer unwinder)  ---&gt; [CONFIG_UNWINDER_FRAME_POINTER]
+</pre>
+        </div>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            尽管「The IPv6 Protocol」不是必须打开，但是 systemd 开发人员强烈推荐打开。
+          </p>
+        </div>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            如果你主机的硬件用的是 UEFI，那么上面的‘make defconfig’应该会自动添加一些 EFI 相关的内核选项。
+          </p>
+          <p>
+            为了让你的 LFS 内核，在你的主机是 UEFI 引导环境的情况下，能够被引导，你的内核必须要有这项：
+          </p>
+          <pre class="screen">
+Processor type and features  ---&gt;
+   [*]   EFI stub support  [CONFIG_EFI_STUB]
+</pre>
+          <p>
+            文件 lfs-uefi.txt 中包含了管理 UEFI 环境的完整描述，参见 <a class="ulink" href=
+            "http://www.linuxfromscratch.org/hints/downloads/files/lfs-uefi.txt">
+            http://www.linuxfromscratch.org/hints/downloads/files/lfs-uefi.txt</a>。
+          </p>
+        </div>
+        <div class="variablelist">
+          <p class="title">
+            <strong>上述配置项的一些原理说明：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class="parameter"><code>Support for
+              uevent helper</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                打开这个选项会影响 udev/Eudev 设备管理。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class="parameter"><code>Maintain a
+              devtmpfs</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项允许内核在 udev 运行之前就创建自动设备节点。之后 udev
+                在这个基础上运行，管理权限以及增加符号链接。对于所有 udev/Eudev 用户，这个配置项是必须的。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <pre class="userinput">
+<kbd class="command">make menuconfig</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>可选 make 环境变量的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>LANG=&lt;host_LANG_value&gt;
+              LC_ALL=</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                建立与宿主系统相同的地域设定。在 UTF-8 linux 文本命令行上逐行绘制适宜的 menuconfig ncurses
+                接口时可能需要这项配置。
+              </p>
+              <p>
+                要使用的话，请我务必使用宿主系统中的变量 <code class="envar">$LANG</code> 去代替
+                <em class=
+                "replaceable"><code>&lt;host_LANG_value&gt;</code></em>。你也可以用宿主系统中的
+                <code class="envar">$LC_ALL</code> 或 <code class=
+                "envar">$LC_CTYPE</code> 来代替。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          另外，<span class="command"><strong>make oldconfig</strong></span>
+          在某些情况下可能更合适。查看 <code class="filename">README</code> 文件了解更多信息。
+        </p>
+        <p>
+          想偷懒的话，可以拷贝宿主系统的内核配置文件 <code class=
+          "filename">.config</code>（如果有的话）到解压后的 <code class=
+          "filename">linux-5.2.8</code>
+          目录下来跳过内核配置。不过，我们不建议这样做。最好是探索一下整个内核配置菜单，从最开始配置内核。
+        </p>
+        <p>
+          编译内核映像和模块：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          如果使用内核模块，需要 <code class="filename">/etc/modprobe.d</code>
+          文件里的模块配置。关于模块和内核配置的信息可以查看 <a class="xref" href=
+          "../chapter07/udev.html" title="7.3.&nbsp;设备与模块管理概述">第 7.3 节
+          「设备与模块管理概述」</a> 以及 <code class=
+          "filename">linux-5.2.8/Documentation</code>
+          目录下的内核文档。还有，<code class="filename">modprobe.d(5)</code> 也可以看一下。
+        </p>
+        <p>
+          如果内核配置里用到，需要安装模块：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make modules_install</kbd>
+</pre>
+        <p>
+          在内核编译完成后，还需要一个额外步骤来完成安装。有些文件需要拷贝到 <code class=
+          "filename">/boot</code> 目录下。
+        </p>
+        <div class="admon caution">
+          <img alt="[小心]" src="../images/caution.png" />
+          <h3>
+            小心
+          </h3>
+          <p>
+            如果宿主系统拥有单独的 /boot 分区，那么文件就应该复制到那里。简单的解决方法就是在执行前将 /boot 绑定到宿主的
+            /mnt/lfs/boot。以<span class="emphasis"><em>宿主系统</em></span>中的 root
+            用户运行：
+          </p>
+          <pre class="userinput">
+<kbd class="command">mount --bind /boot /mnt/lfs/boot</kbd>
+</pre>
+        </div>
+        <p>
+          内核映像文件所在的实际目录根据主机系统架构可能会不一样。下面的文件名你也可以改成你喜欢的，不过开头最好是 <span class=
+          "emphasis"><em>vmlinuz</em></span>
+          才可以兼容下一节要讲的配置引导过程的自动设定。下面的命令假设主机是 x86 架构：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-5.2.8-lfs-9.0-systemd</kbd>
+</pre>
+        <p>
+          <code class="filename">System.map</code> 是内核的符号文件。它映射了每一个内核 API
+          函数的入口，以及内核运行时的数据结构地址。是调查内核问题时的资源。运行下面的命令安装映射文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cp -iv System.map /boot/System.map-5.2.8</kbd>
+</pre>
+        <p>
+          在之前命令 <span class="command"><strong>make menuconfig</strong></span>
+          里生成的内核配置文件 <code class="filename">.config</code>
+          包含了当前编译的内核的所有配置。最好能保存下来留作参考：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cp -iv .config /boot/config-5.2.8</kbd>
+</pre>
+        <p>
+          安装 Linux 内核文档：
+        </p>
+        <pre class="userinput">
+<kbd class="command">install -d /usr/share/doc/linux-5.2.8
+cp -r Documentation/* /usr/share/doc/linux-5.2.8</kbd>
+</pre>
+        <p>
+          需要注意一下内核源代码目录下的文件属主并不是 <span class=
+          "emphasis"><em>root</em></span>。在以 <span class=
+          "emphasis"><em>root</em></span> 用户解压包的时候（我们在 chroot
+          环境里做的），解压出来的文件会拥有生成这个包的电脑里用户和组。在安装其他包的时候这并不是问题，因为它们的源代码在安装完后就删除了。不过，Linux
+          内核的源代码经常会保留比较长时间。这样的话，就有可能会把软件包作者的用户 ID
+          对应到本机的某个用户上。从而这个用户就会拥有内核源代码的写权限。
+        </p>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            在很多情况下，内核的配置信息需要在稍后安装来自于 BLFS
+            的软件包后更新。这和其他的软件包不同，在安装完成编译好的内核后不需要将内核源码树删除。
+          </p>
+          <p>
+            如果想要保留内核的源码树，在 <code class="filename">linux-5.2.8</code> 下运行
+            <span class="command"><strong>chown -R 0:0</strong></span>
+            来确保所有文件的所有者都 <span class="emphasis"><em>root</em></span>。
+          </p>
+        </div>
+        <div class="admon warning">
+          <img alt="[警告]" src="../images/warning.png" />
+          <h3>
+            警告
+          </h3>
+          <p>
+            一些内核文档里建议创建符号链接 <code class="filename">/usr/src/linux</code>
+            指向内核源代码目录。这是 2.6 及以前版本内核的特定要求，而在 LFS 系统里<span class=
+            "emphasis"><em>一定不要</em></span>创建这个链接，因为这样的话，在你的基础 LFS
+            系统完成后安装某些软件包时可能引起问题。
+          </p>
+        </div>
+        <div class="admon warning">
+          <img alt="[警告]" src="../images/warning.png" />
+          <h3>
+            警告
+          </h3>
+          <p>
+            系统 <code class="filename">include</code> 目录（<code class=
+            "filename">/usr/include</code>）下的头文件应该<span class=
+            "emphasis"><em>总是</em></span>和编译 Glibc 时用到的头文件保持一致。就是在 <a class=
+            "xref" href="../chapter06/linux-headers.html" title=
+            "6.7.&nbsp;Linux-5.2.8 API 头文件">第 6.7 节 「Linux-5.2.8 API 头文件」</a>
+            里整理过的头文件。因此，它们<span class=
+            "emphasis"><em>不要</em></span>替换成原始内核头文件或任何清理过的内核头文件。
+          </p>
+        </div>
+      </div>
+      <div class="configuration" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="conf-modprobe" name="conf-modprobe"></a>8.3.2. 配置 Linux
+          模块加载顺序
+        </h2>
+        <p>
+          虽然大多数情况下，Linux 模块会被自动加载，但是有时候需要特别指定加载顺序。<span class=
+          "command"><strong>modprobe</strong></span> 或 <span class=
+          "command"><strong>insmod</strong></span> 在加载模块时会读取 <code class=
+          "filename">/etc/modprobe.d/usb.conf</code>。如果将 USB
+          设备（ehci_hcd、ohci_hcd 和 uhci_hcd）
+          编译为模块，则需要此文件，这样它们就会以正确的顺序加载。ehci_hcd 需要在 ohci_hcd 和 uhci_hcd
+          之前加载，否则在系统启动过程中将会输出警告。
+        </p>
+        <p>
+          运行以下命令建立 <code class="filename">/etc/modprobe.d/usb.conf</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">install -v -m755 -d /etc/modprobe.d
+cat &gt; /etc/modprobe.d/usb.conf &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/modprobe.d/usb.conf
+
+install ohci_hcd /sbin/modprobe ehci_hcd ; /sbin/modprobe -i ohci_hcd ; true
+install uhci_hcd /sbin/modprobe ehci_hcd ; /sbin/modprobe -i uhci_hcd ; true
+
+# End /etc/modprobe.d/usb.conf</code>
+EOF</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-kernel" name="contents-kernel"></a>8.3.3. Linux 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的文件:</strong> <span class=
+              "segbody">config-5.2.8, <span class=
+              "phrase">vmlinuz-5.2.8-lfs-9.0-systemd,</span> and
+              System.map-5.2.8</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/lib/modules, /usr/share/doc/linux-5.2.8</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要说明
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="config" name="config"></a><span class=
+                    "term"><code class="filename">config-5.2.8</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含内核的所有配置选项
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lfskernel" name="lfskernel"></a><span class=
+                    "term"><code class=
+                    "filename">vmlinuz-5.2.8-lfs-9.0-systemd</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Linux
+                    系统的引擎。当电脑启动时，内核作为整个系统的第一部分载入。它首先检测和初始化所有的电脑硬件，然后将这些硬件模块抽象成文件树让软件访问，并把单个
+                    CPU 转换成多任务系统，可以看上去同时地运行多个程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="System.map" name="System.map"></a><span class=
+                    "term"><code class=
+                    "filename">System.map-5.2.8</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    地址和符号列表；包含有入口点的映射以及所有函数和内核数据结构的地址
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="fstab.html" title="创建 /etc/fstab 文件">上一页</a>
+          <p>
+            创建 /etc/fstab 文件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grub.html" title="使用 GRUB 设置启动过程">下一页</a>
+          <p>
+            使用 GRUB 设置启动过程
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;让 LFS 系统可引导">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

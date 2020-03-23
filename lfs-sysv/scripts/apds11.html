@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      D.11.&nbsp;/etc/rc.d/init.d/cleanfs
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds10.html" title=
+          "/etc/rc.d/init.d/udev_retry">上一页</a>
+          <p>
+            /etc/rc.d/init.d/udev_retry
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds12.html" title=
+          "/etc/rc.d/init.d/console">下一页</a>
+          <p>
+            /etc/rc.d/init.d/console
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="cleanfs" name="cleanfs"></a>D.11. /etc/rc.d/init.d/cleanfs
+      </h1>
+      <pre class="screen">
+#!/bin/sh
+########################################################################
+# Begin cleanfs
+#
+# Description : Clean file system
+#
+# Authors     : Gerard Beekmans - gerard@linuxfromscratch.org
+#               DJ Lucas - dj@linuxfromscratch.org
+# Update      : Bruce Dubbs - bdubbs@linuxfromscratch.org
+#
+# Version     : LFS 7.0
+#
+########################################################################
+
+### BEGIN INIT INFO
+# Provides:            cleanfs
+# Required-Start:      $local_fs
+# Should-Start:
+# Required-Stop:
+# Should-Stop:
+# Default-Start:       S
+# Default-Stop:
+# Short-Description:   Cleans temporary directories early in the boot process.
+# Description:         Cleans temporary directories /var/run, /var/lock, and
+#                      optionally, /tmp.  cleanfs also creates /var/run/utmp 
+#                      and any files defined in /etc/sysconfig/createfiles.
+# X-LFS-Provided-By:   LFS
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+# Function to create files/directory on boot.
+create_files() 
+{
+   # Input to file descriptor 9 and output to stdin (redirection)
+   exec 9&gt;&amp;0 &lt; /etc/sysconfig/createfiles
+
+   while read name type perm usr grp dtype maj min junk
+   do
+      # Ignore comments and blank lines.
+      case "${name}" in
+         ""|\#*) continue ;;
+      esac
+
+      # Ignore existing files.
+      if [ ! -e "${name}" ]; then
+         # Create stuff based on its type.
+         case "${type}" in
+            dir)
+               mkdir "${name}"
+               ;;
+            file)
+               :&gt; "${name}"
+               ;;
+            dev)
+               case "${dtype}" in
+                  char)
+                     mknod "${name}" c ${maj} ${min}
+                     ;;
+                  block)
+                     mknod "${name}" b ${maj} ${min}
+                     ;;
+                  pipe)
+                     mknod "${name}" p
+                     ;;
+                  *) 
+                     log_warning_msg "\nUnknown device type: ${dtype}" 
+                     ;;
+               esac
+               ;;
+            *)
+               log_warning_msg "\nUnknown type: ${type}" 
+               continue
+               ;;
+         esac
+
+         # Set up the permissions, too.
+         chown ${usr}:${grp} "${name}"
+         chmod ${perm} "${name}"
+      fi
+   done
+
+   # Close file descriptor 9 (end redirection)
+   exec 0&gt;&amp;9 9&gt;&amp;-
+   return 0
+}
+
+case "${1}" in
+   start)
+      log_info_msg "Cleaning file systems:" 
+
+      if [ "${SKIPTMPCLEAN}" = "" ]; then
+         log_info_msg2 " /tmp" 
+         cd /tmp &amp;&amp;
+         find . -xdev -mindepth 1 ! -name lost+found -delete || failed=1
+      fi
+
+      &gt; /var/run/utmp
+
+      if grep -q '^utmp:' /etc/group ; then
+         chmod 664 /var/run/utmp
+         chgrp utmp /var/run/utmp
+      fi
+
+      (exit ${failed})
+      evaluate_retval
+
+      if egrep -qv '^(#|$)' /etc/sysconfig/createfiles 2&gt;/dev/null; then
+         log_info_msg "Creating files and directories... "
+         create_files      # Always returns 0
+         evaluate_retval
+      fi
+
+      exit $failed
+      ;;
+   *)
+      echo "Usage: ${0} {start}"
+      exit 1
+      ;;
+esac
+
+# End cleanfs
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds10.html" title=
+          "/etc/rc.d/init.d/udev_retry">上一页</a>
+          <p>
+            /etc/rc.d/init.d/udev_retry
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds12.html" title=
+          "/etc/rc.d/init.d/console">下一页</a>
+          <p>
+            /etc/rc.d/init.d/console
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

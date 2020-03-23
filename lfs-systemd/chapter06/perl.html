@@ -1,0 +1,698 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.40.&nbsp;Perl-5.30.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="inetutils.html" title=
+          "Inetutils-1.9.4">上一页</a>
+          <p>
+            Inetutils-1.9.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="xml-parser.html" title=
+          "XML::Parser-2.44">下一页</a>
+          <p>
+            XML::Parser-2.44
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-perl" name="ch-system-perl"></a>6.40. Perl-5.30.0
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Perl 软件包包含实用信息抽取与报告语言。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">9.9 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">272 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.40.1. 安装 Perl
+        </h2>
+        <p>
+          首先创建其中一个 Perl 配置文件和可选测试套件引用的基本 <code class=
+          "filename">/etc/hosts</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">echo "127.0.0.1 localhost $(hostname)" &gt; /etc/hosts</kbd>
+</pre>
+        <p>
+          该版本的 Perl 会编译 Compress::Raw::Zlib 和 Compress::Raw::BZip2 模块。Perl
+          默认会使用内部的源码用于构建。用以下的命令使 Perl 使用系统中已安装的库：
+        </p>
+        <pre class="userinput">
+<kbd class="command">export BUILD_ZLIB=False
+export BUILD_BZIP2=0</kbd>
+</pre>
+        <p>
+          为了能完全控制 Perl 的设置，你可以在下面的命令中移除「-des」选项并手动设置编译该软件包的方式。相应的，用下面的命令来使用
+          Perl 自动检测到的默认值：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sh Configure -des -Dprefix=/usr                 \
+                  -Dvendorprefix=/usr           \
+                  -Dman1dir=/usr/share/man/man1 \
+                  -Dman3dir=/usr/share/man/man3 \
+                  -Dpager="/usr/bin/less -isR"  \
+                  -Duseshrplib                  \
+                  -Dusethreads</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>-Dvendorprefix=/usr</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这能确保 <span class="command"><strong>perl</strong></span>
+                知道，该如何告知软件包应该将它们的 perl 模块安装在哪里。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>-Dpager="/usr/bin/less
+              -isR"</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这能确保使用的是 <strong class="userinput"><code>less</code></strong>
+                而非 <strong class="userinput"><code>more</code></strong>。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>-Dman1dir=/usr/share/man/man1
+              -Dman3dir=/usr/share/man/man3</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                由于 Groff 还没有安装，<span class=
+                "command"><strong>Configure</strong></span> 会认为我们不希望为 Perl 安装
+                man 手册。用这些参数更改这个判断。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>-Duseshrplib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                构建某些 perl 模块需要的共享 libperl。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>-Dusethreads</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                构建支持线程的 perl。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果（大概 11 SBU）：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make -k test</kbd>
+</pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            因为使用了最新的 gdbm 从而会导致一项测试失败。
+          </p>
+        </div>
+        <p>
+          安装软件包并清理：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install
+unset BUILD_ZLIB BUILD_BZIP2</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-perl" name="contents-perl"></a>6.40.2. Perl 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">corelist, cpan, enc2xs, encguess, h2ph, h2xs,
+              instmodsh, json_pp, libnetcfg, perl, perl5.30.0 (到 perl 的硬链接),
+              perlbug, perldoc, perlivp, perlthanks (到 perlbug 的硬链接), piconv,
+              pl2pm, pod2html, pod2man, pod2text, pod2usage, podchecker,
+              podselect, prove, ptar, ptardiff, ptargrep, shasum, splain,
+              xsubpp, 和 zipdetails</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">过多，不能在这完整列出</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/lib/perl5</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="corelist" name="corelist"></a><span class=
+                    "term"><span class=
+                    "command"><strong>corelist</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Module::CoreList 的命令行前端
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cpan" name="cpan"></a><span class=
+                    "term"><span class=
+                    "command"><strong>cpan</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用命令行与综合 Perl 归档网络（Comprehensive Perl Archive
+                    Network,CPAN）交互
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="enc2xs" name="enc2xs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>enc2xs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从 Unicode 字符映射或 Tcl 编码文件为 Encode 模块编译 Perl 扩展
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="encguess" name="encguess"></a><span class=
+                    "term"><span class=
+                    "command"><strong>encguess</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    猜测一个或多个文件的编码类型
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="h2ph" name="h2ph"></a><span class=
+                    "term"><span class=
+                    "command"><strong>h2ph</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 <code class="filename">.h</code> C 头文件为 <code class=
+                    "filename">.ph</code> Perl 头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="h2xs" name="h2xs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>h2xs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 <code class="filename">.h</code> C 头文件为 Perl 扩展
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="instmodsh" name="instmodsh"></a><span class=
+                    "term"><span class=
+                    "command"><strong>instmodsh</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于检查安装的 Perl 模块的 shell 脚本，并且能从一个安装的模块中创建 tar 包
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="json_pp" name="json_pp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>json_pp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在特定输入输出格式之间转换数据
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnetcfg" name="libnetcfg"></a><span class=
+                    "term"><span class=
+                    "command"><strong>libnetcfg</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    可用于配置 <code class="filename">libnet</code> Perl 模块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="perl" name="perl"></a><span class=
+                    "term"><span class=
+                    "command"><strong>perl</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将 C,<span class=
+                    "command"><strong>sed</strong></span>，<span class=
+                    "command"><strong>awk</strong></span> 以及 <span class=
+                    "command"><strong>sh</strong></span> 一些最好的特性结合到一个单一的强大语言
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="perl-version" name="perl-version"></a><span class=
+                    "term"><span class=
+                    "command"><strong>perl5.30.0</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    到 <span class="command"><strong>perl</strong></span> 的硬链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="perlbug" name="perlbug"></a><span class=
+                    "term"><span class=
+                    "command"><strong>perlbug</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于生成关于 Perl、或者一起发布的模块的 bug 报告，并用邮件通知
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="perldoc" name="perldoc"></a><span class=
+                    "term"><span class=
+                    "command"><strong>perldoc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用嵌入到 Perl 安装目录或 Perl 脚本中的 pod 格式显示文档
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="perlivp" name="perlivp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>perlivp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Perl 安装验证程序；能用于验证 Perl 和它的库是否正确安装
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="perlthanks" name="perlthanks"></a><span class=
+                    "term"><span class=
+                    "command"><strong>perlthanks</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于生成发送到 Perl 开发者的感谢邮件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="piconv" name="piconv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>piconv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Perl 版本的字符编码转换程序 <span class=
+                    "command"><strong>iconv</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pl2pm" name="pl2pm"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pl2pm</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于将 Perl4 <code class="filename">.pl</code> 文件转换为 Perl5
+                    <code class="filename">.pm</code> 模块的工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pod2html" name="pod2html"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pod2html</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将文件从 pod 格式转换为 HTML 格式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pod2man" name="pod2man"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pod2man</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将 pod 格式数据转换为格式化的 *roff 输入
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pod2text" name="pod2text"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pod2text</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将 pod 数据转换为格式化的 ASCII 文本
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pod2usage" name="pod2usage"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pod2usage</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从文件中嵌入的 pod 文档显示使用信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="podchecker" name="podchecker"></a><span class=
+                    "term"><span class=
+                    "command"><strong>podchecker</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查 pod 格式的文档文件语法
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="podselect" name="podselect"></a><span class=
+                    "term"><span class=
+                    "command"><strong>podselect</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示 pod 文档选中的章节
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="prove" name="prove"></a><span class=
+                    "term"><span class=
+                    "command"><strong>prove</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    运行对 Test::Harness 模块测试的命令行工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ptar" name="ptar"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ptar</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用 Perl 写的类似 <span class=
+                    "command"><strong>tar</strong></span> 的程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ptardiff" name="ptardiff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ptardiff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于比较提取的文档和未提取的 Perl 程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ptargrep" name="ptargrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ptargrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于对 tar 归档文件中的内容进行模式匹配的 Perl 程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="shasum" name="shasum"></a><span class=
+                    "term"><span class=
+                    "command"><strong>shasum</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印或检查 SHA 校验码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="splain" name="splain"></a><span class=
+                    "term"><span class=
+                    "command"><strong>splain</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于 Perl 中的强制冗长警告诊断
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xsubpp" name="xsubpp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xsubpp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 Perl XS 代码为 C 代码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zipdetails" name="zipdetails"></a><span class=
+                    "term"><span class=
+                    "command"><strong>zipdetails</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示 Zip 文件内部结构的详细信息
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="inetutils.html" title=
+          "Inetutils-1.9.4">上一页</a>
+          <p>
+            Inetutils-1.9.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="xml-parser.html" title=
+          "XML::Parser-2.44">下一页</a>
+          <p>
+            XML::Parser-2.44
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

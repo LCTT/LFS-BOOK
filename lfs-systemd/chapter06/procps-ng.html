@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.74.&nbsp;Procps-ng-3.3.15
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="dbus.html" title="D-Bus-1.12.16">上一页</a>
+          <p>
+            D-Bus-1.12.16
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="util-linux.html" title=
+          "Util-linux-2.34">下一页</a>
+          <p>
+            Util-linux-2.34
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-procps" name="ch-system-procps"></a>6.74.
+        Procps-ng-3.3.15
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Procps-ng 软件包包含监视进程的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">17 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.74.1. 安装 Procps-ng
+        </h2>
+        <p>
+          准备编译 procps-ng：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr                            \
+            --exec-prefix=                           \
+            --libdir=/usr/lib                        \
+            --docdir=/usr/share/doc/procps-ng-3.3.15 \
+            --disable-static                         \
+            --disable-kill                           \
+            --with-systemd</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-kill</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项将不会编译已经由 Util-linux 软件包安装了的 <span class=
+                "command"><strong>kill</strong></span> 命令。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          对于 LFS，测试套件需要自定义某些更改。移除当脚本不使用 tty 设备时失败的测试，同时修复另两个失败。用下面的命令运行测试套件：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i -r 's|(pmap_initname)\\\$|\1|' testsuite/pmap.test/pmap.exp
+sed -i '/set tty/d' testsuite/pkill.test/pkill.exp
+rm testsuite/pgrep.test/pgrep.exp
+make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          最后，如果 <code class="filename">/usr</code> 没有挂载的话，移动重要文件到一个可以找到的位置。
+        </p>
+        <pre class="userinput">
+<kbd class="command">mv -v /usr/lib/libprocps.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-procps" name="contents-procps"></a>6.74.2.
+          Procps-ng 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">free, pgrep, pidof, pkill, pmap, ps, pwdx, slabtop,
+              sysctl, tload, top, uptime, vmstat, w, 和 watch</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libprocps.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/include/proc 和
+              /usr/share/doc/procps-ng-3.3.15</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="free" name="free"></a><span class=
+                    "term"><span class=
+                    "command"><strong>free</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告系统中空闲和使用的内存容量（包括物理和交换内存）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pgrep" name="pgrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pgrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据名称和其它属性查找进程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pidof" name="pidof"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pidof</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告指定程序的 PID
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pkill" name="pkill"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pkill</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据名称和其它属性给进程发送信号
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pmap" name="pmap"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pmap</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告指定进程的内存映射情况
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ps" name="ps"></a><span class="term"><span class=
+                    "command"><strong>ps</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    列出正在运行的进程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pwdx" name="pwdx"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pwdx</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告进程的当前工作目录
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="slabtop" name="slabtop"></a><span class=
+                    "term"><span class=
+                    "command"><strong>slabtop</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    实时显示内核 slab 缓存信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sysctl" name="sysctl"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sysctl</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    运行时修改内核参数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tload" name="tload"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tload</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印当前系统平均负荷曲线图
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="top" name="top"></a><span class=
+                    "term"><span class="command"><strong>top</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示最 CPU 密集型进程列表；它可以实时地连续查看处理器活动
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="uptime" name="uptime"></a><span class=
+                    "term"><span class=
+                    "command"><strong>uptime</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告系统运行时长、登录用户数目以及系统平均负荷
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="vmstat" name="vmstat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>vmstat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告虚拟内存统计信息、给出关于进程、内存、分页、块输入/输出(IO)、陷阱以及 CPU 活动的信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="w" name="w"></a><span class="term"><span class=
+                    "command"><strong>w</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示当前登录的用户、以及登录地点和时间
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="watch" name="watch"></a><span class=
+                    "term"><span class=
+                    "command"><strong>watch</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    重复运行指定命令，显示输出的第一个整屏；这允许用户查看随着时间的输出变化
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libprocps" name="libprocps"></a><span class=
+                    "term"><code class="filename">libprocps</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含该软件包大部分程序使用的函数
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="dbus.html" title="D-Bus-1.12.16">上一页</a>
+          <p>
+            D-Bus-1.12.16
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="util-linux.html" title=
+          "Util-linux-2.34">下一页</a>
+          <p>
+            Util-linux-2.34
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

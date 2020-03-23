@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.27.&nbsp;Libcap-2.27
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="acl.html" title="Acl-2.2.53">上一页</a>
+          <p>
+            Acl-2.2.53
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sed.html" title="Sed-4.7">下一页</a>
+          <p>
+            Sed-4.7
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-libcap" name="ch-system-libcap"></a>6.27.
+        Libcap-2.27
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Libcap 软件包实现了可用在 Linux 内核上的对 POSIX 1003.1e 功能的用户空间接口。这些功能将所有强大 root
+          权限划分为不同的权限组合。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">少于 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">1.5 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.27.1. 安装 Libcap
+        </h2>
+        <p>
+          避免安装静态库：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i '/install.*STALIBNAME/d' libcap/Makefile</kbd>
+</pre>
+        <p>
+          编译软件包
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          这个软件包没有测试套件。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make RAISE_SETFCAP=no lib=lib prefix=/usr install
+chmod -v 755 /usr/lib/libcap.so.2.27</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>make 选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>RAISE_SETFCAP=no</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项跳过尝试对自身使用 <span class=
+                "command"><strong>setcap</strong></span>。这可以避免内核或文件系统不支持扩展功能时出现安装错误。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>lib=lib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                此参数用于在 x86_64 位系统中，将库文件安装到 <code class=
+                "filename">$prefix/lib</code> 而不是 <code class=
+                "filename">$prefix/lib64</code>。此参数不影响 x86 系统。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          需要移动共享库到 <code class="filename">/lib</code>，因此需要重建 <code class=
+          "filename">/usr/lib</code> 中的 <code class="filename">.so</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mv -v /usr/lib/libcap.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libcap.so) /usr/lib/libcap.so</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-libcap" name="contents-libcap"></a>6.27.2. Libcap
+          软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">capsh, getcap, getpcaps, 和 setcap</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libcap.so</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="capsh" name="capsh"></a><span class=
+                    "term"><span class=
+                    "command"><strong>capsh</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    使用和控制功能支持的 shell 封装
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="getcap" name="getcap"></a><span class=
+                    "term"><span class=
+                    "command"><strong>getcap</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查文件功能
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="getpcaps" name="getpcaps"></a><span class=
+                    "term"><span class=
+                    "command"><strong>getpcaps</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示查询进程的功能
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setcap" name="setcap"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setcap</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置文件的容量
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libcap" name="libcap"></a><span class=
+                    "term"><code class="filename">libcap</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包括用于管理 POSIX 1003.1e 功能的库函数
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="acl.html" title="Acl-2.2.53">上一页</a>
+          <p>
+            Acl-2.2.53
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sed.html" title="Sed-4.7">下一页</a>
+          <p>
+            Sed-4.7
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.2.&nbsp;通用网络配置
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="udev.html" title="设备与模块管理概述">下一页</a>
+          <p>
+            设备与模块管理概述
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-network" name="ch-scripts-network"></a>7.2. 通用网络配置
+      </h1>
+      <p>
+        本节仅在需要配置网卡时参考。
+      </p>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          7.2.1. 网络接口配置文件
+        </h2>
+        <p>
+          自版本 209 开始，systemd 提供了一个名为 <span class=
+          "command"><strong>systemd-networkd</strong></span>
+          的命令用于处理基本的网络配置。另外，自版本 213 开始，DNS 名称解析可用 <span class=
+          "command"><strong>systemd-resolved</strong></span> 代替静态的
+          <code class="filename">/etc/resolv.conf</code>
+          文件来解决。默认情况，两种服务都将被启用。
+        </p>
+        <p>
+          <span class="command"><strong>systemd-networkd</strong></span>（和
+          <span class="command"><strong>systemd-resolved</strong></span>
+          的配置文件可能在 <code class="filename">/usr/lib/systemd/network</code> 或
+          <code class="filename">/etc/systemd/network</code>中。<code class=
+          "filename">/etc/systemd/network</code> 中文件比 <code class=
+          "filename">/usr/lib/systemd/network</code>中的有更高的优先级。配置文件类型有三种：<code class="filename">.link</code>，<code class="filename">.netdev</code>
+          和 <code class="filename">.network</code> 文件。可以通过查阅 man 手册的
+          <code class="filename">systemd-link(5)</code>，<code class=
+          "filename">systemd-netdev(5)</code> 和 <code class=
+          "filename">systemd-network(5)</code> 获取更多关于这些配置文件的详细介绍。
+        </p>
+        <div class="sect3">
+          <h3 class="sect3">
+            <a id="systemd-network-devices" name=
+            "systemd-network-devices"></a>7.2.1.1. 网络设备命名
+          </h3>
+          <p>
+            udev 通常会根据系统物理特性分配接口名称。例如，enp2s1。如果你不确定你的接口名称，你可以在系统启动后运行
+            <span class="command"><strong>ip link</strong></span> 查看。
+          </p>
+          <p>
+            对于大多数系统，每种连接只会有一种网络接口。例如，传统有线连接的接口名 eth0。而无线连接的名称通常是 wifi0 或
+            wlan0。
+          </p>
+          <p>
+            如果你更青睐传统或是自定义的网络接口名称，有三种实现的方法：
+          </p>
+          <div class="itemizedlist">
+            <ul>
+              <li class="listitem">
+                <p>
+                  为默认的策略隐蔽 udev 的 .link 文件：
+                </p>
+                <pre class="userinput">
+<kbd class=
+"command">ln -s /dev/null /etc/systemd/network/99-default.link</kbd>
+</pre>
+              </li>
+              <li class="listitem">
+                <p>
+                  创建手动命名规则，比方说，将接口命名成「internet0」，「dmz0」或「lan0」这样。为此，请在
+                  /etc/systemd/network/ 中创建 .link
+                  文件，为其中的一个，一些，或者说你全部的接口赋予明确的名字或是更妥善的命名规则。示例：
+                </p>
+                <pre class="userinput">
+<kbd class=
+"command">cat &gt; /etc/systemd/network/10-ether0.link &lt;&lt; "EOF"
+<code class="literal">[Match]
+# Change the MAC address as appropriate for your network device
+MACAddress=12:34:45:78:90:AB
+
+[Link]
+Name=ether0</code>
+EOF</kbd>
+</pre>
+                <p>
+                  参考 man 手册 systemd.link(5) 获取更多信息。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  在 /boot/grub/grub.cfg 中，给内核命令行传递 net.ifnames=0 选项。
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            <a id="systemd-networkd-static" name=
+            "systemd-networkd-static"></a>7.2.1.2. 静态 IP 的配置
+          </h3>
+          <p>
+            以下为设置静态 IP 而创建的基础配置文件（同时用到了 systemd-networkd 和 systemd-resolved）：
+          </p>
+          <pre class="userinput">
+<kbd class=
+"command">cat &gt; /etc/systemd/network/10-eth-static.network &lt;&lt; "EOF"
+<code class="literal">[Match]
+Name=<em class="replaceable"><code>&lt;network-device-name&gt;</code></em>
+
+[Network]
+Address=192.168.0.2/24
+Gateway=192.168.0.1
+DNS=192.168.0.1
+Domains=<em class=
+"replaceable"><code>&lt;Your Domain Name&gt;</code></em></code>
+EOF</kbd>
+</pre>
+          <p>
+            如果你拥有的 DNS 服务器超过了一个，可以为其添加多个 DNS 条目。然而，如果你打算用静态的 <code class=
+            "filename">/etc/resolv.conf</code> 文件，就不要添加 DNS 或域名条目。
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            <a id="systemd-networkd-dhcp" name=
+            "systemd-networkd-dhcp"></a>7.2.1.3. DHCP 的配置
+          </h3>
+          <p>
+            通过以下命令，你可以创建用于设置 IPv4 DHCP 的基础配置文件：
+          </p>
+          <pre class="userinput">
+<kbd class=
+"command">cat &gt; /etc/systemd/network/10-eth-dhcp.network &lt;&lt; "EOF"
+<code class="literal">[Match]
+Name=&lt;network-device-name&gt;
+
+[Network]
+DHCP=ipv4
+
+[DHCP]
+UseDomains=true</code>
+EOF</kbd>
+</pre>
+        </div>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="resolv.conf" name="resolv.conf"></a>7.2.2. 创建
+          /etc/resolv.conf 文件
+        </h2>
+        <p>
+          如果你的系统需要连接到互联网，它需要利用 DNS 服务将互联网域名解析为实际的 IP 地址，反之亦然。最好的方法是将从 ISP
+          或者是网络管理员那里取得的 DNS 服务器地址填入 <code class=
+          "filename">/etc/resolv.conf</code>。
+        </p>
+        <div class="sect3">
+          <h3 class="sect3">
+            <a id="resolv-conf-systemd-resolved" name=
+            "resolv-conf-systemd-resolved"></a>7.2.2.1. systemd-resolved 的配置
+          </h3>
+          <div class="admon note">
+            <img alt="[注意]" src="../images/note.png" />
+            <h3>
+              注意
+            </h3>
+            <p>
+              如果你使用其他方式来配置你的网络接口（例如：ppp，network-manager，等），或是任何类型的本地解析器（例如：bind，dnsmasq，等），或是任何生成
+              <code class="filename">/etc/resolv.conf</code>
+              文件的软件（例如：resolvconf），也就别用 <span class=
+              "command"><strong>systemd-resolved</strong></span> 服务了。
+            </p>
+          </div>
+          <p>
+            用 <span class="command"><strong>systemd-resolved</strong></span>
+            配置 DNS 时，会创建 <code class=
+            "filename">/run/systemd/resolve/resolv.conf</code> 文件。并在
+            <code class="filename">/etc</code> 中创建一个指向生成文件的符号链接：
+          </p>
+          <pre class="userinput">
+<kbd class=
+"command">ln -sfv /run/systemd/resolve/resolv.conf /etc/resolv.conf</kbd>
+</pre>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            <a id="resolv-conf-static" name="resolv-conf-static"></a>7.2.2.2.
+            静态 resolv.conf 的配置
+          </h3>
+          <p>
+            如果需要静态的 <code class="filename">/etc/resolv.conf</code>
+            文件，请使用以下命令：
+          </p>
+          <pre class="userinput">
+<kbd class="command">cat &gt; /etc/resolv.conf &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/resolv.conf
+
+domain <em class="replaceable"><code>&lt;Your Domain Name&gt;</code></em>
+nameserver <em class=
+"replaceable"><code>&lt;IP address of your primary nameserver&gt;</code></em>
+nameserver <em class=
+"replaceable"><code>&lt;IP address of your secondary nameserver&gt;</code></em>
+
+# End /etc/resolv.conf</code>
+EOF</kbd>
+</pre>
+          <p>
+            <code class="varname">domain</code> 声明可以忽略或者以 <code class=
+            "varname">search</code> 声明替换。参考 man 手册的 resolv.conf 部分获得更多信息。
+          </p>
+          <p>
+            其中，<em class="replaceable"><code>&lt;IP address of the
+            nameserver&gt;</code></em> 替换为最合适的 DNS 的 IP
+            地址。通常会有多个条目（需要备选服务器具有相关兼容性）。如果你只需要一台 DNS 服务器，请不要输入第二行
+            <span class="emphasis"><em>nameserver</em></span> 的内容。该 IP
+            地址也可以是本地网络中的一台路由。
+          </p>
+          <div class="admon note">
+            <img alt="[注意]" src="../images/note.png" />
+            <h3>
+              注意
+            </h3>
+            <p>
+              Google 公开的 DNS 解析服务器地址 IPv4 的为：<em class=
+              "parameter"><code>8.8.8.8</code></em> 和 <em class=
+              "parameter"><code>8.8.4.4</code></em>。IPv6 的为 <em class=
+              "parameter"><code>2001:4860:4860::8888</code></em> 和 <em class=
+              "parameter"><code>2001:4860:4860::8844</code></em>。
+            </p>
+            <p>
+              114 DNS：<em class="parameter"><code>114.114.114.114</code></em>
+              和 <em class="parameter"><code>114.114.115.115</code></em>。
+            </p>
+            <p>
+              阿里 DNS：<em class="parameter"><code>223.5.5.5</code></em> 和
+              <em class="parameter"><code>223.6.6.6</code></em>。
+            </p>
+            <p>
+              百度 DNS：<em class="parameter"><code>180.76.76.76</code></em>
+            </p>
+            <p>
+              OpenDNS：<em class="parameter"><code>208.67.220.220</code></em>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="ch-scripts-hostname" name="ch-scripts-hostname"></a>7.2.3.
+          配置系统主机名称
+        </h2>
+        <p>
+          在系统启动过程中，<code class="filename">/etc/hostname</code> 文件用于创建系统的主机名称。
+        </p>
+        <p>
+          通过以下命令创建 <code class="filename">/etc/hostname</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">echo "<em class=
+"replaceable"><code>&lt;lfs&gt;</code></em>" &gt; /etc/hostname</kbd>
+</pre>
+        <p>
+          <em class="replaceable"><code>&lt;lfs&gt;</code></em>
+          替换为你想要设置的名称。请不要输入完整域名（Fully Qualified Domain Name，FQDN），那应该是放在
+          <code class="filename">/etc/hosts</code> 文件中的信息。
+        </p>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="ch-scripts-hosts" name="ch-scripts-hosts"></a>7.2.4. 自定义
+          /etc/hosts 文件
+        </h2>
+        <p>
+          决定完整域名（Fully-Qualified Domain Name，FQDN），和可在文件 <code class=
+          "filename">/etc/hosts</code> 中使用的别名。如果使用的是静态地址，你还需要决定 IP 地址。hosts
+          文件中条目的语法为：
+        </p>
+        <pre class="screen">
+<code class="literal">IP_address myhost.example.org aliases</code>
+</pre>
+        <p>
+          除非电脑在互联网中可见（例如，拥有注册的域名且分配有有效的 IP 地址——大多数用户并没有这些），请确保 IP 地址位于有效的私有网络
+          IP 地址段。有效区间是：
+        </p>
+        <pre class="screen">
+<code class="literal">Private Network Address Range      Normal Prefix
+10.0.0.1 - 10.255.255.254           8
+172.x.0.1 - 172.x.255.254           16
+192.168.y.1 - 192.168.y.254         24</code>
+</pre>
+        <p>
+          x 可以时 16-31 之间的任何数字。y 可以时 0-255 之间的任何数字。
+        </p>
+        <p>
+          有效的私有 IP 可以是 192.168.1.1。而与之相配的完整域名可以是 lfs.example.org。
+        </p>
+        <p>
+          即使没有网卡，一个有效的完整仍然有其必要。它的存在可以确保程序正常运行。
+        </p>
+        <p>
+          如果使用的是 DHCP，DHCPv6，IPv6 自动配置，或者说不配置网卡的话，通过以下命令可以创建 <code class=
+          "filename">/etc/hosts</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cat &gt; /etc/hosts &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/hosts
+
+127.0.0.1 localhost
+127.0.1.1 <em class="replaceable"><code>&lt;FQDN&gt;</code></em> <em class=
+"replaceable"><code>&lt;HOSTNAME&gt;</code></em>
+::1       localhost ip6-localhost ip6-loopback
+ff02::1   ip6-allnodes
+ff02::2   ip6-allrouters
+
+# End /etc/hosts</code>
+EOF</kbd>
+</pre>
+        <p>
+          ::1 相对与 IPv4 的 127.0.0.1，是 IPv6 的回环地址。127.0.1.1 专门为 FQDN 保留的回环地址。
+        </p>
+        <p>
+          如果使用的是静态地址，可代替的使用以下命令创建 <code class="filename">/etc/hosts</code>
+          文件。
+        </p>
+        <pre class="userinput">
+<kbd class="command">cat &gt; /etc/hosts &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/hosts
+
+127.0.0.1 localhost
+127.0.1.1 <em class="replaceable"><code>&lt;FQDN&gt;</code></em> <em class=
+"replaceable"><code>&lt;HOSTNAME&gt;</code></em>
+<em class="replaceable"><code>&lt;192.168.0.2&gt;</code></em> <em class=
+"replaceable"><code>&lt;FQDN&gt;</code></em> <em class=
+"replaceable"><code>&lt;HOSTNAME&gt;</code></em> <em class=
+"replaceable"><code>[alias1] [alias2] ...</code></em>
+::1       localhost ip6-localhost ip6-loopback
+ff02::1   ip6-allnodes
+ff02::2   ip6-allrouters
+
+# End /etc/hosts</code>
+EOF</kbd>
+</pre>
+        <p>
+          其中 <em class=
+          "replaceable"><code>&lt;192.168.0.2&gt;</code></em>，<em class=
+          "replaceable"><code>&lt;FQDN&gt;</code></em>，和 <em class=
+          "replaceable"><code>&lt;HOSTNAME&gt;</code></em>
+          的值需要根据具体的用途或需求更改（如果网络/系统管理员会分配了 IP 地址，且机器将会接入现有的网络）。那可选的别名可以忽略。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="udev.html" title="设备与模块管理概述">下一页</a>
+          <p>
+            设备与模块管理概述
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

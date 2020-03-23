@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.70.&nbsp;Texinfo-6.6
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="tar.html" title="Tar-1.32">上一页</a>
+          <p>
+            Tar-1.32
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="vim.html" title="Vim-8.1.1846">下一页</a>
+          <p>
+            Vim-8.1.1846
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-texinfo" name="ch-system-texinfo"></a>6.70.
+        Texinfo-6.6
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Texinfo 软件包包含用于读、写以及转换信息页的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.8 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">122 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.70.1. 安装 Texinfo
+        </h2>
+        <p>
+          准备编译 Texinfo：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr --disable-static</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-static</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                顶级的配置脚本会告诉你这是一个未能识别的选项，但是 XSParagraph 的配置脚本能够识别它，并能用其来禁用安装静态
+                <code class="filename">XSParagraph.a</code> 至 <code class=
+                "filename">/usr/lib/texinfo</code> 的操作。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          可选地安装 TeX 中的组件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make TEXMF=/usr/share/texmf install-tex</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>make 参数的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>TEXMF=/usr/share/texmf</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                如果后面会安装 TeX 软件包，<code class="envar">TEXMF</code> makefile
+                变量保存了作为 TeX 树的根位置。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          该信息文档系统使用一个纯文本文件来存放菜单条目清单。文件保存在 <code class=
+          "filename">/usr/share/info/dir</code>。不幸的是，由于不同软件包 Makefile
+          的偶然问题，有时候会和系统中安装的信息页不同步。如果需要重建 <code class=
+          "filename">/usr/share/info/dir</code> 文件，下面的可选命令能完成任务：
+        </p>
+        <pre class="userinput">
+<kbd class="command">pushd /usr/share/info
+rm -v dir
+for f in *
+  do install-info $f dir 2&gt;/dev/null
+done
+popd</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-texinfo" name="contents-texinfo"></a>6.70.2.
+          Texinfo 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">info, install-info, makeinfo (链接到 texi2any),
+              pdftexi2dvi, pod2texi, texi2any, texi2dvi, texi2pdf, 和
+              texindex</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">MiscXS.so, Parsetexi.so, 和 XSParagraph.so (全部位于
+              /usr/lib/texinfo)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/share/texinfo 和 /usr/lib/texinfo</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="info" name="info"></a><span class=
+                    "term"><span class=
+                    "command"><strong>info</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于读取和 man 页面相似的信息页，但和只是解释所有可用命令行选项相比更加深入，[例如比较
+                    <span class="command"><strong>man bison</strong></span> 和
+                    <span class="command"><strong>info
+                    bison</strong></span>。]
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="install-info" name="install-info"></a><span class=
+                    "term"><span class=
+                    "command"><strong>install-info</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于安装信息页；它会更新 <span class=
+                    "command"><strong>info</strong></span> 索引文件中的条目
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="makeinfo" name="makeinfo"></a><span class=
+                    "term"><span class=
+                    "command"><strong>makeinfo</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    翻译给定的 Texinfo 源文档为信息页、纯文本或 HTML
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pdftexi2dvi" name="pdftexi2dvi"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pdftexi2dvi</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于格式化给定的 Texinfo 文档为 PDF 文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pod2texi" name="pod2texi"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pod2texi</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 Pod 为 Texinfo 格式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="texi2any" name="texi2any"></a><span class=
+                    "term"><span class=
+                    "command"><strong>texi2any</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    翻译 Texinfo 源文档为多种其它格式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="texi2dvi" name="texi2dvi"></a><span class=
+                    "term"><span class=
+                    "command"><strong>texi2dvi</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于格式化给定 Texinfo 文档为可打印的设备无关文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="texi2pdf" name="texi2pdf"></a><span class=
+                    "term"><span class=
+                    "command"><strong>texi2pdf</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于格式化给定 Texinfo 文档为 PDF 文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="texindex" name="texindex"></a><span class=
+                    "term"><span class=
+                    "command"><strong>texindex</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于对 Texinfo 索引文件进行排序
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="tar.html" title="Tar-1.32">上一页</a>
+          <p>
+            Tar-1.32
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="vim.html" title="Vim-8.1.1846">下一页</a>
+          <p>
+            Vim-8.1.1846
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

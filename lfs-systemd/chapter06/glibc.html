@@ -1,0 +1,1193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.9.&nbsp;Glibc-2.30
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="man-pages.html" title=
+          "Man-pages-5.02">上一页</a>
+          <p>
+            Man-pages-5.02
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="adjusting.html" title="调整工具链">下一页</a>
+          <p>
+            调整工具链
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-glibc" name="ch-system-glibc"></a>6.9. Glibc-2.30
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Glibc 软件包包含了主要的 C
+          函数库。这个库提供了分配内存、搜索目录、打开关闭文件、读写文件、操作字符串、模式匹配、基础算法等基本程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">21 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">3.3 GB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.9.1. 安装 Glibc
+        </h2>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            Glibc 构建系统是独立的，并且会完美地安装，即使编译器指定的文件和链接器仍然指向 <code class=
+            "filename">/tools</code>。在 Glibc 安装之前，不能调整指定的文件和链接器，因为 Glibc 的
+            autoconf 测试会给出错误结果并阻碍目标实现干净的构建。
+          </p>
+        </div>
+        <p>
+          有些 Glibc 程序会用到和 FHS 不兼容的 <code class="filename">/var/db</code>
+          目录来存储它们的运行时数据。打上如下的补丁让这些程序在 FHS 兼容的位置存储它们的运行时数据。
+        </p>
+        <pre class="userinput">
+<kbd class="command">patch -Np1 -i ../glibc-2.30-fhs-1.patch</kbd>
+</pre>
+        <p>
+          修复 linux-5.2 内核引入的问题：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i '/asm.socket.h/a# include &lt;linux/sockios.h&gt;' \
+   sysdeps/unix/sysv/linux/bits/socket.h</kbd>
+</pre>
+        <p>
+          顺应 LSB 规范创建一个符号链接。此外，x86_64 情况下，为了使动态加载器正确运作，再创建一个兼容性的符号链接：
+        </p>
+        <pre class="userinput">
+<kbd class="command">case $(uname -m) in
+    i?86)   ln -sfv ld-linux.so.2 /lib/ld-lsb.so.3
+    ;;
+    x86_64) ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64
+            ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
+    ;;
+esac</kbd>
+</pre>
+        <p>
+          Glibc 文档里建议在 Glibc 特定编译目录下编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -v build
+cd       build</kbd>
+</pre>
+        <p>
+          配置 Glibc 准备编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">CC="gcc -ffile-prefix-map=/tools=/usr" \
+../configure --prefix=/usr                          \
+             --disable-werror                       \
+             --enable-kernel=3.2                    \
+             --enable-stack-protector=strong        \
+             --with-headers=/usr/include            \
+             libc_cv_slibdir=/lib</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>选项和新参数的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class="parameter"><code>CC="gcc
+              -ffile-prefix-map=/tools=/usr"</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                让 GCC 在编译后记录 /tools 中文件的引用，使文件如同位于 /usr 一样。避免在调试符号中引入无效路径。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-werror</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                选项像禁用了传递给 GCC 的 -Werror 选项。为了测试套件，此项必不可少。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-stack-protector=strong</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项通过添加额外代码检查缓冲区溢出（例如，堆栈粉碎攻击）来增强系统安全性。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-headers=/usr/include</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项告诉构建系统在哪里可以找到内核 API 的头文件。默认情况下，会在 <code class=
+                "filename">/tools/include</code> 中查找头文件。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>libc_cv_slibdir=/lib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该变量为所有系统设置正确的库。我们不希望使用 lib64 。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <div class="admon important">
+          <img alt="[重要]" src="../images/important.png" />
+          <h3>
+            重要
+          </h3>
+          <p>
+            在本小节里，运行 Glibc 的测试套件是很关键的。在任何情况下都不要跳过这个测试。
+          </p>
+        </div>
+        <p>
+          通常会有一些测试不能通过。若是下面列出的这些失败，通常就可以安心的无视了。
+        </p>
+        <pre class="userinput">
+<kbd class="command">case $(uname -m) in
+  i?86)   ln -sfnv $PWD/elf/ld-linux.so.2        /lib ;;
+  x86_64) ln -sfnv $PWD/elf/ld-linux-x86-64.so.2 /lib ;;
+esac</kbd>
+</pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            在 chroot 环境的这个阶段需要上面的符号链接以运行测试。在接下来的安装中，这些链接将会被覆盖。
+          </p>
+        </div>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          你可能会看到一些失败的测试项。Glibc 的测试套件对宿主系统有一定的依赖。下面是一些 LFS 版本中最常见的问题：
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                <span class="emphasis"><em>misc/tst-ttyname</em></span> 已知会在
+                LFS 的 chroot 环境中失败。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class=
+                "emphasis"><em>inet/tst-idna_name_classify</em></span> 已知会在
+                LFS 的 chroot 环境中失败。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="emphasis"><em>posix/tst-getaddrinfo4</em></span>
+                和 <span class=
+                "emphasis"><em>posix/tst-getaddrinfo5</em></span> 可能在某些架构上失败。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class=
+                "emphasis"><em>nss/tst-nss-files-hosts-multi</em></span>
+                由于未知的原因，测试可能失败。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="emphasis"><em>rt/tst-cputimer{1,2,3}</em></span>
+                测试取决于宿主机的系统内核。众所周知，内核版本 4.14.91–4.14.96、4.19.13–4.19.18 和
+                4.20.0–4.20.5 是会导致这些测试失败的。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                如果你系统的 CPU 不是相对较新的 Intel 或 AMD 处理器，数学运算测试有时候会失败。
+              </p>
+            </li>
+          </ul>
+        </div>
+        <p>
+          虽然这只是无关紧要的消息，在安装 Glibc 时会报告找不到 <code class=
+          "filename">/etc/ld.so.conf</code> 文件。下面的方式可以避免这个警告：
+        </p>
+        <pre class="userinput">
+<kbd class="command">touch /etc/ld.so.conf</kbd>
+</pre>
+        <p>
+          修复生成的 Makefile 以跳过一个没有必要的完整性检查，该检查在部分 LFS 环境中会失败：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          为 <span class="command"><strong>nscd</strong></span>
+          安装配置文件并创建运行时目录：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cp -v ../nscd/nscd.conf /etc/nscd.conf
+mkdir -pv /var/cache/nscd</kbd>
+</pre>
+        <p>
+          为 <span class="command"><strong>nscd</strong></span> 安装系统支持文件：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">install -v -Dm644 ../nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf
+install -v -Dm644 ../nscd/nscd.service /lib/systemd/system/nscd.service</kbd>
+</pre>
+        <p>
+          接着，安装可以使系统响应不同语言的地域设置。没有一个地域是必需的，但是如果缺少了其中的某些，可能会导致在未来的软件包测试套件中，跳过了重要的测试项目。
+        </p>
+        <p>
+          单独的语言环境可以用 <span class="command"><strong>localedef</strong></span>
+          程序安装。例如，下面第一个 <span class=
+          "command"><strong>localedef</strong></span> 命令将 <code class=
+          "filename">/usr/share/i18n/locales/cs_CZ</code> 字符表定义组合在一起，并将结果附加到
+          <code class="filename">/usr/share/i18n/charmaps/UTF-8.gz</code>
+          文件末尾。下面的命令将安装能完美覆盖测试所需语言环境的最小集合：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -pv /usr/lib/locale
+localedef -i POSIX -f UTF-8 C.UTF-8 2&gt; /dev/null || true
+localedef -i cs_CZ -f UTF-8 cs_CZ.UTF-8
+localedef -i de_DE -f ISO-8859-1 de_DE
+localedef -i de_DE@euro -f ISO-8859-15 de_DE@euro
+localedef -i de_DE -f UTF-8 de_DE.UTF-8
+localedef -i el_GR -f ISO-8859-7 el_GR
+localedef -i en_GB -f UTF-8 en_GB.UTF-8
+localedef -i en_HK -f ISO-8859-1 en_HK
+localedef -i en_PH -f ISO-8859-1 en_PH
+localedef -i en_US -f ISO-8859-1 en_US
+localedef -i en_US -f UTF-8 en_US.UTF-8
+localedef -i es_MX -f ISO-8859-1 es_MX
+localedef -i fa_IR -f UTF-8 fa_IR
+localedef -i fr_FR -f ISO-8859-1 fr_FR
+localedef -i fr_FR@euro -f ISO-8859-15 fr_FR@euro
+localedef -i fr_FR -f UTF-8 fr_FR.UTF-8
+localedef -i it_IT -f ISO-8859-1 it_IT
+localedef -i it_IT -f UTF-8 it_IT.UTF-8
+localedef -i ja_JP -f EUC-JP ja_JP
+localedef -i ja_JP -f SHIFT_JIS ja_JP.SIJS 2&gt; /dev/null || true
+localedef -i ja_JP -f UTF-8 ja_JP.UTF-8
+localedef -i ru_RU -f KOI8-R ru_RU.KOI8-R
+localedef -i ru_RU -f UTF-8 ru_RU.UTF-8
+localedef -i tr_TR -f UTF-8 tr_TR.UTF-8
+localedef -i zh_CN -f GB18030 zh_CN.GB18030
+localedef -i zh_HK -f BIG5-HKSCS zh_HK.BIG5-HKSCS</kbd>
+</pre>
+        <p>
+          另外，安装适合你自己国家/地区、语言和字符集的语言环境。
+        </p>
+        <p>
+          或者，也可以一次性安装在 <code class=
+          "filename">glibc-2.30/localedata/SUPPORTED</code>
+          文件里列出的所有语言环境（包括以上列出的所有语言环境以及其它更多），执行下面这个非常耗时的命令：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make localedata/install-locales</kbd>
+</pre>
+        <p>
+          你需要的语言环境几乎不太可能没有列在 <code class=
+          "filename">glibc-2.30/localedata/SUPPORTED</code> 文件中，但如果真的没有可以使用
+          <span class="command"><strong>localedef</strong></span> 命令创建和安装。
+        </p>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            当前，Glibc 在解决国际化域名时使用 libidn2。此为运行时依赖。如果需要此功能，可以参考 <a class=
+            "ulink" href=
+            "http://www.linuxfromscratch.org/blfs/view/9.0/general/libidn2.html">
+            BLFS libidn2 页</a> 相关的安装指令。
+          </p>
+        </div>
+      </div>
+      <div class="configuration" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="conf-glibc" name="conf-glibc"></a>6.9.2. 配置 Glibc
+        </h2>
+        <div class="sect3">
+          <h3 class="sect3">
+            6.9.2.1. 添加 nsswitch.conf
+          </h3>
+          <p>
+            由于 Glibc 的默认状态在网络环境下工作的并不好，所以需要创建 <code class=
+            "filename">/etc/nsswitch.conf</code> 文件。
+          </p>
+          <p>
+            创建新的 <code class="filename">/etc/nsswitch.conf</code> 通过以下命令：
+          </p>
+          <pre class="userinput">
+<kbd class="command">cat &gt; /etc/nsswitch.conf &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/nsswitch.conf
+
+passwd: files
+group: files
+shadow: files
+
+hosts: files dns
+networks: files
+
+protocols: files
+services: files
+ethers: files
+rpc: files
+
+# End /etc/nsswitch.conf</code>
+EOF</kbd>
+</pre>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            6.9.2.2. 添加时区数据
+          </h3>
+          <p>
+            通过以下命令安装并启动时区数据：
+          </p>
+          <pre class="userinput">
+<kbd class="command">tar -xf ../../tzdata2019b.tar.gz
+
+ZONEINFO=/usr/share/zoneinfo
+mkdir -pv $ZONEINFO/{posix,right}
+
+for tz in etcetera southamerica northamerica europe africa antarctica  \
+          asia australasia backward pacificnew systemv; do
+    zic -L /dev/null   -d $ZONEINFO       ${tz}
+    zic -L /dev/null   -d $ZONEINFO/posix ${tz}
+    zic -L leapseconds -d $ZONEINFO/right ${tz}
+done
+
+cp -v zone.tab zone1970.tab iso3166.tab $ZONEINFO
+zic -d $ZONEINFO -p America/New_York
+unset ZONEINFO</kbd>
+</pre>
+          <div class="variablelist">
+            <p class="title">
+              <strong>zic 命令的含义：</strong>
+            </p>
+            <dl class="variablelist">
+              <dt>
+                <span class="term"><em class="parameter"><code>zic -L
+                /dev/null ...</code></em></span>
+              </dt>
+              <dd>
+                <p>
+                  这会创建没有时间补偿的 posix 时区数据。一般将它们同时放在 <code class=
+                  "filename">zoneinfo</code> 和 <code class=
+                  "filename">zoneinfo/posix</code>。另外需要将 POSIX 时区数据放到
+                  <code class="filename">zoneinfo</code>
+                  目录下，否则很多测试套件会报错。在嵌入式平台，如果存储空间紧张而且你也不准备更新时区，也可以不用
+                  <code class="filename">posix</code> 目录从而节省
+                  1.9MB，但是一些应用程序或测试套件也许会出错。
+                </p>
+              </dd>
+              <dt>
+                <span class="term"><em class="parameter"><code>zic -L
+                leapseconds ...</code></em></span>
+              </dt>
+              <dd>
+                <p>
+                  这会创建包含时间补偿的 right
+                  时区数据。在嵌入式平台，空间比较紧张而且你也不打算更新时区或者不需要准确时间，你可以忽略 <code class=
+                  "filename">right</code> 目录从而节省 1.9MB。
+                </p>
+              </dd>
+              <dt>
+                <span class="term"><em class="parameter"><code>zic ... -p
+                ...</code></em></span>
+              </dt>
+              <dd>
+                <p>
+                  这会创建 <code class="filename">posixrules</code> 文件。我们使用纽约是因为
+                  POSIX 要求夏令时规则与 US 标准一致。
+                </p>
+              </dd>
+            </dl>
+          </div>
+          <p>
+            一种确定本地时区的方式是运行下面的脚本：
+          </p>
+          <pre class="userinput">
+<kbd class="command">tzselect</kbd>
+</pre>
+          <p>
+            在询问了几个关于位置的问题后，脚本会输出所在时区的名字（比如 <span class=
+            "emphasis"><em>America/Edmonton</em></span>)）。在 <code class=
+            "filename">/usr/share/zoneinfo</code> 文件中也有其它一些可用时区，比如
+            <span class="emphasis"><em>Canada/Eastern</em></span> 或
+            <span class=
+            "emphasis"><em>EST5EDT</em></span>，这些时区并没有被脚本列出来但也是可以使用的。
+          </p>
+          <p>
+            然后运行下面的命令创建 <code class="filename">/etc/localtime</code> 文件：
+          </p>
+          <pre class="userinput">
+<kbd class="command">ln -sfv /usr/share/zoneinfo/<em class=
+"replaceable"><code>&lt;xxx&gt;</code></em> /etc/localtime</kbd>
+</pre>
+          <p>
+            将命令中的 <em class="replaceable"><code>&lt;xxx&gt;</code></em>
+            替换成你所在实际时区的名字（比如 Canada/Eastern）。
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            <a id="conf-ld" name="conf-ld"></a>6.9.2.3. 配置动态库加载器
+          </h3>
+          <p>
+            默认情况下，动态库加载器（<code class=
+            "filename">/lib/ld-linux.so.2</code>）会搜索目录 <code class=
+            "filename">/lib</code> 和 <code class="filename">/usr/lib</code>
+            查找程序运行时所需的动态库文件。如果库文件不在 <code class="filename">/lib</code> 和
+            <code class="filename">/usr/lib</code> 目录下，需要把它所在目录加到
+            <code class="filename">/etc/ld.so.conf</code>
+            文件里，保证动态库加载器能找到这些库。通常有两个目录包含额外的动态库，<code class=
+            "filename">/usr/local/lib</code> 和 <code class=
+            "filename">/opt/lib</code>，把这两个目录加到动态库加载器的搜索路径中。
+          </p>
+          <p>
+            运行下面的命令创建一个新文件 <code class="filename">/etc/ld.so.conf</code>
+          </p>
+          <pre class="userinput">
+<kbd class="command">cat &gt; /etc/ld.so.conf &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/ld.so.conf
+/usr/local/lib
+/opt/lib
+</code>
+EOF</kbd>
+</pre>
+          <p>
+            如果需要的话，动态库加载器也可以查找目录并包含里面配置文件的内容。通常在这个包含目录下的文件只有一行字指向库目录。运行下面的命令增加这个功能：
+          </p>
+          <pre class="userinput">
+<kbd class="command">cat &gt;&gt; /etc/ld.so.conf &lt;&lt; "EOF"
+<code class="literal"># Add an include directory
+include /etc/ld.so.conf.d/*.conf
+</code>
+EOF
+mkdir -pv /etc/ld.so.conf.d</kbd>
+</pre>
+        </div>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-glibc" name="contents-glibc"></a>6.9.3. Glibc 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">catchsegv, gencat, getconf, getent, iconv,
+              iconvconfig, ldconfig, ldd, lddlibc4, locale, localedef,
+              makedb, mtrace, nscd, pcprofiledump, pldd, sln, sotruss, sprof,
+              tzselect, xtrace, zdump, 和 zic</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">ld-2.30.so, libBrokenLocale.{a,so}, libSegFault.so,
+              libanl.{a,so}, libc.{a,so}, libc_nonshared.a, libcrypt.{a,so},
+              libdl.{a,so}, libg.a, libm.{a,so}, libmcheck.a, libmemusage.so,
+              libmvec.{a,so}, libnsl.{a,so}, libnss_compat.so, libnss_dns.so,
+              libnss_files.so, libnss_hesiod.so, libpcprofile.so,
+              libpthread.{a,so}, libpthread_nonshared.a, libresolv.{a,so},
+              librt.{a,so}, libthread_db.so, 和 libutil.{a,so}</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">/usr/include/arpa, /usr/include/bits,
+              /usr/include/gnu, /usr/include/net, /usr/include/netash,
+              /usr/include/netatalk, /usr/include/netax25,
+              /usr/include/neteconet, /usr/include/netinet,
+              /usr/include/netipx, /usr/include/netiucv,
+              /usr/include/netpacket, /usr/include/netrom,
+              /usr/include/netrose, /usr/include/nfs, /usr/include/protocols,
+              /usr/include/rpc, /usr/include/sys, /usr/lib/audit,
+              /usr/lib/gconv, /usr/lib/locale, /usr/libexec/getconf,
+              /usr/share/i18n, /usr/share/zoneinfo, /var/cache/nscd, 和
+              /var/lib/nss_db</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="catchsegv" name="catchsegv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>catchsegv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    可以在程序因为段错误终止的时候创建栈调用历史
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gencat" name="gencat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gencat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    生成消息条目
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="getconf" name="getconf"></a><span class=
+                    "term"><span class=
+                    "command"><strong>getconf</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示文件系统相关的系统配置变量的值
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="getent" name="getent"></a><span class=
+                    "term"><span class=
+                    "command"><strong>getent</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    获取系统数据库的内容
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="iconv" name="iconv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>iconv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    字符集转换
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="iconvconfig" name="iconvconfig"></a><span class=
+                    "term"><span class=
+                    "command"><strong>iconvconfig</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建 <span class="command"><strong>iconv</strong></span>
+                    快速加载模块配置文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ldconfig" name="ldconfig"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ldconfig</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    配置动态链接器的运行时环境
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ldd" name="ldd"></a><span class=
+                    "term"><span class="command"><strong>ldd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告某个程序或动态库所依赖的动态库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lddlibc4" name="lddlibc4"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lddlibc4</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    协助 <span class="command"><strong>ldd</strong></span>
+                    处理某些目标文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="locale" name="locale"></a><span class=
+                    "term"><span class=
+                    "command"><strong>locale</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    输出当前语言环境的大量信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="localedef" name="localedef"></a><span class=
+                    "term"><span class=
+                    "command"><strong>localedef</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    编译语言环境规格
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="makedb" name="makedb"></a><span class=
+                    "term"><span class=
+                    "command"><strong>makedb</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据输入的文本创建简单数据库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mtrace" name="mtrace"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mtrace</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    读取并解析内存跟踪文件，然后用方便人阅读的格式显示一个摘要
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nscd" name="nscd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nscd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个后台服务程序，提供最常用名字服务请求的缓存
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pcprofiledump" name=
+                    "pcprofiledump"></a><span class="term"><span class=
+                    "command"><strong>pcprofiledump</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    通过 PC 分析生成的 dump 信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pldd" name="pldd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pldd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    列出运行中进程正在使用的动态共享目标
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sln" name="sln"></a><span class=
+                    "term"><span class="command"><strong>sln</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个静态链接的 <span class="command"><strong>ln</strong></span>
+                    程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sotruss" name="sotruss"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sotruss</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    跟踪指定命令里的动态库函数调用
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sprof" name="sprof"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sprof</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    读取并显示共享目标分析数据
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tzselect" name="tzselect"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tzselect</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    询问用户该系统的地理位置并给出相应的时区描述
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xtrace" name="xtrace"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xtrace</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    跟踪程序执行过程并打印当前执行的函数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zdump" name="zdump"></a><span class=
+                    "term"><span class=
+                    "command"><strong>zdump</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    时区数据输出工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zic" name="zic"></a><span class=
+                    "term"><span class="command"><strong>zic</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    时区数据编译工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ld.so" name="ld.so"></a><span class=
+                    "term"><code class="filename">ld-2.30.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于动态库执行的辅助程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libBrokenLocale" name=
+                    "libBrokenLocale"></a><span class="term"><code class=
+                    "filename">libBrokenLocale</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Glibc 内部的一个粗暴破解用来修复损坏程序（比如，一些 Motif 应用）。查看文件 <code class=
+                    "filename">glibc-2.30/locale/broken_cur_max.c</code>
+                    里的注释来了解更多信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libSegFault" name="libSegFault"></a><span class=
+                    "term"><code class="filename">libSegFault</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    段错误信号处理函数，<span class=
+                    "command"><strong>catchsegv</strong></span> 会用到
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libanl" name="libanl"></a><span class=
+                    "term"><code class="filename">libanl</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个异步名字查找库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libc" name="libc"></a><span class=
+                    "term"><code class="filename">libc</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    主要的 C 库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libcrypt" name="libcrypt"></a><span class=
+                    "term"><code class="filename">libcrypt</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    密码学函数库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libdl" name="libdl"></a><span class=
+                    "term"><code class="filename">libdl</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    动态链接接口函数库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libg" name="libg"></a><span class=
+                    "term"><code class="filename">libg</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    不包含函数的一个空库。以前是 <span class=
+                    "command"><strong>g++</strong></span> 的运行时库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libm" name="libm"></a><span class=
+                    "term"><code class="filename">libm</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    数学运算函数库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libmcheck" name="libmcheck"></a><span class=
+                    "term"><code class="filename">libmcheck</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    链接这个库后会打开内存分配检查
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libmemusage" name="libmemusage"></a><span class=
+                    "term"><code class="filename">libmemusage</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Used by <span class=
+                    "command"><strong>memusage</strong></span>
+                    命令用它来协助收集应用程序里内存使用信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnsl" name="libnsl"></a><span class=
+                    "term"><code class="filename">libnsl</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    网络服务函数库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnss" name="libnss"></a><span class=
+                    "term"><code class="filename">libnss</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    名称服务切换函数库，包含了解析主机名、用户名、组名、别称、服务、协议等等的函数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libpcprofile" name="libpcprofile"></a><span class=
+                    "term"><code class="filename">libpcprofile</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    可以预加载到 PC 配置文件中的可执行文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libpthread" name="libpthread"></a><span class=
+                    "term"><code class="filename">libpthread</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    POSIX 线程函数库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libresolv" name="libresolv"></a><span class=
+                    "term"><code class="filename">libresolv</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含了创建、发送和解析互联网域名服务器封包的函数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="librt" name="librt"></a><span class=
+                    "term"><code class="filename">librt</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含了实现 POSIX.1b 实时扩展里规定的大部分接口的函数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libthread_db" name="libthread_db"></a><span class=
+                    "term"><code class="filename">libthread_db</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含了方便构建多线程程序调试工具的函数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libutil" name="libutil"></a><span class=
+                    "term"><code class="filename">libutil</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含各种 Unix 应用程序中用到的「标准」函数的代码
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="man-pages.html" title=
+          "Man-pages-5.02">上一页</a>
+          <p>
+            Man-pages-5.02
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="adjusting.html" title="调整工具链">下一页</a>
+          <p>
+            调整工具链
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

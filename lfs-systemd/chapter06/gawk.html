@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.57.&nbsp;Gawk-5.0.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="diffutils.html" title=
+          "Diffutils-3.7">上一页</a>
+          <p>
+            Diffutils-3.7
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="findutils.html" title=
+          "Findutils-4.6.0">下一页</a>
+          <p>
+            Findutils-4.6.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-gawk" name="ch-system-gawk"></a>6.57. Gawk-5.0.1
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Gawk 软件包包含用于操作文本文件的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.4 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">47 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.57.1. 安装 Gawk
+        </h2>
+        <p>
+          首先，确保哪些不需要的文件没有被安装：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i 's/extras//' Makefile.in</kbd>
+</pre>
+        <p>
+          准备编译 Gawk：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          如果需要的话，安装帮助文档：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -v /usr/share/doc/gawk-5.0.1
+cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} /usr/share/doc/gawk-5.0.1</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-gawk" name="contents-gawk"></a>6.57.2. Gawk 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">awk (链接到 gawk), gawk, 和 awk-5.0.1</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">filefuncs.so, fnmatch.so, fork.so, inplace.so,
+              intdiv.so, ordchr.so, readdir.so, readfile.so, revoutput.so,
+              revtwoway.so, rwarray.so, 和 time.so (全部位于 /usr/lib/gawk)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/lib/gawk, /usr/libexec/awk, /usr/share/awk, 和
+              /usr/share/doc/gawk-5.0.1</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="awk" name="awk"></a><span class=
+                    "term"><span class="command"><strong>awk</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    到 <span class="command"><strong>gawk</strong></span> 的链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gawk" name="gawk"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gawk</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于操作文本文件的程序；<span class=
+                    "command"><strong>awk</strong></span> 的 GNU 实现
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gawk-version" name="gawk-version"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gawk-5.0.1</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    到 <span class="command"><strong>gawk</strong></span> 的硬链接
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="diffutils.html" title=
+          "Diffutils-3.7">上一页</a>
+          <p>
+            Diffutils-3.7
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="findutils.html" title=
+          "Findutils-4.6.0">下一页</a>
+          <p>
+            Findutils-4.6.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

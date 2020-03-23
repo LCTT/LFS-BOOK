@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.5.&nbsp;通用网络配置
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="symlinks.html" title="设备管理">上一页</a>
+          <p>
+            设备管理
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="usage.html" title=
+          "System V 启动脚本的运用与配置">下一页</a>
+          <p>
+            System V 启动脚本的运用与配置
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-network" name="ch-scripts-network"></a>7.5. 通用网络配置
+      </h1>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          7.5.1. 建立网络接口配置文件
+        </h2>
+        <p>
+          网络脚本开启和关闭哪些端口，一般取决于 <code class="filename">/etc/sysconfig/</code>
+          下的文件。此文件夹应该包含要配置接口的描述文件，例如 <code class=
+          "filename">ifconfig.xyz</code>，其中的「xyz」用于描述网卡。（例如
+          eth0）就是常用的接口名称。文件的内容是此接口的属性信息，例如 IP 地址、子网掩码等。另外，文件名只能是 <span class=
+          "emphasis"><em>ifconfig</em></span>。
+        </p>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            如果没有实施过上一节的内容，那么 udev
+            将会根据网卡的物理属性分配适当的名称。如果你不确定网卡接口的名称，则可以在系统启动之后执行 <span class=
+            "command"><strong>ip link</strong></span> 或者 <span class=
+            "command"><strong>ls /sys/class/net</strong></span>。
+          </p>
+        </div>
+        <p>
+          以下命令将会为 <span class="emphasis"><em>eth0</em></span> 设备建立启用静态 IP
+          的示例文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cd /etc/sysconfig/
+cat &gt; ifconfig.<em class=
+"replaceable"><code>eth0</code></em> &lt;&lt; "EOF"
+<code class="literal">ONBOOT=<em class="replaceable"><code>yes</code></em>
+IFACE=<em class="replaceable"><code>eth0</code></em>
+SERVICE=<em class="replaceable"><code>ipv4-static</code></em>
+IP=<em class="replaceable"><code>192.168.1.2</code></em>
+GATEWAY=<em class="replaceable"><code>192.168.1.1</code></em>
+PREFIX=<em class="replaceable"><code>24</code></em>
+BROADCAST=<em class="replaceable"><code>192.168.1.255</code></em></code>
+EOF</kbd>
+</pre>
+        <p>
+          斜体的数值，应该根据实际情况，进行适当的更改。
+        </p>
+        <p>
+          如果变量 <code class="envar">ONBOOT</code> 设置为「yes」则 System V
+          网络脚本将在系统启动期间激活网卡，如果设置为其他非「yes」值则不会自动激活网卡。但是你可以通过命令 <span class=
+          "command"><strong>ifup</strong></span> 和 <span class=
+          "command"><strong>ifdown</strong></span> 手动激活或者是禁用网卡。
+        </p>
+        <p>
+          变量 <code class="envar">IFACE</code> 用于定义接口的名称，例如
+          eth0。所有的网络设备配置文件都依赖于它。文件扩展名必须与该值匹配。
+        </p>
+        <p>
+          变量 <code class="envar">SERVICE</code> 定义了获取 IP
+          地址的方式。LFS-Bootscripts 包中有模块化的 IP 分配格式，且在文件夹 <code class=
+          "filename">/lib/services/</code> 中建立文件以允许其他的 IP 获取方式。在 BLFS
+          书中，通常它被设置为动态主机配置协议（DHCP）。
+        </p>
+        <p>
+          变量 <code class="envar">GATEWAY</code> 应该包括默认的网关 IP
+          地址。如果不需要，应该直接将这行注释掉。
+        </p>
+        <p>
+          变量 <code class="envar">PREFIX</code> 表示子网所用的位数。IP 地址中每一个字节是 8
+          位。如果子网掩码是 255.255.255.0，那么就会使用最前面的 3 个字节（24位）表达网络号。如果子网掩码是
+          255.255.255.240，则使用最开始的 28 位。前缀如果大于 24 位，一般都用于 DSL 或者是有线
+          ISP。在此示例中（PREFIX=24），子网掩码是 255.255.255.0。根据你实际的指望调整此字段，如果省略此字段，则默认为
+          24。
+        </p>
+        <p>
+          如欲获得更多信息，请浏览 <span class="command"><strong>ifup</strong></span> 的
+          man 手册。
+        </p>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="resolv.conf" name="resolv.conf"></a>7.5.2. 建立
+          /etc/resolv.conf 文件
+        </h2>
+        <p>
+          如果系统连接到互联网，则需要通过 DNS 服务将域名和 IP 地址进行相互的转换。你可以从 ISP 或者是网络管理员处获得可用的
+          DNS 服务器，并填入 <code class="filename">/etc/resolv.conf</code>
+          文件。可以通过以下命令建立此文件：
+        </p>
+        <p>
+          系统需要一些 DNS（域名服务）名称解析的方法，将 Internet 的域名解析成 IP 地址，反之亦然。最佳的办法就是将，从 ISP
+          或网络管理员那里获取的，DNS 服务器的 IP 地址填入 <code class=
+          "filename">/etc/resolv.conf</code> 文件。可以通过以下命令建立此文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cat &gt; /etc/resolv.conf &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/resolv.conf
+
+domain <em class="replaceable"><code>&lt;Your Domain Name&gt;</code></em>
+nameserver <em class=
+"replaceable"><code>&lt;IP address of your primary nameserver&gt;</code></em>
+nameserver <em class=
+"replaceable"><code>&lt;IP address of your secondary nameserver&gt;</code></em>
+
+# End /etc/resolv.conf</code>
+EOF</kbd>
+</pre>
+        <p>
+          字段 <code class="varname">domain</code> 可以忽略或者是使用 <code class=
+          "varname">search</code> 字段替代。参考 man 手册的 resolv.conf 部分获得更多信息。
+        </p>
+        <p>
+          其中，<em class="replaceable"><code>&lt;IP address of the
+          nameserver&gt;</code></em> 应该替换为合适的 DNS 服务器的 IP 地址。通常来说，一般会有多个 DNS
+          地址可供填写（需要备选服务器具有相关兼容性）。如果你只想要填写一个 DNS 服务器，那么将文件中的第二行 <span class=
+          "emphasis"><em>nameserver</em></span> 移除即可。该 IP 地址也可能是本地网络中的路由。
+        </p>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            Google 公共 IPv4 DNS 的服务器地址是 8.8.8.8 和 8.8.4.4。
+          </p>
+        </div>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="ch-scripts-hostname" name="ch-scripts-hostname"></a>7.5.3.
+          配置系统主机名称
+        </h2>
+        <p>
+          在系统启动期间，文件 <code class="filename">/etc/hostname</code> 用于建立系统的主机名称。
+        </p>
+        <p>
+          通过以下命令建立 <code class="filename">/etc/hostname</code> 文件且向其中写入主机名：
+        </p>
+        <pre class="userinput">
+<kbd class="command">echo "<em class=
+"replaceable"><code>&lt;lfs&gt;</code></em>" &gt; /etc/hostname</kbd>
+</pre>
+        <p>
+          <em class="replaceable"><code>&lt;lfs&gt;</code></em>
+          替换为你想要设置的名称。请不要输入完整域名（Fully Qualified Domain Name，FQDN），那应该是放在
+          <code class="filename">/etc/hosts</code> 文件中的信息。
+        </p>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="ch-scripts-hosts" name="ch-scripts-hosts"></a>7.5.4. 定制文件
+          /etc/hosts
+        </h2>
+        <p>
+          文件 <code class="filename">/etc/hosts</code> 用于 IP
+          地址和完全限定域名（FQDN）及可能的别名的对应。它的语法如下：
+        </p>
+        <pre class="screen">
+<code class="literal">IP_address myhost.example.org aliases</code>
+</pre>
+        <p>
+          除非计算机在互联网中可见（例如拥有注册的域名且分配了有效的 IP 地址——大部分用户并不具备此条件），否则请确保 IP
+          地址位于有效的私有网络 IP 地址段。有效区间为：
+        </p>
+        <pre class="screen">
+<code class="literal">私有网络地址范围      常规前缀
+10.0.0.1 - 10.255.255.254           8
+172.x.0.1 - 172.x.255.254           16
+192.168.y.1 - 192.168.y.254         24</code>
+</pre>
+        <p>
+          x 可以是 16-31 中的任何数字，y 可以是 0-255 中的任何数字。
+        </p>
+        <p>
+          有效的私有 IP 地址可以是 192.168.1.1，有效的完全限定域名可以是 lfs.example.org。
+        </p>
+        <p>
+          即使不需要使用网卡，也应该需要有效的完全限定域名。它的存在可以确保程序能正常运行。
+        </p>
+        <p>
+          通过以下命令建立 <code class="filename">/etc/hosts</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cat &gt; /etc/hosts &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/hosts
+
+127.0.0.1 localhost
+127.0.1.1 <em class="replaceable"><code>&lt;FQDN&gt;</code></em> <em class=
+"replaceable"><code>&lt;HOSTNAME&gt;</code></em>
+<em class="replaceable"><code>&lt;192.168.1.1&gt;</code></em> <em class=
+"replaceable"><code>&lt;FQDN&gt;</code></em> <em class=
+"replaceable"><code>&lt;HOSTNAME&gt;</code></em> <em class=
+"replaceable"><code>[alias1] [alias2 ...]</code></em>
+::1       localhost ip6-localhost ip6-loopback
+ff02::1   ip6-allnodes
+ff02::2   ip6-allrouters
+
+# End /etc/hosts</code>
+EOF</kbd>
+</pre>
+        <p>
+          其中，<em class=
+          "replaceable"><code>&lt;192.168.1.1&gt;</code></em>，<em class=
+          "replaceable"><code>&lt;FQDN&gt;</code></em>，和 <em class=
+          "replaceable"><code>&lt;HOSTNAME&gt;</code></em>
+          的值应该根据用户和实际需要进行更改（如果已经通过网络/系统管理员获得了 IP
+          地址，那么设备就可以连接到已存在的网络）。其中可选的别名可以忽略。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="symlinks.html" title="设备管理">上一页</a>
+          <p>
+            设备管理
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="usage.html" title=
+          "System V 启动脚本的运用与配置">下一页</a>
+          <p>
+            System V 启动脚本的运用与配置
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.52.&nbsp;Ninja-1.9.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="Python.html" title="Python-3.7.4">上一页</a>
+          <p>
+            Python-3.7.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="meson.html" title="Meson-0.51.1">下一页</a>
+          <p>
+            Meson-0.51.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-ninja" name="ch-system-ninja"></a>6.52. Ninja-1.9.0
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Ninja 是一个专注于速度的小型构件系统。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">69 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.52.1. 安装 Ninja
+        </h2>
+        <p>
+          在运行时，ninja 通常会并行最大数量的进程。默认值是系统的核心数乘以二。有些时候会导致 CPU
+          过热，或者内存容量不足。如果是命令行运行，通过传递 -jN 参数可以限制并行的进程数，但是有些软件包虽然潜入了 ninja
+          的执行却不会传递 -j 参数。
+        </p>
+        <p>
+          通过使用下方 <span class="emphasis"><em>可选</em></span> 过程，让用户能够通过环境变量
+          NINJAJOBS 来限制并行进程的数量。<span class=
+          "command"><strong>例如</strong></span>， 设定：
+        </p>
+        <pre class="screen">
+export NINJAJOBS=4
+</pre>
+        <p>
+          将限制 ninja 最多仅四个进程并行。
+        </p>
+        <p>
+          如果需要，运行以下命令以添加使用环境变量 NINJAJOBS 的功能：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i '/int Guess/a \
+  int   j = 0;\
+  char* jobs = getenv( "NINJAJOBS" );\
+  if ( jobs != NULL ) j = atoi( jobs );\
+  if ( j &gt; 0 ) return j;\
+' src/ninja.cc</kbd>
+</pre>
+        <p>
+          构建 Ninja：
+        </p>
+        <pre class="userinput">
+<kbd class="command">python3 configure.py --bootstrap</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>构建参数的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--bootstrap</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个参数强迫 ninja 重新构建自身以适应当前系统。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          查看测试结果，输入：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./ninja ninja_test
+./ninja_test --gtest_filter=-SubprocessTest.SetWithLots</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">install -vm755 ninja /usr/bin/
+install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja
+install -vDm644 misc/zsh-completion  /usr/share/zsh/site-functions/_ninja</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-ninja" name="contents-ninja"></a>6.52.2. Ninja
+          软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">ninja</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ninja" name="ninja"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ninja</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Ninja 构件系统。
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="Python.html" title="Python-3.7.4">上一页</a>
+          <p>
+            Python-3.7.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="meson.html" title="Meson-0.51.1">下一页</a>
+          <p>
+            Meson-0.51.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

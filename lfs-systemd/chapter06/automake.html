@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.44.&nbsp;Automake-1.16.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="autoconf.html" title="Autoconf-2.69">上一页</a>
+          <p>
+            Autoconf-2.69
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="xz.html" title="Xz-5.2.4">下一页</a>
+          <p>
+            Xz-5.2.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-automake" name="ch-system-automake"></a>6.44.
+        Automake-1.16.1
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          软件包包含了生成可与 Autoconf 一同使用的 Makefile 的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">少于 0.1 SBU （包含测试大于 8.7 SBU）</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">107 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.44.1. Automake 的安装
+        </h2>
+        <p>
+          准备编译 Automake：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">./configure --prefix=/usr --docdir=/usr/share/doc/automake-1.16.1</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          因为各个测试之间存在内部延时，故建议就算是在单核处理器的设备上，也使用 -j4 编译选项加速测试过程。用以下命令测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make -j4 check</kbd>
+</pre>
+        <p>
+          已知 LFS 环境中 subobj.sh 测试会失败。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-automake" name="contents-automake"></a>6.44.2. 关于
+          Automake 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">aclocal, aclocal-1.16 (到 aclocal 的硬链接), automake, 和
+              automake-1.16 (到 automake 的硬链接)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/share/aclocal-1.16, /usr/share/automake-1.16, 和
+              /usr/share/doc/automake-1.16.1</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="aclocal" name="aclocal"></a><span class=
+                    "term"><span class=
+                    "command"><strong>aclocal</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    基于 <code class="filename">aclocal.m4</code> 文件的内容生成
+                    <code class="filename">configure.in</code> 文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="aclocalversion" name=
+                    "aclocalversion"></a><span class="term"><span class=
+                    "command"><strong>aclocal-1.16</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    到 <span class="command"><strong>aclocal</strong></span>
+                    的硬链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="automake" name="automake"></a><span class=
+                    "term"><span class=
+                    "command"><strong>automake</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个从 <code class="filename">Makefile.in</code> 文件自动生成
+                    <code class="filename">Makefile.am</code> 文件的工具
+                    [要生成一个软件包里所有的 <code class="filename">Makefile.in</code>
+                    文件，在最上层的目录运行这个程序。通过扫描 <code class=
+                    "filename">configure.in</code> 文件，它能自动找到每个对应的
+                    <code class="filename">Makefile.am</code> 文件，并生成对应的
+                    <code class="filename">Makefile.in</code> 文件。]
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="automake-version" name=
+                    "automake-version"></a><span class="term"><span class=
+                    "command"><strong>automake-1.16</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    到 <span class="command"><strong>automake</strong></span>
+                    的硬链接
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="autoconf.html" title="Autoconf-2.69">上一页</a>
+          <p>
+            Autoconf-2.69
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="xz.html" title="Xz-5.2.4">下一页</a>
+          <p>
+            Xz-5.2.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

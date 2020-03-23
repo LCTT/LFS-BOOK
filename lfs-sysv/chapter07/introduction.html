@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.1.&nbsp;简介
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter07.html" title="基本系统配置">上一页</a>
+          <p>
+            基本系统配置
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bootscripts.html" title=
+          "LFS-Bootscripts-20190524">下一页</a>
+          <p>
+            LFS-Bootscripts-20190524
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-introduction" name=
+        "ch-scripts-introduction"></a>7.1. 简介
+      </h1>
+      <p>
+        启动 Linux 系统牵涉到好些任务。该过程须挂载虚拟和现实两个文件系统，初始化设备，激活 swap，检查文件系统是否完整，挂载所有的
+        swap
+        分区和文件，设置系统时钟，配属网络，起动系统需要的守护进程，并完成用户想要完成的那些自定义的任务。该过程必须有组织有纪律，以确保任务能被井然有序地实施，并尽可能快地执行。
+      </p>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="sysv-desc" name="sysv-desc"></a>7.1.1. System V
+        </h2>
+        <p>
+          1983 年以来，System V 便是 Unix 和类 Unix （例如 Linux）系统中的经典启动过程。它包括小程序
+          <span class="command"><strong>init</strong></span> 用于启动诸如
+          <span class="command"><strong>login</strong></span> （由 getty
+          启动）这样的基础程序，并运行着名为 <span class="command"><strong>rc</strong></span>
+          的脚本。该脚本，控制着一众附加脚本的执行，而那些附加脚本便是实施系统初始化所需要的任务的脚本。
+        </p>
+        <p>
+          程序 <span class="command"><strong>init</strong></span> 由文件
+          <code class="filename">/etc/inittab</code> 控制着，并且被组织成用户能够运行的运行级别形式：
+        </p>
+        <div class="literallayout">
+          <p>
+            <br />
+            0&nbsp;—&nbsp;停止<br />
+            1&nbsp;—&nbsp;单用户模式<br />
+            2&nbsp;—&nbsp;多用户，无网络<br />
+            3&nbsp;—&nbsp;完整的多用户模式<br />
+            4&nbsp;—&nbsp;用户可定义<br />
+            5&nbsp;—&nbsp;完整的多用户模式，附带显示管理<br />
+            6&nbsp;—&nbsp;重启<br />
+          </p>
+        </div>
+        <p>
+          常用的默认运行级为 3 或 5。
+        </p>
+        <h3>
+          益处
+        </h3>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                公认的，容易理解的体系。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                方便定制。
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h3>
+          弊端
+        </h3>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                启动较慢。中等速度的 LFS 的系统，从内核的第一个消息至登录提示需花费 8-12 秒。网络连接一般在登录提示后约 2
+                秒内建立。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                串联执行启动任务。与上一点有些关联。过程中的任何一个，比方说，文件系统检查有延迟，就会拖延整个启动的过程。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                不支持控制组群（control groups，缩写为 cgroups）这样的新特性，根据每个用户公平地分享调度。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                添加脚本需手动的、静态的排序决策。
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter07.html" title="基本系统配置">上一页</a>
+          <p>
+            基本系统配置
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bootscripts.html" title=
+          "LFS-Bootscripts-20190524">下一页</a>
+          <p>
+            LFS-Bootscripts-20190524
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

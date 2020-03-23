@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      D.6.&nbsp;/etc/rc.d/init.d/swap
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds05.html" title=
+          "/etc/rc.d/init.d/udev">上一页</a>
+          <p>
+            /etc/rc.d/init.d/udev
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds07.html" title=
+          "/etc/rc.d/init.d/setclock">下一页</a>
+          <p>
+            /etc/rc.d/init.d/setclock
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="swap" name="swap"></a>D.6. /etc/rc.d/init.d/swap
+      </h1>
+      <pre class="screen">
+#!/bin/sh
+########################################################################
+# Begin swap
+#
+# Description : Swap Control Script
+#
+# Authors     : Gerard Beekmans - gerard@linuxfromscratch.org
+#               DJ Lucas - dj@linuxfromscratch.org
+# Update      : Bruce Dubbs - bdubbs@linuxfromscratch.org
+#
+# Version     : LFS 7.0
+#
+########################################################################
+
+### BEGIN INIT INFO
+# Provides:            swap
+# Required-Start:      udev
+# Should-Start:        modules
+# Required-Stop:       localnet
+# Should-Stop:
+# Default-Start:       S
+# Default-Stop:        0 6
+# Short-Description:   Mounts and unmounts swap partitions.
+# Description:         Mounts and unmounts swap partitions defined in
+#                      /etc/fstab.
+# X-LFS-Provided-By:   LFS
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+case "${1}" in
+   start)
+      log_info_msg "Activating all swap files/partitions..."
+      swapon -a
+      evaluate_retval
+      ;;
+
+   stop)
+      log_info_msg "Deactivating all swap files/partitions..."
+      swapoff -a
+      evaluate_retval
+      ;;
+
+   restart)
+      ${0} stop
+      sleep 1
+      ${0} start
+      ;;
+
+   status)
+      log_success_msg "Retrieving swap status." 
+      swapon -s
+      ;;
+
+   *)
+      echo "Usage: ${0} {start|stop|restart|status}"
+      exit 1
+      ;;
+esac
+
+exit 0
+
+# End swap
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds05.html" title=
+          "/etc/rc.d/init.d/udev">上一页</a>
+          <p>
+            /etc/rc.d/init.d/udev
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds07.html" title=
+          "/etc/rc.d/init.d/setclock">下一页</a>
+          <p>
+            /etc/rc.d/init.d/setclock
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

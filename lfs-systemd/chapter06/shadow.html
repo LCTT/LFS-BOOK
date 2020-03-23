@@ -1,0 +1,802 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.20.&nbsp;Shadow-4.7
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="mpc.html" title="MPC-1.1.0">上一页</a>
+          <p>
+            MPC-1.1.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gcc.html" title="GCC-9.2.0">下一页</a>
+          <p>
+            GCC-9.2.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-shadow" name="ch-system-shadow"></a>6.20. Shadow-4.7
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Shadow 软件包包含以安全方式处理密码的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">46 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.20.1. 安装 Shadow
+        </h2>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            如果你喜欢强制使用更强的密码，在编译 Shadow 之前可以根据 <a class="ulink" href=
+            "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/cracklib.html">
+            http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/cracklib.html</a>
+            安装 CrackLib。然后在下面的 <span class=
+            "command"><strong>configure</strong></span> 命令中增加 <em class=
+            "parameter"><code>--with-libcrack</code></em>。
+          </p>
+        </div>
+        <p>
+          禁用对 <span class="command"><strong>groups</strong></span> 程序以及相应 man
+          手册的安装，Coreutils 已经提供了更棒的版本。同时也避免了安装已由 <a class="xref" href=
+          "man-pages.html" title="6.8.&nbsp;Man-pages-5.02">第 6.8 节
+          「Man-pages-5.02」</a> 安装过的手册页：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i 's/groups$(EXEEXT) //' src/Makefile.in
+find man -name Makefile.in -exec sed -i 's/groups\.1 / /'   {} \;
+find man -name Makefile.in -exec sed -i 's/getspnam\.3 / /' {} \;
+find man -name Makefile.in -exec sed -i 's/passwd\.5 / /'   {} \;</kbd>
+</pre>
+        <p>
+          <a id="shadow-login_defs" name="shadow-login_defs"></a>比起默认的
+          <span class="emphasis"><em>crypt</em></span> 方法，用更安全的 <span class=
+          "emphasis"><em>SHA-512</em></span> 方法加密密码，它允许密码长度超过 8 个字符。也需要把
+          Shadow 默认使用的用户邮箱由陈旧的 <code class="filename">/var/spool/mail</code>
+          位置改为正在使用的 <code class="filename">/var/mail</code> 位置：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i -e 's@#ENCRYPT_METHOD DES@ENCRYPT_METHOD SHA512@' \
+       -e 's@/var/spool/mail@/var/mail@' etc/login.defs</kbd>
+</pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            如果你选择编译支持 Cracklib 的 Shadow，运行下面的命令：
+          </p>
+          <pre class="userinput">
+<kbd class=
+"command">sed -i 's@DICTPATH.*@DICTPATH\t/lib/cracklib/pw_dict@' etc/login.defs</kbd>
+</pre>
+        </div>
+        <p>
+          做一个小改动，用 useradd 1000 生成第一个组号：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i 's/1000/999/' etc/useradd</kbd>
+</pre>
+        <p>
+          准备编译 Shadow：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">./configure --sysconfdir=/etc --with-group-name-max-length=32</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-group-name-max-length=32</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                最长用户名为 32 个字符，使组名称也是如此。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          该软件包没有测试套件。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          移动位置错误的程序到正确的位置：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mv -v /usr/bin/passwd /bin</kbd>
+</pre>
+      </div>
+      <div class="configuration" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="conf-shadow" name="conf-shadow"></a>6.20.2. 配置 Shadow
+        </h2>
+        <p>
+          该软件包包含增加、更改、以及删除用户和组的工具；设置和修改密码；执行其它特权级任务。软件包解压后的 <code class=
+          "filename">doc/HOWTO</code> 文件有关于 <span class=
+          "emphasis"><em>password shadowing</em></span> 的完整解释。如果使用 Shadow
+          支持，记住需要验证密码（显示管理器、FTP 程序、pop3 守护进程等）的程序必须和 Shadow 兼容。也就是说，它们要能使用
+          Shadow 加密的密码。
+        </p>
+        <p>
+          运行下面的命令启用 shadow 密码：
+        </p>
+        <pre class="userinput">
+<kbd class="command">pwconv</kbd>
+</pre>
+        <p>
+          运行下面的命令启用 shadow 组密码：
+        </p>
+        <pre class="userinput">
+<kbd class="command">grpconv</kbd>
+</pre>
+        <p>
+          用于 <span class="command"><strong>useradd</strong></span> 工具的 Shadow
+          配置有一些需要解释的注意事项。首先，<span class=
+          "command"><strong>useradd</strong></span>
+          工具的默认操作是创建用户以及和用户名相同的组。默认情况下，用户 ID(UID) 和组 ID(GID) 的数字从 1000
+          开始。这意味着如果你不传递参数给 <span class=
+          "command"><strong>useradd</strong></span>，系统中的每个用户都会属于一个不同的组。如果不需要这样的结果，你需要传递参数
+          <em class="parameter"><code>-g</code></em> 到 <span class=
+          "command"><strong>useradd</strong></span>。默认参数保存在 <code class=
+          "filename">/etc/default/useradd</code> 文件中。你需要修改该文件中的两个参数来实现你的特定需求。
+        </p>
+        <div class="variablelist">
+          <p class="title">
+            <strong><code class="filename">/etc/default/useradd</code>
+            参数解释</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>GROUP=1000</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该参数设定 /etc/group 文件中使用的起始组序号。你可以把它更改为任何你需要的数字。注意 <span class=
+                "command"><strong>useradd</strong></span> 永远不会重用 UID 或
+                GID。如果该参数指定的数字已经被使用了，将会使用它之后的下一个可用数字。另外注意如果你系统中没有序号为 1000
+                的组，第一次使用 <span class=
+                "command"><strong>useradd</strong></span> 而没有参数 <em class=
+                "parameter"><code>-g</code></em>
+                的话，你会在终端中看到一个提示信息：<code class="computeroutput">useradd:
+                unknown GID 1000</code>。你可以忽视这个信息，它会使用组号 1000。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>CREATE_MAIL_SPOOL=yes</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个参数会为 <span class="command"><strong>useradd</strong></span>
+                新添加的用户创建邮箱文件。<span class=
+                "command"><strong>useradd</strong></span> 会使组 <code class=
+                "systemitem">mail</code> 拥有该文件的所有权，并赋予组 0660 的权限。如果你希望
+                <span class="command"><strong>useradd</strong></span>
+                不创建这些邮箱文件，你可以运行下面的命令：
+              </p>
+              <pre class="userinput">
+<kbd class="command">sed -i 's/yes/no/' /etc/default/useradd</kbd>
+</pre>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="configuration" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.20.3. 设置 root 密码
+        </h2>
+        <p>
+          运行下面的命令为用户 <span class="emphasis"><em>root</em></span> 设置密码：
+        </p>
+        <pre class="userinput">
+<kbd class="command">passwd root</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-shadow" name="contents-shadow"></a>6.20.4. Shadow
+          软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">chage, chfn, chgpasswd, chpasswd, chsh, expiry,
+              faillog, gpasswd, groupadd, groupdel, groupmems, groupmod,
+              grpck, grpconv, grpunconv, lastlog, login, logoutd, newgidmap,
+              newgrp, newuidmap, newusers, nologin, passwd, pwck, pwconv,
+              pwunconv, sg (链接到 newgrp), su, useradd, userdel, usermod, vigr
+              (链接到 vipw), 和 vipw</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/etc/default</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chage" name="chage"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chage</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用来更改强制性密码更新的最大天数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chfn" name="chfn"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chfn</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用来更改用户的全名以及其它信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chgpasswd" name="chgpasswd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chgpasswd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用来以批处理模式更新组密码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chpasswd" name="chpasswd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chpasswd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用来以批处理模式更新用户密码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chsh" name="chsh"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chsh</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用来更改用户登录时默认使用的 shell
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="expiry" name="expiry"></a><span class=
+                    "term"><span class=
+                    "command"><strong>expiry</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查并强制执行当前密码过期策略
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="faillog" name="faillog"></a><span class=
+                    "term"><span class=
+                    "command"><strong>faillog</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用来检查登录失败的日志文件，设置锁定用户的最大失败次数，或者重置失败次数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gpasswd" name="gpasswd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gpasswd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用来给组增加、删除成员以及管理员
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="groupadd" name="groupadd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>groupadd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用指定的名称创建组
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="groupdel" name="groupdel"></a><span class=
+                    "term"><span class=
+                    "command"><strong>groupdel</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用指定的名称删除组
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="groupmems" name="groupmems"></a><span class=
+                    "term"><span class=
+                    "command"><strong>groupmems</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    允许用户管理他/她自己的组成员列表而不需要超级用户权限。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="groupmod" name="groupmod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>groupmod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于更改指定组的名称或 GID
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grpck" name="grpck"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grpck</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    验证组文件 <code class="filename">/etc/group</code> 和
+                    <code class="filename">/etc/gshadow</code> 的完整性
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grpconv" name="grpconv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grpconv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从普通组文件创建或升级为 shadow 组文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grpunconv" name="grpunconv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grpunconv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从 <code class="filename">/etc/group</code> 更新到
+                    <code class="filename">/etc/gshadow</code> 然后删除前者
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lastlog" name="lastlog"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lastlog</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告所有用户或指定用户的最近一次登录
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="login" name="login"></a><span class=
+                    "term"><span class=
+                    "command"><strong>login</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于系统让用户登录进来
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="logoutd" name="logoutd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>logoutd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于强制限制登录时间和端口的守护进程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="newgidmap" name="newgidmap"></a><span class=
+                    "term"><span class=
+                    "command"><strong>newgidmap</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于设置用户命名空间的 gid 映射
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="newgrp" name="newgrp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>newgrp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于在一次登录会话中更改当前 GID
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="newuidmap" name="newuidmap"></a><span class=
+                    "term"><span class=
+                    "command"><strong>newuidmap</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于设置用户命名空间的 uid 映射
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="newusers" name="newusers"></a><span class=
+                    "term"><span class=
+                    "command"><strong>newusers</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于批量创建或更新用户账户
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nologin" name="nologin"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nologin</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示一个账户不可用的信息；它用于来作为不可登录的账户的默认 shell
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="passwd" name="passwd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>passwd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用来更改用户或组账户的密码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pwck" name="pwck"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pwck</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    验证密码文件 <code class="filename">/etc/passwd</code> 和
+                    <code class="filename">/etc/shadow</code> 的完整性
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pwconv" name="pwconv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pwconv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从普通密码文件创建或升级 shadow 密码文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pwunconv" name="pwunconv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pwunconv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从 <code class="filename">/etc/passwd</code> 更新到
+                    <code class="filename">/etc/shadow</code> 然后删除前者
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sg" name="sg"></a><span class="term"><span class=
+                    "command"><strong>sg</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    当用户的 GID 被设置为指定组的 GID 时执行一个特定命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="su" name="su"></a><span class="term"><span class=
+                    "command"><strong>su</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用替换的用户和组 ID 运行 Shell
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="useradd" name="useradd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>useradd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用指定的名称新建用户或更新新用户的默认信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="userdel" name="userdel"></a><span class=
+                    "term"><span class=
+                    "command"><strong>userdel</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    删除指定的用户账户
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="usermod" name="usermod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>usermod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于更改指定用户的登录名称、UID、shell、初始组、home 目录，等
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="vigr" name="vigr"></a><span class=
+                    "term"><span class=
+                    "command"><strong>vigr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    编辑 <code class="filename">/etc/group</code> 或
+                    <code class="filename">/etc/gshadow</code> 文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="vipw" name="vipw"></a><span class=
+                    "term"><span class=
+                    "command"><strong>vipw</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    编辑 <code class="filename">/etc/passwd</code> 或
+                    <code class="filename">/etc/shadow</code> 文件
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="mpc.html" title="MPC-1.1.0">上一页</a>
+          <p>
+            MPC-1.1.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gcc.html" title="GCC-9.2.0">下一页</a>
+          <p>
+            GCC-9.2.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

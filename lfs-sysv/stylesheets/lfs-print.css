@@ -1,0 +1,18 @@
+/*
+$LastChangedBy: bdubbs $
+$Date: 2015-08-11 01:53:57 +0800 (周二, 11 8月 2015) $
+*/
+@import url(lfs.css);
+
+.navfooter, .headerlinks {
+   display: none;
+}
+
+div.navheader {
+  position: absolute;
+}
+
+div.navheader ul,
+div.navheader ul{
+  display: none;
+}

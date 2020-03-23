@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.2.&nbsp;准备虚拟内核文件系统
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="pkgmgt.html" title="软件包管理">下一页</a>
+          <p>
+            软件包管理
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-kernfs" name="ch-system-kernfs"></a>6.2. 准备虚拟内核文件系统
+      </h1>
+      <p>
+        内核会挂载几个文件系统用于自己和用户空间程序交换信息。这些文件系统是虚拟的，并不占用实际磁盘空间，它们的内容会放在内存里。
+      </p>
+      <p>
+        开始先创建将用来挂载文件系统的目录：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkdir -pv $LFS/{dev,proc,sys,run}</kbd>
+</pre>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.2.1. 创建初始设备节点
+        </h2>
+        <p>
+          在内核引导系统的时候，它依赖于几个设备节点，特别是 <code class="filename">console</code> 和
+          <code class="filename">null</code> 两个设备。设备点必须创建在硬盘上以保证在
+          <span class="command"><strong>udevd</strong></span> 启动前是可用的，特别是在使用
+          <em class="parameter"><code>init=/bin/bash</code></em> 启动 Linux
+          时。运行以下命令创建设备节点：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mknod -m 600 $LFS/dev/console c 5 1
+mknod -m 666 $LFS/dev/null c 1 3</kbd>
+</pre>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="ch-system-bindmount" name="ch-system-bindmount"></a>6.2.2.
+          挂载和激活 /dev
+        </h2>
+        <p>
+          通常激活 <code class="filename">/dev</code> 目录下设备的方式是在 <code class=
+          "filename">/dev</code> 目录挂载一个虚拟文件系统（比如 <code class=
+          "systemitem">tmpfs</code>），然后允许在检测到设备或打开设备时在这个虚拟文件系统里动态创建设备节点。这个通常是在启动过程中由
+          udev 完成。由于我们的新系统还没有 udev，也没有被引导，有必要手动挂载和激活 <code class=
+          "filename">/dev</code> 这可以通过绑定挂载宿主机系统的 <code class=
+          "filename">/dev</code>
+          目录来实现。绑定挂载是一种特殊的挂载模式，它允许在另外的位置创建某个目录或挂载点的镜像。运行下面的命令来实现：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mount -v --bind /dev $LFS/dev</kbd>
+</pre>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="ch-system-kernfsmount" name=
+          "ch-system-kernfsmount"></a>6.2.3. 挂载虚拟文件系统
+        </h2>
+        <p>
+          现在挂载剩下的虚拟内核文件系统：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mount -vt devpts devpts $LFS/dev/pts -o gid=5,mode=620
+mount -vt proc proc $LFS/proc
+mount -vt sysfs sysfs $LFS/sys
+mount -vt tmpfs tmpfs $LFS/run</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>挂载选项 devpts 的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>gid=5</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                以确保所有由 devpts 创建的设备节点属于 GID 5 之下。这个 ID 日后将用于 <code class=
+                "systemitem">tty</code> 组。我们使用 GID 来代替组名，原因是宿主系统可能为
+                <code class="systemitem">tty</code> 组使用其他的 ID。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>mode=0620</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                以确保所有 devpts 创建的设备节点的属性为 0620 （属主用户可读写，组成员可写）。与上一个选项同时使用，可以保证
+                devpts 所创建的设备节点能满足 grantpt() 函数的要求，这就意味着不需要 Glibc
+                （默认不安装的）帮助程序 <span class=
+                "command"><strong>pt_chown</strong></span> 了。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          在某些宿主机系统里，<code class="filename">/dev/shm</code> 是一个指向 <code class=
+          "filename">/run/shm</code> 的符号链接。这个 /run 下的 tmpfs
+          文件系统已经在之前挂载了，所以在这里只需要创建一个目录。
+        </p>
+        <pre class="userinput">
+<kbd class="command">if [ -h $LFS/dev/shm ]; then
+  mkdir -pv $LFS/$(readlink $LFS/dev/shm)
+fi</kbd>
+</pre>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="pkgmgt.html" title="软件包管理">下一页</a>
+          <p>
+            软件包管理
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

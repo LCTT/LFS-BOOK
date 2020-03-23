@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.75.&nbsp;Sysklogd-1.5.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="e2fsprogs.html" title=
+          "E2fsprogs-1.45.3">上一页</a>
+          <p>
+            E2fsprogs-1.45.3
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sysvinit.html" title="Sysvinit-2.95">下一页</a>
+          <p>
+            Sysvinit-2.95
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-sysklogd" name="ch-system-sysklogd"></a>6.75.
+        Sysklogd-1.5.1
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Sysklogd 软件包包含用于记录系统消息的程序，它们记录着，诸如一些异乎寻常的事件发生时，内核给出的那些消息。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">少于 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">0.6 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.75.1. 安装 Sysklogd
+        </h2>
+        <p>
+          首先，修复 klogd 在某些条件下会导致「segmentation fault」的问题，并修复一个过时的程序结构：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i '/Error loading kernel symbols/{n;n;d}' ksym_mod.c
+sed -i 's/union wait/int/' syslogd.c</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          该软件包没有测试套件。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make BINDIR=/sbin install</kbd>
+</pre>
+      </div>
+      <div class="configuration" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="conf-sysklogd" name="conf-sysklogd"></a>6.75.2. 配置 Sysklogd
+        </h2>
+        <p>
+          运行以下命令新建 <code class="filename">/etc/syslog.conf</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cat &gt; /etc/syslog.conf &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/syslog.conf
+
+auth,authpriv.* -/var/log/auth.log
+*.*;auth,authpriv.none -/var/log/sys.log
+daemon.* -/var/log/daemon.log
+kern.* -/var/log/kern.log
+mail.* -/var/log/mail.log
+user.* -/var/log/user.log
+*.emerg *
+
+# End /etc/syslog.conf</code>
+EOF</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-sysklogd" name="contents-sysklogd"></a>6.75.3.
+          Sysklogd 软件包的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">klogd 和 syslogd</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="klogd" name="klogd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>klogd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个用于拦截和记录内核消息的系统守护进程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="syslogd" name="syslogd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>syslogd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    记录系统程序中需要记录的消息[记录的消息中至少会包含时间戳和主机名，程序名通常也会有，这要取决于记录守护进程的可信度。]
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="e2fsprogs.html" title=
+          "E2fsprogs-1.45.3">上一页</a>
+          <p>
+            E2fsprogs-1.45.3
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sysvinit.html" title="Sysvinit-2.95">下一页</a>
+          <p>
+            Sysvinit-2.95
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

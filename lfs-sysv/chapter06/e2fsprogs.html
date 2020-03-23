@@ -1,0 +1,745 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.74.&nbsp;E2fsprogs-1.45.3
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="util-linux.html" title=
+          "Util-linux-2.34">上一页</a>
+          <p>
+            Util-linux-2.34
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sysklogd.html" title=
+          "Sysklogd-1.5.1">下一页</a>
+          <p>
+            Sysklogd-1.5.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-e2fsprogs" name="ch-system-e2fsprogs"></a>6.74.
+        E2fsprogs-1.45.3
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          E2fsprogs 软件包包含用于处理 <code class="systemitem">ext2</code>
+          文件系统的工具。它也支持 <code class="systemitem">ext3</code> 和 <code class=
+          "systemitem">ext4</code> 日志文件系统。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">3.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">108 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.74.1. 安装 E2fsprogs
+        </h2>
+        <p>
+          E2fsprogs 的文档建议在源码目录下新建目录进行编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -v build
+cd       build</kbd>
+</pre>
+        <p>
+          准备编译 E2fsprogs：
+        </p>
+        <pre class="userinput">
+<kbd class="command">../configure --prefix=/usr           \
+             --bindir=/bin           \
+             --with-root-prefix=""   \
+             --enable-elf-shlibs     \
+             --disable-libblkid      \
+             --disable-libuuid       \
+             --disable-uuidd         \
+             --disable-fsck</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>环境变量和配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-root-prefix=""</code></em> 和
+              <em class="parameter"><code>--bindir=/bin</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                有些程序（例如 <span class=
+                "command"><strong>e2fsck</strong></span>）属于重要程序。比如，当
+                <code class="filename">/usr</code> 没有挂载的时候，仍然要求这些程序可用。它们放在类似
+                <code class="filename">/lib</code> 和 <code class=
+                "filename">/sbin</code> 的目录中。如果没有传递这个参数到 E2fsprogs
+                的配置参数中，程序就会被安装在 <code class="filename">/usr</code> 目录。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-elf-shlibs</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                创建该软件包中一些程序会使用的共享库。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-*</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这会阻止 E2fsprogs 编译和安装 <code class="systemitem">libuuid</code>
+                和 <code class="systemitem">libblkid</code> 库、<code class=
+                "systemitem">uuidd</code> 守护进程、以及 <span class=
+                "command"><strong>fsck</strong></span> 封装包。因为 Util-Linux
+                安装了更新的版本。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          输入命令运行测试：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          E2fsprogs 的其中一个测试程序会试图分配 256M 的内存。如果你没有比这更多的 RAM，确保为测试启用了足够的交换空间。阅读
+          <a class="xref" href="../chapter02/creatingfilesystem.html" title=
+          "2.5.&nbsp;在分区上创建文件系统">第 2.5 节 「在分区上创建文件系统」</a> 以及 <a class="xref"
+          href="../chapter02/mounting.html" title="2.7.&nbsp;挂载新分区">第 2.7 节
+          「挂载新分区」</a> 查看创建和启用交换空间的详细信息。
+        </p>
+        <p>
+          安装二进制文件、文档以及共享库：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          安装静态库和头文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install-libs</kbd>
+</pre>
+        <p>
+          使安装的静态库可写，以便后面可以移除调试符号：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">chmod -v u+w /usr/lib/{libcom_err,libe2p,libext2fs,libss}.a</kbd>
+</pre>
+        <p>
+          该软件包安装了一个 gzip 压缩的 <code class="filename">.info</code> 文件但并没有更新系统级的
+          <code class="filename">dir</code> 文件。解压该文件并用下面的命令更新系统的 <code class=
+          "filename">dir</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">gunzip -v /usr/share/info/libext2fs.info.gz
+install-info --dir-file=/usr/share/info/dir /usr/share/info/libext2fs.info</kbd>
+</pre>
+        <p>
+          如果需要的话，用下面的命令创建和安装一些额外的文档：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">makeinfo -o      doc/com_err.info ../lib/et/com_err.texinfo
+install -v -m644 doc/com_err.info /usr/share/info
+install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-e2fsprogs" name="contents-e2fsprogs"></a>6.74.2.
+          E2fsprogs 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">badblocks, chattr, compile_et, debugfs,
+              dumpe2fs,e2freefrag, e2fsck, e2image, e2label, e2mmpstatus,
+              e2scrub, e2scrub_all, e2undo, e4crypt, e4defrag, filefrag,
+              fsck.ext2, fsck.ext3, fsck.ext4, logsave, lsattr, mk_cmds,
+              mke2fs, mkfs.ext2, mkfs.ext3, mkfs.ext4, mklost+found,
+              resize2fs, 和 tune2fs</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libcom_err.so, libe2p.so, libext2fs.so, 和
+              libss.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/include/e2p, /usr/include/et,
+              /usr/include/ext2fs, /usr/include/ss, /usr/lib/e2fsprogs,
+              /usr/share/et, 和 /usr/share/ss</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="badblocks" name="badblocks"></a><span class=
+                    "term"><span class=
+                    "command"><strong>badblocks</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    搜索设备（通常是一个磁盘分区）的坏块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chattr" name="chattr"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chattr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更改 <code class="systemitem">ext2</code> 文件系统中文件的属性；它也可以更改
+                    <code class="systemitem">ext3</code> 文件系统，这是 <code class=
+                    "systemitem">ext2</code> 文件系统的日志版本
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="compile_et" name="compile_et"></a><span class=
+                    "term"><span class=
+                    "command"><strong>compile_et</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    错误表编译器；它将错误代码名称和信息对照表转换为适用于 <code class=
+                    "filename">com_err</code> 库的 C 源文件。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="debugfs" name="debugfs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>debugfs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    文件系统调试器；可用于检查和更改 <code class="systemitem">ext2</code>
+                    文件系统的状态
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dumpe2fs" name="dumpe2fs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dumpe2fs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对指定设备上的文件系统打印超级块和块组信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="e2freefrag" name="e2freefrag"></a><span class=
+                    "term"><span class=
+                    "command"><strong>e2freefrag</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告空闲空间的碎片信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="e2fsck" name="e2fsck"></a><span class=
+                    "term"><span class=
+                    "command"><strong>e2fsck</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于检查或者修复 <code class="systemitem">ext2</code> 文件系统和
+                    <code class="systemitem">ext3</code> 文件系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="e2image" name="e2image"></a><span class=
+                    "term"><span class=
+                    "command"><strong>e2image</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于将重要 <code class="systemitem">ext2</code> 文件系统数据保存到文件中
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="e2label" name="e2label"></a><span class=
+                    "term"><span class=
+                    "command"><strong>e2label</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示或更改指定设备上的 <code class="systemitem">ext2</code> 文件系统的标签
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="e2mmpstatus" name="e2mmpstatus"></a><span class=
+                    "term"><span class=
+                    "command"><strong>e2mmpstatus</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查 ext4 文件系统的 MMP 状态
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="e2scrub" name="e2scrub"></a><span class=
+                    "term"><span class=
+                    "command"><strong>e2scrub</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查已挂载的 ext[234] 文件系统的内容
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="e2scrub_all" name="e2scrub_all"></a><span class=
+                    "term"><span class=
+                    "command"><strong>e2scrub_all</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查所有已挂载的 ext[234] 文件系统的错误
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="e2undo" name="e2undo"></a><span class=
+                    "term"><span class=
+                    "command"><strong>e2undo</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对设备上发现的 ext2/ext3/ext4 文件系统重做撤销日志 undo_log [ 这可用于取消一个
+                    e2fsprogs 程序的失败操作。]
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="e4crypt" name="e4crypt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>e4crypt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Ext4 文件系统加密实用程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="e4defrag" name="e4defrag"></a><span class=
+                    "term"><span class=
+                    "command"><strong>e4defrag</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    ext4 文件系统的在线碎片整理器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="filefrag" name="filefrag"></a><span class=
+                    "term"><span class=
+                    "command"><strong>filefrag</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告一个文件可能的碎片化程度
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fsck.ext2" name="fsck.ext2"></a><span class=
+                    "term"><span class=
+                    "command"><strong>fsck.ext2</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    默认检查 <code class="systemitem">ext2</code> 文件系统，是到
+                    <span class="command"><strong>e2fsck</strong></span> 的硬链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fsck.ext3" name="fsck.ext3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>fsck.ext3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    默认检查 <code class="systemitem">ext3</code> 文件系统，是到
+                    <span class="command"><strong>e2fsck</strong></span> 的硬链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fsck.ext4" name="fsck.ext4"></a><span class=
+                    "term"><span class=
+                    "command"><strong>fsck.ext4</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    默认检查 <code class="systemitem">ext4</code> 文件系统，是到
+                    <span class="command"><strong>e2fsck</strong></span> 的硬链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="logsave" name="logsave"></a><span class=
+                    "term"><span class=
+                    "command"><strong>logsave</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在日志文件中保存命令的输出
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lsattr" name="lsattr"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lsattr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    列出二级扩展文件系统中一个文件的属性
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mk_cmds" name="mk_cmds"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mk_cmds</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将命令名称和帮助信息的映射表转换为适用于 <code class="filename">libss</code>
+                    子系统库的 C 源文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mke2fs" name="mke2fs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mke2fs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在指定设备上创建 <code class="systemitem">ext2</code> 或
+                    <code class="systemitem">ext3</code> 文件系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mkfs.ext2" name="mkfs.ext2"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mkfs.ext2</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    默认创建 <code class="systemitem">ext2</code> 文件系统，是到
+                    <span class="command"><strong>mke2fs</strong></span> 的硬链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mkfs.ext3" name="mkfs.ext3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mkfs.ext3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    默认创建 <code class="systemitem">ext3</code> 文件系统，是到
+                    <span class="command"><strong>mke2fs</strong></span> 的硬链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mkfs.ext4" name="mkfs.ext4"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mkfs.ext4</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    默认创建 <code class="systemitem">ext4</code> 文件系统，是到
+                    <span class="command"><strong>mke2fs</strong></span> 的硬链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mklost-found" name="mklost-found"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mklost+found</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于在 <code class="filename">lost+found</code> 文件系统上创建
+                    <code class="systemitem">ext2</code> 目录，它可以预先为目录分配磁盘块，以减轻
+                    <span class="command"><strong>e2fsck</strong></span> 任务
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="resize2fs" name="resize2fs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>resize2fs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于伸缩 <code class="systemitem">ext2</code> 文件系统的大小
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tune2fs" name="tune2fs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tune2fs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    调整 <code class="systemitem">ext2</code> 文件系统上的可调文件系统参数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libcom_err" name="libcom_err"></a><span class=
+                    "term"><code class="filename">libcom_err</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    常用错误显示例程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libe2p" name="libe2p"></a><span class=
+                    "term"><code class="filename">libe2p</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于 <span class=
+                    "command"><strong>dumpe2fs</strong></span>，<span class=
+                    "command"><strong>chattr</strong></span>，和 <span class=
+                    "command"><strong>lsattr</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libext2fs" name="libext2fs"></a><span class=
+                    "term"><code class="filename">libext2fs</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含使用户层程序可以操作 <code class="systemitem">ext2</code> 文件系统的例程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libss" name="libss"></a><span class=
+                    "term"><code class="filename">libss</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于 <span class="command"><strong>debugfs</strong></span>
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="util-linux.html" title=
+          "Util-linux-2.34">上一页</a>
+          <p>
+            Util-linux-2.34
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sysklogd.html" title=
+          "Sysklogd-1.5.1">下一页</a>
+          <p>
+            Sysklogd-1.5.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

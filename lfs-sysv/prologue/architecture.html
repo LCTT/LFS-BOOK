@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      LFS 的目标架构
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        序章
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="audience.html" title="致读者">上一页</a>
+          <p>
+            致读者
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="standards.html" title="LFS 和标准">下一页</a>
+          <p>
+            LFS 和标准
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="preface.html" title="序章">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="pre-architecture" name="pre-architecture"></a>iii. LFS 的目标架构
+      </h1>
+      <p>
+        LFS 当前主要支持 AMD/Intel 的 x86（32 位）和 x86_64（64 位）构架的
+        CPU。另外，本文档也涉及一些更改以允许 LFS 顺利地在 Power PC 和 ARM CPU 上运行。为了顺利构建
+        LFS，除了后面几页的内容外，你主要需要一个可以在当前 CPU 上正常运行的 Linux 系统，例如：早先版本的
+        LFS、Ubuntu、Red Hat/Fedora、SuSE 或者是在你的架构上可以运行的其它发行版。另外注意 32 位的发行版是可以在
+        64 位的 AMD/Intel 处理器上作为宿主机正常安装和运作的。
+      </p>
+      <p>
+        这里也说明一下关于 64 位系统的一些情况。与 32
+        位相比，大体上程序运行的速度虽稍微地快了那么一点点，但体积也稍微的大了那么一点点。以在 Core 2 Duo 处理器上运行的
+        LFS-6.5 系统为例，以下便是实测数据：
+      </p>
+      <pre class="screen">
+<code class="computeroutput">Architecture    Build Time      Build Size
+32-bit          198.5 minutes   648 MB
+64-bit          190.6 minutes   709 MB</code>
+</pre>
+      <p>
+        正如你看到的，64 位程序仅仅比 32 位程序快了 4%，而体积大了 9%。由此可见，单纯的追逐 64
+        位系统其实并没有太大的必要。但是，假如你的电脑的内存超过了 4 GB 又或者说需要操作大于 4 GB 的数据，64
+        位系统的优势就比较明显了。
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          上述讨论只适用于对比相同硬件下的构建过程。现代的 64 位系统会比老的 64 位系统更快。LFS 作者建议，如果有机会，尽量在 64
+          位系统上进行构建。
+        </p>
+      </div>
+      <p>
+        假如按照本文的默认方式构建，那么你将得到一个「纯」64 位系统——这意味着你仅能够执行 64
+        位的程序。构建「multi-lib」并不是不可以，但是这意味着很多的程序都需要编译两次：一次为 32 位程序编译，一次为 64
+        位程序编译。不过，本文档并不涉及这部份的内容，因为这些内容会干扰用户学习如何构建一份最基本的 Linux 系统。你可以通过阅读
+        <a class="ulink" href="http://trac.clfs.org/">Cross Linux From
+        Scratch</a> 的相关内容获得有关该话题的更多帮助。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="audience.html" title="致读者">上一页</a>
+          <p>
+            致读者
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="standards.html" title="LFS 和标准">下一页</a>
+          <p>
+            LFS 和标准
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="preface.html" title="序章">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

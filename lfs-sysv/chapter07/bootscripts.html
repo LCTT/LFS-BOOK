@@ -1,0 +1,478 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.2.&nbsp;LFS-Bootscripts-20190524
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="udev.html" title="设备与模块管理概述">下一页</a>
+          <p>
+            设备与模块管理概述
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-bootscripts" name="ch-scripts-bootscripts"></a>7.2.
+        LFS-Bootscripts-20190524
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          软件包 LFS-Bootscripts 包含一套在启动/关机时开始/停止 LFS
+          系统的脚本。自定义启动过程所需的配置文件和程序将在随后的段落中交代。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">少于 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">244 KB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          7.2.1. 安装 LFS-Bootscripts
+        </h2>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-bootscripts" name="contents-bootscripts"></a>7.2.2.
+          LFS-Bootscripts 软件包的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的脚本:</strong> <span class=
+              "segbody">checkfs, cleanfs, console, functions, halt, ifdown,
+              ifup, localnet, modules, mountfs, mountvirtfs, network, rc,
+              reboot, sendsignals, setclock, ipv4-static, swap, sysctl,
+              sysklogd, template, udev, 和 udev_retry</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/etc/rc.d, /etc/init.d (符号链接), /etc/sysconfig,
+              /lib/services, /lib/lsb (符号链接)</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="checkfs-bootscripts" name=
+                    "checkfs-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>checkfs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在文件系统被挂在前，检查它的完整性（基于日志和网络的文件系统除外）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cleanfs-bootscripts" name=
+                    "cleanfs-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>cleanfs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    删除重启前后不应保留的文件，例如 <code class="filename">/var/run/</code>
+                    和 <code class="filename">/var/lock/</code> 中的文件；重新创建
+                    <code class="filename">/var/run/utmp</code> 并删除可能出现的
+                    <code class="filename">/etc/nologin</code>，<code class=
+                    "filename">/fastboot</code> 和 <code class=
+                    "filename">/forcefsck</code> 等文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="console-bootscripts" name=
+                    "console-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>console</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    载入当前键盘布局需要的键盘表；它还会设置屏幕的字体
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="functions-bootscripts" name=
+                    "functions-bootscripts"></a><span class=
+                    "term"><span class=
+                    "command"><strong>functions</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含一些启动脚本用到常规功能，例如异常和状态的检查
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="halt-bootscripts" name=
+                    "halt-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>halt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    终止系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ifdown-bootscripts" name=
+                    "ifdown-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>ifdown</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    停止一个网络设备
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ifup-bootscripts" name=
+                    "ifup-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>ifup</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    初始化一个网络设备
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="localnet-bootscripts" name=
+                    "localnet-bootscripts"></a><span class=
+                    "term"><span class="command"><strong>localnet</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置系统的主机名和本地回环设备
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="modules-bootscripts" name=
+                    "modules-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>modules</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    载入 <code class="filename">/etc/sysconfig/modules</code>
+                    文件中罗列的内核模块，用得到的参数也在其中给出
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mountfs-bootscripts" name=
+                    "mountfs-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>mountfs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    挂载除标记为 <span class="emphasis"><em>noauto</em></span>
+                    的或是基于网络的文件系统外的所有的文件系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mountvirtfs-bootscripts" name=
+                    "mountvirtfs-bootscripts"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mountvirtfs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    挂载虚拟内核的文件系统，例如 <code class="systemitem">proc</code>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="network-bootscripts" name=
+                    "network-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>network</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置网络接口，例如网卡，并设置默认网关(如果适用)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rc-bootscripts" name=
+                    "rc-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>rc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    主宰运行级的控制脚本；负责将所有其他的启动脚本一个接着一个地执行，通过处理过的符号链接名决定先后顺序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="reboot-bootscripts" name=
+                    "reboot-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>reboot</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    重新启动系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sendsignals-bootscripts" name=
+                    "sendsignals-bootscripts"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sendsignals</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    确认所有的进程在系统重启或关闭之前已被终止
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setclock-bootscripts" name=
+                    "setclock-bootscripts"></a><span class=
+                    "term"><span class="command"><strong>setclock</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    如果硬件时钟没有被设置成 UTC 则重新将内核时钟设置成本地时间
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ipv4-static-bootscripts" name=
+                    "ipv4-static-bootscripts"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ipv4-static</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    提供分配静态网络协议（IP）地址至网络接口的功能
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="swap-bootscripts" name=
+                    "swap-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>swap</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    启用和禁用 swap 文件和分区
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sysctl-bootscripts" name=
+                    "sysctl-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>sysctl</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    如果文件 <code class="filename">/etc/sysctl.conf</code>
+                    存在，将该文件中系统配置的值载入到运行中的内核中去
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sysklogd-bootscripts" name=
+                    "sysklogd-bootscripts"></a><span class=
+                    "term"><span class="command"><strong>sysklogd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    开始和停止系统和内核日志守护进程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="template-bootscripts" name=
+                    "template-bootscripts"></a><span class=
+                    "term"><span class="command"><strong>template</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    为其他守护进程创建启动脚本时用到模板
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="udev-bootscripts" name=
+                    "udev-bootscripts"></a><span class="term"><span class=
+                    "command"><strong>udev</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    准备 <code class="filename">/dev</code> 目录并启动 udev
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="udev-retry-bootscripts" name=
+                    "udev-retry-bootscripts"></a><span class=
+                    "term"><span class=
+                    "command"><strong>udev_retry</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    如有必要，重试失败的 udev uevents，并将生成的规则文件从 <code class=
+                    "filename">/run/udev</code> 复制到 <code class=
+                    "filename">/etc/udev/rules.d</code>
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="udev.html" title="设备与模块管理概述">下一页</a>
+          <p>
+            设备与模块管理概述
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

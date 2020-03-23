@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      2.7.&nbsp;挂载新分区
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;2&nbsp;章&nbsp;准备宿主系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutlfs.html" title="设置 $LFS 变量">上一页</a>
+          <p>
+            设置 $LFS 变量
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter03/chapter03.html" title=
+          "软件包和补丁">下一页</a>
+          <p>
+            软件包和补丁
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="space-mounting" name="space-mounting"></a>2.7. 挂载新分区
+      </h1>
+      <p>
+        至此，文件系统已经创建妥当，下一步就是访问这些分区了。为此，需要将这些建立的分区挂载到选定的挂载点。本书假定的挂载点为环境变量
+        <code class="envar">LFS</code> 指向的地址，如前文所述。
+      </p>
+      <p>
+        创建挂载点并用下面的命令挂载 LFS 文件系统：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkdir -pv $LFS
+mount -v -t ext4 /dev/<em class=
+"replaceable"><code>&lt;xxx&gt;</code></em> $LFS</kbd>
+</pre>
+      <p>
+        请用 LFS 分区替代 <em class="replaceable"><code>&lt;xxx&gt;</code></em> 。
+      </p>
+      <p>
+        如果 LFS 使用了多个分区（如，<code class="filename">/</code> 和 <code class=
+        "filename">/usr</code>)，需要挂载：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkdir -pv $LFS
+mount -v -t ext4 /dev/<em class=
+"replaceable"><code>&lt;xxx&gt;</code></em> $LFS
+mkdir -v $LFS/usr
+mount -v -t ext4 /dev/<em class=
+"replaceable"><code>&lt;yyy&gt;</code></em> $LFS/usr</kbd>
+</pre>
+      <p>
+        请替换 <em class="replaceable"><code>&lt;xxx&gt;</code></em> 和
+        <em class="replaceable"><code>&lt;yyy&gt;</code></em> 为合适的分区名。
+      </p>
+      <p>
+        请确保在挂载新分区时没有使用过于严格的权限参数（如 <code class="option">nosuid</code> 或
+        <code class="option">nodev</code> 选项）。运行不带任何参数的 <span class=
+        "command"><strong>mount</strong></span> 命令来查看在挂载 LFS 分区时设置了什么参数。如果设置了
+        <code class="option">nosuid</code> 和/或 <code class=
+        "option">nodev</code> 参数，就需要重新挂载了。
+      </p>
+      <div class="admon warning">
+        <img alt="[警告]" src="../images/warning.png" />
+        <h3>
+          警告
+        </h3>
+        <p>
+          上述说明假定你在 LFS 的过程中不会重启你的计算机。如果你关闭了你的系统，你将需要在每次重新开始构建过程时重新挂载 LFS
+          分区，或者修改你宿主系统的 /etc/fstab 文件，让每次重新启动后都自动挂载它。示例如下：
+        </p>
+        <pre class="screen">
+/dev/<em class=
+"replaceable"><code>&lt;xxx&gt;</code></em>  /mnt/lfs ext4   defaults      1     1
+</pre>
+        <p>
+          如果你还需使用其它可选分区，那就确保将它们也一并添加。
+        </p>
+      </div>
+      <p>
+        如果你要使用 <code class="systemitem">swap</code> 分区，请使用 <span class=
+        "command"><strong>swapon</strong></span> 命令确保它是可用的：
+      </p>
+      <pre class="userinput">
+<kbd class="command">/sbin/swapon -v /dev/<em class=
+"replaceable"><code>&lt;zzz&gt;</code></em></kbd>
+</pre>
+      <p>
+        请替换 <em class="replaceable"><code>&lt;zzz&gt;</code></em> 为
+        <code class="systemitem">swap</code> 分区名。
+      </p>
+      <p>
+        至此你已经建立了自己的工作空间，是时候下载软件包了。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutlfs.html" title="设置 $LFS 变量">上一页</a>
+          <p>
+            设置 $LFS 变量
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter03/chapter03.html" title=
+          "软件包和补丁">下一页</a>
+          <p>
+            软件包和补丁
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

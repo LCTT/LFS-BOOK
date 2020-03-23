@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.10.&nbsp;调整工具链
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="glibc.html" title="Glibc-2.30">上一页</a>
+          <p>
+            Glibc-2.30
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="zlib.html" title="Zlib-1.2.11">下一页</a>
+          <p>
+            Zlib-1.2.11
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-adjusting" name="ch-system-adjusting"></a>6.10.
+        调整工具链
+      </h1>
+      <p>
+        现在最后的 C 语言库已经装好了，是时候调整工具链，让新编译的程序链接到这些新的库上。
+      </p>
+      <p>
+        首先，备份 <code class="filename">/tools</code>
+        链接器，然后用我们在第五章调整过的链接器代替它。我们还会创建一个链接，链接到 <code class=
+        "filename">/tools/$(uname -m)-pc-linux-gnu/bin</code> 的副本：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mv -v /tools/bin/{ld,ld-old}
+mv -v /tools/$(uname -m)-pc-linux-gnu/bin/{ld,ld-old}
+mv -v /tools/bin/{ld-new,ld}
+ln -sv /tools/bin/ld /tools/$(uname -m)-pc-linux-gnu/bin/ld</kbd>
+</pre>
+      <p>
+        接下来，修改 GCC
+        参数文件，让它指向新的动态连接器。只需删除所有「/tools」的实例，这样应该可以留下到达动态链接器的正确路径。还要调整参数文件，这样
+        GCC 就知道怎样找到正确的头文件和 Glibc 启动文件。一个 <span class=
+        "command"><strong>sed</strong></span> 命令就能完成这些：
+      </p>
+      <pre class="userinput">
+<kbd class=
+"command">gcc -dumpspecs | sed -e 's@/tools@@g'                   \
+    -e '/\*startfile_prefix_spec:/{n;s@.*@/usr/lib/ @}' \
+    -e '/\*cpp:/{n;s@$@ -isystem /usr/include@}' &gt;      \
+    `dirname $(gcc --print-libgcc-file-name)`/specs</kbd>
+</pre>
+      <p>
+        直观地检查参数文件来确认预期的变化已确实完成是个好办法。
+      </p>
+      <p>
+        确保已调整的工具链的基本功能（编译和链接）都能如期进行是非常必要的。怎样做呢？执行下面这条命令：
+      </p>
+      <pre class="userinput">
+<kbd class="command">echo 'int main(){}' &gt; dummy.c
+cc dummy.c -v -Wl,--verbose &amp;&gt; dummy.log
+readelf -l a.out | grep ': /lib'</kbd>
+</pre>
+      <p>
+        如果没有任何错误，上条命令的输出应该是（不同的平台上的动态链接器可能名字不同）：
+      </p>
+      <pre class="screen">
+<code class=
+"computeroutput">[Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]</code>
+</pre>
+      <p>
+        注意在 64 位系统中，虽然我们的动态链接位于 <code class="filename">/lib</code> 中，但却可以通过
+        /lib64 中的符号链接访问。
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          32 位系统的解释器应该是 /lib/ld-linux.so.2.
+        </p>
+      </div>
+      <p>
+        现在确保我们已经设置好了启动文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log</kbd>
+</pre>
+      <p>
+        上一条命令的输出应该是：
+      </p>
+      <pre class="screen">
+<code class="computeroutput">/usr/lib/../lib/crt1.o succeeded
+/usr/lib/../lib/crti.o succeeded
+/usr/lib/../lib/crtn.o succeeded</code>
+</pre>
+      <p>
+        确保链接器能找到正确的头文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">grep -B1 '^ /usr/include' dummy.log</kbd>
+</pre>
+      <p>
+        这条命令应该返回如下输出：
+      </p>
+      <pre class="screen">
+<code class="computeroutput">#include &lt;...&gt; search starts here:
+ /usr/include</code>
+</pre>
+      <p>
+        接下来，确认新的链接器已经在使用正确的搜索路径：
+      </p>
+      <pre class="userinput">
+<kbd class="command">grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'</kbd>
+</pre>
+      <p>
+        应该忽略指向带有 '-linux-gnu' 的路径，上条命令的输出应该是：
+      </p>
+      <pre class="screen">
+<code class="computeroutput">SEARCH_DIR("/usr/lib")
+SEARCH_DIR("/lib")</code>
+</pre>
+      <p>
+        然后我们要确定我们使用的是正确的 libc：
+      </p>
+      <pre class="userinput">
+<kbd class="command">grep "/lib.*/libc.so.6 " dummy.log</kbd>
+</pre>
+      <p>
+        上条命令的输出应该为：
+      </p>
+      <pre class="screen">
+<code class="computeroutput">attempt to open /lib/libc.so.6 succeeded</code>
+</pre>
+      <p>
+        最后，确保 GCC 使用的是正确的动态链接器：
+      </p>
+      <pre class="userinput">
+<kbd class="command">grep found dummy.log</kbd>
+</pre>
+      <p>
+        上条命令的结果应该是（不同的平台上链接器名字可以不同）：
+      </p>
+      <pre class="screen">
+<code class=
+"computeroutput">found ld-linux-x86-64.so.2 at /lib/ld-linux-x86-64.so.2</code>
+</pre>
+      <p>
+        如果显示的结果不一样或者根本没有显示，那就出了大问题。检查并回溯之前的步骤，找到出错的地方并改正。最有可能的原因是参数文件的调整出了问题。在进行下一步之前所有的问题都要解决。
+      </p>
+      <p>
+        确保一切正常之后，清除测试文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">rm -v dummy.c a.out dummy.log</kbd>
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="glibc.html" title="Glibc-2.30">上一页</a>
+          <p>
+            Glibc-2.30
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="zlib.html" title="Zlib-1.2.11">下一页</a>
+          <p>
+            Zlib-1.2.11
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

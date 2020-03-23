@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.22.&nbsp;Bzip2-1.0.8
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gcc.html" title="GCC-9.2.0">上一页</a>
+          <p>
+            GCC-9.2.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="pkg-config.html" title=
+          "Pkg-config-0.29.2">下一页</a>
+          <p>
+            Pkg-config-0.29.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-bzip2" name="ch-system-bzip2"></a>6.22. Bzip2-1.0.8
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Bzip2 软件包包含压缩和解压缩的程序。用 <span class=
+          "command"><strong>bzip2</strong></span> 压缩文本文件能获得比传统的 <span class=
+          "command"><strong>gzip</strong></span> 更好的压缩比。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">少于 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">7.7 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.22.1. 安装 Bzip2
+        </h2>
+        <p>
+          使用能为这个软件包安装帮助文档的补丁：
+        </p>
+        <pre class="userinput">
+<kbd class="command">patch -Np1 -i ../bzip2-1.0.8-install_docs-1.patch</kbd>
+</pre>
+        <p>
+          下面的命令确保安装的符号链接是相对链接：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile</kbd>
+</pre>
+        <p>
+          确认 man 页面安装到了正确的位置：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile</kbd>
+</pre>
+        <p>
+          准备编译 Bzip：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make -f Makefile-libbz2_so
+make clean</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>make 参数的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class="parameter"><code>-f
+              Makefile-libbz2_so</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这会使用不同的 <code class="filename">Makefile</code> 文件编译
+                Bzip2，在这里是 <code class=
+                "filename">Makefile-libbz2_so</code>，它会创建动态 <code class=
+                "filename">libbz2.so</code> 库，并把它链接到 Bzip2 工具。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译并测试软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          安装程序：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make PREFIX=/usr install</kbd>
+</pre>
+        <p>
+          安装使用动态链接库的 <span class="command"><strong>bzip2</strong></span>
+          二进制文件到 <code class="filename">/bin</code> 目录，创建一些必须的符号链接并清理：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cp -v bzip2-shared /bin/bzip2
+cp -av libbz2.so* /lib
+ln -sv ../../lib/libbz2.so.1.0 /usr/lib/libbz2.so
+rm -v /usr/bin/{bunzip2,bzcat,bzip2}
+ln -sv bzip2 /bin/bunzip2
+ln -sv bzip2 /bin/bzcat</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-bzip2" name="contents-bzip2"></a>6.22.2. Bzip2
+          软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">bunzip2 (链接到 bzip2), bzcat (链接到 bzip2), bzcmp (链接到
+              bzdiff), bzdiff, bzegrep (链接到 bzgrep), bzfgrep (链接到 bzgrep),
+              bzgrep, bzip2, bzip2recover, bzless (链接到 bzmore), 和
+              bzmore</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libbz2.{a,so}</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/share/doc/bzip2-1.0.8</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bunzip2" name="bunzip2"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bunzip2</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    解压 bzip 压缩的文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bzcat" name="bzcat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bzcat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    解压到标准输出
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bzcmp" name="bzcmp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bzcmp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 bzip 压缩的文件运行 <span class=
+                    "command"><strong>cmp</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bzdiff" name="bzdiff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bzdiff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 bzip 压缩的文件运行 <span class=
+                    "command"><strong>diff</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bzegrep" name="bzegrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bzegrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 bzip 压缩的文件运行 <span class=
+                    "command"><strong>egrep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bzfgrep" name="bzfgrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bzfgrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 bzip 压缩的文件运行 <span class=
+                    "command"><strong>fgrep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bzgrep" name="bzgrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bzgrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 bzip 压缩的文件运行 <span class=
+                    "command"><strong>grep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bzip2" name="bzip2"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bzip2</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    使用哈夫曼编码的 Burrows-Wheeler
+                    块排序文本压缩算法压缩文件；压缩率比传统的用「Lempel-Ziv」算法的压缩器要好，比如
+                    <span class="command"><strong>gzip</strong></span>。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bzip2recover" name="bzip2recover"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bzip2recover</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    尝试从损坏的 bzip 压缩文件中恢复数据
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bzless" name="bzless"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bzless</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 bzip 压缩的文件运行 <span class=
+                    "command"><strong>less</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bzmore" name="bzmore"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bzmore</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 bzip 压缩的文件运行 <span class=
+                    "command"><strong>more</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libbz2" name="libbz2"></a><span class=
+                    "term"><code class="filename">libbz2</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用 Burrows-Wheeler 算法实现的无损的块排序数据压缩库
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gcc.html" title="GCC-9.2.0">上一页</a>
+          <p>
+            GCC-9.2.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="pkg-config.html" title=
+          "Pkg-config-0.29.2">下一页</a>
+          <p>
+            Pkg-config-0.29.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

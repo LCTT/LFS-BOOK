@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.30.&nbsp;Python-3.7.4
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="perl.html" title="Perl-5.30.0">上一页</a>
+          <p>
+            Perl-5.30.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sed.html" title="Sed-4.7">下一页</a>
+          <p>
+            Sed-4.7
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-Python" name="ch-tools-Python"></a>5.30. Python-3.7.4
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          软件包 Python 3 包含了 Python
+          的开发环境。对于面向对象编程，书写脚本，构建大型程序的原型，或者开发整个应用程序而言，非常有用。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">1.4 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">381 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          5.30.1. 安装 Python
+        </h2>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            有两个名称以 <span class="quote">“<span class=
+            "quote">python</span>”</span> 开头的包文件。注意要解压的是 <code class=
+            "filename">Python-3.7.4.tar.xz</code>（首字母大写的那个）。
+          </p>
+        </div>
+        <p>
+          这个软件包首先构建 Python 解释器，然后是一些标准的 Python 模块。构建模块的主要脚本是用 Python
+          编写的，并使用宿主机 <code class="filename">/usr/include</code> 和
+          <code class="filename">/usr/lib</code> 目录的硬编码路径。以此防止他们被使用，输入：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i '/def add_multiarch_paths/a \        return' setup.py</kbd>
+</pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            译注：PDF 文档在复制上述命令时，需注意「\」到「return」之间要保留 2 个 Tab、或 8 个空格的缩进。
+          </p>
+        </div>
+        <p>
+          配置 Python 准备编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/tools --without-ensurepip</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-ensurepip</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项用于禁用现阶段好不需要的 Python 软件包安装程序。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          编译完成。测试套件需求 TK 和 X Windows，此时无法运行。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <p>
+          关于这个软件包的详细资料请参见： <a class="xref" href=
+          "../chapter06/Python.html#contents-python" title=
+          "6.51.2.&nbsp;Python 3 软件包内容">第 6.51.2 节 「Python 3 软件包内容.」</a>
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="perl.html" title="Perl-5.30.0">上一页</a>
+          <p>
+            Perl-5.30.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sed.html" title="Sed-4.7">下一页</a>
+          <p>
+            Sed-4.7
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

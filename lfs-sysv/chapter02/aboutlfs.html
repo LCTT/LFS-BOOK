@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      2.6.&nbsp;设置 $LFS 变量
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;2&nbsp;章&nbsp;准备宿主系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingfilesystem.html" title=
+          "在分区上创建文件系统">上一页</a>
+          <p>
+            在分区上创建文件系统
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="mounting.html" title="挂载新分区">下一页</a>
+          <p>
+            挂载新分区
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-partitioning-aboutlfs" name=
+        "ch-partitioning-aboutlfs"></a>2.6. 设置 $LFS 变量
+      </h1>
+      <p>
+        在整本书里，会多次用到环境变量 <code class="envar">LFS</code>。你应该确保这个变量在整个 LFS
+        构建过程中总是定义了的。它应该被设置为你将要构建的 LFS 系统的目录名——这里我们使用 <code class=
+        "filename">/mnt/lfs</code> 作为例子，但是选择哪一个目录是你的自由。如果你把 LFS
+        构建到一个单独的分区里，这个目录将成为那个分区的挂载点。选择一个本地目录并用以下命令设置该变量：
+      </p>
+      <pre class="userinput">
+<kbd class="command">export LFS=<em class=
+"replaceable"><code>/mnt/lfs</code></em></kbd>
+</pre>
+      <p>
+        设置这个变量的好处在于有些命令可以直接写成类似 <span class="command"><strong>mkdir -v
+        $LFS/tools</strong></span>这样。在处理这条命令时，会自动替换「$LFS」为「/mnt/lfs」（或任何这个变量所指的地方）。
+      </p>
+      <div class="admon caution">
+        <img alt="[小心]" src="../images/caution.png" />
+        <h3>
+          小心
+        </h3>
+        <p>
+          不论何时，当你离开又重新进入这个工作环境时都不要忘了检查 <code class="envar">LFS</code>
+          是否设置（比如当你使用 <span class="command"><strong>su</strong></span> 切换到
+          <code class="systemitem">root</code> 或是另一个用户时）。使用如下命令检查
+          <code class="envar">LFS</code> 变量是否正确设置：
+        </p>
+        <pre class="userinput">
+<kbd class="command">echo $LFS</kbd>
+</pre>
+        <p>
+          请确保输出的是你构建 LFS 的那个目录的路径，如果你是按照例子设置的，那就是 <code class=
+          "filename">/mnt/lfs</code>。如果你输出的路径不正确，请使用本页前一部分提供的命令把 <code class=
+          "envar">$LFS</code> 重新设置到正确的目录。
+        </p>
+      </div>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          确保 <code class="envar">LFS</code> 变量一直为设置的一个方法是编辑你 home 目录下的
+          <code class="filename">.bash_profile</code> 文件和 <code class=
+          "filename">/root/.bash_profile</code>，并输入上述 export 命令。另外，在
+          <code class="filename">/etc/passwd</code> 文件中，为所有需要的用户指定
+          <code class="envar">LFS</code> 变量的 shell 需要是 bash，以确保 <code class=
+          "filename">/root/.bash_profile</code> 文件作为登录过程的一部分，并入其中。
+        </p>
+        <p>
+          另一个考虑是登入宿主系统的方法。如果是通过图形显示管理器登入，那么就不会像寻常那样在虚拟终端启动时，采用用户的
+          <code class="filename">.bash_profile</code> 文件。在这种情况下，需要将 export
+          命令添加至 root 用户的 <code class="filename">.bashrc</code>
+          中。另外，有些发行版还有指令，在非交互式 bash 的调用中不让 <code class=
+          "filename">.bashrc</code> 指令运行。在非交互式使用的测试前请保证 export 命令已经添加。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingfilesystem.html" title=
+          "在分区上创建文件系统">上一页</a>
+          <p>
+            在分区上创建文件系统
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="mounting.html" title="挂载新分区">下一页</a>
+          <p>
+            挂载新分区
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

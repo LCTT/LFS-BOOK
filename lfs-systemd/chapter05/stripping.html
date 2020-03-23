@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.36.&nbsp;清理无用内容
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="xz.html" title="Xz-5.2.4">上一页</a>
+          <p>
+            Xz-5.2.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="changingowner.html" title="改变属主">下一页</a>
+          <p>
+            改变属主
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-stripping" name="ch-tools-stripping"></a>5.36. 清理无用内容
+      </h1>
+      <p>
+        本小节里的步骤是可选的，但如果你的 LFS 分区容量比较小，知道有些不必要的内容可以被删除也是挺好的。目前编译好的可执行文件和库大概会有
+        70MB 左右不需要的调试符号。可以通过下面的命令移除这些符号：
+      </p>
+      <pre class="userinput">
+<kbd class="command">strip --strip-debug /tools/lib/*
+/usr/bin/strip --strip-unneeded /tools/{,s}bin/*</kbd>
+</pre>
+      <p>
+        这两个命令会跳过一些文件，并提示不可识别的文件格式。大多数是脚本文件而不是二进制文件。同样还可以用宿主系统里的 strip 命令为
+        /tools 目录下的 strip 二进制文件清理无用内容。
+      </p>
+      <p>
+        注意<span class="emphasis"><em>不要</em></span>对库文件使用 <em class=
+        "parameter"><code>--strip-unneeded</code></em>
+        选项。静态库会被损坏导致整个工具链将会需要全部重新编译。
+      </p>
+      <p>
+        更节省更多空间，还可以删除帮助文档：
+      </p>
+      <pre class="userinput">
+<kbd class="command">rm -rf /tools/{,share}/{info,man,doc}</kbd>
+</pre>
+      <p>
+        删除不需要的文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">find /tools/{lib,libexec} -name \*.la -delete</kbd>
+</pre>
+      <p>
+        这个时候，你应该在 <code class="envar">$LFS</code> 分区中为下个阶段编译安装 Glibc 和 GCC
+        预留至少 3GB 剩余空间。如果你可以编译安装 Glibc，那其他的就不会有问题了。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="xz.html" title="Xz-5.2.4">上一页</a>
+          <p>
+            Xz-5.2.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="changingowner.html" title="改变属主">下一页</a>
+          <p>
+            改变属主
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

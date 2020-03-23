@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      3.1.&nbsp;简介
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;3&nbsp;章&nbsp;软件包和补丁
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter03.html" title="软件包和补丁">上一页</a>
+          <p>
+            软件包和补丁
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="packages.html" title="所有软件包">下一页</a>
+          <p>
+            所有软件包
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter03.html" title=
+          "第&nbsp;3&nbsp;章&nbsp;软件包和补丁">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="materials-introduction" name="materials-introduction"></a>3.1.
+        简介
+      </h1>
+      <p>
+        本章列出了一张软件包的清单，你需要下载它们来构建一个基础的 Linux
+        系统。列出的软件版本号便是该软件经过确认可以正常工作的版本，也是成书时我们使用的版本。我们强烈建议不要使用更新的版本，因为某个版本的编译指令并不一定适用于更新版本。最新的软件包会包含许多问题，需要特别对应。这些对应方法会在本书的开发版本中解决并固定下来。
+      </p>
+      <p>
+        我们无法保证下载的地址是一直有效的。如果在本书发布后下载地址变了，大部分软件包可以用 Google （<a class="ulink"
+        href=
+        "http://www.google.com/">http://www.google.com/</a>）解决。如果连搜索也失败了，那不妨试一试
+        <a class="ulink" href=
+        "http://www.linuxfromscratch.org/lfs/packages.html#packages">http://www.linuxfromscratch.org/lfs/packages.html#packages</a>
+        中提到的其他下载地址。
+      </p>
+      <p>
+        下载好的软件包和补丁需要保存在某处，这个某处最好是一个在整个构建过程中都能便捷地访问到的地方。另外还需要一个工作目录，用于解压并构建源码。<code class="filename">$LFS/sources</code>
+        可以同时作为软件包、补丁的存放所和工作目录。通过这个目录，所有需要的元素都将存储在 LFS 分区中，并且在整个构建过程中都可以访问。
+      </p>
+      <p>
+        在开始下载任务之前，先用 <code class="systemitem">root</code> 用户执行下面的命令，创建这个目录：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkdir -v $LFS/sources</kbd>
+</pre>
+      <p>
+        设置目录的写权限和粘滞模式。「粘滞模式」是指，即便多个用户对某个目录有写权限，但仅有文件的所有者，能在粘滞目录中删除该文件。运行以下命令将开启目录的写权限和粘滞模式：
+      </p>
+      <pre class="userinput">
+<kbd class="command">chmod -v a+wt $LFS/sources</kbd>
+</pre>
+      <p>
+        一个简单的一口气下载所有软件包和补丁的方法是使用 <a class="ulink" href=
+        "../wget-list">wget-list</a> 作为 <span class=
+        "command"><strong>wget</strong></span> 的输入。例如：
+      </p>
+      <pre class="userinput">
+<kbd class=
+"command">wget --input-file=wget-list --continue --directory-prefix=$LFS/sources</kbd>
+</pre>
+      <p>
+        LCTT 译注：由于这些文件都分布在国外的不同站点上，因此有些下载的会很慢。非常感谢中国科学技术大学镜像站提供的 LFS
+        软件包：<a class="ulink" href=
+        "http://mirrors.ustc.edu.cn/lfs/lfs-packages/9.0/">http://mirrors.ustc.edu.cn/lfs/lfs-packages/9.0/</a>。可以使用我们制作的
+        wget-list-ustc<a class="ulink" href=
+        "https://github.com/LCTT/LFS-BOOK/blob/9.0-translating/wget-list-ustc">https://github.com/LCTT/LFS-BOOK/blob/9.0-translating/wget-list-ustc</a>
+        方便下载。
+      </p>
+      <p>
+        另外，从 LFS-7.0 开始，多了一个单独的文件 <a class="ulink" href=
+        "../md5sums">md5sums</a>，可以在正式开始前校验所有的文件是否都正确。将这个文件复制到 <code class=
+        "filename">$LFS/sources</code> 目录中并执行：
+      </p>
+      <pre class="userinput">
+<kbd class="command">pushd $LFS/sources
+md5sum -c md5sums
+popd</kbd>
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter03.html" title="软件包和补丁">上一页</a>
+          <p>
+            软件包和补丁
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="packages.html" title="所有软件包">下一页</a>
+          <p>
+            所有软件包
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter03.html" title=
+          "第&nbsp;3&nbsp;章&nbsp;软件包和补丁">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

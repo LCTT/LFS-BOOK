@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      D.8.&nbsp;/etc/rc.d/init.d/checkfs
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds07.html" title=
+          "/etc/rc.d/init.d/setclock">上一页</a>
+          <p>
+            /etc/rc.d/init.d/setclock
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds09.html" title=
+          "/etc/rc.d/init.d/mountfs">下一页</a>
+          <p>
+            /etc/rc.d/init.d/mountfs
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="checkfs" name="checkfs"></a>D.8. /etc/rc.d/init.d/checkfs
+      </h1>
+      <pre class="screen">
+#!/bin/sh
+########################################################################
+# Begin checkfs
+#
+# Description : File System Check
+#
+# Authors     : Gerard Beekmans - gerard@linuxfromscratch.org
+#               A. Luebke - luebke@users.sourceforge.net
+#               DJ Lucas - dj@linuxfromscratch.org
+# Update      : Bruce Dubbs - bdubbs@linuxfromscratch.org
+#
+# Version     : LFS 7.0
+#
+# Based on checkfs script from LFS-3.1 and earlier.
+#
+# From man fsck
+# 0    - No errors
+# 1    - File system errors corrected
+# 2    - System should be rebooted
+# 4    - File system errors left uncorrected
+# 8    - Operational error
+# 16   - Usage or syntax error
+# 32   - Fsck canceled by user request
+# 128  - Shared library error
+#
+#########################################################################
+
+### BEGIN INIT INFO
+# Provides:            checkfs
+# Required-Start:      udev swap $time
+# Should-Start:
+# Required-Stop:
+# Should-Stop:
+# Default-Start:       S
+# Default-Stop:
+# Short-Description:   Checks local filesystems before mounting.
+# Description:         Checks local filesystmes before mounting.
+# X-LFS-Provided-By:   LFS
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+case "${1}" in
+   start)
+      if [ -f /fastboot ]; then
+         msg="/fastboot found, will omit "
+         msg="${msg} file system checks as requested.\n"
+         log_info_msg "${msg}"
+         exit 0
+      fi
+
+      log_info_msg "Mounting root file system in read-only mode... "
+      mount -n -o remount,ro / &gt;/dev/null
+
+      if [ ${?} != 0 ]; then
+         log_failure_msg2
+         msg="\n\nCannot check root "
+         msg="${msg}filesystem because it could not be mounted "
+         msg="${msg}in read-only mode.\n\n"
+         msg="${msg}After you press Enter, this system will be "
+         msg="${msg}halted and powered off.\n\n"
+         log_failure_msg "${msg}"
+
+         log_info_msg "Press Enter to continue..." 
+         wait_for_user
+         /etc/rc.d/init.d/halt stop
+      else
+         log_success_msg2
+      fi
+
+      if [ -f /forcefsck ]; then
+         msg="/forcefsck found, forcing file" 
+         msg="${msg} system checks as requested."
+         log_success_msg "$msg"
+         options="-f"
+      else
+         options=""
+      fi
+
+      log_info_msg "Checking file systems..."
+      # Note: -a option used to be -p; but this fails e.g. on fsck.minix
+      if is_true "$VERBOSE_FSCK"; then
+        fsck ${options} -a -A -C -T
+      else
+        fsck ${options} -a -A -C -T &gt;/dev/null
+      fi
+
+      error_value=${?}
+
+      if [ "${error_value}" = 0 ]; then
+         log_success_msg2
+      fi
+
+      if [ "${error_value}" = 1 ]; then
+         msg="\nWARNING:\n\nFile system errors "
+         msg="${msg}were found and have been corrected.\n"
+         msg="${msg}     You may want to double-check that "
+         msg="${msg}everything was fixed properly."
+         log_warning_msg "$msg"
+      fi
+
+      if [ "${error_value}" = 2 -o "${error_value}" = 3 ]; then
+         msg="\nWARNING:\n\nFile system errors "
+         msg="${msg}were found and have been been "
+         msg="${msg}corrected, but the nature of the "
+         msg="${msg}errors require this system to be rebooted.\n\n"
+         msg="${msg}After you press enter, "
+         msg="${msg}this system will be rebooted\n\n"
+         log_failure_msg "$msg"
+
+         log_info_msg "Press Enter to continue..." 
+         wait_for_user
+         reboot -f
+      fi
+
+      if [ "${error_value}" -gt 3 -a "${error_value}" -lt 16 ]; then
+         msg="\nFAILURE:\n\nFile system errors "
+         msg="${msg}were encountered that could not be "
+         msg="${msg}fixed automatically.\nThis system "
+         msg="${msg}cannot continue to boot and will "
+         msg="${msg}therefore be halted until those "
+         msg="${msg}errors are fixed manually by a "
+         msg="${msg}System Administrator.\n\n"
+         msg="${msg}After you press Enter, this system will be "
+         msg="${msg}halted and powered off.\n\n"
+         log_failure_msg "$msg"
+
+         log_info_msg "Press Enter to continue..." 
+         wait_for_user
+         /etc/rc.d/init.d/halt stop
+      fi
+
+      if [ "${error_value}" -ge 16 ]; then
+         msg="FAILURE:\n\nUnexpected failure "
+         msg="${msg}running fsck.  Exited with error "
+         msg="${msg} code: ${error_value}.\n"
+         log_info_msg $msg
+         exit ${error_value}
+      fi
+
+      exit 0
+      ;;
+   *)
+      echo "Usage: ${0} {start}"
+      exit 1
+      ;;
+esac
+
+# End checkfs
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds07.html" title=
+          "/etc/rc.d/init.d/setclock">上一页</a>
+          <p>
+            /etc/rc.d/init.d/setclock
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds09.html" title=
+          "/etc/rc.d/init.d/mountfs">下一页</a>
+          <p>
+            /etc/rc.d/init.d/mountfs
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

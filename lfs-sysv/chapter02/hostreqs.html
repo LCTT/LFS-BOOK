@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      2.2.&nbsp;宿主系统要求
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;2&nbsp;章&nbsp;准备宿主系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="stages.html" title="分阶段构建 LFS">下一页</a>
+          <p>
+            分阶段构建 LFS
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="pre-hostreqs" name="pre-hostreqs"></a>2.2. 宿主系统要求
+      </h1>
+      <p>
+        你的主机系统应具有以下指定最低版本的软件。 对于大多数现代 Linux 发行版来说，这应该不是问题。
+        另请注意，不少发行版可能会将软件的头文件单独打包，并采用「&lt;package-name&gt;-devel」或「&lt;package-name&gt;-dev」的形式命名。如果你的发行版提供了这样的软件包，请务必安装。
+      </p>
+      <p>
+        所列软件包的早期版本可能也能用，但尚未经过测试。
+      </p>
+      <div class="itemizedlist">
+        <ul class="compact">
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Bash-3.2</strong></span> （/bin/sh
+              应该是 bash 的符号链接或硬链接）
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Binutils-2.25</strong></span>
+              （不建议使用 2.32 以后的版本，尚未经过测试）
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Bison-2.7</strong></span>
+              （/usr/bin/yacc 应该是指向 bison 或执行 bison 的小型脚本的链接）
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Bzip2-1.0.4</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Coreutils-6.9</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Diffutils-2.8.1</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Findutils-4.2.31</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Gawk-4.0.1</strong></span>
+              （/usr/bin/awk 应该是 gawk 的链接）
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>GCC-6.2</strong></span> 包括 C++
+              编译器，<span class="command"><strong>g++</strong></span> （9.2.0
+              以后的版本不建议使用，尚未经过测试）
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Glibc-2.11</strong></span> （2.30
+              以后的版本不建议使用，尚未经过测试）
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Grep-2.5.1a</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Gzip-1.3.12</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Linux Kernel-3.2</strong></span>
+            </p>
+            <p>
+              之所以指定使用这一版本的内核，是因为这是第 6 章构建 <span class=
+              "application">glibc</span> 的需求，开发人员如是建议。udev 也有这个需求。
+            </p>
+            <p>
+              如果宿主机内核早于 3.2，则需使用更新版本的内核将其替换。有两种方法可以解决这个问题。首先，查看你的 Linux
+              供应商是否提供 3.2
+              或更高版本内核的软件包。如果提供的话，你便能如愿安装了。如果你的供应商不提供合适的内核（的软件包），或者是你不想直接安装，你也可以自己编译内核。编译内核和配置引导的说明（假设宿主机使用
+              GRUB）位于 <a class="xref" href="../chapter08/chapter08.html"
+              title="第&nbsp;8&nbsp;章&nbsp;让 LFS 系统可引导">第 8 章</a>。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>M4-1.4.10</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Make-4.0</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Patch-2.5.4</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Perl-5.8.8</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Python-3.4</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Sed-4.1.5</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Tar-1.22</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Texinfo-4.7</strong></span>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <span class="strong"><strong>Xz-5.0.0</strong></span>
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="admon important">
+        <img alt="[重要]" src="../images/important.png" />
+        <h3>
+          重要
+        </h3>
+        <p>
+          请注意，依据本手册的指导构建 LFS 系统需确保上述提到的符号链接无误。虽然指向其他软件（例如 dash，mawk
+          等）的符号链接可能也可以，但 LFS
+          开发团队尚未对其进行测试或支持，并且这样做可能导致对于个别软件包在执行命令或者应用某些补丁的时候出现偏差。
+        </p>
+      </div>
+      <h2>
+        <a id="version-check" name="version-check"></a>
+      </h2>
+      <p>
+        查看宿主机系统是否已具备所有软件包的适当版本和编译程序的能力，请运行以下命令：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; version-check.sh &lt;&lt; "EOF"
+<code class="literal">#!/bin/bash
+# Simple script to list version numbers of critical development tools
+export LC_ALL=C
+bash --version | head -n1 | cut -d" " -f2-4
+MYSH=$(readlink -f /bin/sh)
+echo "/bin/sh -&gt; $MYSH"
+echo $MYSH | grep -q bash || echo "ERROR: /bin/sh does not point to bash"
+unset MYSH
+
+echo -n "Binutils: "; ld --version | head -n1 | cut -d" " -f3-
+bison --version | head -n1
+
+if [ -h /usr/bin/yacc ]; then
+  echo "/usr/bin/yacc -&gt; `readlink -f /usr/bin/yacc`";
+elif [ -x /usr/bin/yacc ]; then
+  echo yacc is `/usr/bin/yacc --version | head -n1`
+else
+  echo "yacc not found" 
+fi
+
+bzip2 --version 2&gt;&amp;1 &lt; /dev/null | head -n1 | cut -d" " -f1,6-
+echo -n "Coreutils: "; chown --version | head -n1 | cut -d")" -f2
+diff --version | head -n1
+find --version | head -n1
+gawk --version | head -n1
+
+if [ -h /usr/bin/awk ]; then
+  echo "/usr/bin/awk -&gt; `readlink -f /usr/bin/awk`";
+elif [ -x /usr/bin/awk ]; then
+  echo awk is `/usr/bin/awk --version | head -n1`
+else 
+  echo "awk not found" 
+fi
+
+gcc --version | head -n1
+g++ --version | head -n1
+ldd --version | head -n1 | cut -d" " -f2-  # glibc version
+grep --version | head -n1
+gzip --version | head -n1
+cat /proc/version
+m4 --version | head -n1
+make --version | head -n1
+patch --version | head -n1
+echo Perl `perl -V:version`
+python3 --version
+sed --version | head -n1
+tar --version | head -n1
+makeinfo --version | head -n1  # texinfo version
+xz --version | head -n1
+
+echo 'int main(){}' &gt; dummy.c &amp;&amp; g++ -o dummy dummy.c
+if [ -x dummy ]
+  then echo "g++ compilation OK";
+  else echo "g++ compilation failed"; fi
+rm -f dummy.c dummy</code>
+EOF
+
+bash version-check.sh</kbd>
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="introduction.html" title="简介">上一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="stages.html" title="分阶段构建 LFS">下一页</a>
+          <p>
+            分阶段构建 LFS
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

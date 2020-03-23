@@ -1,0 +1,520 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.45.&nbsp;Xz-5.2.4
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="automake.html" title=
+          "Automake-1.16.1">上一页</a>
+          <p>
+            Automake-1.16.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kmod.html" title="Kmod-26">下一页</a>
+          <p>
+            Kmod-26
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-xz" name="ch-system-xz"></a>6.45. Xz-5.2.4
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Xz 软件包包含用于压缩和解压文件的程序。它提供 lzma 和更新的 xz 压缩格式功能。和传统的 <span class=
+          "command"><strong>gzip</strong></span> 或 <span class=
+          "command"><strong>bzip2</strong></span> 命令相比，用 <span class=
+          "command"><strong>xz</strong></span> 压缩文本文件能获得更好的压缩率。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">16 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.45.1. 安装 Xz
+        </h2>
+        <p>
+          准备编译 Xz：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/xz-5.2.4</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包并确保所需的文件都在正确目录中：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install
+mv -v   /usr/bin/{lzma,unlzma,lzcat,xz,unxz,xzcat} /bin
+mv -v /usr/lib/liblzma.so.* /lib
+ln -svf ../../lib/$(readlink /usr/lib/liblzma.so) /usr/lib/liblzma.so</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-xz" name="contents-xz"></a>6.45.2. Xz 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">lzcat (链接到 xz), lzcmp (链接到 xzdiff), lzdiff (链接到
+              xzdiff), lzegrep (链接到 xzgrep), lzfgrep (链接到 xzgrep), lzgrep
+              (链接到 xzgrep), lzless (链接到 xzless), lzma (链接到 xz), lzmadec,
+              lzmainfo, lzmore (链接到 xzmore), unlzma (链接到 xz), unxz (链接到 xz),
+              xz, xzcat (链接到 xz), xzcmp (链接到 xzdiff), xzdec, xzdiff, xzegrep
+              (链接到 xzgrep), xzfgrep (链接到 xzgrep), xzgrep, xzless, 和
+              xzmore</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">liblzma.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/include/lzma 和 /usr/share/doc/xz-5.2.4</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lzcat" name="lzcat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lzcat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    解压标准输出
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lzcmp" name="lzcmp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lzcmp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 LZMA 压缩文件运行 <span class=
+                    "command"><strong>cmp</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lzdiff" name="lzdiff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lzdiff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 LZMA 压缩文件运行 <span class=
+                    "command"><strong>diff</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lzegrep" name="lzegrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lzegrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 LZMA 压缩文件运行 <span class=
+                    "command"><strong>egrep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lzfgrep" name="lzfgrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lzfgrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 LZMA 压缩文件运行 <span class=
+                    "command"><strong>fgrep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lzgrep" name="lzgrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lzgrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 LZMA 压缩文件运行 <span class=
+                    "command"><strong>grep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lzless" name="lzless"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lzless</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 LZMA 压缩文件运行 <span class=
+                    "command"><strong>less</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lzma" name="lzma"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lzma</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用 LZMA 格式压缩或解压文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lzmadec" name="lzmadec"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lzmadec</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于 LZMA 压缩文件的轻便解码器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lzmainfo" name="lzmainfo"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lzmainfo</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示存储在 LZMA 压缩文件头部的信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lzmore" name="lzmore"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lzmore</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 LZMA 压缩文件运行 <span class=
+                    "command"><strong>more</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="unlzma" name="unlzma"></a><span class=
+                    "term"><span class=
+                    "command"><strong>unlzma</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用 LZMA 格式解压文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="unxz" name="unxz"></a><span class=
+                    "term"><span class=
+                    "command"><strong>unxz</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用 XZ 格式解压文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xz" name="xz"></a><span class="term"><span class=
+                    "command"><strong>xz</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用 XZ 格式压缩或解压文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xzcat" name="xzcat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xzcat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    解压到标准输出
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xzcmp" name="xzcmp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xzcmp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 XZ 压缩文件运行 <span class=
+                    "command"><strong>cmp</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xzdec" name="xzdec"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xzdec</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于 XZ 压缩文件的轻便解码器
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xzdiff" name="xzdiff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xzdiff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 XZ 压缩文件运行 <span class=
+                    "command"><strong>diff</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xzegrep" name="xzegrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xzegrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 XZ 压缩文件运行 <span class=
+                    "command"><strong>egrep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xzfgrep" name="xzfgrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xzfgrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 XZ 压缩文件运行 <span class=
+                    "command"><strong>fgrep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xzgrep" name="xzgrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xzgrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 XZ 压缩文件运行 <span class=
+                    "command"><strong>grep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xzless" name="xzless"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xzless</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 XZ 压缩文件运行 <span class=
+                    "command"><strong>less</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xzmore" name="xzmore"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xzmore</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 XZ 压缩文件运行 <span class=
+                    "command"><strong>more</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="liblzma" name="liblzma"></a><span class=
+                    "term"><code class="filename">liblzma</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用 Lempel-Ziv-Markov 链算法实现无损块排序数据压缩的库
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="automake.html" title=
+          "Automake-1.16.1">上一页</a>
+          <p>
+            Automake-1.16.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kmod.html" title="Kmod-26">下一页</a>
+          <p>
+            Kmod-26
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

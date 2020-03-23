@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.1.&nbsp;简介
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter07.html" title="基本系统配置">上一页</a>
+          <p>
+            基本系统配置
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="network.html" title="通用网络配置">下一页</a>
+          <p>
+            通用网络配置
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-introduction" name=
+        "ch-scripts-introduction"></a>7.1. 简介
+      </h1>
+      <p>
+        这一章将会讲解配置文件和 systemd 服务。首先，给出了设置网络需要的通用配置文件。
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              <a class="xref" href="network.html" title="7.2.&nbsp;通用网络配置">第
+              7.2 节 「通用网络配置」</a>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <a class="xref" href="network.html#ch-scripts-hostname" title=
+              "7.2.3.&nbsp;配置系统主机名称">第 7.2.3 节 「配置系统主机名称」</a>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <a class="xref" href="network.html#ch-scripts-hosts" title=
+              "7.2.4.&nbsp;自定义 /etc/hosts 文件">第 7.2.4 节 「自定义 /etc/hosts
+              文件」</a>
+            </p>
+          </li>
+        </ul>
+      </div>
+      <p>
+        然后，讨论可能影响正确的设备配置的问题。
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              <a class="xref" href="udev.html" title="7.3.&nbsp;设备与模块管理概述">第
+              7.3 节 「设备与模块管理概述」</a>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <a class="xref" href="symlinks.html" title="7.4.&nbsp;设备管理">第
+              7.4 节 「设备管理」</a>
+            </p>
+          </li>
+        </ul>
+      </div>
+      <p>
+        第三步，配置系统时间和键盘布局。
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              <a class="xref" href="clock.html" title="7.5.&nbsp;配置系统时间">第
+              7.5 节 「配置系统时间」</a>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <a class="xref" href="console.html" title=
+              "7.6.&nbsp;配置 Linux 控制台">第 7.6 节 「配置 Linux 控制台」</a>
+            </p>
+          </li>
+        </ul>
+      </div>
+      <p>
+        第四步，简单介绍当用户登录系统时用到的脚本和配置文件。
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              <a class="xref" href="locale.html" title="7.7.&nbsp;配置系统语言环境">第
+              7.7 节 「配置系统语言环境」</a>
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <a class="xref" href="inputrc.html" title=
+              "7.8.&nbsp;创建 /etc/inputrc 文件">第 7.8 节 「创建 /etc/inputrc 文件」</a>
+            </p>
+          </li>
+        </ul>
+      </div>
+      <p>
+        最后，配置 systemd。
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              <a class="xref" href="systemd-custom.html" title=
+              "7.10.&nbsp;systemd 的用法与配置">第 7.10 节 「systemd 的用法与配置」</a>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter07.html" title="基本系统配置">上一页</a>
+          <p>
+            基本系统配置
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="network.html" title="通用网络配置">下一页</a>
+          <p>
+            通用网络配置
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

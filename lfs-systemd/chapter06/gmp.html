@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.17.&nbsp;GMP-6.1.2
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils.html" title="Binutils-2.32">上一页</a>
+          <p>
+            Binutils-2.32
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="mpfr.html" title="MPFR-4.0.2">下一页</a>
+          <p>
+            MPFR-4.0.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-gmp" name="ch-system-gmp"></a>6.17. GMP-6.1.2
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          GMP 软件包包含一些数学库。这里有对任意精度数值计算很有用的函数。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">1.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">61 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.17.1. 安装 GMP
+        </h2>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            如果你是为 32 位的 x86 系统编译，但是你的 CPU 可以运行 64 位代码<span class=
+            "emphasis"><em>并且</em></span>环境中你有指定的 <code class=
+            "envar">CFLAGS</code>，那么配置脚本会尝试配置为 64 位并导致失败。用下面的
+            方式执行配置命令来避免这个问题：
+          </p>
+          <pre class="userinput">
+<kbd class="command"><em class=
+"parameter"><code>ABI=32</code></em> ./configure ...</kbd>
+</pre>
+        </div>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            GMP 的默认设定会为主机的处理器优化库。如果你不需要完美符合主机 CPU
+            的库，可以通过下方命令创建通用库，这样的话契合度会差一些：
+          </p>
+          <pre class="userinput">
+<kbd class="command">cp -v configfsf.guess config.guess
+cp -v configfsf.sub   config.sub</kbd>
+</pre>
+        </div>
+        <p>
+          准备编译 GMP：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr    \
+            --enable-cxx     \
+            --disable-static \
+            --docdir=/usr/share/doc/gmp-6.1.2</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>新配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-cxx</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个参数启用 C++ 支持
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--docdir=/usr/share/doc/gmp-6.1.2</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个变量指定保存文档的正确位置
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包并生成 HTML 文档：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make
+make html</kbd>
+</pre>
+        <div class="admon important">
+          <img alt="[重要]" src="../images/important.png" />
+          <h3>
+            重要
+          </h3>
+          <p>
+            该章节 GMP 的测试套件至关重要，任何情况下都不能跳过。
+          </p>
+        </div>
+        <p>
+          查看结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check 2&gt;&amp;1 | tee gmp-check-log</kbd>
+</pre>
+        <div class="admon caution">
+          <img alt="[小心]" src="../images/caution.png" />
+          <h3>
+            小心
+          </h3>
+          <p>
+            GMP 中的代码对于其构建的处理器进行了高度优化。有时，检测处理器的代码会误认系统的功能，并在测试中报错，或是在其他应用使用
+            GMP 库的时候显示消息「Illegal instruction（非法指令）」。在这种情况下，GMP 需要重新配置选项
+            --build=x86_64-unknown-linux-gnu 并重新构建。
+          </p>
+        </div>
+        <p>
+          确认测试套件中所有的 190 个测试都通过了。通过输入下面的命令检查结果：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">awk '/# PASS:/{total+=$3} ; END{print total}' gmp-check-log</kbd>
+</pre>
+        <p>
+          安装软件包和文档：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install
+make install-html</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-gmp" name="contents-gmp"></a>6.17.2. GMP 内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libgmp.so 和 libgmpxx.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/share/doc/gmp-6.1.2</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgmp" name="libgmp"></a><span class=
+                    "term"><code class="filename">libgmp</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包括精度数学函数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgmpxx" name="libgmpxx"></a><span class=
+                    "term"><code class="filename">libgmpxx</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包括 C++ 精度属性函数
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils.html" title="Binutils-2.32">上一页</a>
+          <p>
+            Binutils-2.32
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="mpfr.html" title="MPFR-4.0.2">下一页</a>
+          <p>
+            MPFR-4.0.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

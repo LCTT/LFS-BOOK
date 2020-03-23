@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.53.&nbsp;Meson-0.51.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="ninja.html" title="Ninja-1.9.0">上一页</a>
+          <p>
+            Ninja-1.9.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="coreutils.html" title=
+          "Coreutils-8.31">下一页</a>
+          <p>
+            Coreutils-8.31
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-meson" name="ch-system-meson"></a>6.53. Meson-0.51.1
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Meson 是一个开源代码构建系统，不仅速度非常快，而且更重要的是对用户极其友好。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">少于 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">28 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.53.1. 安装 Meson
+        </h2>
+        <p>
+          通过下列命令编译 Meson：
+        </p>
+        <pre class="userinput">
+<kbd class="command">python3 setup.py build</kbd>
+</pre>
+        <p>
+          这个软件包还没有测试套件。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">python3 setup.py install --root=dest
+cp -rv dest/* /</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>安装参数的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--root=dest</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                默认情况下执行命令 <span class="command"><strong>python3 setup.py
+                install</strong></span> 会将所有文件（比如 man 手册）安装到 Python
+                Eggs。指定根路径则 <span class=
+                "command"><strong>setup.py</strong></span>会将这些文件安装到标准层次目录。然后只需要复制层次目录，文件即处于标准位置。
+              </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-meson" name="contents-meson"></a>6.53.2. Meson
+          软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">meson</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/lib/python3.7/site-packages/meson-0.51.1-py3.7.egg-info
+              和 /usr/lib/python3.7/site-packages/mesonbuild</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="meson" name="meson"></a><span class=
+                    "term"><span class=
+                    "command"><strong>meson</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    高生产率构建系统
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="ninja.html" title="Ninja-1.9.0">上一页</a>
+          <p>
+            Ninja-1.9.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="coreutils.html" title=
+          "Coreutils-8.31">下一页</a>
+          <p>
+            Coreutils-8.31
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      3.3.&nbsp;需要的补丁
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;3&nbsp;章&nbsp;软件包和补丁
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="packages.html" title="所有软件包">上一页</a>
+          <p>
+            所有软件包
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter04/chapter04.html" title=
+          "最后的准备工作">下一页</a>
+          <p>
+            最后的准备工作
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter03.html" title=
+          "第&nbsp;3&nbsp;章&nbsp;软件包和补丁">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="materials-patches" name="materials-patches"></a>3.3. 需要的补丁
+      </h1>
+      <p>
+        除了下载软件包外，还需要几个补丁。这些补丁修正了软件包中应该由维护者来解决的问题。补丁也会对软件包做一些小调整方便大家使用。构建 LFS
+        系统需要下面的补丁：
+      </p>
+      <div class="materials">
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">Bzip2 文档补丁 - <span class="token">1.6
+              KB</span>:</span>
+            </dt>
+            <dd>
+              <p>
+                下载： <a class="ulink" href=
+                "http://www.linuxfromscratch.org/patches/lfs/9.0/bzip2-1.0.8-install_docs-1.patch">
+                http://www.linuxfromscratch.org/patches/lfs/9.0/bzip2-1.0.8-install_docs-1.patch</a>
+              </p>
+              <p>
+                MD5 校验和： <code class=
+                "literal">6a5ac7e89b791aae556de0f745916f7f</code>
+              </p>
+            </dd>
+            <dt>
+              <span class="term">Coreutils 国际化修复补丁 - <span class="token">168
+              KB</span>:</span>
+            </dt>
+            <dd>
+              <p>
+                下载： <a class="ulink" href=
+                "http://www.linuxfromscratch.org/patches/lfs/9.0/coreutils-8.31-i18n-1.patch">
+                http://www.linuxfromscratch.org/patches/lfs/9.0/coreutils-8.31-i18n-1.patch</a>
+              </p>
+              <p>
+                MD5 校验和： <code class=
+                "literal">a9404fb575dfd5514f3c8f4120f9ca7d</code>
+              </p>
+            </dd>
+            <dt>
+              <span class="term">Glibc FHS 补丁 - <span class="token">2.8
+              KB</span>:</span>
+            </dt>
+            <dd>
+              <p>
+                下载： <a class="ulink" href=
+                "http://www.linuxfromscratch.org/patches/lfs/9.0/glibc-2.30-fhs-1.patch">
+                http://www.linuxfromscratch.org/patches/lfs/9.0/glibc-2.30-fhs-1.patch</a>
+              </p>
+              <p>
+                MD5 校验和： <code class=
+                "literal">9a5997c3452909b1769918c759eff8a2</code>
+              </p>
+            </dd>
+            <dt>
+              <span class="term">Kbd Backspace/Delete 键修复补丁 - <span class=
+              "token">12 KB</span>:</span>
+            </dt>
+            <dd>
+              <p>
+                下载： <a class="ulink" href=
+                "http://www.linuxfromscratch.org/patches/lfs/9.0/kbd-2.2.0-backspace-1.patch">
+                http://www.linuxfromscratch.org/patches/lfs/9.0/kbd-2.2.0-backspace-1.patch</a>
+              </p>
+              <p>
+                MD5 校验和： <code class=
+                "literal">f75cca16a38da6caa7d52151f7136895</code>
+              </p>
+            </dd>
+            <dt>
+              <span class="term">Sysvinit 合并补丁 - <span class="token">2.4
+              KB</span>:</span>
+            </dt>
+            <dd>
+              <p>
+                下载： <a class="ulink" href=
+                "http://www.linuxfromscratch.org/patches/lfs/9.0/sysvinit-2.95-consolidated-1.patch">
+                http://www.linuxfromscratch.org/patches/lfs/9.0/sysvinit-2.95-consolidated-1.patch</a>
+              </p>
+              <p>
+                MD5 校验和： <code class=
+                "literal">4900322141d493e74020c9cf437b2cdc</code>
+              </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <p>
+        这些补丁文件总大小: 约 186.8 KB
+      </p>
+      <p>
+        除了以上所要求的补丁外，还有一些由 LFS
+        社区创建的可选补丁。这些可选补丁或是解决了一些小问题，或是打开某个默认关闭的功能。请查阅补丁数据库 <a class="ulink"
+        href=
+        "http://www.linuxfromscratch.org/patches/downloads/">http://www.linuxfromscratch.org/patches/downloads/</a>，获取适合你系统需求的额外补丁。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="packages.html" title="所有软件包">上一页</a>
+          <p>
+            所有软件包
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter04/chapter04.html" title=
+          "最后的准备工作">下一页</a>
+          <p>
+            最后的准备工作
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter03.html" title=
+          "第&nbsp;3&nbsp;章&nbsp;软件包和补丁">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

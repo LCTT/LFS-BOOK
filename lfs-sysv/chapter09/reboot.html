@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      9.3.&nbsp;重启系统
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;9&nbsp;章&nbsp;尾声
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="getcounted.html" title=
+          "为 LFS 用户数添砖加瓦">上一页</a>
+          <p>
+            为 LFS 用户数添砖加瓦
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="whatnow.html" title="接下来做什么呢？">下一页</a>
+          <p>
+            接下来做什么呢？
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "第&nbsp;9&nbsp;章&nbsp;尾声">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-finish-reboot" name="ch-finish-reboot"></a>9.3. 重启系统
+      </h1>
+      <p>
+        至此，所有的软件都已安装完毕，是时候重启你的电脑了。然而，你也应该注意一些事情。通过学习本书建立起来的系统属于最小系统，这也就意味着可能会缺失一些你需要的功能。就是说你还需要做些事情。当重启进入你的新
+        LFS 中时，这是一个在当前的 chroot 环境中安装一些 BLFS 书中的额外软件包的好时机。以下给出了一些建议：
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              文本模式的浏览器，例如 <a class="ulink" href=
+              "http://www.linuxfromscratch.org/blfs/view/9.0/basicnet/lynx.html">
+              Lynx</a>，可以在虚拟终端中访问这本 BLFS 书，以进行后续的编译打包工作。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              <a class="ulink" href=
+              "http://www.linuxfromscratch.org/blfs/view/9.0/general/gpm.html">
+              GPM（GPM：一个支持控制台和 xterm 的鼠标服务）</a> 软件包可以让你在虚拟终端中更方便的执行复制/粘贴工作。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              如果静态 IP 配置不能很好的适用于你当前环境的网络配置，可以安装 <a class="ulink" href=
+              "http://www.linuxfromscratch.org/blfs/view/9.0/basicnet/dhcpcd.html">
+              dhcpcd</a> 或者是 <a class="ulink" href=
+              "http://www.linuxfromscratch.org/blfs/view/9.0/basicnet/dhcp.html">
+              dhcp</a> 的客户端部分来解决。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              安装 <a class="ulink" href=
+              "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/sudo.html">
+              sudo</a>，以便在非 root 用户环境下编译软件包，且可以很轻松的在新系统中安装编译出来的软件。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              如果你想要在舒适的 GUI 环境远程访问新系统，请安装 <a class="ulink" href=
+              "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/openssh.html">
+              openssh</a> 及其依赖包 <a class="ulink" href=
+              "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/openssl.html">
+              openssl</a>。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              为了更加便利的从网络中下载文件，请安装 <a class="ulink" href=
+              "http://www.linuxfromscratch.org/blfs/view/9.0/basicnet/wget.html">
+              wget</a>。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              如果你有 GUID 分区表（GPT）类型的磁盘，你也许需要 <a class="ulink" href=
+              "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/gptfdisk.html">
+              gptfdisk</a> 或是 <a class="ulink" href=
+              "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/parted.html">
+              parted</a> 。
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              最后，检查以下的配置文件是不是都是正确的吧。
+            </p>
+            <div class="itemizedlist">
+              <ul>
+                <li class="listitem">
+                  <p>
+                    /etc/bashrc
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/dircolors
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/fstab
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/hosts
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/inputrc
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/profile
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/resolv.conf
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/vimrc
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /root/.bash_profile
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /root/.bashrc
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/sysconfig/ifconfig.eth0
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <p>
+        辛苦了那么久，是该初次启动我们崭新的 LFS 系统的时候了！首先，请退出 chroot 环境：
+      </p>
+      <pre class="userinput">
+<kbd class="command">logout</kbd>
+</pre>
+      <p>
+        然后卸载虚拟文件系统：
+      </p>
+      <pre class="userinput">
+<kbd class="command">umount -v $LFS/dev/pts
+umount -v $LFS/dev
+umount -v $LFS/run
+umount -v $LFS/proc
+umount -v $LFS/sys</kbd>
+</pre>
+      <p>
+        卸载 LFS 文件系统本身：
+      </p>
+      <pre class="userinput">
+<kbd class="command">umount -v $LFS</kbd>
+</pre>
+      <p>
+        如果还建立了其它的挂载点，请在卸载 LFS 文件系统之前先卸载它们：
+      </p>
+      <pre class="userinput">
+<kbd class="command">umount -v $LFS/usr
+umount -v $LFS/home
+umount -v $LFS</kbd>
+</pre>
+      <p>
+        至此，重启系统吧：
+      </p>
+      <pre class="userinput">
+<kbd class="command">shutdown -r now</kbd>
+</pre>
+      <p>
+        这里假设 GRUB 引导器已经如前文所述安装完毕且配置正确，启动项也已经自动设置为 <span class=
+        "emphasis"><em>LFS 9.0</em></span>。
+      </p>
+      <p>
+        重启后，LFS 便已经可以使用了，你可以安装一些其它的软件以满足自己的需求。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="getcounted.html" title=
+          "为 LFS 用户数添砖加瓦">上一页</a>
+          <p>
+            为 LFS 用户数添砖加瓦
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="whatnow.html" title="接下来做什么呢？">下一页</a>
+          <p>
+            接下来做什么呢？
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "第&nbsp;9&nbsp;章&nbsp;尾声">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.9.&nbsp;创建 /etc/shells 文件
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="inputrc.html" title=
+          "创建 /etc/inputrc 文件">上一页</a>
+          <p>
+            创建 /etc/inputrc 文件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="systemd-custom.html" title=
+          "systemd 的用法与配置">下一页</a>
+          <p>
+            systemd 的用法与配置
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-config-shells" name="ch-config-shells"></a>7.9. 创建
+        /etc/shells 文件
+      </h1>
+      <p>
+        <code class="filename">shells</code> 文件是当前系统所有可用 shell
+        的列表文件。应用程序通过读取它可以知道需要使用的 shell 是否有效。每行指定一个 shell 的绝对路径，即从根目录（/）开始的路径。
+      </p>
+      <p>
+        例如，当非特权用户想要使用 <span class="command"><strong>chsh</strong></span>
+        命令更改自己登录所用的 shell 时。如果命令没有在 /etc/shell 中找到，那么将会拒绝更改。
+      </p>
+      <p>
+        这个文件对于某些程序来说是必需的，比如 <span class="application">GDM</span> 在找不到
+        <code class="filename">/etc/shells</code> 时就不会启用头像登录界面，还有 FTP
+        守护进程通常会禁止使用不在这个文件里列出终端的用户登录。
+      </p>
+      <pre class="root">
+<kbd class="command">cat &gt; /etc/shells &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/shells
+
+/bin/sh
+/bin/bash
+
+# End /etc/shells</code>
+EOF</kbd>
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="inputrc.html" title=
+          "创建 /etc/inputrc 文件">上一页</a>
+          <p>
+            创建 /etc/inputrc 文件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="systemd-custom.html" title=
+          "systemd 的用法与配置">下一页</a>
+          <p>
+            systemd 的用法与配置
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

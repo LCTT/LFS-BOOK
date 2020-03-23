@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      9.1.&nbsp;最后的最后
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;9&nbsp;章&nbsp;尾声
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter09.html" title="尾声">上一页</a>
+          <p>
+            尾声
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="getcounted.html" title=
+          "为 LFS 用户数添砖加瓦">下一页</a>
+          <p>
+            为 LFS 用户数添砖加瓦
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "第&nbsp;9&nbsp;章&nbsp;尾声">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-finish-theend" name="ch-finish-theend"></a>9.1. 最后的最后
+      </h1>
+      <p>
+        干的很棒嘛！至此，全新的 LFS 系统就已经安装完成啦！我们衷心地祝愿，你亲手定制的崭新 Linux 系统能陪着你乘风破浪。
+      </p>
+      <p>
+        创建一个 systemd 所需的 <code class="filename">/etc/os-release</code> 文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /etc/os-release &lt;&lt; "EOF"
+NAME="Linux From Scratch"
+VERSION="9.0-systemd"
+ID=lfs
+PRETTY_NAME="Linux From Scratch 9.0-systemd"
+VERSION_CODENAME="&lt;your name here&gt;"
+EOF</kbd>
+</pre>
+      <p>
+        建议和非 systemd 分支一样创建文件 <code class=
+        "filename">/etc/lfs-release</code>。该文件能帮助你（和我们，如果你需要我们帮助的话）确定你当前使用的
+        LFS 版本。运行以下命令以创建该文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">echo 9.0-systemd &gt; /etc/lfs-release</kbd>
+</pre>
+      <p>
+        推荐遵守 Linux Standards Base (LSB)，建立文件以显示当前系统的完整信息。运行以下命令新建此文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /etc/lsb-release &lt;&lt; "EOF"
+DISTRIB_ID="Linux From Scratch"
+DISTRIB_RELEASE="9.0-systemd"
+DISTRIB_CODENAME="&lt;your name here&gt;"
+DISTRIB_DESCRIPTION="Linux From Scratch"
+EOF</kbd>
+</pre>
+      <p>
+        你可以在「DISTRIB_CODENAME」字段填写一些特别的字符来彰显「你的」系统的与众不同！
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter09.html" title="尾声">上一页</a>
+          <p>
+            尾声
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="getcounted.html" title=
+          "为 LFS 用户数添砖加瓦">下一页</a>
+          <p>
+            为 LFS 用户数添砖加瓦
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "第&nbsp;9&nbsp;章&nbsp;尾声">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

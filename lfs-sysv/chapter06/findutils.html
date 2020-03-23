@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.58.&nbsp;Findutils-4.6.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gawk.html" title="Gawk-5.0.1">上一页</a>
+          <p>
+            Gawk-5.0.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="groff.html" title="Groff-1.22.4">下一页</a>
+          <p>
+            Groff-1.22.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-findutils" name="ch-system-findutils"></a>6.58.
+        Findutils-4.6.0
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Findutils 软件包包含查找文件的程序。这些程序提供递归搜索目录树、创建、管理以及搜索数据库（通常比递归式的 find
+          要快，但如果数据库最近没有更新的话结果不可靠）。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.7 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">52 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.58.1. 安装 Findutils
+        </h2>
+        <p>
+          首先，抑制测试中可能在某些机器中出现的无限循环：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i 's/test-lock..EXEEXT.//' tests/Makefile.in</kbd>
+</pre>
+        <p>
+          然后，对应 glibc-2.28 或更高版本 glibc 的需求做一些修复：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' gl/lib/*.c
+sed -i '/unistd/a #include &lt;sys/sysmacros.h&gt;' gl/lib/mountlist.c
+echo "#define _IO_IN_BACKUP 0x100" &gt;&gt; gl/lib/stdio-impl.h</kbd>
+</pre>
+        <p>
+          准备编译 Findutils：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">./configure --prefix=/usr --localstatedir=/var/lib/locate</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--localstatedir</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项改变 <span class="command"><strong>locate</strong></span>
+                数据库的位置为 FHS 兼容的 <code class=
+                "filename">/var/lib/locate</code>。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          LFS-Bootscripts 包中的部分脚本依赖于 <span class=
+          "command"><strong>find</strong></span>。由于 <code class=
+          "filename">/usr</code> 在启动的早期阶段可能不可用，该程序需要被放置在根分区。<span class=
+          "command"><strong>updatedb</strong></span> 脚本也需要修改，以明确的路径更正：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mv -v /usr/bin/find /bin
+sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-findutils" name="contents-findutils"></a>6.58.2.
+          Findutils 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">find, locate, updatedb, 和 xargs</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/var/lib/locate</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="find" name="find"></a><span class=
+                    "term"><span class=
+                    "command"><strong>find</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    查找指定目录树中匹配特定要求的文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="locate" name="locate"></a><span class=
+                    "term"><span class=
+                    "command"><strong>locate</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    搜索文件名称数据库并报告包含给定字符串或匹配给定模式的文件名称
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="oldfind" name="oldfind"></a><span class=
+                    "term"><span class=
+                    "command"><strong>oldfind</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    老版本的 find，使用一个不同的算法
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="updatedb" name="updatedb"></a><span class=
+                    "term"><span class=
+                    "command"><strong>updatedb</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更新 <span class="command"><strong>locate</strong></span>
+                    数据库； 它搜索整个文件系统（包括已挂载的其它文件系统，除非指定排除） 并把找到的每个文件名插入到数据库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xargs" name="xargs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xargs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对一系列文件运行给定命令
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gawk.html" title="Gawk-5.0.1">上一页</a>
+          <p>
+            Gawk-5.0.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="groff.html" title="Groff-1.22.4">下一页</a>
+          <p>
+            Groff-1.22.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

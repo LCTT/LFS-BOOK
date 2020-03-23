@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.7.&nbsp;Bash Shell 启动文件
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="usage.html" title=
+          "System V 启动脚本的运用与配置">上一页</a>
+          <p>
+            System V 启动脚本的运用与配置
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="inputrc.html" title=
+          "创建 /etc/inputrc 文件">下一页</a>
+          <p>
+            创建 /etc/inputrc 文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-profile" name="ch-scripts-profile"></a>7.7. Bash
+        Shell 启动文件
+      </h1>
+      <p>
+        shell 程序 <span class="command"><strong>/bin/bash</strong></span>
+        （下文称为「shell」）使用一系列的启动文件来帮助建立将要运行的环境。每一个文件都有特定的用途，它可能会影响登陆和交互环境。在
+        <code class="filename">/etc</code>
+        目录下的文件提供了全局的配置。如果等效的文件存在于用户文件夹，则可能会覆盖全局设置。
+      </p>
+      <p>
+        交互式登录 shell 在成功登录后启动，它使用 <span class=
+        "command"><strong>/bin/login</strong></span> 去读取 <code class=
+        "filename">/etc/passwd</code>。交互式非登录 shell 通过命令行（如 <code class=
+        "prompt">[prompt]$</code><span class=
+        "command"><strong>/bin/bash</strong></span> ）启动。非交互式 shell 通常是一段正在运行的
+        shell 脚本。它之所以是非交互的是因为它执行一段脚本却不需要用户在命令间输入指令。
+      </p>
+      <p>
+        更多信息，阅读 <span class="command"><strong>info bash</strong></span> 下
+        <span class="emphasis"><em>Bash Startup Files and Interactive
+        Shells</em></span> 章节。
+      </p>
+      <p>
+        当 shell 被作为交互登陆 shell 时，会读取文件 <code class=
+        "filename">/etc/profile</code> 和 <code class=
+        "filename">~/.bash_profile</code> 。
+      </p>
+      <p>
+        本地语言的支持依赖于 <code class="filename">/etc/profile</code>
+        它包含不少于此相关的环境变量。更改此文件后，可能会出现以下的变化：
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              程序的输出则会翻译为本地语言
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              修正字符在字母、数字和其它类的分类。对于非英语区域设置来说，只有这样，<span class=
+              "command"><strong>bash</strong></span> 才能正常显示非 ASCII 字符
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              国家/地区顺序可以按照字母顺序正常排序（译者注：这里所谓的正常排序，应该是首先将国家/地区名称转换成本地语言的国家/地区名称，比如中国的开头字母是
+              Z，那么显示就很靠后了。但是假如显示为英文，就是 C 开头，那么将会靠前显示。）
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              默认纸张尺寸
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              货币、时间和日期值的格式
+            </p>
+          </li>
+        </ul>
+      </div>
+      <p>
+        /etc/locale.conf 中 <em class=
+        "replaceable"><code>&lt;ll&gt;</code></em>
+        使用语言代码代替（比如中文是「zh」，英文是「en」），<em class=
+        "replaceable"><code>&lt;CC&gt;</code></em>
+        使用国家/地区代码代替（比如中国是「CN」，中国香港是「HK」，中国台湾是「TW」，美国是「US」），<em class=
+        "replaceable"><code>&lt;charmap&gt;</code></em>
+        使用选定字符集指定的标准字符映射表替换。诸如「@euro」这样的可选修饰符也可使用。
+      </p>
+      <p>
+        运行以下命令可以获得当前 Glibc 支持的本地字符集。
+      </p>
+      <pre class="userinput">
+<kbd class="command">locale -a</kbd>
+</pre>
+      <p>
+        字符映射表可能存在很多的别名，比如「ISO-8859-1」可以写作
+        「iso8859-1」或「iso88591」。但是有一些程序不支持这些乱七八糟的写法（比如「UTF-8」只能写作「UTF-8」，「utf8」它就不认识了）。所以，为了安全起见，在设置的时候还是尽量的使用特定区域设置的规范名称。可以通过以下命令，查询在特定区域下的字符映射表标准名称，<em class="replaceable"><code>&lt;locale
+        name&gt;</code></em> 为运行 <span class="command"><strong>locale
+        -a</strong></span> 输出的首选区域设置（这里以「zh_CN.utf8」为例）。
+      </p>
+      <pre class="userinput">
+<kbd class="command">LC_ALL=<em class=
+"replaceable"><code>&lt;locale name&gt;</code></em> locale charmap</kbd>
+</pre>
+      <p>
+        对于「zh_CN.utf8」以上命令将会如下输出：
+      </p>
+      <pre class="screen">
+<code class="computeroutput">UTF-8</code>
+</pre>
+      <p>
+        根据以上输出，我们再次修改
+        /etc/locale.conf，将字符映射表设置为标准形式（「zh_CN.utf8」变为「zh_CN.UTF-8」）。同理，也可一并查询以下设置的标准命令，然后将其添加到
+        bash 的启动文件中 （译者注：对于 bash 来说，启动文件为 .bashrc）。
+      </p>
+      <pre class="userinput">
+<kbd class="command">LC_ALL=&lt;locale name&gt; locale language
+LC_ALL=&lt;locale name&gt; locale charmap
+LC_ALL=&lt;locale name&gt; locale int_curr_symbol
+LC_ALL=&lt;locale name&gt; locale int_prefix</kbd>
+</pre>
+      <p>
+        以上的命令将会打印当前区域设置的语言、字符编码、本地货币单位以及电话国际编码。如果出现类似下文的错误输出，可能是你没有严格按照第六章指导的方法操作或者是你当前所用的
+        Glibc 不支持。
+      </p>
+      <pre class="screen">
+<code class=
+"computeroutput">locale: Cannot set LC_* to default locale: No such file or directory</code>
+</pre>
+      <p>
+        如果这种情况真的发生，你应该使用 <span class=
+        "command"><strong>localedef</strong></span>
+        命令安装对应的系统区域，或者是考虑更改为其它的区域。假如没有出现错误提示，我们就可以继续进行下一步操作了！
+      </p>
+      <p>
+        有一些 LFS 之外的包可能出现对你设置的区域支持很差劲的情况。比如 X 的库（X Windows System
+        的一部份），就可能在内部文件中输出以下消息：
+      </p>
+      <pre class="screen">
+<code class=
+"computeroutput">Warning: locale not supported by Xlib, locale set to C</code>
+</pre>
+      <p>
+        在若干情况下，Xlib
+        希望以带规范破折号的大写形式列出字符映射表。比「ISO-8859-1」而不应该写作「iso88591」。不过，也可以通过去除区域规范中的字符映射部分找到合适的规范。这可以通过运行
+        <span class="command"><strong>locale charmap</strong></span>
+        命令来检查。例如，需要更改「de_DE.ISO-8859-15@euro」为「de_DE@euro」以便 Xlib 能识别区域。
+      </p>
+      <p>
+        即便如此，也可能遇到某些程序因为区域设置和它们预置的不同而导致功能异常（可能不会显示任何的错误消息）。
+        如果出现这样的情况，可以通过查看其它的发行版是如何进行设置区域，从而得到启发。
+      </p>
+      <p>
+        一旦确定了到底该使用哪个区域设置，就可以创建 <code class="filename">/etc/profile</code>
+        文件了：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /etc/profile &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/profile
+
+export LANG=<em class=
+"replaceable"><code>&lt;ll&gt;_&lt;CC&gt;.&lt;charmap&gt;&lt;@modifiers&gt;</code></em>
+
+# End /etc/profile</code>
+EOF</kbd>
+</pre>
+      <p>
+        「C」（默认）和「en_US」（推荐美国英语用户使用）这两种区域设置有所不同。 「C」使用 US-ASCII 7
+        位字符集，并把设置了最高位的字节作为无效字符。 这就是为什么类似 <span class=
+        "command"><strong>ls</strong></span> 的命令本地化时会用疑问号代替。同样，如果你想要使用 Mutt 或
+        Pine 发送包含有类似字符的邮件，将会得到如下消息：非 RFC 兼容字符（发送邮件中的字符集为「unknown 8-bit」）。
+        所以，如果你一定以及肯定一定不会用到 8 位的字符，那你可以仅使用「C」。
+      </p>
+      <p>
+        不少程序还不支持 UTF-8 区域设置。我们正在完善文档并修复类似问题， 可以查看<a class="ulink" href=
+        "http://www.linuxfromscratch.org/blfs/view/9.0/introduction/locale-issues.html">http://www.linuxfromscratch.org/blfs/view/9.0/introduction/locale-issues.html</a>.
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="usage.html" title=
+          "System V 启动脚本的运用与配置">上一页</a>
+          <p>
+            System V 启动脚本的运用与配置
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="inputrc.html" title=
+          "创建 /etc/inputrc 文件">下一页</a>
+          <p>
+            创建 /etc/inputrc 文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

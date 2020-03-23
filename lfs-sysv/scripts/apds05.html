@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      D.5.&nbsp;/etc/rc.d/init.d/udev
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds04.html" title=
+          "/etc/rc.d/init.d/modules">上一页</a>
+          <p>
+            /etc/rc.d/init.d/modules
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds06.html" title=
+          "/etc/rc.d/init.d/swap">下一页</a>
+          <p>
+            /etc/rc.d/init.d/swap
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="udev" name="udev"></a>D.5. /etc/rc.d/init.d/udev
+      </h1>
+      <pre class="screen">
+#!/bin/sh
+########################################################################
+# Begin udev
+#
+# Description : Udev cold-plugging script
+#
+# Authors     : Zack Winkles, Alexander E. Patrakov
+#               DJ Lucas - dj@linuxfromscratch.org
+# Update      : Bruce Dubbs - bdubbs@linuxfromscratch.org
+#
+# Version     : LFS 7.0
+#
+########################################################################
+
+### BEGIN INIT INFO
+# Provides:            udev $time
+# Required-Start:
+# Should-Start:        modules
+# Required-Stop:
+# Should-Stop:
+# Default-Start:       S
+# Default-Stop:
+# Short-Description:   Populates /dev with device nodes.
+# Description:         Mounts a tempfs on /dev and starts the udevd daemon.
+#                      Device nodes are created as defined by udev.
+# X-LFS-Provided-By:   LFS
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+case "${1}" in
+   start)
+      log_info_msg "Populating /dev with device nodes... "
+      if ! grep -q '[[:space:]]sysfs' /proc/mounts; then
+         log_failure_msg2
+         msg="FAILURE:\n\nUnable to create "
+         msg="${msg}devices without a SysFS filesystem\n\n"
+         msg="${msg}After you press Enter, this system "
+         msg="${msg}will be halted and powered off.\n\n"
+         log_info_msg "$msg"
+         log_info_msg "Press Enter to continue..."
+         wait_for_user
+         /etc/rc.d/init.d/halt stop
+      fi
+
+      # Start the udev daemon to continually watch for, and act on,
+      # uevents
+      /sbin/udevd --daemon
+
+      # Now traverse /sys in order to "coldplug" devices that have
+      # already been discovered
+      /sbin/udevadm trigger --action=add    --type=subsystems
+      /sbin/udevadm trigger --action=add    --type=devices
+      /sbin/udevadm trigger --action=change --type=devices
+
+      # Now wait for udevd to process the uevents we triggered
+      if ! is_true "$OMIT_UDEV_SETTLE"; then
+         /sbin/udevadm settle
+      fi
+
+      # If any LVM based partitions are on the system, ensure they
+      # are activated so they can be used.
+      if [ -x /sbin/vgchange ]; then /sbin/vgchange -a y &gt;/dev/null; fi 
+
+      log_success_msg2 
+      ;;
+
+   *)
+      echo "Usage ${0} {start}"
+      exit 1
+      ;;
+esac
+
+exit 0
+
+# End udev
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds04.html" title=
+          "/etc/rc.d/init.d/modules">上一页</a>
+          <p>
+            /etc/rc.d/init.d/modules
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds06.html" title=
+          "/etc/rc.d/init.d/swap">下一页</a>
+          <p>
+            /etc/rc.d/init.d/swap
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

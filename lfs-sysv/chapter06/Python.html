@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.51.&nbsp;Python-3.7.4
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="openssl.html" title="OpenSSL-1.1.1c">上一页</a>
+          <p>
+            OpenSSL-1.1.1c
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="ninja.html" title="Ninja-1.9.0">下一页</a>
+          <p>
+            Ninja-1.9.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-Python" name="ch-system-Python"></a>6.51.
+        Python-3.7.4
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          软件包 Python 3 包含了 Python
+          的开发环境。对于面向对象编程，书写脚本，构建大型程序的原型，或者开发整个应用程序而言，非常有用。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">1.3 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">399 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.51.1. 安装 Python 3
+        </h2>
+        <p>
+          编译 Python 前的准备：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr       \
+            --enable-shared     \
+            --with-system-expat \
+            --with-system-ffi   \
+            --with-ensurepip=yes</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-system-expat</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该参数用于启用 <span class="application">Expat</span> 系统版本的链接。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-system-ffi</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该参数用于启用 <span class="application">libffi</span> 系统版本的链接。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-ensurepip=yes</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该参数用于启用 <span class="command"><strong>pip</strong></span> 和
+                <span class="command"><strong>setuptools</strong></span>
+                打包程序的构建。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          测试套件需要 TK 和 X Windows 会话，直至 BLFS 中重新安装 Python 3 之前都执行不了。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install
+chmod -v 755 /usr/lib/libpython3.7m.so
+chmod -v 755 /usr/lib/libpython3.so
+ln -sfv pip3.7 /usr/bin/pip3</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>安装命令的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><span class="command"><strong>chmod -v 755
+              /usr/lib/libpython3.{7m.,}so</strong></span></span>
+            </dt>
+            <dd>
+              <p>
+                修复库的权限问题，同其他库保持一致。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          如果需要，安装预格式化好的文档：
+        </p>
+        <pre class="userinput">
+<kbd class="command">install -v -dm755 /usr/share/doc/python-3.7.4/html 
+
+tar --strip-components=1  \
+    --no-same-owner       \
+    --no-same-permissions \
+    -C /usr/share/doc/python-3.7.4/html \
+    -xvf ../python-3.7.4-docs-html.tar.bz2</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>文档安装命令的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><code class="option">--no-same-owner</code>
+              and --no-same-permissions</span>
+            </dt>
+            <dd>
+              <p>
+                确保安装文件的归属和权限是正确的。没有这个选项的话，运行 <span class=
+                "application">tar</span> 时会以上游创建者的身份安装软件包内的文件。
+              </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-python" name="contents-python"></a>6.51.2. Python 3
+          软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">2to3, idle3, pip3, pydoc3, python3, python3-config, 和
+              pyvenv</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libpython3.7m.so 和 libpython3.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/include/python3.7m, /usr/lib/python3 和
+              /usr/share/doc/python-3.7.4</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="python-2to3" name="python-2to3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>2to3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个用于读取 <span class="application">Python 2.x</span>
+                    源代码并实施一系列的修复，将其转化称有效的 <span class="application">Python
+                    3.x</span> 代码的 <span class="application">Python</span>
+                    程序。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="idle3" name="idle3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>idle3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个用于打开 <span class="application">Python</span> 自带的 GUI
+                    编辑器的封装脚本。为了让该脚本能运行，你必须在安装 Python 前先安装 <span class=
+                    "application">Tk</span>，这样 Tkinter Python 模块才会构建。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pip3" name="pip3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pip3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Python 的软件包安装程序。你可以使用 pip 从 PyPI 和其他库安装软件包。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pydoc3" name="pydoc3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pydoc3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="application">Python</span> 的文档工具。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="python3" name="python3"></a><span class=
+                    "term"><span class=
+                    "command"><strong>python3</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一种解释性的，交互式的，面向对象的编程语言。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pyvenv" name="pyvenv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pyvenv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在一个或多个目标目录中，创建虚拟 <span class="application">Python</span>
+                    环境。
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="openssl.html" title="OpenSSL-1.1.1c">上一页</a>
+          <p>
+            OpenSSL-1.1.1c
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="ninja.html" title="Ninja-1.9.0">下一页</a>
+          <p>
+            Ninja-1.9.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

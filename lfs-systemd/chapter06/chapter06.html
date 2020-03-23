@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        部分&nbsp;III.&nbsp;构建 LFS 系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="../part3.html" title="构建 LFS 系统">上一页</a>
+          <p>
+            构建 LFS 系统
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="introduction.html" title="简介">下一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="../part3.html" title=
+          "部分&nbsp;III.&nbsp;构建 LFS 系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="chapter" lang="zh" xml:lang="zh">
+      <h1 class="chapter">
+        <a id="chapter-building-system" name="chapter-building-system"></a>6.
+        安装基本的系统软件
+      </h1>
+      <div class="toc">
+        <h3>
+          目录
+        </h3>
+        <ul>
+          <li class="sect1">
+            <a href="introduction.html">简介</a>
+          </li>
+          <li class="sect1">
+            <a href="kernfs.html">准备虚拟内核文件系统</a>
+          </li>
+          <li class="sect1">
+            <a href="pkgmgt.html">软件包管理</a>
+          </li>
+          <li class="sect1">
+            <a href="chroot.html">进入 Chroot 环境</a>
+          </li>
+          <li class="sect1">
+            <a href="creatingdirs.html">创建目录</a>
+          </li>
+          <li class="sect1">
+            <a href="createfiles.html">创建必要的文件和符号链接</a>
+          </li>
+          <li class="sect1">
+            <a href="linux-headers.html">Linux-5.2.8 API 头文件</a>
+          </li>
+          <li class="sect1">
+            <a href="man-pages.html">Man-pages-5.02</a>
+          </li>
+          <li class="sect1">
+            <a href="glibc.html">Glibc-2.30</a>
+          </li>
+          <li class="sect1">
+            <a href="adjusting.html">调整工具链</a>
+          </li>
+          <li class="sect1">
+            <a href="zlib.html">Zlib-1.2.11</a>
+          </li>
+          <li class="sect1">
+            <a href="file.html">File-5.37</a>
+          </li>
+          <li class="sect1">
+            <a href="readline.html">Readline-8.0</a>
+          </li>
+          <li class="sect1">
+            <a href="m4.html">M4-1.4.18</a>
+          </li>
+          <li class="sect1">
+            <a href="bc.html">Bc-2.1.3</a>
+          </li>
+          <li class="sect1">
+            <a href="binutils.html">Binutils-2.32</a>
+          </li>
+          <li class="sect1">
+            <a href="gmp.html">GMP-6.1.2</a>
+          </li>
+          <li class="sect1">
+            <a href="mpfr.html">MPFR-4.0.2</a>
+          </li>
+          <li class="sect1">
+            <a href="mpc.html">MPC-1.1.0</a>
+          </li>
+          <li class="sect1">
+            <a href="shadow.html">Shadow-4.7</a>
+          </li>
+          <li class="sect1">
+            <a href="gcc.html">GCC-9.2.0</a>
+          </li>
+          <li class="sect1">
+            <a href="bzip2.html">Bzip2-1.0.8</a>
+          </li>
+          <li class="sect1">
+            <a href="pkg-config.html">Pkg-config-0.29.2</a>
+          </li>
+          <li class="sect1">
+            <a href="ncurses.html">Ncurses-6.1</a>
+          </li>
+          <li class="sect1">
+            <a href="attr.html">Attr-2.4.48</a>
+          </li>
+          <li class="sect1">
+            <a href="acl.html">Acl-2.2.53</a>
+          </li>
+          <li class="sect1">
+            <a href="libcap.html">Libcap-2.27</a>
+          </li>
+          <li class="sect1">
+            <a href="sed.html">Sed-4.7</a>
+          </li>
+          <li class="sect1">
+            <a href="psmisc.html">Psmisc-23.2</a>
+          </li>
+          <li class="sect1">
+            <a href="iana-etc.html">Iana-Etc-2.30</a>
+          </li>
+          <li class="sect1">
+            <a href="bison.html">Bison-3.4.1</a>
+          </li>
+          <li class="sect1">
+            <a href="flex.html">Flex-2.6.4</a>
+          </li>
+          <li class="sect1">
+            <a href="grep.html">Grep-3.3</a>
+          </li>
+          <li class="sect1">
+            <a href="bash.html">Bash-5.0</a>
+          </li>
+          <li class="sect1">
+            <a href="libtool.html">Libtool-2.4.6</a>
+          </li>
+          <li class="sect1">
+            <a href="gdbm.html">GDBM-1.18.1</a>
+          </li>
+          <li class="sect1">
+            <a href="gperf.html">Gperf-3.1</a>
+          </li>
+          <li class="sect1">
+            <a href="expat.html">Expat-2.2.7</a>
+          </li>
+          <li class="sect1">
+            <a href="inetutils.html">Inetutils-1.9.4</a>
+          </li>
+          <li class="sect1">
+            <a href="perl.html">Perl-5.30.0</a>
+          </li>
+          <li class="sect1">
+            <a href="xml-parser.html">XML::Parser-2.44</a>
+          </li>
+          <li class="sect1">
+            <a href="intltool.html">Intltool-0.51.0</a>
+          </li>
+          <li class="sect1">
+            <a href="autoconf.html">Autoconf-2.69</a>
+          </li>
+          <li class="sect1">
+            <a href="automake.html">Automake-1.16.1</a>
+          </li>
+          <li class="sect1">
+            <a href="xz.html">Xz-5.2.4</a>
+          </li>
+          <li class="sect1">
+            <a href="kmod.html">Kmod-26</a>
+          </li>
+          <li class="sect1">
+            <a href="gettext.html">Gettext-0.20.1</a>
+          </li>
+          <li class="sect1">
+            <a href="libelf.html">Libelf 源自 Elfutils-0.177</a>
+          </li>
+          <li class="sect1">
+            <a href="libffi.html">Libffi-3.2.1</a>
+          </li>
+          <li class="sect1">
+            <a href="openssl.html">OpenSSL-1.1.1c</a>
+          </li>
+          <li class="sect1">
+            <a href="Python.html">Python-3.7.4</a>
+          </li>
+          <li class="sect1">
+            <a href="ninja.html">Ninja-1.9.0</a>
+          </li>
+          <li class="sect1">
+            <a href="meson.html">Meson-0.51.1</a>
+          </li>
+          <li class="sect1">
+            <a href="coreutils.html">Coreutils-8.31</a>
+          </li>
+          <li class="sect1">
+            <a href="check.html">Check-0.12.0</a>
+          </li>
+          <li class="sect1">
+            <a href="diffutils.html">Diffutils-3.7</a>
+          </li>
+          <li class="sect1">
+            <a href="gawk.html">Gawk-5.0.1</a>
+          </li>
+          <li class="sect1">
+            <a href="findutils.html">Findutils-4.6.0</a>
+          </li>
+          <li class="sect1">
+            <a href="groff.html">Groff-1.22.4</a>
+          </li>
+          <li class="sect1">
+            <a href="grub.html">GRUB-2.04</a>
+          </li>
+          <li class="sect1">
+            <a href="less.html">Less-551</a>
+          </li>
+          <li class="sect1">
+            <a href="gzip.html">Gzip-1.10</a>
+          </li>
+          <li class="sect1">
+            <a href="iproute2.html">IPRoute2-5.2.0</a>
+          </li>
+          <li class="sect1">
+            <a href="kbd.html">Kbd-2.2.0</a>
+          </li>
+          <li class="sect1">
+            <a href="libpipeline.html">Libpipeline-1.5.1</a>
+          </li>
+          <li class="sect1">
+            <a href="make.html">Make-4.2.1</a>
+          </li>
+          <li class="sect1">
+            <a href="patch.html">Patch-2.7.6</a>
+          </li>
+          <li class="sect1">
+            <a href="man-db.html">Man-DB-2.8.6.1</a>
+          </li>
+          <li class="sect1">
+            <a href="tar.html">Tar-1.32</a>
+          </li>
+          <li class="sect1">
+            <a href="texinfo.html">Texinfo-6.6</a>
+          </li>
+          <li class="sect1">
+            <a href="vim.html">Vim-8.1.1846</a>
+          </li>
+          <li class="sect1">
+            <a href="systemd.html">systemd-241</a>
+          </li>
+          <li class="sect1">
+            <a href="dbus.html">D-Bus-1.12.16</a>
+          </li>
+          <li class="sect1">
+            <a href="procps-ng.html">Procps-ng-3.3.15</a>
+          </li>
+          <li class="sect1">
+            <a href="util-linux.html">Util-linux-2.34</a>
+          </li>
+          <li class="sect1">
+            <a href="e2fsprogs.html">E2fsprogs-1.45.3</a>
+          </li>
+          <li class="sect1">
+            <a href="aboutdebug.html">关于调试符号</a>
+          </li>
+          <li class="sect1">
+            <a href="strippingagain.html">再次清理无用内容</a>
+          </li>
+          <li class="sect1">
+            <a href="revisedchroot.html">清理</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="../part3.html" title="构建 LFS 系统">上一页</a>
+          <p>
+            构建 LFS 系统
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="introduction.html" title="简介">下一页</a>
+          <p>
+            简介
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="../part3.html" title=
+          "部分&nbsp;III.&nbsp;构建 LFS 系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

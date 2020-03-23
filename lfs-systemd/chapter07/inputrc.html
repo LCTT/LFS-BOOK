@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.8.&nbsp;创建 /etc/inputrc 文件
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="locale.html" title="配置系统语言环境">上一页</a>
+          <p>
+            配置系统语言环境
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="etcshells.html" title=
+          "创建 /etc/shells 文件">下一页</a>
+          <p>
+            创建 /etc/shells 文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-inputrc" name="ch-scripts-inputrc"></a>7.8. 创建
+        /etc/inputrc 文件
+      </h1>
+      <p>
+        <code class="filename">inputrc</code> 文件的作用是告知系统应该以怎样的键盘布局处理键盘。此文件对于
+        readline —— 输入相关库，或者是一些 shell （例如 bash 等）来说十分重要。
+      </p>
+      <p>
+        对于大部分用户来说，都不使用那些奇奇怪怪的键盘映射，所以，可以通过以下的命令建立一个全局的 <code class=
+        "filename">/etc/inputrc</code> 以供所有用户使用。如果需要更改某一个用户的键盘映射，仅需要在那个用户的
+        HOME 目录下建立一个 <code class="filename">.inputrc</code>
+        文件，然后修改对应的键盘映射就可以了。
+      </p>
+      <p>
+        如果需要了解更多有关如何编辑 <code class="filename">inputrc</code> 文件的信息，可以查看
+        <span class="command"><strong>info bash</strong></span> 中
+        <span class="emphasis"><em>Readline Init File</em></span> 一节。其实查看
+        <span class="command"><strong>info readline</strong></span>
+        也可以获得不少有用的东西。
+      </p>
+      <p>
+        下面显示的就是通用的 <code class="filename">inputrc</code> 文件，其中包含有 “#”
+        的都是注释行（需要注意的是，此文件不支持在设置后跟随注释）。使用以下命令创建此文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /etc/inputrc &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/inputrc
+# Modified by Chris Lynn &lt;roryo@roryo.dynup.net&gt;
+
+# Allow the command prompt to wrap to the next line
+set horizontal-scroll-mode Off
+
+# Enable 8bit input
+set meta-flag On
+set input-meta On
+
+# Turns off 8th bit stripping
+set convert-meta Off
+
+# Keep the 8th bit for display
+set output-meta On
+
+# none, visible or audible
+set bell-style none
+
+# All of the following map the escape sequence of the value
+# contained in the 1st argument to the readline specific functions
+"\eOd": backward-word
+"\eOc": forward-word
+
+# for linux console
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+"\e[3~": delete-char
+"\e[2~": quoted-insert
+
+# for xterm
+"\eOH": beginning-of-line
+"\eOF": end-of-line
+
+# for Konsole
+"\e[H": beginning-of-line
+"\e[F": end-of-line
+
+# End /etc/inputrc</code>
+EOF</kbd>
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="locale.html" title="配置系统语言环境">上一页</a>
+          <p>
+            配置系统语言环境
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="etcshells.html" title=
+          "创建 /etc/shells 文件">下一页</a>
+          <p>
+            创建 /etc/shells 文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      D.27.&nbsp;/lib/services/ipv4-static-route
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds26.html" title=
+          "/lib/services/ipv4-static">上一页</a>
+          <p>
+            /lib/services/ipv4-static
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="eudev-rules.html" title="udev 配置规则">下一页</a>
+          <p>
+            udev 配置规则
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ipv4route" name="ipv4route"></a>D.27.
+        /lib/services/ipv4-static-route
+      </h1>
+      <pre class="screen">
+#!/bin/sh
+########################################################################
+# Begin /lib/services/ipv4-static-route
+#
+# Description : IPV4 Static Route Script
+#
+# Authors     : Kevin P. Fleming - kpfleming@linuxfromscratch.org
+#               DJ Lucas - dj@linuxfromscratch.org
+# Update      : Bruce Dubbs - bdubbs@linuxfromscratch.org
+#
+# Version     : LFS 7.0
+#
+########################################################################
+
+. /lib/lsb/init-functions
+. ${IFCONFIG}
+
+case "${TYPE}" in
+   ("" | "network")
+      need_ip=1
+      need_gateway=1
+   ;;
+
+   ("default")
+      need_gateway=1
+      args="${args} default"
+      desc="default"
+   ;;
+
+   ("host")
+      need_ip=1
+   ;;
+
+   ("unreachable")
+      need_ip=1
+      args="${args} unreachable"
+      desc="unreachable "
+   ;;
+
+   (*)
+      log_failure_msg "Unknown route type (${TYPE}) in ${IFCONFIG}, cannot continue."
+      exit 1
+   ;;
+esac
+
+if [ -n "${GATEWAY}" ]; then
+   MSG="The GATEWAY variable cannot be set in ${IFCONFIG} for static routes.\n"
+   log_failure_msg "$MSG Use STATIC_GATEWAY only, cannot continue"
+   exit 1
+fi
+
+if [ -n "${need_ip}" ]; then
+   if [ -z "${IP}" ]; then
+      log_failure_msg "IP variable missing from ${IFCONFIG}, cannot continue."
+      exit 1
+   fi
+
+   if [ -z "${PREFIX}" ]; then
+      log_failure_msg "PREFIX variable missing from ${IFCONFIG}, cannot continue." 
+      exit 1
+   fi
+   
+   args="${args} ${IP}/${PREFIX}"
+   desc="${desc}${IP}/${PREFIX}"
+fi
+
+if [ -n "${need_gateway}" ]; then
+   if [ -z "${STATIC_GATEWAY}" ]; then
+      log_failure_msg "STATIC_GATEWAY variable missing from ${IFCONFIG}, cannot continue."
+      exit 1
+   fi
+   args="${args} via ${STATIC_GATEWAY}"
+fi
+
+if [ -n "${SOURCE}" ]; then
+        args="${args} src ${SOURCE}"
+fi
+
+case "${2}" in
+   up)
+      log_info_msg "Adding '${desc}' route to the ${1} interface..."
+      ip route add ${args} dev ${1}
+      evaluate_retval
+   ;;
+   
+   down)
+      log_info_msg "Removing '${desc}' route from the ${1} interface..."
+      ip route del ${args} dev ${1}
+      evaluate_retval
+   ;;
+   
+   *)
+      echo "Usage: ${0} [interface] {up|down}"
+      exit 1
+   ;;
+esac
+
+# End /lib/services/ipv4-static-route
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds26.html" title=
+          "/lib/services/ipv4-static">上一页</a>
+          <p>
+            /lib/services/ipv4-static
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="eudev-rules.html" title="udev 配置规则">下一页</a>
+          <p>
+            udev 配置规则
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

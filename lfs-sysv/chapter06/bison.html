@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.31.&nbsp;Bison-3.4.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="iana-etc.html" title="Iana-Etc-2.30">上一页</a>
+          <p>
+            Iana-Etc-2.30
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="flex.html" title="Flex-2.6.4">下一页</a>
+          <p>
+            Flex-2.6.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-bison" name="ch-system-bison"></a>6.31. Bison-3.4.1
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Bison 软件包包含一个语法生成器。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.3 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">39 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.31.1. 安装 Bison
+        </h2>
+        <p>
+          首先，解决当前版本的构建问题：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i '6855 s/mv/cp/' Makefile.in</kbd>
+</pre>
+        <p>
+          准备编译 Bison：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">./configure --prefix=/usr --docdir=/usr/share/doc/bison-3.4.1</kbd>
+</pre>
+        <p>
+          编译该软件包，但是需要避免当前版本中存在的争用情况：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make -j1</kbd>
+</pre>
+        <p>
+          考虑到 bison 和 flex 的检查有循环依赖。如有需要，在下一节安装 flex 之后，可以使用 <span class=
+          "command"><strong>make check</strong></span> 命令重新编译并检查 bison 软件包。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-bison" name="contents-bison"></a>6.31.2. Bison
+          软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">bison 和 yacc</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">liby.a</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/share/bison</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bison" name="bison"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bison</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据一系列规则生成用于分析文本结构的程序；Bison 是 Yacc（Yet Another Compiler
+                    Compiler） 的替代品。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="yacc" name="yacc"></a><span class=
+                    "term"><span class=
+                    "command"><strong>yacc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>bison</strong></span>
+                    的封装，用于仍然调用 <span class=
+                    "command"><strong>yacc</strong></span> 而不是 <span class=
+                    "command"><strong>bison</strong></span> 的程序；它会调用带有
+                    <em class="parameter"><code>-y</code></em> 选项的
+                    <span class="command"><strong>bison</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="liby" name="liby"></a><span class=
+                    "term"><code class="filename">liby</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Yacc 库包含和 Yacc 兼容的 <code class="function">yyerror</code>
+                    和 <code class="function">main</code> 程序的实现；这个库并不是很有用，但是
+                    POSIX 要求有它
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="iana-etc.html" title="Iana-Etc-2.30">上一页</a>
+          <p>
+            Iana-Etc-2.30
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="flex.html" title="Flex-2.6.4">下一页</a>
+          <p>
+            Flex-2.6.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

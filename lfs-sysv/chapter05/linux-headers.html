@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.6.&nbsp;Linux-5.2.8 API 头文件
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gcc-pass1.html" title=
+          "GCC-9.2.0 - 第 1 遍">上一页</a>
+          <p>
+            GCC-9.2.0 - 第 1 遍
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="glibc.html" title="Glibc-2.30">下一页</a>
+          <p>
+            Glibc-2.30
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-linux-headers" name="ch-tools-linux-headers"></a>5.6.
+        Linux-5.2.8 API 头文件
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Linux API 头文件（在 linux-5.2.8.tar.xz 里）会将内核 API 导出给 Glibc 使用。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">960 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          5.6.1. 安装 Linux API 头文件
+        </h2>
+        <p>
+          Linux 内核需要展示供系统 C 库（在 LFS 中是 Glibc）使用的应用程序编程接口（API）。这通过在 Linux
+          内核源代码 tar 包中包括一些 C 头文件来完成。
+        </p>
+        <p>
+          确认这里没有陈旧的文件且不依赖于之前的操作：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make mrproper</kbd>
+</pre>
+        <p>
+          从源代码中提取用户可见的内核头文件。把他们保存在一个临时本地文件夹中然后复制到所需的位置，因为解压过程会移除目标文件夹中任何已有的文件。
+        </p>
+        <pre class="userinput">
+<kbd class="command">make INSTALL_HDR_PATH=dest headers_install
+</kbd><kbd class="command">cp -rv dest/include/* /tools/include</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <p>
+          该软件包的详细信息请参见： <a class="xref" href=
+          "../chapter06/linux-headers.html#contents-linux-headers" title=
+          "6.7.2.&nbsp;Linux API 头文件内容">第 6.7.2 节 「Linux API 头文件内容」</a>。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gcc-pass1.html" title=
+          "GCC-9.2.0 - 第 1 遍">上一页</a>
+          <p>
+            GCC-9.2.0 - 第 1 遍
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="glibc.html" title="Glibc-2.30">下一页</a>
+          <p>
+            Glibc-2.30
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

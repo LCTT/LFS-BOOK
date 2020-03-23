@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.42.&nbsp;Intltool-0.51.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="xml-parser.html" title=
+          "XML::Parser-2.44">上一页</a>
+          <p>
+            XML::Parser-2.44
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="autoconf.html" title="Autoconf-2.69">下一页</a>
+          <p>
+            Autoconf-2.69
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-intltool" name="ch-system-intltool"></a>6.42.
+        Intltool-0.51.0
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Intltool 是一个用于从源文件中抽取可翻译字符串的国际化工具。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">少于 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">1.5 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.42.1. 安装 Intltool
+        </h2>
+        <p>
+          首先修复 perl-5.22 和其后版本导致的警告：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i 's:\\\${:\\\$\\{:' intltool-update.in</kbd>
+</pre>
+        <p>
+          准备编译 Intltool：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install
+install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-0.51.0/I18N-HOWTO</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-intltool" name="contents-intltool"></a>6.42.2.
+          Intltool 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">intltool-extract, intltool-merge, intltool-prepare,
+              intltool-update, 和 intltoolize</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/usr/share/doc/intltool-0.51.0 and
+              /usr/share/intltool</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="intltoolize" name="intltoolize"></a><span class=
+                    "term"><span class=
+                    "command"><strong>intltoolize</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    准备使用 intltool 的软件包
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="intltool-extract" name=
+                    "intltool-extract"></a><span class="term"><span class=
+                    "command"><strong>intltool-extract</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    生成 <span class="command"><strong>gettext</strong></span>
+                    能读取的头文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="intltool-merge" name=
+                    "intltool-merge"></a><span class="term"><span class=
+                    "command"><strong>intltool-merge</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    合并翻译后的字符串到多种文件格式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="intltool-prepare" name=
+                    "intltool-prepare"></a><span class="term"><span class=
+                    "command"><strong>intltool-prepare</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更新 pot 文件并把它们和翻译文件合并
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="intltool-update" name=
+                    "intltool-update"></a><span class="term"><span class=
+                    "command"><strong>intltool-update</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更新 po 模板文件并把它们和翻译文件合并
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="xml-parser.html" title=
+          "XML::Parser-2.44">上一页</a>
+          <p>
+            XML::Parser-2.44
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="autoconf.html" title="Autoconf-2.69">下一页</a>
+          <p>
+            Autoconf-2.69
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

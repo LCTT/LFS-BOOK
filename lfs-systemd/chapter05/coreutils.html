@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.19.&nbsp;Coreutils-8.31
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="bzip2.html" title="Bzip2-1.0.8">上一页</a>
+          <p>
+            Bzip2-1.0.8
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="diffutils.html" title=
+          "Diffutils-3.7">下一页</a>
+          <p>
+            Diffutils-3.7
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-coreutils" name="ch-tools-coreutils"></a>5.19.
+        Coreutils-8.31
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Coreutils 软件包包含用于显示和设置基本系统特性的工具。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.8 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">157 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          5.19.1. 安装 Coreutils
+        </h2>
+        <p>
+          配置 Coreutils 准备编译：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">./configure --prefix=/tools --enable-install-program=hostname</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置脚本参数的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><code class=
+              "envar">--enable-install-program=hostname</code></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项会允许构建和安装 <span class=
+                "command"><strong>hostname</strong></span> 程序——默认是不安装的，但是
+                Perl 测试套件需要它。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          现在编译已经完成。之前说过，不要求为本章中所构建的临时工具运行测试套件。不过你仍然要测试 Coreutils 的话可以用下面的命令：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make RUN_EXPENSIVE_TESTS=yes check</kbd>
+</pre>
+        <p>
+          参数 <em class="parameter"><code>RUN_EXPENSIVE_TESTS=yes</code></em>
+          会告诉测试套件额外运行对某些系统开销相对大一些（主要是 CPU 运算能力和内存消耗）的测试用例，但是通常对 Linux 来说不是问题。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <p>
+          关于这个软件包的详细资料请参见： <a class="xref" href=
+          "../chapter06/coreutils.html#contents-coreutils" title=
+          "6.54.2.&nbsp;Coreutils 软件包内容">第 6.54.2 节 「Coreutils 软件包内容」</a>。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="bzip2.html" title="Bzip2-1.0.8">上一页</a>
+          <p>
+            Bzip2-1.0.8
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="diffutils.html" title=
+          "Diffutils-3.7">下一页</a>
+          <p>
+            Diffutils-3.7
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

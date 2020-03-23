@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.46.&nbsp;Kmod-26
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="xz.html" title="Xz-5.2.4">上一页</a>
+          <p>
+            Xz-5.2.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gettext.html" title="Gettext-0.20.1">下一页</a>
+          <p>
+            Gettext-0.20.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-kmod" name="ch-system-kmod"></a>6.46. Kmod-26
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Kmod 软件包包含用于加载内核模块的库和工具
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">13 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.46.1. 安装 Kmod
+        </h2>
+        <p>
+          准备编译 Kmod：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr          \
+            --bindir=/bin          \
+            --sysconfdir=/etc      \
+            --with-rootlibdir=/lib \
+            --with-xz              \
+            --with-zlib</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class="parameter"><code>--with-xz,
+              --with-zlib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这些选项使 Kmod 能处理压缩的内核模块。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-rootlibdir=/lib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项确保和不同库相关的文件放置到正确的目录。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          这个软件包没有附带可在 LFS chroot 环境中运行测试套件。至少需要 git 程序并进行一些测试保证不会在 git 仓库外运行。
+        </p>
+        <p>
+          安装软件包并创建符号链接使兼容 Module-Init-Tools(之前处理 Linux 内核模块的软件包)：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install
+
+for target in depmod insmod lsmod modinfo modprobe rmmod; do
+  ln -sfv ../bin/kmod /sbin/$target
+done
+
+ln -sfv kmod /bin/lsmod</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-kmod" name="contents-kmod"></a>6.46.2. Kmod 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">depmod (链接到 kmod), insmod (链接到 kmod), kmod, lsmod
+              (链接到 kmod), modinfo (链接到 kmod), modprobe (链接到 kmod), 和 rmmod
+              (链接到 kmod)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libkmod.so</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="depmod" name="depmod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>depmod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    基于从已有的模块集上发现的符号创建依赖文件；<span class=
+                    "command"><strong>modprobe</strong></span> 用该依赖文件自动加载所需模块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="insmod" name="insmod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>insmod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在运行的内核上安装可加载模块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="kmod" name="kmod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>kmod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    加载或卸载内核模块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lsmod" name="lsmod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lsmod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    列出当前已加载模块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="modinfo" name="modinfo"></a><span class=
+                    "term"><span class=
+                    "command"><strong>modinfo</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查和内核模块相关联的目标文件并显示搜索到的任何信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="modprobe" name="modprobe"></a><span class=
+                    "term"><span class=
+                    "command"><strong>modprobe</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用 <span class="command"><strong>depmod</strong></span>
+                    创建的依赖文件自动加载相关模块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rmmod" name="rmmod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>rmmod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从运行中的内核卸载模块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libkmod" name="libkmod"></a><span class=
+                    "term"><code class="filename">libkmod</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    其它程序使用该库加载或卸载内核模块
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="xz.html" title="Xz-5.2.4">上一页</a>
+          <p>
+            Xz-5.2.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gettext.html" title="Gettext-0.20.1">下一页</a>
+          <p>
+            Gettext-0.20.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

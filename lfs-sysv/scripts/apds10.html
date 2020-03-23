@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      D.10.&nbsp;/etc/rc.d/init.d/udev_retry
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds09.html" title=
+          "/etc/rc.d/init.d/mountfs">上一页</a>
+          <p>
+            /etc/rc.d/init.d/mountfs
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds11.html" title=
+          "/etc/rc.d/init.d/cleanfs">下一页</a>
+          <p>
+            /etc/rc.d/init.d/cleanfs
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="udev_retry" name="udev_retry"></a>D.10.
+        /etc/rc.d/init.d/udev_retry
+      </h1>
+      <pre class="screen">
+#!/bin/sh
+########################################################################
+# Begin udev_retry
+#
+# Description : Udev cold-plugging script (retry)
+#
+# Authors     : Alexander E. Patrakov
+#               DJ Lucas - dj@linuxfromscratch.org
+# Update      : Bruce Dubbs - bdubbs@linuxfromscratch.org
+#               Bryan Kadzban - 
+#
+# Version     : LFS 7.0
+#
+########################################################################
+
+### BEGIN INIT INFO
+# Provides:            udev_retry
+# Required-Start:      udev
+# Should-Start:        $local_fs
+# Required-Stop:
+# Should-Stop:
+# Default-Start:       S
+# Default-Stop:
+# Short-Description:   Replays failed uevents and creates additional devices.
+# Description:         Replays any failed uevents that were skipped due to
+#                      slow hardware initialization, and creates those needed
+#                      device nodes
+# X-LFS-Provided-By:   LFS
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+case "${1}" in
+   start)
+      log_info_msg "Retrying failed uevents, if any..."
+
+      # As of udev-186, the --run option is no longer valid
+      #rundir=$(/sbin/udevadm info --run)
+      rundir=/run/udev
+      # From Debian: "copy the rules generated before / was mounted
+      # read-write":
+    
+      for file in ${rundir}/tmp-rules--*; do
+         dest=${file##*tmp-rules--}
+         [ "$dest" = '*' ] &amp;&amp; break
+         cat $file &gt;&gt; /etc/udev/rules.d/$dest
+         rm -f $file
+      done
+
+      # Re-trigger the uevents that may have failed, 
+      # in hope they will succeed now
+      /bin/sed -e 's/#.*$//' /etc/sysconfig/udev_retry | /bin/grep -v '^$' | \
+      while read line ; do
+         for subsystem in $line ; do
+            /sbin/udevadm trigger --subsystem-match=$subsystem --action=add
+         done
+      done
+
+      # Now wait for udevd to process the uevents we triggered
+      if ! is_true "$OMIT_UDEV_RETRY_SETTLE"; then
+         /sbin/udevadm settle
+      fi
+
+      evaluate_retval
+      ;;
+
+   *)
+      echo "Usage ${0} {start}"
+      exit 1
+      ;;
+esac
+
+exit 0
+
+# End udev_retry
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="apds09.html" title=
+          "/etc/rc.d/init.d/mountfs">上一页</a>
+          <p>
+            /etc/rc.d/init.d/mountfs
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="apds11.html" title=
+          "/etc/rc.d/init.d/cleanfs">下一页</a>
+          <p>
+            /etc/rc.d/init.d/cleanfs
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="scripts.html" title=
+          "附录&nbsp;D.&nbsp;启动及系统配置脚本版本-20190524">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

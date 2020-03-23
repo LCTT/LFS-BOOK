@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      2.5.&nbsp;在分区上创建文件系统
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;2&nbsp;章&nbsp;准备宿主系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingpartition.html" title=
+          "创建新分区">上一页</a>
+          <p>
+            创建新分区
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="aboutlfs.html" title="设置 $LFS 变量">下一页</a>
+          <p>
+            设置 $LFS 变量
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="space-creatingfilesystem" name=
+        "space-creatingfilesystem"></a>2.5. 在分区上创建文件系统
+      </h1>
+      <p>
+        现在已经有了一个空的分区，可以创建文件系统了。LFS 可以使用 Linux 内核能识别的任何文件系统，但最常用的类型是 ext3 和
+        ext4。当然，至于具体采用哪种文件系统，应该取决于所要存储的文件特点和分区的大小。例如：
+      </p>
+      <div class="variablelist">
+        <dl class="variablelist">
+          <dt>
+            <span class="term">ext2</span>
+          </dt>
+          <dd>
+            <p>
+              适用于那些分区容量不是太大，更新也不频繁的情况，例如 /boot 分区。
+            </p>
+          </dd>
+          <dt>
+            <span class="term">ext3</span>
+          </dt>
+          <dd>
+            <p>
+              是 ext2 的改进版本，其支持日志功能，能够帮助系统从非正常关机导致的异常中恢复。是常用作一般需求的文件系统。
+            </p>
+          </dd>
+          <dt>
+            <span class="term">ext4</span>
+          </dt>
+          <dd>
+            <p>
+              是 ext 文件系统的最新版。提供了很多新的特性，包括纳秒级时间戳、创建和使用巨型文件(16TB)、以及速度的提升。
+            </p>
+          </dd>
+        </dl>
+      </div>
+      <p>
+        其它文件系统，包括 FAT32、NTFS、ReiserFS、JFS 和 XFS
+        等都在专门领域有其独到的作用。关于这些文件系统更多的信息可以参考<a class="ulink" href=
+        "http://en.wikipedia.org/wiki/Comparison_of_file_systems">http://en.wikipedia.org/wiki/Comparison_of_file_systems</a>。
+      </p>
+      <p>
+        LFS 假设要将根分区（/）的文件系统的类型设置为 ext4。运行如下指令，为 LFS 分区创建 <code class=
+        "systemitem">ext4</code> 文件系统：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkfs -v -t ext4 /dev/<em class=
+"replaceable"><code>&lt;xxx&gt;</code></em></kbd>
+</pre>
+      <p>
+        请替换 <em class="replaceable"><code>&lt;xxx&gt;</code></em> 为实际的
+        <code class="systemitem">/</code> 分区设备名。
+      </p>
+      <p>
+        如果你已经有了现成的 <code class="systemitem">swap</code> 分区,不需要重新格式化。如果是新建的
+        <code class="systemitem">swap</code> 分区，需要用下面的命令初始化：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkswap /dev/<em class=
+"replaceable"><code>&lt;yyy&gt;</code></em></kbd>
+</pre>
+      <p>
+        请替换 <em class="replaceable"><code>&lt;yyy&gt;</code></em> 为实际的
+        <code class="systemitem">swap</code> 分区设备名。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingpartition.html" title=
+          "创建新分区">上一页</a>
+          <p>
+            创建新分区
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="aboutlfs.html" title="设置 $LFS 变量">下一页</a>
+          <p>
+            设置 $LFS 变量
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

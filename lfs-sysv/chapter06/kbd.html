@@ -1,0 +1,569 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.64.&nbsp;Kbd-2.2.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="iproute2.html" title=
+          "IPRoute2-5.2.0">上一页</a>
+          <p>
+            IPRoute2-5.2.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libpipeline.html" title=
+          "Libpipeline-1.5.1">下一页</a>
+          <p>
+            Libpipeline-1.5.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-kbd" name="ch-system-kbd"></a>6.64. Kbd-2.2.0
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Kbd 软件包包含键表文件、控制台字体和键盘工具。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">36 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.64.1. 安装 Kbd
+        </h2>
+        <p>
+          在 Kbd 软件包中退格键（Backspace）和删除键（Delete）的行为和键映射并不一致。下面的补丁修复了 i386
+          键映射中的这个问题：
+        </p>
+        <pre class="userinput">
+<kbd class="command">patch -Np1 -i ../kbd-2.2.0-backspace-1.patch</kbd>
+</pre>
+        <p>
+          打补丁后，退格键生成编码为 127 的字符，删除键会生成一个著名的转义序列。
+        </p>
+        <p>
+          移除冗余的 <span class="command"><strong>resizecons</strong></span>
+          程序（它要求功能不全的 svglib 提供视频模式文件——用于正常使用 <span class=
+          "command"><strong>setfont</strong></span> 设置控制台字体大小）以及帮助手册。
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i 's/\(RESIZECONS_PROGS=\)yes/\1no/g' configure
+sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in</kbd>
+</pre>
+        <p>
+          准备编译 Kbd：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">PKG_CONFIG_PATH=/tools/lib/pkgconfig ./configure --prefix=/usr --disable-vlock</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-vlock</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项防止编译 vlock 工具，因为它要求 chroot 环境中不可用的 PAM 库。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            由于通常使用的 CP1251 键映射假设使用 ISO-8859-5 编码，Kbd 软件包不能为某些语言（例如，白俄罗斯）
+            提供可用的键映射。使用这样的语言需要单独下载能工作的键映射。
+          </p>
+        </div>
+        <p>
+          如果需要的话，安装帮助文档：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -v       /usr/share/doc/kbd-2.2.0
+cp -R -v docs/doc/* /usr/share/doc/kbd-2.2.0</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-kbd" name="contents-kbd"></a>6.64.2. Kbd 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">chvt, deallocvt, dumpkeys, fgconsole, getkeycodes,
+              kbdinfo, kbd_mode, kbdrate, loadkeys, loadunimap, mapscrn,
+              openvt, psfaddtable (链接到 psfxtable), psfgettable (链接到
+              psfxtable), psfstriptable (链接到 psfxtable), psfxtable, setfont,
+              setkeycodes, setleds, setmetamode, setvtrgb, showconsolefont,
+              showkey, unicode_start, 和 unicode_stop</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/share/consolefonts, /usr/share/consoletrans,
+              /usr/share/keymaps, /usr/share/doc/kbd-2.2.0, 和
+              /usr/share/unimaps</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chvt" name="chvt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chvt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更改前台虚拟终端
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="deallocvt" name="deallocvt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>deallocvt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    重新分配未使用的虚拟终端
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dumpkeys" name="dumpkeys"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dumpkeys</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转储键盘转换表
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fgconsole" name="fgconsole"></a><span class=
+                    "term"><span class=
+                    "command"><strong>fgconsole</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    输出活动虚拟终端的数目
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="getkeycodes" name="getkeycodes"></a><span class=
+                    "term"><span class=
+                    "command"><strong>getkeycodes</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    输出内核扫描码到键码的映射表
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="kbdinfo" name="kbdinfo"></a><span class=
+                    "term"><span class=
+                    "command"><strong>kbdinfo</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    获取关于某个终端的状态信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="kbd_mode" name="kbd_mode"></a><span class=
+                    "term"><span class=
+                    "command"><strong>kbd_mode</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告或设置键盘模式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="kbdrate" name="kbdrate"></a><span class=
+                    "term"><span class=
+                    "command"><strong>kbdrate</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置键盘重复和延迟速度
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="loadkeys" name="loadkeys"></a><span class=
+                    "term"><span class=
+                    "command"><strong>loadkeys</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    加载键盘转换表
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="loadunimap" name="loadunimap"></a><span class=
+                    "term"><span class=
+                    "command"><strong>loadunimap</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    加载内核 Unicode 到字体映射表
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mapscrn" name="mapscrn"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mapscrn</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于加载用户定义的输出字符映射表到控制台驱动的过时程序；现在通过 <span class=
+                    "command"><strong>setfont</strong></span> 完成
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="openvt" name="openvt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>openvt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在一个新的虚拟终端（VT）启动程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="psfaddtable" name="psfaddtable"></a><span class=
+                    "term"><span class=
+                    "command"><strong>psfaddtable</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    添加 Unicode 字符表到控制台字体
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="psfgettable" name="psfgettable"></a><span class=
+                    "term"><span class=
+                    "command"><strong>psfgettable</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从控制台字体抽取嵌入的 Unicode 字符表
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="psfstriptable" name=
+                    "psfstriptable"></a><span class="term"><span class=
+                    "command"><strong>psfstriptable</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从控制台字体移除嵌入的 Unicode 字符表
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="psfxtable" name="psfxtable"></a><span class=
+                    "term"><span class=
+                    "command"><strong>psfxtable</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    为控制台字体处理 Unicode 字符表
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setfont" name="setfont"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setfont</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更改控制台的增强图形适配器（Enhanced Graphic Adapter,EGA）和视频图形阵列（Video
+                    Graphics Array,VGA）的字体
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setkeycodes" name="setkeycodes"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setkeycodes</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    加载内核扫描码到键码映射表条目；键盘上有异常键时非常有用
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setleds" name="setleds"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setleds</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置键盘标记和 LED 灯
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setmetamode" name="setmetamode"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setmetamode</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    定义键盘元键处理
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setvtrgb" name="setvtrgb"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setvtrgb</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置所有虚拟终端中的控制台颜色映射
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="showconsolefont" name=
+                    "showconsolefont"></a><span class="term"><span class=
+                    "command"><strong>showconsolefont</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示当前 EGA/VGA 控制台屏幕字体
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="showkey" name="showkey"></a><span class=
+                    "term"><span class=
+                    "command"><strong>showkey</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告键盘上按键的扫描码、键码以及 ASCII 码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="unicode_start" name=
+                    "unicode_start"></a><span class="term"><span class=
+                    "command"><strong>unicode_start</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置键盘和控制台为 UNICODE 模式[别用该程序，除非你的键映射文件是 ISO-8859-1
+                    编码。对于其它编码，该工具会输出错误结果。]
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="unicode_stop" name="unicode_stop"></a><span class=
+                    "term"><span class=
+                    "command"><strong>unicode_stop</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从 UNICODE 模式恢复键盘和控制台为原来模式
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="iproute2.html" title=
+          "IPRoute2-5.2.0">上一页</a>
+          <p>
+            IPRoute2-5.2.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libpipeline.html" title=
+          "Libpipeline-1.5.1">下一页</a>
+          <p>
+            Libpipeline-1.5.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

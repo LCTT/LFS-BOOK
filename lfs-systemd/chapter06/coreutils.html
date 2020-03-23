@@ -1,0 +1,1708 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.54.&nbsp;Coreutils-8.31
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="meson.html" title="Meson-0.51.1">上一页</a>
+          <p>
+            Meson-0.51.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="check.html" title="Check-0.12.0">下一页</a>
+          <p>
+            Check-0.12.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-coreutils" name="ch-system-coreutils"></a>6.54.
+        Coreutils-8.31
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Coreutils 软件包包含用于显示和设置基本系统特性的工具。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">2.5 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">202 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.54.1. 安装 Coreutils
+        </h2>
+        <p>
+          POSIX 要求 Coreutils
+          中的程序即使在多字节语言环境也能正确识别字符边界。下面的补丁修复这个不兼容性以及其它一些和国际化相关的错误。
+        </p>
+        <pre class="userinput">
+<kbd class="command">patch -Np1 -i ../coreutils-8.31-i18n-1.patch</kbd>
+</pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            之前在这个补丁中发现了很多错误。当向 Coreutils 维护者报告新错误的时候，请先检查没有该补丁是否可以重现该错误。
+          </p>
+        </div>
+        <p>
+          抑制测试在某些机器上可能出现的无限循环：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i '/test.lock/s/^/#/' gnulib-tests/gnulib.mk</kbd>
+</pre>
+        <p>
+          现在准备编译 Coreutils：
+        </p>
+        <pre class="userinput">
+<kbd class="command">autoreconf -fiv
+FORCE_UNSAFE_CONFIGURE=1 ./configure \
+            --prefix=/usr            \
+            --enable-no-install-program=kill,uptime</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><span class=
+              "command"><strong>autoreconf</strong></span></span>
+            </dt>
+            <dd>
+              <p>
+                此命令更新已有的配置文件，以使其和 automake 最新生成的一致。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><code class=
+              "envar">FORCE_UNSAFE_CONFIGURE=1</code></span>
+            </dt>
+            <dd>
+              <p>
+                该环境变量允许以 root 用户权限编译软件包。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-no-install-program=kill,uptime</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项的目的是防止 Coreutils 安装其它软件包后面会安装的二进制包。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          如果不运行测试套件的话跳到「安装软件包」
+        </p>
+        <p>
+          现在可以运行测试套件了。首先，运行需要以 <code class="systemitem">root</code> 用户运行的测试：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make NON_ROOT_USERNAME=nobody check-root</kbd>
+</pre>
+        <p>
+          我们会以 <code class="systemitem">nobody</code>
+          用户运行剩下的测试。但是，一些测试要求用户属于多个组。为了不跳过这些测试，我们会添加一个临时的组并添加用户 <code class=
+          "systemitem">nobody</code> 作为它的成员：
+        </p>
+        <pre class="userinput">
+<kbd class="command">echo "dummy:x:1000:nobody" &gt;&gt; /etc/group</kbd>
+</pre>
+        <p>
+          修复一些权限问题以便非 root 用户可以编译和运行测试：
+        </p>
+        <pre class="userinput">
+<kbd class="command">chown -Rv nobody . </kbd>
+</pre>
+        <p>
+          现在运行测试。确保 <strong class="userinput"><code>su</code></strong> 环境中的
+          PATH 环境变量包含了 /tools/bin。
+        </p>
+        <pre class="userinput">
+<kbd class="command">su nobody -s /bin/bash \
+          -c "PATH=$PATH make RUN_EXPENSIVE_TESTS=yes check"</kbd>
+</pre>
+        <p>
+          已知测试程序 test-getlogin 在部分构建的系统环境（如 chroot 环境）中会失败，章节结束后运行便会通过。已知测试程序
+          tty.sh 也会失败。
+        </p>
+        <p>
+          移除临时组：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i '/dummy/d' /etc/group</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          移动程序到 FHS 指定的位置：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">mv -v /usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} /bin
+mv -v /usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm} /bin
+mv -v /usr/bin/{rmdir,stty,sync,true,uname} /bin
+mv -v /usr/bin/chroot /usr/sbin
+mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8
+sed -i s/\"1\"/\"8\"/1 /usr/share/man/man8/chroot.8</kbd>
+</pre>
+        <pre class="userinput">
+<kbd class="command">mv -v /usr/bin/{head,nice,sleep,touch} /bin</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-coreutils" name="contents-coreutils"></a>6.54.2.
+          Coreutils 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">[, b2sum, base32, base64, basename, basenc, cat,
+              chcon, chgrp, chmod, chown, chroot, cksum, comm, cp, csplit,
+              cut, date, dd, df, dir, dircolors, dirname, du, echo, env,
+              expand, expr, factor, false, fmt, fold, groups, head, hostid,
+              id, install, join, link, ln, logname, ls, md5sum, mkdir,
+              mkfifo, mknod, mktemp, mv, nice, nl, nohup, nproc, numfmt, od,
+              paste, pathchk, pinky, pr, printenv, printf, ptx, pwd,
+              readlink, realpath, rm, rmdir, runcon, seq, sha1sum, sha224sum,
+              sha256sum, sha384sum, sha512sum, shred, shuf, sleep, sort,
+              split, stat, stdbuf, stty, sum, sync, tac, tail, tee, test,
+              timeout, touch, tr, true, truncate, tsort, tty, uname,
+              unexpand, uniq, unlink, users, vdir, wc, who, whoami, and
+              yes</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libstdbuf.so (位于 /usr/libexec/coreutils)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/libexec/coreutils</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="base32" name="base32"></a><span class=
+                    "term"><span class=
+                    "command"><strong>base32</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据 base32（RFC 4648）规范编码和解码数据
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="base64" name="base64"></a><span class=
+                    "term"><span class=
+                    "command"><strong>base64</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据 base64（RFC 4648）规范编码和解码数据
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="b2sum" name="b2sum"></a><span class=
+                    "term"><span class=
+                    "command"><strong>b2sum</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印或查看 BLAKE2 (512-bit) 校验和
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="basename" name="basename"></a><span class=
+                    "term"><span class=
+                    "command"><strong>basename</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从文件名称中抽取路径和后缀
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="basenc" name="basenc"></a><span class=
+                    "term"><span class=
+                    "command"><strong>basenc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    使用各种算法对数据进行编码或解码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cat" name="cat"></a><span class=
+                    "term"><span class="command"><strong>cat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将文件连接到标准输出
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chcon" name="chcon"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chcon</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    改变文件和目录的安全上下文
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chgrp" name="chgrp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chgrp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更改文件和目录的组所有者
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chmod" name="chmod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chmod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更改每个文件为指定模式的权限；模式可以是要实现更改的符号表示 或者表示新权限的十进制数字
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chown" name="chown"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chown</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更改文件和目录的用户和/或组所有者
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chroot" name="chroot"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chroot</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    使用指定目录作为 <code class="filename">/</code> 目录运行命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cksum" name="cksum"></a><span class=
+                    "term"><span class=
+                    "command"><strong>cksum</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    输出指定文件的循环冗余检验（CRC）校验码和字节数目
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="comm" name="comm"></a><span class=
+                    "term"><span class=
+                    "command"><strong>comm</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    比较两个排序后的文件，以三列输出不用的行和相同的行
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cp" name="cp"></a><span class="term"><span class=
+                    "command"><strong>cp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    复制文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="csplit" name="csplit"></a><span class=
+                    "term"><span class=
+                    "command"><strong>csplit</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将指定文件分割为几个新的文件，根据指定的模式或者行数分割并 输出每个新文件的字节数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cut" name="cut"></a><span class=
+                    "term"><span class="command"><strong>cut</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据指定的域或位置，选择输出行的组成
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="date" name="date"></a><span class=
+                    "term"><span class=
+                    "command"><strong>date</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据指定格式显示当前时间，或设置系统日期
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dd" name="dd"></a><span class="term"><span class=
+                    "command"><strong>dd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用给定的块大小和数目复制文件，同时可以进行一些转换
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="df" name="df"></a><span class="term"><span class=
+                    "command"><strong>df</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告所有挂载的文件系统中可用（和已用）磁盘空间，或只是 含有指定文件的文件系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dir" name="dir"></a><span class=
+                    "term"><span class="command"><strong>dir</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    列出指定目的的内容（和 <span class=
+                    "command"><strong>ls</strong></span> 命令相同）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dircolors" name="dircolors"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dircolors</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    输出设置 <code class="envar">LS_COLOR</code> 环境变量的命令，用于更改
+                    <span class="command"><strong>ls</strong></span> 使用的颜色模式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dirname" name="dirname"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dirname</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从一个文件名称中抽取非目录后缀
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="du" name="du"></a><span class="term"><span class=
+                    "command"><strong>du</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告当前目录使用的磁盘空间，根据指定的每个文件夹（包括子文件夹） 或每个指定的文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="echo" name="echo"></a><span class=
+                    "term"><span class=
+                    "command"><strong>echo</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示给定的字符串
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="env" name="env"></a><span class=
+                    "term"><span class="command"><strong>env</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在更改后的环境中运行命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="expand" name="expand"></a><span class=
+                    "term"><span class=
+                    "command"><strong>expand</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    把 tab 键转换为空格
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="expr" name="expr"></a><span class=
+                    "term"><span class=
+                    "command"><strong>expr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    计算表达式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="factor" name="factor"></a><span class=
+                    "term"><span class=
+                    "command"><strong>factor</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    输出所有指定整数的质数因子
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="false" name="false"></a><span class=
+                    "term"><span class=
+                    "command"><strong>false</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    什么都不做；总是以指示失败的状态码退出
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fmt" name="fmt"></a><span class=
+                    "term"><span class="command"><strong>fmt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    重新格式化给定文件中的段落
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fold" name="fold"></a><span class=
+                    "term"><span class=
+                    "command"><strong>fold</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    折叠指定文件的行
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="groups" name="groups"></a><span class=
+                    "term"><span class=
+                    "command"><strong>groups</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告一个用户的组成员
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="head" name="head"></a><span class=
+                    "term"><span class=
+                    "command"><strong>head</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    输出指定文件的前十行（或指定数目行数）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="hostid" name="hostid"></a><span class=
+                    "term"><span class=
+                    "command"><strong>hostid</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告主机的数字标识符（以十六进制）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="id" name="id"></a><span class="term"><span class=
+                    "command"><strong>id</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告当前用户或指定用户的有效 用户 ID、组 ID 以及组成员
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="install" name="install"></a><span class=
+                    "term"><span class=
+                    "command"><strong>install</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    复制文件的同时设置权限模式，如果可以的话包括用户和组
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="join" name="join"></a><span class=
+                    "term"><span class=
+                    "command"><strong>join</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从两个单独的文件中连接有相同域的行
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="link" name="link"></a><span class=
+                    "term"><span class=
+                    "command"><strong>link</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用指定的名称创建到一个文件的硬链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ln" name="ln"></a><span class="term"><span class=
+                    "command"><strong>ln</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在文件之间建立硬链接或软（符号）链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="logname" name="logname"></a><span class=
+                    "term"><span class=
+                    "command"><strong>logname</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告当前用户的登录名
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ls" name="ls"></a><span class="term"><span class=
+                    "command"><strong>ls</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    列出给定目录的内容
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="md5sum" name="md5sum"></a><span class=
+                    "term"><span class=
+                    "command"><strong>md5sum</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告或检查消息摘要 5（MD5） 校验码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mkdir" name="mkdir"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mkdir</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用指定的名称新建目录
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mkfifo" name="mkfifo"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mkfifo</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用指定的名称在 UNIX 中创建先进先出（FIFO） 的「命名管道」
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mknod" name="mknod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mknod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用指定的名称创建设备结点；设备结点是一个特殊字符文件、特殊块文件或先进先出
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mktemp" name="mktemp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mktemp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以安全方式新建临时文件；在脚本中使用
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mv" name="mv"></a><span class="term"><span class=
+                    "command"><strong>mv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    移动或重命名文件或目录
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nice" name="nice"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nice</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以更改后的调度优先级运行程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nl" name="nl"></a><span class="term"><span class=
+                    "command"><strong>nl</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    标记指定文件的行号
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nohup" name="nohup"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nohup</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以不能被挂起方式运行命令，输出重定向到一个日志文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nproc" name="nproc"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nproc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    输出进程可用的处理单元数目
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="numfmt" name="numfmt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>numfmt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换数字为人可读字符串或者相反
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="od" name="od"></a><span class="term"><span class=
+                    "command"><strong>od</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以十进制或其他格式转储文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="paste" name="paste"></a><span class=
+                    "term"><span class=
+                    "command"><strong>paste</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    合并指定文件，用 tab 字符分隔，以行并列方式连续合并
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pathchk" name="pathchk"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pathchk</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查文件名是否可用
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pinky" name="pinky"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pinky</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    轻量级的 finger 客户端；报告指定用户的信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pr" name="pr"></a><span class="term"><span class=
+                    "command"><strong>pr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对文件进行分页分行用于打印
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="printenv" name="printenv"></a><span class=
+                    "term"><span class=
+                    "command"><strong>printenv</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    输出环境
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="printf" name="printf"></a><span class=
+                    "term"><span class=
+                    "command"><strong>printf</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据指定格式打印指定参数，类似于 C 语言的 printf 函数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ptx" name="ptx"></a><span class=
+                    "term"><span class="command"><strong>ptx</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用文中的每个关键字，根据文件的内容中建立重排索引
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pwd" name="pwd"></a><span class=
+                    "term"><span class="command"><strong>pwd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告当前工作目录的名称
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="readlink" name="readlink"></a><span class=
+                    "term"><span class=
+                    "command"><strong>readlink</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告指定符号链接的值
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="realpath" name="realpath"></a><span class=
+                    "term"><span class=
+                    "command"><strong>realpath</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印解释后路径
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rm" name="rm"></a><span class="term"><span class=
+                    "command"><strong>rm</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    删除文件或目录
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rmdir" name="rmdir"></a><span class=
+                    "term"><span class=
+                    "command"><strong>rmdir</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    如果目录为空则删除
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="runcon" name="runcon"></a><span class=
+                    "term"><span class=
+                    "command"><strong>runcon</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以指定安全上下文运行命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="seq" name="seq"></a><span class=
+                    "term"><span class="command"><strong>seq</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用指定的范围和增长步长输出一序列数字
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sha1sum" name="sha1sum"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sha1sum</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印或检查 160-bit 安全哈希算法1（SHA1） 校验码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sha224sum" name="sha224sum"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sha224sum</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印或检查 224-bit 安全哈希算法校验码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sha256sum" name="sha256sum"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sha256sum</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印或检查 256-bit 安全哈希算法校验码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sha384sum" name="sha384sum"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sha384sum</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印或检查 384-bit 安全哈希算法校验码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sha512sum" name="sha512sum"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sha512sum</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印或检查 512-bit 安全哈希算法校验码
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="shred" name="shred"></a><span class=
+                    "term"><span class=
+                    "command"><strong>shred</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用复杂形式多次重写指定文件，使得难以恢复其中的数据
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="shuf" name="shuf"></a><span class=
+                    "term"><span class=
+                    "command"><strong>shuf</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打乱文本行
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sleep" name="sleep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sleep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    暂停指定时间
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sort" name="sort"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sort</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    排序给定文件的行
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="split" name="split"></a><span class=
+                    "term"><span class=
+                    "command"><strong>split</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    根据大小或行数分割文件为多个块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="stat" name="stat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>stat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示文件或文件系统状态
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="stdbuf" name="stdbuf"></a><span class=
+                    "term"><span class=
+                    "command"><strong>stdbuf</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用改变后的缓冲操作在标准流上运行命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="stty" name="stty"></a><span class=
+                    "term"><span class=
+                    "command"><strong>stty</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置或报告终端行设置
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sum" name="sum"></a><span class=
+                    "term"><span class="command"><strong>sum</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印指定文件的校验码和块数目
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sync" name="sync"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sync</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    清空文件系统缓存；强制更改块到磁盘并更新超级块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tac" name="tac"></a><span class=
+                    "term"><span class="command"><strong>tac</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    反向输出给定文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tail" name="tail"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tail</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    输出每个给定文件的最后十行（或给定数目的行）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tee" name="tee"></a><span class=
+                    "term"><span class="command"><strong>tee</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从标准输入读入并写出到标准输出和指定文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="test" name="test"></a><span class=
+                    "term"><span class=
+                    "command"><strong>test</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    比较值并检查文件类型
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="timeout" name="timeout"></a><span class=
+                    "term"><span class=
+                    "command"><strong>timeout</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    有限时间内运行命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="touch" name="touch"></a><span class=
+                    "term"><span class=
+                    "command"><strong>touch</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更改文件时间戳，设置指定文件的访问和修改时间为当前时间； 如果文件不存在则创建空文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tr" name="tr"></a><span class="term"><span class=
+                    "command"><strong>tr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从标准输入转换、压缩并删除指定字符
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="true" name="true"></a><span class=
+                    "term"><span class=
+                    "command"><strong>true</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    不做任何事情，总是成功；总是以表示成功的状态码退出
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="truncate" name="truncate"></a><span class=
+                    "term"><span class=
+                    "command"><strong>truncate</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    压缩或扩展文件到特定大小
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tsort" name="tsort"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tsort</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    进行拓扑排序；根据指定文件的部分排序写出完全有序列表
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tty" name="tty"></a><span class=
+                    "term"><span class="command"><strong>tty</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告链接到标准输入的终端文件名称
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="uname" name="uname"></a><span class=
+                    "term"><span class=
+                    "command"><strong>uname</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告系统信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="unexpand" name="unexpand"></a><span class=
+                    "term"><span class=
+                    "command"><strong>unexpand</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换空格为 tab 键
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="uniq" name="uniq"></a><span class=
+                    "term"><span class=
+                    "command"><strong>uniq</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    忽略所有除非出现连续相同的行
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="unlink" name="unlink"></a><span class=
+                    "term"><span class=
+                    "command"><strong>unlink</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    移除指定文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="users" name="users"></a><span class=
+                    "term"><span class=
+                    "command"><strong>users</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告当前登录的用户名
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="vdir" name="vdir"></a><span class=
+                    "term"><span class=
+                    "command"><strong>vdir</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    和 <span class="command"><strong>ls -l</strong></span> 相同
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="wc" name="wc"></a><span class="term"><span class=
+                    "command"><strong>wc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告给定文件的行数、单词数和字节数，以及给定多个文件时总的行数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="who" name="who"></a><span class=
+                    "term"><span class="command"><strong>who</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告谁登录了
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="whoami" name="whoami"></a><span class=
+                    "term"><span class=
+                    "command"><strong>whoami</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告和当前有效用户 ID 关联的用户名
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="yes" name="yes"></a><span class=
+                    "term"><span class="command"><strong>yes</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    重复输出「y」或指定的字符串直到被杀死
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libstdbuf" name="libstdbuf"></a><span class=
+                    "term"><code class="filename">libstdbuf</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>stdbuf</strong></span> 使用的库
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="meson.html" title="Meson-0.51.1">上一页</a>
+          <p>
+            Meson-0.51.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="check.html" title="Check-0.12.0">下一页</a>
+          <p>
+            Check-0.12.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

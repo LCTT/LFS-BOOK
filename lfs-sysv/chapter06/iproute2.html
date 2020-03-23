@@ -1,0 +1,461 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.63.&nbsp;IPRoute2-5.2.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gzip.html" title="Gzip-1.10">上一页</a>
+          <p>
+            Gzip-1.10
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kbd.html" title="Kbd-2.2.0">下一页</a>
+          <p>
+            Kbd-2.2.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-iproute2" name="ch-system-iproute2"></a>6.63.
+        IPRoute2-5.2.0
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          IPRoute2 软件包包含基于 IPV4 网络的基本和高级程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.2 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">13 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.63.1. 安装 IPRoute2
+        </h2>
+        <p>
+          此软件包中包含的 <span class="command"><strong>arpd</strong></span> 因为依赖于
+          Berkeley DB，但是此软件并没有包含于 LFS 中，所以将不会进行编译。但是 <span class=
+          "command"><strong>arpd</strong></span>
+          的目录依旧会被安装。运行以下的命令来阻止这一动作。如果需要 <span class=
+          "command"><strong>arpd</strong></span> 的二进制文件，请查看 BLFS Book 的网页
+          <a class="ulink" href=
+          "http://www.linuxfromscratch.org/blfs/view/9.0/server/databases.html#db">
+          http://www.linuxfromscratch.org/blfs/view/9.0/server/databases.html#db</a>
+          以了解编译 Berkeley DB 都需要哪些指令。
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i /ARPD/d Makefile
+rm -fv man/man8/arpd.8</kbd>
+</pre>
+        <p>
+          此外，还需要禁用两个模块，它依赖于 <a class="ulink" href=
+          "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/iptables.html">
+          http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/iptables.html</a>.
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i 's/.m_ipt.o//' tc/Makefile</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          此软件包不包含可用的测试套件。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make DOCDIR=/usr/share/doc/iproute2-5.2.0 install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-iproute2" name="contents-iproute2"></a>6.63.2.
+          IPRoute2 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">bridge, ctstat (链接到 lnstat), genl, ifcfg, ifstat, ip,
+              lnstat, nstat, routef, routel, rtacct, rtmon, rtpr, rtstat (链接到
+              lnstat), ss, 和 tc</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/etc/iproute2, /usr/lib/tc, 和
+              /usr/share/doc/iproute2-5.2.0,</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bridge" name="bridge"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bridge</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    配置网桥
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ctstat" name="ctstat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ctstat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    连接状态工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="genl" name="genl"></a><span class=
+                    "term"><span class=
+                    "command"><strong>genl</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    通用 netlink 多用途前端
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ifcfg" name="ifcfg"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ifcfg</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>ip</strong></span> 命令的
+                    shell 脚本封装 [注意它需要 iputils 软件包中的 <span class=
+                    "command"><strong>arping</strong></span> 和 <span class=
+                    "command"><strong>rdisk</strong></span> 程序，可以在 <a class=
+                    "ulink" href=
+                    "http://www.skbuff.net/iputils/">http://www.skbuff.net/iputils/</a>
+                    找到 iputils 软件包。]
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ifstat" name="ifstat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ifstat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示接口统计信息，包括接口发送和接收的包的数目
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ip" name="ip"></a><span class="term"><span class=
+                    "command"><strong>ip</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    主要的可执行程序。它有多种不同功能：
+                  </p>
+                  <p>
+                    <span class="command"><strong>ip link <em class=
+                    "replaceable"><code>&lt;device&gt;</code></em></strong></span>
+                    允许用户查看设备状态或更改
+                  </p>
+                  <p>
+                    <span class="command"><strong>ip addr</strong></span>
+                    允许用户查看地址和属性、增加新地址、删除旧地址
+                  </p>
+                  <p>
+                    <span class="command"><strong>ip neighbor</strong></span>
+                    允许用户查看邻居和它们的特性、增加新邻居、删除旧邻居
+                  </p>
+                  <p>
+                    <span class="command"><strong>ip rule</strong></span>
+                    允许用户查看路由策略并更改
+                  </p>
+                  <p>
+                    <span class="command"><strong>ip route</strong></span>
+                    允许用户查看路由表并更改路由表规则
+                  </p>
+                  <p>
+                    <span class="command"><strong>ip tunnel</strong></span>
+                    允许用户查看 IP 隧道及其特性、并进行更改
+                  </p>
+                  <p>
+                    <span class="command"><strong>ip maddr</strong></span>
+                    允许用户查看多播地址及其特性、并进行更改
+                  </p>
+                  <p>
+                    <span class="command"><strong>ip mroute</strong></span>
+                    允许用户设置、更改或删除多播路由
+                  </p>
+                  <p>
+                    <span class="command"><strong>ip monitor</strong></span>
+                    允许用户持续监视设置、地址和路由状态
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lnstat" name="lnstat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lnstat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    提供 Linux 网络统计信息；是更通用、功能更完备的替代旧 <span class=
+                    "command"><strong>rtstat</strong></span> 的程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nstat" name="nstat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nstat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示网络统计信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="routef" name="routef"></a><span class=
+                    "term"><span class=
+                    "command"><strong>routef</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>ip route</strong></span>
+                    的组件。用于清空路由表
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="routel" name="routel"></a><span class=
+                    "term"><span class=
+                    "command"><strong>routel</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>ip route</strong></span>
+                    的组件。用于列出路由表
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rtacct" name="rtacct"></a><span class=
+                    "term"><span class=
+                    "command"><strong>rtacct</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示 <code class="filename">/proc/net/rt_acct</code> 的内容
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rtmon" name="rtmon"></a><span class=
+                    "term"><span class=
+                    "command"><strong>rtmon</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    路由监视工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rtpr" name="rtpr"></a><span class=
+                    "term"><span class=
+                    "command"><strong>rtpr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换 <span class="command"><strong>ip -o</strong></span>
+                    输出为可读形式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rtstat" name="rtstat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>rtstat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    路由状态工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ss" name="ss"></a><span class="term"><span class=
+                    "command"><strong>ss</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    类似于 <span class="command"><strong>netstat</strong></span>
+                    命令；显示活动连接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tc" name="tc"></a><span class="term"><span class=
+                    "command"><strong>tc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    拥塞控制可执行程序；用于实现服务质量（Quality Of Service,QOS）和服务等级（Class Of
+                    Service,COS）
+                  </p>
+                  <p>
+                    <span class="command"><strong>tc qdisc</strong></span>
+                    允许用户设置排队规则
+                  </p>
+                  <p>
+                    <span class="command"><strong>tc class</strong></span>
+                    允许用户基于排队规则调度策略设置等级
+                  </p>
+                  <p>
+                    <span class="command"><strong>tc
+                    estimator</strong></span> 允许用户估计到一个网络的网络流量
+                  </p>
+                  <p>
+                    <span class="command"><strong>tc filter</strong></span>
+                    允许用户设置 QOS/COS 包过滤
+                  </p>
+                  <p>
+                    <span class="command"><strong>tc policy</strong></span>
+                    允许用户设置 QOS/COS 策略
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gzip.html" title="Gzip-1.10">上一页</a>
+          <p>
+            Gzip-1.10
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kbd.html" title="Kbd-2.2.0">下一页</a>
+          <p>
+            Kbd-2.2.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

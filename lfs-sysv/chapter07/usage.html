@@ -1,0 +1,807 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.6.&nbsp;System V 启动脚本的运用与配置
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="network.html" title="通用网络配置">上一页</a>
+          <p>
+            通用网络配置
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="profile.html" title=
+          "Bash Shell 启动文件">下一页</a>
+          <p>
+            Bash Shell 启动文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-usage" name="ch-scripts-usage"></a>7.6. System V
+        启动脚本的运用与配置
+      </h1>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          7.6.1. System V 的启动脚本是如何工作的？
+        </h2>
+        <p>
+          Linux 使用的是一个名为 SysVinit，基于<span class=
+          "emphasis"><em>运行级（run-levels）</em></span>概念的特殊启动工具。每个系统之间总会有些许不同，所以在某个特定的
+          Linux 发行版上适用的东西，并不意味着在 LFS 上也适用。LFS 自有独到的解决之道，不过也会遵守普世的标准。
+        </p>
+        <p>
+          SysVinit（或称「init」，下同）以运行级的方案运作。内含 7 个（数字
+          0-6）运行级，（事实上还有更多的运行级，但那些运行级情况特殊，且不常用。详情参见 <code class=
+          "filename">init(8)</code>），其中的每一个数字，都对应着一个计算机启动时的操作。默认的运行级是
+          3。下列为不同运行级所对应功能的描述：
+        </p>
+        <div class="literallayout">
+          <p>
+            0:&nbsp;关闭计算机<br />
+            1:&nbsp;单用户模式<br />
+            2:&nbsp;多用户模式无网络<br />
+            3:&nbsp;多用户模式含网络<br />
+            4:&nbsp;预留模式，如无定制与&nbsp;3&nbsp;无异<br />
+            5:&nbsp;与&nbsp;4&nbsp;无异，常用作&nbsp;GUI（X&nbsp;的&nbsp;<span class=
+            "command"><strong>xdm</strong></span>&nbsp;或&nbsp;KDE&nbsp;的&nbsp;<span class="command"><strong>kdm</strong></span>）的登录<br />
+
+            6:&nbsp;重启计算机
+          </p>
+        </div>
+      </div>
+      <div class="configuration" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="conf-sysvinit" name="conf-sysvinit"></a>7.6.2. 配置 Sysvinit
+        </h2>
+        <p>
+          在内核初始化的时候，无论是命令行指定运行的第一个程序，还是默认的 <span class=
+          "command"><strong>init</strong></span>。该程序会读入初始化文件 <code class=
+          "filename">/etc/inittab</code>。下面创建此文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cat &gt; /etc/inittab &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/inittab
+
+id:3:initdefault:
+
+si::sysinit:/etc/rc.d/init.d/rc S
+
+l0:0:wait:/etc/rc.d/init.d/rc 0
+l1:S1:wait:/etc/rc.d/init.d/rc 1
+l2:2:wait:/etc/rc.d/init.d/rc 2
+l3:3:wait:/etc/rc.d/init.d/rc 3
+l4:4:wait:/etc/rc.d/init.d/rc 4
+l5:5:wait:/etc/rc.d/init.d/rc 5
+l6:6:wait:/etc/rc.d/init.d/rc 6
+
+ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+
+su:S016:once:/sbin/sulogin
+
+1:2345:respawn:/sbin/agetty --noclear tty1 9600
+2:2345:respawn:/sbin/agetty tty2 9600
+3:2345:respawn:/sbin/agetty tty3 9600
+4:2345:respawn:/sbin/agetty tty4 9600
+5:2345:respawn:/sbin/agetty tty5 9600
+6:2345:respawn:/sbin/agetty tty6 9600
+
+# End /etc/inittab</code>
+EOF</kbd>
+</pre>
+        <p>
+          初始化文件的解释可以参考 <span class="emphasis"><em>inittab</em></span> 的 man
+          手册页面。对于LFS，运行的核心命令是 <span class=
+          "command"><strong>rc</strong></span>。上面的初始化文件将指示 <span class=
+          "command"><strong>rc</strong></span> 运行 <code class=
+          "filename">/etc/rc.d/rcS.d</code> 目录中，所有以 S 开头的脚本，然后便是 <code class=
+          "filename">/etc/rc.d/rc?.d</code> 目录中，所有以 S 开头的脚本。目录中的问号由指定的
+          initdefault 值来决定。
+        </p>
+        <p>
+          为了方便，<span class="command"><strong>rc</strong></span> 会从
+          <code class="filename">/lib/lsb/init-functions</code>
+          中读取函数库。该库还会读取一个可选的配置文件 <code class=
+          "filename">/etc/sysconfig/rc.site</code>。任何在后续章节中描述到的系统配置文件中的参数，都可以放在这个文件中，允许将所有的系统参数合并到该文件中。
+        </p>
+        <p>
+          为了调试方便，函数脚本会将日志输出到 <code class="filename">/run/var/bootlog</code>
+          文件中。由于 <code class="filename">/run</code> 目录是个
+          tmpfs（临时文件系统），所以该文件在启动之后就不会持续存在了，但在启动过程的最后，这些内容会被添附到更为持久的
+          <code class="filename">/var/log/boot.log</code> 文件中。
+        </p>
+        <div class="sect3">
+          <h3 class="sect3">
+            <a id="init-levels" name="init-levels"></a>7.6.2.1. 改变运行级
+          </h3>
+          <p>
+            想要改变运行级，可以使用命令 <span class="command"><strong>init <em class=
+            "replaceable"><code>&lt;runlevel&gt;</code></em></strong></span>，其中的
+            <em class="replaceable"><code>&lt;runlevel&gt;</code></em>
+            便是想要切换到的运行级。举个例子，若是想要重启计算机，可以使用命令 <span class=
+            "command"><strong>init 6</strong></span>，这是 <span class=
+            "command"><strong>reboot</strong></span> 命令的别名。就像，<span class=
+            "command"><strong>init 0</strong></span> 是 <span class=
+            "command"><strong>halt</strong></span> 的别名一样。
+          </p>
+          <p>
+            <code class="filename">/etc/rc.d</code> 下有许多看起来像 <code class=
+            "filename">rc?.d</code> 的目录（其中的 ? 便是运行级）以及 <code class=
+            "filename">rcsysinit.d</code>，这些目录下包含了许多符号链接。它们有些以 <span class=
+            "emphasis"><em>K</em></span> 开头，另一些的以 <span class=
+            "emphasis"><em>S</em></span> 开头，首字母的后面都有两位数字。其中的 K 意味着停止（杀死）服务，S
+            意味着启动服务。而这些数字则决定了脚本的运行顺序，从 00 至 99——数字越小的将越先被执行。当 <span class=
+            "command"><strong>init</strong></span>
+            切换到另一个运行级时，相应的服务将会依据运行级启动或停止。
+          </p>
+          <p>
+            真正的脚本放在 <code class="filename">/etc/rc.d/init.d</code>
+            目录中。那些链接全部指向它们，真正工作的便是它们。K 开头的链接和 S 开头的链接指向的其实是 <code class=
+            "filename">/etc/rc.d/init.d</code>
+            目录中的同一个脚本。能这样的原因是脚本可以用不同的参数调用，例如 <em class=
+            "parameter"><code>start</code></em>，<em class=
+            "parameter"><code>stop</code></em>，<em class=
+            "parameter"><code>restart</code></em>，<em class=
+            "parameter"><code>reload</code></em> 和 <em class=
+            "parameter"><code>status</code></em>。当遇到的链接是 K 开头的话，便相应执行脚本的
+            <em class="parameter"><code>stop</code></em> 参数。当遇到的链接是 S
+            开头的话，便相应执行脚本的 <em class="parameter"><code>start</code></em> 参数。
+          </p>
+          <p>
+            还有一种情况刚才没有提及。那便是 <code class="filename">rc0.d</code> 和
+            <code class="filename">rc6.d</code> 目录中以 <span class=
+            "emphasis"><em>S</em></span> 开头的链接是不会导致任何服务被启动的。它们只会调用 <em class=
+            "parameter"><code>stop</code></em>
+            参数去停止某些服务。这背后的隐含逻辑便是，当用户打算重起或是关闭系统时，无需去启动些什么。系统仅仅是需要被停止而已。
+          </p>
+          <p>
+            下列便是脚本参数的描述：
+          </p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term"><em class=
+                "parameter"><code>start</code></em></span>
+              </dt>
+              <dd>
+                <p>
+                  服务将被启动。
+                </p>
+              </dd>
+              <dt>
+                <span class="term"><em class=
+                "parameter"><code>stop</code></em></span>
+              </dt>
+              <dd>
+                <p>
+                  服务将被停止。
+                </p>
+              </dd>
+              <dt>
+                <span class="term"><em class=
+                "parameter"><code>restart</code></em></span>
+              </dt>
+              <dd>
+                <p>
+                  服务将被停止，然后再一次启动。
+                </p>
+              </dd>
+              <dt>
+                <span class="term"><em class=
+                "parameter"><code>reload</code></em></span>
+              </dt>
+              <dd>
+                <p>
+                  服务的配置文件将被更新。该命令用于修改服务配置文件后，无需重启服务。
+                </p>
+              </dd>
+              <dt>
+                <span class="term"><em class=
+                "parameter"><code>status</code></em></span>
+              </dt>
+              <dd>
+                <p>
+                  告知你服务是否正处于运行中，以及相应的 PID。
+                </p>
+              </dd>
+            </dl>
+          </div>
+          <p>
+            不必拘谨，启动过程的工作你可以随随意修改（这毕竟是你自己的 LFS
+            系统）。这里的给出的文件只不过是抛砖引玉，示范这些是如何完成的。
+          </p>
+        </div>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          7.6.3. udev 启动脚本
+        </h2>
+        <p>
+          启动脚本 <code class="filename">/etc/rc.d/init.d/udev</code> 启动
+          <span class=
+          "command"><strong>udevd</strong></span>，触发已经被内核创建好的「冷插拔（coldplug）」设备，并等待规则完成。该脚本还会解除
+          <code class="filename">/sbin/hotplug</code> 中默认的 uevent
+          处理。这是因为内核不再需要调用外部的二进制文件了。取而代之的是，<span class=
+          "command"><strong>udevd</strong></span> 会为内核引发的 uevent 去监听 netlink
+          的套接字。
+        </p>
+        <p>
+          初始化脚本 <span class=
+          "command"><strong>/etc/rc.d/init.d/udev_retry</strong></span>
+          负责重新触发子系统的事件，这些子系统的规则，可能会依赖于直到 <span class=
+          "command"><strong>mountfs</strong></span> 脚本运行后才挂载的文件系统（特别是
+          <code class="filename">/usr</code> 和 <code class=
+          "filename">/var</code>）。该脚本会在 <span class=
+          "command"><strong>mountfs</strong></span>
+          脚本后运行，所以这些规则（若是被重新触发）应该会在第二次的时候成功。这些被配置在 <code class=
+          "filename">/etc/sysconfig/udev_retry</code>
+          文件中；这个文件中，除了注释以外的任何单词（word），都会被认为是在重试时触发的子系统名称。想要找到设备的子系统，使用
+          <span class="command"><strong>udevadm info --attribute-walk
+          &lt;device&gt;</strong></span>，其中的 &lt;device&gt; 是 /dev 或 /sys
+          中的绝对路径，例如，/dev/sr0 或是 /sys/class/rtc。
+        </p>
+        <p>
+          关于内核模块载入和 udev 的更多信息，请查看 <a class="xref" href=
+          "udev.html#module-loading" title="7.3.2.3.&nbsp;加载模块">第 7.3.2.3 节
+          「加载模块」</a>。
+        </p>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="ch-scripts-clock" name="ch-scripts-clock"></a>7.6.4. 配置系统时钟
+        </h2>
+        <p>
+          <span class="command"><strong>setclock</strong></span> 脚本从硬件时钟，或称
+          BIOS 或 CMOS（互补金属氧化物半导体）时钟中，读取时间。如果硬件时钟被设置为 UTC，该脚本会使用 <code class=
+          "filename">/etc/localtime</code> 文件（它会告知程序 <span class=
+          "command"><strong>hwclock</strong></span>
+          用户的时区）将硬件时钟的时间转换为本地时间。因为无法检测硬件时钟是否为 UTC，所以需要手动去配置。
+        </p>
+        <p>
+          在内核的启动并检测硬件功能的时候，<span class=
+          "command"><strong>setclock</strong></span> 会通过 <span class=
+          "application">udev</span> 运行。同样也可以通过 stop 参数手动地将系统时间存入 CMOS 时钟中。
+        </p>
+        <p>
+          如果你记不清是否将硬件时钟设置成 UTC，可以通过运行命令 <strong class=
+          "userinput"><code>hwclock --localtime --show</code></strong>
+          查看。这条命令会根据硬件时钟显示当前的时间。如果显示的时间和你的手表一致，那么硬件时间可能被设置成了本地时间。如果
+          <span class="command"><strong>hwclock</strong></span>
+          的输出不是本地时间，那就有可能是 UTC 时间。在 <span class=
+          "command"><strong>hwclock</strong></span>
+          的输出时间上加上或减去时区之间的时差。例如，如果你所处的时区是 MST，也就是 GMT -0700，在本地时间上加上 7 小时便是
+          UTC 时间了。
+        </p>
+        <p>
+          如果硬件时钟<span class="emphasis"><em>未</em></span>设置成 UTC 时间，将
+          <code class="envar">UTC</code> 变量改成 <em class=
+          "parameter"><code>0</code></em>（零）。
+        </p>
+        <p>
+          运行以下命令新建文件 <code class="filename">/etc/sysconfig/clock</code>：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cat &gt; /etc/sysconfig/clock &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/sysconfig/clock
+
+UTC=1
+
+# Set this to any options you might need to give to hwclock,
+# such as machine hardware clock type for Alphas.
+CLOCKPARAMS=
+
+# End /etc/sysconfig/clock</code>
+EOF</kbd>
+</pre>
+        <p>
+          这里安利一个链接 <a class="ulink" href=
+          "http://www.linuxfromscratch.org/hints/downloads/files/time.txt">http://www.linuxfromscratch.org/hints/downloads/files/time.txt</a>，它非常好地解释了如何在
+          LFS 中应对时间的问题。其中说明了诸如时区，UTC 和 <code class="envar">TZ</code>
+          环境变量之类的问题。
+        </p>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            CLOCKPARAMS 和 UTC 参数也可以在文件 <code class=
+            "filename">/etc/sysconfig/rc.site</code> 中设置。
+          </p>
+        </div>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="ch-scripts-console" name="ch-scripts-console"></a>7.6.5. 配置
+          Linux 控制台
+        </h2>
+        <p>
+          本段讨论如何配置 <span class="command"><strong>console</strong></span>
+          的启动脚本，用它设置键盘映射，控制台字体和控制台内核的日志级别。如果非 ASCII
+          字符（例如，版权标志，英镑符号和欧元符号）不会用到且键盘是 U.S. 的情况下，那本段的多数内容可以跳过。没有配置文件（，或是与
+          <code class="filename">rc.site</code> 的设置一样），<span class=
+          "command"><strong>console</strong></span> 启动脚本就不会执行任何操作。
+        </p>
+        <p>
+          <span class="command"><strong>console</strong></span> 脚本读取
+          <code class="filename">/etc/sysconfig/console</code>
+          文件以获取配置信息。决定使用的键盘映射和屏幕字体。特定的语言各种各样，可以查看 HOWTO 获取帮助，详见 <a class=
+          "ulink" href=
+          "http://www.tldp.org/HOWTO/HOWTO-INDEX/other-lang.html">http://www.tldp.org/HOWTO/HOWTO-INDEX/other-lang.html</a>。如果好心存疑惑，不妨检索
+          <code class="filename">/usr/share/keymaps</code> 和 <code class=
+          "filename">/usr/share/consolefonts</code> 目录下的有效键盘映射和屏幕字体。查阅
+          <code class="filename">loadkeys(1)</code> 和 <code class=
+          "filename">setfont(8)</code> 手册，为这些程序选择正确的参数。
+        </p>
+        <p>
+          <code class="filename">/etc/sysconfig/console</code> 文件中的一行一行的格式应该像
+          VARIABLE="value" 这样。下面介绍几个常见变量：
+        </p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">LOGLEVEL</span>
+            </dt>
+            <dd>
+              <p>
+                该变量用于指定由 <span class="command"><strong>dmesg</strong></span>
+                设置的从内核发往控制台的消息的日志级别。有效的级别从「1」（没有消息）至「8」。默认的级别是「7」。
+              </p>
+            </dd>
+            <dt>
+              <span class="term">KEYMAP</span>
+            </dt>
+            <dd>
+              <p>
+                该变量用于指定 <span class=
+                "command"><strong>loadkeys</strong></span>
+                程序的参数，通常是要加载的键盘映射的名称，例如,「it」。如果变量没有被设置，那么启动脚本将不会去运行
+                <span class="command"><strong>loadkeys</strong></span>
+                程序，而是使用内核默认的键盘映射。注意有一些键盘映射拥有多种版本，但是名字却是相同的（cz 和其变种存在于 qwerty/
+                和 qwertz/ 中，es 存在于 olpc/ 和 qwerty/ 中，还有 trf 存在于 fgGIod/ 和
+                qwerty/ 中）。在这种情况下，其父目录也需要指定（例如，qwerty/es），以保证加载的键盘映射是恰当的。
+              </p>
+            </dd>
+            <dt>
+              <span class="term">KEYMAP_CORRECTIONS</span>
+            </dt>
+            <dd>
+              <p>
+                这个（很少使用的）变量用于指定 <span class=
+                "command"><strong>loadkeys</strong></span>
+                程序的第二个参数。如果现有的键盘映射不能完全满足需求，并且需要进行细微调整时，该变量就非常有用了。例如，想要将欧元符号加入到原来不存在该符号的键盘映射中，将变量设置为「euro2」。
+              </p>
+            </dd>
+            <dt>
+              <span class="term">FONT</span>
+            </dt>
+            <dd>
+              <p>
+                该变量用于指定 <span class="command"><strong>setfont</strong></span>
+                程序的参数。通常包括字体名，「-m」，和要加载的应用字符映射名。例如，为了让字体「lat1-16」和「8859-1」应用字符映射一起加载（美国常用设置），将变量设置为「lat1-16
+                -m 8859-1」。UTF-8 模式中，内核使用应用字符映射将 8 位的按键编码转化为
+                UTF-8，因此「-m」参数应被设置成键盘映射中组成按键编码的编码。
+              </p>
+            </dd>
+            <dt>
+              <span class="term">UNICODE</span>
+            </dt>
+            <dd>
+              <p>
+                将该变量设置为「1」，「yes」或「true」，使控制台进入 UTF-8 模式。这对基于 UTF-8
+                语言环境的地域十分有用，反之则可能产生危害。
+              </p>
+            </dd>
+            <dt>
+              <span class="term">LEGACY_CHARSET</span>
+            </dt>
+            <dd>
+              <p>
+                很多的键盘布局，在 Kbd 的软件包现有的键盘映射中并未囊括。如果该变量设置的编码是键盘映射中非 UTF-8 的编码，那么
+                <span class="command"><strong>console</strong></span>
+                的启动脚本就不会将键盘映射转换为 UTF-8。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          下面是一些例子：
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                对于非 Unicode 的设置，通常只需用到变量 KEYMAP 和 FONT。例如，下面这个波兰的例子：
+              </p>
+              <pre class="userinput">
+<kbd class="command">cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/sysconfig/console
+
+KEYMAP="pl2"
+FONT="lat2a-16 -m 8859-2"
+
+# End /etc/sysconfig/console</code>
+EOF</kbd>
+</pre>
+            </li>
+            <li class="listitem">
+              <p>
+                正如上面提到的，有的时候需要对现有的键盘映射稍加调整。下面便是在德语的键盘映射加入欧元符号的例子：
+              </p>
+              <pre class="userinput">
+<kbd class="command">cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/sysconfig/console
+
+KEYMAP="de-latin1"
+KEYMAP_CORRECTIONS="euro2"
+FONT="lat0-16 -m 8859-15"
+UNICODE="1"
+
+# End /etc/sysconfig/console</code>
+EOF</kbd>
+</pre>
+            </li>
+            <li class="listitem">
+              <p>
+                以下是保加利亚启用 Unicode 的一个例子，用的是现成的 UTF-8 键盘映射：
+              </p>
+              <pre class="userinput">
+<kbd class="command">cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/sysconfig/console
+
+UNICODE="1"
+KEYMAP="bg_bds-utf8"
+FONT="LatArCyrHeb-16"
+
+# End /etc/sysconfig/console</code>
+EOF</kbd>
+</pre>
+            </li>
+            <li class="listitem">
+              <p>
+                由于上个例子中用到了一个 512-glyph 的 LatArCyrHeb-16 字体，这里说明以下，在不使用
+                framebuffer 的情况下，控制台并不能支持如此鲜艳的色彩。如果你想在不使用 framebuffer
+                的情况下实现多彩的颜色，并且不会有需要使用其他语言字符的困扰，你可以使用指定语言的 256-glyph 字符，如下所示：
+              </p>
+              <pre class="userinput">
+<kbd class="command">cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/sysconfig/console
+
+UNICODE="1"
+KEYMAP="bg_bds-utf8"
+FONT="cyr-sun16"
+
+# End /etc/sysconfig/console</code>
+EOF</kbd>
+</pre>
+            </li>
+            <li class="listitem">
+              <p>
+                下面的例子演示了键盘映射从 ISO-8859-15 到 UTF-8 的自动转换，并且在 Unicode 模式下启用了死键：
+              </p>
+              <pre class="userinput">
+<kbd class="command">cat &gt; /etc/sysconfig/console &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/sysconfig/console
+
+UNICODE="1"
+KEYMAP="de-latin1"
+KEYMAP_CORRECTIONS="euro2"
+LEGACY_CHARSET="iso-8859-15"
+FONT="LatArCyrHeb-16 -m 8859-15"
+
+# End /etc/sysconfig/console</code>
+EOF</kbd>
+</pre>
+            </li>
+            <li class="listitem">
+              <p>
+                有些键盘映射包含死键（比方说，一些键本身并不能产生一个字符，但是却可以给下一个键产生的字符加上音调），或是定义了组合规则（例如：在默认键盘映射中「按
+                Ctrl+. A E 可以得到 Æ」。Linux-5.2.8
+                只有在组合起来的字符不是多字节的时候，才能正确地辨识出键盘映射中死键和组合规则。这个缺陷并不会影响到欧文的键盘映射，因为有音节的字符要么已经加入到无音节的
+                ASCII 字符中了，要么两种 ASCII 字符已被结合在一起。然而在 UTF-8
+                模式下会出现问题，比方说，希腊语便时常需要在「字母」上添加音调。解决的方法便是，要么避免使用 UTF-8，要么安装 X
+                Window 系统，这样就不会有这种输入处理中的限制了。
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                对于中文，日语，韩语以及一些其他的语言需要的字符，Linux
+                的控制台还无法通过配置是之正常显示。用户若要使用这些语言，需要安装 X Window
+                系统，用于扩充所需字符域的字体，以及合适的输入法（例如，支持语言十分广泛的 SCIM）。
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            <code class="filename">/etc/sysconfig/console</code> 文件只负责 Linux
+            文本控制台的本地化。对于 X Window 系统，通过 ssh
+            的会话，以及串口的控制台的键盘布局和终端字体，以上的设定并不适用。所以这些情况下，不要应用列出的最后两项设置中提到限制。
+          </p>
+        </div>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="ch-scripts-createfiles" name=
+          "ch-scripts-createfiles"></a>7.6.6. 在启动时创建文件
+        </h2>
+        <p>
+          有时，希望在启动时创建文件。例如，<code class="filename">/tmp/.ICE-unix</code>
+          目录就可能需要创建。这可以通过在 <code class=
+          "filename">/etc/sysconfig/createfiles</code>
+          配置脚本中创建一个条目来达成。该文件的格式可以参考默认配置文件中的注释。
+        </p>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="ch-scripts-sysklogd" name="ch-scripts-sysklogd"></a>7.6.7.
+          配置 sysklogd 脚本
+        </h2>
+        <p>
+          <code class="filename">sysklogd</code> 脚本调用 <span class=
+          "command"><strong>syslogd</strong></span> 程序作为 System V
+          初始化的一部分。<em class="parameter"><code>-m 0</code></em> 选项会关闭
+          <span class="command"><strong>syslogd</strong></span>默认每 20
+          分钟写一次日志的时间戳标记。如果你想要开启周期性的时间戳标记，编辑 <code class=
+          "filename">/etc/sysconfig/rc.site</code> 并定义变量 SYSKLOGD_PARMS
+          设为需要的值。例如，想要清除所有的参数，只需把变量设置为空值：
+        </p>
+        <pre class="screen">
+SYSKLOGD_PARMS=
+</pre>
+        <p>
+          运行 <strong class="userinput"><code>man
+          syslogd</code></strong>，查看更多选项：
+        </p>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="ch-scripts-site" name="ch-scripts-site"></a>7.6.8. 文件
+          rc.site
+        </h2>
+        <p>
+          可选的 <code class="filename">/etc/sysconfig/rc.site</code>
+          文件中包含着那些为每个 System V 启动脚本自动设置好的设定。这些设定也可以在 <code class=
+          "filename">/etc/sysconfig/</code> 目录中的 <code class=
+          "filename">hostname</code>，<code class=
+          "filename">console</code>，和<code class="filename">clock</code>
+          文件中设置。如果这些设定值同时在以上的这些文件和 <code class="filename">rc.site</code>
+          中设定了，那么脚本中的设定值将会被优先采用。
+        </p>
+        <p>
+          <code class="filename">rc.site</code> 中还包含了另外一些可以自定义的启动过程的参数。设置
+          IPROMPT 变量会启用启动脚本的选择性运行。其他的选项，在文件的注释中有所描述。文件的默认版本如下所示：
+        </p>
+        <pre class="auto">
+# rc.site
+# Optional parameters for boot scripts.
+
+# Distro Information
+# These values, if specified here, override the defaults
+#DISTRO="Linux From Scratch" # The distro name
+#DISTRO_CONTACT="lfs-dev@linuxfromscratch.org" # Bug report address
+#DISTRO_MINI="LFS" # Short name used in filenames for distro config
+
+# Define custom colors used in messages printed to the screen
+
+# Please consult `man console_codes` for more information
+# under the "ECMA-48 Set Graphics Rendition" section
+#
+# Warning: when switching from a 8bit to a 9bit font,
+# the linux console will reinterpret the bold (1;) to
+# the top 256 glyphs of the 9bit font.  This does
+# not affect framebuffer consoles
+
+# These values, if specified here, override the defaults
+#BRACKET="\\033[1;34m" # Blue
+#FAILURE="\\033[1;31m" # Red
+#INFO="\\033[1;36m"    # Cyan
+#NORMAL="\\033[0;39m"  # Grey
+#SUCCESS="\\033[1;32m" # Green
+#WARNING="\\033[1;33m" # Yellow
+
+# Use a colored prefix
+# These values, if specified here, override the defaults
+#BMPREFIX="      "
+#SUCCESS_PREFIX="${SUCCESS}  *  ${NORMAL} "
+#FAILURE_PREFIX="${FAILURE}*****${NORMAL} "
+#WARNING_PREFIX="${WARNING} *** ${NORMAL} "
+
+# Manually seet the right edge of message output (characters)
+# Useful when resetting console font during boot to override
+# automatic screen width detection
+#COLUMNS=120
+
+# Interactive startup
+#IPROMPT="yes" # Whether to display the interactive boot prompt
+#itime="3"    # The amount of time (in seconds) to display the prompt
+
+# The total length of the distro welcome string, without escape codes
+#wlen=$(echo "Welcome to ${DISTRO}" | wc -c )
+#welcome_message="Welcome to ${INFO}${DISTRO}${NORMAL}"
+
+# The total length of the interactive string, without escape codes
+#ilen=$(echo "Press 'I' to enter interactive startup" | wc -c )
+#i_message="Press '${FAILURE}I${NORMAL}' to enter interactive startup"
+
+# Set scripts to skip the file system check on reboot
+#FASTBOOT=yes
+
+# Skip reading from the console
+#HEADLESS=yes
+
+# Write out fsck progress if yes
+#VERBOSE_FSCK=no
+
+# Speed up boot without waiting for settle in udev
+#OMIT_UDEV_SETTLE=y
+
+# Speed up boot without waiting for settle in udev_retry
+#OMIT_UDEV_RETRY_SETTLE=yes
+
+# Skip cleaning /tmp if yes
+#SKIPTMPCLEAN=no
+
+# For setclock
+#UTC=1
+#CLOCKPARAMS=
+
+# For consolelog (Note that the default, 7=debug, is noisy)
+#LOGLEVEL=7
+
+# For network
+#HOSTNAME=mylfs
+
+# Delay between TERM and KILL signals at shutdown
+#KILLDELAY=3
+
+# Optional sysklogd parameters
+#SYSKLOGD_PARMS="-m 0"
+
+# Console parameters
+#UNICODE=1
+#KEYMAP="de-latin1"
+#KEYMAP_CORRECTIONS="euro2"
+#FONT="lat0-16 -m 8859-15"
+#LEGACY_CHARSET=
+
+</pre>
+        <div class="sect3">
+          <h3 class="sect3">
+            7.6.8.1. 自定义启动和关闭的脚本
+          </h3>
+          <p>
+            LFS 启动脚本会以相当效率的方式启动和关闭系统，不过你可以在 rc.site
+            文件中进行调整，来提升速度或是根据需求调整消息。若是有这样的需求，就去调整上面 <code class=
+            "filename">/etc/sysconfig/rc.site</code> 文件的设置吧！
+          </p>
+          <div class="itemizedlist">
+            <ul>
+              <li class="listitem">
+                <p>
+                  在启动脚本 <code class="filename">udev</code> 运行时，会调用一次
+                  <span class="command"><strong>udev
+                  settle</strong></span>，完成检测需要很长时间。这段时间根据当前系统的设备，可花可不花。如果你需要的仅仅是简单的分区和单个网卡，在启动的过程中，就没有必要等待这个命令执行。通过设置变量
+                  OMIT_UDEV_SETTLE=y，可以跳过此命令。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  启动脚本 <code class="filename">udev_retry</code>
+                  默认也执行<span class="command"><strong>udev
+                  settle</strong></span>。该命令仅在 <code class=
+                  "filename">/var</code> 目录是分开挂载的情况下需要。因为这种情况下时钟需要文件
+                  <code class=
+                  "filename">/var/lib/hwclock/adjtime</code>。其他的自定义设置可能也需要等待
+                  udev 执行完成，但是在许多的安装中不需要。设置变量 OMIT_UDEV_RETRY_SETTLE=y 跳过命令。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  默认情况下，文件系统检测静默执行。看上去就像是启动过程中的一个延迟。想要打开 <span class=
+                  "command"><strong>fsck</strong></span> 的输出，设置变量。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  重起时，你可能想完全的跳过文件系统检测 <span class=
+                  "command"><strong>fsck</strong></span>。为此，可以创建 <code class=
+                  "filename">/fastboot</code> 文件或是以 <span class=
+                  "command"><strong>/sbin/shutdown -f -r now</strong></span>
+                  命令重启系统。另一方面，你也可以通过创建 <code class=
+                  "filename">/forcefsck</code>，或是在运行 <span class=
+                  "command"><strong>shutdown</strong></span> 命令时，用 <em class=
+                  "parameter"><code>-F</code></em> 参数代替<em class=
+                  "parameter"><code>-f</code></em>，以此来强制检测整个文件系统。
+                </p>
+                <p>
+                  设置变量 FASTBOOT=y 将禁用启动过程中的 <span class=
+                  "command"><strong>fsck</strong></span>，直至你将其移除。不推荐长时间地使用该方式。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  通常，<code class="filename">/tmp</code>
+                  目录中的所有文件会在启动时删除。根据存在目录与文件的数量，该操作会导致启动过程中明显的延迟。如果要跳过移除文件的操作，设置变量
+                  SKIPTMPCLEAN=y。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  在关机的过程中，<span class="command"><strong>init</strong></span>
+                  程序会向每一个已经启动的程序（例如，agetty）发送一个 TERM 信号，等一段时间（默认为 3
+                  秒），然后给每个进程发送 KILL 信号。对没有被自身脚本关闭的进程，<span class=
+                  "command"><strong>sendsignals</strong></span>
+                  脚本会重复此过程。<span class="command"><strong>init</strong></span>
+                  的延迟可以通过参数来设置。比方说，想去掉 <span class=
+                  "command"><strong>init</strong></span> 的延迟，可以通过在关机或重启时使用
+                  -t0 参数（如，<span class="command"><strong>/sbin/shutdown -t0
+                  -r now</strong></span>）。<span class=
+                  "command"><strong>sendsignals</strong></span> 脚本的延迟可以通过设置参数
+                  KILLDELAY=0 跳过。
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="network.html" title="通用网络配置">上一页</a>
+          <p>
+            通用网络配置
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="profile.html" title=
+          "Bash Shell 启动文件">下一页</a>
+          <p>
+            Bash Shell 启动文件
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

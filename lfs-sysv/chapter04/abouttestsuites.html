@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      4.6.&nbsp;关于测试套件
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;4&nbsp;章&nbsp;最后的准备工作
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutsbus.html" title="关于 SBUs">上一页</a>
+          <p>
+            关于 SBUs
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter05/chapter05.html" title=
+          "构建临时系统">下一页</a>
+          <p>
+            构建临时系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "第&nbsp;4&nbsp;章&nbsp;最后的准备工作">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="prepare-abouttestsuites" name=
+        "prepare-abouttestsuites"></a>4.6. 关于测试套件
+      </h1>
+      <p>
+        很多软件包都提供相应的测试套件。为新构建的软件包运行测试套件是非常好的习惯，因为这样做可以「保证」所有功能都已编译正确。经由一系列的测试，套件往往能够检查出软件包的功能是否都如开发人员预想的那样。然而，这并不能保证所测试的软件包万无一失。
+      </p>
+      <p>
+        有一些测试套件要相较而言更为重要。例如，核心工具链软件包——GCC, Binutils 和
+        Glibc——对于对于一个系统的正常运转起到至关重要的作用。要完成 GCC 和 Glibc
+        的测试套件可能要花费很长的时间，特别是对于硬件比较慢的设备来说，但还是强烈推荐完成它们！
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          经验表明，在 <a class="xref" href="../chapter05/chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">第 5 章</a>
+          中运行测试套件并不是什么好主意。在该章节运行测试将不可避免地面临一个问题，宿主机或多或少会对测试产生影响，这经常导致一些令人摸不着头脑的错误信息。因为在
+          <a class="xref" href="../chapter05/chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">第 5 章</a>
+          中构建的这些工具只是临时的，最终我们并不需要它们，所以我们并不推荐普通读者在 <a class="xref" href=
+          "../chapter05/chapter05.html" title="第&nbsp;5&nbsp;章&nbsp;构建临时系统">第
+          5 章</a> 中运行测试套件。虽然为测试者和开发者提供了测试套件的说明，但是这依旧是可选项。
+        </p>
+      </div>
+      <p>
+        对 Binutils 和 GCC
+        执行测试套件时可能会使伪终端（PTYs）耗尽。造成大量的测试失败。造成问题的原因有很多，但最有可能的原因是宿主系统没能正确设置
+        <code class="systemitem">devpts</code> 文件系统。针对这个问题在 <a class="ulink"
+        href=
+        "http://www.linuxfromscratch.org/lfs/faq.html#no-ptys">http://www.linuxfromscratch.org/lfs/faq.html#no-ptys</a>
+        中有更详尽的讨论。
+      </p>
+      <p>
+        还有一些测试套件运行错误，是开发人员已知且视为不重要的。查看 <a class="ulink" href=
+        "http://www.linuxfromscratch.org/lfs/build-logs/9.0/">http://www.linuxfromscratch.org/lfs/build-logs/9.0/</a>
+        中的日志，确认这些失败信息是否都是意料之中的。该网址中涉及的内容会贯穿全书所有的测试。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutsbus.html" title="关于 SBUs">上一页</a>
+          <p>
+            关于 SBUs
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter05/chapter05.html" title=
+          "构建临时系统">下一页</a>
+          <p>
+            构建临时系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "第&nbsp;4&nbsp;章&nbsp;最后的准备工作">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

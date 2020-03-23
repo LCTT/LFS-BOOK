@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.24.&nbsp;Gettext-0.20.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gawk.html" title="Gawk-5.0.1">上一页</a>
+          <p>
+            Gawk-5.0.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grep.html" title="Grep-3.3">下一页</a>
+          <p>
+            Grep-3.3
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-gettext" name="ch-tools-gettext"></a>5.24.
+        Gettext-0.20.1
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Gettext 软件包包含用于国际化和本土化的工具。这允许用 NLS（Native Language Support，本地语言支持）
+          编译程序，使得能以用户的本地语言输出信息。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">1.8 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">300 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          5.24.1. 安装 Gettext
+        </h2>
+        <p>
+          对于我们这次用到的临时工具集，我们只需要安装 Gettext 软件包里的 3 个程序。
+        </p>
+        <p>
+          配置 Gettext 准备编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --disable-shared</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置脚本参数的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-shared</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这次我们不需要安装任何的 Gettext 动态库，所以不需要编译。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          由于环境受限，建议不要在此阶段运行测试套件。
+        </p>
+        <p>
+          安装 <span class=
+          "command"><strong>msgfmt</strong></span>、<span class="command"><strong>msgmerge</strong></span>
+          和 <span class="command"><strong>xgettext</strong></span> 程序：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /tools/bin</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <p>
+          关于这个软件包的详细资料请参见： <a class="xref" href=
+          "../chapter06/gettext.html#contents-gettext" title=
+          "6.47.2.&nbsp;Gettext 软件包内容">第 6.47.2 节 「Gettext 软件包内容」</a>。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gawk.html" title="Gawk-5.0.1">上一页</a>
+          <p>
+            Gawk-5.0.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grep.html" title="Grep-3.3">下一页</a>
+          <p>
+            Grep-3.3
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.1.&nbsp;简介
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter06.html" title="安装基本的系统软件">上一页</a>
+          <p>
+            安装基本的系统软件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kernfs.html" title="准备虚拟内核文件系统">下一页</a>
+          <p>
+            准备虚拟内核文件系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-introduction" name="ch-system-introduction"></a>6.1.
+        简介
+      </h1>
+      <p>
+        在本章中，我们会进入构建环境开始认真地构建 LFS 系统了。我们将 chroot 到之前准备好的临时迷你 Linux
+        系统，做一些最后的准备工作，然后就开始安装软件包。
+      </p>
+      <p>
+        安装软件很简单。尽管很多时候安装指令能更短而且更具通用性，但我们还是选择为每个软件包都提供完整的指令，以减小引起错误的可能性。了解
+        Linux 系统如何工作的关键就是知道每个软件包的作用以及为什么你（或系统）需要它。
+      </p>
+      <p>
+        我们不建议在编译时使用优化。这虽然可以让程序运行得快那么一点点，但是却也有可能增加编译难度，以及在运行时出问题。如果在打开优化后编译失败，请试一下关闭优化编译看看。就算打开优化通过了编译，考虑到源代码和编译工具之间的复杂交互，仍然存在编译不正确的风险。还有需要注意
+        <code class="option">-march</code> 和 <code class=
+        "option">-mtune</code> 选项除了本书指定的值都未经测试。这有可能导致工具链软件包（Binutils、GCC 和
+        Glibc）发生问题。对比使用编译优化带来的好处与风险，这样做经常是得不偿失。第一次构建 LFS
+        系统还是推荐不要使用自定义优化。这样构建出来的系统一样会运行得很快，于此同时还很稳定。
+      </p>
+      <p>
+        本章里安装软件包的顺序需要严格遵守，这是为了保证不会有程序意外地依赖与 <code class=
+        "filename">/tools</code>
+        路径的硬链相关的目录。同样的理由，不要同时编译不同的软件包。并行地编译也许能节省一点时间（特别是在双 CPU
+        电脑上），但是它可能会导致程序里存在包含到 <code class="filename">/tools</code>
+        目录的硬链接，这样的话在这个目录移除后程序就不能正常工作了。
+      </p>
+      <p>
+        在安装指令之前，每个页面都提供了关于软件包的信息，包括其中所包含内容的精确描述，构建需求的大致时间，以及在过程中需求磁盘空间的大小。在安装指令之后，是一个该软件包即将安装的程序和库（及概要说明）的列表。
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          第六章里软件包的 SBU 数值和所需磁盘空间包含了可能存在的测试套件数据。
+        </p>
+      </div>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.1.1. 关于库
+        </h2>
+        <p>
+          总的来说，LFS 的编辑们并不推荐构建和安装静态库。许多静态库的初衷已经赶不上现在的 Linux
+          系统了。而且将静态库链接到程序还有不好之处。假设库更新需要移除一个安全问题，所有使用该静态库的程序都需要重新链接到新的库。由于静态库并不会总那么明显，有哪些相关的程序（以及需要链接的程序）很可能都不知道。
+        </p>
+        <p>
+          第六章的程序，我们移除或禁止了大部分静态库的安装。通常通过在 <span class=
+          "command"><strong>configure</strong></span> 命令中使用 <code class=
+          "option">--disable-static</code>
+          项，便可以做到。有些情况下，可能用到其他代替的办法。当然也有少数情况，特别是 glibc 和 gcc
+          使用的静态库在软件包的构建过程中是必不可少的。
+        </p>
+        <p>
+          更多关于库的讨论，请参考 BLFS 中 <a class="ulink" href=
+          "http://www.linuxfromscratch.org/blfs//view/9.0/introduction/libraries.html">
+          库：静态还是共享？</a> 章节。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter06.html" title="安装基本的系统软件">上一页</a>
+          <p>
+            安装基本的系统软件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="kernfs.html" title="准备虚拟内核文件系统">下一页</a>
+          <p>
+            准备虚拟内核文件系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

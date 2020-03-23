@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.4.&nbsp;设备管理
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;基本系统配置
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="udev.html" title="设备与模块管理概述">上一页</a>
+          <p>
+            设备与模块管理概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="clock.html" title="配置系统时间">下一页</a>
+          <p>
+            配置系统时间
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-scripts-symlinks" name="ch-scripts-symlinks"></a>7.4. 设备管理
+      </h1>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          7.4.1. 处理相似性质的设备
+        </h2>
+        <p>
+          正如 <a class="xref" href="udev.html" title="7.3.&nbsp;设备与模块管理概述">第
+          7.3 节 「设备与模块管理概述」</a> 中解释的，具有相同功能的设备出现在 <code class=
+          "filename">/dev</code> 目录下的顺序是随机的。假如你有一个 USB
+          摄像头和一个电视调谐器，<code class="filename">/dev/video0</code> 有可能是 USB 摄像头，
+          <code class="filename">/dev/video1</code>
+          是电视调谐器，有时候又可能是反过来的。对于除声卡和网卡外的设备， 都可以通过创建自定义持久性符号链接的 udev
+          规则来固定。网卡如何设置请看 <a class="xref" href="network.html" title=
+          "7.2.&nbsp;通用网络配置">第 7.2 节 「通用网络配置」</a>，网卡的相关设置请看 <a class="ulink"
+          href=
+          "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/devices.html">
+          BLFS</a>。
+        </p>
+        <p>
+          对于你所有的硬件，都有可能遇到此问题（尽管此问题可能在你当前的 Linux 发行版上不存在），在 <code class=
+          "filename">/sys/class</code> 或是 <code class=
+          "filename">/sys/block</code> 目录下找到对应目录，比如，显卡可能的路径为 <code class=
+          "filename">/sys/class/video4linux/video<em class=
+          "replaceable"><code>X</code></em></code>。找到该设备的唯一设备标识（通常，厂商和产品 ID
+          以及/或 序列号会有用）：
+        </p>
+        <pre class="userinput">
+<kbd class="command">udevadm info -a -p /sys/class/video4linux/video0</kbd>
+</pre>
+        <p>
+          然后通过写入规则建立符号链接：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">cat &gt; /etc/udev/rules.d/83-duplicate_devs.rules &lt;&lt; "EOF"
+<code class="literal">
+# Persistent symlinks for webcam and tuner
+KERNEL=="video*", ATTRS{idProduct}=="1910", ATTRS{idVendor}=="0d81", \
+    SYMLINK+="webcam"
+KERNEL=="video*", ATTRS{device}=="0x036f", ATTRS{vendor}=="0x109e", \
+    SYMLINK+="tvtuner"
+</code>
+EOF</kbd>
+</pre>
+        <p>
+          最终，<code class="filename">/dev/video0</code> 和 <code class=
+          "filename">/dev/video1</code> 依旧会随机分配给 USB 摄像头和电视调谐器，但是
+          <code class="filename">/dev/tvtuner</code> 和 <code class=
+          "filename">/dev/webcam</code> 将会固定的分配给正确的设备。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="udev.html" title="设备与模块管理概述">上一页</a>
+          <p>
+            设备与模块管理概述
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="clock.html" title="配置系统时间">下一页</a>
+          <p>
+            配置系统时间
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;基本系统配置">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

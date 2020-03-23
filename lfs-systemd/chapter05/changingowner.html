@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.37.&nbsp;改变属主
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="stripping.html" title="清理无用内容">上一页</a>
+          <p>
+            清理无用内容
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../part3.html" title="构建 LFS 系统">下一页</a>
+          <p>
+            构建 LFS 系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-tools-changingowner" name=
+        "ch-tools-changingowner"></a>5.37. 改变属主
+      </h1>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          本书余下部分的命令都必须以 <code class="systemitem">root</code> 用户身份执行而不再是
+          <code class="systemitem">lfs</code> 用户。另外，再次确认下 <code class=
+          "envar">$LFS</code> 变量在 <code class="systemitem">root</code>
+          用户环境下也有定义。
+        </p>
+      </div>
+      <p>
+        当前，<code class="filename">$LFS/tools</code> 目录属于 <code class=
+        "systemitem">lfs</code> 用户，这是一个只存在于宿主系统上的帐号。如果继续保持 <code class=
+        "filename">$LFS/tools</code> 目录的现状，其中的文件将属于一个没有相关联帐号的用户
+        ID。这很危险，因为随后创建的用户有可能会分配到相同的用户 ID，从而变成 <code class=
+        "filename">$LFS/tools</code> 目录及其中所有文件的属主，以致留下恶意操作这些文件的可能。
+      </p>
+      <p>
+        为了解决这个问题，你可以在随后新的 <code class="systemitem">lfs</code> 系统里创建
+        <code class="filename">/etc/passwd</code> 文件时增加一个 lfs
+        用户，并注意给它分配和宿主系统里相同的用户和组 ID。不过更好的方式是，通过下面的命令将 <code class=
+        "filename">$LFS/tools</code> 目录的属主改为 <code class=
+        "systemitem">root</code> 用户：
+      </p>
+      <pre class="userinput">
+<kbd class="command">chown -R root:root $LFS/tools</kbd>
+</pre>
+      <p>
+        尽管 <code class="filename">$LFS/tools</code> 目录可以在 LFS
+        系统构建完成后删除，但仍然可以保留下来用于 构建额外的<span class=
+        "emphasis"><em>相同版本</em></span> LFS 系统。备份 <code class=
+        "filename">$LFS/tools</code> 目录到底有多少好处取决于你个人。
+      </p>
+      <div class="admon caution">
+        <img alt="[小心]" src="../images/caution.png" />
+        <h3>
+          小心
+        </h3>
+        <p>
+          如果你想保留临时工具用来构建新的 LFS 系统，<span class=
+          "emphasis"><em>现在</em></span>就要备份好。本书随后第六章中的指令将对当前的工具做些调整，导致在构建新系统时会失效。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="stripping.html" title="清理无用内容">上一页</a>
+          <p>
+            清理无用内容
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../part3.html" title="构建 LFS 系统">下一页</a>
+          <p>
+            构建 LFS 系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

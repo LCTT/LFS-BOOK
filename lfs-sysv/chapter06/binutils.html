@@ -1,0 +1,561 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.16.&nbsp;Binutils-2.32
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="bc.html" title="Bc-2.1.3">上一页</a>
+          <p>
+            Bc-2.1.3
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gmp.html" title="GMP-6.1.2">下一页</a>
+          <p>
+            GMP-6.1.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-binutils" name="ch-system-binutils"></a>6.16.
+        Binutils-2.32
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Binutils 软件包包含一个链接器、一个汇编器、以及其它处理目标文件的工具。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">7.4 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">5.1 GB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.16.1. 安装 Binutils
+        </h2>
+        <p>
+          通过一个简单测试验证在 chroot 环境下 PTY 工作正常：
+        </p>
+        <pre class="userinput">
+<kbd class="command">expect -c "spawn ls"</kbd>
+</pre>
+        <p>
+          这个命令应该输出以下内容：
+        </p>
+        <pre class="screen">
+<code class="computeroutput">spawn ls</code>
+</pre>
+        <p>
+          假如输出包括下面的信息，那么表示没有为 PTY 操作设置好环境。在运行 Binutils 和 GCC 的测试套件之前需要解决这个问题：
+        </p>
+        <pre class="screen">
+<code class="computeroutput">The system has no more ptys.
+Ask your system administrator to create more.</code>
+</pre>
+        <p>
+          删除一项测试，以保证不会影响到测试的完成：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i '/@\tincremental_copy/d' gold/testsuite/Makefile.in</kbd>
+</pre>
+        <p>
+          Binutils 的文档建议在一个专用的编译目录中编译 Binutils：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -v build
+cd       build</kbd>
+</pre>
+        <p>
+          配置 Binutils 准备编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">../configure --prefix=/usr       \
+             --enable-gold       \
+             --enable-ld=default \
+             --enable-plugins    \
+             --enable-shared     \
+             --disable-werror    \
+             --enable-64-bit-bfd \
+             --with-system-zlib</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置参数的意义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-gold</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                构建 gold 链接器并将其安装为 ld.gold（紧挨着默认链接器）。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-ld=default</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                构建原来的 bdf 链接器并将其安装为 ld（默认链接器）和 ld.bfd。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-plugins</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                为链接器启用插件支持。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-64-bit-bfd</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                启用 64 位支持（针对字宽较窄的主机）。64 位系统可能没什么必要，但也不会有什么坏处。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-system-zlib</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                使用安装的 zlib 库替代自带的版本构建。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make tooldir=/usr</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>make 参数的含义:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>tooldir=/usr</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                一般来说，tooldir (最终存放可执行文件的目录) 设置为 <code class=
+                "filename">$(exec_prefix)/$(target_alias)</code>。例如，x86_64
+                机器会把它扩展为 <code class=
+                "filename">/usr/x86_64-unknown-linux-gnu</code>。因为这是个自定制的系统，并不需要
+                <code class="filename">/usr</code>中的特定目标目录。如果系统用于交叉编译（例如，在
+                Intel 机器上编译能生成在 PowerPC 机器上运行的代码的软件包）会使用 <code class=
+                "filename">$(exec_prefix)/$(target_alias)</code>。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <div class="admon important">
+          <img alt="[重要]" src="../images/important.png" />
+          <h3>
+            重要
+          </h3>
+          <p>
+            本章节中的 Binutils 测试套件至关重要，任何情况下都不能跳过。
+          </p>
+        </div>
+        <p>
+          查看结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make -k check</kbd>
+</pre>
+        <p>
+          PC 相关的 offset 测试和 debug_msg.sh 中的测试已知会在 LFS 环境中测试失败。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make tooldir=/usr install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-binutils" name="contents-binutils"></a>6.16.2.
+          Binutils 内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">addr2line, ar, as, c++filt, dwp, elfedit, gprof, ld,
+              ld.bfd, ld.gold, nm, objcopy, objdump, ranlib, readelf, size,
+              strings, 和 strip</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libbfd.{a,so} 和 libopcodes.{a,so}</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/lib/ldscripts</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="addr2line" name="addr2line"></a><span class=
+                    "term"><span class=
+                    "command"><strong>addr2line</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换程序地址为文件名称和行号；给定一个地址和可执行文件的名称，它使用可执行文件中的调试信息来判断与该地址关联的源文件以及行号。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ar" name="ar"></a><span class="term"><span class=
+                    "command"><strong>ar</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建、更改以及抽取归档文件。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="as" name="as"></a><span class="term"><span class=
+                    "command"><strong>as</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个将 <span class="command"><strong>gcc</strong></span>
+                    的输出汇编到目标文件的汇编器。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="c-filt" name="c-filt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>c++filt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    链接器用来过滤 C++ 和 Java 符号以及防止重载函数冲突。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dwp" name="dwp"></a><span class=
+                    "term"><span class="command"><strong>dwp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    DWARF 打包实用程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="elfedit" name="elfedit"></a><span class=
+                    "term"><span class=
+                    "command"><strong>elfedit</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更新 ELF 文件的 ELF 文件头。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gprof" name="gprof"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gprof</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示调用关系图配置数据。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ld" name="ld"></a><span class="term"><span class=
+                    "command"><strong>ld</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个将多个目标文件和归档文件合并为单一文件，重定位数据及绑定符号引用的链接器。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ld.gold" name="ld.gold"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ld.gold</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个阉割版的 ld，仅支持 elf 对象文件格式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ld.bfd" name="ld.bfd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ld.bfd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    到 <span class="command"><strong>ld</strong></span> 的硬链接。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nm" name="nm"></a><span class="term"><span class=
+                    "command"><strong>nm</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    列出指定目标文件中出现的符号。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="objcopy" name="objcopy"></a><span class=
+                    "term"><span class=
+                    "command"><strong>objcopy</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转换某种类型的目标文件到另一种类型。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="objdump" name="objdump"></a><span class=
+                    "term"><span class=
+                    "command"><strong>objdump</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示给定目标文件的信息，用选项可以控制显示特定信息；显示的信息对于使用编译工具的程序员非常有用。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ranlib" name="ranlib"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ranlib</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    生成归档文件内容的索引并保存到归档文件；索引列出了所有归档文件成员——可重定位的目标文件定义的符号。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="readelf" name="readelf"></a><span class=
+                    "term"><span class=
+                    "command"><strong>readelf</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示 ELF 类型的二进制文件的信息。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="size" name="size"></a><span class=
+                    "term"><span class=
+                    "command"><strong>size</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    列出所给目标文件各部分大小和总的大小。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="strings" name="strings"></a><span class=
+                    "term"><span class=
+                    "command"><strong>strings</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对每个给定文件，输出不低于指定长度（默认是4）的可打印字符序列；对于目标文件，它默认只打印初始化和引导部分的字符串，而对于其它类型的文件扫描整个文件。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="strip" name="strip"></a><span class=
+                    "term"><span class=
+                    "command"><strong>strip</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从目标文件中去除符号。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libbfd" name="libbfd"></a><span class=
+                    "term"><code class="filename">libbfd</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    二进制文件描述库。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libopcodes" name="libopcodes"></a><span class=
+                    "term"><code class="filename">libopcodes</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个库用于处理操作码——「可读文本」版的处理器指令；用于构建类似 <span class=
+                    "command"><strong>objdump</strong></span> 的工具。
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="bc.html" title="Bc-2.1.3">上一页</a>
+          <p>
+            Bc-2.1.3
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gmp.html" title="GMP-6.1.2">下一页</a>
+          <p>
+            GMP-6.1.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

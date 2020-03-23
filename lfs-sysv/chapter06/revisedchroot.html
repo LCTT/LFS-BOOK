@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.80.&nbsp;清理
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="strippingagain.html" title=
+          "再次清理无用内容">上一页</a>
+          <p>
+            再次清理无用内容
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter07/chapter07.html" title=
+          "基本系统配置">下一页</a>
+          <p>
+            基本系统配置
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-revisedchroot" name=
+        "ch-system-revisedchroot"></a>6.80. 清理
+      </h1>
+      <p>
+        最后，清除运行测试留下来的多余文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">rm -rf /tmp/*</kbd>
+</pre>
+      <p>
+        现在，登出后用以下新的 chroot 命令重新进入 chroot 环境。在此以后当需要进入 chroot 环境时，都是用这个新的
+        chroot 命令：
+      </p>
+      <pre class="userinput">
+<kbd class="command">logout
+
+chroot "$LFS" /usr/bin/env -i          \
+    HOME=/root TERM="$TERM"            \
+    PS1='(lfs chroot) \u:\w\$ '        \
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+    /bin/bash --login</kbd>
+</pre>
+      <p>
+        这样做的原因是不再需要 <code class="filename">/tools</code> 中的程序。因此你可以删除
+        <code class="filename">/tools</code> 目录。
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          移除 <code class="filename">/tools</code> 也会删除用于运行工具链测试的 Tcl、Expect和
+          DejaGNU 的临时复制。如果你在后面还需要这些程序，需要重新编译并安装它们。BLFS
+          手册有关于这些的指令（请查看<a class="ulink" href=
+          "http://www.linuxfromscratch.org/blfs/">http://www.linuxfromscratch.org/blfs/</a>）。
+        </p>
+      </div>
+      <p>
+        如果通过手动或者重启卸载了虚拟内核文件系统，重新进入 chroot 的时候确保挂载了虚拟内核文件系统。在 <a class="xref"
+        href="kernfs.html#ch-system-bindmount" title=
+        "6.2.2.&nbsp;挂载和激活 /dev">第 6.2.2 节 「挂载和激活 /dev」</a> 和 <a class="xref"
+        href="kernfs.html#ch-system-kernfsmount" title=
+        "6.2.3.&nbsp;挂载虚拟文件系统">第 6.2.3 节 「挂载虚拟文件系统」</a> 中介绍了该过程。
+      </p>
+      <p>
+        还有一些此章之前为了一些软件包的回归测试而留下的静态库。这些库来自
+        binutils、bzip2、e2fsprogs、flex、libtool 和 zlib。如果想删的话，现在就删：
+      </p>
+      <pre class="userinput">
+<kbd class="command">rm -f /usr/lib/lib{bfd,opcodes}.a
+rm -f /usr/lib/libbz2.a
+rm -f /usr/lib/lib{com_err,e2p,ext2fs,ss}.a
+rm -f /usr/lib/libltdl.a
+rm -f /usr/lib/libfl.a
+rm -f /usr/lib/libz.a</kbd>
+</pre>
+      <p>
+        还有几个安装在 /usr/lib 和 /usr/libexec 目录下的文件，文件的扩展名为 .la。这些是「libtool
+        归档」文件，在 Linux 系统中通常不需要它们。这些都是没有必要的东西。想要删除的话，运行：
+      </p>
+      <pre class="userinput">
+<kbd class="command">find /usr/lib /usr/libexec -name \*.la -delete</kbd>
+</pre>
+      <p>
+        关于 libtool 归档文件的更多信息，参考 <a class="ulink" href=
+        "http://www.linuxfromscratch.org/blfs/view/9.0//introduction/la-files.html">
+        BLFS 段落「关于 Libtool 归档（.la）文件」</a>。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="strippingagain.html" title=
+          "再次清理无用内容">上一页</a>
+          <p>
+            再次清理无用内容
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter07/chapter07.html" title=
+          "基本系统配置">下一页</a>
+          <p>
+            基本系统配置
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

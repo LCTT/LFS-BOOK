@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.32.&nbsp;Flex-2.6.4
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="bison.html" title="Bison-3.4.1">上一页</a>
+          <p>
+            Bison-3.4.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grep.html" title="Grep-3.3">下一页</a>
+          <p>
+            Grep-3.3
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-flex" name="ch-system-flex"></a>6.32. Flex-2.6.4
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          Flex 软件包包括一个用于生成识别文本模式的程序的工具。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.5 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">36 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.32.1. 安装 Flex
+        </h2>
+        <p>
+          首先，修复一个 glibc-2.26 引入的问题：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i "/math.h/a #include &lt;malloc.h&gt;" src/flexdef.h</kbd>
+</pre>
+        <p>
+          构建过程假设能使用程序 <span class="application">help2man</span> 的 --help
+          选项来创建 man 手册。但这显然是不存在的，所以我们使用环境变量来跳过这步。现在，准备编译 Flex：
+        </p>
+        <pre class="userinput">
+<kbd class="command">HELP2MAN=/tools/bin/true \
+./configure --prefix=/usr --docdir=/usr/share/doc/flex-2.6.4</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果（大约 0.5 SBU）：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          一些程序还不知道 <span class="command"><strong>flex</strong></span>
+          并尝试运行它的预处理器 <span class=
+          "command"><strong>lex</strong></span>。为了支持这些程序，创建以 <code class=
+          "filename">lex</code> 仿真模式运行 <code class="filename">flex</code>
+          的符号链接 <span class="command"><strong>lex</strong></span>：
+        </p>
+        <pre class="userinput">
+<kbd class="command">ln -sv flex /usr/bin/lex</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-flex" name="contents-flex"></a>6.32.2. Flex 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">flex, flex++ (链接到 flex), 和 lex (链接到 flex)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libfl.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装目录:</strong> <span class=
+              "segbody">/usr/share/doc/flex-2.6.4</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="flex" name="flex"></a><span class=
+                    "term"><span class=
+                    "command"><strong>flex</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个用于生成能识别文本模式程序的工具；它允许指定多种用于模式发现的规则，从而消除了开发专门程序的需要
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="flexpp" name="flexpp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>flex++</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    flex 的扩展，用于生成 C++ 代码和类。是到 <span class=
+                    "command"><strong>flex</strong></span> 的符号链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lex" name="lex"></a><span class=
+                    "term"><span class="command"><strong>lex</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    一个以 <span class="command"><strong>flex</strong></span>
+                    仿真模式运行 <span class="command"><strong>lex</strong></span>
+                    的符号链接。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libfl" name="libfl"></a><span class=
+                    "term"><code class="filename">libfl</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <code class="filename">flex</code> 库
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="bison.html" title="Bison-3.4.1">上一页</a>
+          <p>
+            Bison-3.4.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="grep.html" title="Grep-3.3">下一页</a>
+          <p>
+            Grep-3.3
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.36.&nbsp;GDBM-1.18.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="libtool.html" title="Libtool-2.4.6">上一页</a>
+          <p>
+            Libtool-2.4.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gperf.html" title="Gperf-3.1">下一页</a>
+          <p>
+            Gperf-3.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-gdbm" name="ch-system-gdbm"></a>6.36. GDBM-1.18.1
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          GDBM 软件包包含 GNU 数据库管理器。是使用扩展散列，工作方法和标准 UNIX dbm
+          类似的数据库函数库。该库提供存储键/数据对、通过键搜索和检索数据、以及删除键和数据的原语。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">11 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.36.1. 安装 GDBM
+        </h2>
+        <p>
+          准备编译 GDBM：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr    \
+            --disable-static \
+            --enable-libgdbm-compat</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><code class=
+              "envar">--enable-libgdbm-compat</code></span>
+            </dt>
+            <dd>
+              <p>
+                该选项启用编译 libgdbm 兼容性库，因为一些 LFS 之外的软件包可能需要它提供的旧的 DBM 例程。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          用以下命令测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-gdbm" name="contents-gdbm"></a>6.36.2. GDBM 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">gdbm_dump, gdbm_load, 和 gdbmtool</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libgdbm.so 和 libgdbm_compat.so</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gdbm_dump" name="gdbm_dump"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gdbm_dump</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    转储 GDBM 数据库到文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gdbm_load" name="gdbm_load"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gdbm_load</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从转储文件重建一个 GDBM 数据库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gdbmtool" name="gdbmtool"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gdbmtool</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    测试和更改 GDBM 数据库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgdbm" name="libgdbm"></a><span class=
+                    "term"><code class="filename">libgdbm</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含操作散列数据库的函数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgdbm_compat" name=
+                    "libgdbm_compat"></a><span class="term"><code class=
+                    "filename">libgdbm_compat</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含旧的 DBM 函数的兼容性库
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="libtool.html" title="Libtool-2.4.6">上一页</a>
+          <p>
+            Libtool-2.4.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gperf.html" title="Gperf-3.1">下一页</a>
+          <p>
+            Gperf-3.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0 ">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

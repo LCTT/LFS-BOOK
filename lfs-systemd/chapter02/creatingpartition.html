@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      2.4.&nbsp;创建新分区
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;2&nbsp;章&nbsp;准备宿主系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="stages.html" title="分阶段构建 LFS">上一页</a>
+          <p>
+            分阶段构建 LFS
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingfilesystem.html" title=
+          "在分区上创建文件系统">下一页</a>
+          <p>
+            在分区上创建文件系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="space-creatingpartition" name=
+        "space-creatingpartition"></a>2.4. 创建新分区
+      </h1>
+      <p>
+        与绝大多数其它操作系统相同，安装 LFS 通常需要专门的分区。构建 LFS
+        系统比较推荐的方法是使用可用的空分区，或者如果条件允许，最好是在未分区的空间里新建分区。
+      </p>
+      <p>
+        最小化的系统需要大约 6 GB 的分区，这足以存储所有的源码包及满足编译的需求。但如果要将 LFS 作为主要的 Linux
+        系统，可能需要安装其它附加的软件，这将需要额外的空间。考虑到了日后所需的空间，一个 20 GB 的分区是比较合理的。LFS
+        系统本身并不会占用这么多的空间，但大分区将能提供充裕的临时储存空间，并为完成 LFS
+        以后添加附加功能留有余地。编译软件包可能需要较大的磁盘空间，但这些空间可以在软件包安装后回收。
+      </p>
+      <p>
+        由于编译过程中所需的内存（RAM）可能不足，用一个小型的磁盘分区作为 <code class=
+        "systemitem">swap</code>
+        空间是个不错的想法。内核会在此分区中储存较少使用的数据，从而为活动进程提供更多的内存。LFS 系统可以与宿主系统共用
+        <code class="systemitem">swap</code> 分区，这样就没有必要再新建一个了。
+      </p>
+      <p>
+        启动磁盘分区程序，通过如 <span class="command"><strong>cfdisk</strong></span> 或
+        <span class="command"><strong>fdisk</strong></span> 加上新分区所在的磁盘名——例如
+        <code class="filename">/dev/sda</code> 作为主要的磁盘。创建一个 Linux 本地分区，并按需创建
+        <code class="systemitem">swap</code> 分区。如果需要，可以参考 <code class=
+        "filename">cfdisk(8)</code> 或 <code class="filename">fdisk(8)</code>。
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          对于有经验的用户，也可自行定制分区分案。新版 LFS 系统支持软件 <a class="ulink" href=
+          "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/raid.html">RAID</a>
+          阵列或 <a class="ulink" href=
+          "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/aboutlvm.html">
+          LVM</a> 然而，这些方案需要用到 <a class="ulink" href=
+          "http://www.linuxfromscratch.org/blfs/view/9.0/postlfs/initramfs.html">
+          initramfs</a>，这涉及到比较复杂的话题。并不建议首次尝试 LFS 的用户使用这样的分区方法。
+        </p>
+      </div>
+      <p>
+        请记住新分区的位置（例如，<code class="filename">sda5</code>）。本书中将称其为 LFS 分区。还需要记住
+        <code class="systemitem">swap</code> 分区的位置。这些将会在<code class=
+        "filename">/etc/fstab</code> 文件中用到。
+      </p>
+      <div class="sect2" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          2.4.1. 其它分区问题
+        </h2>
+        <p>
+          LFS
+          邮件列表中经常有人问到关于系统分区的建议。这一话题非常主观。大多数发行版默认情况下会使用整个磁盘，仅为交换分区保留一小部分空间，但由于种种原因，这并不适合
+          LFS。这样做会降低灵活性，使得多个发行版或几个 LFS
+          版本之间共享数据变得困难，也让备份更耗时，还会导致文件系统结构分配不合理而浪费磁盘空间。
+        </p>
+        <div class="sect3">
+          <h3 class="sect3">
+            2.4.1.1. 根分区
+          </h3>
+          <p>
+            为 LFS 根分区（不要与 <code class="filename">/root</code> 目录混淆）分配 10 GB
+            的空间是比较好的折中方案。这为构建 LFS 和大多数 BLFS 提供了足够的空间，也小到可以轻易创建多个分区用于实验。
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            2.4.1.2. 交换分区
+          </h3>
+          <p>
+            大多数发行版会自动创建交换分区。一般来说，交换分区的推荐大小为物理内存的两倍左右，然而鲜少需要这样做。若是磁盘空间有限，可以设置为
+            2 GB的交换分区并查看磁盘的交换量。
+          </p>
+          <p>
+            发生内存交换其实并不好。通常，你只需要观察磁盘活动以及系统对命令的响应程度就能知道这个系统是否在进行交换。通常在使用非常不合理的命令时才会发生交换，如尝试编辑一个大小为
+            5 GB 的文件时。如果交换在你的系统上是常态，那最好的办法就是为你的系统添置更多的物理内存。
+          </p>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            2.4.1.3. Grub Bios 分区
+          </h3>
+          <p>
+            如果是在 GPT（GUID Partition Table，GUID 分区表）下分 <span class=
+            "emphasis"><em>boot 磁盘</em></span>，那么必然会产生一个约 1 MB
+            左右的小分区，如果之前没有的话。这个分区可能还没有被格式化，但是它必须存在，GRUB 会在安装引导器的时候用到。如果使用
+            <span class=
+            "command"><strong>fdisk</strong></span>，该分区通常会被标记为「BIOS
+            Boot」。而如果使用的是 <span class=
+            "command"><strong>gdisk</strong></span>，则分区代码应为 <span class=
+            "emphasis"><em>EF02</em></span> 。
+          </p>
+          <div class="admon note">
+            <img alt="[注意]" src="../images/note.png" />
+            <h3>
+              注意
+            </h3>
+            <p>
+              Grub Bios 分区必须位于 BIOS 用于引导系统的磁盘驱动器上。却不一定要和 LFS
+              的根分区位于同一个磁盘驱动器。一个系统里的磁盘可能会用到不同类型的分区表。该磁盘仅与 boot 磁盘的分区表类型有关。
+            </p>
+          </div>
+        </div>
+        <div class="sect3">
+          <h3 class="sect3">
+            2.4.1.4. 常用分区
+          </h3>
+          <p>
+            在分配磁盘时，有些分区不是必须的，但却值得你考虑。以下列表并不全面，仅供参考。
+          </p>
+          <div class="itemizedlist">
+            <ul>
+              <li class="listitem">
+                <p>
+                  /boot –
+                  强烈推荐。此分区用于存储内核和其它启动信息。为了减少大容量磁盘启动时的潜在问题，尽量将该分区设为磁盘驱动器上第一个物理分区。100
+                  MB 的空间就十分充裕了。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  /home – 强烈推荐。home 目录可用于跨发行版或多个 LFS
+                  版本之间共享用户自定义内容。应该将尽量多的磁盘都分配给 home 分区。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  /usr – 独立的 /usr 分区常见于瘦客户端服务器或无盘工作站。LFS 通常不需要。5 GB
+                  大小足以应付大部分安装。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  /opt – 该目录常用于在 BLFS 中，安装多个像 Gnome 或 KDE 这样无需将文件嵌入 /usr
+                  层次结构的大型软件包。如果使用的话，5 到 10 GB 的空间就足够了。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  /tmp – 独立的 /tmp 分区是比较少见的，但这在配置瘦客户端时会有用。如果使用的话，很少超过几 GB。
+                </p>
+              </li>
+              <li class="listitem">
+                <p>
+                  /usr/src – 该分区非常用于存储 BLFS 源文件并在构建不同版本的 LFS 中共享。它也可用于构建 BLFS
+                  软件包。30-50 GB 的分区可以提供足够的空间。
+                </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+            任何你需要在启动时自动挂载的单独分区都需要写入到 <code class="filename">/etc/fstab</code>
+            文件中。有关如何指定分区的细节将在 <a class="xref" href="../chapter08/fstab.html"
+            title="8.2.&nbsp;创建 /etc/fstab 文件">第 8.2 节 「创建 /etc/fstab 文件」</a>
+            中讨论 。
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="stages.html" title="分阶段构建 LFS">上一页</a>
+          <p>
+            分阶段构建 LFS
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingfilesystem.html" title=
+          "在分区上创建文件系统">下一页</a>
+          <p>
+            在分区上创建文件系统
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备宿主系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

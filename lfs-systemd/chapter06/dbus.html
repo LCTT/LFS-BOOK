@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.73.&nbsp;D-Bus-1.12.16
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-9.0-systemd">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch （简体中文版） - 版本 9.0-systemd
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="systemd.html" title="systemd-241">上一页</a>
+          <p>
+            systemd-241
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="procps-ng.html" title=
+          "Procps-ng-3.3.15">下一页</a>
+          <p>
+            Procps-ng-3.3.15
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh" xml:lang="zh">
+      <h1 class="sect1">
+        <a id="ch-system-dbus" name="ch-system-dbus"></a>6.73. D-Bus-1.12.16
+      </h1>
+      <div class="package" lang="zh" xml:lang="zh">
+        <p>
+          D-Bus 是一个消息总线系统，应用之间相互通信的简单方式。D-Bus
+          支持系统守护进程（例如添加新硬件设备或打印队列更改事件）和每个用户的登录会话守护进程
+          （例如用户应用程序之间的一般进程间通信）。另外，消息总线在通用一对一消息传递框架之上构建，该框架使得任意两个应用可以直接通信（而不需要通过消息总线守护进程）。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">大致构建用时:</strong> <span class=
+              "segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">18 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          6.73.1. 安装 D-Bus
+        </h2>
+        <p>
+          准备编译 D-Bus：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr                       \
+            --sysconfdir=/etc                   \
+            --localstatedir=/var                \
+            --disable-static                    \
+            --disable-doxygen-docs              \
+            --disable-xml-docs                  \
+            --docdir=/usr/share/doc/dbus-1.12.16 \
+            --with-console-auth-dir=/run/console</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>配置选项的含义：</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-console-auth-dir=/run/console</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项指定 ConsoleKit 验证目录的位置。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          该软件包附带了一个测试套件，但需求几个未包含在 LFS 中的软件包。运行测试套件的命令可以在 BLFS 指南 <a class=
+          "ulink" href=
+          "http://www.linuxfromscratch.org/blfs/view/9.0/general/dbus.html">http://www.linuxfromscratch.org/blfs/view/9.0/general/dbus.html</a>
+          中找到。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          需要移动共享库到 <code class="filename">/lib</code>，因此需要重建 <code class=
+          "filename">/usr/lib</code> 中的 <code class="filename">.so</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mv -v /usr/lib/libdbus-1.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so</kbd>
+</pre>
+        <p>
+          创建符号链接，使得 D-Bus 和 systemd 可以使用相同的 <code class=
+          "filename">machine-id</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">ln -sfv /etc/machine-id /var/lib/dbus</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh" xml:lang="zh">
+        <h2 class="sect2">
+          <a id="contents-dbus" name="contents-dbus"></a>6.73.2. D-Bus 软件包内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">dbus-cleanup-sockets, dbus-daemon, dbus-launch,
+              dbus-monitor, dbus-run-session, dbus-send, dbus-test-tool,
+              dbus-update-activation-environment, and dbus-uuidgen</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libdbus-1.{a,so}</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的目录:</strong> <span class=
+              "segbody">/etc/dbus-1, /usr/include/dbus-1.0,
+              /usr/lib/dbus-1.0, /usr/share/dbus-1,
+              /usr/share/doc/dbus-1.12.16, 和 /var/lib/dbus</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要介绍
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-cleanup-sockets" name=
+                    "dbus-cleanup-sockets"></a><span class=
+                    "term"><span class="command"><strong>dbus-cleanup-sockets</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用于清理目录中残留的套接字
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-daemon" name="dbus-daemon"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-daemon</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    D-Bus 消息总线守护进程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-launch" name="dbus-launch"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-launch</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从 shell 脚本启动 <span class=
+                    "command"><strong>dbus-daemon</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-monitor" name="dbus-monitor"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-monitor</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    监控 D-Bus 消息总线中传送的消息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-run-session" name=
+                    "dbus-run-session"></a><span class="term"><span class=
+                    "command"><strong>dbus-run-session</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从 shell 脚本中启动一个 <span class=
+                    "command"><strong>dbus-daemon</strong></span>
+                    会话总线实例并在会话中启动指定程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-send" name="dbus-send"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-send</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    发送消息到 D-Bus 消息总线
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-test-tool" name=
+                    "dbus-test-tool"></a><span class="term"><span class=
+                    "command"><strong>dbus-test-tool</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    帮助软件包测试 <span class="application">D-Bus</span> 的工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-update-activation-environment" name=
+                    "dbus-update-activation-environment"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-update-activation-environment</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更新 <span class="application">D-Bus</span> 会话服务的环境变量
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dbus-uuidgen" name="dbus-uuidgen"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dbus-uuidgen</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    生成一个通用唯一 ID
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libdbus-1" name="libdbus-1"></a><span class=
+                    "term"><code class="filename">libdbus-1</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含用于和 D-Bus 消息总线交互的 API 函数
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="systemd.html" title="systemd-241">上一页</a>
+          <p>
+            systemd-241
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="procps-ng.html" title=
+          "Procps-ng-3.3.15">下一页</a>
+          <p>
+            Procps-ng-3.3.15
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装基本的系统软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch （简体中文版） - 版本 9.0-systemd">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
