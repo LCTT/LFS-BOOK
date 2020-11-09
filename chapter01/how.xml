@@ -30,13 +30,13 @@
 
   <para>本手册的 <xref linkend="chapter-partitioning"/> 描述了如何创建一个新的 Linux 本地分区和文件系统。这就是编译和安装全新的 LFS 系统的地方。<xref linkend="chapter-getting-materials"/> 介绍了构建 LFS 系统所需要下载的软件包和补丁，以及如何将它们保存到新的文件系统中。<xref linkend="chapter-final-preps"/> 讨论了如何设置恰当的工作环境。还请务必仔细阅读 <xref linkend="chapter-final-preps"/>，它会告诉您在继续 <xref linkend="chapter-temporary-tools"/> 以及后面的工作之前，尤其需要注意的几件事请。</para>
 
-  <para><xref linkend="chapter-temporary-tools"/> 解释了为构建编译套件（工具链）需要安装的多个软件包，在 <xref linkend="chapter-building-system"/> 中将会使用这套工具构建正真的系统。其中有一些包需要解决循环依赖——比如你需要一个编译器来编译出一个编译器。</para>
+  <para><xref linkend="chapter-temporary-tools"/> 解释了为构建编译套件（工具链）需要安装的多个软件包，在 <xref linkend="chapter-building-system"/> 中将会使用这套工具构建真正的系统。其中有一些包需要解决循环依赖——比如你需要一个编译器来编译出一个编译器。</para>
 
   <para><xref linkend="chapter-temporary-tools"/> 还展示了如何构建第一阶段的工具链，包括 Binutils 和 GCC（第一阶段的主要意义就是重新安装这两个核心软件包）。下一步将来构建 Glibc，即 C 语言库。Glibc 将使用第一阶段构建的工具链编译。然后，第二阶段的工具链编译就完成了。这次，工具链将会被动态链接到新建立的 Glibc。<xref linkend="chapter-temporary-tools"/> 中剩余的其他包都将使用第二阶段的工具链编译。当这些过程完成之后，除了正在运行的内核外，LFS 的安装过程就不再已赖于宿主发行版了。</para>
 
   <para>把新系统从宿主发行版中分离出来的工作看起来可能有点多余。<xref linkend="ch-tools-toolchaintechnotes"/> 给出了为什么要这么做的完整技术说明。</para>
 
-  <para>在 <xref linkend="chapter-building-system"/> 中，将构建完整的 LFS 系统。我们将会使用 <command>chroot</command>（切换成 root 用户的）命令来进入一个虚拟环境并启动一个新的 shell，且整个虚拟环境就将作为 LFS 分区的根目录。这个过程，和重起电脑并指示内核将 LFS 分区挂载为根分区十分相像。只是系统并没有真正重启，而是通过 <command>chroot</command> 实现的，而这样做的原因是想要实现一个正真可以启动的系统还有很多工作没有完成。使用「chrooting」最大的好处在于，构建 LFS 的同时可以继续使用宿主系统。在等待包编译的过程中，你可以继续正常的使用电脑。</para>
+  <para>在 <xref linkend="chapter-building-system"/> 中，将构建完整的 LFS 系统。我们将会使用 <command>chroot</command>（切换成 root 用户的）命令来进入一个虚拟环境并启动一个新的 shell，且整个虚拟环境就将作为 LFS 分区的根目录。这个过程，和重启电脑并指示内核将 LFS 分区挂载为根分区十分相像。只是系统并没有真正重启，而是通过 <command>chroot</command> 实现的，而这样做的原因是想要实现一个真正可以启动的系统还有很多工作没有完成。使用「chrooting」最大的好处在于，构建 LFS 的同时可以继续使用宿主系统。在等待包编译的过程中，你可以继续正常的使用电脑。</para>
 
   <para>在完成基本的安装过程之后，您还需要阅读 <xref linkend="chapter-bootscripts"/> 对系统做简单的配置，然后阅读 <xref linkend="chapter-bootable"/> 配置内核和引导器（bootloader）。<xref linkend="chapter-finalizing"/> 包含了一些 LFS 后续使用的建议。完成本手册的所有步骤之后，就可以重启电脑，进入新的 LFS 系统了。</para>
 
