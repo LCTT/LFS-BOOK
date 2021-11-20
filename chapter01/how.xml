@@ -30,7 +30,7 @@
 
   <para>本手册的 <xref linkend="chapter-partitioning"/> 描述了如何创建一个新的 Linux 本地分区和文件系统。这就是编译和安装全新的 LFS 系统的地方。<xref linkend="chapter-getting-materials"/> 介绍了构建 LFS 系统所需要下载的软件包和补丁，以及如何将它们保存到新的文件系统中。<xref linkend="chapter-final-preps"/> 讨论了如何设置恰当的工作环境。还请务必仔细阅读 <xref linkend="chapter-final-preps"/>，它会告诉您在继续 <xref linkend="chapter-temporary-tools"/> 以及后面的工作之前，尤其需要注意的几件事请。</para>
 
-  <para><xref linkend="chapter-temporary-tools"/> 解释了为构建编译套件（工具链）需要安装的多个软件包，在 <xref linkend="chapter-building-system"/> 中将会使用这套工具构建正真的系统。其中有一些包需要解决循环依赖——比如你需要一个编译器来编译出一个编译器。</para>
+  <para><xref linkend="chapter-temporary-tools"/> 解释了为构建编译套件（工具链）需要安装的多个软件包，在 <xref linkend="chapter-building-system"/> 中将会使用这套工具构建真正的系统。其中有一些包需要解决循环依赖——比如你需要一个编译器来编译出一个编译器。</para>
 
   <para><xref linkend="chapter-temporary-tools"/> 还展示了如何构建第一阶段的工具链，包括 Binutils 和 GCC（第一阶段的主要意义就是重新安装这两个核心软件包）。下一步将来构建 Glibc，即 C 语言库。Glibc 将使用第一阶段构建的工具链编译。然后，第二阶段的工具链编译就完成了。这次，工具链将会被动态链接到新建立的 Glibc。<xref linkend="chapter-temporary-tools"/> 中剩余的其他包都将使用第二阶段的工具链编译。当这些过程完成之后，除了正在运行的内核外，LFS 的安装过程就不再已赖于宿主发行版了。</para>
 
